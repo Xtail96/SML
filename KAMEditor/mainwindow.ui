@@ -86,7 +86,7 @@
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>8</horstretch>
-            <verstretch>5</verstretch>
+            <verstretch>6</verstretch>
            </sizepolicy>
           </property>
           <property name="frameShape">
@@ -95,6 +95,311 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="1">
+            <widget class="QFrame" name="frame_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>2</horstretch>
+               <verstretch>3</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>2</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_10">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Z +</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="pushButton_13">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>A +</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QPushButton" name="pushButton_15">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>B +</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_12">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Z -</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_11">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>A -</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="pushButton_14">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>B-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+             <zorder>frame</zorder>
+             <zorder>pushButton_13</zorder>
+             <zorder>pushButton_15</zorder>
+             <zorder>pushButton_12</zorder>
+             <zorder>pushButton_10</zorder>
+             <zorder>pushButton_11</zorder>
+             <zorder>pushButton_14</zorder>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QFrame" name="frame">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>3</horstretch>
+               <verstretch>6</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>2</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="pushButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>--</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Y+</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>-+</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="pushButton_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>X -</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>73</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>X +</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="pushButton_7">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>++</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="pushButton_8">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Y -</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QPushButton" name="pushButton_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>3</horstretch>
+                  <verstretch>3</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>+-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QFrame" name="frame_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QRadioButton" name="radioButton">
+                <property name="text">
+                 <string>1 = 0.01мм</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_2">
+                <property name="text">
+                 <string>2 = 0.1мм</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_3">
+                <property name="text">
+                 <string>3 = 1мм</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_4">
+                <property name="text">
+                 <string>4 = 10мм</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_5">
+                <property name="text">
+                 <string>5 = Непрерывно</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="1" column="1" rowspan="2">
@@ -113,7 +418,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="points_editor_label">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -126,7 +431,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QScrollArea" name="scrollArea">
+            <widget class="QScrollArea" name="points_scroll_area">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -142,14 +447,14 @@
                 <x>0</x>
                 <y>0</y>
                 <width>438</width>
-                <height>75</height>
+                <height>69</height>
                </rect>
               </property>
              </widget>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="point_copy_button">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -162,7 +467,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="point_cursor_button">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -175,7 +480,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="point_amount_button">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -188,7 +493,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="point_transition_button">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
