@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->statusBar->showMessage(tr("Ready"));
+    QMainWindow::showMaximized();
 }
 
 MainWindow::~MainWindow()
