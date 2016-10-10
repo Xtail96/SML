@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>901</width>
-    <height>669</height>
+    <width>1007</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -2027,6 +2027,11 @@ p, li { white-space: pre-wrap; }
         <string>Настройки</string>
        </attribute>
       </widget>
+      <widget class="QWidget" name="tests_tab">
+       <attribute name="title">
+        <string>Проверка системы</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -2036,7 +2041,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>901</width>
+     <width>1007</width>
      <height>21</height>
     </rect>
    </property>
