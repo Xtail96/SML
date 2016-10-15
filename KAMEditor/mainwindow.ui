@@ -21,9 +21,9 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="creator_tab">
+      <widget class="QWidget" name="editor_tab">
        <attribute name="title">
         <string>Редактор</string>
        </attribute>
@@ -2017,7 +2017,7 @@ p, li { white-space: pre-wrap; }
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="process_tab">
+      <widget class="QWidget" name="processing_tab">
        <attribute name="title">
         <string>Обработка</string>
        </attribute>
@@ -2045,72 +2045,72 @@ p, li { white-space: pre-wrap; }
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="file_menu">
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action_2"/>
-    <addaction name="action_3"/>
+    <addaction name="create_action"/>
+    <addaction name="open_action"/>
     <addaction name="separator"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
-    <addaction name="action_7"/>
+    <addaction name="save_action"/>
+    <addaction name="saveas_action"/>
+    <addaction name="savewithpartition_action"/>
     <addaction name="separator"/>
-    <addaction name="action_9"/>
-    <addaction name="action_G"/>
-    <addaction name="action_10"/>
+    <addaction name="import_action"/>
+    <addaction name="importgcode_action"/>
+    <addaction name="importpackets_action"/>
     <addaction name="separator"/>
-    <addaction name="action_12"/>
+    <addaction name="view_action"/>
     <addaction name="separator"/>
-    <addaction name="action_14"/>
+    <addaction name="add_action"/>
     <addaction name="separator"/>
-    <addaction name="action_16"/>
-    <addaction name="action_17"/>
+    <addaction name="savesettings_action"/>
+    <addaction name="importsettings_action"/>
     <addaction name="separator"/>
-    <addaction name="action_19"/>
+    <addaction name="exit_action"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="edit_menu">
     <property name="title">
      <string>Правка</string>
     </property>
-    <addaction name="action_20"/>
-    <addaction name="action_21"/>
+    <addaction name="undo_action"/>
+    <addaction name="redo_action"/>
     <addaction name="separator"/>
-    <addaction name="action_23"/>
-    <addaction name="action_24"/>
-    <addaction name="action_25"/>
+    <addaction name="cut_action"/>
+    <addaction name="copy_action"/>
+    <addaction name="paste_action"/>
     <addaction name="separator"/>
-    <addaction name="action_27"/>
+    <addaction name="selectall_action"/>
     <addaction name="separator"/>
-    <addaction name="action_29"/>
-    <addaction name="action_30"/>
+    <addaction name="find_action"/>
+    <addaction name="findnext_action"/>
     <addaction name="separator"/>
-    <addaction name="action_32"/>
+    <addaction name="goto_action"/>
    </widget>
-   <widget class="QMenu" name="menu_3">
+   <widget class="QMenu" name="service_menu">
     <property name="title">
      <string>Сервис</string>
     </property>
-    <addaction name="action_33"/>
-    <addaction name="action_34"/>
-    <addaction name="action_35"/>
-    <addaction name="action_36"/>
-    <addaction name="action_37"/>
-    <addaction name="action_38"/>
-    <addaction name="actionY_Z"/>
-    <addaction name="action_39"/>
-    <addaction name="action_40"/>
+    <addaction name="expandblock_action"/>
+    <addaction name="TTT_TT_transform_action"/>
+    <addaction name="TT_TTT_transform_action"/>
+    <addaction name="setnumberofpoints_action"/>
+    <addaction name="refreshspeed_action"/>
+    <addaction name="removeunusedpoints_action"/>
+    <addaction name="Y_Z_action"/>
+    <addaction name="replacespeed_action"/>
+    <addaction name="equidistant_action"/>
    </widget>
-   <widget class="QMenu" name="menu_4">
+   <widget class="QMenu" name="help_menu">
     <property name="title">
      <string>Помощь</string>
     </property>
-    <addaction name="action_41"/>
+    <addaction name="about_action"/>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_2"/>
-   <addaction name="menu_3"/>
-   <addaction name="menu_4"/>
+   <addaction name="file_menu"/>
+   <addaction name="edit_menu"/>
+   <addaction name="service_menu"/>
+   <addaction name="help_menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -2128,162 +2128,162 @@ p, li { white-space: pre-wrap; }
     </size>
    </property>
   </widget>
-  <action name="action_2">
+  <action name="create_action">
    <property name="text">
     <string>Создать</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="open_action">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="save_action">
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="saveas_action">
    <property name="text">
     <string>Сохранить как</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="savewithpartition_action">
    <property name="text">
     <string>Сохранить с разбиением</string>
    </property>
   </action>
-  <action name="action_9">
+  <action name="import_action">
    <property name="text">
     <string>Импорт</string>
    </property>
   </action>
-  <action name="action_G">
+  <action name="importgcode_action">
    <property name="text">
     <string>Импорт G-кодов</string>
    </property>
   </action>
-  <action name="action_10">
+  <action name="importpackets_action">
    <property name="text">
     <string>Пакетное импортирование</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="view_action">
    <property name="text">
     <string>Просмотр</string>
    </property>
   </action>
-  <action name="action_14">
+  <action name="add_action">
    <property name="text">
     <string>Добавить</string>
    </property>
   </action>
-  <action name="action_16">
+  <action name="savesettings_action">
    <property name="text">
     <string>Сохранить настройки станка</string>
    </property>
   </action>
-  <action name="action_17">
+  <action name="importsettings_action">
    <property name="text">
     <string>Импортировать настройки станка</string>
    </property>
   </action>
-  <action name="action_19">
+  <action name="exit_action">
    <property name="text">
     <string>Выход</string>
    </property>
   </action>
-  <action name="action_20">
+  <action name="undo_action">
    <property name="text">
     <string>Отмена</string>
    </property>
   </action>
-  <action name="action_21">
+  <action name="redo_action">
    <property name="text">
     <string>Повтор</string>
    </property>
   </action>
-  <action name="action_23">
+  <action name="cut_action">
    <property name="text">
     <string>Вырезать</string>
    </property>
   </action>
-  <action name="action_24">
+  <action name="copy_action">
    <property name="text">
     <string>Копировать</string>
    </property>
   </action>
-  <action name="action_25">
+  <action name="paste_action">
    <property name="text">
     <string>Вставить</string>
    </property>
   </action>
-  <action name="action_27">
+  <action name="selectall_action">
    <property name="text">
     <string>Выделить все</string>
    </property>
   </action>
-  <action name="action_29">
+  <action name="find_action">
    <property name="text">
     <string>Найти</string>
    </property>
   </action>
-  <action name="action_30">
+  <action name="findnext_action">
    <property name="text">
     <string>Найти далее</string>
    </property>
   </action>
-  <action name="action_32">
+  <action name="goto_action">
    <property name="text">
     <string>Перейти</string>
    </property>
   </action>
-  <action name="action_33">
+  <action name="expandblock_action">
    <property name="text">
-    <string>Разернуть блок</string>
+    <string>Развернуть блок</string>
    </property>
   </action>
-  <action name="action_34">
+  <action name="TTT_TT_transform_action">
    <property name="text">
     <string>Преобразовать ТТТ --&gt; ТТ</string>
    </property>
   </action>
-  <action name="action_35">
+  <action name="TT_TTT_transform_action">
    <property name="text">
     <string>Преобразовать ТТ --&gt; ТТТ</string>
    </property>
   </action>
-  <action name="action_36">
+  <action name="setnumberofpoints_action">
    <property name="text">
     <string>Установить количество точек</string>
    </property>
   </action>
-  <action name="action_37">
+  <action name="refreshspeed_action">
    <property name="text">
     <string>Обновить скорости</string>
    </property>
   </action>
-  <action name="action_38">
+  <action name="removeunusedpoints_action">
    <property name="text">
     <string>Удалить неиспользуемые точки</string>
    </property>
   </action>
-  <action name="actionY_Z">
+  <action name="Y_Z_action">
    <property name="text">
     <string>Y &lt;--&gt; Z</string>
    </property>
   </action>
-  <action name="action_39">
+  <action name="replacespeed_action">
    <property name="text">
     <string>Заменить скорости</string>
    </property>
   </action>
-  <action name="action_40">
+  <action name="equidistant_action">
    <property name="text">
     <string>Эквидистанта</string>
    </property>
   </action>
-  <action name="action_41">
+  <action name="about_action">
    <property name="text">
     <string>О программе</string>
    </property>
