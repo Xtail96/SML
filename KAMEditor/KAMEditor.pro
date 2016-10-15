@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    machinetool.cpp
 
 HEADERS  += mainwindow.h \
-    stanok.h
+    stanok.h \
+    machinetool.h
 
 FORMS    += mainwindow.ui
