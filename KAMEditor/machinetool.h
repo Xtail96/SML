@@ -2,10 +2,18 @@
 #define MACHINETOOL_H
 
 
+/**
+ * \brief Класс "Станок"
+ * \warning Является синглтоном
+ *
+ * Данный класс отвечает за управление станком:
+ * \dot Перемещение по координатам
+ * \dot ...
+ */
 class MachineTool
 {
 public:
-    // всегда возвращает один и тот же экземпляр класса MachineTool
+    /// Возвращает один и тот же экземпляр класса MachineTool
     static MachineTool& Instance()
     {
         static MachineTool m;
