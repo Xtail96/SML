@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     machinetool.cpp
 
 HEADERS  += mainwindow.h \
-    stanok.h \
     machinetool.h
 
 FORMS    += mainwindow.ui

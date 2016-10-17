@@ -21,7 +21,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -307,7 +307,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QListWidget" name="listWidget">
+               <widget class="QListWidget" name="listWidget_currentCoordinates">
                 <item>
                  <property name="text">
                   <string>X:</string>
@@ -340,7 +340,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QListWidget" name="listWidget_2">
+               <widget class="QListWidget" name="listWidget_baseCoordinates">
                 <item>
                  <property name="text">
                   <string>X:</string>
@@ -373,7 +373,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
-               <widget class="QListWidget" name="listWidget_3">
+               <widget class="QListWidget" name="listWidget_parkCoordinates">
                 <item>
                  <property name="text">
                   <string>X:</string>
@@ -1532,7 +1532,7 @@ p, li { white-space: pre-wrap; }
               <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="intValue" stdset="0">
-              <number>123</number>
+              <number>0</number>
              </property>
             </widget>
            </item>

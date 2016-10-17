@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
+#include <QList>
+
+#include "machinetool.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,8 +19,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void update();
+
+
 private:
     Ui::MainWindow *ui;
+    QTimer *timer;
+
+    void update_coordinates();
 };
 
 

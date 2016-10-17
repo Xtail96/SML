@@ -94,7 +94,3 @@ const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
 const int SEARCH_ATC_SENSOR = 0x0D;
 
 
-MachineTool::MachineTool()
-{
-
-}
