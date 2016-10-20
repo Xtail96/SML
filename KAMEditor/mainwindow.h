@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QList>
 
-#include "machinetool.h"
+#include "basemachinetool.h"
 
 namespace Ui {
 class MainWindow;

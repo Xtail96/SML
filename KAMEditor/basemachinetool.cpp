@@ -1,4 +1,4 @@
-#include "machinetool.h"
+#include "basemachinetool.h"
 
 
 const int GET_TERMO = 0x01;
@@ -93,4 +93,84 @@ const int SEARCH_SOFT_ZERO_SENSOR = 0x0C;
 const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
 const int SEARCH_ATC_SENSOR = 0x0D;
 
+
+
+BaseMachineTool& BaseMachineTool::Instance()
+{
+    static BaseMachineTool m;
+    return m;
+}
+
+
+BaseMachineTool::BaseMachineTool()
+{
+
+}
+
+
+BaseMachineTool::~BaseMachineTool()
+{
+
+}
+
+
+Point3D BaseMachineTool::getBaseCoordinates()
+{
+    return base;
+}
+
+
+Point3D BaseMachineTool::getCurrentCoordinates()
+{
+    return current;
+}
+
+
+Point3D BaseMachineTool::getParkCoordinates()
+{
+    return park;
+}
+
+
+void BaseMachineTool::move(Point3D offset, double step)
+{
+    // шаг по x и y за 1 итерацию
+    double dx, dy;
+    // количество итераций
+    int t;
+
+    if (step > 0)
+    {
+        // дискретное движение с шагом step
+        if (offset.x > offset.y)
+        {
+            dy = step;
+            dx = offset.x * step / offset.y;
+
+            t = offset.x / dx;
+        }
+        else
+        {
+            dx = step;
+            dy = offset.y * step / offset.x;
+
+            t = offset.y / dy;
+        }
+
+
+        // перемещаемся
+        for (int i = 0; i < t; i++)
+        {
+            current.x += dx;
+            current.y += dy;
+
+            // /TODO uart move
+        }
+    }
+    else
+    {
+        // непрерывное движение
+    }
+
+}
 

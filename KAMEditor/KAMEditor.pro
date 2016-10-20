@@ -14,9 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    machinetool.cpp
+    basemachinetool.cpp
 
 HEADERS  += mainwindow.h \
-    machinetool.h
+    basemachinetool.h
 
 FORMS    += mainwindow.ui

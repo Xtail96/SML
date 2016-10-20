@@ -33,11 +33,11 @@ void MainWindow::update()
 
 void MainWindow::update_coordinates()
 {
-    MachineTool<Point4D> &i = MachineTool<Point4D>::Instance();
+    BaseMachineTool &i = BaseMachineTool::Instance();
 
-    Point4D current = i.getCurrentCoordinates();
-    Point4D base = i.getBaseCoordinates();
-    Point4D park = i.getParkCoordinates();
+    Point3D current = i.getCurrentCoordinates();
+    Point3D base = i.getBaseCoordinates();
+    Point3D park = i.getParkCoordinates();
 
 
     ui->listWidget_currentCoordinates->item(0)->setText("X: " + QString::number(current.x));
