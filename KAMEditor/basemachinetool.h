@@ -1,6 +1,8 @@
 #ifndef BASEMACHINETOOL_H
 #define BASEMACHINETOOL_H
 
+#include <math.h>
+
 struct Point3D
 {
     double x;
@@ -22,6 +24,8 @@ public:
     /// Возвращает экземпляр класса MachineTool
     static BaseMachineTool& Instance();
 
+    void setMovementStep(double s) { step = s; }
+
     /// Возвращает текущие координаты
     Point3D getCurrentCoordinates();
 
@@ -31,10 +35,12 @@ public:
     /// Возвращает координаты парка
     Point3D getParkCoordinates();
 
-    /// Смещенение относительно текущих координат на offset с шагом step
-    void move(Point3D offset, double step);
+
+    void stepMove(Point3D f);
 
 private:
+    // шаг движения
+    double step;
 
     /// Координаты базы, абсолютные
     Point3D base;

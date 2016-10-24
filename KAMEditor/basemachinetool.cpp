@@ -1,6 +1,5 @@
 #include "basemachinetool.h"
 
-
 const int GET_TERMO = 0x01;
 
 const int LUBRICATE_SYSTEM_1_ON = 0x02;
@@ -132,7 +131,17 @@ Point3D BaseMachineTool::getParkCoordinates()
 }
 
 
-void BaseMachineTool::move(Point3D offset, double step)
+void BaseMachineTool::stepMove(Point3D f)
+{
+    double current_step = (step > 0) ? step : 0.01;
+
+    current.x += f.x * current_step;
+    current.y += f.y * current_step;
+    current.z += f.z * current_step;
+}
+
+/*
+void BaseMachineTool::move(Point3D offset)
 {
     // шаг по x и y за 1 итерацию
     double dx, dy;
@@ -142,7 +151,8 @@ void BaseMachineTool::move(Point3D offset, double step)
     if (step > 0)
     {
         // дискретное движение с шагом step
-        if (offset.x > offset.y)
+
+        if (abs(offset.x) > abs(offset.y))
         {
             dy = step;
             dx = offset.x * step / offset.y;
@@ -157,7 +167,6 @@ void BaseMachineTool::move(Point3D offset, double step)
             t = offset.y / dy;
         }
 
-
         // перемещаемся
         for (int i = 0; i < t; i++)
         {
@@ -170,7 +179,9 @@ void BaseMachineTool::move(Point3D offset, double step)
     else
     {
         // непрерывное движение
+
+
     }
 
-}
+}*/
 
