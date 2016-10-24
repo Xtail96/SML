@@ -36,9 +36,9 @@ void MainWindow::update_coordinates()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
 
-    Point3D current = i.getCurrentCoordinates();
-    Point3D base = i.getBaseCoordinates();
-    Point3D park = i.getParkCoordinates();
+    Vector3D current = i.getCurrentCoordinates();
+    Vector3D base = i.getBaseCoordinates();
+    Vector3D park = i.getParkCoordinates();
 
 
     ui->listWidget_currentCoordinates->item(0)->setText("X: " + QString::number(current.x, 'f', 3));
@@ -115,64 +115,64 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 void MainWindow::on_movement_x_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {1, 0, 0}) );
+    i.stepMove( Vector3D( {1, 0, 0}) );
 }
 
 
 void MainWindow::on_movement_x_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {-1, 0, 0}) );
+    i.stepMove( Vector3D( {-1, 0, 0}) );
 }
 
 
 void MainWindow::on_movement_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {0, 1, 0}) );
+    i.stepMove( Vector3D( {0, 1, 0}) );
 }
 
 void MainWindow::on_movement_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {0, -1, 0}) );
+    i.stepMove( Vector3D( {0, -1, 0}) );
 }
 
 void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {-1, 1, 0}) );
+    i.stepMove( Vector3D( {-1, 1, 0}) );
 }
 
 
 void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {1, 1, 0}) );
+    i.stepMove( Vector3D( {1, 1, 0}) );
 }
 
 void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {-1, -1, 0}) );
+    i.stepMove( Vector3D( {-1, -1, 0}) );
 }
 
 void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {1, -1, 0}) );
+    i.stepMove( Vector3D( {1, -1, 0}) );
 }
 
 void MainWindow::on_movement_z_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {0, 0, 1}) );
+    i.stepMove( Vector3D( {0, 0, 1}) );
 }
 
 void MainWindow::on_movement_z_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Point3D( {0, 0, -1}) );
+    i.stepMove( Vector3D( {0, 0, -1}) );
 }
 
 void MainWindow::setMovementButtonsRepeatState(bool state)
@@ -192,3 +192,23 @@ void MainWindow::setMovementButtonsRepeatState(bool state)
 }
 
 
+void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
+{
+    BaseMachineTool &i = BaseMachineTool::Instance();
+    i.setVelocity(value);
+
+    ui->feedrate_lcd_number->display(value);
+}
+
+void MainWindow::on_rotations_scroll_bar_valueChanged(int value)
+{
+    BaseMachineTool &i = BaseMachineTool::Instance();
+    i.setRotation(value);
+
+    ui->rotation_lcd_number->display(value);
+}
+
+void MainWindow::on_exit_action_triggered()
+{
+    exit(0);
+}

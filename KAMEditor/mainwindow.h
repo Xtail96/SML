@@ -56,6 +56,13 @@ private slots:
 
     void on_movement_z_positive_button_clicked();
 
+
+    void on_feedrate_scroll_bar_valueChanged(int value);
+
+    void on_rotations_scroll_bar_valueChanged(int value);
+
+    void on_exit_action_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;

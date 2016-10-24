@@ -21,7 +21,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -1157,6 +1157,15 @@ p, li { white-space: pre-wrap; }
            </item>
            <item row="1" column="0">
             <widget class="QScrollBar" name="feedrate_scroll_bar">
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
+             </property>
+             <property name="pageStep">
+              <number>100</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -1614,6 +1623,15 @@ p, li { white-space: pre-wrap; }
            </item>
            <item row="3" column="0">
             <widget class="QScrollBar" name="rotations_scroll_bar">
+             <property name="maximum">
+              <number>24000</number>
+             </property>
+             <property name="singleStep">
+              <number>100</number>
+             </property>
+             <property name="pageStep">
+              <number>1000</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>

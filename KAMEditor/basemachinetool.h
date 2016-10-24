@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-struct Point3D
+struct Vector3D
 {
     double x;
     double y;
@@ -27,32 +27,47 @@ public:
     void setMovementStep(double s) { step = s; }
 
     /// Возвращает текущие координаты
-    Point3D getCurrentCoordinates();
+    Vector3D getCurrentCoordinates();
 
     /// Возвращает координаты базы
-    Point3D getBaseCoordinates();
+    Vector3D getBaseCoordinates();
 
     /// Возвращает координаты парка
-    Point3D getParkCoordinates();
+    Vector3D getParkCoordinates();
 
+    void setVelocity(int vel) { velocity = vel; }
 
-    void stepMove(Point3D f);
+    void setAcceleration(int acc) { acceleration = acc; }
+
+    void setRotation(int j) { jog = j; }
+
+    void stepMove(Vector3D f);
 
 private:
     // шаг движения
     double step;
 
     /// Координаты базы, абсолютные
-    Point3D base;
+    Vector3D base;
 
     /// Координаты парка, абсолютные
-    Point3D park;
+    Vector3D park;
 
     /// Координаты точки ноль относительно базы
-    Point3D zero;
+    Vector3D zero;
 
     /// Текущие относительно нуля
-    Point3D current;
+    Vector3D current;
+
+    /// Максимальное значение скорости
+
+    int velocity;
+
+    /// Текущее ускорение
+    int acceleration;
+
+    /// Обороты шпинделя в минуту
+    int jog;
 
 
     // конструктор и деструктор недоступны публично
