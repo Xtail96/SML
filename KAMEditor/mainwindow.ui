@@ -652,6 +652,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>Z +</string>
                 </property>
+                <property name="shortcut">
+                 <string>T</string>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -667,6 +670,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Z -</string>
+                </property>
+                <property name="shortcut">
+                 <string>B</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
