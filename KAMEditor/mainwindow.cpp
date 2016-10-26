@@ -7,7 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->statusBar->showMessage(tr("Ready"));
+
+    ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
+    const QFont font("Consolas", 14);
+    ui->statusBar->setFont(font);
+    ui->statusBar->showMessage(tr("State: ready 0123456789"));
     QMainWindow::showMaximized();
 
 
@@ -212,3 +216,4 @@ void MainWindow::on_exit_action_triggered()
 {
     exit(0);
 }
+
