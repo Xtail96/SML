@@ -63,8 +63,6 @@ private slots:
 
     void on_exit_action_triggered();
 
-    void on_points_table_view_doubleClicked(const QModelIndex &index);
-
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
