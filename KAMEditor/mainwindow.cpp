@@ -58,6 +58,7 @@ void MainWindow::update_coordinates()
         i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3));
         i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3));
         i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3));
+        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3));
     }
 }
 
@@ -116,65 +117,120 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 void MainWindow::on_movement_x_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {1, 0, 0}) );
+    Vector3D v = Vector3D();
+    v.x = 1;
+
+    i.stepMove(v);
 }
 
 
 void MainWindow::on_movement_x_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {-1, 0, 0}) );
+    Vector3D v = Vector3D();
+    v.x = -1;
+
+    i.stepMove(v);
 }
 
 
 void MainWindow::on_movement_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {0, 1, 0}) );
+    Vector3D v = Vector3D();
+    v.y = 1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {0, -1, 0}) );
+    Vector3D v = Vector3D();
+    v.y = -1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {-1, 1, 0}) );
+    Vector3D v = Vector3D();
+    v.x = -1;
+    v.y = 1;
+
+    i.stepMove(v);
 }
 
 
 void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {1, 1, 0}) );
+    Vector3D v = Vector3D();
+    v.x = 1;
+    v.y = 1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {-1, -1, 0}) );
+    Vector3D v = Vector3D();
+    v.x = -1;
+    v.y = -1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {1, -1, 0}) );
+    Vector3D v = Vector3D();
+    v.x = 1;
+    v.y = -1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_z_positive_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {0, 0, 1}) );
+    Vector3D v = Vector3D();
+    v.z = 1;
+
+    i.stepMove(v);
 }
 
 void MainWindow::on_movement_z_negative_button_clicked()
 {
     BaseMachineTool &i = BaseMachineTool::Instance();
-    i.stepMove( Vector3D( {0, 0, -1}) );
+    Vector3D v = Vector3D();
+    v.z = -1;
+
+    i.stepMove(v);
 }
+
+
+void MainWindow::on_movement_a_posititve_button_clicked()
+{
+    BaseMachineTool &i = BaseMachineTool::Instance();
+    Vector3D v = Vector3D();
+    v.a = 1;
+
+    i.stepMove(v);
+}
+
+
+void MainWindow::on_movement_a_negative_button_clicked()
+{
+    BaseMachineTool &i = BaseMachineTool::Instance();
+    Vector3D v = Vector3D();
+    v.a = -1;
+
+    i.stepMove(v);
+}
+
 
 void MainWindow::setMovementButtonsRepeatState(bool state)
 {
@@ -190,13 +246,15 @@ void MainWindow::setMovementButtonsRepeatState(bool state)
         ui->movement_x_positive_y_negative_button,
 
         ui->movement_z_positive_button,
-        ui->movement_z_negative_button
+        ui->movement_z_negative_button,
+
+        ui->movement_a_posititve_button,
+        ui->movement_a_negative_button
     };
 
     for (std::vector<QPushButton*>::iterator i = buttons.begin(); i != buttons.end(); i++)
         (*i)->setAutoRepeat(state);
 }
-
 
 void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
 {

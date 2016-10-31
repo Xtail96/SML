@@ -58,7 +58,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -598,6 +598,11 @@ p, li { white-space: pre-wrap; }
                   <string>Z:</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>A:</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
@@ -995,6 +1000,11 @@ p, li { white-space: pre-wrap; }
                   <string>Z:</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>A:</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
@@ -1248,6 +1258,11 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <property name="text">
                   <string>Z:</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>A:</string>
                  </property>
                 </item>
                </widget>
@@ -1947,6 +1962,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>A +</string>
                 </property>
+                <property name="autoRepeat">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item row="1" column="1">
@@ -1959,6 +1977,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>A -</string>
+                </property>
+                <property name="autoRepeat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1973,6 +1994,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>B +</string>
                 </property>
+                <property name="autoRepeat">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item row="1" column="2">
@@ -1985,6 +2009,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>B -</string>
+                </property>
+                <property name="autoRepeat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>

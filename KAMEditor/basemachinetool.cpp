@@ -138,6 +138,7 @@ void BaseMachineTool::stepMove(Vector3D f)
     current.x += f.x * current_step;
     current.y += f.y * current_step;
     current.z += f.z * current_step;
+    current.a += f.a * current_step;
 }
 
 /*
