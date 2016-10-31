@@ -60,7 +60,6 @@ private:
     Vector3D current;
 
     /// Максимальное значение скорости
-
     int velocity;
 
     /// Текущее ускорение

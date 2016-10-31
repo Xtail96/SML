@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QShortcut>
 #include <QList>
+#include <QMessageBox>
+#include <vector>
 #include <windows.h>
 
 #include "basemachinetool.h"
@@ -51,7 +53,6 @@ private slots:
 
     void on_movement_x_negative_y_negative_button_clicked();
 
-
     void on_movement_z_negative_button_clicked();
 
     void on_movement_z_positive_button_clicked();
@@ -62,6 +63,8 @@ private slots:
     void on_rotations_scroll_bar_valueChanged(int value);
 
     void on_exit_action_triggered();
+
+    void on_point_amount_button_clicked();
 
 private:
     Ui::MainWindow *ui;

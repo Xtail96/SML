@@ -9,17 +9,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
-    const QFont font("Consolas", 14);
-    ui->statusBar->setFont(font);
+    ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
-    QMainWindow::showMaximized();
 
+    QMainWindow::showMaximized();
 
     // таймер обновления окна координат
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->setInterval(100);
     timer->start();
+
+    // растянуть таблицу с координатами
+    for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
+        ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
 }
 
 MainWindow::~MainWindow()
@@ -44,18 +47,18 @@ void MainWindow::update_coordinates()
     Vector3D base = i.getBaseCoordinates();
     Vector3D park = i.getParkCoordinates();
 
+    std::vector<std::pair<QListWidget*, Vector3D>> widgets = {
+        { ui->listWidget_currentCoordinates, current },
+        { ui->listWidget_baseCoordinates, base },
+        { ui->listWidget_parkCoordinates, park }
+    };
 
-    ui->listWidget_currentCoordinates->item(0)->setText("X: " + QString::number(current.x, 'f', 3));
-    ui->listWidget_currentCoordinates->item(1)->setText("Y: " + QString::number(current.y, 'f', 3));
-    ui->listWidget_currentCoordinates->item(2)->setText("Z: " + QString::number(current.z, 'f', 3));
-
-    ui->listWidget_baseCoordinates->item(0)->setText("X: " + QString::number(base.x, 'f', 3));
-    ui->listWidget_baseCoordinates->item(1)->setText("Y: " + QString::number(base.y, 'f', 3));
-    ui->listWidget_baseCoordinates->item(2)->setText("Z: " + QString::number(base.z, 'f', 3));
-
-    ui->listWidget_parkCoordinates->item(0)->setText("X: " + QString::number(park.x, 'f', 3));
-    ui->listWidget_parkCoordinates->item(1)->setText("Y: " + QString::number(park.y, 'f', 3));
-    ui->listWidget_parkCoordinates->item(2)->setText("Z: " + QString::number(park.z, 'f', 3));
+    for (std::vector<std::pair<QListWidget*, Vector3D>>::iterator i = widgets.begin(); i != widgets.end(); i++)
+    {
+        i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3));
+        i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3));
+        i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3));
+    }
 }
 
 void MainWindow::update_battery_status()
@@ -72,9 +75,7 @@ void MainWindow::update_battery_status()
 
 void MainWindow::on_discrete_radio_button_1_clicked()
 {
-
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setMovementStep(0.01);
+    BaseMachineTool::Instance().setMovementStep(0.01);
 
     setMovementButtonsRepeatState(false);
 }
@@ -82,8 +83,7 @@ void MainWindow::on_discrete_radio_button_1_clicked()
 
 void MainWindow::on_discrete_radio_button_2_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setMovementStep(0.1);
+    BaseMachineTool::Instance().setMovementStep(0.1);
 
     setMovementButtonsRepeatState(false);
 }
@@ -91,8 +91,7 @@ void MainWindow::on_discrete_radio_button_2_clicked()
 
 void MainWindow::on_discrete_radio_button_3_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setMovementStep(1);
+    BaseMachineTool::Instance().setMovementStep(1);
 
     setMovementButtonsRepeatState(false);
 }
@@ -100,8 +99,7 @@ void MainWindow::on_discrete_radio_button_3_clicked()
 
 void MainWindow::on_discrete_radio_button_4_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setMovementStep(10);
+    BaseMachineTool::Instance().setMovementStep(10);
 
     setMovementButtonsRepeatState(false);
 }
@@ -109,8 +107,7 @@ void MainWindow::on_discrete_radio_button_4_clicked()
 
 void MainWindow::on_discrete_radio_button_5_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setMovementStep(0);
+    BaseMachineTool::Instance().setMovementStep(0);
 
     setMovementButtonsRepeatState(true);
 }
@@ -181,33 +178,36 @@ void MainWindow::on_movement_z_negative_button_clicked()
 
 void MainWindow::setMovementButtonsRepeatState(bool state)
 {
-    ui->movement_x_positive_button->setAutoRepeat(state);
-    ui->movement_x_negative_button->setAutoRepeat(state);
-    ui->movement_y_positive_button->setAutoRepeat(state);
-    ui->movement_y_negative_button->setAutoRepeat(state);
+    std::vector<QPushButton*> buttons = {
+        ui->movement_x_positive_button,
+        ui->movement_x_negative_button,
+        ui->movement_y_positive_button,
+        ui->movement_y_negative_button,
 
-    ui->movement_x_positive_y_positive_button->setAutoRepeat(state);
-    ui->movement_x_positive_y_negative_button->setAutoRepeat(state);
-    ui->movement_x_negative_y_positive_button->setAutoRepeat(state);
-    ui->movement_x_positive_y_negative_button->setAutoRepeat(state);
+        ui->movement_x_positive_y_positive_button,
+        ui->movement_x_positive_y_negative_button,
+        ui->movement_x_negative_y_positive_button,
+        ui->movement_x_positive_y_negative_button,
 
-    ui->movement_z_positive_button->setAutoRepeat(state);
-    ui->movement_z_negative_button->setAutoRepeat(state);
+        ui->movement_z_positive_button,
+        ui->movement_z_negative_button
+    };
+
+    for (std::vector<QPushButton*>::iterator i = buttons.begin(); i != buttons.end(); i++)
+        (*i)->setAutoRepeat(state);
 }
 
 
 void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setVelocity(value);
+    BaseMachineTool::Instance().setVelocity(value);
 
     ui->feedrate_lcd_number->display(value);
 }
 
 void MainWindow::on_rotations_scroll_bar_valueChanged(int value)
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
-    i.setRotation(value);
+    BaseMachineTool::Instance().setRotation(value);
 
     ui->rotation_lcd_number->display(value);
 }
@@ -217,3 +217,8 @@ void MainWindow::on_exit_action_triggered()
     exit(0);
 }
 
+
+void MainWindow::on_point_amount_button_clicked()
+{
+    QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->points_table_widget->rowCount())).exec();
+}
