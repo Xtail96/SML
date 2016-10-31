@@ -282,7 +282,6 @@ void MainWindow::on_exit_action_triggered()
     exit(0);
 }
 
-
 void MainWindow::on_point_amount_button_clicked()
 {
     QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->points_table_widget->rowCount())).exec();
