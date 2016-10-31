@@ -31,6 +31,7 @@ private:
     std::vector<Vector3D> points;
 
     void update_coordinates();
+    void update_points();
     void update_battery_status();
 
     void setMovementButtonsRepeatState(bool state);

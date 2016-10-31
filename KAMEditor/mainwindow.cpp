@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
+    // окно на весь экран
     QMainWindow::showMaximized();
 
     // таймер обновления окна координат
@@ -35,6 +36,7 @@ MainWindow::~MainWindow()
 void MainWindow::update()
 {
     update_coordinates();
+    update_points();
     update_battery_status();
 }
 
@@ -60,6 +62,11 @@ void MainWindow::update_coordinates()
         i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3));
         i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3));
     }
+}
+
+void MainWindow::update_points()
+{
+
 }
 
 void MainWindow::update_battery_status()
