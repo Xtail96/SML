@@ -216,4 +216,3 @@ void MainWindow::on_exit_action_triggered()
 {
     exit(0);
 }
-

@@ -63,6 +63,10 @@ private slots:
 
     void on_exit_action_triggered();
 
+    void on_dial_4_valueChanged(int value);
+
+    void on_dial_feedrate_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
