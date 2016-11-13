@@ -1348,9 +1348,6 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>X +</string>
                 </property>
-                <property name="shortcut">
-                 <string>D</string>
-                </property>
                 <property name="checkable">
                  <bool>false</bool>
                 </property>

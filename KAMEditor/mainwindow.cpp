@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->setInterval(100);
     timer->start();
 
+    sh = new QShortcut(QKeySequence("D"), ui->movement_x_positive_button);
+    connect(sh, SIGNAL(activated()), this, SLOT(on_movement_x_positive_button_clicked()));
+    sh->setAutoRepeat(false);
+
     // растянуть таблицу с координатами
     for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
         ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
@@ -30,6 +34,8 @@ MainWindow::~MainWindow()
 {
     delete timer;
     delete ui;
+
+    delete sh;
 }
 
 
@@ -124,15 +130,6 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 
 void MainWindow::on_movement_x_positive_button_clicked()
 {
-    if(ui->discrete_radio_button_5->isChecked())
-    {
-        //setShortcutAutoRepeat(false);
-
-        //QShortcut* shortcut = ui->movement_x_positive_button->shortcut();
-        //shortcut->setAutoRepeat(false);
-
-
-    }
     BaseMachineTool &i = BaseMachineTool::Instance();
     Vector3D v = Vector3D();
     v.x = 1;

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QShortcut>
+#include <QKeySequence>
 #include <QList>
 #include <QMessageBox>
 #include <vector>
@@ -35,6 +36,8 @@ private:
     void update_battery_status();
 
     void setMovementButtonsRepeatState(bool state);
+
+    QShortcut* sh;
 
 
 private slots:
