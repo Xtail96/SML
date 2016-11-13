@@ -37,7 +37,20 @@ private:
 
     void setMovementButtonsRepeatState(bool state);
 
-    QShortcut* sh;
+
+    QShortcut* shortcutXPositiveButton;
+    QShortcut* shortcutXNegativeButton;
+
+    QShortcut* shortcutYPositiveButton;
+    QShortcut* shortcutYNegativeButton;
+
+    QShortcut* shortcutZPositiveButton;
+    QShortcut* shortcutZNegativeButton;
+
+    QShortcut* shortcutXNegativeYNegativeButton;
+    QShortcut* shortcutXPositiveYNegativeButton;
+    QShortcut* shortcutXNegativeYPositiveButton;
+    QShortcut* shortcutXPositiveYPositiveButton;
 
 
 private slots:

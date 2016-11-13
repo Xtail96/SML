@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -1234,9 +1234,6 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>X -</string>
                 </property>
-                <property name="shortcut">
-                 <string>A</string>
-                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1252,9 +1249,6 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Y -</string>
-                </property>
-                <property name="shortcut">
-                 <string>X</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1272,9 +1266,6 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>+-</string>
                 </property>
-                <property name="shortcut">
-                 <string>C</string>
-                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1290,9 +1281,6 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>--</string>
-                </property>
-                <property name="shortcut">
-                 <string>Z</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1322,9 +1310,6 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>++</string>
-                </property>
-                <property name="shortcut">
-                 <string>E</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1379,9 +1364,6 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>Y+</string>
                 </property>
-                <property name="shortcut">
-                 <string>W</string>
-                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1397,9 +1379,6 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>-+</string>
-                </property>
-                <property name="shortcut">
-                 <string>Q</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1464,9 +1443,6 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>Z -</string>
                 </property>
-                <property name="shortcut">
-                 <string>B</string>
-                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1482,9 +1458,6 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Z +</string>
-                </property>
-                <property name="shortcut">
-                 <string>T</string>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
