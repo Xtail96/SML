@@ -93,6 +93,7 @@ void MainWindow::update()
     update_coordinates();
     update_points();
     update_battery_status();
+    update_kabriol_avaliability();
 }
 
 
@@ -136,6 +137,20 @@ void MainWindow::update_battery_status()
     ui->battery_progress_bar->setValue(status.BatteryLifePercent);
 }
 
+
+void MainWindow::update_kabriol_avaliability()
+{
+    if(ui->kabriol_off_radio_button->isChecked())
+    {
+        ui->movement_a_negative_button->setEnabled(false);
+        ui->movement_a_positive_button->setEnabled(false);
+    }
+    if(ui->kabriol_servo_radio_button->isChecked() || ui->kabriol_on_radio_button->isChecked())
+    {
+        ui->movement_a_negative_button->setEnabled(true);
+        ui->movement_a_positive_button->setEnabled(true);
+    }
+}
 
 void MainWindow::on_discrete_radio_button_1_clicked()
 {
@@ -448,4 +463,12 @@ void MainWindow::on_exit_action_triggered()
 void MainWindow::on_point_amount_button_clicked()
 {
     QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->points_table_widget->rowCount())).exec();
+}
+
+void MainWindow::on_park_button_clicked()
+{
+    BaseMachineTool &i = BaseMachineTool::Instance();
+    Vector3D v = Vector3D();
+    v = i.getCurrentCoordinates();
+    i.setParkCoordinates(v);
 }

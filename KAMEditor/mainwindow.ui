@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -343,21 +343,24 @@ p, li { white-space: pre-wrap; }
                   <string>Кабриоль выключена</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="2" column="0" colspan="2">
                 <widget class="QRadioButton" name="kabriol_servo_radio_button">
                  <property name="text">
-                  <string>Сервокабриоль</string>
+                  <string>Сервокабриоль включена</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0" colspan="2">
                 <widget class="QRadioButton" name="kabriol_on_radio_button">
                  <property name="text">
-                  <string>Кабриоль</string>
+                  <string>Кабриоль включена</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -454,6 +457,38 @@ p, li { white-space: pre-wrap; }
                <number>5</number>
               </property>
               <item>
+               <widget class="QPushButton" name="point_cursor_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>1</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>SHift + K - Курсор на точку</string>
+                </property>
+                <property name="shortcut">
+                 <string>Shift+K</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="point_copy_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>1</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Shift + Enter Копирование точки</string>
+                </property>
+                <property name="shortcut">
+                 <string>Shift+Return</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="point_transition_button">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -469,6 +504,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>Shift + F3 - Переход на точку</string>
                 </property>
+                <property name="shortcut">
+                 <string>Shift+F3</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -480,7 +518,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>M - Количество точек</string>
+                 <string>Shift + M - Количество точек</string>
+                </property>
+                <property name="shortcut">
+                 <string>Shift+M</string>
                 </property>
                </widget>
               </item>
@@ -514,33 +555,30 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QPushButton" name="point_add_button">
                 <property name="text">
-                 <string>Добавить точку</string>
+                 <string>+ Добавить точку</string>
+                </property>
+                <property name="shortcut">
+                 <string>+</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="point_copy_button">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>1</verstretch>
-                 </sizepolicy>
-                </property>
+               <widget class="QPushButton" name="point_delete_button">
                 <property name="text">
-                 <string>Shift + Enter Копирование точки</string>
+                 <string>- Удалить точку</string>
+                </property>
+                <property name="shortcut">
+                 <string>-</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="point_cursor_button">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>1</verstretch>
-                 </sizepolicy>
-                </property>
+               <widget class="QPushButton" name="point_edit_button">
                 <property name="text">
-                 <string>K - Курсор на точку</string>
+                 <string>= Редактировать точку</string>
+                </property>
+                <property name="shortcut">
+                 <string>=</string>
                 </property>
                </widget>
               </item>
@@ -727,6 +765,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F1 - Включить Фрезер</string>
                 </property>
+                <property name="shortcut">
+                 <string>F1</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -740,6 +781,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F2 - Выключить фрезер</string>
                 </property>
+                <property name="shortcut">
+                 <string>F2</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -752,6 +796,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Прогрев фрезера</string>
+                </property>
+                <property name="shortcut">
+                 <string>F3</string>
                 </property>
                </widget>
               </item>
@@ -775,6 +822,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F8 - База</string>
                 </property>
+                <property name="shortcut">
+                 <string>F8</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -787,6 +837,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>F9 - в Базу</string>
+                </property>
+                <property name="shortcut">
+                 <string>F9</string>
                 </property>
                </widget>
               </item>
@@ -810,6 +863,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>0 - Обнулить</string>
                 </property>
+                <property name="shortcut">
+                 <string>0</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -822,6 +878,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>F5 - в НОЛЬ</string>
+                </property>
+                <property name="shortcut">
+                 <string>F5</string>
                 </property>
                </widget>
               </item>
@@ -836,6 +895,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>R - датчик нуля</string>
                 </property>
+                <property name="shortcut">
+                 <string>R</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -848,6 +910,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>L - Вычислить длину фрезы</string>
+                </property>
+                <property name="shortcut">
+                 <string>L</string>
                 </property>
                </widget>
               </item>
@@ -871,6 +936,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F6 - Парк</string>
                 </property>
+                <property name="shortcut">
+                 <string>F6</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -883,6 +951,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>F7 - в Парк</string>
+                </property>
+                <property name="shortcut">
+                 <string>F7</string>
                 </property>
                </widget>
               </item>
@@ -906,6 +977,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F11 - Время выполнения</string>
                 </property>
+                <property name="shortcut">
+                 <string>F11</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -919,6 +993,9 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>F10 - Пуск/Продолжить</string>
                 </property>
+                <property name="shortcut">
+                 <string>F10</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -931,6 +1008,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Space - Остановить</string>
+                </property>
+                <property name="shortcut">
+                 <string>Space</string>
                 </property>
                </widget>
               </item>
@@ -1237,6 +1317,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="2" column="1">
@@ -1252,6 +1335,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1269,6 +1355,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="2" column="0">
@@ -1284,6 +1373,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1313,6 +1405,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1351,6 +1446,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeatInterval">
                  <number>100</number>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
@@ -1367,6 +1465,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
@@ -1382,6 +1483,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1414,6 +1518,15 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="1" column="1">
@@ -1429,6 +1542,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1446,6 +1562,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
@@ -1461,6 +1580,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1478,6 +1600,9 @@ p, li { white-space: pre-wrap; }
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="2">
@@ -1493,6 +1618,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>

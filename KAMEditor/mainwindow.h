@@ -34,6 +34,8 @@ private:
     void update_coordinates();
     void update_points();
     void update_battery_status();
+    void update_kabriol_avaliability();
+
 
     void setMovementButtonsRepeatState(bool state);
 
@@ -98,6 +100,7 @@ private slots:
     void on_exit_action_triggered();
 
     void on_point_amount_button_clicked();
+    void on_park_button_clicked();
 };
 
 

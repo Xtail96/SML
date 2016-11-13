@@ -142,6 +142,16 @@ void BaseMachineTool::stepMove(Vector3D f)
     current.b += f.b * current_step;
 }
 
+
+void BaseMachineTool::setParkCoordinates(Vector3D f)
+{
+    park.x = f.x;
+    park.y = f.y;
+    park.z = f.z;
+    park.a = f.a;
+    park.b = f.b;
+}
+
 /*
 void BaseMachineTool::move(Point3D offset)
 {

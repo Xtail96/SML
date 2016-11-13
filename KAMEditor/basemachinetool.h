@@ -50,6 +50,8 @@ public:
 
     void stepMove(Vector3D f);
 
+    void setParkCoordinates(Vector3D f);
+
 private:
     // шаг движения
     double step;
