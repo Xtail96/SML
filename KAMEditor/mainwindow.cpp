@@ -86,6 +86,7 @@ void MainWindow::on_discrete_radio_button_1_clicked()
     BaseMachineTool::Instance().setMovementStep(0.01);
 
     setMovementButtonsRepeatState(false);
+
 }
 
 
@@ -123,6 +124,15 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 
 void MainWindow::on_movement_x_positive_button_clicked()
 {
+    if(ui->discrete_radio_button_5->isChecked())
+    {
+        //setShortcutAutoRepeat(false);
+
+        //QShortcut* shortcut = ui->movement_x_positive_button->shortcut();
+        //shortcut->setAutoRepeat(false);
+
+
+    }
     BaseMachineTool &i = BaseMachineTool::Instance();
     Vector3D v = Vector3D();
     v.x = 1;
