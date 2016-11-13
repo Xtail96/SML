@@ -12,8 +12,9 @@ public:
     double z;
 
     double a;
+    double b;
 
-    Vector3D() : x(), y(), z(), a() {}
+    Vector3D() : x(), y(), z(), a(), b() {}
 };
 
 /**

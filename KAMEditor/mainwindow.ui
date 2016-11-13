@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -1401,7 +1401,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
               <item row="0" column="1">
-               <widget class="QPushButton" name="movement_a_posititve_button">
+               <widget class="QPushButton" name="movement_a_positive_button">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>3</horstretch>
@@ -1820,6 +1820,11 @@ p, li { white-space: pre-wrap; }
                   <string>A:</string>
                  </property>
                 </item>
+                <item>
+                 <property name="text">
+                  <string>B:</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
@@ -2235,6 +2240,11 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <property name="text">
                   <string>A:</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>B:</string>
                  </property>
                 </item>
                </widget>

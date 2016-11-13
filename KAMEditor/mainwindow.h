@@ -38,19 +38,28 @@ private:
     void setMovementButtonsRepeatState(bool state);
 
 
-    QShortcut* shortcutXPositiveButton;
     QShortcut* shortcutXNegativeButton;
+    QShortcut* shortcutXPositiveButton;
 
-    QShortcut* shortcutYPositiveButton;
+
     QShortcut* shortcutYNegativeButton;
+    QShortcut* shortcutYPositiveButton;
 
-    QShortcut* shortcutZPositiveButton;
     QShortcut* shortcutZNegativeButton;
+    QShortcut* shortcutZPositiveButton;
+
 
     QShortcut* shortcutXNegativeYNegativeButton;
-    QShortcut* shortcutXPositiveYNegativeButton;
     QShortcut* shortcutXNegativeYPositiveButton;
+    QShortcut* shortcutXPositiveYNegativeButton;
     QShortcut* shortcutXPositiveYPositiveButton;
+
+    QShortcut* shortcutANegativeButton;
+    QShortcut* shortcutAPositiveButton;
+
+    QShortcut* shortcutBNegativeButton;
+    QShortcut* shortcutBPositiveButton;
+
 
 
 private slots:
@@ -75,6 +84,12 @@ private slots:
     void on_movement_z_negative_button_clicked();
     void on_movement_z_positive_button_clicked();
 
+    void on_movement_a_positive_button_clicked();
+    void on_movement_a_negative_button_clicked();
+
+
+    void on_movement_b_positive_button_clicked();
+    void on_movement_b_negative_button_clicked();
 
     void on_feedrate_scroll_bar_valueChanged(int value);
 
@@ -83,8 +98,6 @@ private slots:
     void on_exit_action_triggered();
 
     void on_point_amount_button_clicked();
-    void on_movement_a_posititve_button_clicked();
-    void on_movement_a_negative_button_clicked();
 };
 
 
