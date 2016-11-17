@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // задаем горячие клавиши
+    setupShortcuts();
+
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
@@ -20,41 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->setInterval(100);
     timer->start();
-
-    shortcutXNegativeButton = new QShortcut(QKeySequence("A"), ui->movement_x_negative_button);
-    connect(shortcutXNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_x_negative_button_clicked()));
-    shortcutXPositiveButton = new QShortcut(QKeySequence("D"), ui->movement_x_positive_button);
-    connect(shortcutXPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_x_positive_button_clicked()));
-
-    shortcutYNegativeButton = new QShortcut(QKeySequence("S"), ui->movement_y_negative_button);
-    connect(shortcutYNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_y_negative_button_clicked()));
-    shortcutYPositiveButton = new QShortcut(QKeySequence("W"), ui->movement_y_positive_button);
-    connect(shortcutYPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_y_positive_button_clicked()));
-
-    shortcutXNegativeYNegativeButton = new QShortcut(QKeySequence("Z"), ui->movement_x_negative_y_negative_button);
-    connect(shortcutXNegativeYNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_x_negative_y_negative_button_clicked()));
-    shortcutXNegativeYPositiveButton = new QShortcut(QKeySequence("Q"), ui->movement_x_negative_y_positive_button);
-    connect(shortcutXNegativeYPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_x_negative_y_positive_button_clicked()));
-    shortcutXPositiveYNegativeButton = new QShortcut(QKeySequence("X"), ui->movement_x_positive_y_negative_button);
-    connect(shortcutXPositiveYNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_x_positive_y_negative_button_clicked()));
-    shortcutXPositiveYPositiveButton = new QShortcut(QKeySequence("E"), ui->movement_x_positive_y_positive_button);
-    connect(shortcutXPositiveYPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_x_positive_y_positive_button_clicked()));
-
-    shortcutZNegativeButton = new QShortcut(QKeySequence("B"), ui->movement_z_negative_button);
-    connect(shortcutZNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_z_negative_button_clicked()));
-    shortcutZPositiveButton = new QShortcut(QKeySequence("T"), ui->movement_z_positive_button);
-    connect(shortcutZPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_z_positive_button_clicked()));
-
-    shortcutANegativeButton = new QShortcut(QKeySequence("N"), ui->movement_a_negative_button);
-    connect(shortcutANegativeButton, SIGNAL(activated()), this, SLOT(on_movement_a_negative_button_clicked()));
-    shortcutAPositiveButton = new QShortcut(QKeySequence("Y"), ui->movement_a_positive_button);
-    connect(shortcutAPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_a_positive_button_clicked()));
-
-    shortcutBNegativeButton = new QShortcut(QKeySequence("M"), ui->movement_b_negative_button);
-    connect(shortcutBNegativeButton, SIGNAL(activated()), this, SLOT(on_movement_b_negative_button_clicked()));
-    shortcutBPositiveButton = new QShortcut(QKeySequence("U"), ui->movement_b_positive_button);
-    connect(shortcutBPositiveButton, SIGNAL(activated()), this, SLOT(on_movement_b_positive_button_clicked()));
-
 
     // растянуть таблицу с координатами
     for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
@@ -69,25 +37,45 @@ MainWindow::~MainWindow()
     delete timer;
     delete ui;
 
-    delete shortcutXNegativeButton;
-    delete shortcutXPositiveButton;
+    // удаляем горячие клавиши
+    while (shortcuts.size() > 0)
+    {
+        delete shortcuts.back();
+        shortcuts.pop_back();
+    }
+}
 
-    delete shortcutYNegativeButton;
-    delete shortcutYPositiveButton;
 
-    delete shortcutZNegativeButton;
-    delete shortcutZPositiveButton;
+void MainWindow::setupShortcuts()
+{
+    std::vector<std::tuple<const char*, QPushButton*, const char*>> shortcutsMap = {
+        std::make_tuple("A", ui->movement_x_negative_button, SLOT(on_movement_x_negative_button_clicked())),
+        std::make_tuple("D", ui->movement_x_positive_button, SLOT(on_movement_x_positive_button_clicked())),
+        std::make_tuple("S", ui->movement_y_negative_button, SLOT(on_movement_y_negative_button_clicked())),
+        std::make_tuple("W", ui->movement_y_positive_button, SLOT(on_movement_y_positive_button_clicked())),
+        std::make_tuple("Z", ui->movement_x_negative_y_negative_button, SLOT(on_movement_x_negative_y_negative_button_clicked())),
+        std::make_tuple("Q", ui->movement_x_negative_y_positive_button, SLOT(on_movement_x_negative_y_positive_button_clicked())),
+        std::make_tuple("X", ui->movement_x_positive_y_negative_button, SLOT(on_movement_x_positive_y_negative_button_clicked())),
+        std::make_tuple("E", ui->movement_x_positive_y_positive_button, SLOT(on_movement_x_positive_y_positive_button_clicked())),
+        std::make_tuple("B", ui->movement_z_negative_button, SLOT(on_movement_z_negative_button_clicked())),
+        std::make_tuple("T", ui->movement_z_positive_button, SLOT(on_movement_z_positive_button_clicked())),
+        std::make_tuple("N", ui->movement_a_negative_button, SLOT(on_movement_a_negative_button_clicked())),
+        std::make_tuple("Y", ui->movement_a_positive_button, SLOT(on_movement_a_positive_button_clicked())),
+        std::make_tuple("M", ui->movement_b_negative_button, SLOT(on_movement_b_negative_button_clicked())),
+        std::make_tuple("U", ui->movement_b_positive_button, SLOT(on_movement_b_positive_button_clicked())),
+    };
 
-    delete shortcutXNegativeYNegativeButton;
-    delete shortcutXNegativeYPositiveButton;
-    delete shortcutXPositiveYNegativeButton;
-    delete shortcutXPositiveYPositiveButton;
+    for (auto i = shortcutsMap.begin(); i != shortcutsMap.end(); i++)
+    {
+        const char* shortcutKey = std::get<0>(*i);
+        QPushButton* shortcutButton = std::get<1>(*i);
+        const char* shortcutSlot = std::get<2>(*i);
 
-    delete shortcutANegativeButton;
-    delete shortcutAPositiveButton;
+        QShortcut* shortcut = new QShortcut(QKeySequence(shortcutKey), shortcutButton);
+        connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
 
-    delete shortcutBNegativeButton;
-    delete shortcutBPositiveButton;
+        shortcuts.push_back(shortcut);
+    }
 }
 
 
@@ -167,124 +155,91 @@ void MainWindow::update_kabriol_avaliability()
     }
 }
 
+void MainWindow::disableMovementButtonsShortcuts()
+{
+    setMovementButtonsShortcutsState(false);
+}
+
+void MainWindow::enableMovementButtonsShortcuts()
+{
+    setMovementButtonsShortcutsState(true);
+}
+
+void MainWindow::setMovementButtonsShortcutsState(bool state)
+{
+    for (auto i = shortcuts.begin(); i != shortcuts.end(); i++)
+        (*i)->setAutoRepeat(state);
+}
+
+void MainWindow::setMovementButtonsRepeatState(bool state)
+{
+    std::vector<QPushButton*> movementButtons = {
+        ui->movement_x_positive_button,
+        ui->movement_x_negative_button,
+        ui->movement_y_positive_button,
+        ui->movement_y_negative_button,
+
+        ui->movement_x_positive_y_positive_button,
+        ui->movement_x_positive_y_negative_button,
+        ui->movement_x_negative_y_positive_button,
+        ui->movement_x_positive_y_negative_button,
+
+        ui->movement_z_positive_button,
+        ui->movement_z_negative_button,
+
+        ui->movement_a_positive_button,
+        ui->movement_a_negative_button,
+
+        ui->movement_b_positive_button,
+        ui->movement_b_negative_button
+    };
+
+    for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
+        (*i)->setAutoRepeat(state);
+}
+
+
 void MainWindow::on_discrete_radio_button_1_clicked()
 {
-
-    shortcutXNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveButton->setAutoRepeat(false);
-    shortcutYNegativeButton->setAutoRepeat(false);
-    shortcutYPositiveButton->setAutoRepeat(false);
-    shortcutXNegativeYNegativeButton->setAutoRepeat(false);
-    shortcutXNegativeYPositiveButton->setAutoRepeat(false);
-    shortcutXPositiveYNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveYPositiveButton->setAutoRepeat(false);
-    shortcutZNegativeButton->setAutoRepeat(false);
-    shortcutZPositiveButton->setAutoRepeat(false);
-    shortcutANegativeButton->setAutoRepeat(false);
-    shortcutAPositiveButton->setAutoRepeat(false);
-    shortcutBNegativeButton->setAutoRepeat(false);
-    shortcutBPositiveButton->setAutoRepeat(false);
-
     MachineTool::Instance().setMovementStep(0.01);
 
+    disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
-
 }
 
 
 void MainWindow::on_discrete_radio_button_2_clicked()
 {
-
-    shortcutXNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveButton->setAutoRepeat(false);
-    shortcutYNegativeButton->setAutoRepeat(false);
-    shortcutYPositiveButton->setAutoRepeat(false);
-    shortcutXNegativeYNegativeButton->setAutoRepeat(false);
-    shortcutXNegativeYPositiveButton->setAutoRepeat(false);
-    shortcutXPositiveYNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveYPositiveButton->setAutoRepeat(false);
-    shortcutZNegativeButton->setAutoRepeat(false);
-    shortcutZPositiveButton->setAutoRepeat(false);
-    shortcutANegativeButton->setAutoRepeat(false);
-    shortcutAPositiveButton->setAutoRepeat(false);
-    shortcutBNegativeButton->setAutoRepeat(false);
-    shortcutBPositiveButton->setAutoRepeat(false);
-
     MachineTool::Instance().setMovementStep(0.1);
 
+    disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
 
 void MainWindow::on_discrete_radio_button_3_clicked()
 {
-
-    shortcutXNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveButton->setAutoRepeat(false);
-    shortcutYNegativeButton->setAutoRepeat(false);
-    shortcutYPositiveButton->setAutoRepeat(false);
-    shortcutXNegativeYNegativeButton->setAutoRepeat(false);
-    shortcutXNegativeYPositiveButton->setAutoRepeat(false);
-    shortcutXPositiveYNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveYPositiveButton->setAutoRepeat(false);
-    shortcutZNegativeButton->setAutoRepeat(false);
-    shortcutZPositiveButton->setAutoRepeat(false);
-    shortcutANegativeButton->setAutoRepeat(false);
-    shortcutAPositiveButton->setAutoRepeat(false);
-    shortcutBNegativeButton->setAutoRepeat(false);
-    shortcutBPositiveButton->setAutoRepeat(false);
-
     MachineTool::Instance().setMovementStep(1);
 
+    disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
 
 void MainWindow::on_discrete_radio_button_4_clicked()
 {
-
-
-    shortcutXNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveButton->setAutoRepeat(false);
-    shortcutYNegativeButton->setAutoRepeat(false);
-    shortcutYPositiveButton->setAutoRepeat(false);
-    shortcutXNegativeYNegativeButton->setAutoRepeat(false);
-    shortcutXNegativeYPositiveButton->setAutoRepeat(false);
-    shortcutXPositiveYNegativeButton->setAutoRepeat(false);
-    shortcutXPositiveYPositiveButton->setAutoRepeat(false);
-    shortcutZNegativeButton->setAutoRepeat(false);
-    shortcutZPositiveButton->setAutoRepeat(false);
-    shortcutANegativeButton->setAutoRepeat(false);
-    shortcutAPositiveButton->setAutoRepeat(false);
-    shortcutBNegativeButton->setAutoRepeat(false);
-    shortcutBPositiveButton->setAutoRepeat(false);
-
     MachineTool::Instance().setMovementStep(10);
 
+    disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
 
 void MainWindow::on_discrete_radio_button_5_clicked()
 {
-
-    shortcutXNegativeButton->setAutoRepeat(true);
-    shortcutXPositiveButton->setAutoRepeat(true);
-    shortcutYNegativeButton->setAutoRepeat(true);
-    shortcutYPositiveButton->setAutoRepeat(true);
-    shortcutXNegativeYNegativeButton->setAutoRepeat(true);
-    shortcutXNegativeYPositiveButton->setAutoRepeat(true);
-    shortcutXPositiveYNegativeButton->setAutoRepeat(true);
-    shortcutXPositiveYPositiveButton->setAutoRepeat(true);
-    shortcutZNegativeButton->setAutoRepeat(true);
-    shortcutZPositiveButton->setAutoRepeat(true);
-    shortcutANegativeButton->setAutoRepeat(true);
-    shortcutAPositiveButton->setAutoRepeat(true);
-    shortcutBNegativeButton->setAutoRepeat(true);
-    shortcutBPositiveButton->setAutoRepeat(true);
-
     MachineTool::Instance().setMovementStep(0);
 
+    enableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(true);
 }
 
@@ -337,7 +292,6 @@ void MainWindow::on_movement_x_negative_y_positive_button_clicked()
     i.stepMove(v);
 }
 
-
 void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
@@ -386,7 +340,6 @@ void MainWindow::on_movement_z_negative_button_clicked()
     i.stepMove(v);
 }
 
-
 void MainWindow::on_movement_a_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
@@ -406,9 +359,6 @@ void MainWindow::on_movement_a_negative_button_clicked()
     i.stepMove(v);
 }
 
-
-
-
 void MainWindow::on_movement_b_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
@@ -425,35 +375,6 @@ void MainWindow::on_movement_b_negative_button_clicked()
     v.b = -1;
 
     i.stepMove(v);
-}
-
-
-
-void MainWindow::setMovementButtonsRepeatState(bool state)
-{
-    std::vector<QPushButton*> buttons = {
-        ui->movement_x_positive_button,
-        ui->movement_x_negative_button,
-        ui->movement_y_positive_button,
-        ui->movement_y_negative_button,
-
-        ui->movement_x_positive_y_positive_button,
-        ui->movement_x_positive_y_negative_button,
-        ui->movement_x_negative_y_positive_button,
-        ui->movement_x_positive_y_negative_button,
-
-        ui->movement_z_positive_button,
-        ui->movement_z_negative_button,
-
-        ui->movement_a_positive_button,
-        ui->movement_a_negative_button,
-
-        ui->movement_b_positive_button,
-        ui->movement_b_negative_button
-    };
-
-    for (std::vector<QPushButton*>::iterator i = buttons.begin(); i != buttons.end(); i++)
-        (*i)->setAutoRepeat(state);
 }
 
 void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
@@ -490,7 +411,7 @@ void MainWindow::on_park_button_clicked()
 
 void MainWindow::on_point_add_button_clicked()
 {
-    Point tmp = Point(1, 2, 3, 4, 5);
+    Point tmp = Point(rand(), rand(), rand(), rand(), rand());
     CommandInterpreter::Instance().addPoint(tmp);
 
     update_points();

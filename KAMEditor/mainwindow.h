@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <set>
+#include <tuple>
+#include <vector>
 
 #include <QMainWindow>
 #include <QTimer>
@@ -31,37 +33,22 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
 
+    std::vector<QShortcut*> shortcuts;
+
+
+
+    void setupShortcuts();
+
+    void disableMovementButtonsShortcuts();
+    void enableMovementButtonsShortcuts();
+
+    void setMovementButtonsShortcutsState(bool state);
+    void setMovementButtonsRepeatState(bool state);
+
     void update_coordinates();
     void update_points();
     void update_battery_status();
     void update_kabriol_avaliability();
-
-
-    void setMovementButtonsRepeatState(bool state);
-
-
-    QShortcut* shortcutXNegativeButton;
-    QShortcut* shortcutXPositiveButton;
-
-
-    QShortcut* shortcutYNegativeButton;
-    QShortcut* shortcutYPositiveButton;
-
-    QShortcut* shortcutZNegativeButton;
-    QShortcut* shortcutZPositiveButton;
-
-
-    QShortcut* shortcutXNegativeYNegativeButton;
-    QShortcut* shortcutXNegativeYPositiveButton;
-    QShortcut* shortcutXPositiveYNegativeButton;
-    QShortcut* shortcutXPositiveYPositiveButton;
-
-    QShortcut* shortcutANegativeButton;
-    QShortcut* shortcutAPositiveButton;
-
-    QShortcut* shortcutBNegativeButton;
-    QShortcut* shortcutBPositiveButton;
-
 
 
 private slots:
