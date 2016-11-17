@@ -113,25 +113,25 @@ BaseMachineTool::~BaseMachineTool()
 }
 
 
-Vector3D BaseMachineTool::getBaseCoordinates()
+Vector BaseMachineTool::getBaseCoordinates()
 {
     return base;
 }
 
 
-Vector3D BaseMachineTool::getCurrentCoordinates()
+Vector BaseMachineTool::getCurrentCoordinates()
 {
     return current;
 }
 
 
-Vector3D BaseMachineTool::getParkCoordinates()
+Vector BaseMachineTool::getParkCoordinates()
 {
     return park;
 }
 
 
-void BaseMachineTool::stepMove(Vector3D f)
+void BaseMachineTool::stepMove(Vector f)
 {
     double current_step = (step > 0) ? step : 0.01;
 
@@ -143,7 +143,7 @@ void BaseMachineTool::stepMove(Vector3D f)
 }
 
 
-void BaseMachineTool::setParkCoordinates(Vector3D f)
+void BaseMachineTool::setParkCoordinates(Vector f)
 {
     park.x = f.x;
     park.y = f.y;

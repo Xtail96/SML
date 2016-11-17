@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-class Vector3D
+class Vector
 {
 public:
 
@@ -14,7 +14,7 @@ public:
     double a;
     double b;
 
-    Vector3D() : x(), y(), z(), a(), b() {}
+    Vector() : x(), y(), z(), a(), b() {}
 };
 
 /**
@@ -34,13 +34,13 @@ public:
     void setMovementStep(double s) { step = s; }
 
     /// Возвращает текущие координаты
-    Vector3D getCurrentCoordinates();
+    Vector getCurrentCoordinates();
 
     /// Возвращает координаты базы
-    Vector3D getBaseCoordinates();
+    Vector getBaseCoordinates();
 
     /// Возвращает координаты парка
-    Vector3D getParkCoordinates();
+    Vector getParkCoordinates();
 
     void setVelocity(int vel) { velocity = vel; }
 
@@ -48,25 +48,25 @@ public:
 
     void setRotation(int j) { jog = j; }
 
-    void stepMove(Vector3D f);
+    void stepMove(Vector f);
 
-    void setParkCoordinates(Vector3D f);
+    void setParkCoordinates(Vector f);
 
 private:
     // шаг движения
     double step;
 
     /// Координаты базы, абсолютные
-    Vector3D base;
+    Vector base;
 
     /// Координаты парка, абсолютные
-    Vector3D park;
+    Vector park;
 
     /// Координаты точки ноль относительно базы
-    Vector3D zero;
+    Vector zero;
 
     /// Текущие относительно нуля
-    Vector3D current;
+    Vector current;
 
     /// Максимальное значение скорости
     int velocity;

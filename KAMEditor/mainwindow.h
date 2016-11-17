@@ -29,7 +29,7 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
 
-    std::vector<Vector3D> points;
+    std::vector<Vector> points;
 
     void update_coordinates();
     void update_points();
