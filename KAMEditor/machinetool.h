@@ -18,18 +18,18 @@ public:
 };
 
 /**
- * \brief Базовый класс "Станок"
+ * \brief Класс "Станок"
  * \warning Является синглтоном
  *
  * Данный класс отвечает за управление станком:
  *      Перемещение по координатам
- *      /TODO Описание базового класса станок
+ *      /TODO Описание класса станок
  */
-class BaseMachineTool
+class MachineTool
 {
 public:
     /// Возвращает экземпляр класса MachineTool
-    static BaseMachineTool& Instance();
+    static MachineTool& Instance();
 
     void setMovementStep(double s) { step = s; }
 
@@ -79,12 +79,12 @@ private:
 
 
     // конструктор и деструктор недоступны публично
-    BaseMachineTool();
-    ~BaseMachineTool();
+    MachineTool();
+    ~MachineTool();
 
     // запрет копирования
-    BaseMachineTool(BaseMachineTool const&);
-    BaseMachineTool& operator=(BaseMachineTool const&);
+    MachineTool(MachineTool const&);
+    MachineTool& operator=(MachineTool const&);
 };
 
 #endif // MACHINETOOL_H

@@ -15,9 +15,9 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    basemachinetool.cpp
+    machinetool.cpp
 
 HEADERS  += mainwindow.h \
-    basemachinetool.h
+    machinetool.h
 
 FORMS    += mainwindow.ui

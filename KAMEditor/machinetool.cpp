@@ -1,4 +1,4 @@
-#include "basemachinetool.h"
+#include "machinetool.h"
 
 const int GET_TERMO = 0x01;
 
@@ -94,44 +94,44 @@ const int SEARCH_ATC_SENSOR = 0x0D;
 
 
 
-BaseMachineTool& BaseMachineTool::Instance()
+MachineTool& MachineTool::Instance()
 {
-    static BaseMachineTool m;
+    static MachineTool m;
     return m;
 }
 
 
-BaseMachineTool::BaseMachineTool()
+MachineTool::MachineTool()
 {
 
 }
 
 
-BaseMachineTool::~BaseMachineTool()
+MachineTool::~MachineTool()
 {
 
 }
 
 
-Vector BaseMachineTool::getBaseCoordinates()
+Vector MachineTool::getBaseCoordinates()
 {
     return base;
 }
 
 
-Vector BaseMachineTool::getCurrentCoordinates()
+Vector MachineTool::getCurrentCoordinates()
 {
     return current;
 }
 
 
-Vector BaseMachineTool::getParkCoordinates()
+Vector MachineTool::getParkCoordinates()
 {
     return park;
 }
 
 
-void BaseMachineTool::stepMove(Vector f)
+void MachineTool::stepMove(Vector f)
 {
     double current_step = (step > 0) ? step : 0.01;
 
@@ -143,7 +143,7 @@ void BaseMachineTool::stepMove(Vector f)
 }
 
 
-void BaseMachineTool::setParkCoordinates(Vector f)
+void MachineTool::setParkCoordinates(Vector f)
 {
     park.x = f.x;
     park.y = f.y;

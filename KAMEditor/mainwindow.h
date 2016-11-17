@@ -10,7 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-#include "basemachinetool.h"
+#include "machinetool.h"
 
 namespace Ui {
 class MainWindow;

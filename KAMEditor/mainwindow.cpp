@@ -99,7 +99,7 @@ void MainWindow::update()
 
 void MainWindow::update_coordinates()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
 
     Vector current = i.getCurrentCoordinates();
     Vector base = i.getBaseCoordinates();
@@ -170,7 +170,7 @@ void MainWindow::on_discrete_radio_button_1_clicked()
     shortcutBNegativeButton->setAutoRepeat(false);
     shortcutBPositiveButton->setAutoRepeat(false);
 
-    BaseMachineTool::Instance().setMovementStep(0.01);
+    MachineTool::Instance().setMovementStep(0.01);
 
     setMovementButtonsRepeatState(false);
 
@@ -195,7 +195,7 @@ void MainWindow::on_discrete_radio_button_2_clicked()
     shortcutBNegativeButton->setAutoRepeat(false);
     shortcutBPositiveButton->setAutoRepeat(false);
 
-    BaseMachineTool::Instance().setMovementStep(0.1);
+    MachineTool::Instance().setMovementStep(0.1);
 
     setMovementButtonsRepeatState(false);
 }
@@ -219,7 +219,7 @@ void MainWindow::on_discrete_radio_button_3_clicked()
     shortcutBNegativeButton->setAutoRepeat(false);
     shortcutBPositiveButton->setAutoRepeat(false);
 
-    BaseMachineTool::Instance().setMovementStep(1);
+    MachineTool::Instance().setMovementStep(1);
 
     setMovementButtonsRepeatState(false);
 }
@@ -244,7 +244,7 @@ void MainWindow::on_discrete_radio_button_4_clicked()
     shortcutBNegativeButton->setAutoRepeat(false);
     shortcutBPositiveButton->setAutoRepeat(false);
 
-    BaseMachineTool::Instance().setMovementStep(10);
+    MachineTool::Instance().setMovementStep(10);
 
     setMovementButtonsRepeatState(false);
 }
@@ -268,7 +268,7 @@ void MainWindow::on_discrete_radio_button_5_clicked()
     shortcutBNegativeButton->setAutoRepeat(true);
     shortcutBPositiveButton->setAutoRepeat(true);
 
-    BaseMachineTool::Instance().setMovementStep(0);
+    MachineTool::Instance().setMovementStep(0);
 
     setMovementButtonsRepeatState(true);
 }
@@ -276,7 +276,7 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 
 void MainWindow::on_movement_x_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = 1;
 
@@ -286,7 +286,7 @@ void MainWindow::on_movement_x_positive_button_clicked()
 
 void MainWindow::on_movement_x_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = -1;
 
@@ -296,7 +296,7 @@ void MainWindow::on_movement_x_negative_button_clicked()
 
 void MainWindow::on_movement_y_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.y = 1;
 
@@ -305,7 +305,7 @@ void MainWindow::on_movement_y_positive_button_clicked()
 
 void MainWindow::on_movement_y_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.y = -1;
 
@@ -314,7 +314,7 @@ void MainWindow::on_movement_y_negative_button_clicked()
 
 void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = -1;
     v.y = 1;
@@ -325,7 +325,7 @@ void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 
 void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = 1;
     v.y = 1;
@@ -335,7 +335,7 @@ void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 
 void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = -1;
     v.y = -1;
@@ -345,7 +345,7 @@ void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 
 void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.x = 1;
     v.y = -1;
@@ -355,7 +355,7 @@ void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 
 void MainWindow::on_movement_z_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.z = 1;
 
@@ -364,7 +364,7 @@ void MainWindow::on_movement_z_positive_button_clicked()
 
 void MainWindow::on_movement_z_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.z = -1;
 
@@ -374,7 +374,7 @@ void MainWindow::on_movement_z_negative_button_clicked()
 
 void MainWindow::on_movement_a_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.a = 1;
 
@@ -384,7 +384,7 @@ void MainWindow::on_movement_a_positive_button_clicked()
 
 void MainWindow::on_movement_a_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.a = -1;
 
@@ -396,7 +396,7 @@ void MainWindow::on_movement_a_negative_button_clicked()
 
 void MainWindow::on_movement_b_positive_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.b = 1;
 
@@ -405,7 +405,7 @@ void MainWindow::on_movement_b_positive_button_clicked()
 
 void MainWindow::on_movement_b_negative_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.b = -1;
 
@@ -443,14 +443,14 @@ void MainWindow::setMovementButtonsRepeatState(bool state)
 
 void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
 {
-    BaseMachineTool::Instance().setVelocity(value);
+    MachineTool::Instance().setVelocity(value);
 
     ui->feedrate_lcd_number->display(value);
 }
 
 void MainWindow::on_rotations_scroll_bar_valueChanged(int value)
 {
-    BaseMachineTool::Instance().setRotation(value);
+    MachineTool::Instance().setRotation(value);
 
     ui->rotation_lcd_number->display(value);
 }
@@ -467,7 +467,7 @@ void MainWindow::on_point_amount_button_clicked()
 
 void MainWindow::on_park_button_clicked()
 {
-    BaseMachineTool &i = BaseMachineTool::Instance();
+    MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v = i.getCurrentCoordinates();
     i.setParkCoordinates(v);
