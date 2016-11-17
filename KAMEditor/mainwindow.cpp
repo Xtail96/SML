@@ -59,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // растянуть таблицу с координатами
     for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
         ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
+    // в таблице выделяется целиком вся строка
+    ui->points_table_widget->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 MainWindow::~MainWindow()
@@ -126,7 +129,7 @@ void MainWindow::update_points()
 
     ui->points_table_widget->setRowCount(0);
 
-    for (int i = 0; i < points.size(); i++)
+    for (unsigned int i = 0; i < points.size(); i++)
     {
         ui->points_table_widget->insertRow(i);
 
@@ -489,6 +492,26 @@ void MainWindow::on_point_add_button_clicked()
 {
     Point tmp = Point(1, 2, 3, 4, 5);
     CommandInterpreter::Instance().addPoint(tmp);
+
+    update_points();
+}
+
+void MainWindow::on_point_delete_button_clicked()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
+    std::set<int> rows;
+
+    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+    {
+        int row = ui->points_table_widget->row(*i);
+        rows.insert(row);
+    }
+
+    for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
+    {
+        instance.removePoint(*i);
+    }
 
     update_points();
 }
