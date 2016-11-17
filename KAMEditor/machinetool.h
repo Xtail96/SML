@@ -1,5 +1,5 @@
-#ifndef BASEMACHINETOOL_H
-#define BASEMACHINETOOL_H
+#ifndef MACHINETOOL_H
+#define MACHINETOOL_H
 
 #include <math.h>
 
