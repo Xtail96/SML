@@ -2,20 +2,8 @@
 #define MACHINETOOL_H
 
 #include <math.h>
+#include "vector.h"
 
-class Vector
-{
-public:
-
-    double x;
-    double y;
-    double z;
-
-    double a;
-    double b;
-
-    Vector() : x(), y(), z(), a(), b() {}
-};
 
 /**
  * \brief Класс "Станок"

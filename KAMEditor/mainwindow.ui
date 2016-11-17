@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -428,6 +428,11 @@ p, li { white-space: pre-wrap; }
              <column>
               <property name="text">
                <string>a</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>b</string>
               </property>
              </column>
             </widget>

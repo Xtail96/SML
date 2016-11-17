@@ -7,10 +7,10 @@
 #include <QKeySequence>
 #include <QList>
 #include <QMessageBox>
-#include <vector>
 #include <windows.h>
 
 #include "machinetool.h"
+#include "commandinterpreter.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,8 +28,6 @@ public:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
-
-    std::vector<Vector> points;
 
     void update_coordinates();
     void update_points();
@@ -101,6 +99,7 @@ private slots:
 
     void on_point_amount_button_clicked();
     void on_park_button_clicked();
+    void on_point_add_button_clicked();
 };
 
 

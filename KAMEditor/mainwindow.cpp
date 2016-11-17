@@ -91,7 +91,6 @@ MainWindow::~MainWindow()
 void MainWindow::update()
 {
     update_coordinates();
-    update_points();
     update_battery_status();
     update_kabriol_avaliability();
 }
@@ -123,7 +122,20 @@ void MainWindow::update_coordinates()
 
 void MainWindow::update_points()
 {
+    std::vector<Point> points = CommandInterpreter::Instance().getPoints();
 
+    ui->points_table_widget->setRowCount(0);
+
+    for (int i = 0; i < points.size(); i++)
+    {
+        ui->points_table_widget->insertRow(i);
+
+        ui->points_table_widget->setItem(i, 0, new QTableWidgetItem( QString::number(points[i].x)) );
+        ui->points_table_widget->setItem(i, 1, new QTableWidgetItem( QString::number(points[i].y)) );
+        ui->points_table_widget->setItem(i, 2, new QTableWidgetItem( QString::number(points[i].z)) );
+        ui->points_table_widget->setItem(i, 3, new QTableWidgetItem( QString::number(points[i].a)) );
+        ui->points_table_widget->setItem(i, 4, new QTableWidgetItem( QString::number(points[i].b)) );
+    }
 }
 
 void MainWindow::update_battery_status()
@@ -471,4 +483,12 @@ void MainWindow::on_park_button_clicked()
     Vector v = Vector();
     v = i.getCurrentCoordinates();
     i.setParkCoordinates(v);
+}
+
+void MainWindow::on_point_add_button_clicked()
+{
+    Point tmp = Point(1, 2, 3, 4, 5);
+    CommandInterpreter::Instance().addPoint(tmp);
+
+    update_points();
 }

@@ -21,6 +21,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     machinetool.h \
     commandinterpreter.h \
-    command.h
+    command.h \
+    vector.h \
+    point.h
 
 FORMS    += mainwindow.ui
