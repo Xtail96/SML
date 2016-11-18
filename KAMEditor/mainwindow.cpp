@@ -405,9 +405,19 @@ void MainWindow::on_park_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
-    v = i.getCurrentCoordinates();
+    v = i.getBaseCoordinates();
     i.setParkCoordinates(v);
 }
+
+
+void MainWindow::on_zero_button_clicked()
+{
+    MachineTool &i = MachineTool::Instance();
+    Vector v = Vector();
+    v = i.getBaseCoordinates();
+    i.setNewZeroCoordinates(v);
+}
+
 
 void MainWindow::on_point_add_button_clicked()
 {

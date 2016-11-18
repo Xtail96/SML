@@ -90,6 +90,7 @@ private slots:
     void on_park_button_clicked();
     void on_point_add_button_clicked();
     void on_point_delete_button_clicked();
+    void on_zero_button_clicked();
 };
 
 

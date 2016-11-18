@@ -140,6 +140,13 @@ void MachineTool::stepMove(Vector f)
     current.z += f.z * current_step;
     current.a += f.a * current_step;
     current.b += f.b * current_step;
+
+
+    base.x += f.x * current_step;
+    base.y += f.y * current_step;
+    base.z += f.z * current_step;
+    base.a += f.a * current_step;
+    base.b += f.b * current_step;
 }
 
 
@@ -150,4 +157,18 @@ void MachineTool::setParkCoordinates(Vector f)
     park.z = f.z;
     park.a = f.a;
     park.b = f.b;
+}
+void MachineTool::setNewZeroCoordinates(Vector f)
+{
+    zero.x = base.x;
+    zero.y = base.y;
+    zero.z = base.z;
+    zero.a = base.a;
+    zero.b = base.b;
+
+    current.x = 0;
+    current.y = 0;
+    current.z = 0;
+    current.a = 0;
+    current.b = 0;
 }

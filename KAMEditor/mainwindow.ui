@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -2089,7 +2089,7 @@ p, li { white-space: pre-wrap; }
               </font>
              </property>
              <property name="title">
-              <string>База:</string>
+              <string>Текущие от Базы:</string>
              </property>
              <property name="flat">
               <bool>false</bool>

@@ -40,11 +40,13 @@ public:
 
     void setParkCoordinates(Vector f);
 
+    void setNewZeroCoordinates(Vector f);
+
 private:
     // шаг движения
     double step;
 
-    /// Координаты базы, абсолютные
+    /// Текущие координаты от базы, абсолютные
     Vector base;
 
     /// Координаты парка, абсолютные
