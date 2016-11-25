@@ -103,11 +103,11 @@ void MainWindow::update_coordinates()
 
     for (std::vector<std::pair<QListWidget*, Vector>>::iterator i = widgets.begin(); i != widgets.end(); i++)
     {
-        i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3));
-        i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3));
-        i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3));
-        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3));
-        i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3));
+        i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3) + " мм");
+        i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3) + " мм");
+        i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3) + " мм");
+        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3) + " град.");
+        i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3) + " мм");
     }
 }
 
