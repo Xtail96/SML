@@ -48,7 +48,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupShortcuts()
 {
-    std::vector<std::tuple<const char*, QPushButton*, const char*>> shortcutsMap = {
+    std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
         std::make_tuple("A", ui->movement_x_negative_button, SLOT(on_movement_x_negative_button_clicked())),
         std::make_tuple("D", ui->movement_x_positive_button, SLOT(on_movement_x_positive_button_clicked())),
         std::make_tuple("S", ui->movement_y_negative_button, SLOT(on_movement_y_negative_button_clicked())),
