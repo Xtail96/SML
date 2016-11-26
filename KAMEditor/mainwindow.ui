@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -209,6 +209,37 @@
           <property name="checkable">
            <bool>false</bool>
           </property>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="0">
+            <widget class="QTableWidget" name="points_table_widget_2">
+             <column>
+              <property name="text">
+               <string>x</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>y</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>z</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>a</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>b</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="1" column="1">

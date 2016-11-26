@@ -26,10 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // растянуть таблицу с координатами
     for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
+    {
         ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->points_table_widget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 
     // в таблице выделяется целиком вся строка
     ui->points_table_widget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->points_table_widget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 MainWindow::~MainWindow()
@@ -101,7 +105,7 @@ void MainWindow::update_coordinates()
         { ui->listWidget_parkCoordinates, park }
     };
 
-    for (std::vector<std::pair<QListWidget*, Vector>>::iterator i = widgets.begin(); i != widgets.end(); i++)
+    for (auto i = widgets.begin(); i != widgets.end(); i++)
     {
         i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3) + " мм");
         i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3) + " мм");
@@ -115,17 +119,22 @@ void MainWindow::update_points()
 {
     std::vector<Point> points = CommandInterpreter::Instance().getPoints();
 
-    ui->points_table_widget->setRowCount(0);
+    std::vector<QTableWidget*> tables = { ui->points_table_widget, ui->points_table_widget_2 };
 
-    for (unsigned int i = 0; i < points.size(); i++)
+    for (auto table = tables.begin(); table != tables.end(); table++)
     {
-        ui->points_table_widget->insertRow(i);
+        (*table)->setRowCount(0);
 
-        ui->points_table_widget->setItem(i, 0, new QTableWidgetItem( QString::number(points[i].x)) );
-        ui->points_table_widget->setItem(i, 1, new QTableWidgetItem( QString::number(points[i].y)) );
-        ui->points_table_widget->setItem(i, 2, new QTableWidgetItem( QString::number(points[i].z)) );
-        ui->points_table_widget->setItem(i, 3, new QTableWidgetItem( QString::number(points[i].a)) );
-        ui->points_table_widget->setItem(i, 4, new QTableWidgetItem( QString::number(points[i].b)) );
+        for (unsigned int i = 0; i < points.size(); i++)
+        {
+            (*table)->insertRow(i);
+
+            (*table)->setItem(i, 0, new QTableWidgetItem( QString::number(points[i].x)) );
+            (*table)->setItem(i, 1, new QTableWidgetItem( QString::number(points[i].y)) );
+            (*table)->setItem(i, 2, new QTableWidgetItem( QString::number(points[i].z)) );
+            (*table)->setItem(i, 3, new QTableWidgetItem( QString::number(points[i].a)) );
+            (*table)->setItem(i, 4, new QTableWidgetItem( QString::number(points[i].b)) );
+        }
     }
 }
 
