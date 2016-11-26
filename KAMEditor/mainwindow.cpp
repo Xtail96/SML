@@ -127,13 +127,12 @@ void MainWindow::update_points()
 
         for (unsigned int i = 0; i < points.size(); i++)
         {
+            std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
+
             (*table)->insertRow(i);
 
-            (*table)->setItem(i, 0, new QTableWidgetItem( QString::number(points[i].x)) );
-            (*table)->setItem(i, 1, new QTableWidgetItem( QString::number(points[i].y)) );
-            (*table)->setItem(i, 2, new QTableWidgetItem( QString::number(points[i].z)) );
-            (*table)->setItem(i, 3, new QTableWidgetItem( QString::number(points[i].a)) );
-            (*table)->setItem(i, 4, new QTableWidgetItem( QString::number(points[i].b)) );
+            for (unsigned int coordinate = 0; coordinate < pointCoordinates.size(); coordinate++)
+                (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::number(pointCoordinates[coordinate])) );
         }
     }
 }
