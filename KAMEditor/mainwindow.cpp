@@ -121,16 +121,22 @@ void MainWindow::update_points()
 
     std::vector<QTableWidget*> tables = { ui->points_table_widget, ui->points_table_widget_2 };
 
+    // проходим по каждой таблице
     for (auto table = tables.begin(); table != tables.end(); table++)
     {
+        // очищаем текущую таблицу
         (*table)->setRowCount(0);
 
+        // проходим по всем точкам
         for (unsigned int i = 0; i < points.size(); i++)
         {
+            // координаты текущей точки
             std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
 
+            // добавляем строку в таблицу для текущей точки
             (*table)->insertRow(i);
 
+            // отображаем координаты текущей точки
             for (unsigned int coordinate = 0; coordinate < pointCoordinates.size(); coordinate++)
                 (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::number(pointCoordinates[coordinate])) );
         }
