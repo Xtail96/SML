@@ -4067,7 +4067,7 @@ p, li { white-space: pre-wrap; }
         <string>Настройки</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_37">
-        <item row="0" column="0">
+        <item row="0" column="1">
          <widget class="QTabWidget" name="tabWidget">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -4076,232 +4076,19 @@ p, li { white-space: pre-wrap; }
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
             <string>Настройки механики</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_19">
-            <item>
-             <widget class="QGroupBox" name="groupBox_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>3</horstretch>
-                <verstretch>2</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>14</pointsize>
-               </font>
-              </property>
-              <property name="title">
-               <string>Габариты</string>
-              </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <widget class="QGroupBox" name="groupBox_42">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="title">
-                  <string>По оси X</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_22">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="lineEdit_11"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_44">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="title">
-                  <string>По оси Y</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_24">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="lineEdit_12"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_45">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="title">
-                  <string>По оси Z</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_25">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="lineEdit_13"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_43">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="title">
-                  <string>По оси A</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_23">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="lineEdit_14"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_46">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="title">
-                  <string>По оси B</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_26">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="lineEdit_15"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
+           <layout class="QGridLayout" name="gridLayout_15">
+            <item row="0" column="1">
              <widget class="QGroupBox" name="groupBox_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>2</horstretch>
-                <verstretch>2</verstretch>
+                <horstretch>5</horstretch>
+                <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="font">
@@ -4376,12 +4163,82 @@ p, li { white-space: pre-wrap; }
               </layout>
              </widget>
             </item>
-            <item>
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="title">
+               <string>Габариты</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_14">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_47">
+                 <property name="text">
+                  <string>Ось Y</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_48">
+                 <property name="text">
+                  <string>Ось Z</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_50">
+                 <property name="text">
+                  <string>Ось B</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_49">
+                 <property name="text">
+                  <string>Ось A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_46">
+                 <property name="text">
+                  <string>Ось X</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="lineEdit_14"/>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="lineEdit_13"/>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="lineEdit_11"/>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="lineEdit_15"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="lineEdit_12"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
              <widget class="QGroupBox" name="groupBox">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>1</verstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>2</horstretch>
+                <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="font">
@@ -4393,46 +4250,55 @@ p, li { white-space: pre-wrap; }
                <string>Настройки кинематики</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_40">
-               <item row="0" column="0">
+               <item row="0" column="1">
                 <widget class="QTabWidget" name="tabWidget_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="currentIndex">
-                  <number>1</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="tab_3">
                   <attribute name="title">
                    <string>Ось X</string>
                   </attribute>
                   <layout class="QGridLayout" name="gridLayout_36">
-                   <item row="0" column="5">
-                    <widget class="QLabel" name="label_16">
-                     <property name="text">
-                      <string>Скорсоть базирования</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1">
                     <widget class="QLabel" name="label_12">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_6">
-                     <property name="font">
-                      <font>
-                       <pointsize>18</pointsize>
-                      </font>
+                   <item row="0" column="3">
+                    <widget class="QLabel" name="label_14">
+                     <property name="text">
+                      <string>Скорость</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="2">
                     <widget class="QLabel" name="label_13">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>Ускорение</string>
                      </property>
@@ -4445,30 +4311,62 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_14">
+                   <item row="0" column="5">
+                    <widget class="QLabel" name="label_16">
                      <property name="text">
-                      <string>Скорость</string>
+                      <string>Скорсоть базирования</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_7">
-                     <property name="font">
-                      <font>
-                       <pointsize>18</pointsize>
-                      </font>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="lineEdit_16">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_9"/>
+                   <item row="2" column="2">
+                    <widget class="QLineEdit" name="lineEdit_17">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_8"/>
+                   <item row="2" column="3">
+                    <widget class="QLineEdit" name="lineEdit_18">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="5">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_10"/>
+                   <item row="2" column="4">
+                    <widget class="QLineEdit" name="lineEdit_19">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="5">
+                    <widget class="QLineEdit" name="lineEdit_20">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -4477,13 +4375,6 @@ p, li { white-space: pre-wrap; }
                    <string>Ось Y</string>
                   </attribute>
                   <layout class="QGridLayout" name="gridLayout_21">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_21">
-                     <property name="text">
-                      <string>Рывок</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1">
                     <widget class="QLabel" name="label_18">
                      <property name="text">
@@ -4491,17 +4382,10 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_19">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_21">
                      <property name="text">
-                      <string>Скорость</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_20">
-                     <property name="text">
-                      <string>Канал</string>
+                      <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
@@ -4512,20 +4396,34 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_15"/>
+                   <item row="0" column="3">
+                    <widget class="QLabel" name="label_20">
+                     <property name="text">
+                      <string>Канал</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_18"/>
+                   <item row="0" column="2">
+                    <widget class="QLabel" name="label_19">
+                     <property name="text">
+                      <string>Скорость</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_16"/>
+                   <item row="2" column="0">
+                    <widget class="QLineEdit" name="lineEdit_21"/>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_19"/>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="lineEdit_22"/>
                    </item>
-                   <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_17"/>
+                   <item row="2" column="2">
+                    <widget class="QLineEdit" name="lineEdit_23"/>
+                   </item>
+                   <item row="2" column="3">
+                    <widget class="QLineEdit" name="lineEdit_24"/>
+                   </item>
+                   <item row="2" column="4">
+                    <widget class="QLineEdit" name="lineEdit_25"/>
                    </item>
                   </layout>
                  </widget>
@@ -4570,19 +4468,19 @@ p, li { white-space: pre-wrap; }
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_20"/>
+                    <widget class="QLineEdit" name="lineEdit_26"/>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_23"/>
+                    <widget class="QLineEdit" name="lineEdit_27"/>
                    </item>
                    <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_21"/>
+                    <widget class="QLineEdit" name="lineEdit_28"/>
                    </item>
                    <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_24"/>
+                    <widget class="QLineEdit" name="lineEdit_29"/>
                    </item>
                    <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_22"/>
+                    <widget class="QLineEdit" name="lineEdit_30"/>
                    </item>
                   </layout>
                  </widget>
@@ -4627,19 +4525,19 @@ p, li { white-space: pre-wrap; }
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_25"/>
+                    <widget class="QLineEdit" name="lineEdit_31"/>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_28"/>
+                    <widget class="QLineEdit" name="lineEdit_32"/>
                    </item>
                    <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_26"/>
+                    <widget class="QLineEdit" name="lineEdit_33"/>
                    </item>
                    <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_29"/>
+                    <widget class="QLineEdit" name="lineEdit_34"/>
                    </item>
                    <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_27"/>
+                    <widget class="QLineEdit" name="lineEdit_35"/>
                    </item>
                   </layout>
                  </widget>
@@ -4683,20 +4581,20 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_36"/>
-                   </item>
                    <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_39"/>
+                    <widget class="QLineEdit" name="lineEdit_36"/>
                    </item>
                    <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_37"/>
+                    <widget class="QLineEdit" name="lineEdit_37"/>
                    </item>
                    <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_40"/>
+                    <widget class="QLineEdit" name="lineEdit_38"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="lineEdit_39"/>
                    </item>
                    <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_38"/>
+                    <widget class="QLineEdit" name="lineEdit_40"/>
                    </item>
                   </layout>
                  </widget>
@@ -4705,9 +4603,6 @@ p, li { white-space: pre-wrap; }
                    <string>Настройки планировщика</string>
                   </attribute>
                   <layout class="QGridLayout" name="gridLayout_59">
-                   <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_33"/>
-                   </item>
                    <item row="0" column="2">
                     <widget class="QLabel" name="label_9">
                      <property name="text">
@@ -4722,21 +4617,12 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_31"/>
-                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_7">
                      <property name="text">
                       <string>Критический угол</string>
                      </property>
                     </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_32"/>
-                   </item>
-                   <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_34"/>
                    </item>
                    <item row="0" column="3">
                     <widget class="QLabel" name="label_10">
@@ -4745,15 +4631,27 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="4">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_35"/>
-                   </item>
                    <item row="0" column="4">
                     <widget class="QLabel" name="label_11">
                      <property name="text">
                       <string>Угол сглаживания</string>
                      </property>
                     </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="lineEdit_41"/>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="lineEdit_42"/>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="QLineEdit" name="lineEdit_43"/>
+                   </item>
+                   <item row="1" column="3">
+                    <widget class="QLineEdit" name="lineEdit_44"/>
+                   </item>
+                   <item row="1" column="4">
+                    <widget class="QLineEdit" name="lineEdit_45"/>
                    </item>
                   </layout>
                  </widget>
@@ -4769,24 +4667,12 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_11"/>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_13"/>
-                   </item>
                    <item row="0" column="3">
                     <widget class="QLabel" name="label_5">
                      <property name="text">
                       <string>Минимальная скорость поиска датчика</string>
                      </property>
                     </widget>
-                   </item>
-                   <item row="1" column="3">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_14"/>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QPlainTextEdit" name="plainTextEdit_12"/>
                    </item>
                    <item row="0" column="1">
                     <widget class="QLabel" name="label_3">
@@ -4801,6 +4687,18 @@ p, li { white-space: pre-wrap; }
                       <string>Датчик нуля</string>
                      </property>
                     </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="lineEdit_46"/>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="lineEdit_47"/>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="QLineEdit" name="lineEdit_48"/>
+                   </item>
+                   <item row="1" column="3">
+                    <widget class="QLineEdit" name="lineEdit_49"/>
                    </item>
                   </layout>
                  </widget>
