@@ -26,3 +26,5 @@ HEADERS  += mainwindow.h \
     point.h
 
 FORMS    += mainwindow.ui
+
+win32:RC_FILE = application.rc
