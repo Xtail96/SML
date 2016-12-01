@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -214,27 +214,27 @@
             <widget class="QTableWidget" name="points_table_widget_2">
              <column>
               <property name="text">
-               <string>x</string>
+               <string>X</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>y</string>
+               <string>Y</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>z</string>
+               <string>Z</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>a</string>
+               <string>A</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>b</string>
+               <string>B</string>
               </property>
              </column>
             </widget>
@@ -443,27 +443,27 @@ p, li { white-space: pre-wrap; }
             <widget class="QTableWidget" name="points_table_widget">
              <column>
               <property name="text">
-               <string>x</string>
+               <string>X</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>y</string>
+               <string>Y</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>z</string>
+               <string>Z</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>a</string>
+               <string>A</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>b</string>
+               <string>B</string>
               </property>
              </column>
             </widget>

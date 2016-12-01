@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -34,6 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // в таблице выделяется целиком вся строка
     ui->points_table_widget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->points_table_widget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->points_table_widget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->points_table_widget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 MainWindow::~MainWindow()
@@ -440,7 +442,7 @@ void MainWindow::on_point_add_button_clicked()
     delete addPoint;
     //Point tmp = Point(rand(), rand(), rand(), rand(), rand());
     //CommandInterpreter::Instance().addPoint(tmp);
-    //update_points();
+    update_points();
 }
 
 void MainWindow::on_point_delete_button_clicked()
