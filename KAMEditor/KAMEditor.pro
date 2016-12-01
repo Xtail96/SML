@@ -16,15 +16,18 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     machinetool.cpp \
-    commandinterpreter.cpp
+    commandinterpreter.cpp \
+    addpointdialog.cpp
 
 HEADERS  += mainwindow.h \
     machinetool.h \
     commandinterpreter.h \
     command.h \
     vector.h \
-    point.h
+    point.h \
+    addpointdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addpointdialog.ui
 
 win32:RC_FILE = application.rc

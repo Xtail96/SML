@@ -435,10 +435,12 @@ void MainWindow::on_zero_button_clicked()
 
 void MainWindow::on_point_add_button_clicked()
 {
-    Point tmp = Point(rand(), rand(), rand(), rand(), rand());
-    CommandInterpreter::Instance().addPoint(tmp);
-
-    update_points();
+    AddPointDialog* addPoint = new AddPointDialog(this);
+    addPoint->exec();
+    delete addPoint;
+    //Point tmp = Point(rand(), rand(), rand(), rand(), rand());
+    //CommandInterpreter::Instance().addPoint(tmp);
+    //update_points();
 }
 
 void MainWindow::on_point_delete_button_clicked()

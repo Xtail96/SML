@@ -15,6 +15,7 @@
 
 #include "machinetool.h"
 #include "commandinterpreter.h"
+#include "addpointdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -46,14 +47,17 @@ private:
     void setMovementButtonsRepeatState(bool state);
 
     void update_coordinates();
-    void update_points();
+    //void update_points();
     void update_battery_status();
     void update_kabriol_avaliability();
 
 
-private slots:
-    void update();
+protected:
+    void update_points();
 
+private slots:
+
+    void update();
     void on_discrete_radio_button_1_clicked();
     void on_discrete_radio_button_2_clicked();
     void on_discrete_radio_button_3_clicked();
