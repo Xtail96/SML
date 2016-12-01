@@ -476,3 +476,26 @@ void MainWindow::on_point_cursor_button_clicked()
     unsigned int point_to_select = point_table.getPointToSelect();
     ui->points_table_widget->selectRow(point_to_select);
 }
+
+void MainWindow::on_point_edit_button_clicked()
+{
+    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
+    if(select->hasSelection())
+    {
+        //select->selectedRows();
+
+        int current_row = select->currentIndex().row();
+
+        CommandInterpreter& point_table = CommandInterpreter::Instance();
+        point_table.setPointToSelect(current_row);
+
+        EditPointDialog* editPoint = new EditPointDialog(this);
+        editPoint->exec();
+        delete editPoint;
+        update_points();
+    }
+    else
+    {
+         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
+    }
+}

@@ -17,6 +17,7 @@
 #include "commandinterpreter.h"
 #include "addpointdialog.h"
 #include "mousetoselectionpointdialog.h"
+#include "editpointdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -97,6 +98,7 @@ private slots:
     void on_point_delete_button_clicked();
     void on_zero_button_clicked();
     void on_point_cursor_button_clicked();
+    void on_point_edit_button_clicked();
 };
 
 

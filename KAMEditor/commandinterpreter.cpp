@@ -13,7 +13,6 @@ void CommandInterpreter::addPoint(Point p)
     points.push_back(p);
 }
 
-
 void CommandInterpreter::setPoint(unsigned int num, Point p)
 {
     if (num < points.size())
