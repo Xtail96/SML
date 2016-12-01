@@ -17,7 +17,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     machinetool.cpp \
     commandinterpreter.cpp \
-    addpointdialog.cpp
+    addpointdialog.cpp \
+    mousetoselectionpointdialog.cpp
 
 HEADERS  += mainwindow.h \
     machinetool.h \
@@ -25,9 +26,11 @@ HEADERS  += mainwindow.h \
     command.h \
     vector.h \
     point.h \
-    addpointdialog.h
+    addpointdialog.h \
+    mousetoselectionpointdialog.h
 
 FORMS    += mainwindow.ui \
-    addpointdialog.ui
+    addpointdialog.ui \
+    mousetoselectionpointdialog.ui
 
 win32:RC_FILE = application.rc

@@ -464,3 +464,15 @@ void MainWindow::on_point_delete_button_clicked()
 
     update_points();
 }
+
+void MainWindow::on_point_cursor_button_clicked()
+{
+    MouseToSelectionPointDialog* toPoint = new MouseToSelectionPointDialog(this);
+    toPoint->exec();
+    delete toPoint;
+
+    CommandInterpreter& point_table = CommandInterpreter::Instance();
+
+    unsigned int point_to_select = point_table.getPointToSelect();
+    ui->points_table_widget->selectRow(point_to_select);
+}

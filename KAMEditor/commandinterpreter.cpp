@@ -32,3 +32,11 @@ std::vector<Point> CommandInterpreter::getPoints()
 {
     return points;
 }
+void CommandInterpreter::setPointToSelect(unsigned int num)
+{
+    point_to_select = num;
+}
+unsigned int CommandInterpreter::getPointToSelect()
+{
+    return point_to_select;
+}

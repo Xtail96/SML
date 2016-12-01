@@ -14,11 +14,16 @@ public:
     void setPoint(unsigned int num, Point p);
     void removePoint(unsigned int num);
 
+    void setPointToSelect(unsigned int num);
+    unsigned int getPointToSelect();
+
     std::vector<Point> getPoints();
 
 private:
     // точки
     std::vector<Point> points;
+
+    unsigned int point_to_select;
 
     // конструктор и деструктор недоступны публично
     CommandInterpreter() {}
