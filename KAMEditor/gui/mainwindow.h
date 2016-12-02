@@ -18,9 +18,9 @@
 
 #include "machinetool.h"
 #include "commandinterpreter.h"
-#include "points\addpointdialog.h"
-#include "points\mousetoselectionpointdialog.h"
-#include "points\editpointdialog.h"
+#include "points/addpointdialog.h"
+#include "points/mousetoselectionpointdialog.h"
+#include "points/editpointdialog.h"
 
 namespace Ui {
 class MainWindow;
