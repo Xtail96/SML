@@ -147,13 +147,18 @@ void MainWindow::update_points()
 
 void MainWindow::update_battery_status()
 {
-    /*SYSTEM_POWER_STATUS status;
-    GetSystemPowerStatus(&status);
+    #ifdef Q_OS_WIN
+        SYSTEM_POWER_STATUS status;
+        GetSystemPowerStatus(&status);
 
-    if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
+        if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
         status.BatteryLifePercent = 100;
 
-    ui->battery_progress_bar->setValue(status.BatteryLifePercent);*/
+        ui->battery_progress_bar->setValue(status.BatteryLifePercent);
+    #endif
+    #ifdef Q_OS_OSX
+        ui->battery_progress_bar->setValue(100);
+    #endif
 }
 
 

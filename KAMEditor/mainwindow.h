@@ -11,7 +11,10 @@
 #include <QKeySequence>
 #include <QList>
 #include <QMessageBox>
-//#include <windows.h>
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "machinetool.h"
 #include "commandinterpreter.h"
