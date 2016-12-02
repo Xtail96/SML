@@ -37,3 +37,6 @@ FORMS    += mainwindow.ui \
     editpointdialog.ui
 
 win32:RC_FILE = application.rc
+
+
+macx:ICON = $${PWD}/applicationOSX.icns
