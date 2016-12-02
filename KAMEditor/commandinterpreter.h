@@ -14,8 +14,8 @@ public:
     void setPoint(unsigned int num, Point p);
     void removePoint(unsigned int num);
 
-    void setPointToSelect(unsigned int num);
-    unsigned int getPointToSelect();
+    bool setSelectedPoint(unsigned int num);
+    unsigned int getSelectedPoint();
 
     std::vector<Point> getPoints();
 
@@ -23,7 +23,7 @@ private:
     // точки
     std::vector<Point> points;
 
-    unsigned int point_to_select;
+    unsigned int selectedPoint;
 
     // конструктор и деструктор недоступны публично
     CommandInterpreter() {}
