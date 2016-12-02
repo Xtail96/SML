@@ -2,8 +2,8 @@
 #define MOUSETOSELECTIONPOINTDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "commandinterpreter.h"
-#include "mainwindow.h"
 #include "point.h"
 
 namespace Ui {

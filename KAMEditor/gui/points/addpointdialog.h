@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include "commandinterpreter.h"
-#include "mainwindow.h"
 #include "point.h"
 
 namespace Ui {

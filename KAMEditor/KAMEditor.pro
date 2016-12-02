@@ -14,27 +14,27 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+        gui/mainwindow.cpp \
     machinetool.cpp \
     commandinterpreter.cpp \
-    addpointdialog.cpp \
-    mousetoselectionpointdialog.cpp \
-    editpointdialog.cpp
+    gui/points/addpointdialog.cpp \
+    gui/points/mousetoselectionpointdialog.cpp \
+    gui/points/editpointdialog.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += gui/mainwindow.h \
     machinetool.h \
     commandinterpreter.h \
     command.h \
     vector.h \
     point.h \
-    addpointdialog.h \
-    mousetoselectionpointdialog.h \
-    editpointdialog.h
+    gui/points/addpointdialog.h \
+    gui/points/mousetoselectionpointdialog.h \
+    gui/points/editpointdialog.h
 
-FORMS    += mainwindow.ui \
-    addpointdialog.ui \
-    mousetoselectionpointdialog.ui \
-    editpointdialog.ui
+FORMS    += gui/mainwindow.ui \
+    gui/points/addpointdialog.ui \
+    gui/points/mousetoselectionpointdialog.ui \
+    gui/points/editpointdialog.ui
 
 win32:RC_FILE = application.rc
 
