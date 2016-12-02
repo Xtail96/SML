@@ -15,15 +15,10 @@ MouseToSelectionPointDialog::~MouseToSelectionPointDialog()
 
 void MouseToSelectionPointDialog::on_buttonBox_accepted()
 {
-    std::vector<Point> points = CommandInterpreter::Instance().getPoints();
     QString point_number_str = ui->mouse_to_point_lineEdit->text();
-    int point_number = point_number_str.toInt();
-    if(point_number>0 && point_number<=points.size())
-    {
-        point_number-=1;
-        CommandInterpreter::Instance().setPointToSelect(point_number);
-    }
-    else
+    unsigned int point_number = point_number_str.toUInt() - 1;
+
+    if (!CommandInterpreter::Instance().setSelectedPoint(point_number))
     {
         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка с таким номером отстутсвует в таблице")).exec();
     }

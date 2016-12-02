@@ -478,7 +478,7 @@ void MainWindow::on_point_cursor_button_clicked()
 
     CommandInterpreter& point_table = CommandInterpreter::Instance();
 
-    unsigned int point_to_select = point_table.getPointToSelect();
+    unsigned int point_to_select = point_table.getSelectedPoint();
     ui->points_table_widget->selectRow(point_to_select);
 }
 
@@ -492,7 +492,7 @@ void MainWindow::on_point_edit_button_clicked()
         int current_row = select->currentIndex().row();
 
         CommandInterpreter& point_table = CommandInterpreter::Instance();
-        point_table.setPointToSelect(current_row);
+        point_table.setSelectedPoint(current_row);
 
         EditPointDialog* editPoint = new EditPointDialog(this);
         editPoint->exec();

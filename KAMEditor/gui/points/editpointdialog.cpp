@@ -8,7 +8,7 @@ EditPointDialog::EditPointDialog(QWidget *parent) :
     ui->setupUi(this);
     std::vector<Point> points = CommandInterpreter::Instance().getPoints();
     CommandInterpreter& point_table = CommandInterpreter::Instance();
-    unsigned int point_to_select = point_table.getPointToSelect();
+    unsigned int point_to_select = point_table.getSelectedPoint();
 
     double x = points[point_to_select].x;
     QString x_str = QString::number(x);
@@ -59,14 +59,7 @@ void EditPointDialog::on_buttonBox_accepted()
     double b = b_str.toDouble();
 
     CommandInterpreter& point_table = CommandInterpreter::Instance();
-    unsigned int point_to_select = point_table.getPointToSelect();
+    unsigned int point_to_select = point_table.getSelectedPoint();
 
-    Point new_point;
-    new_point.x = x;
-    new_point.y = y;
-    new_point.z = z;
-    new_point.a = a;
-    new_point.b = b;
-
-    point_table.setPoint(point_to_select, new_point);
+    point_table.setPoint(point_to_select, Point(x, y, z, a, b));
 }
