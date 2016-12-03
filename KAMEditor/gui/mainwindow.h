@@ -102,6 +102,7 @@ private slots:
     void on_zero_button_clicked();
     void on_point_cursor_button_clicked();
     void on_point_edit_button_clicked();
+    void on_point_copy_button_clicked();
 };
 
 

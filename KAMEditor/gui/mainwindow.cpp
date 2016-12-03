@@ -504,3 +504,27 @@ void MainWindow::on_point_edit_button_clicked()
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
     }
 }
+
+
+void MainWindow::on_point_copy_button_clicked()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    std::vector<Point> points = instance.getPoints();
+
+    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
+    std::set<int> rows;
+
+    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+    {
+        int row = ui->points_table_widget->row(*i);
+        rows.insert(row);
+    }
+
+    for (std::set<int>::iterator i = rows.begin(); i != rows.end(); i++)
+    {
+        instance.addPoint(points[*i]);
+    }
+
+    update_points();
+
+}

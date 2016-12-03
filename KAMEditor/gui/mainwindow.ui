@@ -501,7 +501,7 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>SHift + K - Курсор на точку</string>
+                 <string>Shift + K - Курсор на точку</string>
                 </property>
                 <property name="shortcut">
                  <string>Shift+K</string>
@@ -534,7 +534,7 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>8</pointsize>
+                  <pointsize>9</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -4640,7 +4640,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1283</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
