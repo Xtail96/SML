@@ -91,6 +91,10 @@
              <property name="text">
               <string>New</string>
              </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>images/fileNew.png</normaloff>images/fileNew.png</iconset>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -1334,6 +1338,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>X -</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-211-arrow-left.png</normaloff>images/glyphicons-211-arrow-left.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1352,6 +1366,16 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Y -</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-213-arrow-down.png</normaloff>images/glyphicons-213-arrow-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1448,6 +1472,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>X +</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-212-arrow-right.png</normaloff>images/glyphicons-212-arrow-right.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="checkable">
                  <bool>false</bool>
                 </property>
@@ -1481,6 +1515,16 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Y+</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-214-arrow-up.png</normaloff>images/glyphicons-214-arrow-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1535,6 +1579,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>A +</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-214-arrow-up.png</normaloff>images/glyphicons-214-arrow-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1560,6 +1614,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>A -</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-213-arrow-down.png</normaloff>images/glyphicons-213-arrow-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1578,6 +1642,16 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>Z -</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-213-arrow-down.png</normaloff>images/glyphicons-213-arrow-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1598,6 +1672,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>Z +</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-214-arrow-up.png</normaloff>images/glyphicons-214-arrow-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1617,6 +1701,16 @@ p, li { white-space: pre-wrap; }
                 <property name="text">
                  <string>B -</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-213-arrow-down.png</normaloff>images/glyphicons-213-arrow-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
+                </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
                 </property>
@@ -1635,6 +1729,16 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="text">
                  <string>B +</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>images/glyphicons-214-arrow-up.png</normaloff>images/glyphicons-214-arrow-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -4640,7 +4744,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1283</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
