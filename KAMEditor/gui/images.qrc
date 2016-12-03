@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>images/ArrowDown.png</file>
+        <file>images/ArrowLeft.png</file>
+        <file>images/ArrowRight.png</file>
+        <file>images/ArrowUp.png</file>
+        <file>images/Dashboard.png</file>
+        <file>images/FileNew.png</file>
+        <file>images/FileOpen.png</file>
+    </qresource>
+</RCC>

@@ -40,3 +40,6 @@ win32:RC_FILE = application.rc
 
 
 macx:ICON = $${PWD}/applicationOSX.icns
+
+RESOURCES += \
+    gui/images.qrc
