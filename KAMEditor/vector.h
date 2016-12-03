@@ -12,7 +12,7 @@ public:
     double a;
     double b;
 
-    Vector(int _x = 0, int _y = 0, int _z = 0, int _a = 0, int _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
+    Vector(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
 #endif // VECTOR_H
