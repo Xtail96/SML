@@ -4744,7 +4744,11 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1283</width>
+<<<<<<< HEAD
+     <height>19</height>
+=======
      <height>21</height>
+>>>>>>> a0af2092330a127028aadd8543129caa0b2aab52
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
