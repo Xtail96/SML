@@ -7,5 +7,13 @@
         <file>images/Dashboard.png</file>
         <file>images/FileNew.png</file>
         <file>images/FileOpen.png</file>
+        <file>images/View.png</file>
+        <file>images/Save.png</file>
+        <file>images/SaveAs.png</file>
+        <file>images/NumOfDots.png</file>
+        <file>images/Minus.png</file>
+        <file>images/Pus.png</file>
+        <file>images/View_360.png</file>
+        <file>images/BatteryStatus.png</file>
     </qresource>
 </RCC>
