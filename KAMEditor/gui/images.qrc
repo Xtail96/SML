@@ -15,5 +15,9 @@
         <file>images/View_360.png</file>
         <file>images/BatteryStatus.png</file>
         <file>images/Plus.png</file>
+        <file>images/Settings.png</file>
+        <file>images/Editor.png</file>
+        <file>images/SystemTests.png</file>
+        <file>images/Modelling.png</file>
     </qresource>
 </RCC>

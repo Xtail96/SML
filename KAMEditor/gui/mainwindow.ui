@@ -58,9 +58,13 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/Editor.png</normaloff>:/new/prefix1/images/Editor.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Редактор</string>
        </attribute>
@@ -412,6 +416,10 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="adjustment_tab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/Dashboard.png</normaloff>:/new/prefix1/images/Dashboard.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Наладка</string>
        </attribute>
@@ -431,7 +439,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QTabWidget" name="tabWidget_3">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="kabriol_tab">
               <attribute name="title">
@@ -3985,11 +3993,19 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="processing_tab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/Modelling.png</normaloff>:/new/prefix1/images/Modelling.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Обработка</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="settings_tab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Настройки</string>
        </attribute>
@@ -4866,6 +4882,10 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="tests_tab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Проверка системы</string>
        </attribute>
