@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -185,7 +185,7 @@
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
-               <normaloff>:/new/prefix1/images/Pus.png</normaloff>:/new/prefix1/images/Pus.png</iconset>
+               <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
              </property>
              <property name="iconSize">
               <size>
