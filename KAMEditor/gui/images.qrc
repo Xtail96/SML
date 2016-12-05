@@ -33,7 +33,6 @@
         <file>images/SelectAll.png</file>
         <file>images/Find.png</file>
         <file>images/ExpandBlock.png</file>
-        <file>images/Y&lt;-->Z.png</file>
         <file>images/TT_TTT.png</file>
         <file>images/TTT_TT.png</file>
         <file>images/Cut.png</file>
@@ -48,5 +47,6 @@
         <file>images/ArrowRightDown.png</file>
         <file>images/ArrowLeftDown.png</file>
         <file>images/ArrowLeftUp.png</file>
+        <file>images/Y--Z.png</file>
     </qresource>
 </RCC>

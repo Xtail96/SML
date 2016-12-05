@@ -4920,7 +4920,7 @@ p, li { white-space: pre-wrap; }
   <action name="Y_Z_action">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/new/prefix1/images/Y&lt;--&gt;Z.png</normaloff>:/new/prefix1/images/Y&lt;--&gt;Z.png</iconset>
+     <normaloff>:/new/prefix1/images/Y--Z.png</normaloff>:/new/prefix1/images/Y--Z.png</iconset>
    </property>
    <property name="text">
     <string>Y &lt;--&gt; Z</string>
