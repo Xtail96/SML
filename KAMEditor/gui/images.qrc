@@ -19,5 +19,34 @@
         <file>images/Editor.png</file>
         <file>images/SystemTests.png</file>
         <file>images/Modelling.png</file>
+        <file>images/SaveWithParts.png</file>
+        <file>images/Exit.png</file>
+        <file>images/ImportGCodes.png</file>
+        <file>images/Undo.png</file>
+        <file>images/Redo.png</file>
+        <file>images/Import.png</file>
+        <file>images/ImportSettings.png</file>
+        <file>images/Paste.png</file>
+        <file>images/Copy.png</file>
+        <file>images/GoTo.png</file>
+        <file>images/FindNext.png</file>
+        <file>images/SelectAll.png</file>
+        <file>images/Find.png</file>
+        <file>images/ExpandBlock.png</file>
+        <file>images/TT_TTT.png</file>
+        <file>images/TTT_TT.png</file>
+        <file>images/Cut.png</file>
+        <file>images/RefreshSpeed.png</file>
+        <file>images/ImportPackets.png</file>
+        <file>images/RemoveUnusedPoints.png</file>
+        <file>images/About.png</file>
+        <file>images/SetNumberOfPoints.png</file>
+        <file>images/Equidistant.png</file>
+        <file>images/Replace Speed.png</file>
+        <file>images/ArrowRightUp.png</file>
+        <file>images/ArrowRightDown.png</file>
+        <file>images/ArrowLeftDown.png</file>
+        <file>images/ArrowLeftUp.png</file>
+        <file>images/Y--Z.png</file>
     </qresource>
 </RCC>
