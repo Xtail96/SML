@@ -44,5 +44,9 @@
         <file>images/SetNumberOfPoints.png</file>
         <file>images/Equidistant.png</file>
         <file>images/Replace Speed.png</file>
+        <file>images/ArrowRightUp.png</file>
+        <file>images/ArrowRightDown.png</file>
+        <file>images/ArrowLeftDown.png</file>
+        <file>images/ArrowLeftUp.png</file>
     </qresource>
 </RCC>

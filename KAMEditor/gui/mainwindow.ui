@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -439,7 +439,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QTabWidget" name="tabWidget_3">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="kabriol_tab">
               <attribute name="title">
@@ -1482,8 +1482,15 @@ p, li { white-space: pre-wrap; }
                   <pointsize>13</pointsize>
                  </font>
                 </property>
-                <property name="text">
-                 <string>+-</string>
+                <property name="icon">
+                 <iconset resource="images.qrc">
+                  <normaloff>:/new/prefix1/images/ArrowRightDown.png</normaloff>:/new/prefix1/images/ArrowRightDown.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1506,8 +1513,15 @@ p, li { white-space: pre-wrap; }
                   <pointsize>13</pointsize>
                  </font>
                 </property>
-                <property name="text">
-                 <string>--</string>
+                <property name="icon">
+                 <iconset resource="images.qrc">
+                  <normaloff>:/new/prefix1/images/ArrowLeftDown.png</normaloff>:/new/prefix1/images/ArrowLeftDown.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1543,8 +1557,15 @@ p, li { white-space: pre-wrap; }
                   <pointsize>13</pointsize>
                  </font>
                 </property>
-                <property name="text">
-                 <string>++</string>
+                <property name="icon">
+                 <iconset resource="images.qrc">
+                  <normaloff>:/new/prefix1/images/ArrowRightUp.png</normaloff>:/new/prefix1/images/ArrowRightUp.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
@@ -1569,6 +1590,9 @@ p, li { white-space: pre-wrap; }
                  <font>
                   <pointsize>13</pointsize>
                  </font>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::RightToLeft</enum>
                 </property>
                 <property name="autoFillBackground">
                  <bool>false</bool>
@@ -1656,8 +1680,15 @@ p, li { white-space: pre-wrap; }
                   <pointsize>13</pointsize>
                  </font>
                 </property>
-                <property name="text">
-                 <string>-+</string>
+                <property name="icon">
+                 <iconset resource="images.qrc">
+                  <normaloff>:/new/prefix1/images/ArrowLeftUp.png</normaloff>:/new/prefix1/images/ArrowLeftUp.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>64</width>
+                  <height>64</height>
+                 </size>
                 </property>
                 <property name="autoRepeat">
                  <bool>true</bool>
