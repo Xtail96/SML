@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -2031,151 +2031,6 @@ p, li { white-space: pre-wrap; }
               </property>
               <item>
                <widget class="QListWidget" name="listWidget_currentCoordinates">
-                <property name="palette">
-                 <palette>
-                  <active>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>210</red>
-                      <green>233</green>
-                      <blue>248</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="LinkVisited">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </active>
-                  <inactive>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>210</red>
-                      <green>233</green>
-                      <blue>248</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="LinkVisited">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </inactive>
-                  <disabled>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>120</red>
-                      <green>120</green>
-                      <blue>120</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>210</red>
-                      <green>233</green>
-                      <blue>248</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>120</red>
-                      <green>120</green>
-                      <blue>120</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>240</red>
-                      <green>240</green>
-                      <blue>240</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="LinkVisited">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </disabled>
-                 </palette>
-                </property>
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -2338,205 +2193,6 @@ p, li { white-space: pre-wrap; }
               </property>
               <item>
                <widget class="QListWidget" name="listWidget_parkCoordinates">
-                <property name="palette">
-                 <palette>
-                  <active>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ButtonText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Highlight">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>85</red>
-                      <green>170</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Link">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ToolTipText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </active>
-                  <inactive>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ButtonText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Highlight">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>85</red>
-                      <green>170</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Link">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ToolTipText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </inactive>
-                  <disabled>
-                   <colorrole role="WindowText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>120</red>
-                      <green>120</green>
-                      <blue>120</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>120</red>
-                      <green>120</green>
-                      <blue>120</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ButtonText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>120</red>
-                      <green>120</green>
-                      <blue>120</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>240</red>
-                      <green>240</green>
-                      <blue>240</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Highlight">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>120</green>
-                      <blue>215</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Link">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ToolTipText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>0</green>
-                      <blue>0</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </disabled>
-                 </palette>
-                </property>
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
@@ -4207,7 +3863,7 @@ p, li { white-space: pre-wrap; }
                   </font>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>6</number>
                  </property>
                  <widget class="QWidget" name="tab_3">
                   <attribute name="title">
@@ -4979,161 +4635,289 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
   <action name="create_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
+   </property>
    <property name="text">
     <string>Создать</string>
    </property>
   </action>
   <action name="open_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
+   </property>
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
   <action name="save_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
   <action name="saveas_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить как</string>
    </property>
   </action>
   <action name="savewithpartition_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/SaveWithParts.png</normaloff>:/new/prefix1/images/SaveWithParts.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить с разбиением</string>
    </property>
   </action>
   <action name="import_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Import.png</normaloff>:/new/prefix1/images/Import.png</iconset>
+   </property>
    <property name="text">
     <string>Импорт</string>
    </property>
   </action>
   <action name="importgcode_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/ImportGCodes.png</normaloff>:/new/prefix1/images/ImportGCodes.png</iconset>
+   </property>
    <property name="text">
     <string>Импорт G-кодов</string>
    </property>
   </action>
   <action name="importpackets_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/ImportPackets.png</normaloff>:/new/prefix1/images/ImportPackets.png</iconset>
+   </property>
    <property name="text">
     <string>Пакетное импортирование</string>
    </property>
   </action>
   <action name="view_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
+   </property>
    <property name="text">
     <string>Просмотр</string>
    </property>
   </action>
   <action name="add_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
+   </property>
    <property name="text">
     <string>Добавить</string>
    </property>
   </action>
   <action name="savesettings_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить настройки станка</string>
    </property>
   </action>
   <action name="importsettings_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/ImportSettings.png</normaloff>:/new/prefix1/images/ImportSettings.png</iconset>
+   </property>
    <property name="text">
     <string>Импортировать настройки станка</string>
    </property>
   </action>
   <action name="exit_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Exit.png</normaloff>:/new/prefix1/images/Exit.png</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>
   </action>
   <action name="undo_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Undo.png</normaloff>:/new/prefix1/images/Undo.png</iconset>
+   </property>
    <property name="text">
     <string>Отмена</string>
    </property>
   </action>
   <action name="redo_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Redo.png</normaloff>:/new/prefix1/images/Redo.png</iconset>
+   </property>
    <property name="text">
     <string>Повтор</string>
    </property>
   </action>
   <action name="cut_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Cut.png</normaloff>:/new/prefix1/images/Cut.png</iconset>
+   </property>
    <property name="text">
     <string>Вырезать</string>
    </property>
   </action>
   <action name="copy_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Copy.png</normaloff>:/new/prefix1/images/Copy.png</iconset>
+   </property>
    <property name="text">
     <string>Копировать</string>
    </property>
   </action>
   <action name="paste_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Paste.png</normaloff>:/new/prefix1/images/Paste.png</iconset>
+   </property>
    <property name="text">
     <string>Вставить</string>
    </property>
   </action>
   <action name="selectall_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/SelectAll.png</normaloff>:/new/prefix1/images/SelectAll.png</iconset>
+   </property>
    <property name="text">
     <string>Выделить все</string>
    </property>
   </action>
   <action name="find_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Find.png</normaloff>:/new/prefix1/images/Find.png</iconset>
+   </property>
    <property name="text">
     <string>Найти</string>
    </property>
   </action>
   <action name="findnext_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/FindNext.png</normaloff>:/new/prefix1/images/FindNext.png</iconset>
+   </property>
    <property name="text">
     <string>Найти далее</string>
    </property>
   </action>
   <action name="goto_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/GoTo.png</normaloff>:/new/prefix1/images/GoTo.png</iconset>
+   </property>
    <property name="text">
     <string>Перейти</string>
    </property>
   </action>
   <action name="expandblock_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/ExpandBlock.png</normaloff>:/new/prefix1/images/ExpandBlock.png</iconset>
+   </property>
    <property name="text">
     <string>Развернуть блок</string>
    </property>
   </action>
   <action name="TTT_TT_transform_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/TTT_TT.png</normaloff>:/new/prefix1/images/TTT_TT.png</iconset>
+   </property>
    <property name="text">
     <string>Преобразовать ТТТ --&gt; ТТ</string>
    </property>
   </action>
   <action name="TT_TTT_transform_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/TT_TTT.png</normaloff>:/new/prefix1/images/TT_TTT.png</iconset>
+   </property>
    <property name="text">
     <string>Преобразовать ТТ --&gt; ТТТ</string>
    </property>
   </action>
   <action name="setnumberofpoints_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/SetNumberOfPoints.png</normaloff>:/new/prefix1/images/SetNumberOfPoints.png</iconset>
+   </property>
    <property name="text">
     <string>Установить количество точек</string>
    </property>
   </action>
   <action name="refreshspeed_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/RefreshSpeed.png</normaloff>:/new/prefix1/images/RefreshSpeed.png</iconset>
+   </property>
    <property name="text">
     <string>Обновить скорости</string>
    </property>
   </action>
   <action name="removeunusedpoints_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/RemoveUnusedPoints.png</normaloff>:/new/prefix1/images/RemoveUnusedPoints.png</iconset>
+   </property>
    <property name="text">
     <string>Удалить неиспользуемые точки</string>
    </property>
   </action>
   <action name="Y_Z_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Y&lt;--&gt;Z.png</normaloff>:/new/prefix1/images/Y&lt;--&gt;Z.png</iconset>
+   </property>
    <property name="text">
     <string>Y &lt;--&gt; Z</string>
    </property>
   </action>
   <action name="replacespeed_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Replace Speed.png</normaloff>:/new/prefix1/images/Replace Speed.png</iconset>
+   </property>
    <property name="text">
     <string>Заменить скорости</string>
    </property>
   </action>
   <action name="equidistant_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/Equidistant.png</normaloff>:/new/prefix1/images/Equidistant.png</iconset>
+   </property>
    <property name="text">
     <string>Эквидистанта</string>
    </property>
   </action>
   <action name="about_action">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/new/prefix1/images/About.png</normaloff>:/new/prefix1/images/About.png</iconset>
+   </property>
    <property name="text">
     <string>О программе</string>
    </property>
