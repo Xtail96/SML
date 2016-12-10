@@ -118,7 +118,7 @@ void MainWindow::update_coordinates()
 
 void MainWindow::update_points()
 {
-    std::vector<Point> points = CommandInterpreter::Instance().getPoints();
+    std::vector<Point> points = PointsManager::Instance().getPoints();
 
     std::vector<QTableWidget*> tables = { ui->points_table_widget, ui->points_table_widget_2 };
 
@@ -451,7 +451,7 @@ void MainWindow::on_point_add_button_clicked()
 
 void MainWindow::on_point_delete_button_clicked()
 {
-    CommandInterpreter& instance = CommandInterpreter::Instance();
+    PointsManager& instance = PointsManager::Instance();
     QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
     std::set<int> rows;
 
@@ -475,7 +475,7 @@ void MainWindow::on_point_cursor_button_clicked()
     toPoint->exec();
     delete toPoint;
 
-    CommandInterpreter& point_table = CommandInterpreter::Instance();
+    PointsManager& point_table = PointsManager::Instance();
 
     unsigned int point_to_select = point_table.getSelectedPoint();
     ui->points_table_widget->selectRow(point_to_select);
@@ -490,7 +490,7 @@ void MainWindow::on_point_edit_button_clicked()
 
         int current_row = select->currentIndex().row();
 
-        CommandInterpreter& point_table = CommandInterpreter::Instance();
+        PointsManager& point_table = PointsManager::Instance();
         point_table.setSelectedPoint(current_row);
 
         EditPointDialog* editPoint = new EditPointDialog(this);
@@ -507,7 +507,7 @@ void MainWindow::on_point_edit_button_clicked()
 
 void MainWindow::on_point_copy_button_clicked()
 {
-    CommandInterpreter& instance = CommandInterpreter::Instance();
+    PointsManager& instance = PointsManager::Instance();
     std::vector<Point> points = instance.getPoints();
 
     QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();

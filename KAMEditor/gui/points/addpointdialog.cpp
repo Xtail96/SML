@@ -30,5 +30,5 @@ void AddPointDialog::on_buttonBox_accepted()
     QString b_str = ui->add_point_lineEdit_axis_b->text();
     double b = b_str.toDouble();
 
-    CommandInterpreter::Instance().addPoint(Point(x, y, z, a, b));
+    PointsManager::Instance().addPoint(Point(x, y, z, a, b));
 }

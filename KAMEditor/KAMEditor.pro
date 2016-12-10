@@ -16,20 +16,24 @@ CONFIG += c++11
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
     machinetool.cpp \
-    commandinterpreter.cpp \
     gui/points/addpointdialog.cpp \
     gui/points/mousetoselectionpointdialog.cpp \
-    gui/points/editpointdialog.cpp
+    gui/points/editpointdialog.cpp \
+    commandinterpreter.cpp \
+    pointsmanager.cpp \
+    commandhandler.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
-    commandinterpreter.h \
     command.h \
     vector.h \
     point.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
-    gui/points/editpointdialog.h
+    gui/points/editpointdialog.h \
+    commandinterpreter.h \
+    pointsmanager.h \
+    commandhandler.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

@@ -2,7 +2,7 @@
 #define ADDPOINTDIALOG_H
 
 #include <QDialog>
-#include "commandinterpreter.h"
+#include "pointsmanager.h"
 #include "point.h"
 
 namespace Ui {

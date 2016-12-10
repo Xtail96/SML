@@ -1,37 +1,48 @@
 #ifndef COMMANDINTERPRETER_H
 #define COMMANDINTERPRETER_H
 
-#include <vector>
-#include "point.h"
+#include <thread>
+#include <stack>
+#include <string>
+#include <map>
+
+#include "commandhandler.h"
+
+
 
 class CommandInterpreter
 {
 public:
+    void Run();
+    void Stop();
+    void Step();
+
+    void addCommand(Command cmd);
+
     static CommandInterpreter& Instance();
 
-    // методы для работы с точками
-    void addPoint(Point p);
-    void setPoint(unsigned int num, Point p);
-    void removePoint(unsigned int num);
-
-    bool setSelectedPoint(unsigned int num);
-    unsigned int getSelectedPoint();
-
-    std::vector<Point> getPoints();
-
 private:
-    // точки
-    std::vector<Point> points;
+    bool running;
 
-    unsigned int selectedPoint;
+    void _Run();
 
-    // конструктор и деструктор недоступны публично
-    CommandInterpreter() {}
-    ~CommandInterpreter() {}
+    std::thread t;
 
-    // запрет копирования
-    CommandInterpreter(CommandInterpreter const&);
-    CommandInterpreter& operator=(CommandInterpreter const&);
+    unsigned int currentCommand;
+    std::vector<Command> commands;
+
+
+    std::stack<int> callStack;
+    std::stack<std::pair<int, int> > loopStack;
+    std::map<std::string, int> functionsMap;
+    std::map<std::string, int> labelsMap;
+
+
+    CommandInterpreter();
+    ~CommandInterpreter();
+
+    CommandInterpreter(const CommandInterpreter&);
+    CommandInterpreter& operator=(const CommandInterpreter&);
 };
 
 #endif // COMMANDINTERPRETER_H

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include "commandinterpreter.h"
+#include "pointsmanager.h"
 #include "point.h"
 
 namespace Ui {
