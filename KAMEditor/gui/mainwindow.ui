@@ -367,7 +367,17 @@
              </property>
              <column>
               <property name="text">
-               <string notr="true">1</string>
+               <string notr="true">№</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Команда</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Аргументы</string>
               </property>
              </column>
             </widget>
