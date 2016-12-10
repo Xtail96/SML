@@ -4,6 +4,7 @@
 #include <functional>
 #include <vector>
 #include <map>
+#include <QString>
 
 #include "command.h"
 #include "machinetool.h"
@@ -19,5 +20,16 @@ static std::map<COMMAND, commandHandler> commandHandlerMap = {
 //    {},
 };
 
+static std::map<COMMAND, std::string> commandNameMap = {
+    {CMD_LINE, "Линия"},
+    {CMD_ARC, "Дуга"},
+    {CMD_LABEL, "Метка"}
+};
+
+
+std::string getNameByCommand(COMMAND cmd);
+
+
+COMMAND getCommandByName(std::string name);
 
 #endif // COMMANDHANDLER_H

@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     gui/points/editpointdialog.cpp \
     commandinterpreter.cpp \
     pointsmanager.cpp \
-    commandhandler.cpp
+    commandhandler.cpp \
+    gui/commands/linedialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -33,12 +34,14 @@ HEADERS  += gui/mainwindow.h \
     gui/points/editpointdialog.h \
     commandinterpreter.h \
     pointsmanager.h \
-    commandhandler.h
+    commandhandler.h \
+    gui/commands/linedialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
     gui/points/mousetoselectionpointdialog.ui \
-    gui/points/editpointdialog.ui
+    gui/points/editpointdialog.ui \
+    gui/commands/linedialog.ui
 
 win32:RC_FILE = application.rc
 

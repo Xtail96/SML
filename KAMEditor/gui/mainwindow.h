@@ -11,6 +11,7 @@
 #include <QKeySequence>
 #include <QList>
 #include <QMessageBox>
+#include <QTreeWidget>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -21,6 +22,8 @@
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
+#include "commandinterpreter.h"
+#include "commands/linedialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -52,13 +55,13 @@ private:
     void setMovementButtonsRepeatState(bool state);
 
     void update_coordinates();
-    //void update_points();
     void update_battery_status();
     void update_kabriol_avaliability();
 
 
 protected:
     void update_points();
+    void update_commands();
 
 private slots:
 
@@ -103,6 +106,7 @@ private slots:
     void on_point_cursor_button_clicked();
     void on_point_edit_button_clicked();
     void on_point_copy_button_clicked();
+    void on_commands_listWidget_doubleClicked(const QModelIndex &index);
 };
 
 

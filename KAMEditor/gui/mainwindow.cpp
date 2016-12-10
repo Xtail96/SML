@@ -144,6 +144,41 @@ void MainWindow::update_points()
     }
 }
 
+
+void MainWindow::update_commands()
+{
+    std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
+
+    QTreeWidget*  editorField = ui->editor_treeWidget;
+
+    // очищаем текущую таблицу
+    editorField->clear();
+
+    editorField->setColumnCount(3);
+
+    QList<QTreeWidgetItem *> items;
+
+    // проходим по всем точкам
+    for (unsigned int i = 0; i < commands.size(); i++)
+    {
+
+        // добавляем строку в таблицу для текущей точки
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+        item->setText(0, QString::number(i+1));
+        item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
+        std::string s;
+        for(int j = 0; j<commands[i].args.size();j++)
+        {
+            s+=commands[i].args[j]+"; ";
+        }
+        item->setText(2, QString::fromStdString(s));
+
+        items.append(item);
+    }
+
+    editorField->insertTopLevelItems(0, items);
+}
+
 void MainWindow::update_battery_status()
 {
     #ifdef Q_OS_WIN
@@ -526,4 +561,23 @@ void MainWindow::on_point_copy_button_clicked()
 
     update_points();
 
+}
+
+
+
+void MainWindow::on_commands_listWidget_doubleClicked(const QModelIndex &index)
+{
+    int row = index.row();
+
+    QString name = ui->commands_listWidget->item(row)->text() ;
+
+    COMMAND cmd = getCommandByName(name.toStdString());
+
+    switch (cmd)
+    {
+        case CMD_LINE:
+        LineDialog(this).exec();
+        break;
+    }
+    update_commands();
 }

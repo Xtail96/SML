@@ -83,7 +83,7 @@ void CommandInterpreter::Run()
 {
     running = true;
 
-    t = std::thread(&_Run, this);
+    //t = std::thread(&_Run, this);
     t.detach();
 }
 
@@ -96,4 +96,8 @@ void CommandInterpreter::_Run()
 void CommandInterpreter::Stop()
 {
     running = false;
+}
+std::vector <Command> CommandInterpreter::getCommands()
+{
+    return commands;
 }

@@ -18,6 +18,8 @@ public:
     void Step();
 
     void addCommand(Command cmd);
+    void addCommand(std::string cmd);
+    std::vector <Command> getCommands();
 
     static CommandInterpreter& Instance();
 
