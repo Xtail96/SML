@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     commandinterpreter.cpp \
     pointsmanager.cpp \
     commandhandler.cpp \
-    gui/commands/linedialog.cpp
+    gui/commands/linedialog.cpp \
+    gui/commands/arcdialog.cpp \
+    gui/commands/labeldialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -35,13 +37,17 @@ HEADERS  += gui/mainwindow.h \
     commandinterpreter.h \
     pointsmanager.h \
     commandhandler.h \
-    gui/commands/linedialog.h
+    gui/commands/linedialog.h \
+    gui/commands/arcdialog.h \
+    gui/commands/labeldialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
     gui/points/mousetoselectionpointdialog.ui \
     gui/points/editpointdialog.ui \
-    gui/commands/linedialog.ui
+    gui/commands/linedialog.ui \
+    gui/commands/arcdialog.ui \
+    gui/commands/labeldialog.ui
 
 win32:RC_FILE = application.rc
 

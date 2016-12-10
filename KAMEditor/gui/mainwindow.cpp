@@ -578,6 +578,14 @@ void MainWindow::on_commands_listWidget_doubleClicked(const QModelIndex &index)
         case CMD_LINE:
         LineDialog(this).exec();
         break;
+
+        case CMD_ARC:
+        ArcDialog(this).exec();
+        break;
+
+        case CMD_LABEL:
+        LabelDialog(this).exec();
+        break;
     }
     update_commands();
 }

@@ -24,6 +24,8 @@
 #include "points/editpointdialog.h"
 #include "commandinterpreter.h"
 #include "commands/linedialog.h"
+#include "commands/arcdialog.h"
+#include "commands/labeldialog.h"
 
 namespace Ui {
 class MainWindow;

@@ -7,12 +7,10 @@ LineDialog::LineDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 }
-
 LineDialog::~LineDialog()
 {
     delete ui;
 }
-
 void LineDialog::on_buttonBox_accepted()
 {
     Command cmd;
