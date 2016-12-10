@@ -6,6 +6,7 @@ LineDialog::LineDialog(QWidget *parent) :
     ui(new Ui::LineDialog)
 {
     ui->setupUi(this);
+    //ui->line_textEdit_description->setText();
 }
 LineDialog::~LineDialog()
 {
