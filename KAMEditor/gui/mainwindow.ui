@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -4587,7 +4587,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">

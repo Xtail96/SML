@@ -17,7 +17,7 @@
 #endif
 
 #include "machinetool.h"
-#include "commandinterpreter.h"
+#include "pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
