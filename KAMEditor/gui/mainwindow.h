@@ -108,7 +108,7 @@ private slots:
     void on_point_cursor_button_clicked();
     void on_point_edit_button_clicked();
     void on_point_copy_button_clicked();
-    void on_commands_listWidget_doubleClicked(const QModelIndex &index);
+    void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
 };
 
 

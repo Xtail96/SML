@@ -428,7 +428,7 @@
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout_19">
                <item>
-                <widget class="QListWidget" name="commands_listWidget">
+                <widget class="QListWidget" name="commands_tools_listWidget">
                  <property name="dragEnabled">
                   <bool>true</bool>
                  </property>
