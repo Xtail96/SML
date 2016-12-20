@@ -30,5 +30,8 @@ void ArcDialog::on_buttonBox_accepted()
      std::to_string(fi),
      std::to_string(velocity),
     };
-    CommandInterpreter::Instance().addCommand(cmd);
+
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    unsigned int selected_command = instance.getSelectedCommand();
+    instance.addCommand(cmd, selected_command);
 }

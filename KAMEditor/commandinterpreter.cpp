@@ -3,6 +3,7 @@
 CommandInterpreter::CommandInterpreter()
 {
     running = false;
+    selectedCommand = 0;
 
     currentCommand = 0;
 }
@@ -17,9 +18,22 @@ CommandInterpreter& CommandInterpreter::Instance()
     return m;
 }
 
-void CommandInterpreter::addCommand(Command cmd)
+void CommandInterpreter::addCommand(Command cmd, unsigned int selected_command)
 {
-    commands.push_back(cmd);
+    std::vector<Command>::iterator commandInsertIt;
+    commandInsertIt = commands.begin() + selected_command;
+    commands.insert(commandInsertIt, 1, cmd);
+    //commands.push_back(cmd);
+}
+
+unsigned int CommandInterpreter::getSelectedCommand()
+{
+    return selectedCommand;
+}
+
+void CommandInterpreter::setSelectedCommand(unsigned int number)
+{
+    selectedCommand = number;
 }
 
 void CommandInterpreter::Step()

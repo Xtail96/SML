@@ -17,9 +17,11 @@ public:
     void Stop();
     void Step();
 
-    void addCommand(Command cmd);
+    void addCommand(Command cmd, unsigned int selected_command);
     void addCommand(std::string cmd);
     std::vector <Command> getCommands();
+    unsigned int getSelectedCommand();
+    void setSelectedCommand(unsigned int number);
 
     static CommandInterpreter& Instance();
 
@@ -32,7 +34,7 @@ private:
 
     unsigned int currentCommand;
     std::vector<Command> commands;
-
+    unsigned int selectedCommand;
 
     std::stack<int> callStack;
     std::stack<std::pair<int, int> > loopStack;

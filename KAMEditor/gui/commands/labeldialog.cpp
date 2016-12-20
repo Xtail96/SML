@@ -25,5 +25,8 @@ void LabelDialog::on_buttonBox_accepted()
     cmd.args = {
      name,
     };
-    CommandInterpreter::Instance().addCommand(cmd);
+
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    unsigned int selected_command = instance.getSelectedCommand();
+    instance.addCommand(cmd, selected_command);
 }

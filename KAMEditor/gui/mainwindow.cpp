@@ -567,6 +567,29 @@ void MainWindow::on_point_copy_button_clicked()
 
 void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
 {
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+
+    QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
+    if(select->hasSelection())
+    {
+        unsigned int current_row =  select->currentIndex().row();
+        instance.setSelectedCommand(current_row);
+    }
+    else
+    {
+        std::vector<Command> commands = instance.getCommands();
+        unsigned int selected;
+        if(commands.size()>0)
+        {
+           selected = commands.size();
+        }
+        else
+        {
+            selected = 0;
+        }
+        instance.setSelectedCommand(selected);
+    }
+
     int row = index.row();
 
     QString name = ui->commands_tools_listWidget->item(row)->text() ;
@@ -589,3 +612,4 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
     }
     update_commands();
 }
+
