@@ -115,3 +115,8 @@ std::vector <Command> CommandInterpreter::getCommands()
 {
     return commands;
 }
+void CommandInterpreter::deleteSelectedCommands(unsigned int numbers)
+{
+    if (numbers < commands.size())
+        commands.erase(commands.begin() + numbers);
+}

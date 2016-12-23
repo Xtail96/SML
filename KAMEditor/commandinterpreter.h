@@ -22,6 +22,7 @@ public:
     std::vector <Command> getCommands();
     unsigned int getSelectedCommand();
     void setSelectedCommand(unsigned int number);
+    void deleteSelectedCommands(unsigned int numbers);
 
     static CommandInterpreter& Instance();
 
