@@ -9,9 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // задаем горячие клавиши
     setupShortcuts();
 
-    keyBackspace = new QShortcut(this);
-    keyBackspace->setKey(Qt::Key_Backspace);
-    connect(keyBackspace, SIGNAL(activated()), this, SLOT(deleteCommand()));
+    setupEditorShortcuts();
 
 
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
@@ -53,7 +51,12 @@ MainWindow::~MainWindow()
         delete shortcuts.back();
         shortcuts.pop_back();
     }
-    delete keyBackspace;
+
+    while(editorShortcuts.size() > 0)
+    {
+        delete editorShortcuts.back();
+        editorShortcuts.pop_back();
+    }
 }
 
 
@@ -89,6 +92,26 @@ void MainWindow::setupShortcuts()
     }
 }
 
+void MainWindow::setupEditorShortcuts()
+{
+    std::vector<std::pair<const char*, const char*> > editorShortcutsMap = {
+        std::make_pair("Ctrl+W", SLOT(addLineCommand())),
+        std::make_pair("Backspace", SLOT(deleteCommand())),
+    };
+
+    for (unsigned int i = 0; i < editorShortcutsMap.size(); i++)
+    {
+        const char* shortcutKey = editorShortcutsMap[i].first;
+        const char* shortcutSlot = editorShortcutsMap[i].second;
+
+        QShortcut* shortcut = new QShortcut(this);
+        shortcut->setKey(QKeySequence(shortcutKey));
+        connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
+
+        editorShortcuts.push_back(shortcut);
+    }
+}
+
 
 void MainWindow::update()
 {
@@ -99,7 +122,7 @@ void MainWindow::update()
 
 void MainWindow::deleteCommand()
 {
-    if(ui->editor_tab->isVisible() )
+    if(ui->editor_tab->isVisible())
     {
         CommandInterpreter &commands = CommandInterpreter::Instance();
         QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
@@ -110,6 +133,15 @@ void MainWindow::deleteCommand()
         }
         update_commands();
     }
+}
+
+void MainWindow::addLineCommand()
+{
+    if(ui->editor_tab->isVisible())
+    {
+        LineDialog(this).exec();
+    }
+    update_commands();
 }
 
 

@@ -45,10 +45,13 @@ private:
     QTimer *timer;
 
     std::vector<QShortcut*> shortcuts;
-    QShortcut *keyBackspace;
+    std::vector<QShortcut*> editorShortcuts;
 
 
-    void setupShortcuts();
+
+
+    void setupShortcuts(); 
+    void setupEditorShortcuts();
 
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();
@@ -67,8 +70,10 @@ protected:
 
 private slots:
 
-    void update();
+    void addLineCommand();
     void deleteCommand();
+
+    void update();
     void on_discrete_radio_button_1_clicked();
     void on_discrete_radio_button_2_clicked();
     void on_discrete_radio_button_3_clicked();
