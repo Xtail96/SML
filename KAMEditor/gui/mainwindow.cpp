@@ -9,6 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // задаем горячие клавиши
     setupShortcuts();
 
+    keyBackspace = new QShortcut(this);
+    keyBackspace->setKey(Qt::Key_Backspace);
+    connect(keyBackspace, SIGNAL(activated()), this, SLOT(deleteCommand()));
+
+
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
@@ -48,6 +53,7 @@ MainWindow::~MainWindow()
         delete shortcuts.back();
         shortcuts.pop_back();
     }
+    delete keyBackspace;
 }
 
 
@@ -89,6 +95,21 @@ void MainWindow::update()
     update_coordinates();
     update_battery_status();
     update_kabriol_avaliability();
+}
+
+void MainWindow::deleteCommand()
+{
+    if(ui->editor_tab->isVisible() )
+    {
+        CommandInterpreter &commands = CommandInterpreter::Instance();
+        QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
+        if(select->hasSelection())
+        {
+            unsigned int current_row = select->currentIndex().row();
+            commands.deleteSelectedCommands(current_row);
+        }
+        update_commands();
+    }
 }
 
 
