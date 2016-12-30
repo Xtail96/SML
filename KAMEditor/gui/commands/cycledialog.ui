@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LabelDialog</class>
- <widget class="QDialog" name="LabelDialog">
+ <class>CycleDialog</class>
+ <widget class="QDialog" name="CycleDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,18 +11,30 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Цикл</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>5</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>5</number>
+   </property>
    <item>
-    <widget class="QLabel" name="label_label_title">
+    <widget class="QLabel" name="cycle_label_title">
      <property name="font">
       <font>
        <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Метка</string>
+      <string>Цикл</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -30,36 +42,32 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="label_arguments_groupBox">
+    <widget class="QGroupBox" name="cycle_arguments_groupBox">
      <property name="title">
       <string>Аргументы:</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label_label_name">
+       <widget class="QLabel" name="cycle_amount_label">
         <property name="text">
-         <string>Имя метки</string>
+         <string>Количество повторов:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="label_lineEdit_name"/>
+       <widget class="QLineEdit" name="cycle_amount_lineEdit"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="label_groupBox_description">
+    <widget class="QGroupBox" name="cycle_description_groupBox">
      <property name="title">
-      <string>Описание</string>
+      <string>Описание:</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QTextEdit" name="label_textEdit_description">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextEdit" name="cycle_description_textEdit"/>
       </item>
      </layout>
     </widget>
@@ -81,7 +89,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>LabelDialog</receiver>
+   <receiver>CycleDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -97,7 +105,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>LabelDialog</receiver>
+   <receiver>CycleDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -62,7 +62,7 @@
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/Editor.png</normaloff>:/new/prefix1/images/Editor.png</iconset>
        </attribute>
        <attribute name="title">
@@ -96,7 +96,7 @@
               <string>New</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
              </property>
              <property name="iconSize">
@@ -119,7 +119,7 @@
               <string>Open</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
              </property>
              <property name="iconSize">
@@ -142,7 +142,7 @@
               <string>Save</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
              </property>
              <property name="iconSize">
@@ -165,7 +165,7 @@
               <string>Save As</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
              </property>
              <property name="iconSize">
@@ -188,7 +188,7 @@
               <string>Add</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
              </property>
              <property name="iconSize">
@@ -211,7 +211,7 @@
               <string>NumOfDots</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/NumOfDots.png</normaloff>:/new/prefix1/images/NumOfDots.png</iconset>
              </property>
              <property name="iconSize">
@@ -234,7 +234,7 @@
               <string>View</string>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
+              <iconset>
                <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
              </property>
              <property name="iconSize">
@@ -460,7 +460,32 @@
                  </item>
                  <item>
                   <property name="text">
+                   <string>TT-Линия</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
                    <string>Дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Относительная дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Поворот</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Цикл</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Конец цикла</string>
                   </property>
                  </item>
                  <item>
@@ -484,6 +509,11 @@
               <attribute name="label">
                <string>Наладка</string>
               </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_21">
+               <item>
+                <widget class="QListWidget" name="commands_adjustment_listWidget"/>
+               </item>
+              </layout>
              </widget>
              <widget class="QWidget" name="page_3">
               <property name="geometry">
@@ -497,6 +527,11 @@
               <attribute name="label">
                <string>Удобство</string>
               </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_20">
+               <item>
+                <widget class="QListWidget" name="commands_convenient_listWidget"/>
+               </item>
+              </layout>
              </widget>
             </widget>
            </item>
@@ -507,7 +542,7 @@
       </widget>
       <widget class="QWidget" name="adjustment_tab">
        <attribute name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/Dashboard.png</normaloff>:/new/prefix1/images/Dashboard.png</iconset>
        </attribute>
        <attribute name="title">
@@ -1511,7 +1546,7 @@
                  <string>X -</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1545,7 +1580,7 @@
                  <string>Y -</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1576,7 +1611,7 @@
                  </font>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowRightDown.png</normaloff>:/new/prefix1/images/ArrowRightDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1607,7 +1642,7 @@
                  </font>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowLeftDown.png</normaloff>:/new/prefix1/images/ArrowLeftDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1651,7 +1686,7 @@
                  </font>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowRightUp.png</normaloff>:/new/prefix1/images/ArrowRightUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1694,7 +1729,7 @@
                  <string>X +</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1743,7 +1778,7 @@
                  <string>Y+</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1774,7 +1809,7 @@
                  </font>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowLeftUp.png</normaloff>:/new/prefix1/images/ArrowLeftUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1823,7 +1858,7 @@
                  <string>A +</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1863,7 +1898,7 @@
                  <string>A -</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1897,7 +1932,7 @@
                  <string>Z -</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1931,7 +1966,7 @@
                  <string>Z +</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1965,7 +2000,7 @@
                  <string>B -</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1999,7 +2034,7 @@
                  <string>B +</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="images.qrc">
+                 <iconset>
                   <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -3774,7 +3809,7 @@
       </widget>
       <widget class="QWidget" name="processing_tab">
        <attribute name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/Modelling.png</normaloff>:/new/prefix1/images/Modelling.png</iconset>
        </attribute>
        <attribute name="title">
@@ -3783,7 +3818,7 @@
       </widget>
       <widget class="QWidget" name="settings_tab">
        <attribute name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
        </attribute>
        <attribute name="title">
@@ -3799,7 +3834,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
@@ -3939,19 +3974,54 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QLineEdit" name="lineEdit_14"/>
+                <widget class="QLineEdit" name="lineEdit_14">
+                 <property name="text">
+                  <string>180</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QLineEdit" name="lineEdit_13"/>
+                <widget class="QLineEdit" name="lineEdit_13">
+                 <property name="text">
+                  <string>300</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="lineEdit_11"/>
+                <widget class="QLineEdit" name="lineEdit_11">
+                 <property name="text">
+                  <string>6000</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QLineEdit" name="lineEdit_15"/>
+                <widget class="QLineEdit" name="lineEdit_15">
+                 <property name="text">
+                  <string>300</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QLineEdit" name="lineEdit_12"/>
+                <widget class="QLineEdit" name="lineEdit_12">
+                 <property name="text">
+                  <string>500</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -4663,7 +4733,7 @@
       </widget>
       <widget class="QWidget" name="tests_tab">
        <attribute name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
        </attribute>
        <attribute name="title">
@@ -4760,7 +4830,7 @@
   </widget>
   <action name="create_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
    </property>
    <property name="text">
@@ -4769,7 +4839,7 @@
   </action>
   <action name="open_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
    </property>
    <property name="text">
@@ -4778,7 +4848,7 @@
   </action>
   <action name="save_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
    </property>
    <property name="text">
@@ -4787,7 +4857,7 @@
   </action>
   <action name="saveas_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
    </property>
    <property name="text">
@@ -4796,7 +4866,7 @@
   </action>
   <action name="savewithpartition_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/SaveWithParts.png</normaloff>:/new/prefix1/images/SaveWithParts.png</iconset>
    </property>
    <property name="text">
@@ -4805,7 +4875,7 @@
   </action>
   <action name="import_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Import.png</normaloff>:/new/prefix1/images/Import.png</iconset>
    </property>
    <property name="text">
@@ -4814,7 +4884,7 @@
   </action>
   <action name="importgcode_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/ImportGCodes.png</normaloff>:/new/prefix1/images/ImportGCodes.png</iconset>
    </property>
    <property name="text">
@@ -4823,7 +4893,7 @@
   </action>
   <action name="importpackets_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/ImportPackets.png</normaloff>:/new/prefix1/images/ImportPackets.png</iconset>
    </property>
    <property name="text">
@@ -4832,7 +4902,7 @@
   </action>
   <action name="view_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
    </property>
    <property name="text">
@@ -4841,7 +4911,7 @@
   </action>
   <action name="add_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
    </property>
    <property name="text">
@@ -4850,7 +4920,7 @@
   </action>
   <action name="savesettings_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
    </property>
    <property name="text">
@@ -4859,7 +4929,7 @@
   </action>
   <action name="importsettings_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/ImportSettings.png</normaloff>:/new/prefix1/images/ImportSettings.png</iconset>
    </property>
    <property name="text">
@@ -4868,7 +4938,7 @@
   </action>
   <action name="exit_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Exit.png</normaloff>:/new/prefix1/images/Exit.png</iconset>
    </property>
    <property name="text">
@@ -4877,7 +4947,7 @@
   </action>
   <action name="undo_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Undo.png</normaloff>:/new/prefix1/images/Undo.png</iconset>
    </property>
    <property name="text">
@@ -4886,7 +4956,7 @@
   </action>
   <action name="redo_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Redo.png</normaloff>:/new/prefix1/images/Redo.png</iconset>
    </property>
    <property name="text">
@@ -4895,7 +4965,7 @@
   </action>
   <action name="cut_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Cut.png</normaloff>:/new/prefix1/images/Cut.png</iconset>
    </property>
    <property name="text">
@@ -4904,7 +4974,7 @@
   </action>
   <action name="copy_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Copy.png</normaloff>:/new/prefix1/images/Copy.png</iconset>
    </property>
    <property name="text">
@@ -4913,7 +4983,7 @@
   </action>
   <action name="paste_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Paste.png</normaloff>:/new/prefix1/images/Paste.png</iconset>
    </property>
    <property name="text">
@@ -4922,7 +4992,7 @@
   </action>
   <action name="selectall_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/SelectAll.png</normaloff>:/new/prefix1/images/SelectAll.png</iconset>
    </property>
    <property name="text">
@@ -4931,7 +5001,7 @@
   </action>
   <action name="find_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Find.png</normaloff>:/new/prefix1/images/Find.png</iconset>
    </property>
    <property name="text">
@@ -4940,7 +5010,7 @@
   </action>
   <action name="findnext_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/FindNext.png</normaloff>:/new/prefix1/images/FindNext.png</iconset>
    </property>
    <property name="text">
@@ -4949,7 +5019,7 @@
   </action>
   <action name="goto_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/GoTo.png</normaloff>:/new/prefix1/images/GoTo.png</iconset>
    </property>
    <property name="text">
@@ -4958,7 +5028,7 @@
   </action>
   <action name="expandblock_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/ExpandBlock.png</normaloff>:/new/prefix1/images/ExpandBlock.png</iconset>
    </property>
    <property name="text">
@@ -4967,7 +5037,7 @@
   </action>
   <action name="TTT_TT_transform_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/TTT_TT.png</normaloff>:/new/prefix1/images/TTT_TT.png</iconset>
    </property>
    <property name="text">
@@ -4976,7 +5046,7 @@
   </action>
   <action name="TT_TTT_transform_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/TT_TTT.png</normaloff>:/new/prefix1/images/TT_TTT.png</iconset>
    </property>
    <property name="text">
@@ -4985,7 +5055,7 @@
   </action>
   <action name="setnumberofpoints_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/SetNumberOfPoints.png</normaloff>:/new/prefix1/images/SetNumberOfPoints.png</iconset>
    </property>
    <property name="text">
@@ -4994,7 +5064,7 @@
   </action>
   <action name="refreshspeed_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/RefreshSpeed.png</normaloff>:/new/prefix1/images/RefreshSpeed.png</iconset>
    </property>
    <property name="text">
@@ -5003,7 +5073,7 @@
   </action>
   <action name="removeunusedpoints_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/RemoveUnusedPoints.png</normaloff>:/new/prefix1/images/RemoveUnusedPoints.png</iconset>
    </property>
    <property name="text">
@@ -5012,7 +5082,7 @@
   </action>
   <action name="Y_Z_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Y--Z.png</normaloff>:/new/prefix1/images/Y--Z.png</iconset>
    </property>
    <property name="text">
@@ -5021,7 +5091,7 @@
   </action>
   <action name="replacespeed_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Replace Speed.png</normaloff>:/new/prefix1/images/Replace Speed.png</iconset>
    </property>
    <property name="text">
@@ -5030,7 +5100,7 @@
   </action>
   <action name="equidistant_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/Equidistant.png</normaloff>:/new/prefix1/images/Equidistant.png</iconset>
    </property>
    <property name="text">
@@ -5039,7 +5109,7 @@
   </action>
   <action name="about_action">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/images/About.png</normaloff>:/new/prefix1/images/About.png</iconset>
    </property>
    <property name="text">
@@ -5048,8 +5118,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

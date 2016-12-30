@@ -24,7 +24,11 @@ SOURCES += main.cpp\
     commandhandler.cpp \
     gui/commands/linedialog.cpp \
     gui/commands/arcdialog.cpp \
-    gui/commands/labeldialog.cpp
+    gui/commands/labeldialog.cpp \
+    gui/commands/ttlinedialog.cpp \
+    gui/commands/arc2dialog.cpp \
+    gui/commands/tttlinedialog.cpp \
+    gui/commands/cycledialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -39,7 +43,11 @@ HEADERS  += gui/mainwindow.h \
     commandhandler.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
-    gui/commands/labeldialog.h
+    gui/commands/labeldialog.h \
+    gui/commands/ttlinedialog.h \
+    gui/commands/arc2dialog.h \
+    gui/commands/tttlinedialog.h \
+    gui/commands/cycledialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -47,7 +55,11 @@ FORMS    += gui/mainwindow.ui \
     gui/points/editpointdialog.ui \
     gui/commands/linedialog.ui \
     gui/commands/arcdialog.ui \
-    gui/commands/labeldialog.ui
+    gui/commands/labeldialog.ui \
+    gui/commands/ttlinedialog.ui \
+    gui/commands/arc2dialog.ui \
+    gui/commands/tttlinedialog.ui \
+    gui/commands/cycledialog.ui
 
 win32:RC_FILE = application.rc
 

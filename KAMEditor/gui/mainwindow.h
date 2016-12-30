@@ -23,9 +23,14 @@
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
 #include "commandinterpreter.h"
+
 #include "commands/linedialog.h"
+#include "commands/ttlinedialog.h"
+#include "commands/tttlinedialog.h"
 #include "commands/arcdialog.h"
+#include "commands/arc2dialog.h"
 #include "commands/labeldialog.h"
+#include "commands/cycledialog.h"
 
 namespace Ui {
 class MainWindow;

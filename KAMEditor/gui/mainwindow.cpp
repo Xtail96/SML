@@ -655,8 +655,27 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         LineDialog(this).exec();
         break;
 
+        case CMD_TTLINE:
+        TTLineDialog(this).exec();
+        break;
+
+        case CMD_TTTLINE:
+        TTTLineDialog(this).exec();
+        break;
+
         case CMD_ARC:
         ArcDialog(this).exec();
+        break;
+
+        case CMD_ARC2:
+        Arc2Dialog(this).exec();
+        break;
+
+        case CMD_FOR:
+        CycleDialog(this).exec();
+        break;
+
+        case CMD_ENDFOR:
         break;
 
         case CMD_LABEL:
