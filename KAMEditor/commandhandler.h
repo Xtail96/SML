@@ -22,8 +22,8 @@ static std::map<COMMAND, commandHandler> commandHandlerMap = {
 
 static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_LINE, "Линия"},
-    {CMD_TTLINE, "TT-Линия"},
-    {CMD_TTTLINE, "TTT-Линия"},
+    {CMD_TTLINE, "ТТ-Линия"},
+    {CMD_TTTLINE, "ТТТ-Линия"},
     {CMD_ARC, "Дуга"},
     {CMD_ARC2, "Относительная дуга"},
     {CMD_FOR, "Цикл"},

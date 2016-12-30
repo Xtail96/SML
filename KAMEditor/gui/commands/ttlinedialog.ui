@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TT-Линия</string>
+   <string>ТТ-Линия</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
@@ -129,7 +129,7 @@
       </font>
      </property>
      <property name="text">
-      <string>TT-Линия</string>
+      <string>ТТ-Линия</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
