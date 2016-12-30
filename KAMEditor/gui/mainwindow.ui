@@ -293,7 +293,7 @@
            <item row="0" column="0">
             <widget class="QTableWidget" name="points_table_widget_2">
              <property name="alternatingRowColors">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="selectionMode">
               <enum>QAbstractItemView::ExtendedSelection</enum>
@@ -662,7 +662,7 @@
            <item row="0" column="0" colspan="2">
             <widget class="QTableWidget" name="points_table_widget">
              <property name="alternatingRowColors">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <column>
               <property name="text">
