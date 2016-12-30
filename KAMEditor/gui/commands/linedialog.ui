@@ -40,7 +40,7 @@
     <widget class="QLabel" name="line_title_label">
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <pointsize>21</pointsize>
       </font>
      </property>
      <property name="text">

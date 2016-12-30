@@ -17,6 +17,9 @@ void CycleDialog::on_buttonBox_accepted()
 {
     Command cmd;
     cmd.id = CMD_FOR;
+
+    cmd.commandStyles = "#33ff33";
+
     int amount = ui->cycle_amount_lineEdit->text().toInt();
     cmd.args = {
      std::to_string(amount),

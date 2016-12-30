@@ -30,7 +30,7 @@
     <widget class="QLabel" name="cycle_label_title">
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <pointsize>21</pointsize>
       </font>
      </property>
      <property name="text">
@@ -67,7 +67,11 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QTextEdit" name="cycle_description_textEdit"/>
+       <widget class="QTextEdit" name="cycle_description_textEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

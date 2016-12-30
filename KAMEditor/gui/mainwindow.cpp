@@ -218,6 +218,11 @@ void MainWindow::update_commands()
         // добавляем строку в таблицу для текущей точки
         QTreeWidgetItem* item = new QTreeWidgetItem();
         item->setText(0, QString::number(i+1));
+
+        QString commandColor = QString::fromStdString(commands[i].commandStyles);
+        item->setTextColor(1, QColor(commandColor));
+        item->setTextColor(2, QColor(commandColor));
+
         item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
         std::string s;
         for(int j = 0; j<commands[i].args.size();j++)
@@ -652,36 +657,130 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
     switch (cmd)
     {
         case CMD_LINE:
-        LineDialog(this).exec();
-        break;
+        {
+            LineDialog(this).exec();
+            break;
+        }
 
         case CMD_TTLINE:
-        TTLineDialog(this).exec();
-        break;
+        {
+            TTLineDialog(this).exec();
+            break;
+        }
 
         case CMD_TTTLINE:
-        TTTLineDialog(this).exec();
-        break;
+        {
+            TTTLineDialog(this).exec();
+            break;
+        }
 
         case CMD_ARC:
-        ArcDialog(this).exec();
-        break;
+        {
+            ArcDialog(this).exec();
+            break;
+        }
 
         case CMD_ARC2:
-        Arc2Dialog(this).exec();
-        break;
+        {
+            Arc2Dialog(this).exec();
+            break;
+        }
 
         case CMD_FOR:
-        CycleDialog(this).exec();
-        break;
+        {
+            CycleDialog(this).exec();
+            break;
+        }
 
         case CMD_ENDFOR:
-        break;
+        {
+            Command command;
+            command.id = CMD_ENDFOR;
+            command.commandStyles = "#33ff33";
+
+            std::string endfor = "";
+            command.args = {
+                endfor
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
 
         case CMD_LABEL:
-        LabelDialog(this).exec();
-        break;
+        {
+            LabelDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
 
+
+void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+
+    QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
+    if(select->hasSelection())
+    {
+        unsigned int current_row =  select->currentIndex().row();
+        instance.setSelectedCommand(current_row);
+    }
+    else
+    {
+        std::vector<Command> commands = instance.getCommands();
+        unsigned int selected;
+        if(commands.size()>0)
+        {
+           selected = commands.size();
+        }
+        else
+        {
+            selected = 0;
+        }
+        instance.setSelectedCommand(selected);
+    }
+
+    int row = index.row();
+
+    QString name = ui->commands_adjustment_listWidget->item(row)->text() ;
+
+    COMMAND cmd = getCommandByName(name.toStdString());
+    switch (cmd)
+    {
+        case CMD_ZERO:
+        {
+            Command command;
+            command.id = CMD_ZERO;
+
+            std::string setZero = "";
+            command.args = {
+                setZero
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+        case CMD_END:
+        {
+            Command command;
+            command.id = CMD_END;
+
+            std::string endProgramm = "";
+            command.args = {
+                endProgramm
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+    }
+     update_commands();
+}
