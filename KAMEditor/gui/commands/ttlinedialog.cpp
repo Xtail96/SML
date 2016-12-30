@@ -22,7 +22,7 @@ void TTLineDialog::on_buttonBox_accepted()
     int finishPoint = ui->ttline_finish_point_lineEdit->text().toInt();
     int velocity = ui->ttline_velocity_lineEdit->text().toInt();
 
-    cmd.commandStyles = "#dfdfdf";
+    cmd.commandStyles = "#333";
 
     cmd.args = {
      std::to_string(startPoint),

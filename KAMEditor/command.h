@@ -47,7 +47,7 @@ enum COMMAND {CMD_ARC,
 struct Command
 {
     COMMAND id;
-    std::string commandStyles;
+    std::string commandColor;
     std::vector<std::string> args;
 };
 

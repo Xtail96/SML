@@ -17,7 +17,7 @@ void LineDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_LINE;
 
-    cmd.commandStyles = "#4682B5";
+    cmd.commandColor = "#333";
 
     Vector v(
     ui->line_lineEdit_axis_x->text().toDouble(),

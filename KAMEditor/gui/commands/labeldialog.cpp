@@ -18,7 +18,7 @@ void LabelDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_LABEL;
 
-    cmd.commandStyles = "#dfdfdf";
+    cmd.commandColor = "#009900";
 
     std::string name = ui->label_lineEdit_name->text().toStdString();
 

@@ -18,7 +18,7 @@ void ArcDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_ARC;
 
-    cmd.commandStyles = "#4682B5";
+    cmd.commandColor = "#333";
 
     double r = ui->arc_lineEdit_r->text().toDouble();
     double al = ui->arc_lineEdit_al->text().toDouble();

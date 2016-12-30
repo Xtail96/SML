@@ -219,7 +219,7 @@ void MainWindow::update_commands()
         QTreeWidgetItem* item = new QTreeWidgetItem();
         item->setText(0, QString::number(i+1));
 
-        QString commandColor = QString::fromStdString(commands[i].commandStyles);
+        QString commandColor = QString::fromStdString(commands[i].commandColor);
         item->setTextColor(1, QColor(commandColor));
         item->setTextColor(2, QColor(commandColor));
 
@@ -696,7 +696,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         {
             Command command;
             command.id = CMD_ENDFOR;
-            command.commandStyles = "#33ff33";
+            command.commandColor = "#999900";
 
             std::string endfor = "";
             command.args = {
@@ -756,6 +756,8 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
             Command command;
             command.id = CMD_ZERO;
 
+            command.commandColor = "#3300ff";
+
             std::string setZero = "";
             command.args = {
                 setZero
@@ -770,6 +772,8 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
         {
             Command command;
             command.id = CMD_END;
+
+            command.commandColor = "#660099";
 
             std::string endProgramm = "";
             command.args = {
