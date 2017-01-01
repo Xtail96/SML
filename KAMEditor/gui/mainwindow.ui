@@ -415,7 +415,7 @@
            <item row="0" column="0">
             <widget class="QToolBox" name="toolBox">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_1">
               <property name="geometry">
@@ -423,7 +423,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>186</width>
-                <height>357</height>
+                <height>392</height>
                </rect>
               </property>
               <attribute name="label">
@@ -503,7 +503,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>186</width>
-                <height>357</height>
+                <height>392</height>
                </rect>
               </property>
               <attribute name="label">
@@ -529,24 +529,6 @@
                   </property>
                  </item>
                 </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="page_3">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>186</width>
-                <height>357</height>
-               </rect>
-              </property>
-              <attribute name="label">
-               <string>Удобство</string>
-              </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_20">
-               <item>
-                <widget class="QListWidget" name="commands_convenient_listWidget"/>
                </item>
               </layout>
              </widget>
@@ -3955,10 +3937,57 @@
                <string>Габариты</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_47">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_46">
                  <property name="text">
-                  <string>Ось Y</string>
+                  <string>Ось X</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="lineEdit_12">
+                 <property name="text">
+                  <string>500</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="lineEdit_13">
+                 <property name="text">
+                  <string>300</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="lineEdit_15">
+                 <property name="text">
+                  <string>300</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="lineEdit_14">
+                 <property name="text">
+                  <string>180</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_49">
+                 <property name="text">
+                  <string>Ось A</string>
                  </property>
                 </widget>
                </item>
@@ -3976,40 +4005,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_49">
-                 <property name="text">
-                  <string>Ось A</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_46">
-                 <property name="text">
-                  <string>Ось X</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="lineEdit_14">
-                 <property name="text">
-                  <string>180</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="lineEdit_13">
-                 <property name="text">
-                  <string>300</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
                 <widget class="QLineEdit" name="lineEdit_11">
                  <property name="text">
@@ -4020,25 +4015,32 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="lineEdit_15">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_47">
                  <property name="text">
-                  <string>300</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
+                  <string>Ось Y</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="lineEdit_12">
+               <item row="5" column="0">
+                <widget class="QPushButton" name="pushButton">
                  <property name="text">
-                  <string>500</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
+                  <string>Изменить</string>
                  </property>
                 </widget>
+               </item>
+               <item row="5" column="1">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
