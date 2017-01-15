@@ -33,6 +33,7 @@
 #include "commands/cycledialog.h"
 #include "commands/ondialog.h"
 #include "commands/offdialog.h"
+#include "commands/rotatedialog.h"
 
 namespace Ui {
 class MainWindow;

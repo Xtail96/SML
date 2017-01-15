@@ -30,6 +30,7 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_TTTLINE, "ТТТ-Линия"},
     {CMD_ARC, "Дуга"},
     {CMD_ARC2, "Относительная дуга"},
+    {CMD_ROTATE, "Поворот"},
     {CMD_FOR, "Цикл"},
     {CMD_ENDFOR, "Конец цикла"},
     {CMD_LABEL, "Метка"}

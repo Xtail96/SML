@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     gui/commands/tttlinedialog.cpp \
     gui/commands/cycledialog.cpp \
     gui/commands/offdialog.cpp \
-    gui/commands/ondialog.cpp
+    gui/commands/ondialog.cpp \
+    gui/commands/rotatedialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -51,7 +52,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/tttlinedialog.h \
     gui/commands/cycledialog.h \
     gui/commands/offdialog.h \
-    gui/commands/ondialog.h
+    gui/commands/ondialog.h \
+    gui/commands/rotatedialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -65,7 +67,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/tttlinedialog.ui \
     gui/commands/cycledialog.ui \
     gui/commands/offdialog.ui \
-    gui/commands/ondialog.ui
+    gui/commands/ondialog.ui \
+    gui/commands/rotatedialog.ui
 
 win32:RC_FILE = application.rc
 

@@ -686,6 +686,12 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             break;
         }
 
+        case CMD_ROTATE:
+        {
+            RotateDialog(this).exec();
+            break;
+        }
+
         case CMD_FOR:
         {
             CycleDialog(this).exec();
