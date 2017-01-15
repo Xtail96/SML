@@ -6,6 +6,15 @@ ArcDialog::ArcDialog(QWidget *parent) :
     ui(new Ui::ArcDialog)
 {
     ui->setupUi(this);
+    QFile description("./description/arc.html");
+    if(!description.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", description.errorString());
+    }
+    QTextStream in(&description);
+    QString content = in.readAll();
+    ui->arc_textEdit_description->setHtml(content);
+    description.close();
 }
 
 ArcDialog::~ArcDialog()

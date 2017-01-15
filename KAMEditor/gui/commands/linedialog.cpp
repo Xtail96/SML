@@ -6,20 +6,15 @@ LineDialog::LineDialog(QWidget *parent) :
     ui(new Ui::LineDialog)
 {
     ui->setupUi(this);
-    QFile description("./description/line.rtf");
+    QFile description("./description/line.html");
     if(!description.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(0, "error", description.errorString());
     }
     QTextStream in(&description);
     QString content = in.readAll();
-    ui->line_textEdit_description->setText(content);
+    ui->line_textEdit_description->setHtml(content);
     description.close();
-
-
-
-
-    //ui->line_textEdit_description->setText();
 }
 LineDialog::~LineDialog()
 {
