@@ -785,6 +785,17 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
             instance.addCommand(command, selected_command);
             break;
         }
+        case CMD_ON:
+        {
+            OnDialog(this).exec();
+            break;
+        }
+
+        case CMD_OFF:
+        {
+            OffDialog(this).exec();
+            break;
+        }
     }
-     update_commands();
+    update_commands();
 }

@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     gui/commands/ttlinedialog.cpp \
     gui/commands/arc2dialog.cpp \
     gui/commands/tttlinedialog.cpp \
-    gui/commands/cycledialog.cpp
+    gui/commands/cycledialog.cpp \
+    gui/commands/offdialog.cpp \
+    gui/commands/ondialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -47,7 +49,9 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/ttlinedialog.h \
     gui/commands/arc2dialog.h \
     gui/commands/tttlinedialog.h \
-    gui/commands/cycledialog.h
+    gui/commands/cycledialog.h \
+    gui/commands/offdialog.h \
+    gui/commands/ondialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -59,7 +63,9 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/ttlinedialog.ui \
     gui/commands/arc2dialog.ui \
     gui/commands/tttlinedialog.ui \
-    gui/commands/cycledialog.ui
+    gui/commands/cycledialog.ui \
+    gui/commands/offdialog.ui \
+    gui/commands/ondialog.ui
 
 win32:RC_FILE = application.rc
 
