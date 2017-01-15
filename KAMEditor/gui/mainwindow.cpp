@@ -762,7 +762,7 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
             Command command;
             command.id = CMD_ZERO;
 
-            command.commandColor = "#3300ff";
+            command.commandColor = "#000099";
 
             std::string setZero = "";
             command.args = {

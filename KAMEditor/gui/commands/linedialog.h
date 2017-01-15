@@ -2,7 +2,9 @@
 #define LINEDIALOG_H
 
 #include <QDialog>
-
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 #include "commandinterpreter.h"
 
 namespace Ui {
