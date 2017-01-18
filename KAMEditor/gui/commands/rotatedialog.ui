@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,10 +28,28 @@
    </property>
    <item row="1" column="0">
     <widget class="QGroupBox" name="rotate_arguments_groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>2</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Аргументы</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item row="6" column="0" colspan="2">
        <widget class="QRadioButton" name="rotate_radioButton_axis_b">
         <property name="text">
@@ -88,13 +106,31 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QGroupBox" name="rotate_description_groupBox">
+    <widget class="QGroupBox" name="rotate_groupBox_description">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>3</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Описание</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item>
-       <widget class="QTextEdit" name="rotate_description_textEdit">
+       <widget class="QTextEdit" name="rotate_textEdit_description">
         <property name="readOnly">
          <bool>true</bool>
         </property>

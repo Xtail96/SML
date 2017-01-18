@@ -6,6 +6,15 @@ CycleDialog::CycleDialog(QWidget *parent) :
     ui(new Ui::CycleDialog)
 {
     ui->setupUi(this);
+    QFile description("./description/for.html");
+    if(!description.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", description.errorString());
+    }
+    QTextStream in(&description);
+    QString content = in.readAll();
+    ui->cycle_textEdit_description->setHtml(content);
+    description.close();
 }
 
 CycleDialog::~CycleDialog()

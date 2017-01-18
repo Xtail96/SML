@@ -6,6 +6,15 @@ LabelDialog::LabelDialog(QWidget *parent) :
     ui(new Ui::LabelDialog)
 {
     ui->setupUi(this);
+    QFile description("./description/label.html");
+    if(!description.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", description.errorString());
+    }
+    QTextStream in(&description);
+    QString content = in.readAll();
+    ui->label_textEdit_description->setHtml(content);
+    description.close();
 }
 
 LabelDialog::~LabelDialog()

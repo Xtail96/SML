@@ -6,6 +6,15 @@ RotateDialog::RotateDialog(QWidget *parent) :
     ui(new Ui::RotateDialog)
 {
     ui->setupUi(this);
+    QFile description("./description/rotate.html");
+    if(!description.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", description.errorString());
+    }
+    QTextStream in(&description);
+    QString content = in.readAll();
+    ui->rotate_textEdit_description->setHtml(content);
+    description.close();
 }
 
 RotateDialog::~RotateDialog()

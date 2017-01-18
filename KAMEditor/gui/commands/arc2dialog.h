@@ -2,6 +2,11 @@
 #define ARC2DIALOG_H
 
 #include <QDialog>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+
+#include "commandinterpreter.h"
 
 namespace Ui {
 class Arc2Dialog;

@@ -61,13 +61,13 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="cycle_description_groupBox">
+    <widget class="QGroupBox" name="cycle_groupBox_description">
      <property name="title">
       <string>Описание:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QTextEdit" name="cycle_description_textEdit">
+       <widget class="QTextEdit" name="cycle_textEdit_description">
         <property name="readOnly">
          <bool>true</bool>
         </property>
