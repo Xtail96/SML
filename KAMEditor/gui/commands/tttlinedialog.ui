@@ -27,6 +27,18 @@
       <string>Описание</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item row="1" column="0">
        <widget class="QTextEdit" name="tttline_textEdit_description">
         <property name="readOnly">
@@ -35,16 +47,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
@@ -61,10 +63,20 @@
       </font>
      </property>
      <property name="text">
-      <string>TTT-Линия</string>
+      <string>ТТТ-Линия</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

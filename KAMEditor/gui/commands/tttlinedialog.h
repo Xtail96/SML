@@ -21,6 +21,9 @@ public:
     explicit TTTLineDialog(QWidget *parent = 0);
     ~TTTLineDialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::TTTLineDialog *ui;
 };

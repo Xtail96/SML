@@ -21,3 +21,8 @@ TTTLineDialog::~TTTLineDialog()
 {
     delete ui;
 }
+
+void TTTLineDialog::on_buttonBox_accepted()
+{
+
+}
