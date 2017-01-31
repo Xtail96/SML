@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -365,6 +365,9 @@
              <property name="alternatingRowColors">
               <bool>false</bool>
              </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
              <property name="columnCount">
               <number>3</number>
              </property>
@@ -443,6 +446,15 @@
                  </property>
                  <property name="alternatingRowColors">
                   <bool>true</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SingleSelection</enum>
+                 </property>
+                 <property name="selectionRectVisible">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>false</bool>
                  </property>
                  <item>
                   <property name="text">
