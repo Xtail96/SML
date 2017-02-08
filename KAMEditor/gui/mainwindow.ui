@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -69,7 +69,77 @@
         <string>Редактор</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0" colspan="4">
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="points_editor_box">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>3</horstretch>
+            <verstretch>6</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="title">
+           <string>Редактор точек</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="0">
+            <widget class="QTableWidget" name="points_table_widget_2">
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectItems</enum>
+             </property>
+             <column>
+              <property name="text">
+               <string>X</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Y</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Z</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>A</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>B</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
          <widget class="QFrame" name="controls_frame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -261,307 +331,297 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="points_editor_box">
+        <item row="1" column="0">
+         <widget class="QTabWidget" name="programs_editor_tabWidget">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>3</horstretch>
-            <verstretch>6</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="baseSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="title">
-           <string>Редактор точек</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_16">
-           <item row="0" column="0">
-            <widget class="QTableWidget" name="points_table_widget_2">
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::ExtendedSelection</enum>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectItems</enum>
-             </property>
-             <column>
-              <property name="text">
-               <string>X</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Y</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Z</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>A</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>B</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QGroupBox" name="program_editor_box">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>7</horstretch>
             <verstretch>6</verstretch>
            </sizepolicy>
           </property>
-          <property name="baseSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="title">
-           <string>Редактор рабочих программ</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QTreeWidget" name="editor_treeWidget">
-             <property name="alternatingRowColors">
-              <bool>false</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::ExtendedSelection</enum>
-             </property>
-             <property name="columnCount">
-              <number>3</number>
-             </property>
-             <column>
-              <property name="text">
-               <string notr="true">№</string>
+          <widget class="QWidget" name="sml_editor_tab">
+           <attribute name="title">
+            <string>Команды SML</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QGroupBox" name="command_list_box">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>2</horstretch>
+                <verstretch>6</verstretch>
+               </sizepolicy>
               </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Команда</string>
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Аргументы</string>
+              <property name="font">
+               <font>
+                <family>MS Shell Dlg 2</family>
+                <pointsize>14</pointsize>
+               </font>
               </property>
-             </column>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="command_list_box">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>2</horstretch>
-            <verstretch>6</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="baseSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>MS Shell Dlg 2</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="title">
-           <string>Список команд</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="0">
-            <widget class="QToolBox" name="toolBox">
-             <property name="currentIndex">
-              <number>0</number>
-             </property>
-             <widget class="QWidget" name="page_1">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>186</width>
-                <height>392</height>
-               </rect>
+              <property name="title">
+               <string>Список команд</string>
               </property>
-              <attribute name="label">
-               <string>Инструменты</string>
-              </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_19">
+              <layout class="QGridLayout" name="gridLayout_8">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QToolBox" name="toolBox">
+                 <property name="currentIndex">
+                  <number>0</number>
+                 </property>
+                 <widget class="QWidget" name="page_1">
+                  <property name="geometry">
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>173</width>
+                    <height>342</height>
+                   </rect>
+                  </property>
+                  <attribute name="label">
+                   <string>Инструменты</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout_19">
+                   <item>
+                    <widget class="QListWidget" name="commands_tools_listWidget">
+                     <property name="dragEnabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="dragDropMode">
+                      <enum>QAbstractItemView::DragOnly</enum>
+                     </property>
+                     <property name="defaultDropAction">
+                      <enum>Qt::LinkAction</enum>
+                     </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <property name="selectionMode">
+                      <enum>QAbstractItemView::SingleSelection</enum>
+                     </property>
+                     <property name="selectionRectVisible">
+                      <bool>false</bool>
+                     </property>
+                     <property name="sortingEnabled">
+                      <bool>false</bool>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Линия</string>
+                      </property>
+                      <property name="background">
+                       <brush brushstyle="NoBrush">
+                        <color alpha="255">
+                         <red>0</red>
+                         <green>0</green>
+                         <blue>0</blue>
+                        </color>
+                       </brush>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>ТТ-Линия</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>ТТТ-Линия</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Дуга</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Относительная дуга</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Поворот</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Цикл</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Конец цикла</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Метка</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_2">
+                  <property name="geometry">
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>173</width>
+                    <height>342</height>
+                   </rect>
+                  </property>
+                  <attribute name="label">
+                   <string>Наладка</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout_21">
+                   <item>
+                    <widget class="QListWidget" name="commands_adjustment_listWidget">
+                     <property name="autoFillBackground">
+                      <bool>false</bool>
+                     </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Обнулить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Окончить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Включить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Выключить</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="program_editor_box">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>7</horstretch>
+                <verstretch>6</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="title">
+               <string>Редактор рабочих программ</string>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
                <item>
-                <widget class="QListWidget" name="commands_tools_listWidget">
-                 <property name="dragEnabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="dragDropMode">
-                  <enum>QAbstractItemView::DragOnly</enum>
-                 </property>
-                 <property name="defaultDropAction">
-                  <enum>Qt::LinkAction</enum>
-                 </property>
+                <widget class="QTreeWidget" name="sml_editor_treeWidget">
                  <property name="alternatingRowColors">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="selectionMode">
-                  <enum>QAbstractItemView::SingleSelection</enum>
+                  <enum>QAbstractItemView::ExtendedSelection</enum>
                  </property>
-                 <property name="selectionRectVisible">
-                  <bool>false</bool>
+                 <property name="columnCount">
+                  <number>3</number>
                  </property>
-                 <property name="sortingEnabled">
-                  <bool>false</bool>
-                 </property>
-                 <item>
+                 <column>
                   <property name="text">
-                   <string>Линия</string>
+                   <string notr="true">№</string>
                   </property>
-                  <property name="background">
-                   <brush brushstyle="NoBrush">
-                    <color alpha="255">
-                     <red>0</red>
-                     <green>0</green>
-                     <blue>0</blue>
-                    </color>
-                   </brush>
-                  </property>
-                 </item>
-                 <item>
+                 </column>
+                 <column>
                   <property name="text">
-                   <string>ТТ-Линия</string>
+                   <string>Команда</string>
                   </property>
-                 </item>
-                 <item>
+                 </column>
+                 <column>
                   <property name="text">
-                   <string>ТТТ-Линия</string>
+                   <string>Аргументы</string>
                   </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Дуга</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Относительная дуга</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Поворот</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Цикл</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Конец цикла</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Метка</string>
-                  </property>
-                 </item>
+                 </column>
                 </widget>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_2">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>186</width>
-                <height>392</height>
-               </rect>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="gcodes_editor_tab">
+           <attribute name="title">
+            <string>G-Коды</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_23">
+            <item>
+             <widget class="QTextEdit" name="gcodes_editor_textEdit">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
               </property>
-              <attribute name="label">
-               <string>Наладка</string>
-              </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_21">
-               <item>
-                <widget class="QListWidget" name="commands_adjustment_listWidget">
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="alternatingRowColors">
-                  <bool>true</bool>
-                 </property>
-                 <item>
-                  <property name="text">
-                   <string>Обнулить</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Окончить</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Включить</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Выключить</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-              </layout>
              </widget>
-            </widget>
-           </item>
-          </layout>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>

@@ -124,14 +124,17 @@ void MainWindow::deleteCommand()
 {
     if(ui->editor_tab->isVisible())
     {
-        CommandInterpreter &commands = CommandInterpreter::Instance();
-        QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
-        if(select->hasSelection())
+        if(ui->sml_editor_tab->isVisible())
         {
-            unsigned int current_row = select->currentIndex().row();
-            commands.deleteSelectedCommands(current_row);
+            CommandInterpreter &commands = CommandInterpreter::Instance();
+            QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
+            if(select->hasSelection())
+            {
+                unsigned int current_row = select->currentIndex().row();
+                commands.deleteSelectedCommands(current_row);
+            }
+            update_commands();
         }
-        update_commands();
     }
 }
 
@@ -139,7 +142,10 @@ void MainWindow::addLineCommand()
 {
     if(ui->editor_tab->isVisible())
     {
-        LineDialog(this).exec();
+        if(ui->sml_editor_tab->isVisible())
+        {
+            LineDialog(this).exec();
+        }
     }
     update_commands();
 }
@@ -202,7 +208,7 @@ void MainWindow::update_commands()
 {
     std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
 
-    QTreeWidget*  editorField = ui->editor_treeWidget;
+    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
 
     // очищаем текущую таблицу
     editorField->clear();
@@ -627,7 +633,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
 
-    QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
+    QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
     if(select->hasSelection())
     {
         unsigned int current_row =  select->currentIndex().row();
@@ -729,7 +735,7 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
 
-    QItemSelectionModel *select = ui->editor_treeWidget->selectionModel();
+    QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
     if(select->hasSelection())
     {
         unsigned int current_row =  select->currentIndex().row();
