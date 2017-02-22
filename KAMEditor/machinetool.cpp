@@ -103,7 +103,7 @@ MachineTool& MachineTool::Instance()
 
 MachineTool::MachineTool()
 {
-
+    isBased = false;
 }
 
 
@@ -130,6 +130,15 @@ Vector MachineTool::getParkCoordinates()
     return park;
 }
 
+bool MachineTool::getIsBased()
+{
+    return isBased;
+}
+
+void MachineTool::setIsBased(bool value)
+{
+    isBased = value;
+}
 
 void MachineTool::stepMove(Vector f)
 {

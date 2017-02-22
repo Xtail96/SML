@@ -118,6 +118,7 @@ void MainWindow::update()
     update_coordinates();
     update_battery_status();
     update_kabriol_avaliability();
+    update_base_status();
 }
 
 void MainWindow::deleteCommand()
@@ -257,6 +258,21 @@ void MainWindow::update_battery_status()
     #ifdef Q_OS_OSX
         ui->battery_progress_bar->setValue(100);
     #endif
+}
+
+void MainWindow::update_base_status()
+{
+    MachineTool &instance = MachineTool::Instance();
+    if(instance.getIsBased())
+    {
+       ui->edges_contol_check_box->setEnabled(true);
+       ui->edges_contol_check_box->setChecked(true);
+    }
+    else
+    {
+        ui->edges_contol_check_box->setChecked(false);
+        ui->edges_contol_check_box->setEnabled(false);
+    }
 }
 
 
@@ -810,4 +826,11 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
         }
     }
     update_commands();
+}
+
+void MainWindow::on_to_base_button_clicked()
+{
+    MachineTool& instance = MachineTool::Instance();
+    instance.setIsBased(true);
+    update_base_status();
 }

@@ -393,8 +393,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>173</width>
-                    <height>342</height>
+                    <width>178</width>
+                    <height>356</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -487,8 +487,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>173</width>
-                    <height>342</height>
+                    <width>102</width>
+                    <height>102</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -2487,6 +2487,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="edges_contol_check_box">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>14</pointsize>
@@ -2497,6 +2500,9 @@
              </property>
              <property name="text">
               <string>Контроль габаритов</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
              <property name="checked">
               <bool>false</bool>

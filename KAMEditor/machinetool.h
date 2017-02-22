@@ -42,6 +42,10 @@ public:
 
     void setNewZeroCoordinates(Vector f);
 
+    void setIsBased(bool value);
+
+    bool getIsBased();
+
 private:
     // шаг движения
     double step;
@@ -67,6 +71,8 @@ private:
     /// Обороты шпинделя в минуту
     int jog;
 
+    /// Забазирован ли станок
+    bool isBased;
 
     // конструктор и деструктор недоступны публично
     MachineTool();

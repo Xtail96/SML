@@ -75,6 +75,7 @@ private:
 protected:
     void update_points();
     void update_commands();
+    void update_base_status();
 
 private slots:
 
@@ -124,6 +125,7 @@ private slots:
     void on_point_copy_button_clicked();
     void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
     void on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index);
+    void on_to_base_button_clicked();
 };
 
 
