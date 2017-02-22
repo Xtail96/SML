@@ -316,7 +316,7 @@ void MainWindow::setMovementButtonsRepeatState(bool state)
         ui->movement_x_positive_y_positive_button,
         ui->movement_x_positive_y_negative_button,
         ui->movement_x_negative_y_positive_button,
-        ui->movement_x_positive_y_negative_button,
+        ui->movement_x_negative_y_negative_button,
 
         ui->movement_z_positive_button,
         ui->movement_z_negative_button,
