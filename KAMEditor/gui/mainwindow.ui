@@ -2374,6 +2374,9 @@
                 <property name="lineWidth">
                  <number>1</number>
                 </property>
+                <property name="midLineWidth">
+                 <number>0</number>
+                </property>
                 <item>
                  <property name="text">
                   <string>X:</string>
@@ -2420,10 +2423,7 @@
              <property name="checkable">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <property name="spacing">
-               <number>5</number>
-              </property>
+             <layout class="QGridLayout" name="gridLayout_22">
               <property name="leftMargin">
                <number>5</number>
               </property>
@@ -2436,7 +2436,7 @@
               <property name="bottomMargin">
                <number>5</number>
               </property>
-              <item>
+              <item row="0" column="0">
                <widget class="QListWidget" name="listWidget_parkCoordinates">
                 <property name="font">
                  <font>

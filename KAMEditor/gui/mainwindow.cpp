@@ -267,11 +267,19 @@ void MainWindow::update_base_status()
     {
        ui->edges_contol_check_box->setEnabled(true);
        ui->edges_contol_check_box->setChecked(true);
+
+       ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+       ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+       ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
     }
     else
     {
         ui->edges_contol_check_box->setChecked(false);
         ui->edges_contol_check_box->setEnabled(false);
+
+        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
+        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
+        ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
     }
 }
 
