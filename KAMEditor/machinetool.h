@@ -46,6 +46,10 @@ public:
 
     bool getIsBased();
 
+    void setIsEdgesControlEnabled(bool value);
+
+    bool getIsEdgesControlEnabled();
+
 private:
     // шаг движения
     double step;
@@ -73,6 +77,9 @@ private:
 
     /// Забазирован ли станок
     bool isBased;
+
+    /// Активен ли контроль габаритов
+    bool isEdgeControlEnabled;
 
     // конструктор и деструктор недоступны публично
     MachineTool();

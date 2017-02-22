@@ -104,6 +104,7 @@ MachineTool& MachineTool::Instance()
 MachineTool::MachineTool()
 {
     isBased = false;
+    isEdgeControlEnabled = false;
 }
 
 
@@ -138,6 +139,16 @@ bool MachineTool::getIsBased()
 void MachineTool::setIsBased(bool value)
 {
     isBased = value;
+}
+
+bool MachineTool::getIsEdgesControlEnabled()
+{
+    return isEdgeControlEnabled;
+}
+
+void MachineTool::setIsEdgesControlEnabled(bool value)
+{
+    isEdgeControlEnabled = value;
 }
 
 void MachineTool::stepMove(Vector f)

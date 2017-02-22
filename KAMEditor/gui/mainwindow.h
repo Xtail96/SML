@@ -71,6 +71,7 @@ private:
     void update_battery_status();
     void update_kabriol_avaliability();
 
+    void update_edges_control_status();
 
 protected:
     void update_points();
@@ -126,6 +127,7 @@ private slots:
     void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
     void on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index);
     void on_to_base_button_clicked();
+    void on_edges_contol_check_box_clicked();
 };
 
 
