@@ -79,7 +79,7 @@ private:
     bool baseStatus;
 
     /// Активен ли контроль габаритов
-    bool edgeControlEnable;
+    bool edgesControlEnable;
 
     // конструктор и деструктор недоступны публично
     MachineTool();

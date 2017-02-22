@@ -104,7 +104,7 @@ MachineTool& MachineTool::Instance()
 MachineTool::MachineTool()
 {
     baseStatus = false;
-    edgeControlEnable = false;
+    edgesControlEnable = false;
 }
 
 
@@ -143,12 +143,12 @@ void MachineTool::setBaseStatus(bool value)
 
 bool MachineTool::getEdgesControlEnable()
 {
-    return edgeControlEnable;
+    return edgesControlEnable;
 }
 
 void MachineTool::setEdgesControlEnable(bool value)
 {
-    edgeControlEnable = value;
+    edgesControlEnable = value;
 }
 
 void MachineTool::stepMove(Vector f)
