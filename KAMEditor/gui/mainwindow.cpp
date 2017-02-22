@@ -264,7 +264,7 @@ void MainWindow::update_battery_status()
 void MainWindow::update_base_status()
 {
     MachineTool &instance = MachineTool::Instance();
-    if(instance.getIsBased())
+    if(instance.getBaseStatus())
     {
        ui->edges_contol_check_box->setEnabled(true);
     }
@@ -830,9 +830,9 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
 void MainWindow::update_edges_control_status()
 {
     MachineTool& instance = MachineTool::Instance();
-    if(instance.getIsBased())
+    if(instance.getBaseStatus())
     {
-        if(instance.getIsEdgesControlEnabled())
+        if(instance.getEdgesControlEnable())
         {
             ui->edges_contol_check_box->setChecked(true);
             ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
@@ -860,8 +860,8 @@ void MainWindow::update_edges_control_status()
 void MainWindow::on_to_base_button_clicked()
 {
     MachineTool& instance = MachineTool::Instance();
-    instance.setIsBased(true);
-    instance.setIsEdgesControlEnabled(true);
+    instance.setBaseStatus(true);
+    instance.setEdgesControlEnable(true);
     update_base_status();
     update_edges_control_status();
 }
@@ -869,9 +869,9 @@ void MainWindow::on_to_base_button_clicked()
 void MainWindow::on_edges_contol_check_box_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
-    if(instance.getIsEdgesControlEnabled())
+    if(instance.getEdgesControlEnable())
     {
-       instance.setIsEdgesControlEnabled(false);
+       instance.setEdgesControlEnable(false);
        ui->edges_contol_check_box->setChecked(false);
        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
@@ -879,7 +879,7 @@ void MainWindow::on_edges_contol_check_box_clicked()
     }
     else
     {
-        instance.setIsEdgesControlEnabled(true);
+        instance.setEdgesControlEnable(true);
         ui->edges_contol_check_box->setChecked(true);
 
         ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");

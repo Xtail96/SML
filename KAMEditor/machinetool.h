@@ -42,13 +42,13 @@ public:
 
     void setNewZeroCoordinates(Vector f);
 
-    void setIsBased(bool value);
+    void setBaseStatus(bool value);
 
-    bool getIsBased();
+    bool getBaseStatus();
 
-    void setIsEdgesControlEnabled(bool value);
+    void setEdgesControlEnable(bool value);
 
-    bool getIsEdgesControlEnabled();
+    bool getEdgesControlEnable();
 
 private:
     // шаг движения
@@ -76,10 +76,10 @@ private:
     int jog;
 
     /// Забазирован ли станок
-    bool isBased;
+    bool baseStatus;
 
     /// Активен ли контроль габаритов
-    bool isEdgeControlEnabled;
+    bool edgeControlEnable;
 
     // конструктор и деструктор недоступны публично
     MachineTool();

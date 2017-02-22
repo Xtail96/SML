@@ -103,8 +103,8 @@ MachineTool& MachineTool::Instance()
 
 MachineTool::MachineTool()
 {
-    isBased = false;
-    isEdgeControlEnabled = false;
+    baseStatus = false;
+    edgeControlEnable = false;
 }
 
 
@@ -131,24 +131,24 @@ Vector MachineTool::getParkCoordinates()
     return park;
 }
 
-bool MachineTool::getIsBased()
+bool MachineTool::getBaseStatus()
 {
-    return isBased;
+    return baseStatus;
 }
 
-void MachineTool::setIsBased(bool value)
+void MachineTool::setBaseStatus(bool value)
 {
-    isBased = value;
+    baseStatus = value;
 }
 
-bool MachineTool::getIsEdgesControlEnabled()
+bool MachineTool::getEdgesControlEnable()
 {
-    return isEdgeControlEnabled;
+    return edgeControlEnable;
 }
 
-void MachineTool::setIsEdgesControlEnabled(bool value)
+void MachineTool::setEdgesControlEnable(bool value)
 {
-    isEdgeControlEnabled = value;
+    edgeControlEnable = value;
 }
 
 void MachineTool::stepMove(Vector f)
