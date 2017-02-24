@@ -63,11 +63,11 @@ public:
     bool getSpindleWarmUp();
 
 private:
-    /// Габариты станка
-    Vector dimensions;
-
     // шаг движения
     double step;
+
+    /// Габариты станка
+    Vector dimensions;
 
     /// Текущие координаты от базы, абсолютные
     Vector base;
