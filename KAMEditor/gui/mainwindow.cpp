@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->points_table_widget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->spindle_enable_button->setEnabled(false);
+    ui->spindle_enable_pushButton->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -891,31 +891,31 @@ void MainWindow::on_edges_contol_check_box_clicked()
     }
 }
 
-void MainWindow::on_spindle_enable_button_clicked()
+void MainWindow::on_spindle_enable_pushButton_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
     if(instance.getSpindleEnable())
     {
-        ui->spindle_enable_button->setStyleSheet("");
+        ui->spindle_enable_pushButton->setStyleSheet("");
         //ui->spindle_enable_button->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_button->setText("F1 - Включить шпиндель");
+        ui->spindle_enable_pushButton->setText("F1 - Включить шпиндель");
         instance.setSpindleEnable(false);
     }
     else
     {
-        ui->spindle_enable_button->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_button->setText("F1 - Выключить шпиндель");
+        ui->spindle_enable_pushButton->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
+        ui->spindle_enable_pushButton->setText("F1 - Выключить шпиндель");
         instance.setSpindleEnable(true);
     }
 }
 
-void MainWindow::on_mill_warming_button_clicked()
+void MainWindow::on_mill_warming_pushButton_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
     if(!instance.getSpindleWarmUp())
     {
         instance.setSpindleWarmUp(true);
-        ui->spindle_enable_button->setEnabled(true);
+        ui->spindle_enable_pushButton->setEnabled(true);
     }
     else
     {

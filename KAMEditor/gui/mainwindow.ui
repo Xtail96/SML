@@ -938,7 +938,7 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
-               <widget class="QPushButton" name="spindle_enable_button">
+               <widget class="QPushButton" name="spindle_enable_pushButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1099,7 +1099,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="mill_warming_button">
+               <widget class="QPushButton" name="mill_warming_pushButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -4328,13 +4328,6 @@
                <string>Габариты</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_46">
-                 <property name="text">
-                  <string>Ось X</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="1">
                 <widget class="QLineEdit" name="lineEdit_12">
                  <property name="text">
@@ -4342,6 +4335,23 @@
                  </property>
                  <property name="readOnly">
                   <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="lineEdit_14">
+                 <property name="text">
+                  <string>180</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_46">
+                 <property name="text">
+                  <string>Ось X</string>
                  </property>
                 </widget>
                </item>
@@ -4365,27 +4375,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="lineEdit_14">
-                 <property name="text">
-                  <string>180</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_49">
                  <property name="text">
                   <string>Ось A</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_48">
-                 <property name="text">
-                  <string>Ось Z</string>
                  </property>
                 </widget>
                </item>
@@ -4406,6 +4399,13 @@
                  </property>
                 </widget>
                </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_48">
+                 <property name="text">
+                  <string>Ось Z</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_47">
                  <property name="text">
@@ -4414,7 +4414,7 @@
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="change_size_settings_pushButton">
                  <property name="text">
                   <string>Изменить</string>
                  </property>
@@ -4422,6 +4422,26 @@
                </item>
                <item row="5" column="1">
                 <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="6" column="0">
+                <widget class="QPushButton" name="apply_size_settings_pushButton">
+                 <property name="text">
+                  <string>Применить</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <spacer name="horizontalSpacer_5">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
