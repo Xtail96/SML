@@ -39,6 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->points_table_widget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->points_table_widget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+
+    ui->spindle_enable_button->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -885,5 +888,37 @@ void MainWindow::on_edges_contol_check_box_clicked()
         ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
         ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
         ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+    }
+}
+
+void MainWindow::on_spindle_enable_button_clicked()
+{
+    MachineTool &instance = MachineTool::Instance();
+    if(instance.getSpindleEnable())
+    {
+        ui->spindle_enable_button->setStyleSheet("");
+        //ui->spindle_enable_button->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
+        ui->spindle_enable_button->setText("F1 - Включить шпиндель");
+        instance.setSpindleEnable(false);
+    }
+    else
+    {
+        ui->spindle_enable_button->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
+        ui->spindle_enable_button->setText("F1 - Выключить шпиндель");
+        instance.setSpindleEnable(true);
+    }
+}
+
+void MainWindow::on_mill_warming_button_clicked()
+{
+    MachineTool &instance = MachineTool::Instance();
+    if(!instance.getSpindleWarmUp())
+    {
+        instance.setSpindleWarmUp(true);
+        ui->spindle_enable_button->setEnabled(true);
+    }
+    else
+    {
+
     }
 }

@@ -50,6 +50,14 @@ public:
 
     bool getEdgesControlEnable();
 
+    void setSpindleEnable(bool value);
+
+    bool getSpindleEnable();
+
+    void setSpindleWarmUp(bool value);
+
+    bool getSpindleWarmUp();
+
 private:
     // шаг движения
     double step;
@@ -80,6 +88,12 @@ private:
 
     /// Активен ли контроль габаритов
     bool edgesControlEnable;
+
+    /// Включен ли шпиндель
+    bool spindleEnable;
+
+    /// Проведен ли прогрев Шпинделя
+    bool spindleWarmUp;
 
     // конструктор и деструктор недоступны публично
     MachineTool();

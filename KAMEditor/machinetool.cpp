@@ -105,6 +105,8 @@ MachineTool::MachineTool()
 {
     baseStatus = false;
     edgesControlEnable = false;
+    spindleEnable = false;
+    spindleWarmUp = false;
 }
 
 
@@ -149,6 +151,26 @@ bool MachineTool::getEdgesControlEnable()
 void MachineTool::setEdgesControlEnable(bool value)
 {
     edgesControlEnable = value;
+}
+
+bool MachineTool::getSpindleEnable()
+{
+    return spindleEnable;
+}
+
+void MachineTool::setSpindleEnable(bool value)
+{
+    spindleEnable = value;
+}
+
+bool MachineTool::getSpindleWarmUp()
+{
+    return spindleWarmUp;
+}
+
+void MachineTool::setSpindleWarmUp(bool value)
+{
+    spindleWarmUp = value;
 }
 
 void MachineTool::stepMove(Vector f)
