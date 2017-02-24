@@ -4329,7 +4329,7 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
                <item row="1" column="1">
-                <widget class="QLineEdit" name="lineEdit_12">
+                <widget class="QLineEdit" name="y_dimension_lineEdit">
                  <property name="text">
                   <string>500</string>
                  </property>
@@ -4339,7 +4339,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QLineEdit" name="lineEdit_14">
+                <widget class="QLineEdit" name="a_dimension_lineEdit">
                  <property name="text">
                   <string>180</string>
                  </property>
@@ -4356,7 +4356,7 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QLineEdit" name="lineEdit_13">
+                <widget class="QLineEdit" name="z_dimension_lineEdit">
                  <property name="text">
                   <string>300</string>
                  </property>
@@ -4366,7 +4366,7 @@
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QLineEdit" name="lineEdit_15">
+                <widget class="QLineEdit" name="b_dimension_lineEdit">
                  <property name="text">
                   <string>300</string>
                  </property>
@@ -4390,7 +4390,7 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="lineEdit_11">
+                <widget class="QLineEdit" name="x_dimension_lineEdit">
                  <property name="text">
                   <string>6000</string>
                  </property>

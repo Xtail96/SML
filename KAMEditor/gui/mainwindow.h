@@ -56,7 +56,7 @@ private:
     std::vector<QShortcut*> editorShortcuts;
 
 
-
+    void setupDimensions();
 
     void setupShortcuts(); 
     void setupEditorShortcuts();
@@ -130,6 +130,8 @@ private slots:
     void on_edges_contol_check_box_clicked();
     void on_spindle_enable_pushButton_clicked();
     void on_mill_warming_pushButton_clicked();
+    void on_change_size_settings_pushButton_clicked();
+    void on_apply_size_settings_pushButton_clicked();
 };
 
 

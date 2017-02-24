@@ -107,6 +107,11 @@ MachineTool::MachineTool()
     edgesControlEnable = false;
     spindleEnable = false;
     spindleWarmUp = false;
+    dimensions.x = 0;
+    dimensions.y = 0;
+    dimensions.z = 0;
+    dimensions.a = 0;
+    dimensions.b = 0;
 }
 
 
@@ -189,6 +194,16 @@ void MachineTool::stepMove(Vector f)
     base.z += f.z * current_step;
     base.a += f.a * current_step;
     base.b += f.b * current_step;
+}
+
+Vector MachineTool::getDimensions()
+{
+    return dimensions;
+}
+
+void MachineTool::setDimensions(Vector v)
+{
+    dimensions = v;
 }
 
 

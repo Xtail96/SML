@@ -21,6 +21,10 @@ public:
 
     void setMovementStep(double s) { step = s; }
 
+    void setDimensions(Vector v);
+
+    Vector getDimensions();
+
     /// Возвращает текущие координаты
     Vector getCurrentCoordinates();
 
@@ -59,6 +63,9 @@ public:
     bool getSpindleWarmUp();
 
 private:
+    /// Габариты станка
+    Vector dimensions;
+
     // шаг движения
     double step;
 

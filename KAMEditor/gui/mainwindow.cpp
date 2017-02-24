@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //задаем габариты станка
+    setupDimensions();
+
     // задаем горячие клавиши
     setupShortcuts();
 
@@ -63,6 +67,17 @@ MainWindow::~MainWindow()
     }
 }
 
+void MainWindow::setupDimensions()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v;
+    v.x = ui->x_dimension_lineEdit->text().toDouble();
+    v.y = ui->y_dimension_lineEdit->text().toDouble();
+    v.z = ui->z_dimension_lineEdit->text().toDouble();
+    v.a = ui->a_dimension_lineEdit->text().toDouble();
+    v.b = ui->b_dimension_lineEdit->text().toDouble();
+    instance.setDimensions(v);
+}
 
 void MainWindow::setupShortcuts()
 {
@@ -921,4 +936,33 @@ void MainWindow::on_mill_warming_pushButton_clicked()
     {
 
     }
+}
+
+void MainWindow::on_change_size_settings_pushButton_clicked()
+{
+    ui->x_dimension_lineEdit->setReadOnly(false);
+    ui->x_dimension_lineEdit->setStyleSheet("border: 2px solid #4682B4; font-size: 14pt");
+    ui->y_dimension_lineEdit->setReadOnly(false);
+    ui->y_dimension_lineEdit->setStyleSheet("border: 2px solid #4682B4; font-size: 14pt");
+    ui->z_dimension_lineEdit->setReadOnly(false);
+    ui->z_dimension_lineEdit->setStyleSheet("border: 2px solid #4682B4; font-size: 14pt");
+    ui->a_dimension_lineEdit->setReadOnly(false);
+    ui->a_dimension_lineEdit->setStyleSheet("border: 2px solid #4682B4; font-size: 14pt");
+    ui->b_dimension_lineEdit->setReadOnly(false);
+    ui->b_dimension_lineEdit->setStyleSheet("border: 2px solid #4682B4; font-size: 14pt");
+}
+
+void MainWindow::on_apply_size_settings_pushButton_clicked()
+{
+    setupDimensions();
+    ui->x_dimension_lineEdit->setReadOnly(true);
+    ui->x_dimension_lineEdit->setStyleSheet("font-size: 14pt");
+    ui->y_dimension_lineEdit->setReadOnly(true);
+    ui->y_dimension_lineEdit->setStyleSheet("font-size: 14pt");
+    ui->z_dimension_lineEdit->setReadOnly(true);
+    ui->z_dimension_lineEdit->setStyleSheet("font-size: 14pt");
+    ui->a_dimension_lineEdit->setReadOnly(true);
+    ui->a_dimension_lineEdit->setStyleSheet("font-size: 14pt");
+    ui->b_dimension_lineEdit->setReadOnly(true);
+    ui->b_dimension_lineEdit->setStyleSheet("font-size: 14pt");
 }
