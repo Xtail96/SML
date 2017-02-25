@@ -46,6 +46,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->spindle_enable_pushButton->setEnabled(false);
+    ui->zero_button->setEnabled(false);
+    ui->to_zero_button->setEnabled(false);
+    ui->zero_sensor_button->setEnabled(false);
+    ui->length_sensor_button->setEnabled(false);
+    ui->park_button->setEnabled(false);
+    ui->to_park_button->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -882,6 +888,13 @@ void MainWindow::on_to_base_button_clicked()
     instance.setEdgesControlEnable(true);
     update_base_status();
     update_edges_control_status();
+
+    ui->zero_button->setEnabled(true);
+    ui->to_zero_button->setEnabled(true);
+    ui->zero_sensor_button->setEnabled(true);
+    ui->length_sensor_button->setEnabled(true);
+    ui->park_button->setEnabled(true);
+    ui->to_park_button->setEnabled(true);
 }
 
 void MainWindow::on_edges_contol_check_box_clicked()

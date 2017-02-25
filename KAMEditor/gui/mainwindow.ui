@@ -393,8 +393,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>190</width>
-                    <height>368</height>
+                    <width>178</width>
+                    <height>356</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -487,8 +487,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>91</width>
-                    <height>91</height>
+                    <width>102</width>
+                    <height>102</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -1165,7 +1165,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="to_zer_button">
+               <widget class="QPushButton" name="to_zero_button">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -5187,7 +5187,7 @@
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
