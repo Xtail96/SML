@@ -641,16 +641,12 @@ void MainWindow::on_point_edit_button_clicked()
     }
 }
 
-
-
 void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
 {
     QItemSelectionModel *select = ui->points_table_widget->selectionModel();
     if(select->hasSelection())
     {
-        //select->selectedRows();
-
-        int current_row = select->currentIndex().row();
+        int current_row = index.row();
 
         PointsManager& point_table = PointsManager::Instance();
         point_table.setSelectedPoint(current_row);
