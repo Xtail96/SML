@@ -133,6 +133,7 @@ private slots:
     void on_change_size_settings_pushButton_clicked();
     void on_apply_size_settings_pushButton_clicked();
     void on_points_table_widget_doubleClicked(const QModelIndex &index);
+    void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
 };
 
 

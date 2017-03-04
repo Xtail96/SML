@@ -993,3 +993,123 @@ void MainWindow::on_apply_size_settings_pushButton_clicked()
     ui->b_dimension_lineEdit->setReadOnly(true);
     ui->b_dimension_lineEdit->setStyleSheet("font-size: 14pt");
 }
+
+void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
+{
+    QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
+
+    COMMAND cmd = getCommandByName(name.toStdString());
+    switch (cmd)
+    {
+        case CMD_LINE:
+        {
+            LineDialog(this).exec();
+            break;
+        }
+
+        case CMD_TTLINE:
+        {
+            TTLineDialog(this).exec();
+            break;
+        }
+
+        case CMD_TTTLINE:
+        {
+            TTTLineDialog(this).exec();
+            break;
+        }
+
+        case CMD_ARC:
+        {
+            ArcDialog(this).exec();
+            break;
+        }
+
+        case CMD_ARC2:
+        {
+            Arc2Dialog(this).exec();
+            break;
+        }
+
+        case CMD_ROTATE:
+        {
+            RotateDialog(this).exec();
+            break;
+        }
+
+        case CMD_FOR:
+        {
+            CycleDialog(this).exec();
+            break;
+        }
+
+        case CMD_ENDFOR:
+        {
+            Command command;
+            command.id = CMD_ENDFOR;
+            command.commandColor = "#999900";
+
+            std::string endfor = "";
+            command.args = {
+                endfor
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+
+        case CMD_LABEL:
+        {
+            LabelDialog(this).exec();
+            break;
+        }
+        case CMD_ZERO:
+        {
+            Command command;
+            command.id = CMD_ZERO;
+
+            command.commandColor = "#000099";
+
+            std::string setZero = "";
+            command.args = {
+                setZero
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+        case CMD_END:
+        {
+            Command command;
+            command.id = CMD_END;
+
+            command.commandColor = "#660099";
+
+            std::string endProgramm = "";
+            command.args = {
+                endProgramm
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+        case CMD_ON:
+        {
+            OnDialog(this).exec();
+            break;
+        }
+
+        case CMD_OFF:
+        {
+            OffDialog(this).exec();
+            break;
+        }
+    }
+    update_commands();
+}
