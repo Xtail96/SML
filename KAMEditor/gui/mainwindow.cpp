@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->spindle_enable_pushButton->setEnabled(false);
+    ui->spindle_enable_pushButton->setStyleSheet("background-color: #dfdfdf; color: #888; border: 1px solid #888");
+
     ui->length_sensor_button->setEnabled(false);
 }
 
