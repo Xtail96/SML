@@ -719,12 +719,12 @@
                <string>Кабриоль</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_12">
-               <item row="1" column="1">
+               <item row="1" column="2">
                 <widget class="QPushButton" name="movement_b_negative_button">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                   <horstretch>3</horstretch>
-                   <verstretch>3</verstretch>
+                   <horstretch>0</horstretch>
+                   <verstretch>1</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="font">
@@ -753,7 +753,20 @@
                  </property>
                 </widget>
                </item>
-               <item row="5" column="1">
+               <item row="1" column="0">
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="3" column="0">
                 <spacer name="verticalSpacer">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -766,12 +779,12 @@
                  </property>
                 </spacer>
                </item>
-               <item row="0" column="1">
+               <item row="1" column="1">
                 <widget class="QPushButton" name="movement_b_positive_button">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                   <horstretch>3</horstretch>
-                   <verstretch>3</verstretch>
+                   <horstretch>0</horstretch>
+                   <verstretch>1</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="font">
@@ -800,20 +813,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <spacer name="horizontalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="2">
+               <item row="1" column="3">
                 <spacer name="horizontalSpacer_9">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -826,31 +826,49 @@
                  </property>
                 </spacer>
                </item>
-               <item row="2" column="0" colspan="3">
-                <widget class="QRadioButton" name="kabriol_off_radio_button">
-                 <property name="text">
-                  <string>Кабриоль выключена</string>
+               <item row="2" column="0" colspan="4">
+                <widget class="QFrame" name="frame_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>3</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="checked">
-                  <bool>false</bool>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="3" column="0" colspan="3">
-                <widget class="QRadioButton" name="kabriol_on_radio_button">
-                 <property name="text">
-                  <string>Кабриоль включена</string>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0" colspan="3">
-                <widget class="QRadioButton" name="kabriol_servo_radio_button">
-                 <property name="text">
-                  <string>Сервокабриоль включена</string>
-                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QRadioButton" name="kabriol_off_radio_button">
+                    <property name="text">
+                     <string>Кабриоль выключена</string>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="kabriol_on_radio_button">
+                    <property name="text">
+                     <string>Кабриоль включена</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="kabriol_servo_radio_button">
+                    <property name="text">
+                     <string>Сервокабриоль включена</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
               </layout>
