@@ -642,6 +642,31 @@ void MainWindow::on_point_edit_button_clicked()
 }
 
 
+
+void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
+{
+    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
+    if(select->hasSelection())
+    {
+        //select->selectedRows();
+
+        int current_row = select->currentIndex().row();
+
+        PointsManager& point_table = PointsManager::Instance();
+        point_table.setSelectedPoint(current_row);
+
+        EditPointDialog* editPoint = new EditPointDialog(this);
+        editPoint->exec();
+        delete editPoint;
+        update_points();
+    }
+    else
+    {
+         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
+    }
+}
+
+
 void MainWindow::on_point_copy_button_clicked()
 {
     PointsManager& instance = PointsManager::Instance();

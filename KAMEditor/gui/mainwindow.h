@@ -132,6 +132,7 @@ private slots:
     void on_mill_warming_pushButton_clicked();
     void on_change_size_settings_pushButton_clicked();
     void on_apply_size_settings_pushButton_clicked();
+    void on_points_table_widget_doubleClicked(const QModelIndex &index);
 };
 
 
