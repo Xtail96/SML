@@ -652,6 +652,68 @@
              <property name="currentIndex">
               <number>0</number>
              </property>
+             <widget class="QWidget" name="tool_length_tab">
+              <attribute name="title">
+               <string>Датчик вылета инструмента</string>
+              </attribute>
+              <layout class="QGridLayout" name="gridLayout_23">
+               <item row="0" column="2">
+                <spacer name="horizontalSpacer_7">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="length_sensor_button">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>L - Вычислить длину фрезы</string>
+                 </property>
+                 <property name="shortcut">
+                  <string>L</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
              <widget class="QWidget" name="kabriol_tab">
               <attribute name="title">
                <string>Кабриоль</string>
@@ -1091,7 +1153,7 @@
                  </palette>
                 </property>
                 <property name="text">
-                 <string>F1 - Включить Фрезер</string>
+                 <string>F1 - Включить шпиндель</string>
                 </property>
                 <property name="shortcut">
                  <string>F1</string>
@@ -1107,7 +1169,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>F3 - Прогрев фрезера</string>
+                 <string>F3 - Прогрев шпинделя</string>
                 </property>
                 <property name="shortcut">
                  <string>F3</string>
@@ -1193,22 +1255,6 @@
                 </property>
                 <property name="shortcut">
                  <string>R</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="length_sensor_button">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>L - Вычислить длину фрезы</string>
-                </property>
-                <property name="shortcut">
-                 <string>L</string>
                 </property>
                </widget>
               </item>

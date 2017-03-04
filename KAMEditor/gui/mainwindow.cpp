@@ -46,12 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->spindle_enable_pushButton->setEnabled(false);
-    ui->zero_button->setEnabled(false);
-    ui->to_zero_button->setEnabled(false);
-    ui->zero_sensor_button->setEnabled(false);
     ui->length_sensor_button->setEnabled(false);
-    ui->park_button->setEnabled(false);
-    ui->to_park_button->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -291,10 +286,12 @@ void MainWindow::update_base_status()
     if(instance.getBaseStatus())
     {
        ui->edges_contol_check_box->setEnabled(true);
+       ui->length_sensor_button->setEnabled(true);
     }
     else
     {
-        ui->edges_contol_check_box->setEnabled(false);
+        ui->edges_contol_check_box->setEnabled(false); 
+        ui->length_sensor_button->setEnabled(false);
     }
 }
 
@@ -888,13 +885,6 @@ void MainWindow::on_to_base_button_clicked()
     instance.setEdgesControlEnable(true);
     update_base_status();
     update_edges_control_status();
-
-    ui->zero_button->setEnabled(true);
-    ui->to_zero_button->setEnabled(true);
-    ui->zero_sensor_button->setEnabled(true);
-    ui->length_sensor_button->setEnabled(true);
-    ui->park_button->setEnabled(true);
-    ui->to_park_button->setEnabled(true);
 }
 
 void MainWindow::on_edges_contol_check_box_clicked()
@@ -924,8 +914,8 @@ void MainWindow::on_spindle_enable_pushButton_clicked()
     MachineTool &instance = MachineTool::Instance();
     if(instance.getSpindleEnable())
     {
-        ui->spindle_enable_pushButton->setStyleSheet("");
-        //ui->spindle_enable_button->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
+        //ui->spindle_enable_pushButton->setStyleSheet("");
+        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
         ui->spindle_enable_pushButton->setText("F1 - Включить шпиндель");
         instance.setSpindleEnable(false);
     }
@@ -944,6 +934,7 @@ void MainWindow::on_mill_warming_pushButton_clicked()
     {
         instance.setSpindleWarmUp(true);
         ui->spindle_enable_pushButton->setEnabled(true);
+        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
     }
     else
     {
