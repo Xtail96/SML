@@ -46,7 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->spindle_enable_pushButton->setEnabled(false);
-    //ui->spindle_enable_pushButton->setStyleSheet("сolor: #888; border: 1px solid #888");
     ui->spindle_enable_pushButton->setStyleSheet("margin: 1px");
 
     ui->length_sensor_button->setEnabled(false);
@@ -194,8 +193,8 @@ void MainWindow::update_coordinates()
         i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3) + " мм");
         i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3) + " мм");
         i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3) + " мм");
-        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3) + " град.");
-        i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3) + " мм");
+        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3) + " град");
+        i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3) + " град");
     }
 }
 
@@ -303,13 +302,13 @@ void MainWindow::update_kabriol_avaliability()
 {
     if(ui->kabriol_off_radio_button->isChecked())
     {
-        ui->movement_a_negative_button->setEnabled(false);
-        ui->movement_a_positive_button->setEnabled(false);
+        ui->movement_b_negative_button->setEnabled(false);
+        ui->movement_b_positive_button->setEnabled(false);
     }
     if(ui->kabriol_servo_radio_button->isChecked() || ui->kabriol_on_radio_button->isChecked())
     {
-        ui->movement_a_negative_button->setEnabled(true);
-        ui->movement_a_positive_button->setEnabled(true);
+        ui->movement_b_negative_button->setEnabled(true);
+        ui->movement_b_positive_button->setEnabled(true);
     }
 }
 
