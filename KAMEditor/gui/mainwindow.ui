@@ -58,7 +58,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -487,8 +487,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>178</width>
-                    <height>361</height>
+                    <width>102</width>
+                    <height>102</height>
                    </rect>
                   </property>
                   <attribute name="label">

@@ -233,18 +233,18 @@ void MainWindow::update_commands()
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
 
-    // очищаем текущую таблицу
+    // очищаем поле
     editorField->clear();
 
     editorField->setColumnCount(3);
 
     QList<QTreeWidgetItem *> items;
 
-    // проходим по всем точкам
+    // проходим по всем командам
     for (unsigned int i = 0; i < commands.size(); i++)
     {
 
-        // добавляем строку в таблицу для текущей точки
+        // добавляем строку для текущей команды
         QTreeWidgetItem* item = new QTreeWidgetItem();
         item->setText(0, QString::number(i+1));
 
@@ -262,7 +262,6 @@ void MainWindow::update_commands()
 
         items.append(item);
     }
-
     editorField->insertTopLevelItems(0, items);
 }
 

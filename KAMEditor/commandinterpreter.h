@@ -28,7 +28,6 @@ public:
 
 private:
     bool running;
-
     void _Run();
 
     std::thread t;
@@ -36,6 +35,9 @@ private:
     unsigned int currentCommand;
     std::vector<Command> commands;
     unsigned int selectedCommand;
+
+
+
 
     std::stack<int> callStack;
     std::stack<std::pair<int, int> > loopStack;
