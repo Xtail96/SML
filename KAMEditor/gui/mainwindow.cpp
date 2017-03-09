@@ -240,14 +240,15 @@ void MainWindow::update_commands()
 
     QList<QTreeWidgetItem *> items;
 
+    QTreeWidgetItem* previousParent = nullptr;
+
     // проходим по всем командам
     for (unsigned int i = 0; i < commands.size(); i++)
     {
 
         // добавляем строку для текущей команды
-        QTreeWidgetItem* item = new QTreeWidgetItem();
+        QTreeWidgetItem* item = new QTreeWidgetItem(previousParent);
         item->setText(0, QString::number(i+1));
-
         QString commandColor = QString::fromStdString(commands[i].commandColor);
         item->setTextColor(1, QColor(commandColor));
         item->setTextColor(2, QColor(commandColor));
@@ -260,9 +261,32 @@ void MainWindow::update_commands()
         }
         item->setText(2, QString::fromStdString(s));
 
+        switch (commands[i].id)
+        {
+        case CMD_FOR:
+            {
+                previousParent = item;
+                break;
+            }
+        case CMD_ENDFOR:
+            {
+                if(previousParent)
+                {
+                    previousParent = previousParent->parent();
+                }
+                break;
+            }
+         default:
+            break;
+        }
+
+
+
+
         items.append(item);
     }
     editorField->insertTopLevelItems(0, items);
+    editorField->expandAll();
 }
 
 void MainWindow::update_battery_status()
