@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // задаем горячие клавиши
     setupShortcuts();
 
+
+    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
+    editorField->setTreePosition(1);
+
     setupEditorShortcuts();
 
     update_edges_control_status();
@@ -232,7 +236,6 @@ void MainWindow::update_commands()
     std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
-    editorField->setTreePosition(1);
 
     // очищаем поле
     editorField->clear();
@@ -281,16 +284,14 @@ void MainWindow::update_commands()
          default:
             break;
         }
-
-
-
-
         items.append(item);
     }
     editorField->insertTopLevelItems(0, items);
     editorField->expandAll();
-    editorField->resizeColumnToContents(1);
-    editorField->resizeColumnToContents(0);
+    for(int i=0; i<2; i++)
+    {
+        editorField->resizeColumnToContents(i);
+    }
 }
 
 void MainWindow::update_battery_status()

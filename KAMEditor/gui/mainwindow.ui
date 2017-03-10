@@ -4174,9 +4174,9 @@
               </sizepolicy>
              </property>
              <property name="title">
-              <string>Выполнение:</string>
+              <string>Выполнение и отладка:</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_25">
+             <layout class="QGridLayout" name="gridLayout_24">
               <property name="leftMargin">
                <number>5</number>
               </property>
@@ -4189,41 +4189,14 @@
               <property name="bottomMargin">
                <number>5</number>
               </property>
-              <item>
+              <item row="1" column="2" colspan="2">
                <widget class="QTableWidget" name="tableWidget">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>1</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="title">
-              <string>Отладка</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_20">
-              <property name="leftMargin">
-               <number>5</number>
-              </property>
-              <property name="topMargin">
-               <number>5</number>
-              </property>
-              <property name="rightMargin">
-               <number>5</number>
-              </property>
-              <property name="bottomMargin">
-               <number>5</number>
-              </property>
-              <item row="0" column="0">
+              <item row="0" column="2">
                <widget class="QPushButton" name="pushButton_9">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -4236,7 +4209,7 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="0" column="3">
                <widget class="QPushButton" name="pushButton_8">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -4246,19 +4219,6 @@
                 </property>
                 <property name="text">
                  <string>Шаг вперед</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0" colspan="2">
-               <widget class="QTableWidget" name="tableWidget_2">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>2</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="alternatingRowColors">
-                 <bool>true</bool>
                 </property>
                </widget>
               </item>
