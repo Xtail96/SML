@@ -265,8 +265,8 @@ void MainWindow::update_commands()
                 if(previousParent)
                 {
                     previousParent = previousParent->parent();
-                    item = new QTreeWidgetItem(previousParent);
                 }
+                item = new QTreeWidgetItem(previousParent);
                 break;
             }
             default:
