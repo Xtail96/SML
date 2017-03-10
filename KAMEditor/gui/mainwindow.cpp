@@ -232,6 +232,7 @@ void MainWindow::update_commands()
     std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
+    editorField->setTreePosition(1);
 
     // очищаем поле
     editorField->clear();
@@ -248,6 +249,7 @@ void MainWindow::update_commands()
 
         // добавляем строку для текущей команды
         QTreeWidgetItem* item = new QTreeWidgetItem(previousParent);
+
         item->setText(0, QString::number(i+1));
         QString commandColor = QString::fromStdString(commands[i].commandColor);
         item->setTextColor(1, QColor(commandColor));
@@ -287,6 +289,8 @@ void MainWindow::update_commands()
     }
     editorField->insertTopLevelItems(0, items);
     editorField->expandAll();
+    editorField->resizeColumnToContents(1);
+    editorField->resizeColumnToContents(0);
 }
 
 void MainWindow::update_battery_status()
