@@ -251,7 +251,32 @@ void MainWindow::update_commands()
     {
 
         // добавляем строку для текущей команды
-        QTreeWidgetItem* item = new QTreeWidgetItem(previousParent);
+        QTreeWidgetItem* item;
+        switch(commands[i].id)
+        {
+            case CMD_FOR:
+            {
+                item = new QTreeWidgetItem(previousParent);
+                previousParent = item;
+                break;
+            }
+            case CMD_ENDFOR:
+            {
+                if(previousParent)
+                {
+                    previousParent = previousParent->parent();
+                    item = new QTreeWidgetItem(previousParent);
+                }
+                break;
+            }
+            default:
+            {
+                item = new QTreeWidgetItem(previousParent);
+                break;
+            }
+        }
+
+
 
         item->setText(0, QString::number(i+1));
         QString commandColor = QString::fromStdString(commands[i].commandColor);
@@ -265,25 +290,6 @@ void MainWindow::update_commands()
             s+=commands[i].args[j]+"; ";
         }
         item->setText(2, QString::fromStdString(s));
-
-        switch (commands[i].id)
-        {
-        case CMD_FOR:
-            {
-                previousParent = item;
-                break;
-            }
-        case CMD_ENDFOR:
-            {
-                if(previousParent)
-                {
-                    previousParent = previousParent->parent();
-                }
-                break;
-            }
-         default:
-            break;
-        }
         items.append(item);
     }
     editorField->insertTopLevelItems(0, items);
