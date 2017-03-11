@@ -75,6 +75,8 @@ private:
 
     void update_edges_control_status();
 
+    void setSelectedCommandVectorNumber(unsigned int& current_row);
+
 protected:
     void update_points();
     void update_commands();

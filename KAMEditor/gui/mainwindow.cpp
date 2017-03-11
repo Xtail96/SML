@@ -1141,19 +1141,18 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
 void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
     unsigned int current_row;
-
-    //исправить условие: проверка есть ли у выделенного элемента родитель
-    if(index.parent().isValid())
-    {
-        //сделать корректную нумерацию для большой вложенности
-        current_row = index.parent().row() + index.row() + 1;
-    }
-    else
-    {
-        current_row = index.row();
-    }
-
+    setSelectedCommandVectorNumber(current_row);
     instance.setSelectedCommand(current_row);
+}
+
+
+void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
+{
+    //получаем значение из нулевого столбца выделнного элемента
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
+    QTreeWidgetItem* item = selected_items[0];
+    std::string s  = item->text(0).toStdString();
+    current_row = std::stoi(s) - 1;
 }
