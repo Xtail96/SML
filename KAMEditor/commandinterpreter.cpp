@@ -23,7 +23,6 @@ void CommandInterpreter::addCommand(Command cmd, unsigned int selected_command)
     std::vector<Command>::iterator commandInsertIt;
     commandInsertIt = commands.begin() + selected_command;
     commands.insert(commandInsertIt, 1, cmd);
-    //commands.push_back(cmd);
 }
 
 unsigned int CommandInterpreter::getSelectedCommand()

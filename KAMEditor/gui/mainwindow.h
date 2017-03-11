@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDebug>
+
 #include <set>
 #include <tuple>
 #include <vector>
@@ -134,6 +136,7 @@ private slots:
     void on_apply_size_settings_pushButton_clicked();
     void on_points_table_widget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
+    void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
 };
 
 

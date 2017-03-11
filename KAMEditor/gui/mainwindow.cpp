@@ -725,27 +725,17 @@ void MainWindow::on_point_copy_button_clicked()
 void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
+    std::vector<Command> commands = instance.getCommands();
 
-    QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
-    if(select->hasSelection())
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+
+    QItemSelectionModel *select = editorField->selectionModel();
+    if(!select->hasSelection())
     {
-        unsigned int current_row =  select->currentIndex().row();
+        unsigned int current_row = commands.size();
         instance.setSelectedCommand(current_row);
     }
-    else
-    {
-        std::vector<Command> commands = instance.getCommands();
-        unsigned int selected;
-        if(commands.size()>0)
-        {
-           selected = commands.size();
-        }
-        else
-        {
-            selected = 0;
-        }
-        instance.setSelectedCommand(selected);
-    }
+
 
     int row = index.row();
 
@@ -1146,4 +1136,24 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         }
     }
     update_commands();
+}
+
+void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    unsigned int current_row;
+
+    //исправить условие: проверка есть ли у выделенного элемента родитель
+    if(index.parent().isValid())
+    {
+        //сделать корректную нумерацию для большой вложенности
+        current_row = index.parent().row() + index.row() + 1;
+    }
+    else
+    {
+        current_row = index.row();
+    }
+
+    instance.setSelectedCommand(current_row);
 }
