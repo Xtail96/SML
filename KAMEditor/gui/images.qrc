@@ -53,5 +53,6 @@
         <file>images/resize_small.png</file>
         <file>images/zoom_in.png</file>
         <file>images/zoom_out.png</file>
+        <file>images/fit_frame_to_image.png</file>
     </qresource>
 </RCC>

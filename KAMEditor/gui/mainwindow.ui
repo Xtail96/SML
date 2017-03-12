@@ -4029,23 +4029,58 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="to_center_pushButton">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="images.qrc">
+               <normaloff>:/new/prefix1/images/fit_frame_to_image.png</normaloff>:/new/prefix1/images/fit_frame_to_image.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="top_pushButton">
              <property name="text">
               <string>top</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="left_pushButton">
              <property name="text">
-              <string>left</string>
+              <string>side</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="right_pushButton">
              <property name="text">
-              <string>right</string>
+              <string>front</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -4074,23 +4109,6 @@
              <property name="icon">
               <iconset resource="images.qrc">
                <normaloff>:/new/prefix1/images/zoom_out.png</normaloff>:/new/prefix1/images/zoom_out.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>50</width>
-               <height>50</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="to_center_pushButton">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="images.qrc">
-               <normaloff>:/new/prefix1/images/resize_small.png</normaloff>:/new/prefix1/images/resize_small.png</iconset>
              </property>
              <property name="iconSize">
               <size>
