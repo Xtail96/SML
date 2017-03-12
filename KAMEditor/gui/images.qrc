@@ -48,5 +48,10 @@
         <file>images/ArrowLeftDown.png</file>
         <file>images/ArrowLeftUp.png</file>
         <file>images/Y--Z.png</file>
+        <file>images/move.png</file>
+        <file>images/print.png</file>
+        <file>images/resize_small.png</file>
+        <file>images/zoom_in.png</file>
+        <file>images/zoom_out.png</file>
     </qresource>
 </RCC>
