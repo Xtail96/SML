@@ -151,14 +151,20 @@ void MainWindow::deleteCommand()
 {
     if(ui->editor_tab->isVisible())
     {
-        if(ui->sml_editor_tab->isVisible())
+        QTreeWidget* editorField = ui->sml_editor_treeWidget;
+        if(editorField->isVisible())
         {
             CommandInterpreter &commands = CommandInterpreter::Instance();
-            QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
+            QItemSelectionModel *select = editorField->selectionModel();
             if(select->hasSelection())
             {
-                unsigned int current_row = select->currentIndex().row();
-                commands.deleteSelectedCommands(current_row);
+                QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
+                for(int i = selected_items.size()-1; i >= 0; i--)
+                {
+                    std::string s  = selected_items[i]->text(0).toStdString();
+                    int current_row = std::stoi(s) - 1;
+                    commands.deleteSelectedCommands(current_row);
+                }
             }
             update_commands();
         }
