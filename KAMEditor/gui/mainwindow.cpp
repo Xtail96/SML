@@ -151,18 +151,25 @@ void MainWindow::deleteCommand()
 {
     if(ui->editor_tab->isVisible())
     {
-        QTreeWidget* editorField = ui->sml_editor_treeWidget;
-        if(editorField->isVisible())
+        QTreeWidget* smlEditorField = ui->sml_editor_treeWidget;
+        if(smlEditorField->isVisible())
         {
             CommandInterpreter &commands = CommandInterpreter::Instance();
-            QItemSelectionModel *select = editorField->selectionModel();
+            QItemSelectionModel *select = smlEditorField->selectionModel();
             if(select->hasSelection())
             {
-                QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
-                for(int i = selected_items.size()-1; i >= 0; i--)
+                QList<QTreeWidgetItem *> selected_items = smlEditorField->selectedItems();
+                std::vector<int> vector_numbers;
+                vector_numbers.reserve(selected_items.size());
+                for(int i = 0; i < selected_items.size(); i++)
                 {
-                    std::string s  = selected_items[i]->text(0).toStdString();
-                    int current_row = std::stoi(s) - 1;
+                    int current_vector_number = std::stoi(selected_items[i]->text(0).toStdString()) - 1;
+                    vector_numbers.push_back(current_vector_number);
+                }
+                std::sort(vector_numbers.begin(), vector_numbers.end());
+                for(unsigned int i = 0; i < vector_numbers.size(); i++)
+                {
+                    int current_row = vector_numbers[0];
                     commands.deleteSelectedCommands(current_row);
                 }
             }
