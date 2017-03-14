@@ -15,6 +15,26 @@ LineDialog::LineDialog(QWidget *parent) :
     QString content = in.readAll();
     ui->line_textEdit_description->setHtml(content);
     description.close();
+
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+        unsigned int current_command_number = instance.getSelectedCommand();
+        std::vector <Command> commands = instance.getCommands();
+        std::vector <std::string> current_command_arguments;
+        current_command_arguments = commands[current_command_number].args;
+
+
+        ui->line_lineEdit_axis_x->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->line_lineEdit_axis_y->setText(QString::fromStdString(current_command_arguments[1]));
+        ui->line_lineEdit_axis_z->setText(QString::fromStdString(current_command_arguments[2]));
+        ui->line_lineEdit_axis_a->setText(QString::fromStdString(current_command_arguments[3]));
+        ui->line_lineEdit_axis_b->setText(QString::fromStdString(current_command_arguments[4]));
+
+        ui->line_lineEdit_velocity->setText(QString::fromStdString(current_command_arguments[5]));
+    }
+
 }
 LineDialog::~LineDialog()
 {
@@ -47,5 +67,11 @@ void LineDialog::on_buttonBox_accepted()
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();
+
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+       instance.deleteSelectedCommands(selected_command);
+    }
     instance.addCommand(cmd, selected_command);
 }

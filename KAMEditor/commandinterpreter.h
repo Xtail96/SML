@@ -24,6 +24,9 @@ public:
     void setSelectedCommand(unsigned int number);
     void deleteSelectedCommands(unsigned int numbers);
 
+    bool getSelectedCommandEditSignal();
+    void setSelectedCommandEditSignal(bool value);
+
     static CommandInterpreter& Instance();
 
 private:
@@ -35,6 +38,8 @@ private:
     unsigned int currentCommand;
     std::vector<Command> commands;
     unsigned int selectedCommand;
+
+    bool selectedCommandEditSignal;
 
 
 

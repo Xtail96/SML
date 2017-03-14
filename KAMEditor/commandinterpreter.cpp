@@ -6,6 +6,7 @@ CommandInterpreter::CommandInterpreter()
     selectedCommand = 0;
 
     currentCommand = 0;
+    selectedCommandEditSignal = false;
 }
 
 CommandInterpreter::~CommandInterpreter()
@@ -118,4 +119,12 @@ void CommandInterpreter::deleteSelectedCommands(unsigned int numbers)
 {
     if (numbers < commands.size())
         commands.erase(commands.begin() + numbers);
+}
+void CommandInterpreter::setSelectedCommandEditSignal(bool value)
+{
+    selectedCommandEditSignal = value;
+}
+bool CommandInterpreter::getSelectedCommandEditSignal()
+{
+    return selectedCommandEditSignal;
 }
