@@ -1035,10 +1035,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
 {
     CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
     commandInterpreter.setSelectedCommandEditSignal(true);
-
     QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
-
-
     COMMAND cmd = getCommandByName(name.toStdString());
     switch (cmd)
     {

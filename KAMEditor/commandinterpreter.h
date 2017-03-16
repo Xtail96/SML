@@ -17,44 +17,46 @@ public:
     void Stop();
     void Step();
 
-    void addCommand(Command cmd, unsigned int selected_command);
-    void addCommand(std::string cmd);
+
     std::vector <Command> getCommands();
     unsigned int getSelectedCommand();
     void setSelectedCommand(unsigned int number);
-    void deleteSelectedCommands(unsigned int numbers);
 
     bool getSelectedCommandEditSignal();
     void setSelectedCommandEditSignal(bool value);
 
+    void addCommand(Command cmd, unsigned int selected_command);
+    void addCommand(std::string cmd);
+    void editCommand(Command cmd, unsigned int selected_command);
+    void deleteSelectedCommands(unsigned int numbers);
+
     static CommandInterpreter& Instance();
 
 private:
-    bool running;
-    void _Run();
-
-    std::thread t;
-
-    unsigned int currentCommand;
     std::vector<Command> commands;
     unsigned int selectedCommand;
-
     bool selectedCommandEditSignal;
 
+    unsigned int currentCommand;
 
 
+    std::thread t;
 
     std::stack<int> callStack;
     std::stack<std::pair<int, int> > loopStack;
     std::map<std::string, int> functionsMap;
     std::map<std::string, int> labelsMap;
 
+    bool running;
+    void _Run();
 
     CommandInterpreter();
     ~CommandInterpreter();
 
     CommandInterpreter(const CommandInterpreter&);
     CommandInterpreter& operator=(const CommandInterpreter&);
+
+
 };
 
 #endif // COMMANDINTERPRETER_H
