@@ -26,9 +26,9 @@ void CommandInterpreter::addCommand(Command cmd, unsigned int selected_command)
     commands.insert(commandInsertIt, 1, cmd);
 }
 
-void CommandInterpreter::editCommand(Command cmd, unsigned int selected_command)
+void CommandInterpreter::editCommandsArguments(std::vector<std::string> arguments, unsigned int selected_command)
 {
-    commands[selected_command].args = cmd.args;
+    commands[selected_command].args = arguments;
 }
 
 unsigned int CommandInterpreter::getSelectedCommand()

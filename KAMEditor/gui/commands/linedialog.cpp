@@ -71,7 +71,7 @@ void LineDialog::on_buttonBox_accepted()
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)
     {
-       instance.editCommand(cmd, selected_command);
+       instance.editCommandsArguments(cmd.args, selected_command);
        instance.setSelectedCommandEditSignal(false);
     }
     else
