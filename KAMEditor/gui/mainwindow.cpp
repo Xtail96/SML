@@ -1210,15 +1210,15 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     ui->b_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
 
 
-    ui->critical_axis_lineEdit->setReadOnly(false);
+    ui->critical_axis_lineEdit->setReadOnly(true);
     ui->critical_axis_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->buffer_size_lineEdit->setReadOnly(false);
+    ui->buffer_size_lineEdit->setReadOnly(true);
     ui->buffer_size_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->collinearity_tolerance_lineEdit->setReadOnly(false);
+    ui->collinearity_tolerance_lineEdit->setReadOnly(true);
     ui->collinearity_tolerance_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->maximum_devation_lineEdit->setReadOnly(false);
+    ui->maximum_devation_lineEdit->setReadOnly(true);
     ui->maximum_devation_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->smoothing_angle_lineEdit->setReadOnly(false);
+    ui->smoothing_angle_lineEdit->setReadOnly(true);
     ui->smoothing_angle_lineEdit->setStyleSheet("font-size: 14pt");
 
 
