@@ -487,8 +487,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>178</width>
-                    <height>361</height>
+                    <width>102</width>
+                    <height>102</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -4442,7 +4442,7 @@
         <string>Настройки</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_37">
-        <item row="0" column="1">
+        <item row="1" column="0">
          <widget class="QTabWidget" name="tabWidget">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -4458,236 +4458,294 @@
             <string>Настройки механики</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_15">
-            <item row="0" column="1">
-             <widget class="QGroupBox" name="groupBox_8">
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="groupBox_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>5</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>14</pointsize>
-               </font>
-              </property>
-              <property name="title">
-               <string>Направления</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_14">
-               <item>
-                <widget class="QCheckBox" name="checkBox_13">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Инвертировать ось X</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="checkBox_14">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Инвертировать ось Y</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="checkBox_15">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Инвертировать ось Z</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="checkBox_16">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Инвертировать ось A</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="checkBox_17">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Инвертировать ось B</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QGroupBox" name="groupBox_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>1</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <pointsize>14</pointsize>
                </font>
               </property>
               <property name="title">
-               <string>Габариты</string>
+               <string>Настройки размеров и направлений</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_14">
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="y_dimension_lineEdit">
-                 <property name="text">
-                  <string>500</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="a_dimension_lineEdit">
-                 <property name="text">
-                  <string>180</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
+              <layout class="QGridLayout" name="gridLayout_21">
                <item row="0" column="0">
-                <widget class="QLabel" name="label_46">
-                 <property name="text">
-                  <string>Ось X</string>
+                <widget class="QGroupBox" name="groupBox_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>1</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="z_dimension_lineEdit">
-                 <property name="text">
-                  <string>300</string>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                  </font>
                  </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
+                 <property name="title">
+                  <string>Габариты</string>
                  </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="b_dimension_lineEdit">
-                 <property name="text">
-                  <string>300</string>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_49">
-                 <property name="text">
-                  <string>Ось A</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_50">
-                 <property name="text">
-                  <string>Ось B</string>
-                 </property>
+                 <layout class="QGridLayout" name="gridLayout_14">
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="y_dimension_lineEdit">
+                    <property name="text">
+                     <string>500</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="a_dimension_lineEdit">
+                    <property name="text">
+                     <string>180</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_46">
+                    <property name="text">
+                     <string>Ось X</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="z_dimension_lineEdit">
+                    <property name="text">
+                     <string>300</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="b_dimension_lineEdit">
+                    <property name="text">
+                     <string>300</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_49">
+                    <property name="text">
+                     <string>Ось A</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_50">
+                    <property name="text">
+                     <string>Ось B</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="x_dimension_lineEdit">
+                    <property name="text">
+                     <string>6000</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_48">
+                    <property name="text">
+                     <string>Ось Z</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_47">
+                    <property name="text">
+                     <string>Ось Y</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <spacer name="verticalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="5" column="1">
+                   <spacer name="verticalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="x_dimension_lineEdit">
-                 <property name="text">
-                  <string>6000</string>
+                <widget class="QGroupBox" name="groupBox_8">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>1</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                  </font>
                  </property>
+                 <property name="title">
+                  <string>Направления</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <item>
+                   <widget class="QCheckBox" name="x_axis_invert_checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Инвертировать ось X</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="y_axis_invert_checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Инвертировать ось Y</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="z_axis_invert_checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Инвертировать ось Z</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="a_axis_invert_checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Инвертировать ось A</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="b_axis_invert_checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Инвертировать ось B</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_48">
-                 <property name="text">
-                  <string>Ось Z</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_47">
-                 <property name="text">
-                  <string>Ось Y</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QPushButton" name="change_size_settings_pushButton">
-                 <property name="text">
-                  <string>Изменить</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="6" column="0">
-                <widget class="QPushButton" name="apply_size_settings_pushButton">
-                 <property name="text">
-                  <string>Применить</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
                </item>
               </layout>
+              <zorder>groupBox_5</zorder>
+              <zorder>groupBox_5</zorder>
+              <zorder>groupBox_8</zorder>
              </widget>
             </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="QGroupBox" name="groupBox">
+            <item row="0" column="2">
+             <widget class="QGroupBox" name="kinematics_settings_groupBox">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>2</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>1</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -4699,9 +4757,9 @@
               <property name="title">
                <string>Настройки кинематики</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_40">
-               <item row="0" column="1">
-                <widget class="QTabWidget" name="tabWidget_2">
+              <layout class="QVBoxLayout" name="verticalLayout_22">
+               <item>
+                <widget class="QTabWidget" name="axis_directions_tabWidget">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -4714,15 +4772,15 @@
                   </font>
                  </property>
                  <property name="currentIndex">
-                  <number>6</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="tab_3">
                   <attribute name="title">
                    <string>Ось X</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_36">
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_12">
+                  <layout class="QGridLayout" name="gridLayout_25">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="x_axis_jerk_label">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                        <horstretch>0</horstretch>
@@ -4734,15 +4792,21 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_14">
-                     <property name="text">
-                      <string>Скорость</string>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="x_axis_jerk_lineEdit">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_13">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="x_axis_acceleration_label">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -4754,69 +4818,104 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_15">
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="x_axis_acceleration_lineEdit">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="x_axis_velocity_label">
+                     <property name="text">
+                      <string>Скорость</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="x_axis_velocity_lineEdit">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="x_axis_channel_label">
                      <property name="text">
                       <string>Канал</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="5">
-                    <widget class="QLabel" name="label_16">
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="x_axis_channel_lineEdit">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="x_axis_basing_velocity_label">
                      <property name="text">
-                      <string>Скорсоть базирования</string>
+                      <string>Скорость базирования</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_16">
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="x_axis_basing_velocity_lineEdit">
                      <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="2">
-                    <widget class="QLineEdit" name="lineEdit_17">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="3">
-                    <widget class="QLineEdit" name="lineEdit_18">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_19">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
                      </property>
-                    </widget>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
-                   <item row="2" column="4">
-                    <widget class="QLineEdit" name="lineEdit_19">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_20">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="5">
-                    <widget class="QLineEdit" name="lineEdit_20">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
                      </property>
-                    </widget>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -4824,56 +4923,102 @@
                   <attribute name="title">
                    <string>Ось Y</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_21">
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_18">
-                     <property name="text">
-                      <string>Ускорение</string>
-                     </property>
-                    </widget>
-                   </item>
+                  <layout class="QGridLayout" name="gridLayout_26">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_21">
+                    <widget class="QLabel" name="y_axis_jerk_label">
                      <property name="text">
                       <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_17">
-                     <property name="text">
-                      <string>Скорсоть базирования</string>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="y_axis_jerk_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_20">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="y_axis_acceleration_label">
                      <property name="text">
-                      <string>Канал</string>
+                      <string>Ускорение</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_19">
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="y_axis_acceleration_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="y_axis_velocity_label">
                      <property name="text">
                       <string>Скорость</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLineEdit" name="lineEdit_21"/>
-                   </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_22"/>
+                    <widget class="QLineEdit" name="y_axis_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="2" column="2">
-                    <widget class="QLineEdit" name="lineEdit_23"/>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="y_axis_channel_label">
+                     <property name="text">
+                      <string>Канал</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="2" column="3">
-                    <widget class="QLineEdit" name="lineEdit_24"/>
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="y_axis_channel_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="2" column="4">
-                    <widget class="QLineEdit" name="lineEdit_25"/>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="y_axis_basing_velocity_label">
+                     <property name="text">
+                      <string>Скорость базирования</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="y_axis_basing_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_9">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_10">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -4883,54 +5028,100 @@
                   </attribute>
                   <layout class="QGridLayout" name="gridLayout_27">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_26">
+                    <widget class="QLabel" name="z_axis_jerk_label">
                      <property name="text">
                       <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLabel" name="label_23">
+                    <widget class="QLineEdit" name="z_axis_jerk_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="z_axis_acceleration_label">
                      <property name="text">
                       <string>Ускорение</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_24">
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="z_axis_acceleration_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="z_axis_velocity_label">
                      <property name="text">
                       <string>Скорость</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_25">
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="z_axis_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="z_axis_channel_label">
                      <property name="text">
                       <string>Канал</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_22">
-                     <property name="text">
-                      <string>Скорсоть базирования</string>
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="z_axis_channel_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLineEdit" name="lineEdit_26"/>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="z_axis_basing_velocity_label">
+                     <property name="text">
+                      <string>Скорость базирования</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_27"/>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="z_axis_basing_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QLineEdit" name="lineEdit_28"/>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_11">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="lineEdit_29"/>
-                   </item>
-                   <item row="1" column="4">
-                    <widget class="QLineEdit" name="lineEdit_30"/>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_12">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -4938,56 +5129,102 @@
                   <attribute name="title">
                    <string>Ось A</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_29">
+                  <layout class="QGridLayout" name="gridLayout_28">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_31">
+                    <widget class="QLabel" name="a_axis_jerk_label">
                      <property name="text">
                       <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLabel" name="label_28">
+                    <widget class="QLineEdit" name="a_axis_jerk_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="a_axis_acceleration_label">
                      <property name="text">
                       <string>Ускорение</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_29">
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="a_axis_acceleration_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="a_axis_velocity_label">
                      <property name="text">
                       <string>Скорость</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_30">
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="a_axis_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="a_axis_channel_label">
                      <property name="text">
                       <string>Канал</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_27">
-                     <property name="text">
-                      <string>Скорсоть базирования</string>
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="a_axis_channel_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLineEdit" name="lineEdit_31"/>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="a_axis_basing_velocity_label">
+                     <property name="text">
+                      <string>Скорость базирования</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_32"/>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="a_axis_basing_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QLineEdit" name="lineEdit_33"/>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_13">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="lineEdit_34"/>
-                   </item>
-                   <item row="1" column="4">
-                    <widget class="QLineEdit" name="lineEdit_35"/>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_14">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -4995,56 +5232,102 @@
                   <attribute name="title">
                    <string>Ось B</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_30">
+                  <layout class="QGridLayout" name="gridLayout_29">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_36">
+                    <widget class="QLabel" name="b_axis_jerk_label">
                      <property name="text">
                       <string>Рывок</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLabel" name="label_33">
+                    <widget class="QLineEdit" name="b_axis_jerk_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="b_axis_acceleration_label">
                      <property name="text">
                       <string>Ускорение</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_34">
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="b_axis_acceleration_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="b_axis_velocity_label">
                      <property name="text">
                       <string>Скорость</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_35">
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="b_axis_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="b_axis_channel_label">
                      <property name="text">
                       <string>Канал</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_32">
-                     <property name="text">
-                      <string>Скорсоть базирования</string>
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="b_axis_channel_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_36"/>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="b_axis_basing_velocity_label">
+                     <property name="text">
+                      <string>Скорость базирования</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QLineEdit" name="lineEdit_37"/>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="b_axis_basing_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="lineEdit_38"/>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_15">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLineEdit" name="lineEdit_39"/>
-                   </item>
-                   <item row="1" column="4">
-                    <widget class="QLineEdit" name="lineEdit_40"/>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_16">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -5052,56 +5335,102 @@
                   <attribute name="title">
                    <string>Настройки планировщика</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_59">
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_9">
-                     <property name="text">
-                      <string>Допуск колинеарности</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_8">
-                     <property name="text">
-                      <string>Размер буфера</string>
-                     </property>
-                    </widget>
-                   </item>
+                  <layout class="QGridLayout" name="gridLayout_30">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_7">
+                    <widget class="QLabel" name="critical_axis_label">
                      <property name="text">
                       <string>Критический угол</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_10">
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="critical_axis_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="buffer_size_label">
+                     <property name="text">
+                      <string>Размер буфера</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="buffer_size_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="collinearity_tolerance_label">
+                     <property name="text">
+                      <string>Допуск колинеарности</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="collinearity_tolerance_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="maximum_devation_label">
                      <property name="text">
                       <string>Максимально допустимое отклонение</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QLabel" name="label_11">
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="maximum_devation_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="smoothing_angle_label">
                      <property name="text">
                       <string>Угол сглаживания</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLineEdit" name="lineEdit_41"/>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="smoothing_angle_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_42"/>
+                   <item row="5" column="0">
+                    <spacer name="verticalSpacer_17">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QLineEdit" name="lineEdit_43"/>
-                   </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="lineEdit_44"/>
-                   </item>
-                   <item row="1" column="4">
-                    <widget class="QLineEdit" name="lineEdit_45"/>
+                   <item row="5" column="1">
+                    <spacer name="verticalSpacer_18">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -5109,52 +5438,146 @@
                   <attribute name="title">
                    <string>Скорость поиска датчиков</string>
                   </attribute>
-                  <layout class="QGridLayout" name="gridLayout_43">
-                   <item row="0" column="2">
-                    <widget class="QLabel" name="label_4">
-                     <property name="text">
-                      <string>Скорость движения от датчика</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="3">
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Минимальная скорость поиска датчика</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="label_3">
-                     <property name="text">
-                      <string>Датчик вылета</string>
-                     </property>
-                    </widget>
-                   </item>
+                  <layout class="QGridLayout" name="gridLayout_32">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_2">
+                    <widget class="QLabel" name="zero_level_sensor_label">
                      <property name="text">
                       <string>Датчик нуля</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="zero_level_sensor_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="1" column="0">
-                    <widget class="QLineEdit" name="lineEdit_46"/>
+                    <widget class="QLabel" name="tool_length_sensor_label">
+                     <property name="text">
+                      <string>Датчик вылета</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_47"/>
+                    <widget class="QLineEdit" name="tool_length_sensor_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="2">
-                    <widget class="QLineEdit" name="lineEdit_48"/>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="velocity_from_sensor_label">
+                     <property name="text">
+                      <string>Скорость движения от датчика</string>
+                     </property>
+                    </widget>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="lineEdit_49"/>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="velocity_from_sensor_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="minimum_sensor_finding_velocity_label">
+                     <property name="text">
+                      <string>Минимальная скорость поиска датчика</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QLineEdit" name="minimum_sensor_finding_velocity_lineEdit">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <spacer name="verticalSpacer_7">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="4" column="1">
+                    <spacer name="verticalSpacer_8">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
                 </widget>
                </item>
               </layout>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>50</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>50</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="3" column="2">
+             <widget class="QPushButton" name="apply_mechanics_settings_pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Применить</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QPushButton" name="change_mechanics_settings_pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Изменить</string>
+              </property>
              </widget>
             </item>
            </layout>

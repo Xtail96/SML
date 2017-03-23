@@ -206,6 +206,16 @@ void MachineTool::setDimensions(Vector v)
     dimensions = v;
 }
 
+Vector MachineTool::getDirections()
+{
+    return directions;
+}
+
+void MachineTool::setDirections(Vector v)
+{
+    directions = v;
+}
+
 
 void MachineTool::setParkCoordinates(Vector f)
 {

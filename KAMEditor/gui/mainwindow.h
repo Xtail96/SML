@@ -59,6 +59,10 @@ private:
 
 
     void setupDimensions();
+    void setupDirections();
+    //void setupKinematicsSettings();
+
+    void editSettingsField(QLineEdit *ql);
 
     void setupShortcuts(); 
     void setupEditorShortcuts();
@@ -134,8 +138,8 @@ private slots:
     void on_edges_contol_check_box_clicked();
     void on_spindle_enable_pushButton_clicked();
     void on_mill_warming_pushButton_clicked();
-    void on_change_size_settings_pushButton_clicked();
-    void on_apply_size_settings_pushButton_clicked();
+    void on_change_mechanics_settings_pushButton_clicked();
+    void on_apply_mechanics_settings_pushButton_clicked();
     void on_points_table_widget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_clicked(const QModelIndex &index);

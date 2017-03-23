@@ -22,8 +22,10 @@ public:
     void setMovementStep(double s) { step = s; }
 
     void setDimensions(Vector v);
-
     Vector getDimensions();
+
+    void setDirections(Vector v);
+    Vector getDirections();
 
     /// Возвращает текущие координаты
     Vector getCurrentCoordinates();
@@ -68,6 +70,9 @@ private:
 
     /// Габариты станка
     Vector dimensions;
+
+    /// Направления осей
+    Vector directions;
 
     /// Текущие координаты от базы, абсолютные
     Vector base;
