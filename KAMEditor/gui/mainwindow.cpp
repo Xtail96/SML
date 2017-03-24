@@ -1018,23 +1018,24 @@ void MainWindow::on_mill_warming_pushButton_clicked()
 }
 
 
-void MainWindow::editSettingsField(QLineEdit *ql)
+void MainWindow::editSettingsField(QLineEdit *qle)
 {
-    //ui->ql->setReadOnly(false);
+    qle->setReadOnly(false);
+    qle->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
+}
+void MainWindow::applySettingsField(QLineEdit *qle)
+{
+    qle->setReadOnly(true);
+    qle->setStyleSheet("font-size: 14pt");
 }
 
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
-    ui->x_dimension_lineEdit->setReadOnly(false);
-    ui->x_dimension_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->y_dimension_lineEdit->setReadOnly(false);
-    ui->y_dimension_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->z_dimension_lineEdit->setReadOnly(false);
-    ui->z_dimension_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->a_dimension_lineEdit->setReadOnly(false);
-    ui->a_dimension_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->b_dimension_lineEdit->setReadOnly(false);
-    ui->b_dimension_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
+    editSettingsField(ui->x_dimension_lineEdit);
+    editSettingsField(ui->y_dimension_lineEdit);
+    editSettingsField(ui->z_dimension_lineEdit);
+    editSettingsField(ui->a_dimension_lineEdit);
+    editSettingsField(ui->b_dimension_lineEdit);
 
     ui->x_axis_invert_checkBox->setEnabled(true);
     ui->x_axis_invert_checkBox->setCheckable(true);
@@ -1048,101 +1049,57 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
     ui->b_axis_invert_checkBox->setCheckable(true);
 
 
-    ui->x_axis_jerk_lineEdit->setReadOnly(false);
-    ui->x_axis_jerk_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->x_axis_acceleration_lineEdit->setReadOnly(false);
-    ui->x_axis_acceleration_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->x_axis_velocity_lineEdit->setReadOnly(false);
-    ui->x_axis_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->x_axis_channel_lineEdit->setReadOnly(false);
-    ui->x_axis_channel_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->x_axis_basing_velocity_lineEdit->setReadOnly(false);
-    ui->x_axis_basing_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
+    editSettingsField(ui->x_axis_jerk_lineEdit);
+    editSettingsField(ui->x_axis_acceleration_lineEdit);
+    editSettingsField(ui->x_axis_velocity_lineEdit);
+    editSettingsField(ui->x_axis_channel_lineEdit);
+    editSettingsField(ui->x_axis_basing_velocity_lineEdit);
+
+    editSettingsField(ui->y_axis_jerk_lineEdit);
+    editSettingsField(ui->y_axis_acceleration_lineEdit);
+    editSettingsField(ui->y_axis_velocity_lineEdit);
+    editSettingsField(ui->y_axis_channel_lineEdit);
+    editSettingsField(ui->y_axis_basing_velocity_lineEdit);
+
+    editSettingsField(ui->z_axis_jerk_lineEdit);
+    editSettingsField(ui->z_axis_acceleration_lineEdit);
+    editSettingsField(ui->z_axis_velocity_lineEdit);
+    editSettingsField(ui->z_axis_channel_lineEdit);
+    editSettingsField(ui->z_axis_basing_velocity_lineEdit);
+
+    editSettingsField(ui->a_axis_jerk_lineEdit);
+    editSettingsField(ui->a_axis_acceleration_lineEdit);
+    editSettingsField(ui->a_axis_velocity_lineEdit);
+    editSettingsField(ui->a_axis_channel_lineEdit);
+    editSettingsField(ui->a_axis_basing_velocity_lineEdit);
+
+    editSettingsField(ui->b_axis_jerk_lineEdit);
+    editSettingsField(ui->b_axis_acceleration_lineEdit);
+    editSettingsField(ui->b_axis_velocity_lineEdit);
+    editSettingsField(ui->b_axis_channel_lineEdit);
+    editSettingsField(ui->b_axis_basing_velocity_lineEdit);
 
 
-    ui->y_axis_jerk_lineEdit->setReadOnly(false);
-    ui->y_axis_jerk_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->y_axis_acceleration_lineEdit->setReadOnly(false);
-    ui->y_axis_acceleration_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->y_axis_velocity_lineEdit->setReadOnly(false);
-    ui->y_axis_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->y_axis_channel_lineEdit->setReadOnly(false);
-    ui->y_axis_channel_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->y_axis_basing_velocity_lineEdit->setReadOnly(false);
-    ui->y_axis_basing_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
+    editSettingsField(ui->critical_axis_lineEdit);
+    editSettingsField(ui->buffer_size_lineEdit);
+    editSettingsField(ui->collinearity_tolerance_lineEdit);
+    editSettingsField(ui->maximum_devation_lineEdit);
+    editSettingsField(ui->smoothing_angle_lineEdit);
 
-
-    ui->z_axis_jerk_lineEdit->setReadOnly(false);
-    ui->z_axis_jerk_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->z_axis_acceleration_lineEdit->setReadOnly(false);
-    ui->z_axis_acceleration_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->z_axis_velocity_lineEdit->setReadOnly(false);
-    ui->z_axis_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->z_axis_channel_lineEdit->setReadOnly(false);
-    ui->z_axis_channel_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->z_axis_basing_velocity_lineEdit->setReadOnly(false);
-    ui->z_axis_basing_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-
-
-    ui->a_axis_jerk_lineEdit->setReadOnly(false);
-    ui->a_axis_jerk_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->a_axis_acceleration_lineEdit->setReadOnly(false);
-    ui->a_axis_acceleration_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->a_axis_velocity_lineEdit->setReadOnly(false);
-    ui->a_axis_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->a_axis_channel_lineEdit->setReadOnly(false);
-    ui->a_axis_channel_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->a_axis_basing_velocity_lineEdit->setReadOnly(false);
-    ui->a_axis_basing_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-
-    ui->b_axis_jerk_lineEdit->setReadOnly(false);
-    ui->b_axis_jerk_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->b_axis_acceleration_lineEdit->setReadOnly(false);
-    ui->b_axis_acceleration_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->b_axis_velocity_lineEdit->setReadOnly(false);
-    ui->b_axis_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->b_axis_channel_lineEdit->setReadOnly(false);
-    ui->b_axis_channel_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->b_axis_basing_velocity_lineEdit->setReadOnly(false);
-    ui->b_axis_basing_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-
-
-    ui->critical_axis_lineEdit->setReadOnly(false);
-    ui->critical_axis_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->buffer_size_lineEdit->setReadOnly(false);
-    ui->buffer_size_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->collinearity_tolerance_lineEdit->setReadOnly(false);
-    ui->collinearity_tolerance_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->maximum_devation_lineEdit->setReadOnly(false);
-    ui->maximum_devation_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->smoothing_angle_lineEdit->setReadOnly(false);
-    ui->smoothing_angle_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-
-
-    ui->zero_level_sensor_lineEdit->setReadOnly(false);
-    ui->zero_level_sensor_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->tool_length_sensor_lineEdit->setReadOnly(false);
-    ui->tool_length_sensor_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->velocity_from_sensor_lineEdit->setReadOnly(false);
-    ui->velocity_from_sensor_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-    ui->minimum_sensor_finding_velocity_lineEdit->setReadOnly(false);
-    ui->minimum_sensor_finding_velocity_lineEdit->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
-
+    editSettingsField(ui->zero_level_sensor_lineEdit);
+    editSettingsField(ui->tool_length_sensor_lineEdit);
+    editSettingsField(ui->velocity_from_sensor_lineEdit);
+    editSettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
 }
 
 void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 {
     setupDimensions();
-    ui->x_dimension_lineEdit->setReadOnly(true);
-    ui->x_dimension_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->y_dimension_lineEdit->setReadOnly(true);
-    ui->y_dimension_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->z_dimension_lineEdit->setReadOnly(true);
-    ui->z_dimension_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->a_dimension_lineEdit->setReadOnly(true);
-    ui->a_dimension_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->b_dimension_lineEdit->setReadOnly(true);
-    ui->b_dimension_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->x_dimension_lineEdit);
+    applySettingsField(ui->y_dimension_lineEdit);
+    applySettingsField(ui->z_dimension_lineEdit);
+    applySettingsField(ui->a_dimension_lineEdit);
+    applySettingsField(ui->b_dimension_lineEdit);
 
     setupDirections();
     ui->x_axis_invert_checkBox->setEnabled(false);
@@ -1154,82 +1111,48 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 
     //toDo:
     //setup kinematicsSettings();
-    ui->x_axis_jerk_lineEdit->setReadOnly(true);
-    ui->x_axis_jerk_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->x_axis_acceleration_lineEdit->setReadOnly(true);
-    ui->x_axis_acceleration_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->x_axis_velocity_lineEdit->setReadOnly(true);
-    ui->x_axis_velocity_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->x_axis_channel_lineEdit->setReadOnly(true);
-    ui->x_axis_channel_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->x_axis_basing_velocity_lineEdit->setReadOnly(true);
-    ui->x_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->x_axis_jerk_lineEdit);
+    applySettingsField(ui->x_axis_acceleration_lineEdit);
+    applySettingsField(ui->x_axis_velocity_lineEdit);
+    applySettingsField(ui->x_axis_channel_lineEdit);
+    applySettingsField(ui->x_axis_basing_velocity_lineEdit);
 
-    ui->y_axis_jerk_lineEdit->setReadOnly(true);
-    ui->y_axis_jerk_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->y_axis_acceleration_lineEdit->setReadOnly(true);
-    ui->y_axis_acceleration_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->y_axis_velocity_lineEdit->setReadOnly(true);
-    ui->y_axis_velocity_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->y_axis_channel_lineEdit->setReadOnly(true);
-    ui->y_axis_channel_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->y_axis_basing_velocity_lineEdit->setReadOnly(true);
-    ui->y_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->y_axis_jerk_lineEdit);
+    applySettingsField(ui->y_axis_acceleration_lineEdit);
+    applySettingsField(ui->y_axis_velocity_lineEdit);
+    applySettingsField(ui->y_axis_channel_lineEdit);
+    applySettingsField(ui->y_axis_basing_velocity_lineEdit);
 
-    ui->z_axis_jerk_lineEdit->setReadOnly(true);
-    ui->z_axis_jerk_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->z_axis_acceleration_lineEdit->setReadOnly(true);
-    ui->z_axis_acceleration_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->z_axis_velocity_lineEdit->setReadOnly(true);
-    ui->z_axis_velocity_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->z_axis_channel_lineEdit->setReadOnly(true);
-    ui->z_axis_channel_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->z_axis_basing_velocity_lineEdit->setReadOnly(true);
-    ui->z_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->z_axis_jerk_lineEdit);
+    applySettingsField(ui->z_axis_acceleration_lineEdit);
+    applySettingsField(ui->z_axis_velocity_lineEdit);
+    applySettingsField(ui->z_axis_channel_lineEdit);
+    applySettingsField(ui->z_axis_basing_velocity_lineEdit);
 
-    ui->a_axis_jerk_lineEdit->setReadOnly(true);
-    ui->a_axis_jerk_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->a_axis_acceleration_lineEdit->setReadOnly(true);
-    ui->a_axis_acceleration_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->a_axis_velocity_lineEdit->setReadOnly(true);
-    ui->a_axis_velocity_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->a_axis_channel_lineEdit->setReadOnly(true);
-    ui->a_axis_channel_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->a_axis_basing_velocity_lineEdit->setReadOnly(true);
-    ui->a_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->a_axis_jerk_lineEdit);
+    applySettingsField(ui->a_axis_acceleration_lineEdit);
+    applySettingsField(ui->a_axis_velocity_lineEdit);
+    applySettingsField(ui->a_axis_channel_lineEdit);
+    applySettingsField(ui->a_axis_basing_velocity_lineEdit);
 
-    ui->b_axis_jerk_lineEdit->setReadOnly(true);
-    ui->b_axis_jerk_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->b_axis_acceleration_lineEdit->setReadOnly(true);
-    ui->b_axis_acceleration_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->b_axis_velocity_lineEdit->setReadOnly(true);
-    ui->b_axis_velocity_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->b_axis_channel_lineEdit->setReadOnly(true);
-    ui->b_axis_channel_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->b_axis_basing_velocity_lineEdit->setReadOnly(true);
-    ui->b_axis_basing_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->b_axis_jerk_lineEdit);
+    applySettingsField(ui->b_axis_acceleration_lineEdit);
+    applySettingsField(ui->b_axis_velocity_lineEdit);
+    applySettingsField(ui->b_axis_channel_lineEdit);
+    applySettingsField(ui->b_axis_basing_velocity_lineEdit);
 
 
-    ui->critical_axis_lineEdit->setReadOnly(true);
-    ui->critical_axis_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->buffer_size_lineEdit->setReadOnly(true);
-    ui->buffer_size_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->collinearity_tolerance_lineEdit->setReadOnly(true);
-    ui->collinearity_tolerance_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->maximum_devation_lineEdit->setReadOnly(true);
-    ui->maximum_devation_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->smoothing_angle_lineEdit->setReadOnly(true);
-    ui->smoothing_angle_lineEdit->setStyleSheet("font-size: 14pt");
 
+    applySettingsField(ui->critical_axis_lineEdit);
+    applySettingsField(ui->buffer_size_lineEdit);
+    applySettingsField(ui->collinearity_tolerance_lineEdit);
+    applySettingsField(ui->maximum_devation_lineEdit);
+    applySettingsField(ui->smoothing_angle_lineEdit);
 
-    ui->zero_level_sensor_lineEdit->setReadOnly(true);
-    ui->zero_level_sensor_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->tool_length_sensor_lineEdit->setReadOnly(true);
-    ui->tool_length_sensor_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->velocity_from_sensor_lineEdit->setReadOnly(true);
-    ui->velocity_from_sensor_lineEdit->setStyleSheet("font-size: 14pt");
-    ui->minimum_sensor_finding_velocity_lineEdit->setReadOnly(true);
-    ui->minimum_sensor_finding_velocity_lineEdit->setStyleSheet("font-size: 14pt");
+    applySettingsField(ui->zero_level_sensor_lineEdit);
+    applySettingsField(ui->tool_length_sensor_lineEdit);
+    applySettingsField(ui->velocity_from_sensor_lineEdit);
+    applySettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
 
 }
 

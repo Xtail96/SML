@@ -62,7 +62,8 @@ private:
     void setupDirections();
     //void setupKinematicsSettings();
 
-    void editSettingsField(QLineEdit *ql);
+    void editSettingsField(QLineEdit *qle);
+    void applySettingsField(QLineEdit *qle);
 
     void setupShortcuts(); 
     void setupEditorShortcuts();
