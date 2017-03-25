@@ -144,6 +144,7 @@ private slots:
     void on_points_table_widget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
+    void on_cancel_pushButton_clicked();
 };
 
 

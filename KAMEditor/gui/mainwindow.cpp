@@ -923,6 +923,146 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
     update_commands();
 }
 
+void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
+{
+    CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
+    commandInterpreter.setSelectedCommandEditSignal(true);
+    QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
+    COMMAND cmd = getCommandByName(name.toStdString());
+    switch (cmd)
+    {
+        case CMD_LINE:
+        {
+            LineDialog(this).exec();
+            break;
+        }
+
+        case CMD_TTLINE:
+        {
+            TTLineDialog(this).exec();
+            break;
+        }
+
+        case CMD_TTTLINE:
+        {
+            TTTLineDialog(this).exec();
+            break;
+        }
+
+        case CMD_ARC:
+        {
+            ArcDialog(this).exec();
+            break;
+        }
+
+        case CMD_ARC2:
+        {
+            Arc2Dialog(this).exec();
+            break;
+        }
+
+        case CMD_ROTATE:
+        {
+            RotateDialog(this).exec();
+            break;
+        }
+
+        case CMD_FOR:
+        {
+            CycleDialog(this).exec();
+            break;
+        }
+
+        case CMD_ENDFOR:
+        {
+            Command command;
+            command.id = CMD_ENDFOR;
+            command.commandColor = "#999900";
+
+            std::string endfor = "";
+            command.args = {
+                endfor
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+
+        case CMD_LABEL:
+        {
+            LabelDialog(this).exec();
+            break;
+        }
+        case CMD_ZERO:
+        {
+            Command command;
+            command.id = CMD_ZERO;
+
+            command.commandColor = "#000099";
+
+            std::string setZero = "";
+            command.args = {
+                setZero
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+        case CMD_END:
+        {
+            Command command;
+            command.id = CMD_END;
+
+            command.commandColor = "#660099";
+
+            std::string endProgramm = "";
+            command.args = {
+                endProgramm
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
+        case CMD_ON:
+        {
+            OnDialog(this).exec();
+            break;
+        }
+
+        case CMD_OFF:
+        {
+            OffDialog(this).exec();
+            break;
+        }
+    }
+    update_commands();
+}
+
+void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    unsigned int current_row;
+    setSelectedCommandVectorNumber(current_row);
+    instance.setSelectedCommand(current_row);
+}
+
+
+void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
+{
+    //получаем значение из нулевого столбца выделнного элемента
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
+    QTreeWidgetItem* item = selected_items[0];
+    std::string s  = item->text(0).toStdString();
+    current_row = std::stoi(s) - 1;
+}
+
 void MainWindow::update_edges_control_status()
 {
     MachineTool& instance = MachineTool::Instance();
@@ -1156,142 +1296,7 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 
 }
 
-void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_cancel_pushButton_clicked()
 {
-    CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
-    commandInterpreter.setSelectedCommandEditSignal(true);
-    QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
-    COMMAND cmd = getCommandByName(name.toStdString());
-    switch (cmd)
-    {
-        case CMD_LINE:
-        {
-            LineDialog(this).exec();
-            break;
-        }
 
-        case CMD_TTLINE:
-        {
-            TTLineDialog(this).exec();
-            break;
-        }
-
-        case CMD_TTTLINE:
-        {
-            TTTLineDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC:
-        {
-            ArcDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC2:
-        {
-            Arc2Dialog(this).exec();
-            break;
-        }
-
-        case CMD_ROTATE:
-        {
-            RotateDialog(this).exec();
-            break;
-        }
-
-        case CMD_FOR:
-        {
-            CycleDialog(this).exec();
-            break;
-        }
-
-        case CMD_ENDFOR:
-        {
-            Command command;
-            command.id = CMD_ENDFOR;
-            command.commandColor = "#999900";
-
-            std::string endfor = "";
-            command.args = {
-                endfor
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-
-        case CMD_LABEL:
-        {
-            LabelDialog(this).exec();
-            break;
-        }
-        case CMD_ZERO:
-        {
-            Command command;
-            command.id = CMD_ZERO;
-
-            command.commandColor = "#000099";
-
-            std::string setZero = "";
-            command.args = {
-                setZero
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_END:
-        {
-            Command command;
-            command.id = CMD_END;
-
-            command.commandColor = "#660099";
-
-            std::string endProgramm = "";
-            command.args = {
-                endProgramm
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_ON:
-        {
-            OnDialog(this).exec();
-            break;
-        }
-
-        case CMD_OFF:
-        {
-            OffDialog(this).exec();
-            break;
-        }
-    }
-    update_commands();
-}
-
-void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    unsigned int current_row;
-    setSelectedCommandVectorNumber(current_row);
-    instance.setSelectedCommand(current_row);
-}
-
-
-void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
-{
-    //получаем значение из нулевого столбца выделнного элемента
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
-    QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
-    QTreeWidgetItem* item = selected_items[0];
-    std::string s  = item->text(0).toStdString();
-    current_row = std::stoi(s) - 1;
 }
