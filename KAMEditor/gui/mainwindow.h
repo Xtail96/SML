@@ -62,6 +62,10 @@ private:
     void setupDirections();
     //void setupKinematicsSettings();
 
+    void dimensionsRecovery();
+    void directionsRecovery();
+
+
     void editSettingsField(QLineEdit *qle);
     void applySettingsField(QLineEdit *qle);
 
