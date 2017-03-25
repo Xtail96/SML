@@ -75,7 +75,7 @@
      <property name="title">
       <string>Аргументы:</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="line_label_axis_x">
         <property name="text">

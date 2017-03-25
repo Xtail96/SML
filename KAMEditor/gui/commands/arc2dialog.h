@@ -20,6 +20,9 @@ public:
     explicit Arc2Dialog(QWidget *parent = 0);
     ~Arc2Dialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::Arc2Dialog *ui;
 };

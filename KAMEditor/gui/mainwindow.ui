@@ -393,8 +393,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>178</width>
-                    <height>361</height>
+                    <width>190</width>
+                    <height>373</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -487,8 +487,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>102</width>
-                    <height>102</height>
+                    <width>190</width>
+                    <height>373</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -2495,7 +2495,7 @@
                 <property name="font">
                  <font>
                   <family>Sylfaen</family>
-                  <pointsize>8</pointsize>
+                  <pointsize>10</pointsize>
                   <weight>50</weight>
                   <bold>false</bold>
                  </font>
@@ -4736,9 +4736,6 @@
                 </widget>
                </item>
               </layout>
-              <zorder>groupBox_5</zorder>
-              <zorder>groupBox_5</zorder>
-              <zorder>groupBox_8</zorder>
              </widget>
             </item>
             <item row="0" column="2">
@@ -5837,7 +5834,7 @@
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
