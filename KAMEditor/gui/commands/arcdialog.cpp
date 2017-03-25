@@ -15,6 +15,23 @@ ArcDialog::ArcDialog(QWidget *parent) :
     QString content = in.readAll();
     ui->arc_textEdit_description->setHtml(content);
     description.close();
+
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+        unsigned int current_command_number = instance.getSelectedCommand();
+        std::vector <Command> commands = instance.getCommands();
+        std::vector <std::string> current_command_arguments;
+        current_command_arguments = commands[current_command_number].args;
+
+
+        ui->arc_lineEdit_r->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->arc_lineEdit_al->setText(QString::fromStdString(current_command_arguments[1]));
+        ui->arc_lineEdit_fi->setText(QString::fromStdString(current_command_arguments[2]));
+        ui->arc_lineEdit_velocity->setText(QString::fromStdString(current_command_arguments[3]));
+    }
+
 }
 
 ArcDialog::~ArcDialog()
@@ -43,5 +60,15 @@ void ArcDialog::on_buttonBox_accepted()
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();
-    instance.addCommand(cmd, selected_command);
+
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+       instance.editCommandsArguments(cmd.args, selected_command);
+       instance.setSelectedCommandEditSignal(false);
+    }
+    else
+    {
+        instance.addCommand(cmd, selected_command);
+    }
 }
