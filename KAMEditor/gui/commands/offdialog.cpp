@@ -15,6 +15,28 @@ OffDialog::OffDialog(QWidget *parent) :
     QString content = in.readAll();
     ui->action_off_textEdit_description->setHtml(content);
     description.close();
+
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+        unsigned int current_command_number = instance.getSelectedCommand();
+        std::vector <Command> commands = instance.getCommands();
+        std::vector <std::string> current_command_arguments;
+        current_command_arguments = commands[current_command_number].args;
+
+        for(unsigned int i = 0; i < current_command_arguments.size(); i++)
+        {
+            if(current_command_arguments[i] == "Шпиндель")
+            {
+                ui->spindle_off_checkBox->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Кабриоль")
+            {
+                ui->kabriol_off_checkBox->setChecked(true);
+            }
+        }
+    }
 }
 
 OffDialog::~OffDialog()
@@ -48,5 +70,15 @@ void OffDialog::on_buttonBox_accepted()
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();
-    instance.addCommand(cmd, selected_command);
+
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+       instance.editCommandsArguments(cmd.args, selected_command);
+       instance.setSelectedCommandEditSignal(false);
+    }
+    else
+    {
+        instance.addCommand(cmd, selected_command);
+    }
 }
