@@ -33,9 +33,12 @@
 #include "commands/arc2dialog.h"
 #include "commands/labeldialog.h"
 #include "commands/cycledialog.h"
+#include "commands/procdialog.h"
 #include "commands/ondialog.h"
 #include "commands/offdialog.h"
 #include "commands/rotatedialog.h"
+#include "commands/gotodialog.h"
+
 
 namespace Ui {
 class MainWindow;

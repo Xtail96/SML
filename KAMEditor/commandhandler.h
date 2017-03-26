@@ -33,7 +33,10 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_ROTATE, "Поворот"},
     {CMD_FOR, "Цикл"},
     {CMD_ENDFOR, "Конец цикла"},
-    {CMD_LABEL, "Метка"}
+    {CMD_LABEL, "Метка"},
+    {CMD_GOTO, "На метку"},
+    {CMD_PROC, "Подпрограмма"},
+    {CMD_RETURN, "Вернуться"}
 };
 
 

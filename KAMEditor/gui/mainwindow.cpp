@@ -342,6 +342,21 @@ void MainWindow::update_commands()
                 item = new QTreeWidgetItem(previousParent);
                 break;
             }
+            case CMD_PROC:
+            {
+                item = new QTreeWidgetItem(previousParent);
+                previousParent = item;
+                break;
+            }
+            case CMD_RETURN:
+            {
+                if(previousParent)
+                {
+                    previousParent = previousParent->parent();
+                }
+                item = new QTreeWidgetItem(previousParent);
+                break;
+            }
             default:
             {
                 item = new QTreeWidgetItem(previousParent);
@@ -882,6 +897,33 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             LabelDialog(this).exec();
             break;
         }
+
+        case CMD_GOTO:
+        {
+            GoToDialog(this).exec();
+            break;
+        }
+        case CMD_PROC:
+        {
+            ProcDialog(this).exec();
+            break;
+        }
+        case CMD_RETURN:
+        {
+            Command command;
+            command.id = CMD_RETURN;
+            command.commandColor = "#4682B5";
+
+            std::string endProc = "";
+            command.args = {
+                endProc
+            };
+
+            CommandInterpreter& instance = CommandInterpreter::Instance();
+            unsigned int selected_command = instance.getSelectedCommand();
+            instance.addCommand(command, selected_command);
+            break;
+        }
     }
     update_commands();
 }
@@ -1020,18 +1062,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
 
         case CMD_ENDFOR:
         {
-            Command command;
-            command.id = CMD_ENDFOR;
-            command.commandColor = "#999900";
-
-            std::string endfor = "";
-            command.args = {
-                endfor
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
+            commandInterpreter.setSelectedCommandEditSignal(false);
             break;
         }
 
@@ -1040,38 +1071,29 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
             LabelDialog(this).exec();
             break;
         }
+        case CMD_GOTO:
+        {
+            GoToDialog(this).exec();
+            break;
+        }
+        case CMD_PROC:
+        {
+            ProcDialog(this).exec();
+            break;
+        }
+        case CMD_RETURN:
+        {
+            commandInterpreter.setSelectedCommandEditSignal(false);
+            break;
+        }
         case CMD_ZERO:
         {
-            Command command;
-            command.id = CMD_ZERO;
-
-            command.commandColor = "#000099";
-
-            std::string setZero = "";
-            command.args = {
-                setZero
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
+            commandInterpreter.setSelectedCommandEditSignal(false);
             break;
         }
         case CMD_END:
         {
-            Command command;
-            command.id = CMD_END;
-
-            command.commandColor = "#660099";
-
-            std::string endProgramm = "";
-            command.args = {
-                endProgramm
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
+            commandInterpreter.setSelectedCommandEditSignal(false);
             break;
         }
         case CMD_ON:

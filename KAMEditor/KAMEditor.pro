@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     gui/commands/cycledialog.cpp \
     gui/commands/offdialog.cpp \
     gui/commands/ondialog.cpp \
-    gui/commands/rotatedialog.cpp
+    gui/commands/rotatedialog.cpp \
+    gui/commands/gotodialog.cpp \
+    gui/commands/procdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -53,7 +55,9 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/cycledialog.h \
     gui/commands/offdialog.h \
     gui/commands/ondialog.h \
-    gui/commands/rotatedialog.h
+    gui/commands/rotatedialog.h \
+    gui/commands/gotodialog.h \
+    gui/commands/procdialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -68,7 +72,9 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/cycledialog.ui \
     gui/commands/offdialog.ui \
     gui/commands/ondialog.ui \
-    gui/commands/rotatedialog.ui
+    gui/commands/rotatedialog.ui \
+    gui/commands/gotodialog.ui \
+    gui/commands/procdialog.ui
 
 win32:RC_FILE = application.rc
 
