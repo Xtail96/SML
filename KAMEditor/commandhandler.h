@@ -13,8 +13,6 @@ typedef std::vector<std::string> arguments;
 typedef std::function<void(arguments)> commandHandler;
 
 void CMD_ARC_HANDLER(arguments args);
-
-
 static std::map<COMMAND, commandHandler> commandHandlerMap = {
     { CMD_ARC, CMD_ARC_HANDLER }
 //    {},
@@ -36,7 +34,8 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_LABEL, "Метка"},
     {CMD_GOTO, "На метку"},
     {CMD_PROC, "Подпрограмма"},
-    {CMD_RETURN, "Вернуться"}
+    {CMD_RETURN, "Вернуться"},
+    {CMD_CALL, "Вызов подпрограммы"}
 };
 
 

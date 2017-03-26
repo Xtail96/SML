@@ -924,6 +924,11 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             instance.addCommand(command, selected_command);
             break;
         }
+        case CMD_CALL:
+        {
+            CallProcDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
@@ -1084,6 +1089,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_RETURN:
         {
             commandInterpreter.setSelectedCommandEditSignal(false);
+            break;
+        }
+        case CMD_CALL:
+        {
+            CallProcDialog(this).exec();
             break;
         }
         case CMD_ZERO:

@@ -1,20 +1,20 @@
-#include "labeldialog.h"
-#include "ui_labeldialog.h"
+#include "callprocdialog.h"
+#include "ui_callprocdialog.h"
 
-LabelDialog::LabelDialog(QWidget *parent) :
+CallProcDialog::CallProcDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LabelDialog)
+    ui(new Ui::CallProcDialog)
 {
     ui->setupUi(this);
 
-    QFile description("./description/label.html");
+    QFile description("./description/call.html");
     if(!description.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(0, "error", description.errorString());
     }
     QTextStream in(&description);
     QString content = in.readAll();
-    ui->label_textEdit_description->setHtml(content);
+    ui->call_description_textEdit->setHtml(content);
     description.close();
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
@@ -27,23 +27,26 @@ LabelDialog::LabelDialog(QWidget *parent) :
         current_command_arguments = commands[current_command_number].args;
 
 
-        ui->label_lineEdit_name->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->call_name_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
     }
 }
 
-LabelDialog::~LabelDialog()
+CallProcDialog::~CallProcDialog()
 {
     delete ui;
 }
 
-void LabelDialog::on_buttonBox_accepted()
+void CallProcDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_LABEL;
 
+    Command cmd;
+    cmd.id = CMD_CALL;
+
+    // ToDo:
+    //подобрать цвет
     cmd.commandColor = "#3300ff";
 
-    std::string name = ui->label_lineEdit_name->text().toStdString();
+    std::string name = ui->call_name_lineEdit->text().toStdString();
 
     cmd.args = {
      name,

@@ -38,6 +38,8 @@
 #include "commands/offdialog.h"
 #include "commands/rotatedialog.h"
 #include "commands/gotodialog.h"
+#include "commands/callprocdialog.h"
+
 
 
 namespace Ui {
