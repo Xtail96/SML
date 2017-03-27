@@ -42,7 +42,7 @@ void ProcDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_PROC;
 
-    cmd.commandColor = "#4682B5";
+    cmd.commandColor = "#2f4f4f";
 
     std::string name = ui->proc_name_lineEdit->text().toStdString();
 
