@@ -912,7 +912,8 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         {
             Command command;
             command.id = CMD_RETURN;
-            command.commandColor = "#2f4f4f";
+            //command.commandColor = "#2f4f4f";
+            command.commandColor = "#4682B4";
 
             std::string endProc = "";
             command.args = {
