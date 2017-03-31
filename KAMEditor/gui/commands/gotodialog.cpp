@@ -63,3 +63,12 @@ void GoToDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
+
+void GoToDialog::on_GoToDialog_rejected()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    if(instance.getSelectedCommandEditSignal())
+    {
+        instance.setSelectedCommandEditSignal(false);
+    }
+}

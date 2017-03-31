@@ -63,3 +63,12 @@ void LabelDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
+
+void LabelDialog::on_LabelDialog_rejected()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    if(instance.getSelectedCommandEditSignal())
+    {
+        instance.setSelectedCommandEditSignal(false);
+    }
+}

@@ -22,6 +22,7 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
+    void on_LineDialog_rejected();
 
 private:
     Ui::LineDialog *ui;

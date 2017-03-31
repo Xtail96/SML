@@ -24,6 +24,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_TTLineDialog_rejected();
+
 private:
     Ui::TTLineDialog *ui;
 };

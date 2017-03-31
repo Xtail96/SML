@@ -23,6 +23,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_OnDialog_rejected();
+
 private:
     Ui::OnDialog *ui;
 };

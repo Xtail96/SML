@@ -23,6 +23,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_OffDialog_rejected();
+
 private:
     Ui::OffDialog *ui;
 };

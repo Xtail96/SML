@@ -26,3 +26,12 @@ void TTTLineDialog::on_buttonBox_accepted()
 {
 
 }
+
+void TTTLineDialog::on_TTTLineDialog_rejected()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    if(instance.getSelectedCommandEditSignal())
+    {
+        instance.setSelectedCommandEditSignal(false);
+    }
+}

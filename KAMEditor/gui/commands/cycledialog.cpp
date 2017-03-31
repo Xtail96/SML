@@ -61,3 +61,12 @@ void CycleDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
+
+void CycleDialog::on_CycleDialog_rejected()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    if(instance.getSelectedCommandEditSignal())
+    {
+        instance.setSelectedCommandEditSignal(false);
+    }
+}

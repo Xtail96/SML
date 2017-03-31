@@ -23,6 +23,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_Arc2Dialog_rejected();
+
 private:
     Ui::Arc2Dialog *ui;
 };

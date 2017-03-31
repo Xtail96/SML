@@ -76,3 +76,12 @@ void Arc2Dialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
+
+void Arc2Dialog::on_Arc2Dialog_rejected()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    if(instance.getSelectedCommandEditSignal())
+    {
+        instance.setSelectedCommandEditSignal(false);
+    }
+}

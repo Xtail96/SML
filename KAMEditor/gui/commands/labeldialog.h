@@ -23,6 +23,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_LabelDialog_rejected();
+
 private:
     Ui::LabelDialog *ui;
 };

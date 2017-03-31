@@ -23,6 +23,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_CycleDialog_rejected();
+
 private:
     Ui::CycleDialog *ui;
 };
