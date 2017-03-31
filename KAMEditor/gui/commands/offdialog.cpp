@@ -82,12 +82,3 @@ void OffDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
-
-void OffDialog::on_OffDialog_rejected()
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    if(instance.getSelectedCommandEditSignal())
-    {
-        instance.setSelectedCommandEditSignal(false);
-    }
-}

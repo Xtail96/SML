@@ -6,14 +6,14 @@
 #include <QTextStream>
 #include <QMessageBox>
 
-#include "commandinterpreter.h"
+#include "commanddialog.h"
 
 
 namespace Ui {
 class TTLineDialog;
 }
 
-class TTLineDialog : public QDialog
+class TTLineDialog : public QDialog, private CommandDialog
 {
     Q_OBJECT
 
@@ -23,9 +23,6 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
-    void on_TTLineDialog_rejected();
-
 private:
     Ui::TTLineDialog *ui;
 };

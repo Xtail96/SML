@@ -6,13 +6,13 @@
 #include <QTextStream>
 #include <QMessageBox>
 
-#include "commandinterpreter.h"
+#include "commanddialog.h"
 
 namespace Ui {
 class OnDialog;
 }
 
-class OnDialog : public QDialog
+class OnDialog : public QDialog, private CommandDialog
 {
     Q_OBJECT
 
@@ -22,9 +22,6 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
-    void on_OnDialog_rejected();
-
 private:
     Ui::OnDialog *ui;
 };

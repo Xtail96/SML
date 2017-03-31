@@ -72,12 +72,3 @@ void ArcDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
-
-void ArcDialog::on_ArcDialog_rejected()
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    if(instance.getSelectedCommandEditSignal())
-    {
-        instance.setSelectedCommandEditSignal(false);
-    }
-}

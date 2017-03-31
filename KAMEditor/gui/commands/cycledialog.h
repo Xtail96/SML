@@ -5,14 +5,15 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
-#include "commandinterpreter.h"
+
+#include "commanddialog.h"
 
 
 namespace Ui {
 class CycleDialog;
 }
 
-class CycleDialog : public QDialog
+class CycleDialog : public QDialog, private CommandDialog
 {
     Q_OBJECT
 
@@ -22,9 +23,6 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
-    void on_CycleDialog_rejected();
-
 private:
     Ui::CycleDialog *ui;
 };

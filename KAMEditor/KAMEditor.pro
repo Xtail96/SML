@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     gui/commands/rotatedialog.cpp \
     gui/commands/gotodialog.cpp \
     gui/commands/procdialog.cpp \
-    gui/commands/callprocdialog.cpp
+    gui/commands/callprocdialog.cpp \
+    gui/commands/commanddialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -59,7 +60,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/rotatedialog.h \
     gui/commands/gotodialog.h \
     gui/commands/procdialog.h \
-    gui/commands/callprocdialog.h
+    gui/commands/callprocdialog.h \
+    gui/commands/commanddialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

@@ -6,13 +6,13 @@
 #include <QFile>
 #include <QTextStream>
 
-#include "commandinterpreter.h"
+#include "commanddialog.h"
 
 namespace Ui {
 class ArcDialog;
 }
 
-class ArcDialog : public QDialog
+class ArcDialog : public QDialog, private CommandDialog
 {
     Q_OBJECT
 
@@ -22,9 +22,6 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
-    void on_ArcDialog_rejected();
-
 private:
     Ui::ArcDialog *ui;
 };

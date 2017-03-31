@@ -6,13 +6,13 @@
 #include <QTextStream>
 #include <QMessageBox>
 
-#include "commandinterpreter.h"
+#include "commanddialog.h"
 
 namespace Ui {
 class GoToDialog;
 }
 
-class GoToDialog : public QDialog
+class GoToDialog : public QDialog, private CommandDialog
 {
     Q_OBJECT
 
@@ -22,9 +22,6 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
-    void on_GoToDialog_rejected();
-
 private:
     Ui::GoToDialog *ui;
 };

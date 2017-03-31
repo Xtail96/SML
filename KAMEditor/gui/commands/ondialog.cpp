@@ -82,12 +82,3 @@ void OnDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
-
-void OnDialog::on_OnDialog_rejected()
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    if(instance.getSelectedCommandEditSignal())
-    {
-        instance.setSelectedCommandEditSignal(false);
-    }
-}

@@ -129,12 +129,3 @@ void RotateDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
-
-void RotateDialog::on_RotateDialog_rejected()
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    if(instance.getSelectedCommandEditSignal())
-    {
-        instance.setSelectedCommandEditSignal(false);
-    }
-}

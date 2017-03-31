@@ -65,12 +65,3 @@ void ProcDialog::on_buttonBox_accepted()
         instance.addCommand(cmd, selected_command);
     }
 }
-
-void ProcDialog::on_ProcDialog_rejected()
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    if(instance.getSelectedCommandEditSignal())
-    {
-        instance.setSelectedCommandEditSignal(false);
-    }
-}

@@ -25,6 +25,7 @@
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
 #include "commandinterpreter.h"
+#include "commands/commanddialog.h"
 
 #include "commands/linedialog.h"
 #include "commands/ttlinedialog.h"
