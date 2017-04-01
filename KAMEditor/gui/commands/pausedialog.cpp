@@ -1,22 +1,21 @@
-#include "velocitydialog.h"
-#include "ui_velocitydialog.h"
+#include "pausedialog.h"
+#include "ui_pausedialog.h"
 
-VelocityDialog::VelocityDialog(QWidget *parent) :
+PauseDialog::PauseDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::VelocityDialog)
+    ui(new Ui::PauseDialog)
 {
     ui->setupUi(this);
 
-    QFile description("./description/speed.html");
+    QFile description("./description/pause.html");
     if(!description.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(0, "error", description.errorString());
     }
     QTextStream in(&description);
     QString content = in.readAll();
-    ui->velocity_description_textEdit->setHtml(content);
+    ui->pause_description_textEdit->setHtml(content);
     description.close();
-
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)
@@ -25,26 +24,23 @@ VelocityDialog::VelocityDialog(QWidget *parent) :
         std::vector <Command> commands = instance.getCommands();
         std::vector <std::string> current_command_arguments;
         current_command_arguments = commands[current_command_number].args;
-        ui->velocity_value_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->pause_value_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
     }
 }
 
-VelocityDialog::~VelocityDialog()
+PauseDialog::~PauseDialog()
 {
     delete ui;
 }
 
-void VelocityDialog::on_buttonBox_accepted()
+void PauseDialog::on_buttonBox_accepted()
 {
     Command cmd;
-    cmd.id = CMD_SPEED;
-
-    cmd.commandColor = "#770077";
-
-
-    int velocityValue = ui->velocity_value_lineEdit->text().toInt();
-    std::string velocity  = std::to_string(velocityValue);
-    cmd.args.push_back(velocity);
+    cmd.id = CMD_PAUSE;
+    cmd.commandColor = "#990000";
+    int pauseValue = ui->pause_value_lineEdit->text().toInt();
+    std::string pauseArgument  = std::to_string(pauseValue);
+    cmd.args.push_back(pauseArgument);
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();

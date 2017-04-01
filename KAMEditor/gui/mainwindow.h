@@ -42,6 +42,7 @@
 #include "commands/callprocdialog.h"
 #include "commands/scaledialog.h"
 #include "commands/velocitydialog.h"
+#include "commands/pausedialog.h"
 
 
 

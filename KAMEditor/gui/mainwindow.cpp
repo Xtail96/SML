@@ -1012,6 +1012,11 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
             VelocityDialog(this).exec();
             break;
         }
+        case CMD_PAUSE:
+        {
+            PauseDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
@@ -1125,6 +1130,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_SPEED:
         {
             VelocityDialog(this).exec();
+            break;
+        }
+        case CMD_PAUSE:
+        {
+            PauseDialog(this).exec();
             break;
         }
     }
