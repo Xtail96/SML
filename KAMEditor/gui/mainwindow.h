@@ -40,6 +40,7 @@
 #include "commands/rotatedialog.h"
 #include "commands/gotodialog.h"
 #include "commands/callprocdialog.h"
+#include "commands/scaledialog.h"
 
 
 

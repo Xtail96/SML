@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     gui/commands/gotodialog.cpp \
     gui/commands/procdialog.cpp \
     gui/commands/callprocdialog.cpp \
-    gui/commands/commanddialog.cpp
+    gui/commands/commanddialog.cpp \
+    gui/commands/scaledialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -61,7 +62,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/gotodialog.h \
     gui/commands/procdialog.h \
     gui/commands/callprocdialog.h \
-    gui/commands/commanddialog.h
+    gui/commands/commanddialog.h \
+    gui/commands/scaledialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -79,7 +81,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/rotatedialog.ui \
     gui/commands/gotodialog.ui \
     gui/commands/procdialog.ui \
-    gui/commands/callprocdialog.ui
+    gui/commands/callprocdialog.ui \
+    gui/commands/scaledialog.ui
 
 win32:RC_FILE = application.rc
 

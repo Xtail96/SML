@@ -930,6 +930,11 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             CallProcDialog(this).exec();
             break;
         }
+        case CMD_SCALEX:
+        {
+            ScaleDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
@@ -1112,10 +1117,14 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
             OnDialog(this).exec();
             break;
         }
-
         case CMD_OFF:
         {
             OffDialog(this).exec();
+            break;
+        }
+        case CMD_SCALEX:
+        {
+            ScaleDialog(this).exec();
             break;
         }
     }

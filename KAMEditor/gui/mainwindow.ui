@@ -465,12 +465,7 @@
                      </item>
                      <item>
                       <property name="text">
-                       <string>Цикл</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Конец цикла</string>
+                       <string>Масштаб</string>
                       </property>
                      </item>
                      <item>
@@ -481,6 +476,16 @@
                      <item>
                       <property name="text">
                        <string>На метку</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Цикл</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Конец цикла</string>
                       </property>
                      </item>
                      <item>

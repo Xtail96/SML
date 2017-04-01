@@ -35,7 +35,8 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_GOTO, "На метку"},
     {CMD_PROC, "Подпрограмма"},
     {CMD_RETURN, "Вернуться"},
-    {CMD_CALL, "Вызов подпрограммы"}
+    {CMD_CALL, "Вызов подпрограммы"},
+    {CMD_SCALEX, "Масштаб"}
 };
 
 
