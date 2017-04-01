@@ -827,7 +827,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 
     int row = index.row();
 
-    QString name = ui->commands_tools_listWidget->item(row)->text() ;
+    QString name = ui->commands_tools_listWidget->item(row)->text();
 
     COMMAND cmd = getCommandByName(name.toStdString());
 
@@ -943,27 +943,17 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
+    std::vector<Command> commands = instance.getCommands();
 
-    QItemSelectionModel *select = ui->sml_editor_treeWidget->selectionModel();
-    if(select->hasSelection())
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+
+    QItemSelectionModel *select = editorField->selectionModel();
+    if(!select->hasSelection())
     {
-        unsigned int current_row =  select->currentIndex().row();
+        unsigned int current_row = commands.size();
         instance.setSelectedCommand(current_row);
     }
-    else
-    {
-        std::vector<Command> commands = instance.getCommands();
-        unsigned int selected;
-        if(commands.size()>0)
-        {
-           selected = commands.size();
-        }
-        else
-        {
-            selected = 0;
-        }
-        instance.setSelectedCommand(selected);
-    }
+
 
     int row = index.row();
 
@@ -1015,6 +1005,11 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
         case CMD_OFF:
         {
             OffDialog(this).exec();
+            break;
+        }
+        case CMD_SPEED:
+        {
+            VelocityDialog(this).exec();
             break;
         }
     }
@@ -1125,6 +1120,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_SCALEX:
         {
             ScaleDialog(this).exec();
+            break;
+        }
+        case CMD_SPEED:
+        {
+            VelocityDialog(this).exec();
             break;
         }
     }

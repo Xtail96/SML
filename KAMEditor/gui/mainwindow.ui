@@ -548,6 +548,11 @@
                        <string>Выключить</string>
                       </property>
                      </item>
+                     <item>
+                      <property name="text">
+                       <string>Скорость</string>
+                      </property>
+                     </item>
                     </widget>
                    </item>
                   </layout>
