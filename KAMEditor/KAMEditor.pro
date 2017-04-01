@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     gui/commands/scaledialog.cpp \
     gui/commands/velocitydialog.cpp \
     gui/commands/pausedialog.cpp \
-    gui/commands/stopdialog.cpp
+    gui/commands/stopdialog.cpp \
+    gui/commands/commentdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -69,7 +70,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/scaledialog.h \
     gui/commands/velocitydialog.h \
     gui/commands/pausedialog.h \
-    gui/commands/stopdialog.h
+    gui/commands/stopdialog.h \
+    gui/commands/commentdialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -91,7 +93,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/scaledialog.ui \
     gui/commands/velocitydialog.ui \
     gui/commands/pausedialog.ui \
-    gui/commands/stopdialog.ui
+    gui/commands/stopdialog.ui \
+    gui/commands/commentdialog.ui
 
 win32:RC_FILE = application.rc
 

@@ -935,6 +935,11 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             ScaleDialog(this).exec();
             break;
         }
+        case CMD_COMMENT:
+        {
+            CommentDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
@@ -1145,6 +1150,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_STOP:
         {
             StopDialog(this).exec();
+            break;
+        }
+        case CMD_COMMENT:
+        {
+            CommentDialog(this).exec();
             break;
         }
     }

@@ -8,6 +8,7 @@
 enum COMMAND {CMD_ARC,
               CMD_ARC2,
               CMD_CALL, //
+              CMD_COMMENT,
               CMD_END, //
               CMD_FOR, //
               CMD_ENDFOR, //

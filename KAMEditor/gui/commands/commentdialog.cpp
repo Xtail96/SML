@@ -1,19 +1,20 @@
-#include "stopdialog.h"
-#include "ui_stopdialog.h"
+#include "commentdialog.h"
+#include "ui_commentdialog.h"
 
-StopDialog::StopDialog(QWidget *parent) :
+CommentDialog::CommentDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::StopDialog)
+    ui(new Ui::CommentDialog)
 {
     ui->setupUi(this);
-    QFile description("./description/stop.html");
+
+    QFile description("./description/comment.html");
     if(!description.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(0, "error", description.errorString());
     }
     QTextStream in(&description);
     QString content = in.readAll();
-    ui->stop_description_textEdit->setHtml(content);
+    ui->comment_description_textEdit->setHtml(content);
     description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
@@ -23,22 +24,24 @@ StopDialog::StopDialog(QWidget *parent) :
         std::vector <Command> commands = instance.getCommands();
         std::vector <std::string> current_command_arguments;
         current_command_arguments = commands[current_command_number].args;
-        ui->stop_message_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->comment_text_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
     }
 }
 
-StopDialog::~StopDialog()
+CommentDialog::~CommentDialog()
 {
     delete ui;
 }
 
-void StopDialog::on_buttonBox_accepted()
+void CommentDialog::on_buttonBox_accepted()
 {
     Command cmd;
-    cmd.id = CMD_STOP;
-    cmd.commandColor = "#990000";
-    std::string stopMessage  = ui->stop_message_lineEdit->text().toStdString();
-    cmd.args.push_back(stopMessage);
+    cmd.id = CMD_COMMENT;
+
+
+    cmd.commandColor = "#2E8B57";
+    std::string commentText = ui->comment_text_lineEdit->text().toStdString();
+    cmd.args.push_back(commentText);
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();

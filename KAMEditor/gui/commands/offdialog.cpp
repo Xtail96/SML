@@ -49,7 +49,7 @@ void OffDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_OFF;
 
-    cmd.commandColor = "#009900";
+    cmd.commandColor = "#2E8B57";
 
 
     std::string argument;
