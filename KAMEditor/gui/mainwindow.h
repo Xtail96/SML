@@ -43,6 +43,7 @@
 #include "commands/scaledialog.h"
 #include "commands/velocitydialog.h"
 #include "commands/pausedialog.h"
+#include "commands/stopdialog.h"
 
 
 

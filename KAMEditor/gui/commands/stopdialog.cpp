@@ -1,12 +1,11 @@
-#include "velocitydialog.h"
-#include "ui_velocitydialog.h"
+#include "stopdialog.h"
+#include "ui_stopdialog.h"
 
-VelocityDialog::VelocityDialog(QWidget *parent) :
+StopDialog::StopDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::VelocityDialog)
+    ui(new Ui::StopDialog)
 {
     ui->setupUi(this);
-
     QFile description("./description/speed.html");
     if(!description.open(QIODevice::ReadOnly))
     {
@@ -14,7 +13,7 @@ VelocityDialog::VelocityDialog(QWidget *parent) :
     }
     QTextStream in(&description);
     QString content = in.readAll();
-    ui->velocity_description_textEdit->setHtml(content);
+    ui->stop_description_textEdit->setHtml(content);
     description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
@@ -24,26 +23,22 @@ VelocityDialog::VelocityDialog(QWidget *parent) :
         std::vector <Command> commands = instance.getCommands();
         std::vector <std::string> current_command_arguments;
         current_command_arguments = commands[current_command_number].args;
-        ui->velocity_value_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
+        ui->stop_message_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
     }
 }
 
-VelocityDialog::~VelocityDialog()
+StopDialog::~StopDialog()
 {
     delete ui;
 }
 
-void VelocityDialog::on_buttonBox_accepted()
+void StopDialog::on_buttonBox_accepted()
 {
     Command cmd;
-    cmd.id = CMD_SPEED;
-
-    cmd.commandColor = "#770077";
-
-
-    int velocityValue = ui->velocity_value_lineEdit->text().toInt();
-    std::string velocity  = std::to_string(velocityValue);
-    cmd.args.push_back(velocity);
+    cmd.id = CMD_STOP;
+    cmd.commandColor = "#990000";
+    std::string stopMessage  = ui->stop_message_lineEdit->text().toStdString();
+    cmd.args.push_back(stopMessage);
 
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int selected_command = instance.getSelectedCommand();

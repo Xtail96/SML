@@ -1017,6 +1017,11 @@ void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelInd
             PauseDialog(this).exec();
             break;
         }
+        case CMD_STOP:
+        {
+            StopDialog(this).exec();
+            break;
+        }
     }
     update_commands();
 }
@@ -1135,6 +1140,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_PAUSE:
         {
             PauseDialog(this).exec();
+            break;
+        }
+        case CMD_STOP:
+        {
+            StopDialog(this).exec();
             break;
         }
     }

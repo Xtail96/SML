@@ -38,7 +38,8 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_CALL, "Вызов подпрограммы"},
     {CMD_SCALEX, "Масштаб"},
     {CMD_SPEED, "Скорость"},
-    {CMD_PAUSE, "Пауза"}
+    {CMD_PAUSE, "Пауза"},
+    {CMD_STOP, "Стоп"}
 };
 
 
