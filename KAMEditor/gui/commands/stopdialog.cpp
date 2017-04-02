@@ -6,15 +6,6 @@ StopDialog::StopDialog(QWidget *parent) :
     ui(new Ui::StopDialog)
 {
     ui->setupUi(this);
-    QFile description("./description/stop.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->stop_description_textEdit->setHtml(content);
-    description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

@@ -6,17 +6,6 @@ ProcDialog::ProcDialog(QWidget *parent) :
     ui(new Ui::ProcDialog)
 {
     ui->setupUi(this);
-
-    QFile description("./description/proc.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->proc_description_textEdit->setHtml(content);
-    description.close();
-
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

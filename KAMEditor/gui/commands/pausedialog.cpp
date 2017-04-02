@@ -6,16 +6,6 @@ PauseDialog::PauseDialog(QWidget *parent) :
     ui(new Ui::PauseDialog)
 {
     ui->setupUi(this);
-
-    QFile description("./description/pause.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->pause_description_textEdit->setHtml(content);
-    description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

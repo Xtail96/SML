@@ -6,16 +6,6 @@ OnDialog::OnDialog(QWidget *parent) :
     ui(new Ui::OnDialog)
 {
     ui->setupUi(this);
-    QFile description("./description/on.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->action_on_textEdit_description->setHtml(content);
-    description.close();
-
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

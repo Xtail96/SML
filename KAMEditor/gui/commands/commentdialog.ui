@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>167</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,27 +58,6 @@
          <font>
           <pointsize>10</pointsize>
          </font>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="comment_description_groupBox">
-     <property name="font">
-      <font>
-       <pointsize>8</pointsize>
-      </font>
-     </property>
-     <property name="title">
-      <string>Описание</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QTextEdit" name="comment_description_textEdit">
-        <property name="readOnly">
-         <bool>true</bool>
         </property>
        </widget>
       </item>

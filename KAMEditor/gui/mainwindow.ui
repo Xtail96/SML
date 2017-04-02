@@ -517,8 +517,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>190</width>
-                    <height>373</height>
+                    <width>98</width>
+                    <height>91</height>
                    </rect>
                   </property>
                   <attribute name="label">
@@ -2510,7 +2510,7 @@
             <widget class="QGroupBox" name="park_coordinates_group_box">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="title">

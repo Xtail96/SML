@@ -6,17 +6,6 @@ ScaleDialog::ScaleDialog(QWidget *parent) :
     ui(new Ui::ScaleDialog)
 {
     ui->setupUi(this);
-
-    QFile description("./description/scale_x.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->scale_description_textEdit->setHtml(content);
-    description.close();
-
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

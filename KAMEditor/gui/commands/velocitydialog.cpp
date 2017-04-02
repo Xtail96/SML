@@ -6,16 +6,6 @@ VelocityDialog::VelocityDialog(QWidget *parent) :
     ui(new Ui::VelocityDialog)
 {
     ui->setupUi(this);
-
-    QFile description("./description/speed.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->velocity_description_textEdit->setHtml(content);
-    description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

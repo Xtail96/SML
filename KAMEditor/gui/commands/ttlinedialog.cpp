@@ -6,16 +6,6 @@ TTLineDialog::TTLineDialog(QWidget *parent) :
     ui(new Ui::TTLineDialog)
 {
     ui->setupUi(this);
-    QFile description("./description/ttline.html");
-    if(!description.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", description.errorString());
-    }
-    QTextStream in(&description);
-    QString content = in.readAll();
-    ui->ttline_textEdit_description->setHtml(content);
-    description.close();
-
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)

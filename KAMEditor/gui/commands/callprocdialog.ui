@@ -7,11 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>550</width>
-    <height>300</height>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Вызов подпрограммы</string>
+  </property>
+  <property name="toolTip">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;H &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;ВЫЗОВ П/П [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ИМЯ ПОДПРОГРАММЫ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;] &lt;br/&gt;Переход на подпрограмму &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ИМЯ ПОДПРОГРАММЫ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – Строка символов задающая имя подпрограммы. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+  </property>
+  <property name="whatsThis">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;H &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;ВЫЗОВ П/П [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ИМЯ ПОДПРОГРАММЫ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;] &lt;br/&gt;Переход на подпрограмму &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ИМЯ ПОДПРОГРАММЫ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – Строка символов задающая имя подпрограммы. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -44,18 +50,6 @@
       </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="call_name_lineEdit"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="call_description_groupBox">
-     <property name="title">
-      <string>Описание</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QTextEdit" name="call_description_textEdit"/>
       </item>
      </layout>
     </widget>

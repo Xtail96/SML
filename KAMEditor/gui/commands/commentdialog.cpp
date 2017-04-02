@@ -6,16 +6,6 @@ CommentDialog::CommentDialog(QWidget *parent) :
     ui(new Ui::CommentDialog)
 {
     ui->setupUi(this);
-
-//    QFile description("./description/comment.html");
-//    if(!description.open(QIODevice::ReadOnly))
-//    {
-//        QMessageBox::information(0, "error", description.errorString());
-//    }
-//    QTextStream in(&description);
-//    QString content = in.readAll();
-//    ui->comment_description_textEdit->setHtml(content);
-//    description.close();
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)
