@@ -197,6 +197,7 @@ void MainWindow::setupEditorShortcuts()
     }
 
     connect(ui->open_button, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
+    connect(ui->numofdots_button, SIGNAL(clicked()), this, SLOT(on_point_amount_button_clicked()));
 }
 
 
