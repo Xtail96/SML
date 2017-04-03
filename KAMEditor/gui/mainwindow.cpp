@@ -1475,3 +1475,18 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     applySettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
 
 }
+
+void MainWindow::on_open_action_triggered()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
+    QFile inputFile(path);
+    if(!inputFile.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", inputFile.errorString());
+    }
+    QTextStream in(&inputFile);
+    QString content = in.readAll();
+    inputFile.close();
+
+    ui->gcodes_editor_textEdit->setPlainText(content);
+}
