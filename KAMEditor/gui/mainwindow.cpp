@@ -1493,3 +1493,200 @@ void MainWindow::on_open_action_triggered()
 
     ui->gcodes_editor_textEdit->setPlainText(content);
 }
+
+void MainWindow::on_change_elecrical_settings_pushButton_clicked()
+{
+
+    ui->mill_checkBox->setEnabled(true);
+    ui->mill_checkBox->setCheckable(true);
+    ui->kabriol_checkBox->setEnabled(true);
+    ui->kabriol_checkBox->setCheckable(true);
+    ui->lubrication_system_checkBox->setEnabled(true);
+    ui->lubrication_system_checkBox->setCheckable(true);
+    ui->tool_change_checkBox->setEnabled(true);
+    ui->tool_change_checkBox->setCheckable(true);
+    ui->laser_checkBox->setEnabled(true);
+    ui->laser_checkBox->setCheckable(true);
+    ui->wacuum_table_checkBox->setEnabled(true);
+    ui->wacuum_table_checkBox->setCheckable(true);
+    ui->tool_length_sensor_checkBox->setEnabled(true);
+    ui->tool_length_sensor_checkBox->setCheckable(true);
+
+
+    editSettingsField(ui->x_axis_step_lineEdit);
+    editSettingsField(ui->y_axis_step_lineEdit);
+    editSettingsField(ui->z_axis_step_lineEdit);
+    editSettingsField(ui->a_axis_step_lineEdit);
+    editSettingsField(ui->b_axis_step_lineEdit);
+
+    editSettingsField(ui->x_axis_mm_lineEdit);
+    editSettingsField(ui->y_axis_mm_lineEdit);
+    editSettingsField(ui->z_axis_mm_lineEdit);
+    editSettingsField(ui->a_axis_mm_lineEdit);
+    editSettingsField(ui->b_axis_mm_lineEdit);
+}
+
+void MainWindow::setUpElectricalSettings()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v =
+    {
+        ui->x_axis_step_lineEdit->text().toDouble(),
+        ui->y_axis_step_lineEdit->text().toDouble(),
+        ui->z_axis_step_lineEdit->text().toDouble(),
+        ui->a_axis_step_lineEdit->text().toDouble(),
+        ui->b_axis_step_lineEdit->text().toDouble(),
+    };
+    instance.setDistanceByOneStep(v);
+
+    v.x = ui->x_axis_mm_lineEdit->text().toDouble();
+    v.y = ui->y_axis_mm_lineEdit->text().toDouble();
+    v.z = ui->z_axis_mm_lineEdit->text().toDouble();
+    v.a = ui->a_axis_mm_lineEdit->text().toDouble();
+    v.b = ui->b_axis_mm_lineEdit->text().toDouble();
+    instance.setStepQuantityByOneMm(v);
+
+    std::map<std::string, bool> m =
+    {
+        {"mill", ui->mill_checkBox->isChecked()},
+        {"kabriol", ui->kabriol_checkBox->isChecked()},
+        {"lubrication_system", ui->lubrication_system_checkBox->isChecked()},
+        {"tool_change", ui->tool_change_checkBox->isChecked()},
+        {"laser", ui->laser_checkBox->isChecked()},
+        {"wacuum_table", ui->wacuum_table_checkBox->isChecked()},
+        {"tool_length_sensor", ui->tool_length_sensor_checkBox->isChecked()}
+    };
+    instance.setExternalDevices(m);
+}
+
+void MainWindow::on_apply_electrical_settings_pushButton_clicked()
+{
+
+    setUpElectricalSettings();
+    ui->mill_checkBox->setEnabled(false);
+    ui->kabriol_checkBox->setEnabled(false);
+    ui->lubrication_system_checkBox->setEnabled(false);
+    ui->tool_change_checkBox->setEnabled(false);
+    ui->laser_checkBox->setEnabled(false);
+    ui->wacuum_table_checkBox->setEnabled(false);
+    ui->tool_length_sensor_checkBox->setEnabled(false);
+
+
+    applySettingsField(ui->x_axis_step_lineEdit);
+    applySettingsField(ui->y_axis_step_lineEdit);
+    applySettingsField(ui->z_axis_step_lineEdit);
+    applySettingsField(ui->a_axis_step_lineEdit);
+    applySettingsField(ui->b_axis_step_lineEdit);
+
+    applySettingsField(ui->x_axis_mm_lineEdit);
+    applySettingsField(ui->y_axis_mm_lineEdit);
+    applySettingsField(ui->z_axis_mm_lineEdit);
+    applySettingsField(ui->a_axis_mm_lineEdit);
+    applySettingsField(ui->b_axis_mm_lineEdit);
+}
+void MainWindow::electricialSettingsRecovery()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v = instance.getDistanceByOneStep();
+    ui->x_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+
+    v = instance.getStepQuantityByOneMm();
+    ui->x_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+
+    std::map<std::string, bool> m = instance.getExternalDevices();
+    if(m["mill"])
+    {
+        ui->mill_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->mill_checkBox->setChecked(false);
+    }
+
+    if(m["kabriol"])
+    {
+        ui->kabriol_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->kabriol_checkBox->setChecked(false);
+    }
+
+    if(m["lubrication_system"])
+    {
+        ui->lubrication_system_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->lubrication_system_checkBox->setChecked(false);
+    }
+
+    if(m["tool_change"])
+    {
+        ui->tool_change_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->tool_change_checkBox->setChecked(false);
+    }
+
+    if(m["laser"])
+    {
+        ui->laser_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->laser_checkBox->setChecked(false);
+    }
+
+    if(m["wacuum_table"])
+    {
+        ui->wacuum_table_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->wacuum_table_checkBox->setChecked(false);
+    }
+    if(m["tool_length_sensor"])
+    {
+        ui->tool_length_sensor_checkBox->setChecked(true);
+    }
+    else
+    {
+        ui->tool_length_sensor_checkBox->setChecked(false);
+    }
+}
+
+void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
+{
+    electricialSettingsRecovery();
+
+    ui->mill_checkBox->setEnabled(false);
+    ui->kabriol_checkBox->setEnabled(false);
+    ui->lubrication_system_checkBox->setEnabled(false);
+    ui->tool_change_checkBox->setEnabled(false);
+    ui->laser_checkBox->setEnabled(false);
+    ui->wacuum_table_checkBox->setEnabled(false);
+    ui->tool_length_sensor_checkBox->setEnabled(false);
+
+
+    applySettingsField(ui->x_axis_step_lineEdit);
+    applySettingsField(ui->y_axis_step_lineEdit);
+    applySettingsField(ui->z_axis_step_lineEdit);
+    applySettingsField(ui->a_axis_step_lineEdit);
+    applySettingsField(ui->b_axis_step_lineEdit);
+
+    applySettingsField(ui->x_axis_mm_lineEdit);
+    applySettingsField(ui->y_axis_mm_lineEdit);
+    applySettingsField(ui->z_axis_mm_lineEdit);
+    applySettingsField(ui->a_axis_mm_lineEdit);
+    applySettingsField(ui->b_axis_mm_lineEdit);
+}

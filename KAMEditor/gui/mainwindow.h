@@ -76,8 +76,11 @@ private:
     void setupDirections();
     //void setupKinematicsSettings();
 
+    void setUpElectricalSettings();
+
     void dimensionsRecovery();
     void directionsRecovery();
+    void electricialSettingsRecovery();
 
 
     void editSettingsField(QLineEdit *qle);
@@ -164,6 +167,9 @@ private slots:
     void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
     void on_cancel_pushButton_clicked();
     void on_open_action_triggered();
+    void on_change_elecrical_settings_pushButton_clicked();
+    void on_apply_electrical_settings_pushButton_clicked();
+    void on_cancel_electrical_settings_pushButton_clicked();
 };
 
 
