@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>542</width>
-    <height>270</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -23,6 +23,34 @@
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;W &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;ЛИНИЯ [∆X, ∆Y, ∆Z,(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)] &lt;br/&gt;Перемещение фрезы на расстояние [∆X, ∆Y, ∆Z] по прямой. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆X&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; - Перемещение по X. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆Y&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; - Перемещение по Y. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; - Перемещение по Z. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;(СКОРОСТЬ)&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; Скорость выполнения оператора (необязательный параметр).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="line_title_label">
+     <property name="font">
+      <font>
+       <pointsize>21</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Линия</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <widget class="QGroupBox" name="line_arguments_groupBox">
      <property name="sizePolicy">
@@ -98,33 +126,18 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="line_title_label">
-     <property name="font">
-      <font>
-       <pointsize>21</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Линия</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::AutoText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>100</height>
+      </size>
      </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>

@@ -20,6 +20,13 @@
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;Shift+1 &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;TTТ ЛИНИЯ [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН, ТК,&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)] &lt;br/&gt;Перемещение по прямой из точки в точку с номером в пространстве. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка начальная. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка конечная. &lt;br/&gt;Отличие этой команды от команды ТТ ЛИНИЯ в том, что эта команда работает в пространстве, а ТТ ЛИНИЯ на плоскости. &lt;br/&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" colspan="2">
+    <widget class="QGroupBox" name="tttline_groupBox_arguments">
+     <property name="title">
+      <string>Аргументы</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="tttline_label_title">
      <property name="sizePolicy">
@@ -41,7 +48,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="3" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -51,12 +58,18 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QGroupBox" name="tttline_groupBox_arguments">
-     <property name="title">
-      <string>Аргументы</string>
+   <item row="2" column="0" colspan="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>100</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
