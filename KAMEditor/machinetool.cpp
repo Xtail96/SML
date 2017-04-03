@@ -239,3 +239,30 @@ void MachineTool::setNewZeroCoordinates(Vector f)
     current.a = 0;
     current.b = 0;
 }
+
+void MachineTool::setDistanceByOneStep(Vector v)
+{
+    distanceByOneStep = v;
+}
+Vector MachineTool::getDistanceByOneStep()
+{
+    return distanceByOneStep;
+}
+
+void MachineTool::setStepQuantityByOneMm(Vector v)
+{
+    stepQuantityByOneMm = v;
+}
+Vector MachineTool::getStepQuantityByOneMm()
+{
+    return stepQuantityByOneMm;
+}
+
+void MachineTool::setExternalDevices(std::map<std::string, bool> m)
+{
+    externalDevices = m;
+}
+std::map<std::string, bool> MachineTool::getExternalDevices()
+{
+    return externalDevices;
+}

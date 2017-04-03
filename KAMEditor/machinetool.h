@@ -2,6 +2,8 @@
 #define MACHINETOOL_H
 
 #include <math.h>
+#include <map>
+#include <string>
 #include "vector.h"
 
 
@@ -26,6 +28,15 @@ public:
 
     void setDirections(Vector v);
     Vector getDirections();
+
+    void setDistanceByOneStep(Vector v);
+    Vector getDistanceByOneStep();
+
+    void setStepQuantityByOneMm(Vector v);
+    Vector getStepQuantityByOneMm();
+
+    void setExternalDevices(std::map<std::string, bool> m);
+    std::map<std::string, bool> getExternalDevices();
 
     /// Возвращает текущие координаты
     Vector getCurrentCoordinates();
@@ -73,6 +84,15 @@ private:
 
     /// Направления осей
     Vector directions;
+
+    /// Расстояние, проходимое за 1 шаг
+    Vector distanceByOneStep;
+
+    /// Число шагов на 1мм
+    Vector stepQuantityByOneMm;
+
+    /// Внешние устройства
+    std::map<std::string, bool> externalDevices;
 
     /// Текущие координаты от базы, абсолютные
     Vector base;
