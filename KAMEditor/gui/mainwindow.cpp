@@ -195,6 +195,8 @@ void MainWindow::setupEditorShortcuts()
 
         editorShortcuts.push_back(shortcut);
     }
+
+    connect(ui->open_button, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 
 
