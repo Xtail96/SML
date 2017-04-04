@@ -34,6 +34,7 @@
 #include "commands/ttlinedialog.h"
 #include "commands/arcdialog.h"
 #include "commands/arc2dialog.h"
+#include "commands/ttzarcdialog.h"
 #include "commands/labeldialog.h"
 #include "commands/cycledialog.h"
 #include "commands/procdialog.h"
@@ -47,6 +48,7 @@
 #include "commands/pausedialog.h"
 #include "commands/stopdialog.h"
 #include "commands/commentdialog.h"
+
 
 
 
