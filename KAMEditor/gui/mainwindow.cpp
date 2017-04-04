@@ -7,10 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //задаем габариты станка
+    // задаем габариты станка
     setupDimensions();
-    //задаем направления движения осей станка
+    // задаем направления движения осей станка
     setupDirections();
+    // задаем характеристики электроники
+    setUpElectricalSettings();
 
     // задаем горячие клавиши
     setupShortcuts();
