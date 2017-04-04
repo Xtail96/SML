@@ -426,6 +426,19 @@
                      </property>
                      <item>
                       <property name="text">
+                       <string>Инструменты:</string>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>16</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                        <underline>true</underline>
+                       </font>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
                        <string>Линия</string>
                       </property>
                       <property name="background">
@@ -508,6 +521,54 @@
                        <string>Комментарий</string>
                       </property>
                      </item>
+                     <item>
+                      <property name="text">
+                       <string>Наладка:</string>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>16</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                        <underline>true</underline>
+                       </font>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Обнулить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Окончить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Включить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Выключить</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Скорость</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Пауза</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Стоп</string>
+                      </property>
+                     </item>
                     </widget>
                    </item>
                   </layout>
@@ -517,8 +578,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>102</width>
-                    <height>102</height>
+                    <width>178</width>
+                    <height>361</height>
                    </rect>
                   </property>
                   <attribute name="label">
