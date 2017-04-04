@@ -458,17 +458,27 @@
                      </item>
                      <item>
                       <property name="text">
-                       <string>ТТТ-Линия</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
                        <string>Дуга</string>
                       </property>
                      </item>
                      <item>
                       <property name="text">
                        <string>Относительная дуга</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>ТТТ-Дуга</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Сплайн</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>ТТТТ-Сплайн</string>
                       </property>
                      </item>
                      <item>

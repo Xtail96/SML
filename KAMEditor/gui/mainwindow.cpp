@@ -850,12 +850,6 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             break;
         }
 
-        case CMD_TTTLINE:
-        {
-            TTTLineDialog(this).exec();
-            break;
-        }
-
         case CMD_ARC:
         {
             ArcDialog(this).exec();
@@ -1113,12 +1107,6 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_TTLINE:
         {
             TTLineDialog(this).exec();
-            break;
-        }
-
-        case CMD_TTTLINE:
-        {
-            TTTLineDialog(this).exec();
             break;
         }
 
