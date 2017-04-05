@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>260</height>
+    <height>299</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>ТТZ-Дуга</string>
   </property>
   <property name="toolTip">
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;5 &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;ТРZ ДУГА [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН, ТК, R, ∆Z,&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)] &lt;br/&gt;Перемещение из точки ТН в точку ТК по дуге радиуса R с перемещением по Z на ∆Z. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка начальная. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка конечная. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;R&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – радиус дуги. &lt;br/&gt;Если R co знаком &amp;quot;-&amp;quot;, то движение дуги против часовой стрелки. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – перемещение по Z. &lt;br/&gt;Данная команда аналогична ТР ДУГЕ, но имеет возможность плавного врезания в материал. &lt;br/&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;) Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

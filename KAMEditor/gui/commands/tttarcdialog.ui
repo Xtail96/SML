@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TTTArcDialog</class>
+ <widget class="QDialog" name="TTTArcDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>250</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ТТТ-Дуга</string>
+  </property>
+  <property name="toolTip">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#3300ff;&quot;&gt;Shift+2 &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;TTТ ДУГА [&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТН, ТС, ТК,&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;)] &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Перемещение по дуге по трем точкам в пространстве. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка начальная. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТС&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка средняя (любая точка на дуге). &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка конечная. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Отличие этой команды от команды ТТ ДУГА, в том, что она позволяет описывать дуги в пространстве, а не только в плоскости XY. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;)Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+  </property>
+  <property name="whatsThis">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#3300ff;&quot;&gt;Shift+2 &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;TTТ ДУГА [&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТН, ТС, ТК,&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;)] &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Перемещение по дуге по трем точкам в пространстве. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка начальная. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;ТС&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка средняя (любая точка на дуге). &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-weight:600; color:#000000;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt; – точка конечная. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;Отличие этой команды от команды ТТ ДУГА, в том, что она позволяет описывать дуги в пространстве, а не только в плоскости XY. &lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;/&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-family:'-webkit-standard'; font-size:12pt; color:#000000;&quot;&gt;)Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="ttt_arc_title_label">
+     <property name="font">
+      <font>
+       <pointsize>21</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>ТТТ-Дуга</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="ttt_arc_arguments_groupBox">
+     <property name="title">
+      <string>Аргументы</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="ttt_arc_start_point_label">
+        <property name="text">
+         <string>Начальная точка</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="ttt_arc_start_point_lineEdit"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="ttt_arc_velocity_label">
+        <property name="text">
+         <string>Скорость</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="ttt_arc_velocity_lineEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="ttt_arc_middle_point_label">
+        <property name="text">
+         <string>Средняя точка</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="ttt_arc_finish_point_label">
+        <property name="text">
+         <string>Конечная точка</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="ttt_arc_finish_point_lineEdit"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="ttt_arc_middle_point_lineEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>100</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>TTTArcDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>TTTArcDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

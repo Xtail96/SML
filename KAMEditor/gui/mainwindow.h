@@ -35,6 +35,7 @@
 #include "commands/arcdialog.h"
 #include "commands/arc2dialog.h"
 #include "commands/ttzarcdialog.h"
+#include "commands/tttarcdialog.h"
 #include "commands/labeldialog.h"
 #include "commands/cycledialog.h"
 #include "commands/procdialog.h"

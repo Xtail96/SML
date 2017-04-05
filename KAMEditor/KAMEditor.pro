@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     gui/commands/pausedialog.cpp \
     gui/commands/stopdialog.cpp \
     gui/commands/commentdialog.cpp \
-    gui/commands/ttzarcdialog.cpp
+    gui/commands/ttzarcdialog.cpp \
+    gui/commands/tttarcdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -71,7 +72,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/pausedialog.h \
     gui/commands/stopdialog.h \
     gui/commands/commentdialog.h \
-    gui/commands/ttzarcdialog.h
+    gui/commands/ttzarcdialog.h \
+    gui/commands/tttarcdialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -94,7 +96,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/pausedialog.ui \
     gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
-    gui/commands/ttzarcdialog.ui
+    gui/commands/ttzarcdialog.ui \
+    gui/commands/tttarcdialog.ui
 
 win32:RC_FILE = application.rc
 
