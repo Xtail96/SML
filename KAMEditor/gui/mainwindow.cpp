@@ -1454,35 +1454,41 @@ void MainWindow::on_open_action_triggered()
 }
 
 void MainWindow::on_change_elecrical_settings_pushButton_clicked()
-{
+{    
+    std::vector<QLineEdit*> electricalSettings =
+    {
+        ui->x_axis_step_lineEdit,
+        ui->y_axis_step_lineEdit,
+        ui->z_axis_step_lineEdit,
+        ui->a_axis_step_lineEdit,
+        ui->b_axis_step_lineEdit,
 
-    ui->mill_checkBox->setEnabled(true);
-    ui->mill_checkBox->setCheckable(true);
-    ui->kabriol_checkBox->setEnabled(true);
-    ui->kabriol_checkBox->setCheckable(true);
-    ui->lubrication_system_checkBox->setEnabled(true);
-    ui->lubrication_system_checkBox->setCheckable(true);
-    ui->tool_change_checkBox->setEnabled(true);
-    ui->tool_change_checkBox->setCheckable(true);
-    ui->laser_checkBox->setEnabled(true);
-    ui->laser_checkBox->setCheckable(true);
-    ui->wacuum_table_checkBox->setEnabled(true);
-    ui->wacuum_table_checkBox->setCheckable(true);
-    ui->tool_length_sensor_checkBox->setEnabled(true);
-    ui->tool_length_sensor_checkBox->setCheckable(true);
+        ui->x_axis_mm_lineEdit,
+        ui->y_axis_mm_lineEdit,
+        ui->z_axis_mm_lineEdit,
+        ui->a_axis_mm_lineEdit,
+        ui->b_axis_mm_lineEdit
+    };
+    for (auto i : electricalSettings)
+    {
+        editSettingsField(i);
+    }
 
-
-    editSettingsField(ui->x_axis_step_lineEdit);
-    editSettingsField(ui->y_axis_step_lineEdit);
-    editSettingsField(ui->z_axis_step_lineEdit);
-    editSettingsField(ui->a_axis_step_lineEdit);
-    editSettingsField(ui->b_axis_step_lineEdit);
-
-    editSettingsField(ui->x_axis_mm_lineEdit);
-    editSettingsField(ui->y_axis_mm_lineEdit);
-    editSettingsField(ui->z_axis_mm_lineEdit);
-    editSettingsField(ui->a_axis_mm_lineEdit);
-    editSettingsField(ui->b_axis_mm_lineEdit);
+    std::vector<QCheckBox*> externalDevices =
+    {
+        ui->mill_checkBox,
+        ui->kabriol_checkBox,
+        ui->lubrication_system_checkBox,
+        ui->tool_change_checkBox,
+        ui->laser_checkBox,
+        ui->wacuum_table_checkBox,
+        ui->tool_length_sensor_checkBox
+    };
+    for(auto i : externalDevices)
+    {
+        i->setEnabled(true);
+        i->setCheckable(true);
+    }
 }
 
 void MainWindow::setUpElectricalSettings()
@@ -1522,26 +1528,40 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
 {
 
     setUpElectricalSettings();
-    ui->mill_checkBox->setEnabled(false);
-    ui->kabriol_checkBox->setEnabled(false);
-    ui->lubrication_system_checkBox->setEnabled(false);
-    ui->tool_change_checkBox->setEnabled(false);
-    ui->laser_checkBox->setEnabled(false);
-    ui->wacuum_table_checkBox->setEnabled(false);
-    ui->tool_length_sensor_checkBox->setEnabled(false);
 
+    std::vector<QLineEdit*> electricalSettings =
+    {
+        ui->x_axis_step_lineEdit,
+        ui->y_axis_step_lineEdit,
+        ui->z_axis_step_lineEdit,
+        ui->a_axis_step_lineEdit,
+        ui->b_axis_step_lineEdit,
 
-    applySettingsField(ui->x_axis_step_lineEdit);
-    applySettingsField(ui->y_axis_step_lineEdit);
-    applySettingsField(ui->z_axis_step_lineEdit);
-    applySettingsField(ui->a_axis_step_lineEdit);
-    applySettingsField(ui->b_axis_step_lineEdit);
+        ui->x_axis_mm_lineEdit,
+        ui->y_axis_mm_lineEdit,
+        ui->z_axis_mm_lineEdit,
+        ui->a_axis_mm_lineEdit,
+        ui->b_axis_mm_lineEdit
+    };
+    for (auto i : electricalSettings)
+    {
+        applySettingsField(i);
+    }
 
-    applySettingsField(ui->x_axis_mm_lineEdit);
-    applySettingsField(ui->y_axis_mm_lineEdit);
-    applySettingsField(ui->z_axis_mm_lineEdit);
-    applySettingsField(ui->a_axis_mm_lineEdit);
-    applySettingsField(ui->b_axis_mm_lineEdit);
+    std::vector<QCheckBox*> externalDevices =
+    {
+        ui->mill_checkBox,
+        ui->kabriol_checkBox,
+        ui->lubrication_system_checkBox,
+        ui->tool_change_checkBox,
+        ui->laser_checkBox,
+        ui->wacuum_table_checkBox,
+        ui->tool_length_sensor_checkBox
+    };
+    for(auto i : externalDevices)
+    {
+        i->setEnabled(false);
+    }
 }
 void MainWindow::electricialSettingsRecovery()
 {
@@ -1628,26 +1648,39 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 {
     electricialSettingsRecovery();
 
-    ui->mill_checkBox->setEnabled(false);
-    ui->kabriol_checkBox->setEnabled(false);
-    ui->lubrication_system_checkBox->setEnabled(false);
-    ui->tool_change_checkBox->setEnabled(false);
-    ui->laser_checkBox->setEnabled(false);
-    ui->wacuum_table_checkBox->setEnabled(false);
-    ui->tool_length_sensor_checkBox->setEnabled(false);
+    std::vector<QLineEdit*> electricalSettings =
+    {
+        ui->x_axis_step_lineEdit,
+        ui->y_axis_step_lineEdit,
+        ui->z_axis_step_lineEdit,
+        ui->a_axis_step_lineEdit,
+        ui->b_axis_step_lineEdit,
 
+        ui->x_axis_mm_lineEdit,
+        ui->y_axis_mm_lineEdit,
+        ui->z_axis_mm_lineEdit,
+        ui->a_axis_mm_lineEdit,
+        ui->b_axis_mm_lineEdit
+    };
+    for (auto i : electricalSettings)
+    {
+        applySettingsField(i);
+    }
 
-    applySettingsField(ui->x_axis_step_lineEdit);
-    applySettingsField(ui->y_axis_step_lineEdit);
-    applySettingsField(ui->z_axis_step_lineEdit);
-    applySettingsField(ui->a_axis_step_lineEdit);
-    applySettingsField(ui->b_axis_step_lineEdit);
-
-    applySettingsField(ui->x_axis_mm_lineEdit);
-    applySettingsField(ui->y_axis_mm_lineEdit);
-    applySettingsField(ui->z_axis_mm_lineEdit);
-    applySettingsField(ui->a_axis_mm_lineEdit);
-    applySettingsField(ui->b_axis_mm_lineEdit);
+    std::vector<QCheckBox*> externalDevices =
+    {
+        ui->mill_checkBox,
+        ui->kabriol_checkBox,
+        ui->lubrication_system_checkBox,
+        ui->tool_change_checkBox,
+        ui->laser_checkBox,
+        ui->wacuum_table_checkBox,
+        ui->tool_length_sensor_checkBox
+    };
+    for(auto i : externalDevices)
+    {
+        i->setEnabled(false);
+    }
 }
 
 void MainWindow::setupDimensions()
