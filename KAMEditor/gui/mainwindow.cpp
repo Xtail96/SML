@@ -1221,15 +1221,56 @@ void MainWindow::applySettingsField(QLineEdit *qle)
 
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
-    std::vector<QLineEdit*> dimensions =
+    std::vector<QLineEdit*> mechanicalSettings =
     {
         ui->x_dimension_lineEdit,
         ui->y_dimension_lineEdit,
         ui->z_dimension_lineEdit,
         ui->a_dimension_lineEdit,
-        ui->b_dimension_lineEdit
+        ui->b_dimension_lineEdit,
+
+        ui->x_axis_jerk_lineEdit,
+        ui->x_axis_acceleration_lineEdit,
+        ui->x_axis_velocity_lineEdit,
+        ui->x_axis_channel_lineEdit,
+        ui->x_axis_basing_velocity_lineEdit,
+
+        ui->y_axis_jerk_lineEdit,
+        ui->y_axis_acceleration_lineEdit,
+        ui->y_axis_velocity_lineEdit,
+        ui->y_axis_channel_lineEdit,
+        ui->y_axis_basing_velocity_lineEdit,
+
+        ui->z_axis_jerk_lineEdit,
+        ui->z_axis_acceleration_lineEdit,
+        ui->z_axis_velocity_lineEdit,
+        ui->z_axis_channel_lineEdit,
+        ui->z_axis_basing_velocity_lineEdit,
+
+        ui->a_axis_jerk_lineEdit,
+        ui->a_axis_acceleration_lineEdit,
+        ui->a_axis_velocity_lineEdit,
+        ui->a_axis_channel_lineEdit,
+        ui->a_axis_basing_velocity_lineEdit,
+
+        ui->b_axis_jerk_lineEdit,
+        ui->b_axis_acceleration_lineEdit,
+        ui->b_axis_velocity_lineEdit,
+        ui->b_axis_channel_lineEdit,
+        ui->b_axis_basing_velocity_lineEdit,
+
+        ui->critical_axis_lineEdit,
+        ui->buffer_size_lineEdit,
+        ui->collinearity_tolerance_lineEdit,
+        ui->maximum_devation_lineEdit,
+        ui->smoothing_angle_lineEdit,
+
+        ui->zero_level_sensor_lineEdit,
+        ui->tool_length_sensor_lineEdit,
+        ui->velocity_from_sensor_lineEdit,
+        ui->minimum_sensor_finding_velocity_lineEdit
     };
-    for (auto i : dimensions)
+    for (auto i : mechanicalSettings)
     {
         editSettingsField(i);
     }
@@ -1247,49 +1288,6 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
         i->setEnabled(true);
         i->setCheckable(true);
     }
-
-
-    editSettingsField(ui->x_axis_jerk_lineEdit);
-    editSettingsField(ui->x_axis_acceleration_lineEdit);
-    editSettingsField(ui->x_axis_velocity_lineEdit);
-    editSettingsField(ui->x_axis_channel_lineEdit);
-    editSettingsField(ui->x_axis_basing_velocity_lineEdit);
-
-    editSettingsField(ui->y_axis_jerk_lineEdit);
-    editSettingsField(ui->y_axis_acceleration_lineEdit);
-    editSettingsField(ui->y_axis_velocity_lineEdit);
-    editSettingsField(ui->y_axis_channel_lineEdit);
-    editSettingsField(ui->y_axis_basing_velocity_lineEdit);
-
-    editSettingsField(ui->z_axis_jerk_lineEdit);
-    editSettingsField(ui->z_axis_acceleration_lineEdit);
-    editSettingsField(ui->z_axis_velocity_lineEdit);
-    editSettingsField(ui->z_axis_channel_lineEdit);
-    editSettingsField(ui->z_axis_basing_velocity_lineEdit);
-
-    editSettingsField(ui->a_axis_jerk_lineEdit);
-    editSettingsField(ui->a_axis_acceleration_lineEdit);
-    editSettingsField(ui->a_axis_velocity_lineEdit);
-    editSettingsField(ui->a_axis_channel_lineEdit);
-    editSettingsField(ui->a_axis_basing_velocity_lineEdit);
-
-    editSettingsField(ui->b_axis_jerk_lineEdit);
-    editSettingsField(ui->b_axis_acceleration_lineEdit);
-    editSettingsField(ui->b_axis_velocity_lineEdit);
-    editSettingsField(ui->b_axis_channel_lineEdit);
-    editSettingsField(ui->b_axis_basing_velocity_lineEdit);
-
-
-    editSettingsField(ui->critical_axis_lineEdit);
-    editSettingsField(ui->buffer_size_lineEdit);
-    editSettingsField(ui->collinearity_tolerance_lineEdit);
-    editSettingsField(ui->maximum_devation_lineEdit);
-    editSettingsField(ui->smoothing_angle_lineEdit);
-
-    editSettingsField(ui->zero_level_sensor_lineEdit);
-    editSettingsField(ui->tool_length_sensor_lineEdit);
-    editSettingsField(ui->velocity_from_sensor_lineEdit);
-    editSettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
 }
 
 
