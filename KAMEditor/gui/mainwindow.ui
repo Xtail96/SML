@@ -370,7 +370,7 @@
               <property name="title">
                <string>Список команд</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_8">
+              <layout class="QVBoxLayout" name="verticalLayout_19">
                <property name="leftMargin">
                 <number>5</number>
                </property>
@@ -383,272 +383,190 @@
                <property name="bottomMargin">
                 <number>5</number>
                </property>
-               <item row="0" column="0">
-                <widget class="QToolBox" name="toolBox">
-                 <property name="currentIndex">
-                  <number>0</number>
+               <item>
+                <widget class="QListWidget" name="commands_tools_listWidget">
+                 <property name="dragEnabled">
+                  <bool>true</bool>
                  </property>
-                 <widget class="QWidget" name="page_1">
-                  <property name="geometry">
-                   <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>190</width>
-                    <height>373</height>
-                   </rect>
+                 <property name="dragDropMode">
+                  <enum>QAbstractItemView::DragOnly</enum>
+                 </property>
+                 <property name="defaultDropAction">
+                  <enum>Qt::LinkAction</enum>
+                 </property>
+                 <property name="alternatingRowColors">
+                  <bool>true</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SingleSelection</enum>
+                 </property>
+                 <property name="selectionRectVisible">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Инструменты:</string>
                   </property>
-                  <attribute name="label">
-                   <string>Инструменты</string>
-                  </attribute>
-                  <layout class="QVBoxLayout" name="verticalLayout_19">
-                   <item>
-                    <widget class="QListWidget" name="commands_tools_listWidget">
-                     <property name="dragEnabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="dragDropMode">
-                      <enum>QAbstractItemView::DragOnly</enum>
-                     </property>
-                     <property name="defaultDropAction">
-                      <enum>Qt::LinkAction</enum>
-                     </property>
-                     <property name="alternatingRowColors">
-                      <bool>true</bool>
-                     </property>
-                     <property name="selectionMode">
-                      <enum>QAbstractItemView::SingleSelection</enum>
-                     </property>
-                     <property name="selectionRectVisible">
-                      <bool>false</bool>
-                     </property>
-                     <property name="sortingEnabled">
-                      <bool>false</bool>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>Инструменты:</string>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>18</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                        <underline>true</underline>
-                       </font>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Линия</string>
-                      </property>
-                      <property name="background">
-                       <brush brushstyle="NoBrush">
-                        <color alpha="255">
-                         <red>0</red>
-                         <green>0</green>
-                         <blue>0</blue>
-                        </color>
-                       </brush>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>ТТ-Линия</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Дуга</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Относительная дуга</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>ТТТ-Дуга</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>ТТZ-Дуга</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Сплайн</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>ТТТТ-Сплайн</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Поворот</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Масштаб</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Метка</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>На метку</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Цикл</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Конец цикла</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Подпрограмма</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Вернуться</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Вызов подпрограммы</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Комментарий</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Наладка:</string>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>18</pointsize>
-                        <weight>50</weight>
-                        <italic>false</italic>
-                        <bold>false</bold>
-                        <underline>true</underline>
-                       </font>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Обнулить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Окончить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Включить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Выключить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Скорость</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Пауза</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Стоп</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="page_2">
-                  <property name="geometry">
-                   <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>190</width>
-                    <height>373</height>
-                   </rect>
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                    <underline>true</underline>
+                   </font>
                   </property>
-                  <attribute name="label">
-                   <string>Наладка</string>
-                  </attribute>
-                  <layout class="QVBoxLayout" name="verticalLayout_21">
-                   <item>
-                    <widget class="QListWidget" name="commands_adjustment_listWidget">
-                     <property name="autoFillBackground">
-                      <bool>false</bool>
-                     </property>
-                     <property name="alternatingRowColors">
-                      <bool>true</bool>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>Обнулить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Окончить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Включить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Выключить</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Скорость</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Пауза</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Стоп</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Линия</string>
+                  </property>
+                  <property name="background">
+                   <brush brushstyle="NoBrush">
+                    <color alpha="255">
+                     <red>0</red>
+                     <green>0</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>ТТ-Линия</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Относительная дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>ТТТ-Дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>ТТZ-Дуга</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Сплайн</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>ТТТТ-Сплайн</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Поворот</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Масштаб</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Метка</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>На метку</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Цикл</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Конец цикла</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Подпрограмма</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Вернуться</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Вызов подпрограммы</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Комментарий</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Наладка:</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
+                    <underline>true</underline>
+                   </font>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Обнулить</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Окончить</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Включить</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Выключить</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Скорость</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Пауза</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Стоп</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
               </layout>
@@ -6152,7 +6070,7 @@
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">

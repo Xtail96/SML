@@ -14,11 +14,12 @@ std::string getNameByCommand(COMMAND cmd)
 
 COMMAND getCommandByName(std::string name)
 {
-    for(auto it = commandNameMap.begin(); it!=commandNameMap.end(); it++)
+    for(auto it : commandNameMap)
     {
-        if ((*it).second == name)
+        if (it.second == name)
         {
-            return (*it).first;
+            return it.first;
         }
     }
+    return CMD_UNDEFINED;
 }

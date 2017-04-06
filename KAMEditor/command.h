@@ -42,7 +42,8 @@ enum COMMAND {CMD_ARC,
               CMD_TTTLINE,
               CMD_TTTSPLINE,
               CMD_TZARC,
-              CMD_ZERO
+              CMD_ZERO,
+              CMD_UNDEFINED
              };
 
 struct Command

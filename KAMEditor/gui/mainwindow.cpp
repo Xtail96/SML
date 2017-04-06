@@ -1012,91 +1012,9 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             StopDialog(this).exec();
             break;
         }
-    }
-    update_commands();
-}
-
-
-void MainWindow::on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index)
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
-
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
-
-    QItemSelectionModel *select = editorField->selectionModel();
-    if(!select->hasSelection())
-    {
-        unsigned int current_row = commands.size();
-        instance.setSelectedCommand(current_row);
-    }
-
-
-    int row = index.row();
-
-    QString name = ui->commands_adjustment_listWidget->item(row)->text() ;
-
-    COMMAND cmd = getCommandByName(name.toStdString());
-    switch (cmd)
-    {
-        case CMD_ZERO:
+        default:
         {
-            Command command;
-            command.id = CMD_ZERO;
-
-            command.commandColor = "#000099";
-
-            std::string setZero = "";
-            command.args = {
-                setZero
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_END:
-        {
-            Command command;
-            command.id = CMD_END;
-
-            command.commandColor = "#660099";
-
-            std::string endProgramm = "";
-            command.args = {
-                endProgramm
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_ON:
-        {
-            OnDialog(this).exec();
-            break;
-        }
-
-        case CMD_OFF:
-        {
-            OffDialog(this).exec();
-            break;
-        }
-        case CMD_SPEED:
-        {
-            VelocityDialog(this).exec();
-            break;
-        }
-        case CMD_PAUSE:
-        {
-            PauseDialog(this).exec();
-            break;
-        }
-        case CMD_STOP:
-        {
-            StopDialog(this).exec();
+            QMessageBox().critical(this, "Undefined command", "Error: find undefined command");
             break;
         }
     }
@@ -1231,6 +1149,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_TTTARC:
         {
             TTTArcDialog(this).exec();
+            break;
+        }
+        default:
+        {
+            QMessageBox().critical(this, "Undefined command", "Error: find undefined command");
             break;
         }
     }

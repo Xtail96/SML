@@ -157,7 +157,6 @@ private slots:
     void on_point_edit_button_clicked();
     void on_point_copy_button_clicked();
     void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
-    void on_commands_adjustment_listWidget_doubleClicked(const QModelIndex &index);
     void on_to_base_button_clicked();
     void on_edges_contol_check_box_clicked();
     void on_spindle_enable_pushButton_clicked();
