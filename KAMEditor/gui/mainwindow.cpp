@@ -1296,125 +1296,146 @@ void MainWindow::on_cancel_pushButton_clicked()
     dimensionsRecovery();
     directionsRecovery();
 
-    applySettingsField(ui->x_dimension_lineEdit);
-    applySettingsField(ui->y_dimension_lineEdit);
-    applySettingsField(ui->z_dimension_lineEdit);
-    applySettingsField(ui->a_dimension_lineEdit);
-    applySettingsField(ui->b_dimension_lineEdit);
+    std::vector<QLineEdit*> mechanicalSettings =
+    {
+        ui->x_dimension_lineEdit,
+        ui->y_dimension_lineEdit,
+        ui->z_dimension_lineEdit,
+        ui->a_dimension_lineEdit,
+        ui->b_dimension_lineEdit,
 
-    ui->x_axis_invert_checkBox->setEnabled(false);
-    ui->y_axis_invert_checkBox->setEnabled(false);
-    ui->z_axis_invert_checkBox->setEnabled(false);
-    ui->a_axis_invert_checkBox->setEnabled(false);
-    ui->b_axis_invert_checkBox->setEnabled(false);
+        ui->x_axis_jerk_lineEdit,
+        ui->x_axis_acceleration_lineEdit,
+        ui->x_axis_velocity_lineEdit,
+        ui->x_axis_channel_lineEdit,
+        ui->x_axis_basing_velocity_lineEdit,
 
+        ui->y_axis_jerk_lineEdit,
+        ui->y_axis_acceleration_lineEdit,
+        ui->y_axis_velocity_lineEdit,
+        ui->y_axis_channel_lineEdit,
+        ui->y_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->x_axis_jerk_lineEdit);
-    applySettingsField(ui->x_axis_acceleration_lineEdit);
-    applySettingsField(ui->x_axis_velocity_lineEdit);
-    applySettingsField(ui->x_axis_channel_lineEdit);
-    applySettingsField(ui->x_axis_basing_velocity_lineEdit);
+        ui->z_axis_jerk_lineEdit,
+        ui->z_axis_acceleration_lineEdit,
+        ui->z_axis_velocity_lineEdit,
+        ui->z_axis_channel_lineEdit,
+        ui->z_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->y_axis_jerk_lineEdit);
-    applySettingsField(ui->y_axis_acceleration_lineEdit);
-    applySettingsField(ui->y_axis_velocity_lineEdit);
-    applySettingsField(ui->y_axis_channel_lineEdit);
-    applySettingsField(ui->y_axis_basing_velocity_lineEdit);
+        ui->a_axis_jerk_lineEdit,
+        ui->a_axis_acceleration_lineEdit,
+        ui->a_axis_velocity_lineEdit,
+        ui->a_axis_channel_lineEdit,
+        ui->a_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->z_axis_jerk_lineEdit);
-    applySettingsField(ui->z_axis_acceleration_lineEdit);
-    applySettingsField(ui->z_axis_velocity_lineEdit);
-    applySettingsField(ui->z_axis_channel_lineEdit);
-    applySettingsField(ui->z_axis_basing_velocity_lineEdit);
+        ui->b_axis_jerk_lineEdit,
+        ui->b_axis_acceleration_lineEdit,
+        ui->b_axis_velocity_lineEdit,
+        ui->b_axis_channel_lineEdit,
+        ui->b_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->a_axis_jerk_lineEdit);
-    applySettingsField(ui->a_axis_acceleration_lineEdit);
-    applySettingsField(ui->a_axis_velocity_lineEdit);
-    applySettingsField(ui->a_axis_channel_lineEdit);
-    applySettingsField(ui->a_axis_basing_velocity_lineEdit);
+        ui->critical_axis_lineEdit,
+        ui->buffer_size_lineEdit,
+        ui->collinearity_tolerance_lineEdit,
+        ui->maximum_devation_lineEdit,
+        ui->smoothing_angle_lineEdit,
 
-    applySettingsField(ui->b_axis_jerk_lineEdit);
-    applySettingsField(ui->b_axis_acceleration_lineEdit);
-    applySettingsField(ui->b_axis_velocity_lineEdit);
-    applySettingsField(ui->b_axis_channel_lineEdit);
-    applySettingsField(ui->b_axis_basing_velocity_lineEdit);
+        ui->zero_level_sensor_lineEdit,
+        ui->tool_length_sensor_lineEdit,
+        ui->velocity_from_sensor_lineEdit,
+        ui->minimum_sensor_finding_velocity_lineEdit
+    };
+    for (auto i : mechanicalSettings)
+    {
+        applySettingsField(i);
+    }
 
-
-
-    applySettingsField(ui->critical_axis_lineEdit);
-    applySettingsField(ui->buffer_size_lineEdit);
-    applySettingsField(ui->collinearity_tolerance_lineEdit);
-    applySettingsField(ui->maximum_devation_lineEdit);
-    applySettingsField(ui->smoothing_angle_lineEdit);
-
-    applySettingsField(ui->zero_level_sensor_lineEdit);
-    applySettingsField(ui->tool_length_sensor_lineEdit);
-    applySettingsField(ui->velocity_from_sensor_lineEdit);
-    applySettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
+    std::vector<QCheckBox*> invertAxis =
+    {
+        ui->x_axis_invert_checkBox,
+        ui->y_axis_invert_checkBox,
+        ui->z_axis_invert_checkBox,
+        ui->a_axis_invert_checkBox,
+        ui->b_axis_invert_checkBox
+    };
+    for(auto i : invertAxis)
+    {
+        i->setEnabled(false);
+    }
 }
 
 void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 {
     setupDimensions();
-    applySettingsField(ui->x_dimension_lineEdit);
-    applySettingsField(ui->y_dimension_lineEdit);
-    applySettingsField(ui->z_dimension_lineEdit);
-    applySettingsField(ui->a_dimension_lineEdit);
-    applySettingsField(ui->b_dimension_lineEdit);
-
     setupDirections();
-    ui->x_axis_invert_checkBox->setEnabled(false);
-    ui->y_axis_invert_checkBox->setEnabled(false);
-    ui->z_axis_invert_checkBox->setEnabled(false);
-    ui->a_axis_invert_checkBox->setEnabled(false);
-    ui->b_axis_invert_checkBox->setEnabled(false);
+    setupKinematicsSettings();
 
+    std::vector<QLineEdit*> mechanicalSettings =
+    {
+        ui->x_dimension_lineEdit,
+        ui->y_dimension_lineEdit,
+        ui->z_dimension_lineEdit,
+        ui->a_dimension_lineEdit,
+        ui->b_dimension_lineEdit,
 
-    //toDo:
-    //setup kinematicsSettings();
-    applySettingsField(ui->x_axis_jerk_lineEdit);
-    applySettingsField(ui->x_axis_acceleration_lineEdit);
-    applySettingsField(ui->x_axis_velocity_lineEdit);
-    applySettingsField(ui->x_axis_channel_lineEdit);
-    applySettingsField(ui->x_axis_basing_velocity_lineEdit);
+        ui->x_axis_jerk_lineEdit,
+        ui->x_axis_acceleration_lineEdit,
+        ui->x_axis_velocity_lineEdit,
+        ui->x_axis_channel_lineEdit,
+        ui->x_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->y_axis_jerk_lineEdit);
-    applySettingsField(ui->y_axis_acceleration_lineEdit);
-    applySettingsField(ui->y_axis_velocity_lineEdit);
-    applySettingsField(ui->y_axis_channel_lineEdit);
-    applySettingsField(ui->y_axis_basing_velocity_lineEdit);
+        ui->y_axis_jerk_lineEdit,
+        ui->y_axis_acceleration_lineEdit,
+        ui->y_axis_velocity_lineEdit,
+        ui->y_axis_channel_lineEdit,
+        ui->y_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->z_axis_jerk_lineEdit);
-    applySettingsField(ui->z_axis_acceleration_lineEdit);
-    applySettingsField(ui->z_axis_velocity_lineEdit);
-    applySettingsField(ui->z_axis_channel_lineEdit);
-    applySettingsField(ui->z_axis_basing_velocity_lineEdit);
+        ui->z_axis_jerk_lineEdit,
+        ui->z_axis_acceleration_lineEdit,
+        ui->z_axis_velocity_lineEdit,
+        ui->z_axis_channel_lineEdit,
+        ui->z_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->a_axis_jerk_lineEdit);
-    applySettingsField(ui->a_axis_acceleration_lineEdit);
-    applySettingsField(ui->a_axis_velocity_lineEdit);
-    applySettingsField(ui->a_axis_channel_lineEdit);
-    applySettingsField(ui->a_axis_basing_velocity_lineEdit);
+        ui->a_axis_jerk_lineEdit,
+        ui->a_axis_acceleration_lineEdit,
+        ui->a_axis_velocity_lineEdit,
+        ui->a_axis_channel_lineEdit,
+        ui->a_axis_basing_velocity_lineEdit,
 
-    applySettingsField(ui->b_axis_jerk_lineEdit);
-    applySettingsField(ui->b_axis_acceleration_lineEdit);
-    applySettingsField(ui->b_axis_velocity_lineEdit);
-    applySettingsField(ui->b_axis_channel_lineEdit);
-    applySettingsField(ui->b_axis_basing_velocity_lineEdit);
+        ui->b_axis_jerk_lineEdit,
+        ui->b_axis_acceleration_lineEdit,
+        ui->b_axis_velocity_lineEdit,
+        ui->b_axis_channel_lineEdit,
+        ui->b_axis_basing_velocity_lineEdit,
 
+        ui->critical_axis_lineEdit,
+        ui->buffer_size_lineEdit,
+        ui->collinearity_tolerance_lineEdit,
+        ui->maximum_devation_lineEdit,
+        ui->smoothing_angle_lineEdit,
 
+        ui->zero_level_sensor_lineEdit,
+        ui->tool_length_sensor_lineEdit,
+        ui->velocity_from_sensor_lineEdit,
+        ui->minimum_sensor_finding_velocity_lineEdit
+    };
+    for (auto i : mechanicalSettings)
+    {
+        applySettingsField(i);
+    }
 
-    applySettingsField(ui->critical_axis_lineEdit);
-    applySettingsField(ui->buffer_size_lineEdit);
-    applySettingsField(ui->collinearity_tolerance_lineEdit);
-    applySettingsField(ui->maximum_devation_lineEdit);
-    applySettingsField(ui->smoothing_angle_lineEdit);
-
-    applySettingsField(ui->zero_level_sensor_lineEdit);
-    applySettingsField(ui->tool_length_sensor_lineEdit);
-    applySettingsField(ui->velocity_from_sensor_lineEdit);
-    applySettingsField(ui->minimum_sensor_finding_velocity_lineEdit);
-
+    std::vector<QCheckBox*> invertAxis =
+    {
+        ui->x_axis_invert_checkBox,
+        ui->y_axis_invert_checkBox,
+        ui->z_axis_invert_checkBox,
+        ui->a_axis_invert_checkBox,
+        ui->b_axis_invert_checkBox
+    };
+    for(auto i : invertAxis)
+    {
+        i->setEnabled(false);
+    }
 }
 
 void MainWindow::on_open_action_triggered()
