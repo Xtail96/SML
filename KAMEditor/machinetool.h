@@ -4,8 +4,21 @@
 #include <math.h>
 #include <map>
 #include <string>
+#include <vector>
 #include "vector.h"
 
+
+/// Настройки KFlop
+struct AxisKFlopSettings
+{
+    double jerk;
+    double acceleration;
+    double velocity;
+    unsigned int channel;
+    double basingVelocity;
+    AxisKFlopSettings(double _jerk = 0, double _acceleration = 0, double _velocity = 0, unsigned int _channel = 0, double _basingVelocity = 0)
+        : jerk(_jerk), acceleration(_acceleration), velocity(_velocity), channel(_channel), basingVelocity(_basingVelocity){}
+};
 
 /**
  * \brief Класс "Станок"
@@ -75,7 +88,18 @@ public:
 
     bool getSpindleWarmUp();
 
+    void setAxisKFlopSettings(std::vector<AxisKFlopSettings> s);
+
+    std::vector<AxisKFlopSettings> getAxisKFlopSettings();
+
+    unsigned int getAxisCount();
+
+
 private:
+    unsigned int axisCount;
+
+    std::vector<AxisKFlopSettings> axisKFlopSettings;
+
     // шаг движения
     double step;
 

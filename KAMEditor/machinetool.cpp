@@ -1,6 +1,6 @@
 #include "machinetool.h"
 
-const int GET_TERMO = 0x01;
+/*const int GET_TERMO = 0x01;
 
 const int LUBRICATE_SYSTEM_1_ON = 0x02;
 const int LUBRICATE_SYSTEM_2_ON = 0x03;
@@ -90,7 +90,7 @@ const int SWITCH_PNEUMO = 60;
 
 const int SEARCH_SOFT_ZERO_SENSOR = 0x0C;
 const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
-const int SEARCH_ATC_SENSOR = 0x0D;
+const int SEARCH_ATC_SENSOR = 0x0D;*/
 
 
 
@@ -112,6 +112,17 @@ MachineTool::MachineTool()
     dimensions.z = 0;
     dimensions.a = 0;
     dimensions.b = 0;
+    axisCount = 5;
+    for(unsigned int i = 0; i < axisCount; i++)
+    {
+        AxisKFlopSettings tmp;
+        tmp.jerk = 0;
+        tmp.acceleration = 0;
+        tmp.velocity = 0;
+        tmp.channel = 0;
+        tmp.basingVelocity = 0;
+        axisKFlopSettings.push_back(tmp);
+    }
 }
 
 
@@ -265,4 +276,22 @@ void MachineTool::setExternalDevices(std::map<std::string, bool> m)
 std::map<std::string, bool> MachineTool::getExternalDevices()
 {
     return externalDevices;
+}
+
+void MachineTool::setAxisKFlopSettings(std::vector<AxisKFlopSettings> s)
+{
+   for(unsigned int i = 0; i< axisKFlopSettings.size(); i++)
+   {
+       axisKFlopSettings[i] = s[i];
+   }
+}
+
+std::vector<AxisKFlopSettings> MachineTool::getAxisKFlopSettings()
+{
+    return axisKFlopSettings;
+}
+
+unsigned int MachineTool::getAxisCount()
+{
+    return axisCount;
 }

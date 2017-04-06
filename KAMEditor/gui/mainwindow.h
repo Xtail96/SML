@@ -76,12 +76,13 @@ private:
 
     void setupDimensions();
     void setupDirections();
-    //void setupKinematicsSettings();
+    void setupKinematicsSettings();
 
     void setUpElectricalSettings();
 
     void dimensionsRecovery();
     void directionsRecovery();
+    void kinematicsSettingsRecovery();
     void electricialSettingsRecovery();
 
 

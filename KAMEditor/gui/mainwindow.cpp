@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setupDimensions();
     // задаем направления движения осей станка
     setupDirections();
+    // задаем настройки кинематики
+    setupKinematicsSettings();
     // задаем характеристики электроники
     setUpElectricalSettings();
 
@@ -102,6 +104,44 @@ void MainWindow::setupDirections()
     instance.setDirections(v);
 }
 
+void MainWindow::setupKinematicsSettings()
+{
+    MachineTool &instance = MachineTool::Instance();
+    AxisKFlopSettings axis;
+    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    std::vector<AxisKFlopSettings> tmp;
+    tmp.push_back(axis);
+    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    instance.setAxisKFlopSettings(tmp);
+}
+
 void MainWindow::dimensionsRecovery()
 {
     MachineTool &instance = MachineTool::Instance();
@@ -145,6 +185,12 @@ void MainWindow::directionsRecovery()
     {
         ui->b_axis_invert_checkBox->setChecked(true);
     }
+}
+
+void MainWindow::kinematicsSettingsRecovery()
+{
+    MachineTool &instance = MachineTool::Instance();
+    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
 }
 
 void MainWindow::setupShortcuts()
@@ -378,7 +424,7 @@ void MainWindow::update_commands()
 
         item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
         std::string s;
-        for(int j = 0; j<commands[i].args.size();j++)
+        for(unsigned int j = 0; j<commands[i].args.size();j++)
         {
             s+=commands[i].args[j]+"; ";
         }
