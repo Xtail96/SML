@@ -80,118 +80,6 @@ MainWindow::~MainWindow()
     }
 }
 
-void MainWindow::setupDimensions()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v;
-    v.x = ui->x_dimension_lineEdit->text().toDouble();
-    v.y = ui->y_dimension_lineEdit->text().toDouble();
-    v.z = ui->z_dimension_lineEdit->text().toDouble();
-    v.a = ui->a_dimension_lineEdit->text().toDouble();
-    v.b = ui->b_dimension_lineEdit->text().toDouble();
-    instance.setDimensions(v);
-}
-
-void MainWindow::setupDirections()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v;
-    v.x = ui->x_axis_invert_checkBox->isChecked();
-    v.y = ui->y_axis_invert_checkBox->isChecked();
-    v.z = ui->z_axis_invert_checkBox->isChecked();
-    v.a = ui->a_axis_invert_checkBox->isChecked();
-    v.b = ui->b_axis_invert_checkBox->isChecked();
-    instance.setDirections(v);
-}
-
-void MainWindow::setupKinematicsSettings()
-{
-    MachineTool &instance = MachineTool::Instance();
-    AxisKFlopSettings axis;
-    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    std::vector<AxisKFlopSettings> tmp;
-    tmp.push_back(axis);
-    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    instance.setAxisKFlopSettings(tmp);
-}
-
-void MainWindow::dimensionsRecovery()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v = instance.getDimensions();
-    ui->x_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-    ui->y_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-    ui->z_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
-}
-void MainWindow::directionsRecovery()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v = instance.getDirections();
-
-    ui->x_axis_invert_checkBox->setChecked(false);
-    ui->y_axis_invert_checkBox->setChecked(false);
-    ui->z_axis_invert_checkBox->setChecked(false);
-    ui->a_axis_invert_checkBox->setChecked(false);
-    ui->b_axis_invert_checkBox->setChecked(false);
-
-
-
-    if(v.x == 1)
-    {
-        ui->x_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.y == 1)
-    {
-        ui->y_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.z == 1)
-    {
-        ui->z_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.a == 1)
-    {
-        ui->a_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.b == 1)
-    {
-        ui->b_axis_invert_checkBox->setChecked(true);
-    }
-}
-
-void MainWindow::kinematicsSettingsRecovery()
-{
-    MachineTool &instance = MachineTool::Instance();
-    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
-}
 
 void MainWindow::setupShortcuts()
 {
@@ -1333,22 +1221,32 @@ void MainWindow::applySettingsField(QLineEdit *qle)
 
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
-    editSettingsField(ui->x_dimension_lineEdit);
-    editSettingsField(ui->y_dimension_lineEdit);
-    editSettingsField(ui->z_dimension_lineEdit);
-    editSettingsField(ui->a_dimension_lineEdit);
-    editSettingsField(ui->b_dimension_lineEdit);
+    std::vector<QLineEdit*> dimensions =
+    {
+        ui->x_dimension_lineEdit,
+        ui->y_dimension_lineEdit,
+        ui->z_dimension_lineEdit,
+        ui->a_dimension_lineEdit,
+        ui->b_dimension_lineEdit
+    };
+    for (auto i : dimensions)
+    {
+        editSettingsField(i);
+    }
 
-    ui->x_axis_invert_checkBox->setEnabled(true);
-    ui->x_axis_invert_checkBox->setCheckable(true);
-    ui->y_axis_invert_checkBox->setEnabled(true);
-    ui->y_axis_invert_checkBox->setCheckable(true);
-    ui->z_axis_invert_checkBox->setEnabled(true);
-    ui->z_axis_invert_checkBox->setCheckable(true);
-    ui->a_axis_invert_checkBox->setEnabled(true);
-    ui->a_axis_invert_checkBox->setCheckable(true);
-    ui->b_axis_invert_checkBox->setEnabled(true);
-    ui->b_axis_invert_checkBox->setCheckable(true);
+    std::vector<QCheckBox*> invertAxis =
+    {
+        ui->x_axis_invert_checkBox,
+        ui->y_axis_invert_checkBox,
+        ui->z_axis_invert_checkBox,
+        ui->a_axis_invert_checkBox,
+        ui->b_axis_invert_checkBox
+    };
+    for(auto i : invertAxis)
+    {
+        i->setEnabled(true);
+        i->setCheckable(true);
+    }
 
 
     editSettingsField(ui->x_axis_jerk_lineEdit);
@@ -1732,3 +1630,117 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
     applySettingsField(ui->a_axis_mm_lineEdit);
     applySettingsField(ui->b_axis_mm_lineEdit);
 }
+
+void MainWindow::setupDimensions()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v;
+    v.x = ui->x_dimension_lineEdit->text().toDouble();
+    v.y = ui->y_dimension_lineEdit->text().toDouble();
+    v.z = ui->z_dimension_lineEdit->text().toDouble();
+    v.a = ui->a_dimension_lineEdit->text().toDouble();
+    v.b = ui->b_dimension_lineEdit->text().toDouble();
+    instance.setDimensions(v);
+}
+
+void MainWindow::setupDirections()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v;
+    v.x = ui->x_axis_invert_checkBox->isChecked();
+    v.y = ui->y_axis_invert_checkBox->isChecked();
+    v.z = ui->z_axis_invert_checkBox->isChecked();
+    v.a = ui->a_axis_invert_checkBox->isChecked();
+    v.b = ui->b_axis_invert_checkBox->isChecked();
+    instance.setDirections(v);
+}
+
+void MainWindow::setupKinematicsSettings()
+{
+    MachineTool &instance = MachineTool::Instance();
+    AxisKFlopSettings axis;
+    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    std::vector<AxisKFlopSettings> tmp;
+    tmp.push_back(axis);
+    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    instance.setAxisKFlopSettings(tmp);
+}
+
+void MainWindow::dimensionsRecovery()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v = instance.getDimensions();
+    ui->x_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+}
+void MainWindow::directionsRecovery()
+{
+    MachineTool &instance = MachineTool::Instance();
+    Vector v = instance.getDirections();
+
+    ui->x_axis_invert_checkBox->setChecked(false);
+    ui->y_axis_invert_checkBox->setChecked(false);
+    ui->z_axis_invert_checkBox->setChecked(false);
+    ui->a_axis_invert_checkBox->setChecked(false);
+    ui->b_axis_invert_checkBox->setChecked(false);
+
+
+
+    if(v.x == 1)
+    {
+        ui->x_axis_invert_checkBox->setChecked(true);
+    }
+    if(v.y == 1)
+    {
+        ui->y_axis_invert_checkBox->setChecked(true);
+    }
+    if(v.z == 1)
+    {
+        ui->z_axis_invert_checkBox->setChecked(true);
+    }
+    if(v.a == 1)
+    {
+        ui->a_axis_invert_checkBox->setChecked(true);
+    }
+    if(v.b == 1)
+    {
+        ui->b_axis_invert_checkBox->setChecked(true);
+    }
+}
+
+void MainWindow::kinematicsSettingsRecovery()
+{
+    MachineTool &instance = MachineTool::Instance();
+    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
+}
+
