@@ -1219,9 +1219,9 @@ void MainWindow::applySettingsField(QLineEdit *qle)
     qle->setStyleSheet("font-size: 14pt");
 }
 
-void MainWindow::on_change_mechanics_settings_pushButton_clicked()
+std::vector<QLineEdit *> MainWindow::createMechanicalSettingsVector()
 {
-    std::vector<QLineEdit*> mechanicalSettings =
+    std::vector<QLineEdit*> mechanicalSettingsVector =
     {
         ui->x_dimension_lineEdit,
         ui->y_dimension_lineEdit,
@@ -1270,6 +1270,13 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
         ui->velocity_from_sensor_lineEdit,
         ui->minimum_sensor_finding_velocity_lineEdit
     };
+
+    return mechanicalSettingsVector;
+}
+
+void MainWindow::on_change_mechanics_settings_pushButton_clicked()
+{
+    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
     for (auto i : mechanicalSettings)
     {
         editSettingsField(i);
@@ -1295,56 +1302,7 @@ void MainWindow::on_cancel_pushButton_clicked()
 {
     dimensionsRecovery();
     directionsRecovery();
-
-    std::vector<QLineEdit*> mechanicalSettings =
-    {
-        ui->x_dimension_lineEdit,
-        ui->y_dimension_lineEdit,
-        ui->z_dimension_lineEdit,
-        ui->a_dimension_lineEdit,
-        ui->b_dimension_lineEdit,
-
-        ui->x_axis_jerk_lineEdit,
-        ui->x_axis_acceleration_lineEdit,
-        ui->x_axis_velocity_lineEdit,
-        ui->x_axis_channel_lineEdit,
-        ui->x_axis_basing_velocity_lineEdit,
-
-        ui->y_axis_jerk_lineEdit,
-        ui->y_axis_acceleration_lineEdit,
-        ui->y_axis_velocity_lineEdit,
-        ui->y_axis_channel_lineEdit,
-        ui->y_axis_basing_velocity_lineEdit,
-
-        ui->z_axis_jerk_lineEdit,
-        ui->z_axis_acceleration_lineEdit,
-        ui->z_axis_velocity_lineEdit,
-        ui->z_axis_channel_lineEdit,
-        ui->z_axis_basing_velocity_lineEdit,
-
-        ui->a_axis_jerk_lineEdit,
-        ui->a_axis_acceleration_lineEdit,
-        ui->a_axis_velocity_lineEdit,
-        ui->a_axis_channel_lineEdit,
-        ui->a_axis_basing_velocity_lineEdit,
-
-        ui->b_axis_jerk_lineEdit,
-        ui->b_axis_acceleration_lineEdit,
-        ui->b_axis_velocity_lineEdit,
-        ui->b_axis_channel_lineEdit,
-        ui->b_axis_basing_velocity_lineEdit,
-
-        ui->critical_axis_lineEdit,
-        ui->buffer_size_lineEdit,
-        ui->collinearity_tolerance_lineEdit,
-        ui->maximum_devation_lineEdit,
-        ui->smoothing_angle_lineEdit,
-
-        ui->zero_level_sensor_lineEdit,
-        ui->tool_length_sensor_lineEdit,
-        ui->velocity_from_sensor_lineEdit,
-        ui->minimum_sensor_finding_velocity_lineEdit
-    };
+    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
@@ -1370,55 +1328,7 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     setupDirections();
     setupKinematicsSettings();
 
-    std::vector<QLineEdit*> mechanicalSettings =
-    {
-        ui->x_dimension_lineEdit,
-        ui->y_dimension_lineEdit,
-        ui->z_dimension_lineEdit,
-        ui->a_dimension_lineEdit,
-        ui->b_dimension_lineEdit,
-
-        ui->x_axis_jerk_lineEdit,
-        ui->x_axis_acceleration_lineEdit,
-        ui->x_axis_velocity_lineEdit,
-        ui->x_axis_channel_lineEdit,
-        ui->x_axis_basing_velocity_lineEdit,
-
-        ui->y_axis_jerk_lineEdit,
-        ui->y_axis_acceleration_lineEdit,
-        ui->y_axis_velocity_lineEdit,
-        ui->y_axis_channel_lineEdit,
-        ui->y_axis_basing_velocity_lineEdit,
-
-        ui->z_axis_jerk_lineEdit,
-        ui->z_axis_acceleration_lineEdit,
-        ui->z_axis_velocity_lineEdit,
-        ui->z_axis_channel_lineEdit,
-        ui->z_axis_basing_velocity_lineEdit,
-
-        ui->a_axis_jerk_lineEdit,
-        ui->a_axis_acceleration_lineEdit,
-        ui->a_axis_velocity_lineEdit,
-        ui->a_axis_channel_lineEdit,
-        ui->a_axis_basing_velocity_lineEdit,
-
-        ui->b_axis_jerk_lineEdit,
-        ui->b_axis_acceleration_lineEdit,
-        ui->b_axis_velocity_lineEdit,
-        ui->b_axis_channel_lineEdit,
-        ui->b_axis_basing_velocity_lineEdit,
-
-        ui->critical_axis_lineEdit,
-        ui->buffer_size_lineEdit,
-        ui->collinearity_tolerance_lineEdit,
-        ui->maximum_devation_lineEdit,
-        ui->smoothing_angle_lineEdit,
-
-        ui->zero_level_sensor_lineEdit,
-        ui->tool_length_sensor_lineEdit,
-        ui->velocity_from_sensor_lineEdit,
-        ui->minimum_sensor_finding_velocity_lineEdit
-    };
+    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);

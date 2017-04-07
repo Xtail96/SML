@@ -106,6 +106,8 @@ private:
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 
+    std::vector<QLineEdit*> createMechanicalSettingsVector();
+
 protected:
     void update_points();
     void update_commands();
