@@ -5720,7 +5720,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="cancel_pushButton">
+                <widget class="QPushButton" name="cancel_mechanical_settings_pushButton">
                  <property name="text">
                   <string>Отмена</string>
                  </property>

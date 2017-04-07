@@ -1233,7 +1233,7 @@ void MainWindow::applySettingsField(QLineEdit *qle)
     qle->setStyleSheet("font-size: 14pt");
 }
 
-std::vector<QLineEdit *> MainWindow::createQLineEditVector(int tmp)
+std::vector<QLineEdit *> MainWindow::makeQLineEditVector(int tmp)
 {
     switch (tmp)
     {
@@ -1319,7 +1319,7 @@ std::vector<QLineEdit *> MainWindow::createQLineEditVector(int tmp)
     }
 }
 
-std::vector<QCheckBox*> MainWindow::createQCheckBoxVector(int tmp)
+std::vector<QCheckBox*> MainWindow::makeQCheckBoxVector(int tmp)
 {
     switch(tmp)
     {
@@ -1362,13 +1362,13 @@ std::vector<QCheckBox*> MainWindow::createQCheckBoxVector(int tmp)
 
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
-    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
+    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
+    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(true);
@@ -1377,16 +1377,16 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 }
 
 
-void MainWindow::on_cancel_pushButton_clicked()
+void MainWindow::on_cancel_mechanical_settings_pushButton_clicked()
 {
     dimensionsRecovery();
     directionsRecovery();
-    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
+    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
     } 
-    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
+    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
@@ -1399,12 +1399,12 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     setupDirections();
     setupKinematicsSettings();
 
-    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
+    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
+    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
@@ -1413,13 +1413,13 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 
 void MainWindow::on_change_elecrical_settings_pushButton_clicked()
 {    
-    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
+    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
+    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(true);
@@ -1464,12 +1464,12 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
 {
 
     setUpElectricalSettings();
-    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
+    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
+    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
@@ -1560,12 +1560,12 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 {
     electricialSettingsRecovery();
 
-    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
+    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
+    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
@@ -1649,13 +1649,11 @@ void MainWindow::directionsRecovery()
     MachineTool &instance = MachineTool::Instance();
     Vector v = instance.getDirections();
 
-    ui->x_axis_invert_checkBox->setChecked(false);
-    ui->y_axis_invert_checkBox->setChecked(false);
-    ui->z_axis_invert_checkBox->setChecked(false);
-    ui->a_axis_invert_checkBox->setChecked(false);
-    ui->b_axis_invert_checkBox->setChecked(false);
-
-
+    std::vector<QCheckBox*> mechanicalCheckBoxes = makeQCheckBoxVector(1);
+    for(auto i : mechanicalCheckBoxes)
+    {
+        i->setChecked(false);
+    }
 
     if(v.x == 1)
     {

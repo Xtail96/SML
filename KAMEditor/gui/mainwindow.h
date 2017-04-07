@@ -106,8 +106,8 @@ private:
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 
-    std::vector<QLineEdit*> createQLineEditVector(int tmp);
-    std::vector<QCheckBox*> createQCheckBoxVector(int tmp);
+    std::vector<QLineEdit*> makeQLineEditVector(int tmp);
+    std::vector<QCheckBox*> makeQCheckBoxVector(int tmp);
 
 protected:
     void update_points();
@@ -165,13 +165,13 @@ private slots:
     void on_edges_contol_check_box_clicked();
     void on_spindle_enable_pushButton_clicked();
     void on_mill_warming_pushButton_clicked();
-    void on_change_mechanics_settings_pushButton_clicked();
-    void on_apply_mechanics_settings_pushButton_clicked();
     void on_points_table_widget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
     void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
-    void on_cancel_pushButton_clicked();
     void on_open_action_triggered();
+    void on_change_mechanics_settings_pushButton_clicked();
+    void on_apply_mechanics_settings_pushButton_clicked();
+    void on_cancel_mechanical_settings_pushButton_clicked();
     void on_change_elecrical_settings_pushButton_clicked();
     void on_apply_electrical_settings_pushButton_clicked();
     void on_cancel_electrical_settings_pushButton_clicked();
