@@ -2,8 +2,6 @@
 #define ARCDIALOG_H
 
 #include <QDialog>
-#include <QMessageBox>
-#include <QFile>
 #include <QTextStream>
 
 #include "commanddialog.h"

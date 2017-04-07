@@ -2,8 +2,6 @@
 #define LINEDIALOG_H
 
 #include <QDialog>
-#include <QFile>
-#include <QTextStream>
 #include <QMessageBox>
 
 #include "commanddialog.h"
