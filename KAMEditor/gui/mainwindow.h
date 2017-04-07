@@ -106,10 +106,8 @@ private:
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 
-    std::vector<QLineEdit*> createMechanicalSettingsVector();
-    std::vector<QCheckBox*> createInvertAxisVector();
-    std::vector<QLineEdit*> createElectricalSettingsVector();
-    std::vector<QCheckBox*> createExternalDevicesVector();
+    std::vector<QLineEdit*> createQLineEditVector(int tmp);
+    std::vector<QCheckBox*> createQCheckBoxVector(int tmp);
 
 protected:
     void update_points();

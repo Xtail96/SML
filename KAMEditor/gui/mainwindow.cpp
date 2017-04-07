@@ -1233,117 +1233,142 @@ void MainWindow::applySettingsField(QLineEdit *qle)
     qle->setStyleSheet("font-size: 14pt");
 }
 
-std::vector<QLineEdit *> MainWindow::createMechanicalSettingsVector()
+std::vector<QLineEdit *> MainWindow::createQLineEditVector(int tmp)
 {
-    std::vector<QLineEdit*> mechanicalSettingsVector =
+    switch (tmp)
     {
-        ui->x_dimension_lineEdit,
-        ui->y_dimension_lineEdit,
-        ui->z_dimension_lineEdit,
-        ui->a_dimension_lineEdit,
-        ui->b_dimension_lineEdit,
+        case 1:
+        {
+            std::vector<QLineEdit*> mechanicalSettingsVector =
+            {
+                ui->x_dimension_lineEdit,
+                ui->y_dimension_lineEdit,
+                ui->z_dimension_lineEdit,
+                ui->a_dimension_lineEdit,
+                ui->b_dimension_lineEdit,
 
-        ui->x_axis_jerk_lineEdit,
-        ui->x_axis_acceleration_lineEdit,
-        ui->x_axis_velocity_lineEdit,
-        ui->x_axis_channel_lineEdit,
-        ui->x_axis_basing_velocity_lineEdit,
+                ui->x_axis_jerk_lineEdit,
+                ui->x_axis_acceleration_lineEdit,
+                ui->x_axis_velocity_lineEdit,
+                ui->x_axis_channel_lineEdit,
+                ui->x_axis_basing_velocity_lineEdit,
 
-        ui->y_axis_jerk_lineEdit,
-        ui->y_axis_acceleration_lineEdit,
-        ui->y_axis_velocity_lineEdit,
-        ui->y_axis_channel_lineEdit,
-        ui->y_axis_basing_velocity_lineEdit,
+                ui->y_axis_jerk_lineEdit,
+                ui->y_axis_acceleration_lineEdit,
+                ui->y_axis_velocity_lineEdit,
+                ui->y_axis_channel_lineEdit,
+                ui->y_axis_basing_velocity_lineEdit,
 
-        ui->z_axis_jerk_lineEdit,
-        ui->z_axis_acceleration_lineEdit,
-        ui->z_axis_velocity_lineEdit,
-        ui->z_axis_channel_lineEdit,
-        ui->z_axis_basing_velocity_lineEdit,
+                ui->z_axis_jerk_lineEdit,
+                ui->z_axis_acceleration_lineEdit,
+                ui->z_axis_velocity_lineEdit,
+                ui->z_axis_channel_lineEdit,
+                ui->z_axis_basing_velocity_lineEdit,
 
-        ui->a_axis_jerk_lineEdit,
-        ui->a_axis_acceleration_lineEdit,
-        ui->a_axis_velocity_lineEdit,
-        ui->a_axis_channel_lineEdit,
-        ui->a_axis_basing_velocity_lineEdit,
+                ui->a_axis_jerk_lineEdit,
+                ui->a_axis_acceleration_lineEdit,
+                ui->a_axis_velocity_lineEdit,
+                ui->a_axis_channel_lineEdit,
+                ui->a_axis_basing_velocity_lineEdit,
 
-        ui->b_axis_jerk_lineEdit,
-        ui->b_axis_acceleration_lineEdit,
-        ui->b_axis_velocity_lineEdit,
-        ui->b_axis_channel_lineEdit,
-        ui->b_axis_basing_velocity_lineEdit,
+                ui->b_axis_jerk_lineEdit,
+                ui->b_axis_acceleration_lineEdit,
+                ui->b_axis_velocity_lineEdit,
+                ui->b_axis_channel_lineEdit,
+                ui->b_axis_basing_velocity_lineEdit,
 
-        ui->critical_axis_lineEdit,
-        ui->buffer_size_lineEdit,
-        ui->collinearity_tolerance_lineEdit,
-        ui->maximum_devation_lineEdit,
-        ui->smoothing_angle_lineEdit,
+                ui->critical_axis_lineEdit,
+                ui->buffer_size_lineEdit,
+                ui->collinearity_tolerance_lineEdit,
+                ui->maximum_devation_lineEdit,
+                ui->smoothing_angle_lineEdit,
 
-        ui->zero_level_sensor_lineEdit,
-        ui->tool_length_sensor_lineEdit,
-        ui->velocity_from_sensor_lineEdit,
-        ui->minimum_sensor_finding_velocity_lineEdit
-    };
+                ui->zero_level_sensor_lineEdit,
+                ui->tool_length_sensor_lineEdit,
+                ui->velocity_from_sensor_lineEdit,
+                ui->minimum_sensor_finding_velocity_lineEdit
+            };
+            return mechanicalSettingsVector;
+            break;
+        }
+        case 2:
+        {
+            std::vector<QLineEdit*> electricalSettingsFieldVector =
+            {
+                ui->x_axis_step_lineEdit,
+                ui->y_axis_step_lineEdit,
+                ui->z_axis_step_lineEdit,
+                ui->a_axis_step_lineEdit,
+                ui->b_axis_step_lineEdit,
 
-    return mechanicalSettingsVector;
+                ui->x_axis_mm_lineEdit,
+                ui->y_axis_mm_lineEdit,
+                ui->z_axis_mm_lineEdit,
+                ui->a_axis_mm_lineEdit,
+                ui->b_axis_mm_lineEdit
+            };
+            return electricalSettingsFieldVector;
+            break;
+        }
+        default:
+        {
+            std::vector<QLineEdit*> _vector;
+            return _vector;
+            break;
+        }
+    }
 }
 
-std::vector<QCheckBox*> MainWindow::createInvertAxisVector()
+std::vector<QCheckBox*> MainWindow::createQCheckBoxVector(int tmp)
 {
-    std::vector<QCheckBox*> invertAxisVector =
+    switch(tmp)
     {
-        ui->x_axis_invert_checkBox,
-        ui->y_axis_invert_checkBox,
-        ui->z_axis_invert_checkBox,
-        ui->a_axis_invert_checkBox,
-        ui->b_axis_invert_checkBox
-    };
-    return invertAxisVector;
-}
-
-std::vector<QLineEdit*> MainWindow::createElectricalSettingsVector()
-{
-    std::vector<QLineEdit*> electricalSettingsFieldVector =
-    {
-        ui->x_axis_step_lineEdit,
-        ui->y_axis_step_lineEdit,
-        ui->z_axis_step_lineEdit,
-        ui->a_axis_step_lineEdit,
-        ui->b_axis_step_lineEdit,
-
-        ui->x_axis_mm_lineEdit,
-        ui->y_axis_mm_lineEdit,
-        ui->z_axis_mm_lineEdit,
-        ui->a_axis_mm_lineEdit,
-        ui->b_axis_mm_lineEdit
-    };
-    return electricalSettingsFieldVector;
-}
-
-std::vector<QCheckBox*> MainWindow::createExternalDevicesVector()
-{
-    std::vector<QCheckBox*> externalDevicesVector =
-    {
-        ui->mill_checkBox,
-        ui->kabriol_checkBox,
-        ui->lubrication_system_checkBox,
-        ui->tool_change_checkBox,
-        ui->laser_checkBox,
-        ui->wacuum_table_checkBox,
-        ui->tool_length_sensor_checkBox
-    };
-    return externalDevicesVector;
+        case 1:
+        {
+            std::vector<QCheckBox*> invertAxisVector =
+            {
+                ui->x_axis_invert_checkBox,
+                ui->y_axis_invert_checkBox,
+                ui->z_axis_invert_checkBox,
+                ui->a_axis_invert_checkBox,
+                ui->b_axis_invert_checkBox
+            };
+            return invertAxisVector;
+            break;
+        }
+        case 2:
+        {
+            std::vector<QCheckBox*> externalDevicesVector =
+            {
+                ui->mill_checkBox,
+                ui->kabriol_checkBox,
+                ui->lubrication_system_checkBox,
+                ui->tool_change_checkBox,
+                ui->laser_checkBox,
+                ui->wacuum_table_checkBox,
+                ui->tool_length_sensor_checkBox
+            };
+            return externalDevicesVector;
+            break;
+        }
+        default:
+        {
+           std::vector<QCheckBox*> _vector;
+           return _vector;
+           break;
+        }
+    }
 }
 
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
-    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
+    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
+    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(true);
@@ -1356,12 +1381,12 @@ void MainWindow::on_cancel_pushButton_clicked()
 {
     dimensionsRecovery();
     directionsRecovery();
-    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
+    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
     } 
-    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
+    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
@@ -1374,12 +1399,12 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     setupDirections();
     setupKinematicsSettings();
 
-    std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
+    std::vector<QLineEdit*> mechanicalSettings = createQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
+    std::vector<QCheckBox*> invertAxis = createQCheckBoxVector(1);
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
@@ -1388,13 +1413,13 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
 
 void MainWindow::on_change_elecrical_settings_pushButton_clicked()
 {    
-    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
+    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
+    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(true);
@@ -1439,14 +1464,12 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
 {
 
     setUpElectricalSettings();
-
-
-    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
+    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
+    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
@@ -1537,12 +1560,12 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 {
     electricialSettingsRecovery();
 
-    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
+    std::vector<QLineEdit*> electricalSettings = createQLineEditVector(2);
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
+    std::vector<QCheckBox*> externalDevices = createQCheckBoxVector(2);
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
