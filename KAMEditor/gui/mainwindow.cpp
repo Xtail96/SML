@@ -1274,6 +1274,19 @@ std::vector<QLineEdit *> MainWindow::createMechanicalSettingsVector()
     return mechanicalSettingsVector;
 }
 
+std::vector<QCheckBox*> MainWindow::createInvertAxisVector()
+{
+    std::vector<QCheckBox*> invertAxisVector =
+    {
+        ui->x_axis_invert_checkBox,
+        ui->y_axis_invert_checkBox,
+        ui->z_axis_invert_checkBox,
+        ui->a_axis_invert_checkBox,
+        ui->b_axis_invert_checkBox
+    };
+    return invertAxisVector;
+}
+
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
     std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
@@ -1282,14 +1295,7 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> invertAxis =
-    {
-        ui->x_axis_invert_checkBox,
-        ui->y_axis_invert_checkBox,
-        ui->z_axis_invert_checkBox,
-        ui->a_axis_invert_checkBox,
-        ui->b_axis_invert_checkBox
-    };
+    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
     for(auto i : invertAxis)
     {
         i->setEnabled(true);
@@ -1306,16 +1312,8 @@ void MainWindow::on_cancel_pushButton_clicked()
     for (auto i : mechanicalSettings)
     {
         applySettingsField(i);
-    }
-
-    std::vector<QCheckBox*> invertAxis =
-    {
-        ui->x_axis_invert_checkBox,
-        ui->y_axis_invert_checkBox,
-        ui->z_axis_invert_checkBox,
-        ui->a_axis_invert_checkBox,
-        ui->b_axis_invert_checkBox
-    };
+    } 
+    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
@@ -1333,15 +1331,7 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     {
         applySettingsField(i);
     }
-
-    std::vector<QCheckBox*> invertAxis =
-    {
-        ui->x_axis_invert_checkBox,
-        ui->y_axis_invert_checkBox,
-        ui->z_axis_invert_checkBox,
-        ui->a_axis_invert_checkBox,
-        ui->b_axis_invert_checkBox
-    };
+    std::vector<QCheckBox*> invertAxis = createInvertAxisVector();
     for(auto i : invertAxis)
     {
         i->setEnabled(false);
