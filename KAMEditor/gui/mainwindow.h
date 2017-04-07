@@ -108,6 +108,8 @@ private:
 
     std::vector<QLineEdit*> createMechanicalSettingsVector();
     std::vector<QCheckBox*> createInvertAxisVector();
+    std::vector<QLineEdit*> createElectricalSettingsVector();
+    std::vector<QCheckBox*> createExternalDevicesVector();
 
 protected:
     void update_points();

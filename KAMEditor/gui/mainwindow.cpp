@@ -1207,6 +1207,20 @@ void MainWindow::on_mill_warming_pushButton_clicked()
     }
 }
 
+void MainWindow::on_open_action_triggered()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
+    QFile inputFile(path);
+    if(!inputFile.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", inputFile.errorString());
+    }
+    QTextStream in(&inputFile);
+    QString content = in.readAll();
+    inputFile.close();
+
+    ui->gcodes_editor_textEdit->setPlainText(content);
+}
 
 void MainWindow::editSettingsField(QLineEdit *qle)
 {
@@ -1287,6 +1301,25 @@ std::vector<QCheckBox*> MainWindow::createInvertAxisVector()
     return invertAxisVector;
 }
 
+std::vector<QLineEdit*> MainWindow::createElectricalSettingsVector()
+{
+    std::vector<QLineEdit*> electricalSettingsFieldVector =
+    {
+        ui->x_axis_step_lineEdit,
+        ui->y_axis_step_lineEdit,
+        ui->z_axis_step_lineEdit,
+        ui->a_axis_step_lineEdit,
+        ui->b_axis_step_lineEdit,
+
+        ui->x_axis_mm_lineEdit,
+        ui->y_axis_mm_lineEdit,
+        ui->z_axis_mm_lineEdit,
+        ui->a_axis_mm_lineEdit,
+        ui->b_axis_mm_lineEdit
+    };
+    return electricalSettingsFieldVector;
+}
+
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
     std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
@@ -1338,37 +1371,9 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     }
 }
 
-void MainWindow::on_open_action_triggered()
-{
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
-    QFile inputFile(path);
-    if(!inputFile.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", inputFile.errorString());
-    }
-    QTextStream in(&inputFile);
-    QString content = in.readAll();
-    inputFile.close();
-
-    ui->gcodes_editor_textEdit->setPlainText(content);
-}
-
 void MainWindow::on_change_elecrical_settings_pushButton_clicked()
 {    
-    std::vector<QLineEdit*> electricalSettings =
-    {
-        ui->x_axis_step_lineEdit,
-        ui->y_axis_step_lineEdit,
-        ui->z_axis_step_lineEdit,
-        ui->a_axis_step_lineEdit,
-        ui->b_axis_step_lineEdit,
-
-        ui->x_axis_mm_lineEdit,
-        ui->y_axis_mm_lineEdit,
-        ui->z_axis_mm_lineEdit,
-        ui->a_axis_mm_lineEdit,
-        ui->b_axis_mm_lineEdit
-    };
+    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
     for (auto i : electricalSettings)
     {
         editSettingsField(i);
