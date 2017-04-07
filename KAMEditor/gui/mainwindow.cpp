@@ -1320,6 +1320,21 @@ std::vector<QLineEdit*> MainWindow::createElectricalSettingsVector()
     return electricalSettingsFieldVector;
 }
 
+std::vector<QCheckBox*> MainWindow::createExternalDevicesVector()
+{
+    std::vector<QCheckBox*> externalDevicesVector =
+    {
+        ui->mill_checkBox,
+        ui->kabriol_checkBox,
+        ui->lubrication_system_checkBox,
+        ui->tool_change_checkBox,
+        ui->laser_checkBox,
+        ui->wacuum_table_checkBox,
+        ui->tool_length_sensor_checkBox
+    };
+    return externalDevicesVector;
+}
+
 void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 {
     std::vector<QLineEdit*> mechanicalSettings = createMechanicalSettingsVector();
@@ -1379,16 +1394,7 @@ void MainWindow::on_change_elecrical_settings_pushButton_clicked()
         editSettingsField(i);
     }
 
-    std::vector<QCheckBox*> externalDevices =
-    {
-        ui->mill_checkBox,
-        ui->kabriol_checkBox,
-        ui->lubrication_system_checkBox,
-        ui->tool_change_checkBox,
-        ui->laser_checkBox,
-        ui->wacuum_table_checkBox,
-        ui->tool_length_sensor_checkBox
-    };
+    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
     for(auto i : externalDevices)
     {
         i->setEnabled(true);
@@ -1434,35 +1440,13 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
 
     setUpElectricalSettings();
 
-    std::vector<QLineEdit*> electricalSettings =
-    {
-        ui->x_axis_step_lineEdit,
-        ui->y_axis_step_lineEdit,
-        ui->z_axis_step_lineEdit,
-        ui->a_axis_step_lineEdit,
-        ui->b_axis_step_lineEdit,
 
-        ui->x_axis_mm_lineEdit,
-        ui->y_axis_mm_lineEdit,
-        ui->z_axis_mm_lineEdit,
-        ui->a_axis_mm_lineEdit,
-        ui->b_axis_mm_lineEdit
-    };
+    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-
-    std::vector<QCheckBox*> externalDevices =
-    {
-        ui->mill_checkBox,
-        ui->kabriol_checkBox,
-        ui->lubrication_system_checkBox,
-        ui->tool_change_checkBox,
-        ui->laser_checkBox,
-        ui->wacuum_table_checkBox,
-        ui->tool_length_sensor_checkBox
-    };
+    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
@@ -1553,35 +1537,12 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 {
     electricialSettingsRecovery();
 
-    std::vector<QLineEdit*> electricalSettings =
-    {
-        ui->x_axis_step_lineEdit,
-        ui->y_axis_step_lineEdit,
-        ui->z_axis_step_lineEdit,
-        ui->a_axis_step_lineEdit,
-        ui->b_axis_step_lineEdit,
-
-        ui->x_axis_mm_lineEdit,
-        ui->y_axis_mm_lineEdit,
-        ui->z_axis_mm_lineEdit,
-        ui->a_axis_mm_lineEdit,
-        ui->b_axis_mm_lineEdit
-    };
+    std::vector<QLineEdit*> electricalSettings = createElectricalSettingsVector();
     for (auto i : electricalSettings)
     {
         applySettingsField(i);
     }
-
-    std::vector<QCheckBox*> externalDevices =
-    {
-        ui->mill_checkBox,
-        ui->kabriol_checkBox,
-        ui->lubrication_system_checkBox,
-        ui->tool_change_checkBox,
-        ui->laser_checkBox,
-        ui->wacuum_table_checkBox,
-        ui->tool_length_sensor_checkBox
-    };
+    std::vector<QCheckBox*> externalDevices = createExternalDevicesVector();
     for(auto i : externalDevices)
     {
         i->setEnabled(false);
