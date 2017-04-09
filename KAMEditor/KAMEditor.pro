@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     gui/commands/stopdialog.cpp \
     gui/commands/commentdialog.cpp \
     gui/commands/ttzarcdialog.cpp \
-    gui/commands/tttarcdialog.cpp
+    gui/commands/tttarcdialog.cpp \
+    gui/gcodessyntaxhighlighter.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -73,7 +74,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/stopdialog.h \
     gui/commands/commentdialog.h \
     gui/commands/ttzarcdialog.h \
-    gui/commands/tttarcdialog.h
+    gui/commands/tttarcdialog.h \
+    gui/gcodessyntaxhighlighter.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

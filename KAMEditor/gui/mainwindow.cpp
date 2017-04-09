@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+ #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -24,6 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     editorField->setTreePosition(1);
 
     setupEditorShortcuts();
+
+    hightlighter = new GCodesSyntaxHighlighter(this);
+    hightlighter->setDocument(ui->gcodes_editor_textEdit->document());
+    hightlighter->setPattern();
+
 
     update_edges_control_status();
 
@@ -1683,3 +1688,8 @@ void MainWindow::kinematicsSettingsRecovery()
     std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
 }
 
+
+void MainWindow::on_gcodes_editor_textEdit_textChanged()
+{
+    QString text = ui->gcodes_editor_textEdit->toPlainText();
+}

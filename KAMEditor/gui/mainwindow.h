@@ -49,6 +49,7 @@
 #include "commands/pausedialog.h"
 #include "commands/stopdialog.h"
 #include "commands/commentdialog.h"
+#include "gcodessyntaxhighlighter.h"
 
 
 
@@ -72,6 +73,9 @@ private:
 
     std::vector<QShortcut*> shortcuts;
     std::vector<QShortcut*> editorShortcuts;
+
+    GCodesSyntaxHighlighter* hightlighter;
+
 
 
     void setupDimensions();
@@ -175,6 +179,7 @@ private slots:
     void on_change_elecrical_settings_pushButton_clicked();
     void on_apply_electrical_settings_pushButton_clicked();
     void on_cancel_electrical_settings_pushButton_clicked();
+    void on_gcodes_editor_textEdit_textChanged();
 };
 
 
