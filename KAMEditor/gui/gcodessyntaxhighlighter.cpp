@@ -17,8 +17,8 @@ void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
             setFormat(0, text.length(), format);
             return;
         }
-        format.setFontItalic(true);
-        format.setBackground(Qt::green);
+        format.setForeground(Qt::darkGreen);
+        //format.setFontFamily("Arial");
         int index = rx.indexIn(text);
         while(index >= 0)
         {
