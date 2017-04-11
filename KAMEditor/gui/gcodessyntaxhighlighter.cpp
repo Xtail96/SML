@@ -5,7 +5,43 @@ GCodesSyntaxHighlighter::GCodesSyntaxHighlighter(QObject *parent) : QSyntaxHighl
 
 }
 
+
+
 void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
+{
+    setHighlightColor(text, gPattern, Qt::darkGreen);
+    setHighlightColor(text, mPattern, Qt::darkYellow);
+    setHighlightColor(text, argumentsPattern, Qt::darkMagenta);
+}
+
+void GCodesSyntaxHighlighter::setPattern()
+{
+    QString g = "G";
+    QString m = "M";
+    for(int i = 0; i <= 99; i++)
+    {
+        std::string tmp = std::to_string(i);
+        gPattern.push_back(g + QString::fromStdString(tmp) + ':');
+        mPattern.push_back(m + QString::fromStdString(tmp) + ':');
+    }
+    argumentsPattern =
+    {
+        "X",
+        "Y",
+        "Z",
+        "P",
+        "F",
+        "S",
+        "R",
+        "D",
+        "L",
+        "I",
+        "J",
+        "K"
+    };
+}
+
+void GCodesSyntaxHighlighter::setHighlightColor(const QString &text, std::vector<QString> pattern, const QBrush &brush)
 {
     QTextCharFormat format;
 
@@ -17,7 +53,7 @@ void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
             setFormat(0, text.length(), format);
             return;
         }
-        format.setForeground(Qt::darkGreen);
+        format.setForeground(brush);
         int index = rx.indexIn(text);
         while(index >= 0)
         {
@@ -26,22 +62,4 @@ void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
             index = rx.indexIn(text, index + length);
         }
     }
-}
-
-void GCodesSyntaxHighlighter::setPattern()
-{
-    pattern =
-    {
-        "G00:",
-        "G01:",
-        "G02:",
-        "G03:",
-        "G04:",
-        "G05:",
-        "G06:",
-        "G07:",
-        "G08:",
-        "G09:",
-        "G10:"
-    };
 }

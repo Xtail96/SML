@@ -14,7 +14,12 @@ public:
     void highlightBlock(const QString &text);
     void setPattern();
 private:
-    std::vector<QString> pattern;
+    std::vector<QString> gPattern;
+    std::vector<QString> mPattern;
+    std::vector<QString> argumentsPattern;
+
+    void setHighlightColor(const QString &text, std::vector<QString> pattern, const QBrush &brush);
+
 };
 
 #endif // GCODESSYNTAXHIGHLIGHTER_H
