@@ -40,7 +40,7 @@ enum COMMAND {CMD_ARC,
               CMD_SPLINE,
               CMD_TTTARC,
               CMD_TTTLINE,
-              CMD_TTTSPLINE,
+              CMD_TTTTSPLINE,
               CMD_TZARC,
               CMD_ZERO,
               CMD_UNDEFINED

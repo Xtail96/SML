@@ -820,6 +820,12 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             break;
         }
 
+        case CMD_TTTTSPLINE:
+        {
+            TTTTSplineDialog(this).exec();
+            break;
+        }
+
         case CMD_ROTATE:
         {
             RotateDialog(this).exec();
@@ -1099,6 +1105,11 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
         case CMD_SPLINE:
         {
             SplineDialog(this).exec();
+            break;
+        }
+        case CMD_TTTTSPLINE:
+        {
+            TTTTSplineDialog(this).exec();
             break;
         }
         default:

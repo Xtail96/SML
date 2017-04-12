@@ -43,7 +43,8 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_PAUSE, "Пауза"},
     {CMD_STOP, "Стоп"},
     {CMD_COMMENT, "Комментарий"},
-    {CMD_SPLINE, "Сплайн"}
+    {CMD_SPLINE, "Сплайн"},
+    {CMD_TTTTSPLINE, "ТТТТ-Сплайн"}
 };
 
 

@@ -50,6 +50,7 @@
 #include "commands/stopdialog.h"
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
+#include "commands/ttttsplinedialog.h"
 
 #include "gcodessyntaxhighlighter.h"
 
