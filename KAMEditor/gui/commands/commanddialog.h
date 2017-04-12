@@ -10,6 +10,7 @@ public:
     ~CommandDialog();
 protected:
     void fillFields(std::vector<QLineEdit*> &fields);
+    void setCommandArguments(Command &cmd);
 };
 
 #endif // COMMANDDIALOG_H

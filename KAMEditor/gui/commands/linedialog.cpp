@@ -47,18 +47,5 @@ void LineDialog::on_buttonBox_accepted()
      std::to_string(v.b),
      std::to_string(velocity),
     };
-
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    unsigned int selected_command = instance.getSelectedCommand();
-
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-       instance.editCommandsArguments(cmd.args, selected_command);
-       instance.setSelectedCommandEditSignal(false);
-    }
-    else
-    {
-        instance.addCommand(cmd, selected_command);
-    }
+    setCommandArguments(cmd);
 }

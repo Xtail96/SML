@@ -33,25 +33,11 @@ void TTTArcDialog::on_buttonBox_accepted()
     int velocity = ui->ttt_arc_velocity_lineEdit->text().toInt();
 
     cmd.commandColor = "#333";
-
     cmd.args = {
         std::to_string(startPoint),
         std::to_string(middlePoint),
         std::to_string(finishPoint),
         std::to_string(velocity),
     };
-
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    unsigned int selected_command = instance.getSelectedCommand();
-
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-       instance.editCommandsArguments(cmd.args, selected_command);
-       instance.setSelectedCommandEditSignal(false);
-    }
-    else
-    {
-        instance.addCommand(cmd, selected_command);
-    }
+    setCommandArguments(cmd);
 }

@@ -27,18 +27,5 @@ void PauseDialog::on_buttonBox_accepted()
     int pauseValue = ui->pause_value_lineEdit->text().toInt();
     std::string pauseArgument  = std::to_string(pauseValue);
     cmd.args.push_back(pauseArgument);
-
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    unsigned int selected_command = instance.getSelectedCommand();
-
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-       instance.editCommandsArguments(cmd.args, selected_command);
-       instance.setSelectedCommandEditSignal(false);
-    }
-    else
-    {
-        instance.addCommand(cmd, selected_command);
-    }
+    setCommandArguments(cmd);
 }

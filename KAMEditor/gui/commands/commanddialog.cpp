@@ -31,3 +31,20 @@ void CommandDialog::fillFields(std::vector<QLineEdit *> &fields)
         }
     }
 }
+
+void CommandDialog::setCommandArguments(Command &cmd)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    unsigned int selected_command = instance.getSelectedCommand();
+
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+       instance.editCommandsArguments(cmd.args, selected_command);
+       instance.setSelectedCommandEditSignal(false);
+    }
+    else
+    {
+        instance.addCommand(cmd, selected_command);
+    }
+}
