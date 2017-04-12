@@ -6,22 +6,17 @@ TTZArcDialog::TTZArcDialog(QWidget *parent) :
     ui(new Ui::TTZArcDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
 
-        ui->ttz_arc_start_point_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->ttz_arc_finish_point_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->ttz_arc_radius_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->ttz_arc_dz_lineEdit->setText(QString::fromStdString(current_command_arguments[3]));
-        ui->ttz_arc_a_axis_lineEdit->setText(QString::fromStdString(current_command_arguments[4]));
-        ui->ttz_arc_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[5]));
-    }
+    std::vector<QLineEdit*> fields =
+    {
+        ui->ttz_arc_start_point_lineEdit,
+        ui->ttz_arc_finish_point_lineEdit,
+        ui->ttz_arc_radius_lineEdit,
+        ui->ttz_arc_dz_lineEdit,
+        ui->ttz_arc_a_axis_lineEdit,
+        ui->ttz_arc_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 TTZArcDialog::~TTZArcDialog()

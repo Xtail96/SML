@@ -6,16 +6,12 @@ CommentDialog::CommentDialog(QWidget *parent) :
     ui(new Ui::CommentDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-        ui->comment_text_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-    }
+         ui->comment_text_lineEdit
+    };
+    fillFields(fields);
 }
 
 CommentDialog::~CommentDialog()

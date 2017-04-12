@@ -1,21 +1,18 @@
 #include "velocitydialog.h"
 #include "ui_velocitydialog.h"
 
+
 VelocityDialog::VelocityDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::VelocityDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-        ui->velocity_value_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-    }
+        ui->velocity_value_lineEdit
+    };
+    fillFields(fields);
 }
 
 VelocityDialog::~VelocityDialog()

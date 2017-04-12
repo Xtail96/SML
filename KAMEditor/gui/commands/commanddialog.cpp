@@ -12,3 +12,22 @@ CommandDialog::~CommandDialog()
         instance.setSelectedCommandEditSignal(false);
     }
 }
+
+void CommandDialog::fillFields(std::vector<QLineEdit *> &fields)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+        unsigned int current_command_number = instance.getSelectedCommand();
+        std::vector <Command> commands = instance.getCommands();
+        std::vector <std::string> current_command_arguments;
+        current_command_arguments = commands[current_command_number].args;
+
+
+        for(int i = 0; i < fields.size(); i++)
+        {
+            fields[i]->setText(QString::fromStdString(current_command_arguments[i]));
+        }
+    }
+}

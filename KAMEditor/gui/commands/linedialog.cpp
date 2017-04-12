@@ -7,24 +7,16 @@ LineDialog::LineDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-
-        ui->line_lineEdit_axis_x->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->line_lineEdit_axis_y->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->line_lineEdit_axis_z->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->line_lineEdit_axis_a->setText(QString::fromStdString(current_command_arguments[3]));
-        ui->line_lineEdit_axis_b->setText(QString::fromStdString(current_command_arguments[4]));
-
-        ui->line_lineEdit_velocity->setText(QString::fromStdString(current_command_arguments[5]));
-    }
+   std::vector<QLineEdit*> fields =
+   {
+        ui->line_lineEdit_axis_x,
+        ui->line_lineEdit_axis_y,
+        ui->line_lineEdit_axis_z,
+        ui->line_lineEdit_axis_a,
+        ui->line_lineEdit_axis_b,
+        ui->line_lineEdit_velocity
+   };
+   fillFields(fields);
 
 }
 LineDialog::~LineDialog()

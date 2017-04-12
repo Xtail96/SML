@@ -1,5 +1,6 @@
 #ifndef COMMANDDIALOG_H
 #define COMMANDDIALOG_H
+#include <QLineEdit>
 #include "commandinterpreter.h"
 
 class CommandDialog
@@ -7,6 +8,8 @@ class CommandDialog
 public:
     CommandDialog();
     ~CommandDialog();
+protected:
+    void fillFields(std::vector<QLineEdit*> &fields);
 };
 
 #endif // COMMANDDIALOG_H

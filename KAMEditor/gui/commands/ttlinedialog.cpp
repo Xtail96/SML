@@ -6,20 +6,14 @@ TTLineDialog::TTLineDialog(QWidget *parent) :
     ui(new Ui::TTLineDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-
-        ui->ttline_start_point_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->ttline_finish_point_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->ttline_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-    }
+        ui->ttline_start_point_lineEdit,
+        ui->ttline_finish_point_lineEdit,
+        ui->ttline_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 TTLineDialog::~TTLineDialog()

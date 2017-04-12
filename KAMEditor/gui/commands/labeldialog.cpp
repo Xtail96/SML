@@ -6,18 +6,12 @@ LabelDialog::LabelDialog(QWidget *parent) :
     ui(new Ui::LabelDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-
-        ui->label_lineEdit_name->setText(QString::fromStdString(current_command_arguments[0]));
-    }
+         ui->label_lineEdit_name
+    };
+    fillFields(fields);
 }
 
 LabelDialog::~LabelDialog()

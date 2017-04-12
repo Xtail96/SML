@@ -7,21 +7,15 @@ SplineDialog::SplineDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-        ui->spline_start_point_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->spline_output_angle_point_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->spline_input_angle_point_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->spline_finish_point_lineEdit->setText(QString::fromStdString(current_command_arguments[3]));
-        ui->spline_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[4]));
-    }
+        ui->spline_start_point_lineEdit,
+        ui->spline_output_angle_point_lineEdit,
+        ui->spline_input_angle_point_lineEdit,
+        ui->spline_finish_point_lineEdit,
+        ui->spline_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 SplineDialog::~SplineDialog()

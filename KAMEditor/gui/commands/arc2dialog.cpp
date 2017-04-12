@@ -6,23 +6,16 @@ Arc2Dialog::Arc2Dialog(QWidget *parent) :
     ui(new Ui::Arc2Dialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-
-        ui->arc2_dx_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->arc2_dy_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->arc2_r_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->arc2_a_lineEdit->setText(QString::fromStdString(current_command_arguments[3]));
-        ui->arc2_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[4]));
-    }
-
+         ui->arc2_dx_lineEdit,
+         ui->arc2_dy_lineEdit,
+         ui->arc2_r_lineEdit,
+         ui->arc2_a_lineEdit,
+         ui->arc2_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 Arc2Dialog::~Arc2Dialog()

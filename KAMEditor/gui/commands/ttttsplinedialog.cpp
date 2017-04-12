@@ -7,21 +7,15 @@ TTTTSplineDialog::TTTTSplineDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-        ui->ttttspline_start_point_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->ttttspline_middle_point_first_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->ttttspline_middle_point_second_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->ttttspline_finish_point_lineEdit->setText(QString::fromStdString(current_command_arguments[3]));
-        ui->ttttspline_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[4]));
-    }
+        ui->ttttspline_start_point_lineEdit,
+        ui->ttttspline_middle_point_first_lineEdit,
+        ui->ttttspline_middle_point_second_lineEdit,
+        ui->ttttspline_finish_point_lineEdit,
+        ui->ttttspline_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 TTTTSplineDialog::~TTTTSplineDialog()

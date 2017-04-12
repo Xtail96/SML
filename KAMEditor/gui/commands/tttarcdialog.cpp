@@ -7,20 +7,14 @@ TTTArcDialog::TTTArcDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-        ui->ttt_arc_start_point_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->ttt_arc_middle_point_lineEdit->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->ttt_arc_finish_point_lineEdit->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->ttt_arc_velocity_lineEdit->setText(QString::fromStdString(current_command_arguments[3]));
-    }
+        ui->ttt_arc_start_point_lineEdit,
+        ui->ttt_arc_middle_point_lineEdit,
+        ui->ttt_arc_finish_point_lineEdit,
+        ui->ttt_arc_velocity_lineEdit
+    };
+    fillFields(fields);
 }
 
 TTTArcDialog::~TTTArcDialog()

@@ -6,22 +6,15 @@ ArcDialog::ArcDialog(QWidget *parent) :
     ui(new Ui::ArcDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+
+    std::vector<QLineEdit*> fields =
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-
-        ui->arc_lineEdit_r->setText(QString::fromStdString(current_command_arguments[0]));
-        ui->arc_lineEdit_al->setText(QString::fromStdString(current_command_arguments[1]));
-        ui->arc_lineEdit_fi->setText(QString::fromStdString(current_command_arguments[2]));
-        ui->arc_lineEdit_velocity->setText(QString::fromStdString(current_command_arguments[3]));
-    }
-
+         ui->arc_lineEdit_r,
+         ui->arc_lineEdit_al,
+         ui->arc_lineEdit_fi,
+         ui->arc_lineEdit_velocity
+    };
+    fillFields(fields);
 }
 
 ArcDialog::~ArcDialog()
