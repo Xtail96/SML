@@ -49,9 +49,9 @@
 #include "commands/pausedialog.h"
 #include "commands/stopdialog.h"
 #include "commands/commentdialog.h"
+#include "commands/splinedialog.h"
+
 #include "gcodessyntaxhighlighter.h"
-
-
 
 
 namespace Ui {
