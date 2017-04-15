@@ -1236,7 +1236,7 @@ void MainWindow::on_mill_warming_pushButton_clicked()
 
 void MainWindow::on_open_action_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
+    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.7kam");
     QFile inputFile(path);
     if(!inputFile.open(QIODevice::ReadOnly))
     {
