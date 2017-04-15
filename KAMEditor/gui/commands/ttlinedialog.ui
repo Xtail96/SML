@@ -54,6 +54,19 @@
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="2" colspan="2">
+       <widget class="QCheckBox" name="ttline_air_passage_checkBox">
+        <property name="text">
+         <string>Воздушный переход</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLineEdit" name="ttline_dz_lineEdit"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="ttline_start_point_lineEdit"/>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="ttline_start_point_label">
         <property name="text">
@@ -61,15 +74,15 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="ttline_start_point_lineEdit"/>
-      </item>
       <item row="0" column="2">
        <widget class="QLabel" name="ttline_velocity_label">
         <property name="text">
          <string>Скорость</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="ttline_finish_point_lineEdit"/>
       </item>
       <item row="0" column="3">
        <widget class="QLineEdit" name="ttline_velocity_lineEdit"/>
@@ -81,8 +94,22 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="ttline_finish_point_lineEdit"/>
+      <item row="2" column="2">
+       <widget class="QLabel" name="ttline_dz_label">
+        <property name="text">
+         <string>dz</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="ttline_a_coordinate_label">
+        <property name="text">
+         <string>A</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLineEdit" name="ttline_a_coordinate_lineEdit"/>
       </item>
      </layout>
     </widget>
