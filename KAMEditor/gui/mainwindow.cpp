@@ -1246,8 +1246,70 @@ void MainWindow::on_open_action_triggered()
     QString content = in.readAll();
     inputFile.close();
 
+    parse7kamToSml(content);
     ui->gcodes_editor_textEdit->setPlainText(content);
 }
+
+void MainWindow::parse7kamToSmlStep(std::string tmp, int &position)
+{
+    CommandInterpreter &commands = CommandInterpreter::Instance();
+    Command newCommand;
+
+    int commandId = std::stoi(tmp);
+
+    std::string commandArguments;
+    for(auto i : tmp)
+    {
+        if(i == ' ')
+        {
+            tmp.erase(0, i);
+        }
+        if(i == '\n')
+        {
+            tmp.erase(i, tmp.length());
+            break;
+        }
+    }
+    // строка, в которой содержатся только аргументы комманды
+    commandArguments = tmp;
+    switch(commandId)
+    {
+    case 0:
+    {
+        newCommand.id = CMD_TTLINE;
+        // построить арументы команды по строке
+        break;
+    }
+    case 1:
+    {
+        newCommand.id = CMD_TTARC;
+        break;
+    }
+    case 4:
+    {
+        newCommand.id = CMD_LINE;
+        break;
+    }
+    default:
+        position = tmp.length();
+        break;
+    }
+    commands.addCommand(newCommand, commands.getSelectedCommand());
+    update_commands();
+}
+
+void MainWindow::parse7kamToSml(QString &tmp)
+{
+    ui->sml_editor_treeWidget->clear();
+    std::string commandsList = tmp.toStdString();
+    int position = 0;
+    while(commandsList.length() != 0)
+    {
+        parse7kamToSmlStep(commandsList, position);
+        commandsList.erase(commandsList.begin(), commandsList.begin() + position);
+    }
+}
+
 
 void MainWindow::editSettingsField(QLineEdit *qle)
 {
