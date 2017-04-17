@@ -6,45 +6,7 @@ RotateDialog::RotateDialog(QWidget *parent) :
     ui(new Ui::RotateDialog)
 {
     ui->setupUi(this);
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
-    {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-        ui->rotate_angle_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
-
-        for(unsigned int i = 0; i < current_command_arguments.size(); i++)
-        {
-            if(current_command_arguments[i] == "Относительный")
-            {
-                ui->rotate_relative_checkBox->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Вокруг оси X")
-            {
-                ui->rotate_radioButton_axis_x->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Вокруг оси Y")
-            {
-                ui->rotate_radioButton_axis_y->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Вокруг оси Z")
-            {
-                ui->rotate_radioButton_axis_z->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Вокруг оси A")
-            {
-                ui->rotate_radioButton_axis_a->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Вокруг оси B")
-            {
-                ui->rotate_radioButton_axis_b->setChecked(true);
-            }
-        }
-    }
+    fillFields();
 }
 
 RotateDialog::~RotateDialog()
@@ -105,4 +67,47 @@ void RotateDialog::on_buttonBox_accepted()
         relative = "";
     }
     setCommandArguments(cmd);
+}
+
+void RotateDialog::fillFields()
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    bool editSignal = instance.getSelectedCommandEditSignal();
+    if(editSignal)
+    {
+        unsigned int current_command_number = instance.getSelectedCommand();
+        std::vector <Command> commands = instance.getCommands();
+        std::vector <std::string> current_command_arguments;
+        current_command_arguments = commands[current_command_number].args;
+
+        ui->rotate_angle_lineEdit->setText(QString::fromStdString(current_command_arguments[0]));
+
+        for(unsigned int i = 0; i < current_command_arguments.size(); i++)
+        {
+            if(current_command_arguments[i] == "Относительный")
+            {
+                ui->rotate_relative_checkBox->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Вокруг оси X")
+            {
+                ui->rotate_radioButton_axis_x->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Вокруг оси Y")
+            {
+                ui->rotate_radioButton_axis_y->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Вокруг оси Z")
+            {
+                ui->rotate_radioButton_axis_z->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Вокруг оси A")
+            {
+                ui->rotate_radioButton_axis_a->setChecked(true);
+            }
+            if(current_command_arguments[i] == "Вокруг оси B")
+            {
+                ui->rotate_radioButton_axis_b->setChecked(true);
+            }
+        }
+    }
 }

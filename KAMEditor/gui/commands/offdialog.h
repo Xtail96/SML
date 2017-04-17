@@ -22,6 +22,8 @@ private slots:
     void on_buttonBox_accepted();
 private:
     Ui::OffDialog *ui;
+
+    void fillFields();
 };
 
 #endif // OFFDIALOG_H

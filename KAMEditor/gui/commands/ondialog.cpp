@@ -6,6 +6,16 @@ OnDialog::OnDialog(QWidget *parent) :
     ui(new Ui::OnDialog)
 {
     ui->setupUi(this);
+    fillFields();
+}
+
+OnDialog::~OnDialog()
+{
+    delete ui;
+}
+
+void OnDialog::fillFields()
+{
     CommandInterpreter& instance = CommandInterpreter::Instance();
     bool editSignal = instance.getSelectedCommandEditSignal();
     if(editSignal)
@@ -27,11 +37,6 @@ OnDialog::OnDialog(QWidget *parent) :
             }
         }
     }
-}
-
-OnDialog::~OnDialog()
-{
-    delete ui;
 }
 
 void OnDialog::on_buttonBox_accepted()

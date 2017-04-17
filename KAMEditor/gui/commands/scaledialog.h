@@ -23,6 +23,8 @@ private slots:
 
 private:
     Ui::ScaleDialog *ui;
+
+    void fillFields();
 };
 
 #endif // SCALEDIALOG_H

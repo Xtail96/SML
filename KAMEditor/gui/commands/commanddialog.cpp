@@ -25,7 +25,7 @@ void CommandDialog::fillFields(std::vector<QLineEdit *> &fields)
         current_command_arguments = commands[current_command_number].args;
 
 
-        for(int i = 0; i < fields.size(); i++)
+        for(unsigned int i = 0; i < fields.size(); i++)
         {
             fields[i]->setText(QString::fromStdString(current_command_arguments[i]));
         }

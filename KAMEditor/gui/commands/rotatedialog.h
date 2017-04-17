@@ -22,6 +22,8 @@ private slots:
     void on_buttonBox_accepted();
 private:
     Ui::RotateDialog *ui;
+
+    void fillFields();
 };
 
 #endif // ROTATEDIALOG_H
