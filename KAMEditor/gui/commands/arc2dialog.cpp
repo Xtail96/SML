@@ -30,18 +30,18 @@ void Arc2Dialog::on_buttonBox_accepted()
 
     cmd.commandColor = "#333";
 
-    double dx = ui->arc2_dx_lineEdit->text().toDouble();
-    double dy = ui->arc2_dy_lineEdit->text().toDouble();
-    double r = ui->arc2_r_lineEdit->text().toDouble();
-    int velocity = ui->arc2_velocity_lineEdit->text().toInt();
-    double a = ui->arc2_a_lineEdit->text().toDouble();
+    std::string dx = ui->arc2_dx_lineEdit->text().toStdString();
+    std::string dy = ui->arc2_dy_lineEdit->text().toStdString();
+    std::string r = ui->arc2_r_lineEdit->text().toStdString();
+    std::string velocity = ui->arc2_velocity_lineEdit->text().toStdString();
+    std::string a = ui->arc2_a_lineEdit->text().toStdString();
 
     cmd.args = {
-     std::to_string(dx),
-     std::to_string(dy),
-     std::to_string(r),
-     std::to_string(velocity),
-     std::to_string(a)
+     dx,
+     dy,
+     r,
+     velocity,
+     a
     };
     setCommandArguments(cmd);
 }

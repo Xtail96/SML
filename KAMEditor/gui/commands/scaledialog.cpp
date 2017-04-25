@@ -21,13 +21,10 @@ void ScaleDialog::on_buttonBox_accepted()
 
     cmd.commandColor = "#770077";
 
-
-    int oldScaleValue = ui->old_scale_lineEdit->text().toDouble();
-    std::string oldScale  = std::to_string(oldScaleValue);
+    std::string oldScale  = ui->old_scale_lineEdit->text().toStdString();
     cmd.args.push_back(oldScale);
 
-    int newScaleValue = ui->new_scale_lineEdit->text().toDouble();
-    std::string newScale  = std::to_string(newScaleValue);
+    std::string newScale  = ui->new_scale_lineEdit->text().toStdString();
     cmd.args.push_back(newScale);
 
     std::string axis;

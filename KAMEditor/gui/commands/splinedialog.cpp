@@ -28,20 +28,20 @@ void SplineDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_SPLINE;
 
-    int startPoint = ui->spline_start_point_lineEdit->text().toInt();
-    int outputAnglePoint = ui->spline_output_angle_point_lineEdit->text().toInt();
-    int inputAnglePoint = ui->spline_input_angle_point_lineEdit->text().toInt();
-    int finishPoint = ui->spline_finish_point_lineEdit->text().toInt();
-    int velocity = ui->spline_velocity_lineEdit->text().toInt();
+    std::string startPoint = ui->spline_start_point_lineEdit->text().toStdString();
+    std::string outputAnglePoint = ui->spline_output_angle_point_lineEdit->text().toStdString();
+    std::string inputAnglePoint = ui->spline_input_angle_point_lineEdit->text().toStdString();
+    std::string finishPoint = ui->spline_finish_point_lineEdit->text().toStdString();
+    std::string velocity = ui->spline_velocity_lineEdit->text().toStdString();
 
     cmd.commandColor = "#333";
 
     cmd.args = {
-     std::to_string(startPoint),
-     std::to_string(outputAnglePoint),
-     std::to_string(inputAnglePoint),
-     std::to_string(finishPoint),
-     std::to_string(velocity),
+     startPoint,
+     outputAnglePoint,
+     inputAnglePoint,
+     finishPoint,
+     velocity,
     };
     setCommandArguments(cmd);
 }

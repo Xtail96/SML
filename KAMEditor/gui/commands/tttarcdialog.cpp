@@ -27,17 +27,17 @@ void TTTArcDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_TTTARC;
 
-    int startPoint = ui->ttt_arc_start_point_lineEdit->text().toInt();
-    int middlePoint = ui->ttt_arc_middle_point_lineEdit->text().toInt();
-    int finishPoint = ui->ttt_arc_finish_point_lineEdit->text().toInt();
-    int velocity = ui->ttt_arc_velocity_lineEdit->text().toInt();
+    std::string startPoint = ui->ttt_arc_start_point_lineEdit->text().toStdString();
+    std::string middlePoint = ui->ttt_arc_middle_point_lineEdit->text().toStdString();
+    std::string finishPoint = ui->ttt_arc_finish_point_lineEdit->text().toStdString();
+    std::string velocity = ui->ttt_arc_velocity_lineEdit->text().toStdString();
 
     cmd.commandColor = "#333";
     cmd.args = {
-        std::to_string(startPoint),
-        std::to_string(middlePoint),
-        std::to_string(finishPoint),
-        std::to_string(velocity),
+        startPoint,
+        middlePoint,
+        finishPoint,
+        velocity
     };
     setCommandArguments(cmd);
 }

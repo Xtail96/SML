@@ -23,9 +23,8 @@ void RotateDialog::on_buttonBox_accepted()
 
 
 
-    int angle_value = ui->rotate_angle_lineEdit->text().toInt();
-    std::string angle  = std::to_string(angle_value);
-    cmd.args.push_back(angle);
+    std::string angle_value = ui->rotate_angle_lineEdit->text().toStdString();
+    cmd.args.push_back(angle_value);
 
     std::string axis;
     if(ui->rotate_radioButton_axis_x->isChecked())

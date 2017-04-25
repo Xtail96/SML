@@ -1324,7 +1324,7 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
             }
         }
     }
-    tmp.erase(tmp.begin(), tmp.begin() + position + 1);
+    tmp.erase(tmp.begin(), tmp.begin() + position);
     setCommandArguments(commandArguments, newCommand);
     unsigned int selectedCommand = commands.getSelectedCommand();
     commands.addCommand(newCommand, selectedCommand);

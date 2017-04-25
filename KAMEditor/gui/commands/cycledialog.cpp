@@ -26,9 +26,9 @@ void CycleDialog::on_buttonBox_accepted()
 
     cmd.commandColor = "#999900";
 
-    int amount = ui->cycle_amount_lineEdit->text().toInt();
+    std::string amount = ui->cycle_amount_lineEdit->text().toStdString();
     cmd.args = {
-     std::to_string(amount),
+     amount
     };
     setCommandArguments(cmd);
 }

@@ -29,23 +29,18 @@ void LineDialog::on_buttonBox_accepted()
     cmd.id = CMD_LINE;
 
     cmd.commandColor = "#333";
-
-    Vector v(
-    ui->line_lineEdit_axis_x->text().toDouble(),
-    ui->line_lineEdit_axis_y->text().toDouble(),
-    ui->line_lineEdit_axis_z->text().toDouble(),
-    ui->line_lineEdit_axis_a->text().toDouble(),
-    ui->line_lineEdit_axis_b->text().toDouble()
-    );
-    int velocity = ui->line_lineEdit_velocity->text().toInt();
-
-    cmd.args = {
-     std::to_string(v.x),
-     std::to_string(v.y),
-     std::to_string(v.z),
-     std::to_string(v.a),
-     std::to_string(v.b),
-     std::to_string(velocity),
+    std::vector<std::string> v =
+    {
+        ui->line_lineEdit_axis_x->text().toStdString(),
+        ui->line_lineEdit_axis_y->text().toStdString(),
+        ui->line_lineEdit_axis_z->text().toStdString(),
+        ui->line_lineEdit_axis_a->text().toStdString(),
+        ui->line_lineEdit_axis_b->text().toStdString(),
+        ui->line_lineEdit_velocity->text().toStdString()
     };
+    for(auto it : v)
+    {
+        cmd.args.push_back(it);
+    }
     setCommandArguments(cmd);
 }

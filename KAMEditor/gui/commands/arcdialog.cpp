@@ -29,16 +29,16 @@ void ArcDialog::on_buttonBox_accepted()
 
     cmd.commandColor = "#333";
 
-    double r = ui->arc_lineEdit_r->text().toDouble();
-    double al = ui->arc_lineEdit_al->text().toDouble();
-    double fi = ui->arc_lineEdit_fi->text().toDouble();
-    int velocity = ui->arc_lineEdit_velocity->text().toInt();
+    std::string r = ui->arc_lineEdit_r->text().toStdString();
+    std::string al = ui->arc_lineEdit_al->text().toStdString();
+    std::string fi = ui->arc_lineEdit_fi->text().toStdString();
+    std::string velocity = ui->arc_lineEdit_velocity->text().toStdString();
 
     cmd.args = {
-     std::to_string(r),
-     std::to_string(al),
-     std::to_string(fi),
-     std::to_string(velocity),
+     r,
+     al,
+     fi,
+     velocity,
     };
     setCommandArguments(cmd);
 }

@@ -29,22 +29,22 @@ void TTZArcDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_TTZARC;
 
-    int startPoint = ui->ttz_arc_start_point_lineEdit->text().toInt();
-    int finishPoint = ui->ttz_arc_finish_point_lineEdit->text().toInt();
-    double radius = ui->ttz_arc_radius_lineEdit->text().toDouble();
-    double dz = ui->ttz_arc_dz_lineEdit->text().toDouble();
-    double angle = ui->ttz_arc_a_axis_lineEdit->text().toDouble();
-    int velocity = ui->ttz_arc_velocity_lineEdit->text().toInt();
+    std::string startPoint = ui->ttz_arc_start_point_lineEdit->text().toStdString();
+    std::string finishPoint = ui->ttz_arc_finish_point_lineEdit->text().toStdString();
+    std::string radius = ui->ttz_arc_radius_lineEdit->text().toStdString();
+    std::string dz = ui->ttz_arc_dz_lineEdit->text().toStdString();
+    std::string angle = ui->ttz_arc_a_axis_lineEdit->text().toStdString();
+    std::string velocity = ui->ttz_arc_velocity_lineEdit->text().toStdString();
 
     cmd.commandColor = "#333";
 
     cmd.args = {
-        std::to_string(startPoint),
-        std::to_string(finishPoint),
-        std::to_string(radius),
-        std::to_string(dz),
-        std::to_string(angle),
-        std::to_string(velocity),
+        startPoint,
+        finishPoint,
+        radius,
+        dz,
+        angle,
+        velocity,
     };
     setCommandArguments(cmd);
 }

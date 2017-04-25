@@ -28,20 +28,20 @@ void TTTTSplineDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_TTTTSPLINE;
 
-    int startPoint = ui->ttttspline_start_point_lineEdit->text().toInt();
-    int middlePointFirst = ui->ttttspline_middle_point_first_lineEdit->text().toInt();
-    int middlePointSecond = ui->ttttspline_middle_point_second_lineEdit->text().toInt();
-    int finishPoint = ui->ttttspline_finish_point_lineEdit->text().toInt();
-    int velocity = ui->ttttspline_velocity_lineEdit->text().toInt();
+    std::string startPoint = ui->ttttspline_start_point_lineEdit->text().toStdString();
+    std::string middlePointFirst = ui->ttttspline_middle_point_first_lineEdit->text().toStdString();
+    std::string middlePointSecond = ui->ttttspline_middle_point_second_lineEdit->text().toStdString();
+    std::string finishPoint = ui->ttttspline_finish_point_lineEdit->text().toStdString();
+    std::string velocity = ui->ttttspline_velocity_lineEdit->text().toStdString();
 
     cmd.commandColor = "#333";
 
     cmd.args = {
-     std::to_string(startPoint),
-     std::to_string(middlePointFirst),
-     std::to_string(middlePointSecond),
-     std::to_string(finishPoint),
-     std::to_string(velocity),
+     startPoint,
+     middlePointFirst,
+     middlePointSecond,
+     finishPoint,
+     velocity
     };
     setCommandArguments(cmd);
 }
