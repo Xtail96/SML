@@ -1250,28 +1250,14 @@ void MainWindow::on_open_action_triggered()
     ui->gcodes_editor_textEdit->setPlainText(content);
 }
 
-void MainWindow::parse7kamToSmlStep(std::string tmp, int &position)
+void MainWindow::parse7kamToSmlStep(std::string &tmp)
 {
     CommandInterpreter &commands = CommandInterpreter::Instance();
     Command newCommand;
+    int position = 0;
 
+    // получаем id команды
     int commandId = std::stoi(tmp);
-
-    std::string commandArguments;
-    for(auto i : tmp)
-    {
-        if(i == ' ')
-        {
-            tmp.erase(0, i);
-        }
-        if(i == '\n')
-        {
-            tmp.erase(i, tmp.length());
-            break;
-        }
-    }
-    // строка, в которой содержатся только аргументы комманды
-    commandArguments = tmp;
     switch(commandId)
     {
     case 0:
@@ -1291,22 +1277,81 @@ void MainWindow::parse7kamToSmlStep(std::string tmp, int &position)
         break;
     }
     default:
+        newCommand.id = CMD_LINE;
         position = tmp.length();
         break;
     }
-    commands.addCommand(newCommand, commands.getSelectedCommand());
+
+    // получаем аргументы команды
+    std::string commandArguments;
+    bool space = false;
+    for(auto i : tmp)
+    {
+        position++;
+        // откидываем id
+        if(i == ' ')
+        {
+            space = true;
+        }
+        else
+        {
+            // если id уже откинут
+            if(space)
+            {
+                // если не символ переноса строки
+                if(i != '\n' && i != '\r')
+                {
+                    commandArguments += i;
+                }
+                else
+                {
+                    // если текущий символ - символ переноса строки, выделены все аргументы
+                    break;
+                }
+            }
+        }
+    }
+    tmp.erase(tmp.begin(), tmp.begin() + position + 1);
+    setCommandArguments(commandArguments, newCommand);
+    unsigned int selectedCommand = commands.getSelectedCommand();
+    commands.addCommand(newCommand, selectedCommand);
+    commands.setSelectedCommand(selectedCommand + 1);
     update_commands();
 }
+ void MainWindow::setCommandArguments(std::string s, Command &command)
+ {
+     std::string argument;
+     for(unsigned int i = 0; i < s.length(); i++)
+     {
+         //выделить числа и слова, состоящие из латинских букв из строки
+         if(i < s.length() - 1)
+         {
+             if(s[i] != ',')
+             {
+                 argument += s[i];
+             }
+             else
+             {
+                 command.args.push_back(argument);
+                 argument = "";
+             }
+         }
+         else
+         {
+            argument += s[i];
+            command.args.push_back(argument);
+            argument = "";
+         }
+     }
+ }
 
 void MainWindow::parse7kamToSml(QString &tmp)
 {
     ui->sml_editor_treeWidget->clear();
     std::string commandsList = tmp.toStdString();
-    int position = 0;
     while(commandsList.length() != 0)
     {
-        parse7kamToSmlStep(commandsList, position);
-        commandsList.erase(commandsList.begin(), commandsList.begin() + position);
+        parse7kamToSmlStep(commandsList);
     }
 }
 

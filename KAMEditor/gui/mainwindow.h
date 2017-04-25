@@ -115,7 +115,8 @@ private:
     std::vector<QCheckBox*> makeQCheckBoxVector(int tmp);
 
     void parse7kamToSml(QString &tmp);
-    void parse7kamToSmlStep(std::string tmp, int &position);
+    void parse7kamToSmlStep(std::string &tmp);
+    void setCommandArguments(std::string s, Command &command);
 
 protected:
     void update_points();
