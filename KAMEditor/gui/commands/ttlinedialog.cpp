@@ -12,8 +12,8 @@ TTLineDialog::TTLineDialog(QWidget *parent) :
         ui->ttline_start_point_lineEdit,
         ui->ttline_finish_point_lineEdit,
         ui->ttline_dz_lineEdit,
-        ui->ttline_a_coordinate_lineEdit,
-        ui->ttline_velocity_lineEdit
+        ui->ttline_velocity_lineEdit,
+        ui->ttline_a_coordinate_lineEdit
     };
     fillFields(fields);
 }
@@ -37,8 +37,8 @@ void TTLineDialog::on_buttonBox_accepted()
      std::to_string(startPoint),
      std::to_string(finishPoint),
      dzOffset,
-     std::to_string(aCoordinate),
      std::to_string(velocity),
+     std::to_string(aCoordinate)
     };
     setCommandArguments(cmd);
 }
