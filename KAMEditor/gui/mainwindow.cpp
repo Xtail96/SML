@@ -1250,6 +1250,16 @@ void MainWindow::on_open_action_triggered()
     ui->gcodes_editor_textEdit->setPlainText(content);
 }
 
+void MainWindow::parse7kamToSml(QString &tmp)
+{
+    ui->sml_editor_treeWidget->clear();
+    std::string commandsList = tmp.toStdString();
+    while(commandsList.length() != 0)
+    {
+        parse7kamToSmlStep(commandsList);
+    }
+}
+
 void MainWindow::parse7kamToSmlStep(std::string &tmp)
 {
     CommandInterpreter &commands = CommandInterpreter::Instance();
@@ -1263,22 +1273,24 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     case 0:
     {
         newCommand.id = CMD_TTLINE;
-        // построить арументы команды по строке
+        newCommand.commandColor = "#333";
         break;
     }
     case 1:
     {
         newCommand.id = CMD_TTARC;
+        newCommand.commandColor = "#333";
         break;
     }
     case 4:
     {
         newCommand.id = CMD_LINE;
+        newCommand.commandColor = "#333";
         break;
     }
     default:
-        newCommand.id = CMD_LINE;
-        position = tmp.length();
+        newCommand.id = CMD_UNDEFINED;
+        //position = tmp.length();
         break;
     }
 
@@ -1295,6 +1307,7 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
         }
         else
         {
+
             // если id уже откинут
             if(space)
             {
@@ -1320,6 +1333,7 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
 }
  void MainWindow::setCommandArguments(std::string s, Command &command)
  {
+     eraseSpecialSymbols(s);
      std::string argument;
      for(unsigned int i = 0; i < s.length(); i++)
      {
@@ -1345,14 +1359,30 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
      }
  }
 
-void MainWindow::parse7kamToSml(QString &tmp)
+
+void MainWindow::eraseSpecialSymbols(std::string &s)
 {
-    ui->sml_editor_treeWidget->clear();
-    std::string commandsList = tmp.toStdString();
-    while(commandsList.length() != 0)
+    std::string tmp = "";
+    bool skip = false;
+    for(auto it : s)
     {
-        parse7kamToSmlStep(commandsList);
+        if(it == '^')
+        {
+            skip = true;
+        }
+        else
+        {
+            if(!skip)
+            {
+                tmp += it;
+            }
+            else
+            {
+                skip = false;
+            }
+        }
     }
+    s = tmp;
 }
 
 

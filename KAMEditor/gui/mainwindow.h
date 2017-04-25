@@ -117,6 +117,7 @@ private:
     void parse7kamToSml(QString &tmp);
     void parse7kamToSmlStep(std::string &tmp);
     void setCommandArguments(std::string s, Command &command);
+    void eraseSpecialSymbols(std::string &s);
 
 protected:
     void update_points();
