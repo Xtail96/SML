@@ -1288,9 +1288,87 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
         newCommand.commandColor = "#333";
         break;
     }
+    case 10:
+    {
+        newCommand.id = CMD_ZERO;
+        newCommand.commandColor = "#000099";
+        break;
+    }
+    case 14:
+    {
+        newCommand.id = CMD_SPEED;
+        newCommand.commandColor = "#770077";
+        break;
+    }
+    case 19:
+    {
+        newCommand.id = CMD_LABEL;
+        newCommand.commandColor = "#3300ff";
+        break;
+    }
+    case 20:
+    {
+        newCommand.id = CMD_CALL;
+        newCommand.commandColor = "#4682B4";
+        break;
+    }
+    case 21:
+    {
+        newCommand.id = CMD_RETURN;
+        newCommand.commandColor = "#4682B4";
+        break;
+    }
+    case 22:
+    {
+        newCommand.id = CMD_GOTO;
+        newCommand.commandColor = "#3300ff";
+        break;
+    }
+    case 23:
+    {
+        newCommand.id = CMD_FOR;
+        newCommand.commandColor = "#999900";
+        break;
+    }
+    case 24:
+    {
+        newCommand.id = CMD_ENDFOR;
+        newCommand.commandColor = "#999900";
+        break;
+    }
+    case 25:
+    {
+        newCommand.id = CMD_STOP;
+        newCommand.commandColor = "#990000";
+        break;
+    }
+    case 26:
+    {
+        newCommand.id = CMD_END;
+        newCommand.commandColor = "#660099";
+        break;
+    }
+    case 27:
+    {
+        newCommand.id = CMD_COMMENT;
+        newCommand.commandColor = "#2E8B57";
+        break;
+    }
+    case 28:
+    {
+        newCommand.id = CMD_PAUSE;
+        newCommand.commandColor = "#990000";
+        break;
+    }
+    case 31:
+    {
+        newCommand.id = CMD_PROC;
+        newCommand.commandColor = "#4682B4";
+        break;
+    }
     default:
         newCommand.id = CMD_UNDEFINED;
-        //position = tmp.length();
+        position = tmp.length();
         break;
     }
 
