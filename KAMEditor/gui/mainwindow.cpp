@@ -178,6 +178,7 @@ void MainWindow::deleteCommand()
                 }
             }
             update_commands();
+            commands.setSelectedCommand(0);
         }
     }
 }
@@ -1251,7 +1252,6 @@ void MainWindow::on_open_action_triggered()
 
 void MainWindow::parse7kamToSml(QString &tmp)
 {
-    ui->sml_editor_treeWidget->clear();
     std::string commandsList = tmp.toStdString();
     while(commandsList.length() != 0)
     {
@@ -1378,7 +1378,7 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     {
         position++;
         // откидываем id
-        if(i == ' ')
+        if(i == ' ' && !space)
         {
             space = true;
         }
