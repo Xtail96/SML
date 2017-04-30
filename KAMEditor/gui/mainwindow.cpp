@@ -122,7 +122,7 @@ void MainWindow::setupEditorShortcuts()
 {
     std::vector<std::pair<const char*, const char*> > editorShortcutsMap = {
         std::make_pair("Ctrl+W", SLOT(addLineCommand())),
-        std::make_pair("Backspace", SLOT(deleteCommand())),
+        std::make_pair("Backspace", SLOT(deleteSelectedCommands())),
     };
 
     for (unsigned int i = 0; i < editorShortcutsMap.size(); i++)
@@ -151,7 +151,7 @@ void MainWindow::update()
 }
 
 
-void MainWindow::deleteCommand()
+void MainWindow::deleteSelectedCommands()
 {
     if(ui->editor_tab->isVisible())
     {
@@ -171,11 +171,9 @@ void MainWindow::deleteCommand()
                     vector_numbers.push_back(current_vector_number);
                 }
                 std::sort(vector_numbers.begin(), vector_numbers.end());
-                for(unsigned int i = 0; i < vector_numbers.size(); i++)
-                {
-                    int current_row = vector_numbers[0];
-                    commands.deleteSelectedCommands(current_row);
-                }
+                unsigned int start = vector_numbers[0];
+                unsigned int finish = vector_numbers[vector_numbers.size() - 1];
+                commands.deleteCommands(start, finish);
             }
             update_commands();
             commands.setSelectedCommand(0);

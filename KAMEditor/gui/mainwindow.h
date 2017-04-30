@@ -127,7 +127,7 @@ protected:
 private slots:
 
     void addLineCommand();
-    void deleteCommand();
+    void deleteSelectedCommands();
 
     void update();
     void on_discrete_radio_button_1_clicked();

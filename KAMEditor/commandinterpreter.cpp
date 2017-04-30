@@ -120,10 +120,17 @@ std::vector <Command> CommandInterpreter::getCommands()
 {
     return commands;
 }
-void CommandInterpreter::deleteSelectedCommands(unsigned int numbers)
+void CommandInterpreter::deleteCommand(unsigned int number)
 {
-    if (numbers < commands.size())
-        commands.erase(commands.begin() + numbers);
+    if (number < commands.size())
+        commands.erase(commands.begin() + number);
+}
+void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
+{
+    if (begin <= commands.size() && end <= commands.size())
+    {
+        commands.erase(commands.begin() + begin, commands.begin() + end + 1);
+    }
 }
 void CommandInterpreter::setSelectedCommandEditSignal(bool value)
 {

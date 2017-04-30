@@ -28,7 +28,8 @@ public:
     void addCommand(Command cmd, unsigned int selected_command);
     void addCommand(std::string cmd);
     void editCommandsArguments(std::vector<std::string>, unsigned int selected_command);
-    void deleteSelectedCommands(unsigned int numbers);
+    void deleteCommand(unsigned int number);
+    void deleteCommands(unsigned int begin, unsigned int end);
 
     static CommandInterpreter& Instance();
 
