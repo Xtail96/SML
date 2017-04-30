@@ -842,7 +842,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         {
             Command command;
             command.id = CMD_ENDFOR;
-            command.commandColor = "#999900";
+            command.commandColor = COMMANDCOLORS[cycleColor];
 
             std::string endfor = "";
             command.args = {
@@ -875,8 +875,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         {
             Command command;
             command.id = CMD_RETURN;
-            //command.commandColor = "#2f4f4f";
-            command.commandColor = "#4682B4";
+            command.commandColor = COMMANDCOLORS[functionColor];
 
             std::string endProc = "";
             command.args = {
@@ -908,7 +907,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             Command command;
             command.id = CMD_ZERO;
 
-            command.commandColor = "#000099";
+            command.commandColor = COMMANDCOLORS[zeroColor];
 
             std::string setZero = "";
             command.args = {
@@ -925,7 +924,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
             Command command;
             command.id = CMD_END;
 
-            command.commandColor = "#660099";
+            command.commandColor = COMMANDCOLORS[finishColor];
 
             std::string endProgramm = "";
             command.args = {
@@ -1273,97 +1272,97 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     case 0:
     {
         newCommand.id = CMD_TTLINE;
-        newCommand.commandColor = "#333";
+        newCommand.commandColor = COMMANDCOLORS[defaultColor];
         break;
     }
     case 1:
     {
         newCommand.id = CMD_TTARC;
-        newCommand.commandColor = "#333";
+        newCommand.commandColor = COMMANDCOLORS[defaultColor];
         break;
     }
     case 4:
     {
         newCommand.id = CMD_LINE;
-        newCommand.commandColor = "#333";
+        newCommand.commandColor = COMMANDCOLORS[defaultColor];
         break;
     }
     case 10:
     {
         newCommand.id = CMD_ZERO;
-        newCommand.commandColor = "#000099";
+        newCommand.commandColor = COMMANDCOLORS[zeroColor];
         break;
     }
     case 14:
     {
         newCommand.id = CMD_SPEED;
-        newCommand.commandColor = "#770077";
+        newCommand.commandColor = COMMANDCOLORS[warningColor];
         break;
     }
     case 19:
     {
         newCommand.id = CMD_LABEL;
-        newCommand.commandColor = "#3300ff";
+        newCommand.commandColor = COMMANDCOLORS[labelColor];
         break;
     }
     case 20:
     {
         newCommand.id = CMD_CALL;
-        newCommand.commandColor = "#4682B4";
+        newCommand.commandColor = COMMANDCOLORS[functionColor];
         break;
     }
     case 21:
     {
         newCommand.id = CMD_RETURN;
-        newCommand.commandColor = "#4682B4";
+        newCommand.commandColor = COMMANDCOLORS[functionColor];
         break;
     }
     case 22:
     {
         newCommand.id = CMD_GOTO;
-        newCommand.commandColor = "#3300ff";
+        newCommand.commandColor = COMMANDCOLORS[labelColor];
         break;
     }
     case 23:
     {
         newCommand.id = CMD_FOR;
-        newCommand.commandColor = "#999900";
+        newCommand.commandColor = COMMANDCOLORS[cycleColor];
         break;
     }
     case 24:
     {
         newCommand.id = CMD_ENDFOR;
-        newCommand.commandColor = "#999900";
+        newCommand.commandColor = COMMANDCOLORS[cycleColor];
         break;
     }
     case 25:
     {
         newCommand.id = CMD_STOP;
-        newCommand.commandColor = "#990000";
+        newCommand.commandColor = COMMANDCOLORS[warningColor];
         break;
     }
     case 26:
     {
         newCommand.id = CMD_END;
-        newCommand.commandColor = "#660099";
+        newCommand.commandColor = COMMANDCOLORS[finishColor];
         break;
     }
     case 27:
     {
         newCommand.id = CMD_COMMENT;
-        newCommand.commandColor = "#2E8B57";
+        newCommand.commandColor = COMMANDCOLORS[commentColor];
         break;
     }
     case 28:
     {
         newCommand.id = CMD_PAUSE;
-        newCommand.commandColor = "#990000";
+        newCommand.commandColor = COMMANDCOLORS[warningColor];
         break;
     }
     case 31:
     {
         newCommand.id = CMD_PROC;
-        newCommand.commandColor = "#4682B4";
+        newCommand.commandColor = COMMANDCOLORS[functionColor];
         break;
     }
     default:

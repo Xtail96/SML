@@ -24,9 +24,7 @@ void CallProcDialog::on_buttonBox_accepted()
 
     Command cmd;
     cmd.id = CMD_CALL;
-
-    //cmd.commandColor = "#2f4f4f";
-    cmd.commandColor = "#4682B4";
+    cmd.commandColor = COMMANDCOLORS[functionColor];
 
 
     std::string name = ui->call_name_lineEdit->text().toStdString();

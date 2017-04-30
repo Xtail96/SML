@@ -19,7 +19,7 @@ void RotateDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_ROTATE;
 
-    cmd.commandColor = "#770077";
+    cmd.commandColor = COMMANDCOLORS[modifyColor];
 
 
 

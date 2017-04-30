@@ -24,7 +24,7 @@ void CycleDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_FOR;
 
-    cmd.commandColor = "#999900";
+    cmd.commandColor = COMMANDCOLORS[cycleColor];
 
     std::string amount = ui->cycle_amount_lineEdit->text().toStdString();
     cmd.args = {

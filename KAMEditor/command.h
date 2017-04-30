@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 enum COMMAND {CMD_ARC,
               CMD_ARC2,
@@ -45,7 +46,33 @@ enum COMMAND {CMD_ARC,
               CMD_ZERO,
               CMD_UNDEFINED
              };
-
+enum COLORSNAME
+{
+    defaultColor,
+    functionColor,
+    commentColor,
+    cycleColor,
+    labelColor,
+    warningColor,
+    safeColor,
+    zeroColor,
+    finishColor,
+    modifyColor
+};
+static std::map<COLORSNAME, std::string> COMMANDCOLORS =
+{
+    {defaultColor, "#333"},
+    // functionColor = "#2f4f4f";
+    {functionColor, "#4682B4"},
+    {commentColor, "#2E8B57"},
+    {cycleColor, "#999900"},
+    {labelColor, "#3300ff"},
+    {warningColor, "#990000"},
+    {safeColor, "#2E8B57"},
+    {zeroColor, "#000099"},
+    {finishColor, "#660099"},
+    {modifyColor, "#770077"}
+};
 struct Command
 {
     COMMAND id;

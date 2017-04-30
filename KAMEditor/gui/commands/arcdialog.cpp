@@ -27,7 +27,7 @@ void ArcDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_ARC;
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
 
     std::string r = ui->arc_lineEdit_r->text().toStdString();
     std::string al = ui->arc_lineEdit_al->text().toStdString();

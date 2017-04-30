@@ -25,7 +25,7 @@ void VelocityDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_SPEED;
 
-    cmd.commandColor = "#770077";
+    cmd.commandColor = COMMANDCOLORS[warningColor];
 
     std::string velocity  = ui->velocity_value_lineEdit->text().toStdString();
     cmd.args.push_back(velocity);

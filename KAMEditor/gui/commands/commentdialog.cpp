@@ -25,7 +25,7 @@ void CommentDialog::on_buttonBox_accepted()
     cmd.id = CMD_COMMENT;
 
 
-    cmd.commandColor = "#2E8B57";
+    cmd.commandColor = COMMANDCOLORS[commentColor];
     std::string commentText = ui->comment_text_lineEdit->text().toStdString();
     cmd.args.push_back(commentText);
     setCommandArguments(cmd);

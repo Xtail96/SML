@@ -25,7 +25,7 @@ void GoToDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_GOTO;
 
-    cmd.commandColor = "#3300ff";
+    cmd.commandColor = COMMANDCOLORS[labelColor];
 
     std::string name = ui->goto_lineEdit_name->text().toStdString();
 

@@ -19,7 +19,7 @@ void ScaleDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_SCALEX;
 
-    cmd.commandColor = "#770077";
+    cmd.commandColor = COMMANDCOLORS[modifyColor];
 
     std::string oldScale  = ui->old_scale_lineEdit->text().toStdString();
     cmd.args.push_back(oldScale);

@@ -44,7 +44,7 @@ void OnDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_ON;
 
-    cmd.commandColor = "#990000";
+    cmd.commandColor = COMMANDCOLORS[warningColor];
 
 
     std::string argument;

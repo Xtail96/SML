@@ -34,7 +34,7 @@ void TTTTSplineDialog::on_buttonBox_accepted()
     std::string finishPoint = ui->ttttspline_finish_point_lineEdit->text().toStdString();
     std::string velocity = ui->ttttspline_velocity_lineEdit->text().toStdString();
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
 
     cmd.args = {
      startPoint,

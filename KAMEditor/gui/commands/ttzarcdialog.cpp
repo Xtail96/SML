@@ -36,7 +36,7 @@ void TTZArcDialog::on_buttonBox_accepted()
     std::string angle = ui->ttz_arc_a_axis_lineEdit->text().toStdString();
     std::string velocity = ui->ttz_arc_velocity_lineEdit->text().toStdString();
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
 
     cmd.args = {
         startPoint,

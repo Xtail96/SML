@@ -28,7 +28,7 @@ void LineDialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_LINE;
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
     std::vector<std::string> v =
     {
         ui->line_lineEdit_axis_x->text().toStdString(),

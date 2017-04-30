@@ -28,7 +28,7 @@ void Arc2Dialog::on_buttonBox_accepted()
     Command cmd;
     cmd.id = CMD_ARC2;
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
 
     std::string dx = ui->arc2_dx_lineEdit->text().toStdString();
     std::string dy = ui->arc2_dy_lineEdit->text().toStdString();

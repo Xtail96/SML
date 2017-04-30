@@ -32,7 +32,7 @@ void TTLineDialog::on_buttonBox_accepted()
     std::string velocity = ui->ttline_velocity_lineEdit->text().toStdString();
     std::string dzOffset = ui->ttline_dz_lineEdit->text().toStdString();
     std::string aCoordinate = ui->ttline_a_coordinate_lineEdit->text().toStdString();
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
     cmd.args = {
      startPoint,
      finishPoint,

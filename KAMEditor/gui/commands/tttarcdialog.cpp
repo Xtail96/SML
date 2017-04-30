@@ -32,7 +32,7 @@ void TTTArcDialog::on_buttonBox_accepted()
     std::string finishPoint = ui->ttt_arc_finish_point_lineEdit->text().toStdString();
     std::string velocity = ui->ttt_arc_velocity_lineEdit->text().toStdString();
 
-    cmd.commandColor = "#333";
+    cmd.commandColor = COMMANDCOLORS[defaultColor];
     cmd.args = {
         startPoint,
         middlePoint,

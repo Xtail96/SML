@@ -23,7 +23,7 @@ void StopDialog::on_buttonBox_accepted()
 {
     Command cmd;
     cmd.id = CMD_STOP;
-    cmd.commandColor = "#990000";
+    cmd.commandColor = COMMANDCOLORS[warningColor];
     std::string stopMessage  = ui->stop_message_lineEdit->text().toStdString();
     cmd.args.push_back(stopMessage);
     setCommandArguments(cmd);
