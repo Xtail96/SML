@@ -1252,7 +1252,6 @@ void MainWindow::parse7kamToSml(QString &tmp)
 {
     CommandInterpreter &commands = CommandInterpreter::Instance();
     int limit = commands.getCommands().size() - 1;
- //   qDebug()<<limit<<endl;
     if(limit >= 0)
     {
         commands.deleteCommands(0, limit);
@@ -1410,7 +1409,6 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     tmp.erase(tmp.begin(), tmp.begin() + position);
     setCommandArguments(commandArguments, newCommand);
     unsigned int selectedCommand = commands.getSelectedCommand();
-    qDebug()<<selectedCommand<<endl;
     commands.addCommand(newCommand, selectedCommand);
     commands.setSelectedCommand(selectedCommand + 1);
     update_commands();
