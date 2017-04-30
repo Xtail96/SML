@@ -124,6 +124,7 @@ void CommandInterpreter::deleteCommand(unsigned int number)
 {
     if (number < commands.size())
         commands.erase(commands.begin() + number);
+    selectedCommand = 0;
 }
 void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
 {
@@ -131,6 +132,7 @@ void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
     {
         commands.erase(commands.begin() + begin, commands.begin() + end + 1);
     }
+    selectedCommand = 0;
 }
 void CommandInterpreter::setSelectedCommandEditSignal(bool value)
 {
