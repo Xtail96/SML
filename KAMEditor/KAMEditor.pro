@@ -19,9 +19,7 @@ SOURCES += main.cpp\
     gui/points/addpointdialog.cpp \
     gui/points/mousetoselectionpointdialog.cpp \
     gui/points/editpointdialog.cpp \
-    commandinterpreter.cpp \
     pointsmanager.cpp \
-    commandhandler.cpp \
     gui/commands/linedialog.cpp \
     gui/commands/arcdialog.cpp \
     gui/commands/labeldialog.cpp \
@@ -44,19 +42,18 @@ SOURCES += main.cpp\
     gui/commands/tttarcdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/commands/splinedialog.cpp \
-    gui/commands/ttttsplinedialog.cpp
+    gui/commands/ttttsplinedialog.cpp \
+    commands/commandhandler.cpp \
+    commands/commandinterpreter.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
-    command.h \
     vector.h \
     point.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
     gui/points/editpointdialog.h \
-    commandinterpreter.h \
     pointsmanager.h \
-    commandhandler.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
     gui/commands/labeldialog.h \
@@ -79,7 +76,10 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/tttarcdialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/commands/splinedialog.h \
-    gui/commands/ttttsplinedialog.h
+    gui/commands/ttttsplinedialog.h \
+    commands/command.h \
+    commands/commandhandler.h \
+    commands/commandinterpreter.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
