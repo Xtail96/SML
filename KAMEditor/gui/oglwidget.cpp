@@ -1,5 +1,7 @@
 #include "oglwidget.h"
 
+#include "commands/arc.h"
+
 OGLWidget::OGLWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
@@ -8,7 +10,7 @@ OGLWidget::OGLWidget(QWidget *parent) :
 
 void OGLWidget::initializeGL()
 {
-    glClearColor(0,0,0,1);
+    glClearColor(1, 1, 1, 1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
@@ -19,15 +21,10 @@ void OGLWidget::initializeGL()
 void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CArc arc(1, M_PI/4, M_PI/2);
+    arc.draw(this);
 
-    glBegin(GL_TRIANGLES);
-        glColor3f(1.0, 0.0, 0.0);
-        glVertex3f(-0.5, -0.5, 0);
-        glColor3f(0.0, 1.0, 0.0);
-        glVertex3f( 0.5, -0.5, 0);
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex3f( 0.0,  0.5, 0);
-    glEnd();
+    qDebug("paintGL");
 }
 
 void OGLWidget::resizeGL(int w, int h)

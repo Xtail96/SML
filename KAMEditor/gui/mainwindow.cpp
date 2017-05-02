@@ -1,6 +1,7 @@
  #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -64,6 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spindle_enable_pushButton->setStyleSheet("margin: 1px");
 
     ui->length_sensor_button->setEnabled(false);
+
+    CArc arc(1, 0, M_PI/2);
+    arc.draw(ui->openGLWidget);
 }
 
 MainWindow::~MainWindow()

@@ -3,15 +3,16 @@
 
 #include "command.h"
 
-class Arc : public Command
+class CArc : public Command
 {
 public:
-    Arc(double R, double Al, double Fi, double v = 1);
+    CArc(double R, double Al, double Fi, double v = 1);
 
     void send() const override;
-    void draw() const override;
+    void draw(OGLWidget* w) const override;
 
     QString getName() const override;
+    QString getArguments() const override;
 
 private:
     // радиус дуги

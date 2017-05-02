@@ -52,6 +52,8 @@
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
 
+#include "commands/commands.h"
+
 #include "gcodessyntaxhighlighter.h"
 
 

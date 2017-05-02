@@ -12,6 +12,8 @@ public:
     OGLWidget(QWidget *parent = 0);
     ~OGLWidget() {}
 
+    void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
+
 protected:
     void initializeGL();
     void resizeGL(int w, int h);

@@ -2,6 +2,7 @@
 #define COMMAND_H
 
 #include <QString>
+#include "../gui/oglwidget.h"
 
 enum COMMAND {CMD_ARC,
               CMD_ARC2,
@@ -48,7 +49,7 @@ class Command
 {
 public:
     virtual void send() const = 0;
-    virtual void draw() const = 0;
+    virtual void draw(OGLWidget* w) const = 0;
 
     virtual QString getName() const = 0;
 
