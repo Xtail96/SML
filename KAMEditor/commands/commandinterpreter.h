@@ -26,7 +26,11 @@ public:
     void setSelectedCommandEditSignal(bool value);
 
     void addCommand(Command* cmd, unsigned int selected_command);
-    void deleteSelectedCommands(unsigned int numbers);
+
+    void editCommand(Command* cmd, unsigned int number);
+
+    void deleteCommand(unsigned int numbers);
+    void deleteCommands(unsigned int begin, unsigned int end);
 
     static CommandInterpreter& Instance();
 

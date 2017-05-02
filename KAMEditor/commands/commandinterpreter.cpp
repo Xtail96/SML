@@ -19,12 +19,10 @@ CommandInterpreter& CommandInterpreter::Instance()
     return m;
 }
 
-void CommandInterpreter::addCommand(Command *cmd, unsigned int selected_command)
+std::vector<Command*> CommandInterpreter::getCommands()
 {
-    auto commandInsertIt = commands.begin() + selected_command;
-    commands.insert(commandInsertIt, 1, cmd);
+    return commands;
 }
-
 
 unsigned int CommandInterpreter::getSelectedCommand()
 {
@@ -34,6 +32,44 @@ unsigned int CommandInterpreter::getSelectedCommand()
 void CommandInterpreter::setSelectedCommand(unsigned int number)
 {
     selectedCommand = number;
+}
+
+bool CommandInterpreter::getSelectedCommandEditSignal()
+{
+    return selectedCommandEditSignal;
+}
+
+void CommandInterpreter::setSelectedCommandEditSignal(bool value)
+{
+    selectedCommandEditSignal = value;
+}
+
+void CommandInterpreter::addCommand(Command *cmd, unsigned int selected_command)
+{
+    auto commandInsertIt = commands.begin() + selected_command;
+    commands.insert(commandInsertIt, 1, cmd);
+}
+
+void CommandInterpreter::editCommand(Command *cmd, unsigned int number)
+{
+    auto commandEditIt = commands.begin() + number;
+    *commandEditIt = cmd;
+}
+
+void CommandInterpreter::deleteCommand(unsigned int number)
+{
+    if (number < commands.size())
+        commands.erase(commands.begin() + number);
+}
+
+void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
+{
+    if(begin < commands.size() && end < commands.size())
+    {
+        auto beginIt = commands.begin() + begin;
+        auto endIt = commands.begin() + end;
+        commands.erase(beginIt, endIt);
+    }
 }
 
 void CommandInterpreter::Step()
@@ -111,20 +147,4 @@ void CommandInterpreter::Stop()
 {
     running = false;
 }
-std::vector<Command*> CommandInterpreter::getCommands()
-{
-    return commands;
-}
-void CommandInterpreter::deleteSelectedCommands(unsigned int numbers)
-{
-    if (numbers < commands.size())
-        commands.erase(commands.begin() + numbers);
-}
-void CommandInterpreter::setSelectedCommandEditSignal(bool value)
-{
-    selectedCommandEditSignal = value;
-}
-bool CommandInterpreter::getSelectedCommandEditSignal()
-{
-    return selectedCommandEditSignal;
-}
+

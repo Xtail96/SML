@@ -171,11 +171,9 @@ void MainWindow::deleteCommand()
                     vector_numbers.push_back(current_vector_number);
                 }
                 std::sort(vector_numbers.begin(), vector_numbers.end());
-                for(unsigned int i = 0; i < vector_numbers.size(); i++)
-                {
-                    int current_row = vector_numbers[0];
-                    commands.deleteSelectedCommands(current_row);
-                }
+                unsigned int begin = vector_numbers[0];
+                unsigned int end = vector_numbers[vector_numbers.size() - 1];
+                commands.deleteCommands(begin, end);
             }
             update_commands();
         }
