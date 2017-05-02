@@ -48,9 +48,15 @@ enum COMMAND {CMD_ARC,
 
 class Command
 {
+public:
+    virtual void send() const = 0;
+    virtual void draw() const = 0;
+
+    virtual std::string getName() const = 0;
+    COMMAND getId() const { return id; }
+
+private:
     COMMAND id;
-    std::string commandColor;
-    std::vector<std::string> args;
 };
 
 #endif // COMMAND_H
