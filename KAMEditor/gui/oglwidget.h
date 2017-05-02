@@ -4,11 +4,14 @@
 #include <QWidget>
 #include <QOpenGLWidget>
 #ifdef Q_OS_WIN
-#include <GL/glu.h>
-#include <GL/gl.h>
+    #include <GL/glu.h>
+    #include <GL/gl.h>
 #endif
-#include <OpenGL/glu.h>
-#include <OpenGL/gl.h>
+
+#ifdef Q_OS_MACX
+    #include <OpenGL/glu.h>
+    #include <OpenGL/gl.h>
+#endif
 
 class OGLWidget : public QOpenGLWidget
 {

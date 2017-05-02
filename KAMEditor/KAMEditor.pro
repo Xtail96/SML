@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core gui opengl
-QT += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,8 +13,12 @@ TEMPLATE = app
 
 CONFIG += c++11
 
-# LIBS += -lglu32 -lopengl32
-LIBS += -framework OpenGl
+win32 {
+  LIBS += -lglu32 -lopengl32
+}
+macx {
+  LIBS += -framework OpenGl
+}
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
