@@ -3,8 +3,12 @@
 
 #include <QWidget>
 #include <QOpenGLWidget>
+#ifdef Q_OS_WIN
 #include <GL/glu.h>
 #include <GL/gl.h>
+#endif
+#include <OpenGL/glu.h>
+#include <OpenGL/gl.h>
 
 class OGLWidget : public QOpenGLWidget
 {

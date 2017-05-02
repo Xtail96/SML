@@ -67,9 +67,10 @@ void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
     if(begin < commands.size() && end < commands.size())
     {
         auto beginIt = commands.begin() + begin;
-        auto endIt = commands.begin() + end;
+        auto endIt = commands.begin() + end + 1;
         commands.erase(beginIt, endIt);
     }
+    selectedCommand = 0;
 }
 
 void CommandInterpreter::Step()
