@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     gui/commands/splinedialog.cpp \
     gui/commands/ttttsplinedialog.cpp \
     commands/commandhandler.cpp \
-    commands/commandinterpreter.cpp
+    commands/commandinterpreter.cpp \
+    commands/arc.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -79,7 +80,9 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/ttttsplinedialog.h \
     commands/command.h \
     commands/commandhandler.h \
-    commands/commandinterpreter.h
+    commands/commandinterpreter.h \
+    commands/commands.h \
+    commands/arc.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
