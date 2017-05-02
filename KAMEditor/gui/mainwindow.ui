@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -58,7 +61,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_menu">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="icon">
@@ -4348,16 +4351,6 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QOpenGLWidget" name="openGLWidget">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>12</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2" rowspan="2">
          <widget class="QFrame" name="frame_4">
           <property name="sizePolicy">
@@ -4474,6 +4467,9 @@
            </item>
           </layout>
          </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="OGLWidget" name="openGLWidget"/>
         </item>
        </layout>
       </widget>
@@ -6172,7 +6168,7 @@
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
@@ -6540,6 +6536,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>OGLWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>gui/oglwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,6 +12,8 @@ TARGET = KAMEditor
 TEMPLATE = app
 
 CONFIG += c++11
+
+LIBS += -lglu32 -lopengl32
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
@@ -45,7 +47,8 @@ SOURCES += main.cpp\
 #    gui/commands/ttttsplinedialog.cpp \
     commands/commandhandler.cpp \
     commands/commandinterpreter.cpp \
-    commands/arc.cpp
+    commands/arc.cpp \
+    gui/oglwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -82,7 +85,8 @@ HEADERS  += gui/mainwindow.h \
     commands/commandhandler.h \
     commands/commandinterpreter.h \
     commands/commands.h \
-    commands/arc.h
+    commands/arc.h \
+    gui/oglwidget.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
