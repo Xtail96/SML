@@ -1934,3 +1934,28 @@ void MainWindow::on_gcodes_editor_textEdit_textChanged()
 {
     QString text = ui->gcodes_editor_textEdit->toPlainText();
 }
+
+void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index)
+{
+    CommandInterpreter& instance = CommandInterpreter::Instance();
+    std::vector<Command> commands = instance.getCommands();
+
+    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+
+    QItemSelectionModel *select = editorField->selectionModel();
+    if(!select->hasSelection())
+    {
+        unsigned int current_row = commands.size();
+        instance.setSelectedCommand(current_row);
+    }
+
+    int row = index.row();
+
+    QString name = ui->user_tools_listWidget->item(row)->text();
+
+    if(name == "Добавить устройство")
+    {
+        AddDeviceDialog(this).exec();
+    }
+    update_commands();
+}

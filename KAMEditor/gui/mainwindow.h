@@ -51,6 +51,7 @@
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
+#include "commands/adddevicedialog.h"
 
 #include "gcodessyntaxhighlighter.h"
 
@@ -186,6 +187,7 @@ private slots:
     void on_apply_electrical_settings_pushButton_clicked();
     void on_cancel_electrical_settings_pushButton_clicked();
     void on_gcodes_editor_textEdit_textChanged();
+    void on_user_tools_listWidget_doubleClicked(const QModelIndex &index);
 };
 
 

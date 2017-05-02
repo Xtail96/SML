@@ -59,6 +59,9 @@ enum COLORSNAME
     finishColor,
     modifyColor
 };
+
+
+
 static std::map<COLORSNAME, std::string> COMMANDCOLORS =
 {
     {defaultColor, "#333"},

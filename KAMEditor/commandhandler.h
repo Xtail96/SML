@@ -47,6 +47,12 @@ static std::map<COMMAND, std::string> commandNameMap = {
     {CMD_TTTTSPLINE, "ТТТТ-Сплайн"}
 };
 
+static std::vector<std::string> userCommands =
+{
+    "Добавить устройство",
+    "Добавить макрос"
+};
+
 
 std::string getNameByCommand(COMMAND cmd);
 

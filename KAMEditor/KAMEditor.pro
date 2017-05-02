@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     gui/commands/tttarcdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/commands/splinedialog.cpp \
-    gui/commands/ttttsplinedialog.cpp
+    gui/commands/ttttsplinedialog.cpp \
+    gui/commands/adddevicedialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -79,7 +80,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/tttarcdialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/commands/splinedialog.h \
-    gui/commands/ttttsplinedialog.h
+    gui/commands/ttttsplinedialog.h \
+    gui/commands/adddevicedialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -105,7 +107,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/ttzarcdialog.ui \
     gui/commands/tttarcdialog.ui \
     gui/commands/splinedialog.ui \
-    gui/commands/ttttsplinedialog.ui
+    gui/commands/ttttsplinedialog.ui \
+    gui/commands/adddevicedialog.ui
 
 win32:RC_FILE = application.rc
 
