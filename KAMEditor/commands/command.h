@@ -1,9 +1,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-
-#include <string>
-#include <vector>
+#include <QString>
 
 enum COMMAND {CMD_ARC,
               CMD_ARC2,
@@ -52,7 +50,11 @@ public:
     virtual void send() const = 0;
     virtual void draw() const = 0;
 
-    virtual std::string getName() const = 0;
+    virtual QString getName() const = 0;
+
+    // скорее всего, временные методы, будет переделано при рефакторинге
+    virtual std::string getEditorColor() const { return "#000000"; }
+    virtual QString getArguments() const = 0;
     COMMAND getId() const { return id; }
 
 private:

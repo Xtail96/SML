@@ -188,7 +188,7 @@ void MainWindow::addLineCommand()
     {
         if(ui->sml_editor_tab->isVisible())
         {
-            LineDialog(this).exec();
+            //LineDialog(this).exec();
         }
     }
     update_commands();
@@ -250,7 +250,7 @@ void MainWindow::update_points()
 
 void MainWindow::update_commands()
 {
-    std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
+    auto commands = CommandInterpreter::Instance().getCommands();
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
 
@@ -269,7 +269,7 @@ void MainWindow::update_commands()
 
         // добавляем строку для текущей команды
         QTreeWidgetItem* item;
-        switch(commands[i].id)
+        switch(commands[i]->getId())
         {
             case CMD_FOR:
             {
@@ -311,17 +311,12 @@ void MainWindow::update_commands()
 
 
         item->setText(0, QString::number(i+1));
-        QString commandColor = QString::fromStdString(commands[i].commandColor);
+        QString commandColor = QString::fromStdString(commands[i]->getEditorColor());
         item->setTextColor(1, QColor(commandColor));
         item->setTextColor(2, QColor(commandColor));
 
-        item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
-        std::string s;
-        for(unsigned int j = 0; j<commands[i].args.size();j++)
-        {
-            s+=commands[i].args[j]+"; ";
-        }
-        item->setText(2, QString::fromStdString(s));
+        item->setText(1, commands[i]->getName());
+        item->setText(2, commands[i]->getArguments());
         items.append(item);
     }
     editorField->insertTopLevelItems(0, items);
@@ -757,7 +752,7 @@ void MainWindow::on_point_copy_button_clicked()
 void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
+    std::vector<Command*> commands = instance.getCommands();
 
     QTreeWidget* editorField = ui->sml_editor_treeWidget;
 
@@ -775,6 +770,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 
     COMMAND cmd = getCommandByName(name.toStdString());
 
+    /*
     switch (cmd)
     {
         case CMD_LINE:
@@ -970,6 +966,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         }
     }
     update_commands();
+    */
 }
 
 void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
@@ -978,6 +975,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
     commandInterpreter.setSelectedCommandEditSignal(true);
     QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
     COMMAND cmd = getCommandByName(name.toStdString());
+    /*
     switch (cmd)
     {
         case CMD_LINE:
@@ -1118,7 +1116,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
             break;
         }
     }
-    update_commands();
+    update_commands();*/
 }
 
 void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
@@ -1262,6 +1260,7 @@ void MainWindow::parse7kamToSml(QString &tmp)
 
 void MainWindow::parse7kamToSmlStep(std::string &tmp)
 {
+    /*
     CommandInterpreter &commands = CommandInterpreter::Instance();
     Command newCommand;
     int position = 0;
@@ -1330,34 +1329,8 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     commands.addCommand(newCommand, selectedCommand);
     commands.setSelectedCommand(selectedCommand + 1);
     update_commands();
+    */
 }
- void MainWindow::setCommandArguments(std::string s, Command &command)
- {
-     eraseSpecialSymbols(s);
-     std::string argument;
-     for(unsigned int i = 0; i < s.length(); i++)
-     {
-         //выделить числа и слова, состоящие из латинских букв из строки
-         if(i < s.length() - 1)
-         {
-             if(s[i] != ',')
-             {
-                 argument += s[i];
-             }
-             else
-             {
-                 command.args.push_back(argument);
-                 argument = "";
-             }
-         }
-         else
-         {
-            argument += s[i];
-            command.args.push_back(argument);
-            argument = "";
-         }
-     }
- }
 
 
 void MainWindow::eraseSpecialSymbols(std::string &s)

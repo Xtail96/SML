@@ -15,7 +15,7 @@ void Arc::draw() const
 
 }
 
-std::string Arc::getName() const
+QString Arc::getName() const
 {
-    return "Дуга";
+    return QString("Дуга");
 }

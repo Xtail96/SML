@@ -11,7 +11,7 @@ public:
     void send() const override;
     void draw() const override;
 
-    std::string getName() const override;
+    QString getName() const override;
 };
 
 #endif // ARC_H

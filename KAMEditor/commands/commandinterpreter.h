@@ -18,22 +18,20 @@ public:
     void Step();
 
 
-    std::vector <Command> getCommands();
+    std::vector <Command*> getCommands();
     unsigned int getSelectedCommand();
     void setSelectedCommand(unsigned int number);
 
     bool getSelectedCommandEditSignal();
     void setSelectedCommandEditSignal(bool value);
 
-    void addCommand(Command cmd, unsigned int selected_command);
-    void addCommand(std::string cmd);
-    void editCommandsArguments(std::vector<std::string>, unsigned int selected_command);
+    void addCommand(Command* cmd, unsigned int selected_command);
     void deleteSelectedCommands(unsigned int numbers);
 
     static CommandInterpreter& Instance();
 
 private:
-    std::vector<Command> commands;
+    std::vector<Command*> commands;
     unsigned int selectedCommand;
     bool selectedCommandEditSignal;
 
