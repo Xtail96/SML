@@ -1,6 +1,6 @@
 #include "arc.h"
 
-Arc::Arc(double R, double Al, double Fi, double v = 1)
+Arc::Arc(double R, double Al, double Fi, double v)
 {
 
 }
