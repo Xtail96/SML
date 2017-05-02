@@ -46,7 +46,7 @@ enum COMMAND {CMD_ARC,
               CMD_UNDEFINED
              };
 
-struct Command
+class Command
 {
     COMMAND id;
     std::string commandColor;
