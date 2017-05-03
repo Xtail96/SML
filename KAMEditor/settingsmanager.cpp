@@ -59,7 +59,7 @@ char SettingsManager::push_backToName(const char &e)
         tmp = '_';
         break;
     default:
-        tmp = std::tolower(tmp);
+        //tmp = std::tolower(tmp);
         break;
     }
     return tmp;
