@@ -50,6 +50,33 @@ void SettingsManager::exportSettings()
     writeSettings(qpath.toStdString());
 }
 
+void SettingsManager::setupToMachineTool()
+{
+    MachineTool &instance = MachineTool::Instance();
+
+    // установка размеров рабочего стола
+    Vector v =
+    {
+        std::stod(settingsMap["Table_Size_SizeX"]),
+        std::stod(settingsMap["Table_Size_SizeY"]),
+        std::stod(settingsMap["Table_Size_SizeZ"]),
+        std::stod(settingsMap["Table_Size_SizeA"]),
+        std::stod(settingsMap["Table_Size_SizeB"]),
+    };
+    instance.setDimensions(v);
+
+    // установка расстояния, проходимого за один шаг
+    Vector stepsSettings =
+    {
+        std::stod(settingsMap["Mashin_Info_AltStepsX"]),
+        std::stod(settingsMap["Mashin_Info_AltStepsY"]),
+        std::stod(settingsMap["Mashin_Info_AltStepsZ"]),
+        std::stod(settingsMap["Mashin_Info_AltStepsA"]),
+        std::stod(settingsMap["Mashin_Info_AltStepsB"]),
+    };
+    instance.setDistanceByOneStep(stepsSettings);
+}
+
 char SettingsManager::push_backToName(const char &e)
 {
     char tmp = e;

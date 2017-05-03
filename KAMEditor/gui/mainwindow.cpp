@@ -81,8 +81,9 @@ MainWindow::~MainWindow()
 void MainWindow::setupSettings()
 {
     SettingsManager settings;
-    std::map<std::string, std::string> s = settings.getSettings();
-
+    settings.setupToMachineTool();
+    dimensionsFromMachineTool();
+    electricialSettingsFromMachineTool();
 }
 
 void MainWindow::setupShortcuts()
@@ -1624,8 +1625,8 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
 
 void MainWindow::on_cancel_mechanical_settings_pushButton_clicked()
 {
-    dimensionsRecovery();
-    directionsRecovery();
+    dimensionsFromMachineTool();
+    directionsFromMachineTool();
     std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
     for (auto i : mechanicalSettings)
     {
@@ -1720,7 +1721,7 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
         i->setEnabled(false);
     }
 }
-void MainWindow::electricialSettingsRecovery()
+void MainWindow::electricialSettingsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
     Vector v = instance.getDistanceByOneStep();
@@ -1803,7 +1804,7 @@ void MainWindow::electricialSettingsRecovery()
 
 void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 {
-    electricialSettingsRecovery();
+    electricialSettingsFromMachineTool();
 
     std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
@@ -1879,7 +1880,7 @@ void MainWindow::setupKinematicsSettings()
     instance.setAxisKFlopSettings(tmp);
 }
 
-void MainWindow::dimensionsRecovery()
+void MainWindow::dimensionsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
     Vector v = instance.getDimensions();
@@ -1889,7 +1890,7 @@ void MainWindow::dimensionsRecovery()
     ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
     ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
 }
-void MainWindow::directionsRecovery()
+void MainWindow::directionsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
     Vector v = instance.getDirections();
@@ -1922,7 +1923,7 @@ void MainWindow::directionsRecovery()
     }
 }
 
-void MainWindow::kinematicsSettingsRecovery()
+void MainWindow::kinematicsSettingsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
     std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();

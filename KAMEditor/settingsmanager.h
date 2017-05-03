@@ -8,6 +8,8 @@
 #include <QTextStream>
 #include <QFileDialog>
 
+#include "machinetool.h"
+
 class SettingsManager
 {
 private:
@@ -22,6 +24,7 @@ public:
     void writeSettings(const std::string &path);
     void importSettings();
     void exportSettings();
+    void setupToMachineTool();
 
     char push_backToName(const char &e);
     std::string eraseSlashRSymbols(const std::string &settingsString);

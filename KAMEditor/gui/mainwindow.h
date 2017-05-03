@@ -89,10 +89,10 @@ private:
 
     void setUpElectricalSettings();
 
-    void dimensionsRecovery();
-    void directionsRecovery();
-    void kinematicsSettingsRecovery();
-    void electricialSettingsRecovery();
+    void dimensionsFromMachineTool();
+    void directionsFromMachineTool();
+    void kinematicsSettingsFromMachineTool();
+    void electricialSettingsFromMachineTool();
 
 
     void editSettingsField(QLineEdit *qle);
