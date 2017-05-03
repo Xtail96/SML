@@ -191,6 +191,8 @@ private slots:
     void on_cancel_electrical_settings_pushButton_clicked();
     void on_gcodes_editor_textEdit_textChanged();
     void on_user_tools_listWidget_doubleClicked(const QModelIndex &index);
+    void on_importsettings_action_triggered();
+    void on_savesettings_action_triggered();
 };
 
 

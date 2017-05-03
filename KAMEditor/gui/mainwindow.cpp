@@ -82,7 +82,6 @@ void MainWindow::setupSettings()
 {
     SettingsManager settings;
     std::map<std::string, std::string> s = settings.getSettings();
-    settings.writeSettings("settingsRead.ini");
 }
 
 void MainWindow::setupShortcuts()
@@ -1957,4 +1956,16 @@ void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index
         AddDeviceDialog(this).exec();
     }
     update_commands();
+}
+
+void MainWindow::on_importsettings_action_triggered()
+{
+    SettingsManager settingsManager;
+    settingsManager.importSettings();
+}
+
+void MainWindow::on_savesettings_action_triggered()
+{
+    SettingsManager settingsManager;
+    settingsManager.exportSettings();
 }

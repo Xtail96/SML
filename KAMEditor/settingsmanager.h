@@ -14,7 +14,7 @@ private:
     std::map<std::string, std::string> settingsMap;
 
     /// Директория для сохранения настроек
-    std::string settingsPath = "settings.ini";
+    std::string settingsPath = "settingsOrigin.ini";
 public:
     SettingsManager();
     std::string readSettings(const std::string &path);
@@ -22,6 +22,7 @@ public:
     void importSettings();
     void exportSettings();
 
+    std::string eraseSlashRSymbols(const std::string &settingsString);
     void parseSettings(const std::string &settings);
     std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position);
 

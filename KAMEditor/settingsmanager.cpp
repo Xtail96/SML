@@ -39,7 +39,9 @@ void SettingsManager::writeSettings(const std::string &path)
 void SettingsManager::importSettings()
 {
     QString qpath = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.ini");
-    readSettings(qpath.toStdString());
+    std::string settingsString = readSettings(qpath.toStdString());
+    parseSettings(settingsString);
+    writeSettings(settingsPath);
 }
 
 void SettingsManager::exportSettings()
@@ -48,9 +50,23 @@ void SettingsManager::exportSettings()
     writeSettings(qpath.toStdString());
 }
 
+std::string SettingsManager::eraseSlashRSymbols(const std::string &settingsString)
+{
+    std::string tmp = "";
+    for(auto it : settingsString)
+    {
+        if(it != '\r')
+        {
+            tmp+=it;
+        }
+    }
+    return tmp;
+}
+
 void SettingsManager::parseSettings(const std::string &settings)
 {
-    std::string settingsTmp = settings;
+    std::string settingsString = settings;
+    std::string settingsTmp = eraseSlashRSymbols(settingsString);
     bool ignoreFlag = false;
     unsigned int position = 0;
     while(position < settingsTmp.length())
@@ -72,7 +88,7 @@ void SettingsManager::parseSettings(const std::string &settings)
             if(settingsTmp[position] == ']')
             {
                 ignoreFlag = false;
-                position+=2;
+                position++;
             }
         }
         position++;
@@ -97,7 +113,7 @@ std::pair<std::string, std::string> SettingsManager::parseSettingsStep(const std
                 break;
             }
         }
-        position++;
+        //position++;
         bool equivalentFlag = false;
         std::string firstArgument = "";
         std::string secondArgument = "";
