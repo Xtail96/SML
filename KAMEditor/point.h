@@ -1,8 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include "vector.h"
+#include "structs.h"
 
-typedef Vector Point;
+typedef VectorDouble Point;
 
 #endif // POINT_H
