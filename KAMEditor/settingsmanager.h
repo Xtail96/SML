@@ -1,5 +1,6 @@
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
+#include <algorithm>
 #include <map>
 #include <QString>
 #include <QFile>
@@ -22,9 +23,10 @@ public:
     void importSettings();
     void exportSettings();
 
+    char push_backToName(const char &e);
     std::string eraseSlashRSymbols(const std::string &settingsString);
     void parseSettings(const std::string &settings);
-    std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position);
+    std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position, const std::__1::string &name);
 
     std::map<std::string, std::string> getSettings();
     QString getSettingsPath();

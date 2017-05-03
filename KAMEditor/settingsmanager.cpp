@@ -50,6 +50,21 @@ void SettingsManager::exportSettings()
     writeSettings(qpath.toStdString());
 }
 
+char SettingsManager::push_backToName(const char &e)
+{
+    char tmp = e;
+    switch (tmp)
+    {
+    case ' ':
+        tmp = '_';
+        break;
+    default:
+        tmp = std::tolower(tmp);
+        break;
+    }
+    return tmp;
+}
+
 std::string SettingsManager::eraseSlashRSymbols(const std::string &settingsString)
 {
     std::string tmp = "";
@@ -69,6 +84,7 @@ void SettingsManager::parseSettings(const std::string &settings)
     std::string settingsTmp = eraseSlashRSymbols(settingsString);
     bool ignoreFlag = false;
     unsigned int position = 0;
+    std::string name = "";
     while(position < settingsTmp.length())
     {
         if(!ignoreFlag)
@@ -76,10 +92,11 @@ void SettingsManager::parseSettings(const std::string &settings)
             if(settingsTmp[position] == '[')
             {
                 ignoreFlag = true;
+                name = "";
             }
             else
             {
-                std::pair<std::string, std::string> settingsElement = parseSettingsStep(settingsTmp, position);
+                std::pair<std::string, std::string> settingsElement = parseSettingsStep(settingsTmp, position, name);
                 settingsMap.insert(settingsElement);
             }
         }
@@ -88,14 +105,20 @@ void SettingsManager::parseSettings(const std::string &settings)
             if(settingsTmp[position] == ']')
             {
                 ignoreFlag = false;
+                name += '_';
                 position++;
+            }
+            else
+            {
+                char newLitera = push_backToName(settingsTmp[position]);
+                name += newLitera;
             }
         }
         position++;
     }
 }
 
-std::pair<std::string, std::string> SettingsManager::parseSettingsStep(const std::string &settings, unsigned int &position)
+std::pair<std::string, std::string> SettingsManager::parseSettingsStep(const std::string &settings, unsigned int &position, const std::string &name)
 {
     std::string tmp = "";
     std::pair<std::string, std::string> currentElement;
@@ -113,9 +136,8 @@ std::pair<std::string, std::string> SettingsManager::parseSettingsStep(const std
                 break;
             }
         }
-        //position++;
         bool equivalentFlag = false;
-        std::string firstArgument = "";
+        std::string firstArgument = name;
         std::string secondArgument = "";
         for(auto it : tmp)
         {
