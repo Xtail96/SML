@@ -24,7 +24,7 @@ public:
     void writeSettings(const std::string &path);
     void importSettings();
     void exportSettings();
-    void setupToMachineTool();
+    //void setupToMachineTool();
 
     char push_backToName(const char &e);
     std::string eraseSlashRSymbols(const std::string &settingsString);

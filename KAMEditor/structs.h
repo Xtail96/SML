@@ -48,6 +48,7 @@ struct Axis
         velocity(_velocity),
         channel(_channel),
         basingVelocity(_basingVelocity){}
+    // добавить метод настройки оси, путем получения из карты настроек нужных значений
 };
 
 

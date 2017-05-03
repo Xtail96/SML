@@ -81,7 +81,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupSettings()
 {
     SettingsManager settings;
-    settings.setupToMachineTool();
+    //settings.setupToMachineTool();
     dimensionsFromMachineTool();
     directionsFromMachineTool();
     kinematicsSettingsFromMachineTool();

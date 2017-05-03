@@ -50,10 +50,10 @@ void SettingsManager::exportSettings()
     writeSettings(qpath.toStdString());
 }
 
-void SettingsManager::setupToMachineTool()
-{
-    MachineTool &instance = MachineTool::Instance();
-}
+//void SettingsManager::setupToMachineTool()
+//{
+//    MachineTool &instance = MachineTool::Instance();
+//}
 
 char SettingsManager::push_backToName(const char &e)
 {
