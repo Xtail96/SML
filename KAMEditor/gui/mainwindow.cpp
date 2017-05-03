@@ -86,7 +86,6 @@ void MainWindow::setupSettings()
     directionsFromMachineTool();
     kinematicsSettingsFromMachineTool();
     electricialSettingsFromMachineTool();
-
 }
 
 void MainWindow::setupShortcuts()

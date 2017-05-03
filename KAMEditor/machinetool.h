@@ -85,6 +85,8 @@ public:
     std::vector<Axis> getMachineToolAxis() const;
     void setMachineToolAxis(const std::vector<Axis> &value);
 
+    // добавить метод для настройки всех осей
+
 private:
     unsigned int axisCount;
 
