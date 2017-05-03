@@ -1,4 +1,4 @@
- #include "mainwindow.h"
+﻿ #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -7,18 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // задаем габариты станка
-    setupDimensions();
-    // задаем направления движения осей станка
-    setupDirections();
-    // задаем настройки кинематики
-    setupKinematicsSettings();
-    // задаем характеристики электроники
-    setUpElectricalSettings();
+    // считываем настройки станка из файла и сохраняем их в структуру данных и интерфейс
+    setupSettings();
 
     // задаем горячие клавиши
     setupShortcuts();
-
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
     editorField->setTreePosition(1);
@@ -83,6 +76,130 @@ MainWindow::~MainWindow()
         delete editorShortcuts.back();
         editorShortcuts.pop_back();
     }
+}
+
+QString MainWindow::readSettings(const QString &path)
+{
+    QFile inputFile(path);
+    if(!inputFile.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", inputFile.errorString());
+    }
+    QTextStream in(&inputFile);
+    QString settings = in.readAll();
+    inputFile.close();
+    return settings;
+}
+
+void MainWindow::writeSettings(const QString &path, std::map<std::string, std::string> settingsMap)
+{
+    QFile outputFile(path);
+    if(!outputFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        QMessageBox::information(0, "error", outputFile.errorString());
+    }
+    QTextStream out(&outputFile);
+    outputFile.close();
+}
+
+void MainWindow::importSettings()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.ini");
+    readSettings(path);
+    MachineTool &instance = MachineTool::Instance();
+    QString saveSettingsPath = QString::fromStdString(instance.getSettingsPath());
+    //writeSettings(saveSettingsPath);
+}
+
+void MainWindow::setupSettings()
+{
+    MachineTool &instance = MachineTool::Instance();
+    QString readSettingsPath = QString::fromStdString(instance.getSettingsPath());
+    QString settings = readSettings(readSettingsPath);
+    std::map<std::string, std::string> settingsMap = parseSettings(settings);
+    writeSettings("settingsRead.ini", settingsMap);
+}
+
+std::map<std::string, std::string> MainWindow::parseSettings(const QString &settings)
+{
+    std::string settingsTmp = settings.toStdString();
+    std::map<std::string, std::string> settingsMap;
+    bool ignoreFlag = false;
+    unsigned int position = 0;
+    while(position < settingsTmp.length())
+    {
+        if(!ignoreFlag)
+        {
+            if(settingsTmp[position] == '[')
+            {
+                ignoreFlag = true;
+            }
+            else
+            {
+                std::pair<std::string, std::string> settingsElement = parseSettinsStep(settingsTmp, position);
+                settingsMap.insert(settingsElement);
+            }
+        }
+        else
+        {
+            if(settingsTmp[position] == ']')
+            {
+                ignoreFlag = false;
+                position+=2;
+            }
+        }
+        position++;
+    }
+    return settingsMap;
+}
+
+std::pair<std::string, std::string> MainWindow::parseSettinsStep(const std::string &settings, unsigned int &position)
+{
+    std::string tmp = "";
+    std::pair<std::string, std::string> currentElement;
+    if(position < settings.length())
+    {
+        while(settings[position] != '\n' && settings[position] != '\r')
+        {
+            tmp += settings[position];
+            if(position < settings.length() - 1)
+            {
+                position++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        position++;
+        bool equivalentFlag = false;
+        std::string firstArgument = "";
+        std::string secondArgument = "";
+        for(auto it : tmp)
+        {
+            if(it != '=')
+            {
+                if(!equivalentFlag)
+                {
+                    firstArgument += it;
+                }
+                else
+                {
+                    secondArgument += it;
+                }
+            }
+            else
+            {
+                equivalentFlag = true;
+            }
+        }
+        currentElement = std::make_pair(firstArgument, secondArgument);
+    }
+    else
+    {
+        std::make_pair('0', '0');
+    }
+    return currentElement;
 }
 
 

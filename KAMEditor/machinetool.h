@@ -34,7 +34,19 @@ public:
     /// Возвращает экземпляр класса MachineTool
     static MachineTool& Instance();
 
+    /// Возвращает текущие координаты
+    Vector getCurrentCoordinates();
+
+    /// Возвращает координаты базы
+    Vector getBaseCoordinates();
+
+    /// Возвращает координаты парка
+    Vector getParkCoordinates();
+
     void setMovementStep(double s) { step = s; }
+
+    std::string getSettingsPath();
+    void setSettingsPath(std::string s);
 
     void setDimensions(Vector v);
     Vector getDimensions();
@@ -50,15 +62,6 @@ public:
 
     void setExternalDevices(std::map<std::string, bool> m);
     std::map<std::string, bool> getExternalDevices();
-
-    /// Возвращает текущие координаты
-    Vector getCurrentCoordinates();
-
-    /// Возвращает координаты базы
-    Vector getBaseCoordinates();
-
-    /// Возвращает координаты парка
-    Vector getParkCoordinates();
 
     void setVelocity(int vel) { velocity = vel; }
 
@@ -102,6 +105,9 @@ private:
 
     // шаг движения
     double step;
+
+    /// Директория для сохранения настроек
+    std::string settingsPath = "settings.ini";
 
     /// Габариты станка
     Vector dimensions;

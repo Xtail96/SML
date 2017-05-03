@@ -149,6 +149,16 @@ Vector MachineTool::getParkCoordinates()
     return park;
 }
 
+std::string MachineTool::getSettingsPath()
+{
+    return settingsPath;
+}
+
+void MachineTool::setSettingsPath(std::string s)
+{
+    settingsPath = s;
+}
+
 bool MachineTool::getBaseStatus()
 {
     return baseStatus;
