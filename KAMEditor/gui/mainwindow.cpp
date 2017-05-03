@@ -83,10 +83,7 @@ void MainWindow::setupSettings()
     SettingsManager settings;
     settings.setupToMachineTool();
     dimensionsFromMachineTool();
-    directionsFromMachineTool();
-    kinematicsSettingsFromMachineTool();
     electricialSettingsFromMachineTool();
-
 }
 
 void MainWindow::setupShortcuts()
@@ -201,11 +198,11 @@ void MainWindow::update_coordinates()
 {
     MachineTool &i = MachineTool::Instance();
 
-    VectorDouble current = i.getCurrentCoordinates();
-    VectorDouble base = i.getBaseCoordinates();
-    VectorDouble park = i.getParkCoordinates();
+    Vector current = i.getCurrentCoordinates();
+    Vector base = i.getBaseCoordinates();
+    Vector park = i.getParkCoordinates();
 
-    std::vector<std::pair<QListWidget*, VectorDouble>> widgets = {
+    std::vector<std::pair<QListWidget*, Vector>> widgets = {
         { ui->listWidget_currentCoordinates, current },
         { ui->listWidget_baseCoordinates, base },
         { ui->listWidget_parkCoordinates, park }
@@ -472,7 +469,7 @@ void MainWindow::on_discrete_radio_button_5_clicked()
 void MainWindow::on_movement_x_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
+    Vector v = Vector();
     v.x = 1;
 
     i.stepMove(v);
@@ -482,7 +479,7 @@ void MainWindow::on_movement_x_positive_button_clicked()
 void MainWindow::on_movement_x_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
+    Vector v = Vector();
     v.x = -1;
 
     i.stepMove(v);
@@ -492,7 +489,7 @@ void MainWindow::on_movement_x_negative_button_clicked()
 void MainWindow::on_movement_y_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.y = 1;
 
     i.stepMove(v);
@@ -501,7 +498,7 @@ void MainWindow::on_movement_y_positive_button_clicked()
 void MainWindow::on_movement_y_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.y = -1;
 
     i.stepMove(v);
@@ -510,7 +507,7 @@ void MainWindow::on_movement_y_negative_button_clicked()
 void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.x = -1;
     v.y = 1;
 
@@ -520,7 +517,7 @@ void MainWindow::on_movement_x_negative_y_positive_button_clicked()
 void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.x = 1;
     v.y = 1;
 
@@ -530,7 +527,7 @@ void MainWindow::on_movement_x_positive_y_positive_button_clicked()
 void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.x = -1;
     v.y = -1;
 
@@ -540,7 +537,7 @@ void MainWindow::on_movement_x_negative_y_negative_button_clicked()
 void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.x = 1;
     v.y = -1;
 
@@ -550,7 +547,7 @@ void MainWindow::on_movement_x_positive_y_negative_button_clicked()
 void MainWindow::on_movement_z_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.z = 1;
 
     i.stepMove(v);
@@ -559,7 +556,7 @@ void MainWindow::on_movement_z_positive_button_clicked()
 void MainWindow::on_movement_z_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.z = -1;
 
     i.stepMove(v);
@@ -568,7 +565,7 @@ void MainWindow::on_movement_z_negative_button_clicked()
 void MainWindow::on_movement_a_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.a = 1;
 
     i.stepMove(v);
@@ -578,7 +575,7 @@ void MainWindow::on_movement_a_positive_button_clicked()
 void MainWindow::on_movement_a_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.a = -1;
 
     i.stepMove(v);
@@ -587,7 +584,7 @@ void MainWindow::on_movement_a_negative_button_clicked()
 void MainWindow::on_movement_b_positive_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.b = 1;
 
     i.stepMove(v);
@@ -596,7 +593,7 @@ void MainWindow::on_movement_b_positive_button_clicked()
 void MainWindow::on_movement_b_negative_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v.b = -1;
 
     i.stepMove(v);
@@ -629,7 +626,7 @@ void MainWindow::on_point_amount_button_clicked()
 void MainWindow::on_park_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v = i.getBaseCoordinates();
     i.setParkCoordinates(v);
 }
@@ -638,7 +635,7 @@ void MainWindow::on_park_button_clicked()
 void MainWindow::on_zero_button_clicked()
 {
     MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
+    Vector v = Vector();
     v = i.getBaseCoordinates();
     i.setNewZeroCoordinates(v);
 }
@@ -1679,22 +1676,22 @@ void MainWindow::on_change_elecrical_settings_pushButton_clicked()
 void MainWindow::setUpElectricalSettings()
 {
     MachineTool &instance = MachineTool::Instance();
-//    VectorDouble v =
-//    {
-//        ui->x_axis_step_lineEdit->text().toDouble(),
-//        ui->y_axis_step_lineEdit->text().toDouble(),
-//        ui->z_axis_step_lineEdit->text().toDouble(),
-//        ui->a_axis_step_lineEdit->text().toDouble(),
-//        ui->b_axis_step_lineEdit->text().toDouble(),
-//    };
-//    instance.setDistanceByOneStep(v);
+    Vector v =
+    {
+        ui->x_axis_step_lineEdit->text().toDouble(),
+        ui->y_axis_step_lineEdit->text().toDouble(),
+        ui->z_axis_step_lineEdit->text().toDouble(),
+        ui->a_axis_step_lineEdit->text().toDouble(),
+        ui->b_axis_step_lineEdit->text().toDouble(),
+    };
+    instance.setDistanceByOneStep(v);
 
-//    v.x = ui->x_axis_mm_lineEdit->text().toDouble();
-//    v.y = ui->y_axis_mm_lineEdit->text().toDouble();
-//    v.z = ui->z_axis_mm_lineEdit->text().toDouble();
-//    v.a = ui->a_axis_mm_lineEdit->text().toDouble();
-//    v.b = ui->b_axis_mm_lineEdit->text().toDouble();
-//    instance.setStepQuantityByOneMm(v);
+    v.x = ui->x_axis_mm_lineEdit->text().toDouble();
+    v.y = ui->y_axis_mm_lineEdit->text().toDouble();
+    v.z = ui->z_axis_mm_lineEdit->text().toDouble();
+    v.a = ui->a_axis_mm_lineEdit->text().toDouble();
+    v.b = ui->b_axis_mm_lineEdit->text().toDouble();
+    instance.setStepQuantityByOneMm(v);
 
     std::map<std::string, bool> m =
     {
@@ -1727,19 +1724,19 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
 void MainWindow::electricialSettingsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
-//    VectorDouble v = instance.getDistanceByOneStep();
-//    ui->x_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-//    ui->y_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-//    ui->z_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-//    ui->a_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-//    ui->b_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+    Vector v = instance.getDistanceByOneStep();
+    ui->x_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
 
-//    v = instance.getStepQuantityByOneMm();
-//    ui->x_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-//    ui->y_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-//    ui->z_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-//    ui->a_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-//    ui->b_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+    v = instance.getStepQuantityByOneMm();
+    ui->x_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
 
     std::map<std::string, bool> m = instance.getExternalDevices();
     if(m["mill"])
@@ -1824,89 +1821,87 @@ void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
 void MainWindow::setupDimensions()
 {
     MachineTool &instance = MachineTool::Instance();
-//    VectorDouble v;
-//    v.x = ui->x_dimension_lineEdit->text().toDouble();
-//    v.y = ui->y_dimension_lineEdit->text().toDouble();
-//    v.z = ui->z_dimension_lineEdit->text().toDouble();
-//    v.a = ui->a_dimension_lineEdit->text().toDouble();
-//    v.b = ui->b_dimension_lineEdit->text().toDouble();
-//    instance.setDimensions(v);
+    Vector v;
+    v.x = ui->x_dimension_lineEdit->text().toDouble();
+    v.y = ui->y_dimension_lineEdit->text().toDouble();
+    v.z = ui->z_dimension_lineEdit->text().toDouble();
+    v.a = ui->a_dimension_lineEdit->text().toDouble();
+    v.b = ui->b_dimension_lineEdit->text().toDouble();
+    instance.setDimensions(v);
 }
 
 void MainWindow::setupDirections()
 {
     MachineTool &instance = MachineTool::Instance();
-//    std::vector<bool> v =
-//    {
-//        ui->x_axis_invert_checkBox->isChecked(),
-//        ui->y_axis_invert_checkBox->isChecked(),
-//        ui->z_axis_invert_checkBox->isChecked(),
-//        ui->a_axis_invert_checkBox->isChecked(),
-//        ui->b_axis_invert_checkBox->isChecked(),
-//    };
-//    instance.setDirections(v);
+    Vector v;
+    v.x = ui->x_axis_invert_checkBox->isChecked();
+    v.y = ui->y_axis_invert_checkBox->isChecked();
+    v.z = ui->z_axis_invert_checkBox->isChecked();
+    v.a = ui->a_axis_invert_checkBox->isChecked();
+    v.b = ui->b_axis_invert_checkBox->isChecked();
+    instance.setDirections(v);
 }
 
 void MainWindow::setupKinematicsSettings()
 {
     MachineTool &instance = MachineTool::Instance();
-//    AxisKFlopSettings axis;
-//    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
-//    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
-//    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
-//    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
-//    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-//    std::vector<AxisKFlopSettings> tmp;
-//    tmp.push_back(axis);
-//    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
-//    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
-//    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
-//    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
-//    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-//    tmp.push_back(axis);
-//    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
-//    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
-//    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
-//    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
-//    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-//    tmp.push_back(axis);
-//    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
-//    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
-//    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
-//    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
-//    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
-//    tmp.push_back(axis);
-//    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
-//    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
-//    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
-//    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
-//    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
-//    tmp.push_back(axis);
-//    instance.setAxisKFlopSettings(tmp);
+    AxisKFlopSettings axis;
+    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    std::vector<AxisKFlopSettings> tmp;
+    tmp.push_back(axis);
+    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
+    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
+    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
+    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
+    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
+    tmp.push_back(axis);
+    instance.setAxisKFlopSettings(tmp);
 }
 
 void MainWindow::dimensionsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
-//    VectorDouble v = instance.getDimensions();
-//    ui->x_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-//    ui->y_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-//    ui->z_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-//    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-//    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
+    Vector v = instance.getDimensions();
+    ui->x_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
+    ui->y_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
+    ui->z_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
+    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
+    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
 }
 void MainWindow::directionsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
-//    std::vector<bool> v = instance.getDirections();
+    Vector v = instance.getDirections();
 
-//    std::vector<QCheckBox*> mechanicalCheckBoxes = makeQCheckBoxVector(1);
-//    for(auto i : mechanicalCheckBoxes)
-//    {
-//        i->setChecked(false);
-//    }
+    std::vector<QCheckBox*> mechanicalCheckBoxes = makeQCheckBoxVector(1);
+    for(auto i : mechanicalCheckBoxes)
+    {
+        i->setChecked(false);
+    }
 
-    /*if(v.x == 1)
+    if(v.x == 1)
     {
         ui->x_axis_invert_checkBox->setChecked(true);
     }
@@ -1925,13 +1920,13 @@ void MainWindow::directionsFromMachineTool()
     if(v.b == 1)
     {
         ui->b_axis_invert_checkBox->setChecked(true);
-    }*/
+    }
 }
 
 void MainWindow::kinematicsSettingsFromMachineTool()
 {
-//    MachineTool &instance = MachineTool::Instance();
-//    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
+    MachineTool &instance = MachineTool::Instance();
+    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
 }
 
 

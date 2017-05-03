@@ -51,6 +51,7 @@ SOURCES += main.cpp\
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
     command.h \
+    vector.h \
     point.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
@@ -82,8 +83,7 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/splinedialog.h \
     gui/commands/ttttsplinedialog.h \
     gui/commands/adddevicedialog.h \
-    settingsmanager.h \
-    structs.h
+    settingsmanager.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

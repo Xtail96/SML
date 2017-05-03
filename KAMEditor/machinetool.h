@@ -5,7 +5,20 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "structs.h"
+#include "vector.h"
+
+
+/// Настройки KFlop
+struct AxisKFlopSettings
+{
+    double jerk;
+    double acceleration;
+    double velocity;
+    unsigned int channel;
+    double basingVelocity;
+    AxisKFlopSettings(double _jerk = 0, double _acceleration = 0, double _velocity = 0, unsigned int _channel = 0, double _basingVelocity = 0)
+        : jerk(_jerk), acceleration(_acceleration), velocity(_velocity), channel(_channel), basingVelocity(_basingVelocity){}
+};
 
 /**
  * \brief Класс "Станок"
@@ -22,27 +35,30 @@ public:
     static MachineTool& Instance();
 
     /// Возвращает текущие координаты
-    VectorDouble getCurrentCoordinates();
+    Vector getCurrentCoordinates();
 
     /// Возвращает координаты базы
-    VectorDouble getBaseCoordinates();
+    Vector getBaseCoordinates();
 
     /// Возвращает координаты парка
-    VectorDouble getParkCoordinates();
+    Vector getParkCoordinates();
 
     void setMovementStep(double s) { step = s; }
 
     std::string getSettingsPath();
     void setSettingsPath(std::string s);
 
-//    void setDimensions(VectorDouble v);
-//    VectorDouble getDimensions();
+    void setDimensions(Vector v);
+    Vector getDimensions();
 
-//    void setDirections(std::vector<bool> v);
-//    std::vector<bool> getDirections();
+    void setDirections(Vector v);
+    Vector getDirections();
 
-//    void setDistanceByOneStep(VectorDouble v);
-//    VectorDouble getDistanceByOneStep();
+    void setDistanceByOneStep(Vector v);
+    Vector getDistanceByOneStep();
+
+    void setStepQuantityByOneMm(Vector v);
+    Vector getStepQuantityByOneMm();
 
     void setExternalDevices(std::map<std::string, bool> m);
     std::map<std::string, bool> getExternalDevices();
@@ -53,11 +69,11 @@ public:
 
     void setRotation(int j) { jog = j; }
 
-    void stepMove(VectorDouble f);
+    void stepMove(Vector f);
 
-    void setParkCoordinates(VectorDouble f);
+    void setParkCoordinates(Vector f);
 
-    void setNewZeroCoordinates(VectorDouble f);
+    void setNewZeroCoordinates(Vector f);
 
     void setBaseStatus(bool value);
 
@@ -75,18 +91,17 @@ public:
 
     bool getSpindleWarmUp();
 
-//    void setAxisKFlopSettings(std::vector<AxisKFlopSettings> s);
+    void setAxisKFlopSettings(std::vector<AxisKFlopSettings> s);
 
-//    std::vector<AxisKFlopSettings> getAxisKFlopSettings();
+    std::vector<AxisKFlopSettings> getAxisKFlopSettings();
 
     unsigned int getAxisCount();
 
 
-    std::vector<Axis> getMachineToolAxis() const;
-    void setMachineToolAxis(const std::vector<Axis> &value);
-
 private:
     unsigned int axisCount;
+
+    std::vector<AxisKFlopSettings> axisKFlopSettings;
 
     // шаг движения
     double step;
@@ -94,32 +109,32 @@ private:
     /// Директория для сохранения настроек
     std::string settingsPath = "settings.ini";
 
-    /// Оси станка
-    std::vector<Axis> machineToolAxis;
-
-    /*/// Габариты станка
-    VectorDouble dimensions;
+    /// Габариты станка
+    Vector dimensions;
 
     /// Направления осей
-    std::vector<bool> directions;
+    Vector directions;
 
     /// Расстояние, проходимое за 1 шаг
-    VectorDouble distanceByOneStep;*/
+    Vector distanceByOneStep;
+
+    /// Число шагов на 1мм
+    Vector stepQuantityByOneMm;
 
     /// Внешние устройства
     std::map<std::string, bool> externalDevices;
 
     /// Текущие координаты от базы, абсолютные
-    VectorDouble base;
+    Vector base;
 
     /// Координаты парка, абсолютные
-    VectorDouble park;
+    Vector park;
 
     /// Координаты точки ноль относительно базы
-    VectorDouble zero;
+    Vector zero;
 
     /// Текущие относительно нуля
-    VectorDouble current;
+    Vector current;
 
     /// Максимальное значение скорости
     int velocity;
