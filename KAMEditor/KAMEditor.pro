@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     gui/gcodessyntaxhighlighter.cpp \
     gui/commands/splinedialog.cpp \
     gui/commands/ttttsplinedialog.cpp \
-    gui/commands/adddevicedialog.cpp
+    gui/commands/adddevicedialog.cpp \
+    settingsmanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -81,7 +82,8 @@ HEADERS  += gui/mainwindow.h \
     gui/gcodessyntaxhighlighter.h \
     gui/commands/splinedialog.h \
     gui/commands/ttttsplinedialog.h \
-    gui/commands/adddevicedialog.h
+    gui/commands/adddevicedialog.h \
+    settingsmanager.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

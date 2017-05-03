@@ -54,6 +54,7 @@
 #include "commands/adddevicedialog.h"
 
 #include "gcodessyntaxhighlighter.h"
+#include "settingsmanager.h"
 
 
 namespace Ui {
@@ -78,12 +79,9 @@ private:
 
     GCodesSyntaxHighlighter* hightlighter;
 
-    QString readSettings(const QString &path);
-    void writeSettings(const QString &path, std::map<std::string, std::string> settingsMap);
-    void importSettings();
+
     void setupSettings();
-    std::map<std::string, std::string> parseSettings(const QString &settings);
-    std::pair<std::string, std::string> parseSettinsStep(const std::string &settings, unsigned int &position);
+
 
     void setupDimensions();
     void setupDirections();
