@@ -17,14 +17,16 @@ private:
     std::string settingsPath = "settings.ini";
 public:
     SettingsManager();
-    QString readSettings(const QString &path);
-    void writeSettings();
+    std::string readSettings(const std::string &path);
+    void writeSettings(const std::string &path);
     void importSettings();
+    void exportSettings();
 
-    void parseSettings(const QString &settings);
+    void parseSettings(const std::string &settings);
     std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position);
 
     std::map<std::string, std::string> getSettings();
+    QString getSettingsPath();
 };
 
 #endif // SETTINGSMANAGER_H

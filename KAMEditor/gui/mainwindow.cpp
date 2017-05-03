@@ -81,6 +81,8 @@ MainWindow::~MainWindow()
 void MainWindow::setupSettings()
 {
     SettingsManager settings;
+    std::map<std::string, std::string> s = settings.getSettings();
+
 }
 
 void MainWindow::setupShortcuts()

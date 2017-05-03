@@ -2,13 +2,14 @@
 
 SettingsManager::SettingsManager()
 {
-    QString settingsString = readSettings(QString::fromStdString(settingsPath));
+    std::string settingsString = readSettings(settingsPath);
     parseSettings(settingsString);
 }
 
-QString SettingsManager::readSettings(const QString &path)
+std::string SettingsManager::readSettings(const std::string &path)
 {
-    QFile inputFile(path);
+    QString qpath = QString::fromStdString(path);
+    QFile inputFile(qpath);
     if(!inputFile.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(0, "error", inputFile.errorString());
@@ -16,30 +17,37 @@ QString SettingsManager::readSettings(const QString &path)
     QTextStream in(&inputFile);
     QString settings = in.readAll();
     inputFile.close();
-    return settings;
+    return settings.toStdString();
 }
 
-void SettingsManager::writeSettings()
+void SettingsManager::writeSettings(const std::string &path)
 {
-    QFile outputFile(QString::fromStdString(settingsPath));
+    QString qpath = QString::fromStdString(path);
+    QFile outputFile(qpath);
     if(!outputFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         QMessageBox::information(0, "error", outputFile.errorString());
     }
     QTextStream out(&outputFile);
+    //for(auto it : )
     outputFile.close();
 }
 
 void SettingsManager::importSettings()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.ini");
-    readSettings(path);
+    QString qpath = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.ini");
+    readSettings(qpath.toStdString());
 }
 
-
-void SettingsManager::parseSettings(const QString &settings)
+void SettingsManager::exportSettings()
 {
-    std::string settingsTmp = settings.toStdString();
+    QString qpath = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.ini");
+    writeSettings(qpath.toStdString());
+}
+
+void SettingsManager::parseSettings(const std::string &settings)
+{
+    std::string settingsTmp = settings;
     bool ignoreFlag = false;
     unsigned int position = 0;
     while(position < settingsTmp.length())
@@ -120,5 +128,10 @@ std::pair<std::string, std::string> SettingsManager::parseSettingsStep(const std
 std::map<std::string, std::string> SettingsManager::getSettings()
 {
     return settingsMap;
+}
+
+QString SettingsManager::getSettingsPath()
+{
+    return QString::fromStdString(settingsPath);
 }
 
