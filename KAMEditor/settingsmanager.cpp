@@ -29,7 +29,10 @@ void SettingsManager::writeSettings(const std::string &path)
         QMessageBox::information(0, "error", outputFile.errorString());
     }
     QTextStream out(&outputFile);
-    //for(auto it : )
+    for(std::map<std::string, std::string>::iterator it = settingsMap.begin(); it != settingsMap.end(); ++it)
+    {
+        out << QString::fromStdString(it->first) << "=" << QString::fromStdString(it->second)<<endl;
+    }
     outputFile.close();
 }
 

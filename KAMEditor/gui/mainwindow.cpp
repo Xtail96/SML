@@ -82,7 +82,7 @@ void MainWindow::setupSettings()
 {
     SettingsManager settings;
     std::map<std::string, std::string> s = settings.getSettings();
-
+    settings.writeSettings("settingsRead.ini");
 }
 
 void MainWindow::setupShortcuts()
