@@ -301,6 +301,7 @@ std::map<std::string, bool> MachineTool::getExternalDevices()
 //    return axisKFlopSettings;
 //}
 
+
 unsigned int MachineTool::getAxisCount()
 {
     return axisCount;
