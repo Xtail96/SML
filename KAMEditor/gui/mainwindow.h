@@ -82,18 +82,8 @@ private:
 
     void setupSettings();
     void updateSettingsField();
-    void displayAxisSettings(const Axis &axis);
-    void displayAxisSettings(const std::vector<Axis> &axises);
-    void displayXAxisSettings(const Axis &axis);
-    void displayYAxisSettings(const Axis &axis);
-    void displayZAxisSettings(const Axis &axis);
-    void displayAAxisSettings(const Axis &axis);
-    void displayBAxisSettings(const Axis &axis);
-
-
-    void setupDimensions();
-    void setupDirections();
-    void setupKinematicsSettings();
+    void chooseAxisSettingsItems(const Axis &axis);
+    void displayAxisSettings(std::vector<QLineEdit *> axisSettingsFields, QCheckBox *isAxisInvert, const Axis &axis);
 
     void setUpElectricalSettings();
 
