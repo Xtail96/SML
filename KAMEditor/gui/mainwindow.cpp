@@ -193,7 +193,6 @@ void MainWindow::displayAxisSettings(std::vector<QLineEdit *> axisSettingsFields
     QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
     QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
     QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
-    bool qAxisInvert = axis.getInvertDirection();
 
     axisSettingsFields[0]->setText(qAxisAcceleration);
     axisSettingsFields[1]->setText(qAxisBasingVelocity);
