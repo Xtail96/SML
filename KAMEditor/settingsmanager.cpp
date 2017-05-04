@@ -180,4 +180,3 @@ QString SettingsManager::getSettingsPath()
 {
     return QString::fromStdString(settingsPath);
 }
-

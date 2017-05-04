@@ -112,7 +112,8 @@ MachineTool::MachineTool()
 //    dimensions.z = 0;
 //    dimensions.a = 0;
 //    dimensions.b = 0;
-    axisCount = 5;
+    axisCount = 0;
+    machineToolAxis = {};
 //    for(unsigned int i = 0; i < axisCount; i++)
 //    {
 //        AxisKFlopSettings tmp;
@@ -304,6 +305,34 @@ std::map<std::string, bool> MachineTool::getExternalDevices()
 unsigned int MachineTool::getAxisCount()
 {
     return axisCount;
+}
+
+void MachineTool::setAxisCount(const unsigned int &value)
+{
+    axisCount = value;
+}
+
+void MachineTool::addMachineToolAxis(const unsigned int &count)
+{
+    if(count <= 11)
+    {
+        setAxisCount(count - 1);
+    }
+    else
+    {
+        setAxisCount(10);
+    }
+    for(unsigned int i = 0; i <= axisCount; i++)
+    {
+        std::string axisName = axisNames.getNameByValue(i);
+        Axis newAxis(axisName);
+        machineToolAxis.push_back(newAxis);
+    }
+
+    for(auto it : machineToolAxis)
+    {
+        it.setupAxisSettings();
+    }
 }
 
 std::vector<Axis> MachineTool::getMachineToolAxis() const

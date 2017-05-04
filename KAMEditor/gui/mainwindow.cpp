@@ -80,12 +80,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupSettings()
 {
-    SettingsManager settings;
-    //settings.setupToMachineTool();
-    dimensionsFromMachineTool();
-    directionsFromMachineTool();
-    kinematicsSettingsFromMachineTool();
-    electricialSettingsFromMachineTool();
+    MachineTool &instance = MachineTool::Instance();
+    instance.addMachineToolAxis(5);
 }
 
 void MainWindow::setupShortcuts()

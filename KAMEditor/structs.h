@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <string>
+#include <map>
 
 struct VectorDouble
 {
@@ -14,6 +15,36 @@ struct VectorDouble
     VectorDouble(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
+struct
+{
+    std::map<unsigned int, std::string> axisNames =
+    {
+        {0, "X"},
+        {1, "Y"},
+        {2, "Z"},
+        {3, "A"},
+        {4, "B"},
+        {5, "C"},
+        {6, "D"},
+        {7, "E"},
+        {8, "F"},
+        {9, "G"},
+        {10, "H"},
+    };
+
+    std::string getNameByValue(const unsigned int &value)
+    {
+        if(value < axisNames.size())
+        {
+            return axisNames[value];
+        }
+        else
+        {
+            return "undefined";
+        }
+    }
+} axisNames;
+
 /// Настройки KFlop
 //struct AxisKFlopSettings
 //{
@@ -25,31 +56,4 @@ struct VectorDouble
 //    AxisKFlopSettings(double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0)
 //        : jerk(_jerk), acceleration(_acceleration), velocity(_velocity), channel(_channel), basingVelocity(_basingVelocity){}
 //};
-
-struct Axis
-{
-    std::string name;
-    double step;
-    double length;
-    bool invertDirection;
-    double jerk;
-    double acceleration;
-    double velocity;
-    int channel;
-    double basingVelocity;
-
-    Axis(std::string id, double _step = 0, double _length = 1, bool invert = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0) :
-        name(id),
-        step(_step),
-        length(_length),
-        invertDirection(invert),
-        jerk(_jerk),
-        acceleration(_acceleration),
-        velocity(_velocity),
-        channel(_channel),
-        basingVelocity(_basingVelocity){}
-    // добавить метод настройки оси, путем получения из карты настроек нужных значений
-};
-
-
 #endif // VECTOR_H

@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     gui/commands/splinedialog.cpp \
     gui/commands/ttttsplinedialog.cpp \
     gui/commands/adddevicedialog.cpp \
-    settingsmanager.cpp
+    settingsmanager.cpp \
+    axis.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -83,7 +84,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/ttttsplinedialog.h \
     gui/commands/adddevicedialog.h \
     settingsmanager.h \
-    structs.h
+    structs.h \
+    axis.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

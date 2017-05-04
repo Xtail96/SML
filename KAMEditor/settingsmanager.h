@@ -8,8 +8,6 @@
 #include <QTextStream>
 #include <QFileDialog>
 
-#include "machinetool.h"
-
 class SettingsManager
 {
 private:

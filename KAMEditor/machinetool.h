@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "axis.h"
 #include "structs.h"
 
 /**
@@ -80,8 +81,10 @@ public:
 //    std::vector<AxisKFlopSettings> getAxisKFlopSettings();
 
     unsigned int getAxisCount();
+    void setAxisCount(const unsigned int &value);
 
 
+    void addMachineToolAxis(const unsigned int &count);
     std::vector<Axis> getMachineToolAxis() const;
     void setMachineToolAxis(const std::vector<Axis> &value);
 
