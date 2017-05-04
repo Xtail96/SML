@@ -43,6 +43,19 @@ struct
             return "undefined";
         }
     }
+    int getValueByName(const std::string &s) const
+    {
+        int axisNumber = -1;
+        for(auto it : axisNames)
+        {
+            if(it.second == s)
+            {
+                axisNumber =  it.first;
+                break;
+            }
+        }
+        return axisNumber;
+    }
 } axisNames;
 
 /// Настройки KFlop

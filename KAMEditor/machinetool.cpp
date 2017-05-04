@@ -316,13 +316,13 @@ void MachineTool::addMachineToolAxis(const unsigned int &count)
 {
     if(count <= 11)
     {
-        setAxisCount(count - 1);
+        setAxisCount(count);
     }
     else
     {
-        setAxisCount(10);
+        setAxisCount(11);
     }
-    for(unsigned int i = 0; i <= axisCount; i++)
+    for(unsigned int i = 0; i < axisCount; i++)
     {
         std::string axisName = axisNames.getNameByValue(i);
         Axis newAxis(axisName);

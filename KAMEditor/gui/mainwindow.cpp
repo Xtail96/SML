@@ -1,4 +1,4 @@
-﻿ #include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // считываем настройки станка из файла и сохраняем их в структуру данных и интерфейс
     setupSettings();
+    updateSettingsField();
 
     // задаем горячие клавиши
     setupShortcuts();
@@ -83,6 +84,132 @@ void MainWindow::setupSettings()
     MachineTool &instance = MachineTool::Instance();
     instance.addMachineToolAxis(5);
 }
+
+void MainWindow::updateSettingsField()
+{
+    MachineTool &instance = MachineTool::Instance();
+    std::vector<Axis> axisVector = instance.getMachineToolAxis();
+    displayAxisSettings(axisVector);
+}
+
+void MainWindow::displayAxisSettings(const Axis &axis)
+{
+    std::string name = axis.getName();
+    std::vector<QLabel*> axisLabels =
+    {
+        ui->x_axis_acceleration_label,
+        ui->x_axis_basing_velocity_label,
+        ui->x_axis_channel_label,
+        ui->x_axis_jerk_label,
+        ui->x_axis_step_label,
+        ui->x_axis_velocity_label,
+    };
+}
+
+void MainWindow::displayAxisSettings(const std::vector<Axis> &axises)
+{
+    displayXAxisSettings(axises[axisNames.getValueByName("X")]);
+    displayYAxisSettings(axises[axisNames.getValueByName("Y")]);
+    displayZAxisSettings(axises[axisNames.getValueByName("Z")]);
+    displayAAxisSettings(axises[axisNames.getValueByName("A")]);
+    displayBAxisSettings(axises[axisNames.getValueByName("B")]);
+}
+
+void MainWindow::displayXAxisSettings(const Axis &axis)
+{
+    QString qAxisAcceleration = QString::fromStdString(std::to_string(axis.getAcceleration()));
+    QString qAxisBasingVelocity = QString::fromStdString(std::to_string(axis.getBasingVelocity()));
+    QString qAxisChannel = QString::fromStdString(std::to_string(axis.getChannel()));
+    QString qAxisJerk = QString::fromStdString(std::to_string(axis.getJerk()));
+    QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
+    QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
+    QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
+    ui->x_axis_acceleration_lineEdit->setText(qAxisAcceleration);
+    ui->x_axis_basing_velocity_lineEdit->setText(qAxisBasingVelocity);
+    ui->x_axis_channel_lineEdit->setText(qAxisChannel);
+    ui->x_axis_jerk_lineEdit->setText(qAxisJerk);
+    ui->x_axis_step_lineEdit->setText(qAxisStep);
+    ui->x_axis_velocity_lineEdit->setText(qAxisVelocity);
+    ui->x_axis_invert_checkBox->setEnabled(axis.getInvertDirection());
+    ui->x_dimension_lineEdit->setText(qAxisLength);
+}
+
+void MainWindow::displayYAxisSettings(const Axis &axis)
+{
+    QString qAxisAcceleration = QString::fromStdString(std::to_string(axis.getAcceleration()));
+    QString qAxisBasingVelocity = QString::fromStdString(std::to_string(axis.getBasingVelocity()));
+    QString qAxisChannel = QString::fromStdString(std::to_string(axis.getChannel()));
+    QString qAxisJerk = QString::fromStdString(std::to_string(axis.getJerk()));
+    QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
+    QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
+    QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
+    ui->y_axis_acceleration_lineEdit->setText(qAxisAcceleration);
+    ui->y_axis_basing_velocity_lineEdit->setText(qAxisBasingVelocity);
+    ui->y_axis_channel_lineEdit->setText(qAxisChannel);
+    ui->y_axis_jerk_lineEdit->setText(qAxisJerk);
+    ui->y_axis_step_lineEdit->setText(qAxisStep);
+    ui->y_axis_velocity_lineEdit->setText(qAxisVelocity);
+    ui->y_axis_invert_checkBox->setEnabled(axis.getInvertDirection());
+    ui->y_dimension_lineEdit->setText(qAxisLength);
+}
+
+void MainWindow::displayZAxisSettings(const Axis &axis)
+{
+    QString qAxisAcceleration = QString::fromStdString(std::to_string(axis.getAcceleration()));
+    QString qAxisBasingVelocity = QString::fromStdString(std::to_string(axis.getBasingVelocity()));
+    QString qAxisChannel = QString::fromStdString(std::to_string(axis.getChannel()));
+    QString qAxisJerk = QString::fromStdString(std::to_string(axis.getJerk()));
+    QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
+    QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
+    QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
+    ui->z_axis_acceleration_lineEdit->setText(qAxisAcceleration);
+    ui->z_axis_basing_velocity_lineEdit->setText(qAxisBasingVelocity);
+    ui->z_axis_channel_lineEdit->setText(qAxisChannel);
+    ui->z_axis_jerk_lineEdit->setText(qAxisJerk);
+    ui->z_axis_step_lineEdit->setText(qAxisStep);
+    ui->z_axis_velocity_lineEdit->setText(qAxisVelocity);
+    ui->z_axis_invert_checkBox->setEnabled(axis.getInvertDirection());
+    ui->z_dimension_lineEdit->setText(qAxisLength);
+}
+
+void MainWindow::displayAAxisSettings(const Axis &axis)
+{
+    QString qAxisAcceleration = QString::fromStdString(std::to_string(axis.getAcceleration()));
+    QString qAxisBasingVelocity = QString::fromStdString(std::to_string(axis.getBasingVelocity()));
+    QString qAxisChannel = QString::fromStdString(std::to_string(axis.getChannel()));
+    QString qAxisJerk = QString::fromStdString(std::to_string(axis.getJerk()));
+    QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
+    QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
+    QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
+    ui->a_axis_acceleration_lineEdit->setText(qAxisAcceleration);
+    ui->a_axis_basing_velocity_lineEdit->setText(qAxisBasingVelocity);
+    ui->a_axis_channel_lineEdit->setText(qAxisChannel);
+    ui->a_axis_jerk_lineEdit->setText(qAxisJerk);
+    ui->a_axis_step_lineEdit->setText(qAxisStep);
+    ui->a_axis_velocity_lineEdit->setText(qAxisVelocity);
+    ui->a_axis_invert_checkBox->setEnabled(axis.getInvertDirection());
+    ui->a_dimension_lineEdit->setText(qAxisLength);
+}
+
+void MainWindow::displayBAxisSettings(const Axis &axis)
+{
+    QString qAxisAcceleration = QString::fromStdString(std::to_string(axis.getAcceleration()));
+    QString qAxisBasingVelocity = QString::fromStdString(std::to_string(axis.getBasingVelocity()));
+    QString qAxisChannel = QString::fromStdString(std::to_string(axis.getChannel()));
+    QString qAxisJerk = QString::fromStdString(std::to_string(axis.getJerk()));
+    QString qAxisStep = QString::fromStdString(std::to_string(axis.getStep()));
+    QString qAxisVelocity = QString::fromStdString(std::to_string(axis.getVelocity()));
+    QString qAxisLength = QString::fromStdString(std::to_string(axis.getLength()));
+    ui->b_axis_acceleration_lineEdit->setText(qAxisAcceleration);
+    ui->b_axis_basing_velocity_lineEdit->setText(qAxisBasingVelocity);
+    ui->b_axis_channel_lineEdit->setText(qAxisChannel);
+    ui->b_axis_jerk_lineEdit->setText(qAxisJerk);
+    ui->b_axis_step_lineEdit->setText(qAxisStep);
+    ui->b_axis_velocity_lineEdit->setText(qAxisVelocity);
+    ui->b_axis_invert_checkBox->setEnabled(axis.getInvertDirection());
+    ui->b_dimension_lineEdit->setText(qAxisLength);
+}
+
 
 void MainWindow::setupShortcuts()
 {
