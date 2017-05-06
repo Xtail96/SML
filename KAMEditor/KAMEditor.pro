@@ -53,7 +53,8 @@ SOURCES += main.cpp\
     commands/commandhandler.cpp \
     commands/commandinterpreter.cpp \
     commands/arc.cpp \
-    gui/oglwidget.cpp
+    gui/oglwidget.cpp \
+    commands/line.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -91,7 +92,8 @@ HEADERS  += gui/mainwindow.h \
     commands/commandinterpreter.h \
     commands/commands.h \
     commands/arc.h \
-    gui/oglwidget.h
+    gui/oglwidget.h \
+    commands/line.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

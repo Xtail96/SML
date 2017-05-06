@@ -1,4 +1,4 @@
- #include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 
@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->length_sensor_button->setEnabled(false);
 
     CommandInterpreter::Instance().addCommand(new CArc(1, 0, M_PI/2), 0);
+    CommandInterpreter::Instance().addCommand(new Line(0.1, 0.2, 0), 1);
 }
 
 MainWindow::~MainWindow()

@@ -20,6 +20,7 @@ public:
     ~OGLWidget() {}
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
+    void drawLine(double dx, double dy, double dz, double v = 1);
 
 protected:
     void initializeGL();
