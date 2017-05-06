@@ -50,7 +50,6 @@ SOURCES += main.cpp\
     gui/gcodessyntaxhighlighter.cpp \
 #    gui/commands/splinedialog.cpp \
 #    gui/commands/ttttsplinedialog.cpp \
-    commands/commandhandler.cpp \
     commands/commandinterpreter.cpp \
     commands/arc.cpp \
     gui/oglwidget.cpp \
@@ -88,7 +87,6 @@ HEADERS  += gui/mainwindow.h \
 #    gui/commands/splinedialog.h \
 #    gui/commands/ttttsplinedialog.h \
     commands/command.h \
-    commands/commandhandler.h \
     commands/commandinterpreter.h \
     commands/commands.h \
     commands/arc.h \
