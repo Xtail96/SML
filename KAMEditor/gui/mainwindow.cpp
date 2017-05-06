@@ -770,7 +770,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 
     QString name = ui->commands_tools_listWidget->item(row)->text();
 
-    COMMAND cmd = getCommandByName(name.toStdString());
+    //COMMAND cmd = getCommandByName(name.toStdString());
 
     /*
     switch (cmd)
@@ -976,7 +976,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
     CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
     commandInterpreter.setSelectedCommandEditSignal(true);
     QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
-    COMMAND cmd = getCommandByName(name.toStdString());
+    //COMMAND cmd = getCommandByName(name.toStdString());
     /*
     switch (cmd)
     {

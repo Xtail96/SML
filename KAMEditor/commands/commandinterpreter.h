@@ -6,8 +6,7 @@
 #include <string>
 #include <map>
 
-#include "commandhandler.h"
-
+#include "command.h"
 
 
 class CommandInterpreter
