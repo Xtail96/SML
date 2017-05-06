@@ -66,8 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->length_sensor_button->setEnabled(false);
 
-    CArc arc(1, 0, M_PI/2);
-    arc.draw(ui->openGLWidget);
+    CommandInterpreter::Instance().addCommand(new CArc(1, 0, M_PI/2), 0);
 }
 
 MainWindow::~MainWindow()

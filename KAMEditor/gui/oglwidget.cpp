@@ -1,6 +1,7 @@
 #include "oglwidget.h"
 
-#include "commands/arc.h"
+#include "commands/commands.h"
+#include "commands/commandinterpreter.h"
 
 OGLWidget::OGLWidget(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -21,19 +22,19 @@ void OGLWidget::initializeGL()
 void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    CArc arc(1, M_PI/4, M_PI/2);
-    arc.draw(this);
 
-    qDebug("paintGL");
+    auto commands = CommandInterpreter::Instance().getCommands();
+
+    for (auto command : commands)
+        command->draw(this);
 }
 
 void OGLWidget::resizeGL(int w, int h)
 {
     glViewport(0,0,w,h);
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    glLoadIdentity();/*
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0,0,5,0,0,0,0,1,0);
+    glLoadIdentity();*/
 }

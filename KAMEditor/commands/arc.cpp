@@ -29,11 +29,10 @@ QString CArc::getArguments() const
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
 {
     double endAngle = startAngle + arcAngle;
-    double angleIncrement = M_PI / 20;
+    double angleIncrement = 0.01;
 
     double x, y;
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(0, 0, 1);
     glBegin(GL_LINE_STRIP);
 
