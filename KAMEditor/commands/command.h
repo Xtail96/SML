@@ -56,10 +56,10 @@ public:
     // скорее всего, временные методы, будет переделано при рефакторинге
     virtual std::string getEditorColor() const { return "#000000"; }
     virtual QString getArguments() const = 0;
-    COMMAND getId() const { return id; }
+    int getId() const { return id; }
 
 private:
-    COMMAND id;
+    int id;
 };
 
 #endif // COMMAND_H
