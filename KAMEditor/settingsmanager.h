@@ -58,7 +58,7 @@ public:
     void parseSettings(const std::string &settings);
 
     /// \details Метод выделения из строки, содержащей все настройки, отдельной настройки ф ормате пары строк <ключ, значение>;
-    std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position, const std::__1::string &name);
+    std::pair<std::string, std::string> parseSettingsStep(const std::string &settings, unsigned int &position, const std::string &name);
 
     //! Методы для получения и установки значений:
     /// \details получения словаря с настройками;

@@ -27,7 +27,7 @@
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
-#include "commandinterpreter.h"
+#include "commands/commandinterpreter.h"
 #include "commands/commanddialog.h"
 
 #include "commands/linedialog.h"
@@ -52,6 +52,8 @@
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
 #include "commands/adddevicedialog.h"
+
+#include "commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
 #include "settingsmanager.h"

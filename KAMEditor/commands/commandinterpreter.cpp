@@ -19,16 +19,9 @@ CommandInterpreter& CommandInterpreter::Instance()
     return m;
 }
 
-void CommandInterpreter::addCommand(Command cmd, unsigned int selected_command)
+std::vector<Command*> CommandInterpreter::getCommands()
 {
-    std::vector<Command>::iterator commandInsertIt;
-    commandInsertIt = commands.begin() + selected_command;
-    commands.insert(commandInsertIt, 1, cmd);
-}
-
-void CommandInterpreter::editCommandsArguments(std::vector<std::string> arguments, unsigned int selected_command)
-{
-    commands[selected_command].args = arguments;
+    return commands;
 }
 
 unsigned int CommandInterpreter::getSelectedCommand()
@@ -41,18 +34,57 @@ void CommandInterpreter::setSelectedCommand(unsigned int number)
     selectedCommand = number;
 }
 
+bool CommandInterpreter::getSelectedCommandEditSignal()
+{
+    return selectedCommandEditSignal;
+}
+
+void CommandInterpreter::setSelectedCommandEditSignal(bool value)
+{
+    selectedCommandEditSignal = value;
+}
+
+void CommandInterpreter::addCommand(Command *cmd, unsigned int selected_command)
+{
+    auto commandInsertIt = commands.begin() + selected_command;
+    commands.insert(commandInsertIt, 1, cmd);
+}
+
+void CommandInterpreter::editCommand(Command *cmd, unsigned int number)
+{
+    auto commandEditIt = commands.begin() + number;
+    *commandEditIt = cmd;
+}
+
+void CommandInterpreter::deleteCommand(unsigned int number)
+{
+    if (number < commands.size())
+        commands.erase(commands.begin() + number);
+}
+
+void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
+{
+    if(begin < commands.size() && end < commands.size())
+    {
+        auto beginIt = commands.begin() + begin;
+        auto endIt = commands.begin() + end + 1;
+        commands.erase(beginIt, endIt);
+    }
+    selectedCommand = 0;
+}
+
 void CommandInterpreter::Step()
 {
+    /*
     if (currentCommand < commands.size())
     {
-        Command cmd = commands[currentCommand];
+        Command* cmd = commands[currentCommand];
+        cmd->send();
 
-        commandHandlerMap[cmd.id](cmd.args);
-
-        switch (cmd.id) {
+        switch (cmd->getId()) {
         case CMD_CALL:
             callStack.push(currentCommand + 1);
-            currentCommand = functionsMap[ cmd.args[0] ];
+            // поменять на что-то типа: currentCommand = dynamic_cast<Call*>(cmd)->callee();
             break;
 
         case CMD_RETURN:
@@ -61,7 +93,7 @@ void CommandInterpreter::Step()
             break;
 
         case CMD_FOR:
-            loopStack.push(std::make_pair(currentCommand, std::stoi(cmd.args[0]) ));
+            //loopStack.push(std::make_pair(currentCommand, std::stoi(cmd.args[0]) ));
             currentCommand++;
             break;
 
@@ -80,11 +112,11 @@ void CommandInterpreter::Step()
             break;
 
         case CMD_LABEL:
-            labelsMap.insert( std::make_pair(cmd.args[0], currentCommand) );
+            //labelsMap.insert( std::make_pair(cmd.args[0], currentCommand) );
             break;
 
         case CMD_GOTO:
-            currentCommand = labelsMap[ cmd.args[0] ];
+            //currentCommand = labelsMap[ cmd.args[0] ];
             break;
 
         case CMD_END:
@@ -95,7 +127,7 @@ void CommandInterpreter::Step()
             currentCommand++;
             break;
         }
-    }
+    }*/
 }
 
 void CommandInterpreter::Run()
@@ -108,37 +140,12 @@ void CommandInterpreter::Run()
 
 void CommandInterpreter::_Run()
 {
+    /*
     while (running && ( commands[currentCommand].id != CMD_END ))
-        Step();
+        Step();*/
 }
 
 void CommandInterpreter::Stop()
 {
     running = false;
-}
-std::vector <Command> CommandInterpreter::getCommands()
-{
-    return commands;
-}
-void CommandInterpreter::deleteCommand(unsigned int number)
-{
-    if (number < commands.size())
-        commands.erase(commands.begin() + number);
-    selectedCommand = 0;
-}
-void CommandInterpreter::deleteCommands(unsigned int begin, unsigned int end)
-{
-    if (begin <= commands.size() && end <= commands.size())
-    {
-        commands.erase(commands.begin() + begin, commands.begin() + end + 1);
-    }
-    selectedCommand = 0;
-}
-void CommandInterpreter::setSelectedCommandEditSignal(bool value)
-{
-    selectedCommandEditSignal = value;
-}
-bool CommandInterpreter::getSelectedCommandEditSignal()
-{
-    return selectedCommandEditSignal;
 }

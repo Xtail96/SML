@@ -2,7 +2,6 @@
 #define ADDDEVICEDIALOG_H
 
 #include <QDialog>
-#include "commandhandler.h"
 
 namespace Ui {
 class AddDeviceDialog;

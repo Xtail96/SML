@@ -1,5 +1,6 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -58,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spindle_enable_pushButton->setStyleSheet("margin: 1px");
 
     ui->length_sensor_button->setEnabled(false);
+
+    CommandInterpreter::Instance().addCommand(new CArc(1, 0, M_PI/2), 0);
+    CommandInterpreter::Instance().addCommand(new Line(0.1, 0.2, 0), 1);
 }
 
 MainWindow::~MainWindow()
@@ -293,9 +297,10 @@ void MainWindow::deleteSelectedCommands()
                     vector_numbers.push_back(current_vector_number);
                 }
                 std::sort(vector_numbers.begin(), vector_numbers.end());
-                unsigned int start = vector_numbers[0];
-                unsigned int finish = vector_numbers[vector_numbers.size() - 1];
-                commands.deleteCommands(start, finish);
+
+                unsigned int begin = vector_numbers[0];
+                unsigned int end = vector_numbers[vector_numbers.size() - 1];
+                commands.deleteCommands(begin, end);
             }
             update_commands();
             commands.setSelectedCommand(0);
@@ -309,7 +314,7 @@ void MainWindow::addLineCommand()
     {
         if(ui->sml_editor_tab->isVisible())
         {
-            LineDialog(this).exec();
+            //LineDialog(this).exec();
         }
     }
     update_commands();
@@ -372,7 +377,7 @@ void MainWindow::update_points()
 
 void MainWindow::update_commands()
 {
-    std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
+    auto commands = CommandInterpreter::Instance().getCommands();
 
     QTreeWidget*  editorField = ui->sml_editor_treeWidget;
 
@@ -391,9 +396,9 @@ void MainWindow::update_commands()
 
         // добавляем строку для текущей команды
         QTreeWidgetItem* item;
-        switch(commands[i].id)
+        switch(commands[i]->getId())
         {
-            case CMD_FOR:
+            /*case CMD_FOR:
             {
                 item = new QTreeWidgetItem(previousParent);
                 previousParent = item;
@@ -422,7 +427,7 @@ void MainWindow::update_commands()
                 }
                 item = new QTreeWidgetItem(previousParent);
                 break;
-            }
+            }*/
             default:
             {
                 item = new QTreeWidgetItem(previousParent);
@@ -433,17 +438,12 @@ void MainWindow::update_commands()
 
 
         item->setText(0, QString::number(i+1));
-        QString commandColor = QString::fromStdString(commands[i].commandColor);
+        QString commandColor = QString::fromStdString(commands[i]->getEditorColor());
         item->setTextColor(1, QColor(commandColor));
         item->setTextColor(2, QColor(commandColor));
 
-        item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
-        std::string s;
-        for(unsigned int j = 0; j<commands[i].args.size();j++)
-        {
-            s+=commands[i].args[j]+"; ";
-        }
-        item->setText(2, QString::fromStdString(s));
+        item->setText(1, commands[i]->getName());
+        item->setText(2, commands[i]->getArguments());
         items.append(item);
     }
     editorField->insertTopLevelItems(0, items);
@@ -879,7 +879,7 @@ void MainWindow::on_point_copy_button_clicked()
 void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
+    std::vector<Command*> commands = instance.getCommands();
 
     QTreeWidget* editorField = ui->sml_editor_treeWidget;
 
@@ -895,8 +895,9 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
 
     QString name = ui->commands_tools_listWidget->item(row)->text();
 
-    COMMAND cmd = getCommandByName(name.toStdString());
+    //COMMAND cmd = getCommandByName(name.toStdString());
 
+    /*
     switch (cmd)
     {
         case CMD_LINE:
@@ -1091,6 +1092,7 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         }
     }
     update_commands();
+    */
 }
 
 void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
@@ -1098,7 +1100,8 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
     CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
     commandInterpreter.setSelectedCommandEditSignal(true);
     QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
-    COMMAND cmd = getCommandByName(name.toStdString());
+    //COMMAND cmd = getCommandByName(name.toStdString());
+    /*
     switch (cmd)
     {
         case CMD_LINE:
@@ -1239,7 +1242,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
             break;
         }
     }
-    update_commands();
+    update_commands();*/
 }
 
 void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
@@ -1389,6 +1392,7 @@ void MainWindow::parse7kamToSml(QString &tmp)
 
 void MainWindow::parse7kamToSmlStep(std::string &tmp)
 {
+    /*
     CommandInterpreter &commands = CommandInterpreter::Instance();
     Command newCommand;
     int position = 0;
@@ -1535,34 +1539,8 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     commands.addCommand(newCommand, selectedCommand);
     commands.setSelectedCommand(selectedCommand + 1);
     update_commands();
+    */
 }
- void MainWindow::setCommandArguments(std::string s, Command &command)
- {
-     eraseSpecialSymbols(s);
-     std::string argument;
-     for(unsigned int i = 0; i < s.length(); i++)
-     {
-         //выделить числа и слова, состоящие из латинских букв из строки
-         if(i < s.length() - 1)
-         {
-             if(s[i] != ',')
-             {
-                 argument += s[i];
-             }
-             else
-             {
-                 command.args.push_back(argument);
-                 argument = "";
-             }
-         }
-         else
-         {
-            argument += s[i];
-            command.args.push_back(argument);
-            argument = "";
-         }
-     }
- }
 
 
 void MainWindow::eraseSpecialSymbols(std::string &s)
@@ -1996,7 +1974,7 @@ void MainWindow::on_gcodes_editor_textEdit_textChanged()
 void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
+    std::vector<Command*> commands = instance.getCommands();
 
     QTreeWidget* editorField = ui->sml_editor_treeWidget;
 
