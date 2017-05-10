@@ -356,7 +356,8 @@ void MainWindow::update_points()
         for (unsigned int i = 0; i < points.size(); i++)
         {
             // координаты текущей точки
-            std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
+            //std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
+            std::vector<double> pointCoordinates = points[i].getCoordinates();
 
             // добавляем строку в таблицу для текущей точки
             (*table)->insertRow(i);

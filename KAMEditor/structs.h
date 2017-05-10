@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 
+
 struct VectorDouble
 {
     double x;
