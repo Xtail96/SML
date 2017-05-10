@@ -24,13 +24,13 @@ public:
     static PointsManager& Instance();
 
     //! Методы для работы с точками:
-    /// \details Метод для добавления точки;
+    /// \details Добавить точку p в конец вектора точек;
     void addPoint(Point p);
 
-    /// \details Метод для установки параметров точки;
+    /// \details Присвоить точке под номером num значение точки p;
     void setPoint(unsigned int num, Point p);
 
-    /// \details Метод для удаления точки;
+    /// \details Удалить точку под номером num из вектора точек;
     void removePoint(unsigned int num);
 
     /**
@@ -43,7 +43,7 @@ public:
     /// \details Метод для возвращения выделенной точки;
     unsigned int getSelectedPoint();
 
-    /// \details Метод для возвращения вектора точек;
+    /// \details Возвращает все добавленные ранее точки в формате вектора точек;
     std::vector<Point> getPoints();
 
 private:

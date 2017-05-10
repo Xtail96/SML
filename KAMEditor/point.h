@@ -26,11 +26,7 @@ struct Point{
     {
         MachineTool &instance = MachineTool::Instance();
         int axisCount = instance.getAxisCount();
-
-        for(int i = 0; i < axisCount; i++)
-        {
-            coordinates.push_back(0);
-        }
+        coordinates = std::vector<double>(axisCount);
     }
 
     //! Конструктор по вектору значений
