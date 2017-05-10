@@ -10,21 +10,20 @@ EditPointDialog::EditPointDialog(QWidget *parent) :
     PointsManager& point_table = PointsManager::Instance();
     unsigned int point_to_select = point_table.getSelectedPoint();
 
-    std::vector<double> pointCoordinates = points[point_to_select].getCoordinates();
 
-    double x = pointCoordinates[0];
+    double x = points[point_to_select]["X"];
     QString x_str = QString::number(x);
 
-    double y = pointCoordinates[1];
+    double y = points[point_to_select]["Y"];
     QString y_str = QString::number(y);
 
-    double z = pointCoordinates[2];
+    double z = points[point_to_select]["Z"];
     QString z_str = QString::number(z);
 
-    double a = pointCoordinates[3];
+    double a = points[point_to_select]["A"];
     QString a_str = QString::number(a);
 
-    double b = pointCoordinates[4];
+    double b = points[point_to_select]["B"];
     QString b_str = QString::number(b);
 
     ui->edit_point_lineEdit_axis_x->setText(x_str);
