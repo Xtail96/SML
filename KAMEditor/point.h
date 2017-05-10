@@ -23,7 +23,31 @@ struct Point{
 
     Point(std::vector<double> _coordinates)
     {
-        coordinates = _coordinates;
+        MachineTool &instance = MachineTool::Instance();
+        unsigned int axisCount = instance.getAxisCount();
+        if(axisCount == _coordinates.size())
+        {
+            coordinates = _coordinates;
+        }
+        else
+        {
+            if(axisCount > _coordinates.size())
+            {
+                unsigned int difference = axisCount - _coordinates.size();
+                coordinates = _coordinates;
+                for(unsigned int i = 0; i < difference; i++)
+                {
+                    coordinates.push_back(0);
+                }
+            }
+            else
+            {
+                for(unsigned int i = 0; i < axisCount; i++)
+                {
+                    coordinates.push_back(_coordinates[i]);
+                }
+            }
+        }
     }
 
     std::vector<double> getCoordinates() const

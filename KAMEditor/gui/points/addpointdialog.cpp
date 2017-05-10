@@ -39,6 +39,5 @@ void AddPointDialog::on_buttonBox_accepted()
         b
     };
 
-    //PointsManager::Instance().addPoint(Point(x, y, z, a, b));
     PointsManager::Instance().addPoint(pointOriginCoordinates);
 }
