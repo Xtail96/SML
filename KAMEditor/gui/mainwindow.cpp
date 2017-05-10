@@ -98,7 +98,7 @@ void MainWindow::updateSettingsField()
 void MainWindow::chooseAxisSettingsItems(const Axis &axis)
 {
     std::string axisName = axis.getName();
-    int key = axisNames.getValueByName(axisName);
+    int key = axisNames.getKeyByName(axisName);
     std::vector<QLineEdit *> axisSettingsQLineEdits;
     QCheckBox *isAxisInvertedCheckBox;
     switch (key) {

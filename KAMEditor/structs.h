@@ -16,8 +16,19 @@ struct VectorDouble
     VectorDouble(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
+/*!
+ * \brief Объект "Имена осей"
+ * \brief Данная структура содержит список всех доступных осей и их имен для использования в системе управления.
+ * \warning Имена оси - заглавне латинские буквы;
+ * \warning Даная структура не имеет имени и существует только один объект "axisNames" такого типа;
+ *
+ * Способы взаимодействия со структурой:
+ * 1) Получения имени оси(значения) по ее индексу(ключу);
+ * 2) Получения индекса оси(ключа) по ее имени(значению);
+ */
 struct
 {
+    /// \details Словарь имен всех осей в формате <ключ, значение> = <индекс оси, имя оси>
     std::map<unsigned int, std::string> axisNames =
     {
         {0, "X"},
@@ -33,7 +44,8 @@ struct
         {10, "H"},
     };
 
-    std::string getNameByValue(const unsigned int &value)
+    /// \details Метод получения имени оси(значения) по ключу(индексу);
+    std::string getNameByKey(const unsigned int &value)
     {
         if(value < axisNames.size())
         {
@@ -44,7 +56,9 @@ struct
             return "undefined";
         }
     }
-    int getValueByName(const std::string &s) const
+
+    /// \details Метод получения индекса(ключа) по имени оси(значению);
+    int getKeyByName(const std::string &s) const
     {
         int axisNumber = -1;
         for(auto it : axisNames)

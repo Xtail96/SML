@@ -62,7 +62,7 @@ struct Point{
 
     double operator[](std::string s)
     {
-        unsigned int i = axisNames.getValueByName(s);
+        unsigned int i = axisNames.getKeyByName(s);
         return coordinates[i];
     }
 };

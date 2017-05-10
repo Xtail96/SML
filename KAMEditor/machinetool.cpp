@@ -324,7 +324,7 @@ void MachineTool::addMachineToolAxis(const unsigned int &count)
     }
     for(unsigned int i = 0; i < axisCount; i++)
     {
-        std::string axisName = axisNames.getNameByValue(i);
+        std::string axisName = axisNames.getNameByKey(i);
         Axis newAxis(axisName);
         machineToolAxis.push_back(newAxis);
     }
