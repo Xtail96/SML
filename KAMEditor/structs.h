@@ -44,7 +44,7 @@ struct
         {10, "H"},
     };
 
-    /// \details Метод получения имени оси(значения) по ключу(индексу);
+    /// \details Получение имени оси(значения) по ключу(индексу);
     std::string getNameByKey(const unsigned int &value)
     {
         if(value < axisNames.size())
@@ -53,11 +53,11 @@ struct
         }
         else
         {
-            return "undefined";
+            throw std::invalid_argument("Axis does not exist");
         }
     }
 
-    /// \details Метод получения индекса(ключа) по имени оси(значению);
+    /// \details Получение индекса(ключа) по имени оси(значению);
     int getKeyByName(const std::string &s) const
     {
         int axisNumber = -1;
@@ -69,7 +69,14 @@ struct
                 break;
             }
         }
-        return axisNumber;
+        if(axisNumber != -1)
+        {
+            return axisNumber;
+        }
+        else
+        {
+            throw std::invalid_argument("Unknown Axis");
+        }
     }
 } axisNames;
 
