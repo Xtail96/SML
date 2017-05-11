@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT       += core gui opengl\
+            sensors
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -56,7 +57,8 @@ SOURCES += main.cpp\
     commands/arc.cpp \
     commands/line.cpp \
     settingsmanager.cpp \
-    axis.cpp
+    axis.cpp \
+    sensor.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -97,7 +99,8 @@ HEADERS  += gui/mainwindow.h \
     commands/line.h \
     settingsmanager.h \
     structs.h \
-    axis.h
+    axis.h \
+    sensor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

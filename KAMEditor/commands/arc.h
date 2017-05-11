@@ -1,6 +1,8 @@
 #ifndef ARC_H
 #define ARC_H
 
+#include <cmath>
+
 #include "command.h"
 
 class CArc : public Command

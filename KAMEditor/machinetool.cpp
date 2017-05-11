@@ -344,3 +344,13 @@ void MachineTool::setMachineToolAxis(const std::vector<Axis> &value)
 {
     machineToolAxis = value;
 }
+
+std::vector<Sensor> MachineTool::getMachineToolSensors() const
+{
+    return machineToolSensors;
+}
+
+void MachineTool::addMachineToolSensor(Sensor s)
+{
+    machineToolSensors.push_back(s);
+}

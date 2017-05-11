@@ -5,9 +5,10 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "axis.h"
-#include "structs.h"
 
+#include "structs.h"
+#include "axis.h"
+#include "sensor.h"
 /**
  * \brief Класс "Станок"
  * \warning Является синглтоном
@@ -76,10 +77,6 @@ public:
 
     bool getSpindleWarmUp();
 
-//    void setAxisKFlopSettings(std::vector<AxisKFlopSettings> s);
-
-//    std::vector<AxisKFlopSettings> getAxisKFlopSettings();
-
     unsigned int getAxisCount();
     void setAxisCount(const unsigned int &value);
 
@@ -88,7 +85,9 @@ public:
     std::vector<Axis> getMachineToolAxis() const;
     void setMachineToolAxis(const std::vector<Axis> &value);
 
-    // добавить метод для настройки всех осей
+    std::vector<Sensor> getMachineToolSensors() const;
+
+    void addMachineToolSensor(Sensor s);
 
 private:
     unsigned int axisCount;
@@ -102,14 +101,8 @@ private:
     /// Оси станка
     std::vector<Axis> machineToolAxis;
 
-    /*/// Габариты станка
-    VectorDouble dimensions;
-
-    /// Направления осей
-    std::vector<bool> directions;
-
-    /// Расстояние, проходимое за 1 шаг
-    VectorDouble distanceByOneStep;*/
+    //! Датчики станка
+    std::vector<Sensor> machineToolSensors;
 
     /// Внешние устройства
     std::map<std::string, bool> externalDevices;
