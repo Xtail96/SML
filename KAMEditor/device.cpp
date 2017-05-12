@@ -3,7 +3,9 @@
 Device::Device(unsigned int _output, std::string _name, unsigned int _pause, bool _isActive, bool _isOn) :
     output(_output), name(_name), pause(_pause), isActive(_isActive), isOn(_isOn), errorCode(0)
 {
-
+    ControllerConnector &instance = ControllerConnector::Instance();
+    DeviceBuffer buffer = DeviceBuffer();
+    instance.insertToDevicesMap(output, buffer);
 }
 
 unsigned int Device::getOutput() const
@@ -85,7 +87,8 @@ void Device::turnOn()
         if(!isOn)
         {
             isOn = true;
-            sendToControllerConnector();
+            std::vector<unsigned int> argument = createArgument(1);
+            sendToControllerConnector(argument);
         }
     }
 }
@@ -97,28 +100,68 @@ void Device::turnOff()
         if(isOn)
         {
             isOn = false;
-            sendToControllerConnector();
+            std::vector<unsigned int> argument =createArgument(0);
+            sendToControllerConnector(argument);
         }
     }
 }
 
-void Device::sendToControllerConnector()
+void Device::sendToControllerConnector(const std::vector<unsigned int> &argument)
 {
-    std::vector<unsigned int> stringToControllerConnector = createArgument();
+    DeviceBuffer buffer = DeviceBuffer(argument);
     ControllerConnector &instance = ControllerConnector::Instance();
-    instance.pushBackToBuffer(stringToControllerConnector);
+    instance.updateDevicesMapElelment(output, buffer);
     ready();
 }
 
-std::vector<unsigned int> Device::createArgument()
+std::vector<unsigned int> Device::createArgument(const unsigned int &action)
 {
-    std::vector<unsigned int> argument =
+    std::vector<unsigned int> argument;
+    switch (action) {
+    case 0: // turn off
     {
-        output,
-        errorCode,
-        isOn,
-        pause
-    };
+        argument =
+        {
+            output,
+            errorCode,
+            isOn,
+            0,
+            0,
+            pause
+        };
+        break;
+    }
+    case 1: // turn on
+    {
+        argument =
+        {
+            output,
+            errorCode,
+            isOn,
+            1,
+            0,
+            pause
+        };
+        break;
+    }
+    case 2: //update
+    {
+        argument =
+        {
+            output,
+            errorCode,
+            isOn,
+            1,
+            0,
+            pause
+        };
+        break;
+    }
+    default:
+        throw std::invalid_argument("Unknown action");
+        break;
+    }
+
     return argument;
 }
 

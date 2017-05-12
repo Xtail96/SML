@@ -81,11 +81,79 @@ struct
     }
 } axisNames;
 
-struct
+struct DeviceBuffer
 {
+   std::vector<unsigned int> buffer;
 
+   DeviceBuffer() :
+       buffer(std::vector<unsigned int>(6, 0))
+   {
 
-}devicesMap;
+   }
+
+   DeviceBuffer(const std::vector<unsigned int> &value)
+   {
+       updateDeviceBuffer(value);
+   }
+
+   void clearDeviceBuffer()
+   {
+       buffer =
+       {
+           0, // номер выхода
+           0, // код ошибки
+           0, // включено ли устройство
+           0, // необходимое действие: включить/выключть
+           0, // аргумент устройства;
+           0, // пауза
+       };
+   }
+
+   std::vector<unsigned int>getDeviceBuffer() const
+   {
+       return buffer;
+   }
+
+   void updateDeviceBuffer(const std::vector<unsigned int> &value)
+   {
+       if(buffer.size() == value.size())
+       {
+           buffer = value;
+       }
+       else
+       {
+           if(buffer.size() < value.size())
+           {
+               for(unsigned int i = 0; i < buffer.size(); i++)
+               {
+                   buffer[i] = value[i];
+               }
+           }
+           else
+           {
+               unsigned int difference = buffer.size() - value.size();
+               buffer = value;
+               for(unsigned int i = 0; i< difference; i++)
+               {
+                   buffer.push_back(0);
+               }
+           }
+       }
+   }
+};
+
+struct SensorBuffer
+{
+    std::vector<unsigned int> buffer;
+    SensorBuffer()
+    {
+        std::vector<unsigned int> buffer =
+        {
+            0, // номер входа
+            0, // активен ли датчик
+        };
+    }
+};
 
 /// Настройки KFlop
 //struct AxisKFlopSettings

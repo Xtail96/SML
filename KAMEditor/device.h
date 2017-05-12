@@ -63,10 +63,10 @@ public:
     virtual void turnOff();
 
     //! Отправляет данные о состоянии устройства в модуль взаимодействия с контроллером
-    void sendToControllerConnector();
+    void sendToControllerConnector(const std::vector<unsigned int> &argument);
 
     //! Формирует строку из номера выхода, текущего состояния(включено/выключено) и кода ошибки, содержащую информацию отекущем состоянии устройства;
-    virtual std::vector<unsigned int> createArgument();
+    virtual std::vector<unsigned int> createArgument(const unsigned int &action);
     //virtual void run();
     //void changeDeviceStatus();
 

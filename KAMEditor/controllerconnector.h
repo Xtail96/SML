@@ -23,14 +23,20 @@ private:
      */
     std::vector< std::vector<unsigned int> > buffer;
 
+    std::map<unsigned int, DeviceBuffer> devicesMap;
+    //std::vector<DeviceBuffer> devicesVector;
+
+    std::vector<SensorBuffer> sensorsVector;
+
     //! Очищает буфер для взаимодействия с контроллером;
     void clearBuffer();
 public:
     ControllerConnector();
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
     static ControllerConnector& Instance();
-
     void pushBackToBuffer(const std::vector<unsigned int> &element);
+    void insertToDevicesMap(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer);
+    void updateDevicesMapElelment(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer);
 
     std::vector< std::vector<unsigned int> >getBuffer() const;
 

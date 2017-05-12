@@ -1,5 +1,4 @@
 #include "controllerconnector.h"
-
 ControllerConnector& ControllerConnector::Instance()
 {
     static ControllerConnector m;
@@ -7,7 +6,7 @@ ControllerConnector& ControllerConnector::Instance()
 }
 
 ControllerConnector::ControllerConnector() :
-    buffer(buffer = std::vector< std::vector<unsigned int> >(0))
+    buffer(std::vector< std::vector<unsigned int> >(0))
 {
 
 }
@@ -15,6 +14,22 @@ ControllerConnector::ControllerConnector() :
 void ControllerConnector::pushBackToBuffer(const std::vector<unsigned int> &element)
 {
     buffer.push_back(element);
+}
+
+void ControllerConnector::insertToDevicesMap(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer)
+{
+    devicesMap.insert(std::make_pair(deviceOutput, deviceBuffer));
+}
+
+void ControllerConnector::updateDevicesMapElelment(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer)
+{
+    for(auto it : devicesMap)
+    {
+        if(it.first == deviceOutput)
+        {
+            it.second = deviceBuffer;
+        }
+    }
 }
 
 std::vector< std::vector<unsigned int> >ControllerConnector::getBuffer() const
@@ -47,3 +62,4 @@ std::vector<unsigned int> ControllerConnector::readInputInformation(const unsign
     }
     return inputInformation;
 }
+
