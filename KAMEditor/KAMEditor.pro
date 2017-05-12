@@ -58,7 +58,10 @@ SOURCES += main.cpp\
     commands/line.cpp \
     settingsmanager.cpp \
     axis.cpp \
-    sensor.cpp
+    sensor.cpp \
+    device.cpp \
+    controllerconnector.cpp \
+    spindel.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -100,7 +103,10 @@ HEADERS  += gui/mainwindow.h \
     settingsmanager.h \
     structs.h \
     axis.h \
-    sensor.h
+    sensor.h \
+    device.h \
+    controllerconnector.h \
+    spindel.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

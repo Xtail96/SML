@@ -80,6 +80,7 @@ struct
     }
 } axisNames;
 
+
 /// Настройки KFlop
 //struct AxisKFlopSettings
 //{
