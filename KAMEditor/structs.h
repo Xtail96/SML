@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <string>
+#include <vector>
 #include <map>
 
 
@@ -80,6 +81,11 @@ struct
     }
 } axisNames;
 
+struct
+{
+
+
+}devicesMap;
 
 /// Настройки KFlop
 //struct AxisKFlopSettings

@@ -38,7 +38,7 @@ protected:
     bool isOn;
 
     //! Код ошибки
-    int errorCode;
+    unsigned int errorCode;
 public:
     Device(unsigned int _output, std::string _name, unsigned int _pause = 1, bool _isActive = true, bool _isOn = false);
 
@@ -53,8 +53,8 @@ public:
     void setIsActive(bool value);
     bool getIsOn() const;
     void setIsOn(const bool &value);
-    int getErrorCode() const;
-    void setErrorCode(int value);
+    unsigned int getErrorCode() const;
+    void setErrorCode(const unsigned int &value);
 
     //! Включает устройство
     virtual void turnOn();
@@ -66,7 +66,7 @@ public:
     void sendToControllerConnector();
 
     //! Формирует строку из номера выхода, текущего состояния(включено/выключено) и кода ошибки, содержащую информацию отекущем состоянии устройства;
-    virtual std::string createArgument();
+    virtual std::vector<unsigned int> createArgument();
     //virtual void run();
     //void changeDeviceStatus();
 

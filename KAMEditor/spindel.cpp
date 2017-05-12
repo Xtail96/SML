@@ -58,8 +58,4 @@ void Spindel::calibrateSpindelJog(unsigned int jog)
     }
 }
 
-std::string Spindel::createArgument()
-{
-    return std::string(std::to_string(output) + std::to_string(isOn) + std::to_string(errorCode) + std::to_string(currentJog));
-}
 

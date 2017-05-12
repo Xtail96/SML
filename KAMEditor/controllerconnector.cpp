@@ -7,34 +7,43 @@ ControllerConnector& ControllerConnector::Instance()
 }
 
 ControllerConnector::ControllerConnector() :
-    buffer("")
+    buffer(buffer = std::vector< std::vector<unsigned int> >(0))
 {
 
 }
 
-std::string ControllerConnector::getBuffer() const
+void ControllerConnector::pushBackToBuffer(const std::vector<unsigned int> &element)
+{
+    buffer.push_back(element);
+}
+
+std::vector< std::vector<unsigned int> >ControllerConnector::getBuffer() const
 {
     return buffer;
 }
 
-void ControllerConnector::setBuffer(const std::string &s)
+/*std::vector<unsigned int> ControllerConnector::readFromTheBuffer(const unsigned int &position)
 {
-    if(buffer == "")
+    if(position < buffer.size())
     {
-        buffer = s;
+        return buffer[position];
     }
     else
     {
-        buffer += '|' + s;
+        throw std::invalid_argument("Buffer does not have this element");
     }
-}
+}*/
 
-void ControllerConnector::clearBuffer()
+std::vector<unsigned int> ControllerConnector::readInputInformation(const unsigned int &inputNumber) const
 {
-    buffer = "";
-}
-
-void ControllerConnector::send()
-{
-
+    std::vector<unsigned int> inputInformation = std::vector<unsigned int>(0);
+    for(auto element : buffer)
+    {
+        if(element[0] == inputNumber)
+        {
+            inputInformation = element;
+            break;
+        }
+    }
+    return inputInformation;
 }

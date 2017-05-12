@@ -19,7 +19,6 @@ public:
 
     //void run() override;
     void calibrateSpindelJog(unsigned int jog);
-    std::string createArgument() override;
 };
 
 #endif // SPINDEL_H

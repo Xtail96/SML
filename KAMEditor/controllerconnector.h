@@ -4,6 +4,8 @@
 
 #include <QMainWindow>
 
+#include "structs.h"
+
 /**
  * \brief Класс "Модуль взаимодействия с контроллером"
  * \warning Является синглтоном
@@ -13,7 +15,13 @@ class ControllerConnector
 {
 private:
     //! Буфер для взаимодействия с контроллером, содержащий данные для полученные или отправляемые на котроллер;
-    std::string buffer;
+    /**
+     * Структура буфера:
+     * Буфер представляет собой вектор строк;
+     * Каждая строка содержит следующие параметры:
+     * 1 символ
+     */
+    std::vector< std::vector<unsigned int> > buffer;
 
     //! Очищает буфер для взаимодействия с контроллером;
     void clearBuffer();
@@ -22,11 +30,11 @@ public:
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
     static ControllerConnector& Instance();
 
-    //! Возвращает данные из буфера обмена данных с контроллером в формате строки
-    std::string getBuffer() const;
+    void pushBackToBuffer(const std::vector<unsigned int> &element);
 
-    //! Записывает информацию в буфер данных для взаимодействия с контроллером в формате строки
-    void setBuffer(const std::string &s);
+    std::vector< std::vector<unsigned int> >getBuffer() const;
+
+    std::vector<unsigned int> readInputInformation(const unsigned int &inputNumber) const;
 public slots:
 
     //! Отправляет данные на контроллер

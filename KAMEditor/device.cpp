@@ -56,12 +56,12 @@ void Device::setIsOn(const bool &value)
     isOn = value;
 }
 
-int Device::getErrorCode() const
+unsigned int Device::getErrorCode() const
 {
     return errorCode;
 }
 
-void Device::setErrorCode(int value)
+void Device::setErrorCode(const unsigned int &value)
 {
     errorCode = value;
 }
@@ -104,15 +104,22 @@ void Device::turnOff()
 
 void Device::sendToControllerConnector()
 {
-    std::string stringToControllerConnector = createArgument();
+    std::vector<unsigned int> stringToControllerConnector = createArgument();
     ControllerConnector &instance = ControllerConnector::Instance();
-    instance.setBuffer(stringToControllerConnector);
+    instance.pushBackToBuffer(stringToControllerConnector);
     ready();
 }
 
-std::string Device::createArgument()
+std::vector<unsigned int> Device::createArgument()
 {
-    return std::string(std::to_string(output) + std::to_string(errorCode) + std::to_string(isOn) + std::to_string(pause));
+    std::vector<unsigned int> argument =
+    {
+        output,
+        errorCode,
+        isOn,
+        pause
+    };
+    return argument;
 }
 
 /*void Device::changeDeviceStatus()
