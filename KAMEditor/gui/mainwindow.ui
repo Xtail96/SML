@@ -723,6 +723,18 @@
            <string>Работа с внешними устройствами</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_17">
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
            <item>
             <widget class="QTabWidget" name="tabWidget_3">
              <property name="currentIndex">
@@ -1152,10 +1164,10 @@
            </sizepolicy>
           </property>
           <property name="frameShape">
-           <enum>QFrame::Box</enum>
+           <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+           <enum>QFrame::Plain</enum>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
@@ -1164,6 +1176,18 @@
               <string>Работа с фрезерами:</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <widget class="QPushButton" name="spindle_enable_pushButton">
                 <property name="sizePolicy">
@@ -1350,6 +1374,18 @@
               <string>Базировка:</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_11">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <widget class="QPushButton" name="to_base_button">
                 <property name="sizePolicy">
@@ -1375,6 +1411,18 @@
               <string>Точка НОЛЬ:</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <widget class="QPushButton" name="zero_button">
                 <property name="sizePolicy">
@@ -1432,6 +1480,18 @@
               <string>Точка ПАРК:</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_10">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <widget class="QPushButton" name="park_button">
                 <property name="sizePolicy">
@@ -1473,6 +1533,18 @@
               <string>Обработка:</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <widget class="QPushButton" name="timer_button">
                 <property name="sizePolicy">
