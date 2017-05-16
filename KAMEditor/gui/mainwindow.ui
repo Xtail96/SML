@@ -1400,6 +1400,12 @@
                 <property name="shortcut">
                  <string>F9</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
              </layout>
@@ -4104,7 +4110,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Оброты:</string>
+                 <string>Обороты:</string>
                 </property>
                </widget>
               </item>
