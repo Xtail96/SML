@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1393</width>
-    <height>732</height>
+    <height>738</height>
    </rect>
   </property>
   <property name="palette">
@@ -804,10 +804,10 @@
                   </sizepolicy>
                  </property>
                  <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                  <enum>QFrame::Plain</enum>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
@@ -987,7 +987,7 @@
            <item row="1" column="1">
             <widget class="QFrame" name="exists_points_actions_button_frame">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
@@ -1083,10 +1083,13 @@
            <item row="1" column="0">
             <widget class="QFrame" name="points_creations_actions_frame">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13">
               <property name="spacing">
@@ -1533,15 +1536,30 @@
            </sizepolicy>
           </property>
           <property name="frameShape">
-           <enum>QFrame::Box</enum>
+           <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
           </property>
           <property name="midLineWidth">
            <number>0</number>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
            <item row="4" column="1" colspan="4">
             <widget class="QGroupBox" name="discrete_group_box">
              <property name="sizePolicy">
@@ -1820,6 +1838,18 @@
               <bool>false</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_4">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item row="1" column="0">
                <widget class="QPushButton" name="movement_x_negative_button">
                 <property name="sizePolicy">
@@ -2138,6 +2168,18 @@
               <string/>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item row="0" column="1">
                <widget class="QPushButton" name="movement_a_positive_button">
                 <property name="sizePolicy">
@@ -2371,19 +2413,19 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <property name="spacing">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QGroupBox" name="current_coordinates_group_box">
@@ -2401,7 +2443,7 @@
              <property name="checkable">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
+             <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
               <property name="spacing">
                <number>5</number>
               </property>
@@ -2731,7 +2773,7 @@
            <string notr="true"/>
           </property>
           <property name="frameShape">
-           <enum>QFrame::Box</enum>
+           <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
