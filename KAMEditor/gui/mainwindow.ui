@@ -2888,7 +2888,7 @@
             <number>5</number>
            </property>
            <item>
-            <widget class="QFrame" name="feedrate_frame_2">
+            <widget class="QFrame" name="feedrate_frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
