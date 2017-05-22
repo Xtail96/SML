@@ -62,7 +62,7 @@ SOURCES += main.cpp\
     device.cpp \
     controllerconnector.cpp \
     spindel.cpp \
-    buffer.cpp
+    binaryMaskHandler.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -108,7 +108,7 @@ HEADERS  += gui/mainwindow.h \
     device.h \
     controllerconnector.h \
     spindel.h \
-    buffer.h
+    binaryMaskHandler.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
