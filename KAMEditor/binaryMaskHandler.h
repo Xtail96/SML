@@ -22,4 +22,4 @@ public:
     static BinaryMaskHandler& Instance();
 };
 
-#endif // BUFFER_H
+#endif // BINARYMASKHANDLER_H
