@@ -23,11 +23,11 @@ macx {
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
-    machineTool/machinetool.cpp \
+    machinetool/machinetool.cpp \
     gui/points/addpointdialog.cpp \
     gui/points/mousetoselectionpointdialog.cpp \
     gui/points/editpointdialog.cpp \
-    pointsManager/pointsmanager.cpp \
+    editor/pointsEditor/pointsManager/pointsmanager.cpp \
 #    gui/commands/linedialog.cpp \
 #    gui/commands/arcdialog.cpp \
 #    gui/commands/labeldialog.cpp \
@@ -53,24 +53,24 @@ SOURCES += main.cpp\
     gui/commands/adddevicedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/oglwidget.cpp \
-    commands/commandinterpreter.cpp \
-    commands/arc.cpp \
-    commands/line.cpp \
-    settingsManager/settingsmanager.cpp \
-    axis/axis.cpp \
-    sensors/sensor.cpp \
-    devices/device.cpp \
-    controllerConnector/controllerconnector.cpp \
-    devices/spindel.cpp \
-    binaryMaskHandler/binaryMaskHandler.cpp
+    editor/commands/commandinterpreter.cpp \
+    editor/commands/arc.cpp \
+    editor/commands/line.cpp \
+    machinetool/settings/settingsManager/settingsmanager.cpp \
+    machinetool/components/axis/axis.cpp \
+    machinetool/components/sensors/sensor.cpp \
+    machinetool/components/devices/device.cpp \
+    mcuLinksProvider/controllerConnector/controllerconnector.cpp \
+    machinetool/components/devices/spindel.cpp \
+    mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp
 
 HEADERS  += gui/mainwindow.h \
-    machineTool/machinetool.h \
-    point/point.h \
+    machinetool/machinetool.h \
+    editor/pointsEditor/point/point.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
     gui/points/editpointdialog.h \
-    pointsManager/pointsmanager.h \
+    editor/pointsEditor/pointsManager/pointsmanager.h \
 #    gui/commands/linedialog.h \
 #    gui/commands/arcdialog.h \
 #    gui/commands/labeldialog.h \
@@ -96,19 +96,19 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/adddevicedialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/oglwidget.h \
-    commands/command.h \
-    commands/commands.h \
-    commands/commandinterpreter.h \
-    commands/arc.h \
-    commands/line.h \
-    settingsManager/settingsmanager.h \
+    editor/commands/command.h \
+    editor/commands/commands.h \
+    editor/commands/commandinterpreter.h \
+    editor/commands/arc.h \
+    editor/commands/line.h \
+    machinetool/settings/settingsManager/settingsmanager.h \
     structs.h \
-    axis/axis.h \
-    sensors/sensor.h \
-    devices/device.h \
-    controllerConnector/controllerconnector.h \
-    devices/spindel.h \
-    binaryMaskHandler/binaryMaskHandler.h
+    machinetool/components/axis/axis.h \
+    machinetool/components/sensors/sensor.h \
+    machinetool/components/devices/device.h \
+    mcuLinksProvider/controllerConnector/controllerconnector.h \
+    machinetool/components/devices/spindel.h \
+    mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

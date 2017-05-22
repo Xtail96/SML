@@ -2,8 +2,8 @@
 #define EDITPOINTDIALOG_H
 
 #include <QDialog>
-#include "pointsManager/pointsmanager.h"
-#include "point/point.h"
+#include "editor/pointsEditor/pointsManager/pointsmanager.h"
+#include "editor/pointsEditor/point/point.h"
 
 namespace Ui {
 class EditPointDialog;

@@ -23,13 +23,13 @@
 #endif
 
 #include "machineTool/machinetool.h"
-#include "pointsManager/pointsmanager.h"
+#include "editor/pointsEditor/pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
-#include "commands/commandinterpreter.h"
-#include "commands/commanddialog.h"
+#include "editor/commands/commandinterpreter.h"
 
+#include "commands/commanddialog.h"
 #include "commands/linedialog.h"
 #include "commands/ttlinedialog.h"
 #include "commands/arcdialog.h"
@@ -53,10 +53,10 @@
 #include "commands/ttttsplinedialog.h"
 #include "commands/adddevicedialog.h"
 
-#include "commands/commands.h"
+#include "editor/commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
-#include "settingsManager/settingsmanager.h"
+#include "machinetool/settings/settingsManager/settingsmanager.h"
 
 
 namespace Ui {

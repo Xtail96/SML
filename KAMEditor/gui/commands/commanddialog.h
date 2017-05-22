@@ -1,7 +1,7 @@
 #ifndef COMMANDDIALOG_H
 #define COMMANDDIALOG_H
 #include <QLineEdit>
-#include "../../commands/commandinterpreter.h"
+#include "../../editor/commands/commandinterpreter.h"
 
 class CommandDialog
 {

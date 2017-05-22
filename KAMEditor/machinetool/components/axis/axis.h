@@ -1,7 +1,7 @@
 #ifndef AXIS_H
 #define AXIS_H
 #include <string>
-#include "settingsManager/settingsmanager.h"
+#include "machinetool/settings/settingsManager/settingsmanager.h"
 
 /*!
  * \brief Класс "Ось"
