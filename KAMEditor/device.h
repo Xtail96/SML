@@ -67,12 +67,6 @@ public:
 
     //! Формирует строку из номера выхода, текущего состояния(включено/выключено) и кода ошибки, содержащую информацию отекущем состоянии устройства;
     virtual std::vector<unsigned int> createArgument(const unsigned int &action);
-    //virtual void run();
-    //void changeDeviceStatus();
-
-signals:
-    //! Сигнал о завершении передачи данных в модуль общения с контроллером
-    void ready();
 };
 
 #endif // DEVICE_H

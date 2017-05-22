@@ -3,9 +3,7 @@
 Device::Device(unsigned int _output, std::string _name, unsigned int _pause, bool _isActive, bool _isOn) :
     output(_output), name(_name), pause(_pause), isActive(_isActive), isOn(_isOn), errorCode(0)
 {
-    ControllerConnector &instance = ControllerConnector::Instance();
-    DeviceBuffer buffer = DeviceBuffer();
-    instance.insertToDevicesMap(output, buffer);
+
 }
 
 unsigned int Device::getOutput() const
@@ -108,10 +106,7 @@ void Device::turnOff()
 
 void Device::sendToControllerConnector(const std::vector<unsigned int> &argument)
 {
-    DeviceBuffer buffer = DeviceBuffer(argument);
-    ControllerConnector &instance = ControllerConnector::Instance();
-    instance.updateDevicesMapElelment(output, buffer);
-    ready();
+
 }
 
 std::vector<unsigned int> Device::createArgument(const unsigned int &action)
@@ -164,16 +159,3 @@ std::vector<unsigned int> Device::createArgument(const unsigned int &action)
 
     return argument;
 }
-
-/*void Device::changeDeviceStatus()
-{
-    if(isOn)
-    {
-        isOn = false;
-    }
-    else
-    {
-        isOn = true;
-    }
-}*/
-void Device::ready(){}

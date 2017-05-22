@@ -61,7 +61,8 @@ SOURCES += main.cpp\
     sensor.cpp \
     device.cpp \
     controllerconnector.cpp \
-    spindel.cpp
+    spindel.cpp \
+    buffer.cpp
 
 HEADERS  += gui/mainwindow.h \
     machinetool.h \
@@ -106,7 +107,8 @@ HEADERS  += gui/mainwindow.h \
     sensor.h \
     device.h \
     controllerconnector.h \
-    spindel.h
+    spindel.h \
+    buffer.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

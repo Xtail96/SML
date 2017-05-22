@@ -9,38 +9,15 @@
 /**
  * \brief Класс "Модуль взаимодействия с контроллером"
  * \warning Является синглтоном
- * \brief Класс формирует буфер для записи данных о том, какие действия нужно выполнить контроллеру и предоставляет необходимый программный интерфейс для работы с буфером;
+ * \brief Класс получает данные из буфера обмена данными и следит за корректностью разрядности;
  */
 class ControllerConnector
 {
 private:
-    //! Буфер для взаимодействия с контроллером, содержащий данные для полученные или отправляемые на котроллер;
-    /**
-     * Структура буфера:
-     * Буфер представляет собой вектор строк;
-     * Каждая строка содержит следующие параметры:
-     * 1 символ
-     */
-    std::vector< std::vector<unsigned int> > buffer;
-
-    std::map<unsigned int, DeviceBuffer> devicesMap;
-    //std::vector<DeviceBuffer> devicesVector;
-
-    std::vector<SensorBuffer> sensorsVector;
-
-    //! Очищает буфер для взаимодействия с контроллером;
-    void clearBuffer();
 public:
     ControllerConnector();
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
     static ControllerConnector& Instance();
-    void pushBackToBuffer(const std::vector<unsigned int> &element);
-    void insertToDevicesMap(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer);
-    void updateDevicesMapElelment(const unsigned int &deviceOutput, const DeviceBuffer &deviceBuffer);
-
-    std::vector< std::vector<unsigned int> >getBuffer() const;
-
-    std::vector<unsigned int> readInputInformation(const unsigned int &inputNumber) const;
 public slots:
 
     //! Отправляет данные на контроллер
