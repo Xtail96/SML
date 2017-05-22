@@ -28,7 +28,7 @@ private:
     std::map<std::string, std::string> settingsMap;
 
     /// Директория для сохранения настроек
-    std::string settingsPath = "settingsOrigin.ini";
+    std::string settingsPath = "settings.ini";
 public:
     SettingsManager();
 

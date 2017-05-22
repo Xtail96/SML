@@ -5,7 +5,6 @@
 #include <QMainWindow>
 
 #include "structs.h"
-#include "controllerconnector.h"
 
 /**
  * \brief Класс "Устройство"

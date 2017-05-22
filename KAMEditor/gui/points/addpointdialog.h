@@ -2,8 +2,8 @@
 #define ADDPOINTDIALOG_H
 
 #include <QDialog>
-#include "pointsmanager.h"
-#include "point.h"
+#include "pointsManager/pointsmanager.h"
+#include "point/point.h"
 
 namespace Ui {
 class AddPointDialog;

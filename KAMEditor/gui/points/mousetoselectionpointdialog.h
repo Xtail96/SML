@@ -3,8 +3,8 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include "pointsmanager.h"
-#include "point.h"
+#include "pointsManager/pointsmanager.h"
+#include "point/point.h"
 
 namespace Ui {
 class MouseToSelectionPointDialog;

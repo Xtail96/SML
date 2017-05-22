@@ -1,5 +1,5 @@
 #include "gui/mainwindow.h"
-#include "machinetool.h"
+#include "machineTool/machinetool.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

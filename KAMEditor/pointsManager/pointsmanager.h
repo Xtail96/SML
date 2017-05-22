@@ -2,7 +2,7 @@
 #define POINTSMANAGER_H
 
 #include <vector>
-#include "point.h"
+#include "point/point.h"
 
 
 /*!

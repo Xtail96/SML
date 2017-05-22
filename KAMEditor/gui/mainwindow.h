@@ -22,8 +22,8 @@
 #include <windows.h>
 #endif
 
-#include "machinetool.h"
-#include "pointsmanager.h"
+#include "machineTool/machinetool.h"
+#include "pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
@@ -56,7 +56,7 @@
 #include "commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
-#include "settingsmanager.h"
+#include "settingsManager/settingsmanager.h"
 
 
 namespace Ui {

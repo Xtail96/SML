@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "structs.h"
-#include "machinetool.h"
+#include "machineTool/machinetool.h"
 
 //typedef VectorDouble Point;
 

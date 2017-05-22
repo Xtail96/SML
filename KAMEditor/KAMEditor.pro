@@ -23,11 +23,11 @@ macx {
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
-    machinetool.cpp \
+    machineTool/machinetool.cpp \
     gui/points/addpointdialog.cpp \
     gui/points/mousetoselectionpointdialog.cpp \
     gui/points/editpointdialog.cpp \
-    pointsmanager.cpp \
+    pointsManager/pointsmanager.cpp \
 #    gui/commands/linedialog.cpp \
 #    gui/commands/arcdialog.cpp \
 #    gui/commands/labeldialog.cpp \
@@ -56,21 +56,21 @@ SOURCES += main.cpp\
     commands/commandinterpreter.cpp \
     commands/arc.cpp \
     commands/line.cpp \
-    settingsmanager.cpp \
-    axis.cpp \
-    sensor.cpp \
-    device.cpp \
-    controllerconnector.cpp \
-    spindel.cpp \
-    binaryMaskHandler.cpp
+    settingsManager/settingsmanager.cpp \
+    axis/axis.cpp \
+    sensors/sensor.cpp \
+    devices/device.cpp \
+    controllerConnector/controllerconnector.cpp \
+    devices/spindel.cpp \
+    binaryMaskHandler/binaryMaskHandler.cpp
 
 HEADERS  += gui/mainwindow.h \
-    machinetool.h \
-    point.h \
+    machineTool/machinetool.h \
+    point/point.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
     gui/points/editpointdialog.h \
-    pointsmanager.h \
+    pointsManager/pointsmanager.h \
 #    gui/commands/linedialog.h \
 #    gui/commands/arcdialog.h \
 #    gui/commands/labeldialog.h \
@@ -101,14 +101,14 @@ HEADERS  += gui/mainwindow.h \
     commands/commandinterpreter.h \
     commands/arc.h \
     commands/line.h \
-    settingsmanager.h \
+    settingsManager/settingsmanager.h \
     structs.h \
-    axis.h \
-    sensor.h \
-    device.h \
-    controllerconnector.h \
-    spindel.h \
-    binaryMaskHandler.h
+    axis/axis.h \
+    sensors/sensor.h \
+    devices/device.h \
+    controllerConnector/controllerconnector.h \
+    devices/spindel.h \
+    binaryMaskHandler/binaryMaskHandler.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

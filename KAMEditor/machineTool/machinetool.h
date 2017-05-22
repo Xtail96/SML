@@ -7,8 +7,8 @@
 #include <vector>
 
 #include "structs.h"
-#include "axis.h"
-#include "sensor.h"
+#include "axis/axis.h"
+#include "sensors/sensor.h"
 /**
  * \brief Класс "Станок"
  * \warning Является синглтоном

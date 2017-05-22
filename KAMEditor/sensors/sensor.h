@@ -4,8 +4,6 @@
 #include <QSensor>
 #include <QPressureSensor>
 
-#include "controllerconnector.h"
-
 class Sensor
 {
 protected:
