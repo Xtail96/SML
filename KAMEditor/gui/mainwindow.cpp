@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // окно на весь экран
+    QMainWindow::showMaximized();
 
     // считываем настройки станка из файла и сохраняем их в структуру данных
     setupSettings();
@@ -32,9 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
-
-    // окно на весь экран
-    QMainWindow::showMaximized();
 
     // таймер обновления окна координат
     timer = new QTimer(this);

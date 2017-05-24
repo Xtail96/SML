@@ -138,8 +138,6 @@ FORMS    += gui/mainwindow.ui \
 #    gui/commands/ttttsplinedialog.ui
 
 win32:RC_FILE = application.rc
-
-
 macx:ICON = $${PWD}/applicationOSX.icns
 
 RESOURCES += \
