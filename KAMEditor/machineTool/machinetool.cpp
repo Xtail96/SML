@@ -335,7 +335,7 @@ void MachineTool::addMachineToolAxis(const unsigned int &count)
     }
 }
 
-std::vector<Axis> MachineTool::getMachineToolAxis() const
+std::vector<Axis> &MachineTool::getMachineToolAxis()
 {
     return machineToolAxis;
 }

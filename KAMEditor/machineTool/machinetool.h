@@ -82,7 +82,7 @@ public:
 
 
     void addMachineToolAxis(const unsigned int &count);
-    std::vector<Axis> getMachineToolAxis() const;
+    std::vector<Axis>& getMachineToolAxis();
     void setMachineToolAxis(const std::vector<Axis> &value);
 
     std::vector<Sensor> getMachineToolSensors() const;
