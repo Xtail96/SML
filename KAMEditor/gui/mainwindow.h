@@ -107,11 +107,11 @@ private:
     void setMovementButtonsShortcutsState(bool state);
     void setMovementButtonsRepeatState(bool state);
 
-    void update_coordinates();
-    void update_battery_status();
-    void update_kabriol_avaliability();
+    void updateCoordinates();
+    void updateBatteryStatus();
+    void updateKabriolAvaliability();
 
-    void update_edges_control_status();
+    void updateEdgesControlStatus();
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 
@@ -124,9 +124,9 @@ private:
     void eraseSpecialSymbols(std::string &s);
 
 protected:
-    void update_points();
-    void update_commands();
-    void update_base_status();
+    void updatePoints();
+    void updateCommands();
+    void updateBaseStatus();
 
 private slots:
 
@@ -134,63 +134,62 @@ private slots:
     void deleteSelectedCommands();
 
     void update();
-    void on_discrete_radio_button_1_clicked();
-    void on_discrete_radio_button_2_clicked();
-    void on_discrete_radio_button_3_clicked();
-    void on_discrete_radio_button_4_clicked();
-    void on_discrete_radio_button_5_clicked();
+    void on_discreteRadioButton_1_clicked();
+    void on_discreteRadioButton_2_clicked();
+    void on_discreteRadioButton_3_clicked();
+    void on_discreteRadioButton_4_clicked();
+    void on_discreteRadioButton_5_clicked();
 
-    void on_movement_x_positive_button_clicked();
-    void on_movement_x_negative_button_clicked();
-    void on_movement_y_positive_button_clicked();
-    void on_movement_y_negative_button_clicked();
+    void on_movementXPositivePushButton_clicked();
+    void on_movementXNegativePushButton_clicked();
+    void on_movementYPositivePushButton_clicked();
+    void on_movementYNegativePushButton_clicked();
 
-    void on_movement_x_positive_y_positive_button_clicked();
-    void on_movement_x_positive_y_negative_button_clicked();
-    void on_movement_x_negative_y_positive_button_clicked();
-    void on_movement_x_negative_y_negative_button_clicked();
+    void on_movementXPositiveYPositivePushButton_clicked();
+    void on_movementXPositiveYNegativePushButton_clicked();
+    void on_movementXNegativeYPositivePushButton_clicked();
+    void on_movementXNegativeYNegativePushButton_clicked();
 
-    void on_movement_z_negative_button_clicked();
-    void on_movement_z_positive_button_clicked();
+    void on_movementZNegativePushButton_clicked();
+    void on_movementZPositivePushButton_clicked();
 
-    void on_movement_a_positive_button_clicked();
-    void on_movement_a_negative_button_clicked();
+    void on_movementAPositivePushButton_clicked();
+    void on_movementANegativePushButton_clicked();
 
+    void on_movementBPositivePushButton_clicked();
+    void on_movementBNegativePushButton_clicked();
 
-    void on_movement_b_positive_button_clicked();
-    void on_movement_b_negative_button_clicked();
+    void on_feedrateScrollBar_valueChanged(int value);
 
-    void on_feedrate_scroll_bar_valueChanged(int value);
-
-    void on_rotations_scroll_bar_valueChanged(int value);
+    void on_rotationsScrollBar_valueChanged(int value);
 
     void on_exit_action_triggered();
 
-    void on_point_amount_button_clicked();
-    void on_park_button_clicked();
-    void on_point_add_button_clicked();
-    void on_point_delete_button_clicked();
-    void on_zero_button_clicked();
-    void on_point_cursor_button_clicked();
-    void on_point_edit_button_clicked();
-    void on_point_copy_button_clicked();
-    void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
-    void on_to_base_button_clicked();
-    void on_edges_contol_check_box_clicked();
-    void on_spindle_enable_pushButton_clicked();
-    void on_mill_warming_pushButton_clicked();
-    void on_points_table_widget_doubleClicked(const QModelIndex &index);
-    void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
-    void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
+    void on_pointsAmountPushButton_clicked();
+    void on_parkPushButton_clicked();
+    void on_pointAddPushButton_clicked();
+    void on_pointDeletePushButton_clicked();
+    void on_zeroPushButton_clicked();
+    void on_pointCursorPushButton_clicked();
+    void on_pointEditPushButton_clicked();
+    void on_pointCopyPushButton_clicked();
+    void on_commandsToolsListWidget_doubleClicked(const QModelIndex &index);
+    void on_toBasePushButton_clicked();
+    void on_edgesControlCheckBox_clicked();
+    void on_spindelEnablePushButton_clicked();
+    void on_millWarmingPushButton_clicked();
+    void on_pointsTableWidget_doubleClicked(const QModelIndex &index);
+    void on_smlEditorTreeWidget_doubleClicked(const QModelIndex &index);
+    void on_smlEditorTreeWidget_clicked(const QModelIndex &index);
     void on_open_action_triggered();
-    void on_change_mechanics_settings_pushButton_clicked();
-    void on_apply_mechanics_settings_pushButton_clicked();
-    void on_cancel_mechanical_settings_pushButton_clicked();
-    void on_change_elecrical_settings_pushButton_clicked();
-    void on_apply_electrical_settings_pushButton_clicked();
-    void on_cancel_electrical_settings_pushButton_clicked();
-    void on_gcodes_editor_textEdit_textChanged();
-    void on_user_tools_listWidget_doubleClicked(const QModelIndex &index);
+    void on_changeMechanicalSettingsPushButton_clicked();
+    void on_applyMechanicalSettingsPushButton_clicked();
+    void on_cancelMechanicalSettingsPushButton_clicked();
+    void on_changeElecricalSettingsPushButton_clicked();
+    void on_applyElectricalSettingsPushButton_clicked();
+    void on_cancelElectricalSettingsPushButton_clicked();
+    void on_gcodesEditorTextEdit_textChanged();
+    void on_userToolsListWidget_doubleClicked(const QModelIndex &index);
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
 };

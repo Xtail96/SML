@@ -19,17 +19,17 @@ MainWindow::MainWindow(QWidget *parent) :
     // задаем горячие клавиши
     setupShortcuts();
 
-    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
+    QTreeWidget*  editorField = ui->smlEditorTreeWidget;
     editorField->setTreePosition(1);
 
     setupEditorShortcuts();
 
     hightlighter = new GCodesSyntaxHighlighter(this);
-    hightlighter->setDocument(ui->gcodes_editor_textEdit->document());
+    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
 
 
-    update_edges_control_status();
+    updateEdgesControlStatus();
 
     ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
@@ -42,24 +42,24 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->start();
 
     // растянуть таблицу с координатами
-    for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
+    for (int i = 0; i < ui->pointsTableWidget->horizontalHeader()->count(); i++)
     {
-        ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->points_table_widget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
     // в таблице выделяется целиком вся строка
-    ui->points_table_widget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->points_table_widget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    ui->points_table_widget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->points_table_widget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->spindle_enable_pushButton->setEnabled(false);
-    ui->spindle_enable_pushButton->setStyleSheet("margin: 1px");
+    ui->spindelEnablePushButton->setEnabled(false);
+    ui->spindelEnablePushButton->setStyleSheet("margin: 1px");
 
-    ui->length_sensor_button->setEnabled(false);
+    ui->toolLengthSensorPushButton->setEnabled(false);
 
     CommandInterpreter::Instance().addCommand(new CArc(1, 0, M_PI/2), 0);
     CommandInterpreter::Instance().addCommand(new Line(0.1, 0.2, 0), 1);
@@ -110,71 +110,71 @@ void MainWindow::chooseAxisSettingsItems(const Axis &axis)
     case 0:
     {   axisSettingsQLineEdits =
         {
-            ui->x_axis_acceleration_lineEdit,
-            ui->x_axis_basing_velocity_lineEdit,
-            ui->x_axis_channel_lineEdit,
-            ui->x_axis_jerk_lineEdit,
-            ui->x_axis_step_lineEdit,
-            ui->x_axis_velocity_lineEdit,
-            ui->x_dimension_lineEdit,
+            ui->xAxisAccelerationLineEdit,
+            ui->xAxisBasingVelocityLineEdit,
+            ui->xAxisChannelLineEdit,
+            ui->xAxisJerkLineEdit,
+            ui->xAxisStepLineEdit,
+            ui->xAxisVelocityLineEdit,
+            ui->xDimensionLineEdit,
         };
-        isAxisInvertedCheckBox = ui->x_axis_invert_checkBox;
+        isAxisInvertedCheckBox = ui->xAxisInvertCheckBox;
         break;
     }
     case 1:
     {   axisSettingsQLineEdits =
         {
-            ui->y_axis_acceleration_lineEdit,
-            ui->y_axis_basing_velocity_lineEdit,
-            ui->y_axis_channel_lineEdit,
-            ui->y_axis_jerk_lineEdit,
-            ui->y_axis_step_lineEdit,
-            ui->y_axis_velocity_lineEdit,
-            ui->y_dimension_lineEdit,
+            ui->yAxisAccelerationLineEdit,
+            ui->yAxisBasingVelocityLineEdit,
+            ui->yAxisChannelLineEdit,
+            ui->yAxisJerkLineEdit,
+            ui->yAxisStepLineEdit,
+            ui->yAxisVelocityLineEdit,
+            ui->yDimensionLineEdit,
         };
-        isAxisInvertedCheckBox = ui->y_axis_invert_checkBox;
+        isAxisInvertedCheckBox = ui->yAxisInvertCheckBox;
         break;
     }
     case 2:
     {   axisSettingsQLineEdits =
         {
-            ui->z_axis_acceleration_lineEdit,
-            ui->z_axis_basing_velocity_lineEdit,
-            ui->z_axis_channel_lineEdit,
-            ui->z_axis_jerk_lineEdit,
-            ui->z_axis_step_lineEdit,
-            ui->z_axis_velocity_lineEdit,
-            ui->z_dimension_lineEdit,
+            ui->zAxisAccelerationLineEdit,
+            ui->zAxisBasingVelocityLineEdit,
+            ui->zAxisChannelLineEdit,
+            ui->zAxisJerkLineEdit,
+            ui->zAxisStepLineEdit,
+            ui->zAxisVelocityLineEdit,
+            ui->zDimensionLineEdit,
         };
-        isAxisInvertedCheckBox = ui->z_axis_invert_checkBox;
+        isAxisInvertedCheckBox = ui->zAxisInvertCheckBox;
         break;
     }
     case 3:
     {   axisSettingsQLineEdits =
         {
-            ui->a_axis_acceleration_lineEdit,
-            ui->a_axis_basing_velocity_lineEdit,
-            ui->a_axis_channel_lineEdit,
-            ui->a_axis_jerk_lineEdit,
-            ui->a_axis_step_lineEdit,
-            ui->a_axis_velocity_lineEdit,
-            ui->a_dimension_lineEdit,
+            ui->aAxisAccelerationLineEdit,
+            ui->aAxisBasingVelocityLineEdit,
+            ui->aAxisChannelLineEdit,
+            ui->aAxisJerkLineEdit,
+            ui->aAxisStepLineEdit,
+            ui->aAxisVelocityLineEdit,
+            ui->aDimensionLineEdit,
         };
-        isAxisInvertedCheckBox = ui->a_axis_invert_checkBox;
+        isAxisInvertedCheckBox = ui->aAxisInvertCheckBox;
         break;
     }
     case 4:
     {   axisSettingsQLineEdits =
         {
-            ui->b_axis_acceleration_lineEdit,
-            ui->b_axis_basing_velocity_lineEdit,
-            ui->b_axis_channel_lineEdit,
-            ui->b_axis_jerk_lineEdit,
-            ui->b_axis_step_lineEdit,
-            ui->b_axis_velocity_lineEdit,
-            ui->b_dimension_lineEdit,
+            ui->bAxisAccelerationLineEdit,
+            ui->bAxisBasingVelocityLineEdit,
+            ui->bAxisChannelLineEdit,
+            ui->bAxisJerkLineEdit,
+            ui->bAxisStepLineEdit,
+            ui->bAxisVelocityLineEdit,
+            ui->bDimensionLineEdit,
         };
-        isAxisInvertedCheckBox = ui->b_axis_invert_checkBox;
+        isAxisInvertedCheckBox = ui->bAxisInvertCheckBox;
         break;
     }
     default:
@@ -216,20 +216,20 @@ void MainWindow::displayAxisSettings(std::vector<QLineEdit *> axisSettingsFields
 void MainWindow::setupShortcuts()
 {
     std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
-        std::make_tuple("A", ui->movement_x_negative_button, SLOT(on_movement_x_negative_button_clicked())),
-        std::make_tuple("D", ui->movement_x_positive_button, SLOT(on_movement_x_positive_button_clicked())),
-        std::make_tuple("S", ui->movement_y_negative_button, SLOT(on_movement_y_negative_button_clicked())),
-        std::make_tuple("W", ui->movement_y_positive_button, SLOT(on_movement_y_positive_button_clicked())),
-        std::make_tuple("Z", ui->movement_x_negative_y_negative_button, SLOT(on_movement_x_negative_y_negative_button_clicked())),
-        std::make_tuple("Q", ui->movement_x_negative_y_positive_button, SLOT(on_movement_x_negative_y_positive_button_clicked())),
-        std::make_tuple("X", ui->movement_x_positive_y_negative_button, SLOT(on_movement_x_positive_y_negative_button_clicked())),
-        std::make_tuple("E", ui->movement_x_positive_y_positive_button, SLOT(on_movement_x_positive_y_positive_button_clicked())),
-        std::make_tuple("B", ui->movement_z_negative_button, SLOT(on_movement_z_negative_button_clicked())),
-        std::make_tuple("T", ui->movement_z_positive_button, SLOT(on_movement_z_positive_button_clicked())),
-        std::make_tuple("N", ui->movement_a_negative_button, SLOT(on_movement_a_negative_button_clicked())),
-        std::make_tuple("Y", ui->movement_a_positive_button, SLOT(on_movement_a_positive_button_clicked())),
-        std::make_tuple("M", ui->movement_b_negative_button, SLOT(on_movement_b_negative_button_clicked())),
-        std::make_tuple("U", ui->movement_b_positive_button, SLOT(on_movement_b_positive_button_clicked())),
+        std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushutton_clicked())),
+        std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())),
+        std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())),
+        std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())),
+        std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())),
+        std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())),
+        std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())),
+        std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())),
+        std::make_tuple("B", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())),
+        std::make_tuple("T", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
+        std::make_tuple("N", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
+        std::make_tuple("Y", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
+        std::make_tuple("M", ui->movementBNegativePushButton, SLOT(on_movementBNegativePushButton_clicked())),
+        std::make_tuple("U", ui->movementBPositivePushButton, SLOT(on_movementBPositivePushButton_clicked())),
     };
 
     for (auto i = shortcutsMap.begin(); i != shortcutsMap.end(); i++)
@@ -264,25 +264,23 @@ void MainWindow::setupEditorShortcuts()
         editorShortcuts.push_back(shortcut);
     }
 
-    connect(ui->open_button, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
-    connect(ui->numofdots_button, SIGNAL(clicked()), this, SLOT(on_point_amount_button_clicked()));
+    connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
+    connect(ui->numOfDotsPushButton, SIGNAL(clicked()), this, SLOT(on_pointsAmountPushButton_clicked()));
 }
-
 
 void MainWindow::update()
 {
-    update_coordinates();
-    update_battery_status();
-    update_kabriol_avaliability();
-    update_base_status();
+    updateCoordinates();
+    updateBatteryStatus();
+    updateKabriolAvaliability();
+    updateBaseStatus();
 }
-
 
 void MainWindow::deleteSelectedCommands()
 {
-    if(ui->editor_tab->isVisible())
+    if(ui->editorTab->isVisible())
     {
-        QTreeWidget* smlEditorField = ui->sml_editor_treeWidget;
+        QTreeWidget* smlEditorField = ui->smlEditorTreeWidget;
         if(smlEditorField->isVisible())
         {
             CommandInterpreter &commands = CommandInterpreter::Instance();
@@ -303,7 +301,7 @@ void MainWindow::deleteSelectedCommands()
                 unsigned int end = vector_numbers[vector_numbers.size() - 1];
                 commands.deleteCommands(begin, end);
             }
-            update_commands();
+            updateCommands();
             commands.setSelectedCommand(0);
         }
     }
@@ -311,18 +309,17 @@ void MainWindow::deleteSelectedCommands()
 
 void MainWindow::addLineCommand()
 {
-    if(ui->editor_tab->isVisible())
+    if(ui->editorTab->isVisible())
     {
-        if(ui->sml_editor_tab->isVisible())
+        if(ui->smlEditorTab->isVisible())
         {
             //LineDialog(this).exec();
         }
     }
-    update_commands();
+    updateCommands();
 }
 
-
-void MainWindow::update_coordinates()
+void MainWindow::updateCoordinates()
 {
     MachineTool &i = MachineTool::Instance();
 
@@ -331,9 +328,9 @@ void MainWindow::update_coordinates()
     VectorDouble park = i.getParkCoordinates();
 
     std::vector<std::pair<QListWidget*, VectorDouble>> widgets = {
-        { ui->listWidget_currentCoordinates, current },
-        { ui->listWidget_baseCoordinates, base },
-        { ui->listWidget_parkCoordinates, park }
+        { ui->currentCoordinatesListWidget, current },
+        { ui->baseCoordinatesListWidget, base },
+        { ui->parkCoordinatesListWidget, park }
     };
 
     for (auto i = widgets.begin(); i != widgets.end(); i++)
@@ -346,11 +343,11 @@ void MainWindow::update_coordinates()
     }
 }
 
-void MainWindow::update_points()
+void MainWindow::updatePoints()
 {
     std::vector<Point> points = PointsManager::Instance().getPoints();
 
-    std::vector<QTableWidget*> tables = { ui->points_table_widget, ui->points_table_widget_2 };
+    std::vector<QTableWidget*> tables = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
 
     // проходим по каждой таблице
     for (auto table = tables.begin(); table != tables.end(); table++)
@@ -375,12 +372,11 @@ void MainWindow::update_points()
     }
 }
 
-
-void MainWindow::update_commands()
+void MainWindow::updateCommands()
 {
     auto commands = CommandInterpreter::Instance().getCommands();
 
-    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
+    QTreeWidget*  editorField = ui->smlEditorTreeWidget;
 
     // очищаем поле
     editorField->clear();
@@ -455,7 +451,7 @@ void MainWindow::update_commands()
     }
 }
 
-void MainWindow::update_battery_status()
+void MainWindow::updateBatteryStatus()
 {
     #ifdef Q_OS_WIN
         SYSTEM_POWER_STATUS status;
@@ -467,37 +463,36 @@ void MainWindow::update_battery_status()
         ui->battery_progress_bar->setValue(status.BatteryLifePercent);
     #endif
     #ifdef Q_OS_OSX
-        ui->battery_progress_bar->setValue(100);
+        ui->batteryProgressBar->setValue(100);
     #endif
 }
 
-void MainWindow::update_base_status()
+void MainWindow::updateBaseStatus()
 {
     MachineTool &instance = MachineTool::Instance();
     if(instance.getBaseStatus())
     {
-       ui->edges_contol_check_box->setEnabled(true);
-       ui->length_sensor_button->setEnabled(true);
+       ui->edgesControlCheckBox->setEnabled(true);
+       ui->toolLengthSensorPushButton->setEnabled(true);
     }
     else
     {
-        ui->edges_contol_check_box->setEnabled(false); 
-        ui->length_sensor_button->setEnabled(false);
+        ui->edgesControlCheckBox->setEnabled(false);
+        ui->toolLengthSensorPushButton->setEnabled(false);
     }
 }
 
-
-void MainWindow::update_kabriol_avaliability()
+void MainWindow::updateKabriolAvaliability()
 {
-    if(ui->kabriol_off_radio_button->isChecked())
+    if(ui->kabriolOffRadioButton->isChecked())
     {
-        ui->movement_b_negative_button->setEnabled(false);
-        ui->movement_b_positive_button->setEnabled(false);
+        ui->movementBNegativePushButton->setEnabled(false);
+        ui->movementBPositivePushButton->setEnabled(false);
     }
-    if(ui->kabriol_servo_radio_button->isChecked() || ui->kabriol_on_radio_button->isChecked())
+    if(ui->kabriolServoRadioButton->isChecked() || ui->kabriolOnRadioButton->isChecked())
     {
-        ui->movement_b_negative_button->setEnabled(true);
-        ui->movement_b_positive_button->setEnabled(true);
+        ui->movementBNegativePushButton->setEnabled(true);
+        ui->movementBPositivePushButton->setEnabled(true);
     }
 }
 
@@ -520,32 +515,31 @@ void MainWindow::setMovementButtonsShortcutsState(bool state)
 void MainWindow::setMovementButtonsRepeatState(bool state)
 {
     std::vector<QPushButton*> movementButtons = {
-        ui->movement_x_positive_button,
-        ui->movement_x_negative_button,
-        ui->movement_y_positive_button,
-        ui->movement_y_negative_button,
+        ui->movementXPositivePushButton,
+        ui->movementXNegativePushButton,
+        ui->movementYPositivePushButton,
+        ui->movementYNegativePushButton,
 
-        ui->movement_x_positive_y_positive_button,
-        ui->movement_x_positive_y_negative_button,
-        ui->movement_x_negative_y_positive_button,
-        ui->movement_x_negative_y_negative_button,
+        ui->movementXPositiveYPositivePushButton,
+        ui->movementXPositiveYNegativePushButton,
+        ui->movementXNegativeYPositivePushButton,
+        ui->movementXNegativeYNegativePushButton,
 
-        ui->movement_z_positive_button,
-        ui->movement_z_negative_button,
+        ui->movementZPositivePushButton,
+        ui->movementZNegativePushButton,
 
-        ui->movement_a_positive_button,
-        ui->movement_a_negative_button,
+        ui->movementAPositivePushButton,
+        ui->movementANegativePushButton,
 
-        ui->movement_b_positive_button,
-        ui->movement_b_negative_button
+        ui->movementBPositivePushButton,
+        ui->movementBNegativePushButton
     };
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
         (*i)->setAutoRepeat(state);
 }
 
-
-void MainWindow::on_discrete_radio_button_1_clicked()
+void MainWindow::on_discreteRadioButton_1_clicked()
 {
     MachineTool::Instance().setMovementStep(0.01);
 
@@ -553,8 +547,7 @@ void MainWindow::on_discrete_radio_button_1_clicked()
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_2_clicked()
+void MainWindow::on_discreteRadioButton_2_clicked()
 {
     MachineTool::Instance().setMovementStep(0.1);
 
@@ -562,8 +555,7 @@ void MainWindow::on_discrete_radio_button_2_clicked()
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_3_clicked()
+void MainWindow::on_discreteRadioButton_3_clicked()
 {
     MachineTool::Instance().setMovementStep(1);
 
@@ -571,8 +563,7 @@ void MainWindow::on_discrete_radio_button_3_clicked()
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_4_clicked()
+void MainWindow::on_discreteRadioButton_4_clicked()
 {
     MachineTool::Instance().setMovementStep(10);
 
@@ -580,8 +571,7 @@ void MainWindow::on_discrete_radio_button_4_clicked()
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_5_clicked()
+void MainWindow::on_discreteRadioButton_5_clicked()
 {
     MachineTool::Instance().setMovementStep(0);
 
@@ -589,8 +579,7 @@ void MainWindow::on_discrete_radio_button_5_clicked()
     setMovementButtonsRepeatState(true);
 }
 
-
-void MainWindow::on_movement_x_positive_button_clicked()
+void MainWindow::on_movementXPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble();
@@ -599,8 +588,7 @@ void MainWindow::on_movement_x_positive_button_clicked()
     i.stepMove(v);
 }
 
-
-void MainWindow::on_movement_x_negative_button_clicked()
+void MainWindow::on_movementXNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble();
@@ -609,8 +597,7 @@ void MainWindow::on_movement_x_negative_button_clicked()
     i.stepMove(v);
 }
 
-
-void MainWindow::on_movement_y_positive_button_clicked()
+void MainWindow::on_movementYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -619,7 +606,7 @@ void MainWindow::on_movement_y_positive_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_y_negative_button_clicked()
+void MainWindow::on_movementYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -628,7 +615,7 @@ void MainWindow::on_movement_y_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_x_negative_y_positive_button_clicked()
+void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -638,7 +625,7 @@ void MainWindow::on_movement_x_negative_y_positive_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_x_positive_y_positive_button_clicked()
+void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -648,7 +635,7 @@ void MainWindow::on_movement_x_positive_y_positive_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_x_negative_y_negative_button_clicked()
+void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -658,7 +645,7 @@ void MainWindow::on_movement_x_negative_y_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_x_positive_y_negative_button_clicked()
+void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -668,7 +655,7 @@ void MainWindow::on_movement_x_positive_y_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_z_positive_button_clicked()
+void MainWindow::on_movementZPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -677,7 +664,7 @@ void MainWindow::on_movement_z_positive_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_z_negative_button_clicked()
+void MainWindow::on_movementZNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -686,7 +673,7 @@ void MainWindow::on_movement_z_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_a_positive_button_clicked()
+void MainWindow::on_movementAPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -695,8 +682,7 @@ void MainWindow::on_movement_a_positive_button_clicked()
     i.stepMove(v);
 }
 
-
-void MainWindow::on_movement_a_negative_button_clicked()
+void MainWindow::on_movementANegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -705,7 +691,7 @@ void MainWindow::on_movement_a_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_b_positive_button_clicked()
+void MainWindow::on_movementBPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -714,7 +700,7 @@ void MainWindow::on_movement_b_positive_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_movement_b_negative_button_clicked()
+void MainWindow::on_movementBNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -723,18 +709,18 @@ void MainWindow::on_movement_b_negative_button_clicked()
     i.stepMove(v);
 }
 
-void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
+void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
     MachineTool::Instance().setVelocity(value);
 
-    ui->feedrate_lcd_number->display(value);
+    ui->feedrateLcdNumber->display(value);
 }
 
-void MainWindow::on_rotations_scroll_bar_valueChanged(int value)
+void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
     MachineTool::Instance().setRotation(value);
 
-    ui->rotation_lcd_number->display(value);
+    ui->rotationsLcdNumber->display(value);
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -742,12 +728,12 @@ void MainWindow::on_exit_action_triggered()
     exit(0);
 }
 
-void MainWindow::on_point_amount_button_clicked()
+void MainWindow::on_pointsAmountPushButton_clicked()
 {
-    QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->points_table_widget->rowCount())).exec();
+    QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->pointsTableWidget->rowCount())).exec();
 }
 
-void MainWindow::on_park_button_clicked()
+void MainWindow::on_parkPushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -755,8 +741,7 @@ void MainWindow::on_park_button_clicked()
     i.setParkCoordinates(v);
 }
 
-
-void MainWindow::on_zero_button_clicked()
+void MainWindow::on_zeroPushButton_clicked()
 {
     MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
@@ -764,26 +749,25 @@ void MainWindow::on_zero_button_clicked()
     i.setNewZeroCoordinates(v);
 }
 
-
-void MainWindow::on_point_add_button_clicked()
+void MainWindow::on_pointAddPushButton_clicked()
 {
     AddPointDialog* addPoint = new AddPointDialog(this);
     addPoint->exec();
     delete addPoint;
     //Point tmp = Point(rand(), rand(), rand(), rand(), rand());
     //CommandInterpreter::Instance().addPoint(tmp);
-    update_points();
+    updatePoints();
 }
 
-void MainWindow::on_point_delete_button_clicked()
+void MainWindow::on_pointDeletePushButton_clicked()
 {
     PointsManager& instance = PointsManager::Instance();
-    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
+    QList<QTableWidgetItem*> selected = ui->pointsTableWidget->selectedItems();
     std::set<int> rows;
 
     for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
     {
-        int row = ui->points_table_widget->row(*i);
+        int row = ui->pointsTableWidget->row(*i);
         rows.insert(row);
     }
 
@@ -792,10 +776,10 @@ void MainWindow::on_point_delete_button_clicked()
         instance.removePoint(*i);
     }
 
-    update_points();
+    updatePoints();
 }
 
-void MainWindow::on_point_cursor_button_clicked()
+void MainWindow::on_pointCursorPushButton_clicked()
 {
     MouseToSelectionPointDialog* toPoint = new MouseToSelectionPointDialog(this);
     toPoint->exec();
@@ -804,12 +788,12 @@ void MainWindow::on_point_cursor_button_clicked()
     PointsManager& point_table = PointsManager::Instance();
 
     unsigned int point_to_select = point_table.getSelectedPoint();
-    ui->points_table_widget->selectRow(point_to_select);
+    ui->pointsTableWidget->selectRow(point_to_select);
 }
 
-void MainWindow::on_point_edit_button_clicked()
+void MainWindow::on_pointEditPushButton_clicked()
 {
-    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     if(select->hasSelection())
     {
         //select->selectedRows();
@@ -822,7 +806,7 @@ void MainWindow::on_point_edit_button_clicked()
         EditPointDialog* editPoint = new EditPointDialog(this);
         editPoint->exec();
         delete editPoint;
-        update_points();
+        updatePoints();
     }
     else
     {
@@ -830,9 +814,9 @@ void MainWindow::on_point_edit_button_clicked()
     }
 }
 
-void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_pointsTableWidget_doubleClicked(const QModelIndex &index)
 {
-    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     if(select->hasSelection())
     {
         int current_row = index.row();
@@ -843,7 +827,7 @@ void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
         EditPointDialog* editPoint = new EditPointDialog(this);
         editPoint->exec();
         delete editPoint;
-        update_points();
+        updatePoints();
     }
     else
     {
@@ -851,18 +835,17 @@ void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
     }
 }
 
-
-void MainWindow::on_point_copy_button_clicked()
+void MainWindow::on_pointCopyPushButton_clicked()
 {
     PointsManager& instance = PointsManager::Instance();
     std::vector<Point> points = instance.getPoints();
 
-    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
+    QList<QTableWidgetItem*> selected = ui->pointsTableWidget->selectedItems();
     std::set<int> rows;
 
     for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
     {
-        int row = ui->points_table_widget->row(*i);
+        int row = ui->pointsTableWidget->row(*i);
         rows.insert(row);
     }
 
@@ -871,18 +854,15 @@ void MainWindow::on_point_copy_button_clicked()
         instance.addPoint(points[*i]);
     }
 
-    update_points();
-
+    updatePoints();
 }
 
-
-
-void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_commandsToolsListWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
     std::vector<Command*> commands = instance.getCommands();
 
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    QTreeWidget* editorField = ui->smlEditorTreeWidget;
 
     QItemSelectionModel *select = editorField->selectionModel();
     if(!select->hasSelection())
@@ -891,10 +871,9 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
         instance.setSelectedCommand(current_row);
     }
 
-
     int row = index.row();
 
-    QString name = ui->commands_tools_listWidget->item(row)->text();
+    QString name = ui->commandsToolsListWidget->item(row)->text();
 
     //COMMAND cmd = getCommandByName(name.toStdString());
 
@@ -1096,11 +1075,11 @@ void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &i
     */
 }
 
-void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_smlEditorTreeWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
     commandInterpreter.setSelectedCommandEditSignal(true);
-    QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
+    QString name = ui->smlEditorTreeWidget->currentItem()->text(1);
     //COMMAND cmd = getCommandByName(name.toStdString());
     /*
     switch (cmd)
@@ -1246,7 +1225,7 @@ void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index
     update_commands();*/
 }
 
-void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
+void MainWindow::on_smlEditorTreeWidget_clicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
     unsigned int current_row;
@@ -1254,104 +1233,102 @@ void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
     instance.setSelectedCommand(current_row);
 }
 
-
 void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
 {
     //получаем значение из нулевого столбца выделнного элемента
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    QTreeWidget* editorField = ui->smlEditorTreeWidget;
     QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
     QTreeWidgetItem* item = selected_items[0];
     std::string s  = item->text(0).toStdString();
     current_row = std::stoi(s) - 1;
 }
 
-void MainWindow::update_edges_control_status()
+void MainWindow::updateEdgesControlStatus()
 {
     MachineTool& instance = MachineTool::Instance();
     if(instance.getBaseStatus())
     {
         if(instance.getEdgesControlEnable())
         {
-            ui->edges_contol_check_box->setChecked(true);
-            ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-            ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-            ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+            ui->edgesControlCheckBox->setChecked(true);
+            ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+            ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+            ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
         }
         else
         {
-            ui->edges_contol_check_box->setChecked(false);
-            ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-            ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-            ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+            ui->edgesControlCheckBox->setChecked(false);
+            ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+            ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+            ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
         }
     }
     else
     {
-        ui->edges_contol_check_box->setEnabled(false);
-        ui->edges_contol_check_box->setChecked(false);
-        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-        ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+        ui->edgesControlCheckBox->setEnabled(false);
+        ui->edgesControlCheckBox->setChecked(false);
+        ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+        ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+        ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
     }
 }
 
-void MainWindow::on_to_base_button_clicked()
+void MainWindow::on_toBasePushButton_clicked()
 {
     MachineTool& instance = MachineTool::Instance();
     instance.setBaseStatus(true);
     instance.setEdgesControlEnable(true);
-    update_base_status();
-    update_edges_control_status();
+    updateBaseStatus();
+    updateEdgesControlStatus();
 }
 
-void MainWindow::on_edges_contol_check_box_clicked()
+void MainWindow::on_edgesControlCheckBox_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
     if(instance.getEdgesControlEnable())
     {
        instance.setEdgesControlEnable(false);
-       ui->edges_contol_check_box->setChecked(false);
-       ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-       ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-       ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+       ui->edgesControlCheckBox->setChecked(false);
+       ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+       ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+       ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
     }
     else
     {
         instance.setEdgesControlEnable(true);
-        ui->edges_contol_check_box->setChecked(true);
-
-        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-        ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+        ui->edgesControlCheckBox->setChecked(true);
+        ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+        ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+        ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
     }
 }
 
-void MainWindow::on_spindle_enable_pushButton_clicked()
+void MainWindow::on_spindelEnablePushButton_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
     if(instance.getSpindleEnable())
     {
         //ui->spindle_enable_pushButton->setStyleSheet("");
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_pushButton->setText("F1 - Включить шпиндель");
+        ui->spindelEnablePushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
+        ui->spindelEnablePushButton->setText("F1 - Включить шпиндель");
         instance.setSpindleEnable(false);
     }
     else
     {
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_pushButton->setText("F1 - Выключить шпиндель");
+        ui->spindelEnablePushButton->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
+        ui->spindelEnablePushButton->setText("F1 - Выключить шпиндель");
         instance.setSpindleEnable(true);
     }
 }
 
-void MainWindow::on_mill_warming_pushButton_clicked()
+void MainWindow::on_millWarmingPushButton_clicked()
 {
     MachineTool &instance = MachineTool::Instance();
     if(!instance.getSpindleWarmUp())
     {
         instance.setSpindleWarmUp(true);
-        ui->spindle_enable_pushButton->setEnabled(true);
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
+        ui->spindelEnablePushButton->setEnabled(true);
+        ui->spindelEnablePushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
     }
     else
     {
@@ -1372,7 +1349,7 @@ void MainWindow::on_open_action_triggered()
     inputFile.close();
 
     parse7kamToSml(content);
-    ui->gcodes_editor_textEdit->setPlainText(content);
+    ui->gcodesEditorTextEdit->setPlainText(content);
 }
 
 void MainWindow::parse7kamToSml(QString &tmp)
@@ -1382,7 +1359,7 @@ void MainWindow::parse7kamToSml(QString &tmp)
     if(limit >= 0)
     {
         commands.deleteCommands(0, limit);
-        update_commands();
+        updateCommands();
     }
     std::string commandsList = tmp.toStdString();
     while(commandsList.length() != 0)
@@ -1543,7 +1520,6 @@ void MainWindow::parse7kamToSmlStep(std::string &tmp)
     */
 }
 
-
 void MainWindow::eraseSpecialSymbols(std::string &s)
 {
     std::string tmp = "";
@@ -1569,12 +1545,12 @@ void MainWindow::eraseSpecialSymbols(std::string &s)
     s = tmp;
 }
 
-
 void MainWindow::editSettingsField(QLineEdit *qle)
 {
     qle->setReadOnly(false);
     qle->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
 }
+
 void MainWindow::applySettingsField(QLineEdit *qle)
 {
     qle->setReadOnly(true);
@@ -1589,52 +1565,52 @@ std::vector<QLineEdit *> MainWindow::makeQLineEditVector(int tmp)
         {
             std::vector<QLineEdit*> mechanicalSettingsVector =
             {
-                ui->x_dimension_lineEdit,
-                ui->y_dimension_lineEdit,
-                ui->z_dimension_lineEdit,
-                ui->a_dimension_lineEdit,
-                ui->b_dimension_lineEdit,
+                ui->xDimensionLineEdit,
+                ui->yDimensionLineEdit,
+                ui->zDimensionLineEdit,
+                ui->aDimensionLineEdit,
+                ui->bDimensionLineEdit,
 
-                ui->x_axis_jerk_lineEdit,
-                ui->x_axis_acceleration_lineEdit,
-                ui->x_axis_velocity_lineEdit,
-                ui->x_axis_channel_lineEdit,
-                ui->x_axis_basing_velocity_lineEdit,
+                ui->xAxisJerkLineEdit,
+                ui->xAxisAccelerationLineEdit,
+                ui->xAxisVelocityLineEdit,
+                ui->xAxisChannelLineEdit,
+                ui->xAxisBasingVelocityLineEdit,
 
-                ui->y_axis_jerk_lineEdit,
-                ui->y_axis_acceleration_lineEdit,
-                ui->y_axis_velocity_lineEdit,
-                ui->y_axis_channel_lineEdit,
-                ui->y_axis_basing_velocity_lineEdit,
+                ui->yAxisJerkLineEdit,
+                ui->yAxisAccelerationLineEdit,
+                ui->yAxisVelocityLineEdit,
+                ui->yAxisChannelLineEdit,
+                ui->yAxisBasingVelocityLineEdit,
 
-                ui->z_axis_jerk_lineEdit,
-                ui->z_axis_acceleration_lineEdit,
-                ui->z_axis_velocity_lineEdit,
-                ui->z_axis_channel_lineEdit,
-                ui->z_axis_basing_velocity_lineEdit,
+                ui->zAxisJerkLineEdit,
+                ui->zAxisAccelerationLineEdit,
+                ui->zAxisVelocityLineEdit,
+                ui->zAxisChannelLineEdit,
+                ui->zAxisBasingVelocityLineEdit,
 
-                ui->a_axis_jerk_lineEdit,
-                ui->a_axis_acceleration_lineEdit,
-                ui->a_axis_velocity_lineEdit,
-                ui->a_axis_channel_lineEdit,
-                ui->a_axis_basing_velocity_lineEdit,
+                ui->aAxisJerkLineEdit,
+                ui->aAxisAccelerationLineEdit,
+                ui->aAxisVelocityLineEdit,
+                ui->aAxisChannelLineEdit,
+                ui->aAxisBasingVelocityLineEdit,
 
-                ui->b_axis_jerk_lineEdit,
-                ui->b_axis_acceleration_lineEdit,
-                ui->b_axis_velocity_lineEdit,
-                ui->b_axis_channel_lineEdit,
-                ui->b_axis_basing_velocity_lineEdit,
+                ui->bAxisJerkLineEdit,
+                ui->bAxisAccelerationLineEdit,
+                ui->bAxisVelocityLineEdit,
+                ui->bAxisChannelLineEdit,
+                ui->bAxisBasingVelocityLineEdit,
 
-                ui->critical_axis_lineEdit,
-                ui->buffer_size_lineEdit,
-                ui->collinearity_tolerance_lineEdit,
-                ui->maximum_devation_lineEdit,
-                ui->smoothing_angle_lineEdit,
+                ui->criticalAngleLineEdit,
+                ui->bufferSizeLineEdit,
+                ui->collinearityToleranceLineEdit,
+                ui->maximumDevationLineEdit,
+                ui->smoothingAngleLineEdit,
 
-                ui->zero_level_sensor_lineEdit,
-                ui->tool_length_sensor_lineEdit,
-                ui->velocity_from_sensor_lineEdit,
-                ui->minimum_sensor_finding_velocity_lineEdit
+                ui->zeroLevelSensorLineEdit,
+                ui->toolLengthSensorLineEdit,
+                ui->velocityFromSensorLineEdit,
+                ui->minimumSearchingVelocityLineEdit
             };
             return mechanicalSettingsVector;
             break;
@@ -1643,17 +1619,11 @@ std::vector<QLineEdit *> MainWindow::makeQLineEditVector(int tmp)
         {
             std::vector<QLineEdit*> electricalSettingsFieldVector =
             {
-                ui->x_axis_step_lineEdit,
-                ui->y_axis_step_lineEdit,
-                ui->z_axis_step_lineEdit,
-                ui->a_axis_step_lineEdit,
-                ui->b_axis_step_lineEdit,
-
-                ui->x_axis_mm_lineEdit,
-                ui->y_axis_mm_lineEdit,
-                ui->z_axis_mm_lineEdit,
-                ui->a_axis_mm_lineEdit,
-                ui->b_axis_mm_lineEdit
+                ui->xAxisStepLineEdit,
+                ui->yAxisStepLineEdit,
+                ui->zAxisStepLineEdit,
+                ui->aAxisStepLineEdit,
+                ui->bAxisStepLineEdit
             };
             return electricalSettingsFieldVector;
             break;
@@ -1675,11 +1645,11 @@ std::vector<QCheckBox*> MainWindow::makeQCheckBoxVector(int tmp)
         {
             std::vector<QCheckBox*> invertAxisVector =
             {
-                ui->x_axis_invert_checkBox,
-                ui->y_axis_invert_checkBox,
-                ui->z_axis_invert_checkBox,
-                ui->a_axis_invert_checkBox,
-                ui->b_axis_invert_checkBox
+                ui->xAxisInvertCheckBox,
+                ui->yAxisInvertCheckBox,
+                ui->zAxisInvertCheckBox,
+                ui->aAxisInvertCheckBox,
+                ui->bAxisInvertCheckBox
             };
             return invertAxisVector;
             break;
@@ -1688,13 +1658,13 @@ std::vector<QCheckBox*> MainWindow::makeQCheckBoxVector(int tmp)
         {
             std::vector<QCheckBox*> externalDevicesVector =
             {
-                ui->mill_checkBox,
-                ui->kabriol_checkBox,
-                ui->lubrication_system_checkBox,
-                ui->tool_change_checkBox,
-                ui->laser_checkBox,
-                ui->wacuum_table_checkBox,
-                ui->tool_length_sensor_checkBox
+                ui->millCheckBox,
+                ui->kabriolCheckBox,
+                ui->lubricationSystemCheckBox,
+                ui->toolChangeCheckBox,
+                ui->laserCheckBox,
+                ui->wacuumTableCheckBox,
+                ui->toolLengthSensorCheckBox
             };
             return externalDevicesVector;
             break;
@@ -1708,7 +1678,7 @@ std::vector<QCheckBox*> MainWindow::makeQCheckBoxVector(int tmp)
     }
 }
 
-void MainWindow::on_change_mechanics_settings_pushButton_clicked()
+void MainWindow::on_changeMechanicalSettingsPushButton_clicked()
 {
     std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
     for (auto i : mechanicalSettings)
@@ -1724,8 +1694,7 @@ void MainWindow::on_change_mechanics_settings_pushButton_clicked()
     }
 }
 
-
-void MainWindow::on_cancel_mechanical_settings_pushButton_clicked()
+void MainWindow::on_cancelMechanicalSettingsPushButton_clicked()
 {
     dimensionsFromMachineTool();
     directionsFromMachineTool();
@@ -1741,7 +1710,7 @@ void MainWindow::on_cancel_mechanical_settings_pushButton_clicked()
     }
 }
 
-void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
+void MainWindow::on_applyMechanicalSettingsPushButton_clicked()
 {
 
     std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
@@ -1756,7 +1725,7 @@ void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
     }
 }
 
-void MainWindow::on_change_elecrical_settings_pushButton_clicked()
+void MainWindow::on_changeElecricalSettingsPushButton_clicked()
 {    
     std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
@@ -1794,18 +1763,18 @@ void MainWindow::setUpElectricalSettings()
 
     std::map<std::string, bool> m =
     {
-        {"mill", ui->mill_checkBox->isChecked()},
-        {"kabriol", ui->kabriol_checkBox->isChecked()},
-        {"lubrication_system", ui->lubrication_system_checkBox->isChecked()},
-        {"tool_change", ui->tool_change_checkBox->isChecked()},
-        {"laser", ui->laser_checkBox->isChecked()},
-        {"wacuum_table", ui->wacuum_table_checkBox->isChecked()},
-        {"tool_length_sensor", ui->tool_length_sensor_checkBox->isChecked()}
+        {"mill", ui->millCheckBox->isChecked()},
+        {"kabriol", ui->kabriolCheckBox->isChecked()},
+        {"lubrication_system", ui->lubricationSystemCheckBox->isChecked()},
+        {"tool_change", ui->toolChangeCheckBox->isChecked()},
+        {"laser", ui->laserCheckBox->isChecked()},
+        {"wacuum_table", ui->wacuumTableCheckBox->isChecked()},
+        {"tool_length_sensor", ui->toolLengthSensorCheckBox->isChecked()}
     };
     instance.setExternalDevices(m);
 }
 
-void MainWindow::on_apply_electrical_settings_pushButton_clicked()
+void MainWindow::on_applyElectricalSettingsPushButton_clicked()
 {
 
     setUpElectricalSettings();
@@ -1820,6 +1789,7 @@ void MainWindow::on_apply_electrical_settings_pushButton_clicked()
         i->setEnabled(false);
     }
 }
+
 void MainWindow::electricialSettingsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
@@ -1840,68 +1810,68 @@ void MainWindow::electricialSettingsFromMachineTool()
     std::map<std::string, bool> m = instance.getExternalDevices();
     if(m["mill"])
     {
-        ui->mill_checkBox->setChecked(true);
+        ui->millCheckBox->setChecked(true);
     }
     else
     {
-        ui->mill_checkBox->setChecked(false);
+        ui->millCheckBox->setChecked(false);
     }
 
     if(m["kabriol"])
     {
-        ui->kabriol_checkBox->setChecked(true);
+        ui->kabriolCheckBox->setChecked(true);
     }
     else
     {
-        ui->kabriol_checkBox->setChecked(false);
+        ui->kabriolCheckBox->setChecked(false);
     }
 
     if(m["lubrication_system"])
     {
-        ui->lubrication_system_checkBox->setChecked(true);
+        ui->lubricationSystemCheckBox->setChecked(true);
     }
     else
     {
-        ui->lubrication_system_checkBox->setChecked(false);
+        ui->lubricationSystemCheckBox->setChecked(false);
     }
 
     if(m["tool_change"])
     {
-        ui->tool_change_checkBox->setChecked(true);
+        ui->toolChangeCheckBox->setChecked(true);
     }
     else
     {
-        ui->tool_change_checkBox->setChecked(false);
+        ui->toolChangeCheckBox->setChecked(false);
     }
 
     if(m["laser"])
     {
-        ui->laser_checkBox->setChecked(true);
+        ui->laserCheckBox->setChecked(true);
     }
     else
     {
-        ui->laser_checkBox->setChecked(false);
+        ui->laserCheckBox->setChecked(false);
     }
 
     if(m["wacuum_table"])
     {
-        ui->wacuum_table_checkBox->setChecked(true);
+        ui->wacuumTableCheckBox->setChecked(true);
     }
     else
     {
-        ui->wacuum_table_checkBox->setChecked(false);
+        ui->wacuumTableCheckBox->setChecked(false);
     }
     if(m["tool_length_sensor"])
     {
-        ui->tool_length_sensor_checkBox->setChecked(true);
+        ui->toolLengthSensorCheckBox->setChecked(true);
     }
     else
     {
-        ui->tool_length_sensor_checkBox->setChecked(false);
+        ui->toolLengthSensorCheckBox->setChecked(false);
     }
 }
 
-void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
+void MainWindow::on_cancelElectricalSettingsPushButton_clicked()
 {
     electricialSettingsFromMachineTool();
 
@@ -1927,6 +1897,7 @@ void MainWindow::dimensionsFromMachineTool()
 //    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
 //    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
 }
+
 void MainWindow::directionsFromMachineTool()
 {
     MachineTool &instance = MachineTool::Instance();
@@ -1966,18 +1937,17 @@ void MainWindow::kinematicsSettingsFromMachineTool()
 //    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
 }
 
-
-void MainWindow::on_gcodes_editor_textEdit_textChanged()
+void MainWindow::on_gcodesEditorTextEdit_textChanged()
 {
-    QString text = ui->gcodes_editor_textEdit->toPlainText();
+    QString text = ui->gcodesEditorTextEdit->toPlainText();
 }
 
-void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_userToolsListWidget_doubleClicked(const QModelIndex &index)
 {
     CommandInterpreter& instance = CommandInterpreter::Instance();
     std::vector<Command*> commands = instance.getCommands();
 
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
+    QTreeWidget* editorField = ui->smlEditorTreeWidget;
 
     QItemSelectionModel *select = editorField->selectionModel();
     if(!select->hasSelection())
@@ -1988,13 +1958,13 @@ void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index
 
     int row = index.row();
 
-    QString name = ui->user_tools_listWidget->item(row)->text();
+    QString name = ui->userToolsListWidget->item(row)->text();
 
     if(name == "Добавить устройство")
     {
         AddDeviceDialog(this).exec();
     }
-    update_commands();
+    updateCommands();
 }
 
 void MainWindow::on_importsettings_action_triggered()
