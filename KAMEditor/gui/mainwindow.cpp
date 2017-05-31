@@ -216,7 +216,7 @@ void MainWindow::displayAxisSettings(std::vector<QLineEdit *> axisSettingsFields
 void MainWindow::setupShortcuts()
 {
     std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
-        std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushutton_clicked())),
+        std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())),
         std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())),
         std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())),
         std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())),

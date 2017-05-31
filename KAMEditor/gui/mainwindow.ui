@@ -1484,7 +1484,7 @@
                <number>5</number>
               </property>
               <item>
-               <widget class="QPushButton" name="zeroButton">
+               <widget class="QPushButton" name="zeroPushButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1500,7 +1500,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="toZeroButton">
+               <widget class="QPushButton" name="toZeroPushButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1516,7 +1516,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="zeroSensorButton">
+               <widget class="QPushButton" name="zeroSensorPushButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
