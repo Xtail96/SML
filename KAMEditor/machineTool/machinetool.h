@@ -83,6 +83,8 @@ public:
 
 
     void addMachineToolAxis(const unsigned int &count);
+    void setupMachineToolAxises();
+
     std::vector<Axis>& getMachineToolAxis();
     void setMachineToolAxis(const std::vector<Axis> &value);
 
@@ -142,6 +144,7 @@ private:
     bool spindleWarmUp;
 
     // конструктор и деструктор недоступны публично
+    //MachineTool(unsigned int axisCount);
     MachineTool();
     ~MachineTool();
 

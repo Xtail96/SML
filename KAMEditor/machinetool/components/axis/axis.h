@@ -1,7 +1,7 @@
 #ifndef AXIS_H
 #define AXIS_H
 #include <string>
-#include "machinetool/settings/settingsManager/settingsmanager.h"
+#include <map>
 
 /*!
  * \brief Класс "Ось"
@@ -105,12 +105,7 @@ public:
 
     //! Методы для настройки параметров Оси:
     /// \brief Метод комплексной настройки параметров текущей оси;
-    /**
-     * Связывается с модулем "Settings Manager";
-     * Получает от него карту настроек станка;
-     * Вызывает методы настройки каждого из параметра оси;
-     */
-    void setupAxisSettings();
+    void setup(const std::map<std::string, std::string> &settingsMap);
 
     //! Возвращает элемент allSettings[key]
     std::string getSettingsElement(std::string key, std::map<std::string, std::string> allSettings);

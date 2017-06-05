@@ -126,6 +126,15 @@ MachineTool::MachineTool()
 //    }
 }
 
+/*MachineTool::MachineTool(unsigned int axisCount)
+{
+    baseStatus = false;
+    edgesControlEnable = false;
+    spindleEnable = false;
+    spindleWarmUp = false;
+    machineToolAxis = {};
+    addMachineToolAxis(axisCount);
+}*/
 
 MachineTool::~MachineTool()
 {
@@ -329,9 +338,27 @@ void MachineTool::addMachineToolAxis(const unsigned int &count)
         machineToolAxis.push_back(newAxis);
     }
 
-    for(auto it : machineToolAxis)
+   /* for(auto it : machineToolAxis)
     {
         it.setupAxisSettings();
+    }*/
+    setupMachineToolAxises();
+}
+
+void MachineTool::setupMachineToolAxises()
+{
+    SettingsManager settings;
+    std::map<std::string, std::string> settingsMap = settings.getSettings();
+    if(settingsMap.size() != 0)
+    {
+        /*for(auto axis : machineToolAxis)
+        {
+            axis.setup(settingsMap);
+        }*/
+        for(unsigned int i = 0; i < machineToolAxis.size(); i++)
+        {
+           machineToolAxis[i].setup(settingsMap);
+        }
     }
 }
 

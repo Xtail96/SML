@@ -1,5 +1,5 @@
 #include "axis.h"
-Axis::Axis(std::string id, double _step, double _length , bool invert, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
+Axis::Axis(std::string id, double _step, double _length, bool invert, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
     name(id),
     step(_step),
     length(_length),
@@ -10,7 +10,7 @@ Axis::Axis(std::string id, double _step, double _length , bool invert, double _j
     channel(_channel),
     basingVelocity(_basingVelocity)
 {
-    setupAxisSettings();
+    //setupAxisSettings();
 }
 double Axis::getStep() const
 {
@@ -102,10 +102,8 @@ void Axis::setName(const std::string &value)
     name = value;
 }
 
-void Axis::setupAxisSettings()
+void Axis::setup(const std::map<std::string, std::string> &settingsMap)
 {
-    SettingsManager settings;
-    std::map<std::string, std::string> settingsMap = settings.getSettings();
     if(settingsMap.size() != 0)
     {
         setupAxisAcceleration(name, settingsMap);
