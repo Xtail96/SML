@@ -107,40 +107,14 @@ MachineTool::MachineTool()
     edgesControlEnable = false;
     spindleEnable = false;
     spindleWarmUp = false;
-//    dimensions.x = 0;
-//    dimensions.y = 0;
-//    dimensions.z = 0;
-//    dimensions.a = 0;
-//    dimensions.b = 0;
     axisCount = 0;
     machineToolAxis = {};
-//    for(unsigned int i = 0; i < axisCount; i++)
-//    {
-//        AxisKFlopSettings tmp;
-//        tmp.jerk = 0;
-//        tmp.acceleration = 0;
-//        tmp.velocity = 0;
-//        tmp.channel = 0;
-//        tmp.basingVelocity = 0;
-//        axisKFlopSettings.push_back(tmp);
-//    }
 }
-
-/*MachineTool::MachineTool(unsigned int axisCount)
-{
-    baseStatus = false;
-    edgesControlEnable = false;
-    spindleEnable = false;
-    spindleWarmUp = false;
-    machineToolAxis = {};
-    addMachineToolAxis(axisCount);
-}*/
 
 MachineTool::~MachineTool()
 {
 
 }
-
 
 VectorDouble MachineTool::getBaseCoordinates()
 {
@@ -227,27 +201,6 @@ void MachineTool::stepMove(VectorDouble f)
     base.b += f.b * current_step;
 }
 
-//VectorDouble MachineTool::getDimensions()
-//{
-//    return dimensions;
-//}
-
-//void MachineTool::setDimensions(VectorDouble v)
-//{
-//    dimensions = v;
-//}
-
-//std::vector<bool> MachineTool::getDirections()
-//{
-//    return directions;
-//}
-
-//void MachineTool::setDirections(std::vector<bool> v)
-//{
-//    directions = v;
-//}
-
-
 void MachineTool::setParkCoordinates(VectorDouble f)
 {
     park.x = f.x;
@@ -271,24 +224,6 @@ void MachineTool::setNewZeroCoordinates(VectorDouble f)
     current.b = 0;
 }
 
-//void MachineTool::setDistanceByOneStep(VectorDouble v)
-//{
-//    distanceByOneStep = v;
-//}
-//VectorDouble MachineTool::getDistanceByOneStep()
-//{
-//    return distanceByOneStep;
-//}
-
-//void MachineTool::setStepQuantityByOneMm(VectorDouble v)
-//{
-//    stepQuantityByOneMm = v;
-//}
-//VectorDouble MachineTool::getStepQuantityByOneMm()
-//{
-//    return stepQuantityByOneMm;
-//}
-
 void MachineTool::setExternalDevices(std::map<std::string, bool> m)
 {
     externalDevices = m;
@@ -297,19 +232,6 @@ std::map<std::string, bool> MachineTool::getExternalDevices()
 {
     return externalDevices;
 }
-
-//void MachineTool::setAxisKFlopSettings(std::vector<AxisKFlopSettings> s)
-//{
-//   for(unsigned int i = 0; i< axisKFlopSettings.size(); i++)
-//   {
-//       axisKFlopSettings[i] = s[i];
-//   }
-//}
-
-//std::vector<AxisKFlopSettings> MachineTool::getAxisKFlopSettings()
-//{
-//    return axisKFlopSettings;
-//}
 
 unsigned int MachineTool::getAxisCount()
 {

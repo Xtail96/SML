@@ -10,7 +10,7 @@ Axis::Axis(std::string id, double _step, double _length, bool invert, double _je
     channel(_channel),
     basingVelocity(_basingVelocity)
 {
-    //setupAxisSettings();
+
 }
 double Axis::getStep() const
 {

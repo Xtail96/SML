@@ -38,16 +38,8 @@ public:
     std::string getSettingsPath();
     void setSettingsPath(std::string s);
 
-//    void setDimensions(VectorDouble v);
-//    VectorDouble getDimensions();
-
-//    void setDirections(std::vector<bool> v);
-//    std::vector<bool> getDirections();
-
-//    void setDistanceByOneStep(VectorDouble v);
-//    VectorDouble getDistanceByOneStep();
-
     void setExternalDevices(std::map<std::string, bool> m);
+
     std::map<std::string, bool> getExternalDevices();
 
     void setVelocity(int vel) { velocity = vel; }
@@ -144,7 +136,6 @@ private:
     bool spindleWarmUp;
 
     // конструктор и деструктор недоступны публично
-    //MachineTool(unsigned int axisCount);
     MachineTool();
     ~MachineTool();
 
