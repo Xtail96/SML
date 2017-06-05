@@ -106,19 +106,29 @@ void Axis::setupAxisSettings()
 {
     SettingsManager settings;
     std::map<std::string, std::string> settingsMap = settings.getSettings();
-    setupAxisAcceleration(name, settingsMap);
-    setupAxisBazaSearchSpeed(name, settingsMap);
-    setupAxisChannel(name, settingsMap);
-    setupAxisInvertStatus(name, settingsMap);
-    setupAxisJerk(name, settingsMap);
-    setupAxisSpeed(name, settingsMap);
-    setupAxisStep(name, settingsMap);
-    setupAxisTableSize(name, settingsMap);
+    if(settingsMap.size() != 0)
+    {
+        setupAxisAcceleration(name, settingsMap);
+        setupAxisBazaSearchSpeed(name, settingsMap);
+        setupAxisChannel(name, settingsMap);
+        setupAxisInvertStatus(name, settingsMap);
+        setupAxisJerk(name, settingsMap);
+        setupAxisSpeed(name, settingsMap);
+        setupAxisStep(name, settingsMap);
+        setupAxisTableSize(name, settingsMap);
+    }
 }
 
 std::string Axis::getSettingsElement(std::string key, std::map<std::string, std::string> allSettings)
 {
-    return allSettings[key];
+    if(allSettings.find(key) != allSettings.end())
+    {
+        return allSettings[key];
+    }
+    else
+    {
+        return "0";
+    }
 }
 
 void Axis::setupAxisAcceleration(const std::string &name, const std::map<std::string, std::string> &allSettings)
