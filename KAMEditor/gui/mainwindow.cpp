@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updateEdgesControlStatus();
 
-    ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
