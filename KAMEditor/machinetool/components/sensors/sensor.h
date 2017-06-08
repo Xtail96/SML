@@ -7,17 +7,9 @@
 class Sensor
 {
 protected:
-    unsigned int input;
-    std::string name;
-    bool isOn;
-    bool isStateChanged;
 
-    bool isEnabled;
-    bool isDebugActive;
-
-    bool buffer;
 public:
-    Sensor(unsigned int _id, std::string _name, bool _isEnabled);
+    Sensor();
     //! Методы получения и установки значений
 private slots:
     void update();
