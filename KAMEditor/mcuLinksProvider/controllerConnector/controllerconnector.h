@@ -3,6 +3,7 @@
 #include <string>
 
 #include <QMainWindow>
+#include <QSerialPort>
 
 #include "structs.h"
 
@@ -14,6 +15,7 @@
 class ControllerConnector
 {
 private:
+    QSerialPort serialPort;
 public:
     ControllerConnector();
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
