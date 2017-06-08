@@ -32,5 +32,5 @@ ControllerConnector::ControllerConnector()
     serialPort->setStopBits(QSerialPort::OneStop);
     serialPort->setFlowControl(QSerialPort::NoFlowControl);
     serialPort->open(QIODevice::ReadWrite);
-    QIODevice::connect(serialPort, SIGNAL(readyRead()), this, SLOT(recieved()));
+    connect(serialPort, SIGNAL(readyRead()), this, SLOT(recieved()));
 }
