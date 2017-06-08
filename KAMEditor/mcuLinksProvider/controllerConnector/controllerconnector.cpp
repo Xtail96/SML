@@ -24,7 +24,7 @@ void ControllerConnector::recieved()
 
 ControllerConnector::ControllerConnector()
 {
-    //serialPort = new QSerialPort(this);
+    serialPort = new QSerialPort(this);
     serialPort->setPortName("com4");
     serialPort->setBaudRate(QSerialPort::Baud9600);
     serialPort->setDataBits(QSerialPort::Data8);
@@ -32,5 +32,5 @@ ControllerConnector::ControllerConnector()
     serialPort->setStopBits(QSerialPort::OneStop);
     serialPort->setFlowControl(QSerialPort::NoFlowControl);
     serialPort->open(QIODevice::ReadWrite);
-    //connect(serialPort, SIGNAL(readyRead()), this, SLOT(recieved()));
+    QIODevice::connect(serialPort, SIGNAL(readyRead()), this, SLOT(recieved()));
 }

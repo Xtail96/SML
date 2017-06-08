@@ -13,7 +13,7 @@
  * \warning Является синглтоном
  * \brief Класс получает данные из буфера обмена данными и следит за корректностью разрядности;
  */
-class ControllerConnector
+class ControllerConnector : QObject
 {
 private:
     QSerialPort *serialPort;
