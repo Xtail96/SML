@@ -19,6 +19,9 @@ private:
     /// \details содержит имя оси в строковом формате, например "X", "Y", "Z";
     std::string name;
 
+    /// \details содержит информацию о том, линейная ось или повортная;
+    std::string type;
+
     /// \details содержит данные о расстоянии, проходимом за один шаг по текущей оси;
     double step;
 
@@ -46,7 +49,7 @@ private:
 public:
     //! Конструктор. Позволяет создавать объект класса Ось
     /// \details Конструктор принимает на вход настройки оси и имеет начальное значение по умолчанию для каждого параметра (если он не был передан);
-    Axis(std::string id, double _step = 0, double _length = 1, bool invert = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0);
+    Axis(std::string id, std::string _type = "linear", double _step = 0, double _length = 1, bool invert = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0);
 
     ///! Методы получения и установки значений:
     /// \details Возвращает имя текущей Оси;
@@ -133,6 +136,8 @@ public:
 
     /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Длина" для таекущей оси;
     void setupAxisTableSize(const std::string &name, const std::map<std::string, std::string> &allSettings);
+    std::string getType() const;
+    void setType(const std::string &value);
 };
 
 #endif // AXIS_H

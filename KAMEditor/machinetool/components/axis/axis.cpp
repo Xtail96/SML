@@ -1,6 +1,8 @@
 #include "axis.h"
-Axis::Axis(std::string id, double _step, double _length, bool invert, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
+
+Axis::Axis(std::string id, std::string _type, double _step, double _length, bool invert, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
     name(id),
+    type(_type),
     step(_step),
     length(_length),
     invertDirection(invert),
@@ -90,6 +92,16 @@ double Axis::getBasingVelocity() const
 void Axis::setBasingVelocity(double value)
 {
     basingVelocity = value;
+}
+
+std::string Axis::getType() const
+{
+    return type;
+}
+
+void Axis::setType(const std::string &value)
+{
+    type = value;
 }
 
 std::string Axis::getName() const
