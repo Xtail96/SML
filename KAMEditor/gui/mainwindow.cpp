@@ -460,7 +460,7 @@ void MainWindow::updateBatteryStatus()
         if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
         status.BatteryLifePercent = 100;
 
-        ui->battery_progress_bar->setValue(status.BatteryLifePercent);
+        ui->batteryProgressBar->setValue(status.BatteryLifePercent);
     #endif
     #ifdef Q_OS_OSX
         ui->batteryProgressBar->setValue(100);
