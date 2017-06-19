@@ -4,7 +4,7 @@
 
 #include <QMainWindow>
 
-#include "structs.h"
+#include "machinetool/structs.h"
 
 /**
  * \brief Класс "Устройство"

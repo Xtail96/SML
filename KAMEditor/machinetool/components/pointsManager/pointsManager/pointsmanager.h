@@ -2,7 +2,7 @@
 #define POINTSMANAGER_H
 
 #include <vector>
-#include "editor/pointsEditor/point/point.h"
+#include "machinetool/components/pointsManager/point/point.h"
 
 
 /*!

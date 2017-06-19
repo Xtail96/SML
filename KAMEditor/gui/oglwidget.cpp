@@ -1,7 +1,7 @@
 #include "oglwidget.h"
 
-#include "editor/commands/commands.h"
-#include "editor/commands/commandinterpreter.h"
+#include "machinetool/components/commandManager/commands/commands.h"
+#include "machinetool/components/commandInterpreter/commandinterpreter.h"
 
 OGLWidget::OGLWidget(QWidget *parent) :
     QOpenGLWidget(parent)

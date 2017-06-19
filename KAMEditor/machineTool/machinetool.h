@@ -6,9 +6,9 @@
 #include <string>
 #include <vector>
 
-#include "structs.h"
-#include "machinetool/settings/settingsManager/settingsmanager.h"
-#include "machinetool/components/axis/axis.h"
+#include "machinetool/structs.h"
+#include "machinetool/settingsManager/settingsmanager.h"
+#include "machinetool/components/axises/axis.h"
 #include "machinetool/components/sensors/sensor.h"
 /**
  * \brief Класс "Станок"

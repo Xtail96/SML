@@ -2,8 +2,8 @@
 #define POINT_H
 #include <vector>
 
-#include "structs.h"
-#include "machineTool/machinetool.h"
+#include "machinetool/structs.h"
+#include "machinetool/machinetool.h"
 
 //typedef VectorDouble Point;
 
