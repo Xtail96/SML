@@ -52,21 +52,21 @@ SOURCES += main.cpp\
     gui/commands/adddevicedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/oglwidget.cpp \
-    machinetool/machinetool.cpp \
-    machinetool/settingsManager/settingsmanager.cpp \
-    machinetool/components/axises/axis.cpp \
-    machinetool/components/sensors/sensor.cpp \
-    machinetool/components/devices/device.cpp \
-    machinetool/components/devices/spindel.cpp \
-    machinetool/components/movementController/movementcontroller.cpp \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.cpp \
-    machinetool/components/commandInterpreter/commandinterpreter.cpp \
-    machinetool/components/commandManager/commandsmanager.cpp \
-    machinetool/components/commandManager/commands/arc.cpp \
-    machinetool/components/commandManager/commands/line.cpp \
-    machinetool/components/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
-    machinetool/components/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp \
-    machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp
+    library/machinetool/machinetool.cpp \
+    library/machinetool/settingsManager/settingsmanager.cpp \
+    library/machinetool/components/axises/axis.cpp \
+    library/machinetool/components/sensors/sensor.cpp \
+    library/machinetool/components/devices/device.cpp \
+    library/machinetool/components/devices/spindel.cpp \
+    library/machinetool/components/movementController/movementcontroller.cpp \
+    library/machinetool/components/pointsManager/pointsManager/pointsmanager.cpp \
+    library/machinetool/components/commandInterpreter/commandinterpreter.cpp \
+    library/machinetool/components/commandManager/commandsmanager.cpp \
+    library/machinetool/components/commandManager/commands/arc.cpp \
+    library/machinetool/components/commandManager/commands/line.cpp \
+    library/machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp \
+    library/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
+    library/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -97,25 +97,25 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/adddevicedialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/oglwidget.h \
-    machinetool/structs.h \
-    machinetool/machinetool.h \
-    machinetool/settingsManager/settingsmanager.h \
-    machinetool/components/axises/axis.h \
-    machinetool/components/sensors/sensor.h \
-    machinetool/components/devices/device.h \
-    machinetool/components/devices/spindel.h \
-    machinetool/components/movementController/movementcontroller.h \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.h \
-    machinetool/components/pointsManager/point/point.h \
-    machinetool/components/commandManager/commandsmanager.h \
-    machinetool/components/commandManager/commands/command.h \
-    machinetool/components/commandManager/commands/commands.h \
-    machinetool/components/commandManager/commands/arc.h \
-    machinetool/components/commandManager/commands/line.h \
-    machinetool/components/commandInterpreter/commandinterpreter.h \
-    machinetool/components/mcuLinksProvider/controllerConnector/controllerconnector.h \
-    machinetool/components/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
-    machinetool/components/movementController/dimensionsController/dimensionscontroller.h
+    library/machinetool/structs.h \
+    library/machinetool/machinetool.h \
+    library/machinetool/settingsManager/settingsmanager.h \
+    library/machinetool/components/axises/axis.h \
+    library/machinetool/components/sensors/sensor.h \
+    library/machinetool/components/devices/device.h \
+    library/machinetool/components/devices/spindel.h \
+    library/machinetool/components/movementController/movementcontroller.h \
+    library/machinetool/components/pointsManager/pointsManager/pointsmanager.h \
+    library/machinetool/components/pointsManager/point/point.h \
+    library/machinetool/components/commandManager/commandsmanager.h \
+    library/machinetool/components/commandManager/commands/command.h \
+    library/machinetool/components/commandManager/commands/commands.h \
+    library/machinetool/components/commandManager/commands/arc.h \
+    library/machinetool/components/commandManager/commands/line.h \
+    library/machinetool/components/commandInterpreter/commandinterpreter.h \
+    library/machinetool/components/movementController/dimensionsController/dimensionscontroller.h \
+    library/mcuLinksProvider/controllerConnector/controllerconnector.h \
+    library/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
 
 
 FORMS    += gui/mainwindow.ui \
