@@ -6,15 +6,15 @@
 #include <string>
 #include <vector>
 
-#include "machinetool/structs.h"
-#include "machinetool/settingsManager/settingsmanager.h"
-#include "machinetool/components/axises/axis.h"
-#include "machinetool/components/sensors/sensor.h"
-#include "machinetool/components/devices/device.h"
-#include "machinetool/components/movementController/movementcontroller.h"
-#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
-#include "machinetool/components/commandInterpreter/commandinterpreter.h"
-#include "machinetool/components/commandManager/commandsmanager.h"
+#include "library/machinetool/structs.h"
+#include "library/machinetool/settingsManager/settingsmanager.h"
+#include "library/machinetool/components/axises/axis.h"
+#include "library/machinetool/components/sensors/sensor.h"
+#include "library/machinetool/components/devices/device.h"
+#include "library/machinetool/components/movementController/movementcontroller.h"
+#include "library/machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "library/machinetool/components/commandInterpreter/commandinterpreter.h"
+#include "library/machinetool/components/commandManager/commandsmanager.h"
 
 /**
  * \brief Класс "Станок"

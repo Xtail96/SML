@@ -6,7 +6,7 @@
 #include <QSerialPort>
 #include <QDebug>
 
-#include "machinetool/structs.h"
+#include "library/machinetool/structs.h"
 
 /**
  * \brief Класс "Модуль взаимодействия с контроллером"

@@ -2,7 +2,7 @@
 #define COMMAND_H
 
 #include <QString>
-#include "../../../../gui/oglwidget.h"
+#include "../../../../../gui/oglwidget.h"
 
 class Command
 {

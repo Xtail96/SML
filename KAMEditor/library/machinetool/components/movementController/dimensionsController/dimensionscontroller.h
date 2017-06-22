@@ -1,6 +1,6 @@
 #ifndef DIMENSIONSCONTROLLER_H
 #define DIMENSIONSCONTROLLER_H
-#include "machinetool/components/pointsManager/point/point.h"
+#include "library/machinetool/components/pointsManager/point/point.h"
 
 class DimensionsController
 {

@@ -2,7 +2,7 @@
 #define POINT_H
 #include <vector>
 
-#include "machinetool/structs.h"
+#include "library/machinetool/structs.h"
 struct Point{
     std::vector<double> coordinates;
     // implement this;

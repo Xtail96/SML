@@ -122,7 +122,7 @@ FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
     gui/points/mousetoselectionpointdialog.ui \
     gui/points/editpointdialog.ui \
-#    gui/commands/adddevicedialog.ui \
+    gui/commands/adddevicedialog.ui \
 #    gui/commands/linedialog.ui \
 #    gui/commands/arcdialog.ui \
 #    gui/commands/labeldialog.ui \

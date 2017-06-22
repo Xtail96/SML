@@ -1,8 +1,8 @@
 #ifndef MOVEMENTCONTROLLER_H
 #define MOVEMENTCONTROLLER_H
-#include "machinetool/structs.h"
-#include "machinetool/components/movementController/dimensionsController/dimensionscontroller.h"
-#include "machinetool/components/pointsManager/point/point.h"
+#include "library/machinetool/structs.h"
+#include "library/machinetool/components/movementController/dimensionsController/dimensionscontroller.h"
+#include "library/machinetool/components/pointsManager/point/point.h"
 
 class MovementController
 {
