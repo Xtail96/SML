@@ -106,33 +106,6 @@ public:
     //! Методы для настройки параметров Оси:
     /// \brief Метод комплексной настройки параметров текущей оси;
     void setup(const std::map<std::string, std::string> &settingsMap);
-
-    //! Возвращает элемент allSettings[key]
-    std::string getSettingsElement(std::string key, std::map<std::string, std::string> allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Ускорение" для таекущей оси;
-    void setupAxisAcceleration(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Скорость Базирования" для таекущей оси;
-    void setupAxisBazaSearchSpeed(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Канал" для таекущей оси;
-    void setupAxisChannel(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Рывок" для таекущей оси;
-    void setupAxisJerk(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Скорость" для таекущей оси;
-    void setupAxisSpeed(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Шаг" для таекущей оси;
-    void setupAxisStep(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Инвертированное направление" для таекущей оси;
-    void setupAxisInvertStatus(const std::string &name, const std::map<std::string, std::string> &allSettings);
-
-    /// \details Из словаря allSettings получает по ключу name значение и устанавливает его в поле "Длина" для таекущей оси;
-    void setupAxisTableSize(const std::string &name, const std::map<std::string, std::string> &allSettings);
 };
 
 #endif // AXIS_H

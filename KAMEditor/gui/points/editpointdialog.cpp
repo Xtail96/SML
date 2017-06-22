@@ -6,7 +6,7 @@ EditPointDialog::EditPointDialog(QWidget *parent) :
     ui(new Ui::EditPointDialog)
 {
     ui->setupUi(this);
-    std::vector<Point> points = PointsManager::Instance().getPoints();
+    /*std::vector<Point> points = PointsManager::Instance().getPoints();
     PointsManager& point_table = PointsManager::Instance();
     unsigned int point_to_select = point_table.getSelectedPoint();
 
@@ -34,7 +34,7 @@ EditPointDialog::EditPointDialog(QWidget *parent) :
 
     ui->edit_point_lineEdit_axis_a->setText(a_str);
 
-    ui->edit_point_lineEdit_axis_b->setText(b_str);
+    ui->edit_point_lineEdit_axis_b->setText(b_str);*/
 }
 
 EditPointDialog::~EditPointDialog()
@@ -59,7 +59,7 @@ void EditPointDialog::on_buttonBox_accepted()
     QString b_str = ui->edit_point_lineEdit_axis_b->text();
     double b = b_str.toDouble();
 
-    PointsManager& point_table = PointsManager::Instance();
+    /*PointsManager& point_table = PointsManager::Instance();
     unsigned int point_to_select = point_table.getSelectedPoint();
 
     std::vector<double> pointsOriginCoordinates =
@@ -71,5 +71,5 @@ void EditPointDialog::on_buttonBox_accepted()
         b
     };
 
-    point_table.setPoint(point_to_select, pointsOriginCoordinates);
+    point_table.setPoint(point_to_select, pointsOriginCoordinates);*/
 }

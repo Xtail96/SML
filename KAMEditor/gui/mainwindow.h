@@ -84,19 +84,6 @@ private:
 
     void setupSettings();
     void updateSettingsField();
-    void chooseAxisSettingsItems(const Axis &axis);
-    void displayAxisSettings(std::vector<QLineEdit *> axisSettingsFields, QCheckBox *isAxisInvert, const Axis &axis);
-
-    void setUpElectricalSettings();
-
-    void dimensionsFromMachineTool();
-    void directionsFromMachineTool();
-    void kinematicsSettingsFromMachineTool();
-    void electricialSettingsFromMachineTool();
-
-
-    void editSettingsField(QLineEdit *qle);
-    void applySettingsField(QLineEdit *qle);
 
     void setupShortcuts(); 
     void setupEditorShortcuts();
@@ -111,17 +98,7 @@ private:
     void updateBatteryStatus();
     void updateKabriolAvaliability();
 
-    void updateEdgesControlStatus();
-
     void setSelectedCommandVectorNumber(unsigned int& current_row);
-
-    std::vector<QLineEdit*> makeQLineEditVector(int tmp);
-    std::vector<QCheckBox*> makeQCheckBoxVector(int tmp);
-
-    void parse7kamToSml(QString &tmp);
-    void parse7kamToSmlStep(std::string &tmp);
-    void setCommandArguments(std::string s, Command &command);
-    void eraseSpecialSymbols(std::string &s);
 
 protected:
     void updatePoints();
@@ -129,11 +106,11 @@ protected:
     void updateBaseStatus();
 
 private slots:
-
-    void addLineCommand();
-    void deleteSelectedCommands();
+     void deleteSelectedCommands();
 
     void update();
+    void updateEdgesControlStatus();
+
     void on_discreteRadioButton_1_clicked();
     void on_discreteRadioButton_2_clicked();
     void on_discreteRadioButton_3_clicked();
@@ -175,21 +152,13 @@ private slots:
     void on_pointCopyPushButton_clicked();
     void on_commandsToolsListWidget_doubleClicked(const QModelIndex &index);
     void on_toBasePushButton_clicked();
-    void on_edgesControlCheckBox_clicked();
     void on_spindelEnablePushButton_clicked();
     void on_millWarmingPushButton_clicked();
     void on_pointsTableWidget_doubleClicked(const QModelIndex &index);
     void on_smlEditorTreeWidget_doubleClicked(const QModelIndex &index);
     void on_smlEditorTreeWidget_clicked(const QModelIndex &index);
     void on_open_action_triggered();
-    void on_changeMechanicalSettingsPushButton_clicked();
-    void on_applyMechanicalSettingsPushButton_clicked();
-    void on_cancelMechanicalSettingsPushButton_clicked();
-    void on_changeElecricalSettingsPushButton_clicked();
-    void on_applyElectricalSettingsPushButton_clicked();
-    void on_cancelElectricalSettingsPushButton_clicked();
     void on_gcodesEditorTextEdit_textChanged();
-    void on_userToolsListWidget_doubleClicked(const QModelIndex &index);
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
 };

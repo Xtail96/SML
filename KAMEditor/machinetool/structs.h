@@ -141,29 +141,4 @@ struct DeviceBuffer
        }
    }
 };
-
-struct SensorBuffer
-{
-    std::vector<unsigned int> buffer;
-    SensorBuffer()
-    {
-        std::vector<unsigned int> buffer =
-        {
-            0, // номер входа
-            0, // активен ли датчик
-        };
-    }
-};
-
-/// Настройки KFlop
-//struct AxisKFlopSettings
-//{
-//    double jerk;
-//    double acceleration;
-//    double velocity;
-//    int channel;
-//    double basingVelocity;
-//    AxisKFlopSettings(double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0)
-//        : jerk(_jerk), acceleration(_acceleration), velocity(_velocity), channel(_channel), basingVelocity(_basingVelocity){}
-//};
 #endif // VECTOR_H

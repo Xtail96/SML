@@ -92,23 +92,8 @@ const int SEARCH_SOFT_ZERO_SENSOR = 0x0C;
 const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
 const int SEARCH_ATC_SENSOR = 0x0D;*/
 
-
-
-MachineTool& MachineTool::Instance()
-{
-    static MachineTool m;
-    return m;
-}
-
-
 MachineTool::MachineTool()
 {
-    baseStatus = false;
-    edgesControlEnable = false;
-    spindleEnable = false;
-    spindleWarmUp = false;
-    axisCount = 0;
-    machineToolAxis = {};
 }
 
 MachineTool::~MachineTool()
@@ -116,182 +101,24 @@ MachineTool::~MachineTool()
 
 }
 
-VectorDouble MachineTool::getBaseCoordinates()
+void MachineTool::addMachineToolAxises(const unsigned int &count)
 {
-    return base;
-}
-
-
-VectorDouble MachineTool::getCurrentCoordinates()
-{
-    return current;
-}
-
-
-VectorDouble MachineTool::getParkCoordinates()
-{
-    return park;
-}
-
-std::string MachineTool::getSettingsPath()
-{
-    return settingsPath;
-}
-
-void MachineTool::setSettingsPath(std::string s)
-{
-    settingsPath = s;
-}
-
-bool MachineTool::getBaseStatus()
-{
-    return baseStatus;
-}
-
-void MachineTool::setBaseStatus(bool value)
-{
-    baseStatus = value;
-}
-
-bool MachineTool::getEdgesControlEnable()
-{
-    return edgesControlEnable;
-}
-
-void MachineTool::setEdgesControlEnable(bool value)
-{
-    edgesControlEnable = value;
-}
-
-bool MachineTool::getSpindleEnable()
-{
-    return spindleEnable;
-}
-
-void MachineTool::setSpindleEnable(bool value)
-{
-    spindleEnable = value;
-}
-
-bool MachineTool::getSpindleWarmUp()
-{
-    return spindleWarmUp;
-}
-
-void MachineTool::setSpindleWarmUp(bool value)
-{
-    spindleWarmUp = value;
-}
-
-void MachineTool::stepMove(VectorDouble f)
-{
-    double current_step = (step > 0) ? step : 0.01;
-
-    current.x += f.x * current_step;
-    current.y += f.y * current_step;
-    current.z += f.z * current_step;
-    current.a += f.a * current_step;
-    current.b += f.b * current_step;
-
-
-    base.x += f.x * current_step;
-    base.y += f.y * current_step;
-    base.z += f.z * current_step;
-    base.a += f.a * current_step;
-    base.b += f.b * current_step;
-}
-
-void MachineTool::setParkCoordinates(VectorDouble f)
-{
-    park.x = f.x;
-    park.y = f.y;
-    park.z = f.z;
-    park.a = f.a;
-    park.b = f.b;
-}
-void MachineTool::setNewZeroCoordinates(VectorDouble f)
-{
-    zero.x = base.x;
-    zero.y = base.y;
-    zero.z = base.z;
-    zero.a = base.a;
-    zero.b = base.b;
-
-    current.x = 0;
-    current.y = 0;
-    current.z = 0;
-    current.a = 0;
-    current.b = 0;
-}
-
-void MachineTool::setExternalDevices(std::map<std::string, bool> m)
-{
-    externalDevices = m;
-}
-std::map<std::string, bool> MachineTool::getExternalDevices()
-{
-    return externalDevices;
-}
-
-unsigned int MachineTool::getAxisCount()
-{
-    return axisCount;
-}
-
-void MachineTool::setAxisCount(const unsigned int &value)
-{
-    axisCount = value;
-}
-
-void MachineTool::addMachineToolAxis(const unsigned int &count)
-{
-    if(count <= 11)
+    unsigned int axisCount = count;
+    if(axisCount > 11)
     {
-        setAxisCount(count);
+       axisCount = 11;
     }
-    else
-    {
-        setAxisCount(11);
-    }
+    axises.reserve(axisCount);
     for(unsigned int i = 0; i < axisCount; i++)
     {
         std::string axisName = axisNames.getNameByKey(i);
-        Axis newAxis(axisName);
-        machineToolAxis.push_back(newAxis);
+        Axis* newAxis = new Axis(axisName);
+        axises.push_back(std::shared_ptr<Axis>(newAxis));
     }
-
     setupMachineToolAxises();
 }
 
 void MachineTool::setupMachineToolAxises()
 {
-    SettingsManager settings;
-    std::map<std::string, std::string> settingsMap = settings.getSettings();
-    if(settingsMap.size() != 0)
-    {
-        for(auto &axis : machineToolAxis)
-        {
-            axis.setup(settingsMap);
-        }
-    }
-}
 
-std::vector<Axis> &MachineTool::getMachineToolAxis()
-{
-    return machineToolAxis;
-}
-
-void MachineTool::setMachineToolAxis(const std::vector<Axis> &value)
-{
-    machineToolAxis = value;
-}
-
-std::vector<Sensor> MachineTool::getMachineToolSensors() const
-{
-    return machineToolSensors;
-}
-
-void MachineTool::addMachineToolSensor(Sensor s)
-{
-    machineToolSensors.push_back(s);
 }

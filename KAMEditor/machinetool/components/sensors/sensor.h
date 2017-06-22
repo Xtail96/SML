@@ -6,13 +6,8 @@
 
 class Sensor
 {
-protected:
-
 public:
     Sensor();
-    //! Методы получения и установки значений
-private slots:
-    void update();
 };
 
 #endif // SENSOR_H

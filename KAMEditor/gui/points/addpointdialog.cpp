@@ -39,5 +39,5 @@ void AddPointDialog::on_buttonBox_accepted()
         b
     };
 
-    PointsManager::Instance().addPoint(pointOriginCoordinates);
+    //PointsManager::Instance().addPoint(pointOriginCoordinates);
 }

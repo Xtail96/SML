@@ -106,89 +106,13 @@ void Axis::setup(const std::map<std::string, std::string> &settingsMap)
 {
     if(settingsMap.size() != 0)
     {
-        setupAxisAcceleration(name, settingsMap);
-        setupAxisBazaSearchSpeed(name, settingsMap);
-        setupAxisChannel(name, settingsMap);
-        setupAxisInvertStatus(name, settingsMap);
-        setupAxisJerk(name, settingsMap);
-        setupAxisSpeed(name, settingsMap);
-        setupAxisStep(name, settingsMap);
-        setupAxisTableSize(name, settingsMap);
+        //setupAxisAcceleration(name, settingsMap);
+        //setupAxisBazaSearchSpeed(name, settingsMap);
+        //setupAxisChannel(name, settingsMap);
+        //setupAxisInvertStatus(name, settingsMap);
+        //setupAxisJerk(name, settingsMap);
+        //setupAxisSpeed(name, settingsMap);
+        //setupAxisStep(name, settingsMap);
+        //setupAxisTableSize(name, settingsMap);
     }
-}
-
-std::string Axis::getSettingsElement(std::string key, std::map<std::string, std::string> allSettings)
-{
-    if(allSettings.find(key) != allSettings.end())
-    {
-        return allSettings[key];
-    }
-    else
-    {
-        return "0";
-    }
-}
-
-void Axis::setupAxisAcceleration(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = name + "_Axis_acceleration";
-    std::string axisAccelration = getSettingsElement(key, allSettings);
-    acceleration = std::stod(axisAccelration);
-}
-
-void Axis::setupAxisBazaSearchSpeed(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = name +"_Axis_bazaSearchSpeed";
-    std::string axisBazaSearchSpeed = getSettingsElement(key, allSettings);
-    basingVelocity = std::stod(axisBazaSearchSpeed);
-}
-
-void Axis::setupAxisChannel(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = name + "_Axis_channel";
-    std::string axisChannel = getSettingsElement(key, allSettings);
-    channel = std::stod(axisChannel);
-}
-
-void Axis::setupAxisJerk(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = name + "_Axis_jerk";
-    std::string axisJerk = getSettingsElement(key, allSettings);
-    jerk = std::stod(axisJerk);
-}
-
-void Axis::setupAxisSpeed(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = name + "_Axis_speed";
-    std::string axisSpeed = getSettingsElement(key, allSettings);
-    velocity = std::stod(axisSpeed);
-}
-
-void Axis::setupAxisStep(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = "Mashin_Info_AltSteps" + name;
-    std::string axisAltStep = getSettingsElement(key, allSettings);
-    step = std::stod(axisAltStep);
-}
-
-void Axis::setupAxisInvertStatus(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = "Mashin_Info_Invert" + name;
-    std::string axisInvertStatus = getSettingsElement(key, allSettings);
-    int tmp = std::stoi(axisInvertStatus);
-    if(tmp == 1)
-    {
-        invertDirection = true;
-    }
-    else
-    {
-        invertDirection = false;
-    }
-}
-
-void Axis::setupAxisTableSize(const std::string &name, const std::map<std::string, std::string> &allSettings)
-{
-    std::string key = "Table_Size_Size" + name;
-    std::string axisTableSize = getSettingsElement(key, allSettings);
-    length = std::stod(axisTableSize);
 }
