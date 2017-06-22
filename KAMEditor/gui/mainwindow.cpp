@@ -51,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spindelEnablePushButton->setStyleSheet("margin: 1px");
 
     ui->toolLengthSensorPushButton->setEnabled(false);
+
+    initializeMachineTool();
 }
 
 MainWindow::~MainWindow()
@@ -72,10 +74,12 @@ MainWindow::~MainWindow()
     }
 }
 
-void MainWindow::setupSettings()
+void MainWindow::initializeMachineTool()
 {
     //MachineTool &instance = MachineTool::Instance();
     //instance.addMachineToolAxis(5);
+    MachineTool* fb3d = new MachineTool(5);
+    delete fb3d;
 }
 
 void MainWindow::updateSettingsField()

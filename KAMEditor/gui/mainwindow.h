@@ -82,7 +82,7 @@ private:
     GCodesSyntaxHighlighter* hightlighter;
 
 
-    void setupSettings();
+    void initializeMachineTool();
     void updateSettingsField();
 
     void setupShortcuts(); 

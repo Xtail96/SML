@@ -101,6 +101,11 @@ MachineTool::~MachineTool()
 
 }
 
+MachineTool::MachineTool(const unsigned int _axisCount)
+{
+    addMachineToolAxises(_axisCount);
+}
+
 void MachineTool::addMachineToolAxises(const unsigned int &count)
 {
     unsigned int axisCount = count;

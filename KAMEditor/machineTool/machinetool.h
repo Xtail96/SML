@@ -29,6 +29,7 @@ class MachineTool
 public:
     MachineTool();
     ~MachineTool();
+    MachineTool(const unsigned int _axisCount);
 
     void addMachineToolAxises(const unsigned int &count);
     void setupMachineToolAxises();
