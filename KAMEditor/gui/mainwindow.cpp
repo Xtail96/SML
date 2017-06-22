@@ -105,10 +105,10 @@ void MainWindow::setupShortcuts()
         std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())),
         std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())),
         std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())),
-        std::make_tuple("B", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())),
-        std::make_tuple("T", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
-        std::make_tuple("N", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
-        std::make_tuple("Y", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
+        std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())),
+        std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
+        std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
+        std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
         std::make_tuple("M", ui->movementBNegativePushButton, SLOT(on_movementBNegativePushButton_clicked())),
         std::make_tuple("U", ui->movementBPositivePushButton, SLOT(on_movementBPositivePushButton_clicked())),
     };
@@ -427,6 +427,7 @@ void MainWindow::on_movementZNegativePushButton_clicked()
     v.z = -1;
 
     i.stepMove(v);*/
+
 }
 
 void MainWindow::on_movementAPositivePushButton_clicked()
