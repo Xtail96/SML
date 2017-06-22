@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,21 +9,22 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
+    // установка оформления statusBar
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+    ui->statusBar->setFont(QFont("Consolas", 14));
+    ui->statusBar->showMessage(tr("State: ready 0123456789"));
+
+    // установка древесной структуры в 1 столбец виджета отображения sml-команд
     QTreeWidget*  editorField = ui->smlEditorTreeWidget;
     editorField->setTreePosition(1);
 
-    setupEditorShortcuts();
-
+    // устанвиливаем подсветку текста в виджете отображения G-кодов
     hightlighter = new GCodesSyntaxHighlighter(this);
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
 
-    updateEdgesControlStatus();
-    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
-
-    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->setFont(QFont("Consolas", 14));
-    ui->statusBar->showMessage(tr("State: ready 0123456789"));
+    // задаем горячие клавиши перемещения
+    setupShortcuts();
 
     // таймер обновления окна координат
     timer = new QTimer(this);
@@ -32,14 +32,18 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->setInterval(100);
     timer->start();
 
-    // растянуть таблицу с координатами
+    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
+    updateEdgesControlStatus();
+    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+
+    // растянуть таблицу с координатами редактора точек
     for (int i = 0; i < ui->pointsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    // в таблице выделяется целиком вся строка
+    // в таблице редактора точек выделяется целиком вся строка
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -47,11 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
+    // перевод кнопок, требующих дополнительных действий перед активацией, в неактивное состояние
     ui->spindelEnablePushButton->setEnabled(false);
     ui->spindelEnablePushButton->setStyleSheet("margin: 1px");
-
     ui->toolLengthSensorPushButton->setEnabled(false);
 
+    // инициализация станка
     initializeMachineTool();
 }
 
@@ -72,6 +77,8 @@ MainWindow::~MainWindow()
         delete editorShortcuts.back();
         editorShortcuts.pop_back();
     }
+
+    delete hightlighter;
 }
 
 void MainWindow::initializeMachineTool()
