@@ -66,6 +66,7 @@ SOURCES += main.cpp\
     machinetool/components/commandManager/commands/line.cpp \
     machinetool/components/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
     machinetool/components/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp \
+    machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -114,6 +115,7 @@ HEADERS  += gui/mainwindow.h \
     machinetool/components/commandInterpreter/commandinterpreter.h \
     machinetool/components/mcuLinksProvider/controllerConnector/controllerconnector.h \
     machinetool/components/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
+    machinetool/components/movementController/dimensionsController/dimensionscontroller.h
 
 
 FORMS    += gui/mainwindow.ui \
