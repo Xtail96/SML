@@ -4,7 +4,7 @@
 
 #include <QMainWindow>
 
-#include "library/machinetool/structs.h"
+#include "machinetool/structs.h"
 class Device
 {
 public:

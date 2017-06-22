@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 
-#include "library/machinetool/components/commandManager/commands/command.h"
+#include "machinetool/components/commandManager/commands/command.h"
 
 
 class CommandInterpreter

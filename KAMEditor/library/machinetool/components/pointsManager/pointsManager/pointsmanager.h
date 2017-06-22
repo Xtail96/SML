@@ -2,7 +2,7 @@
 #define POINTSMANAGER_H
 
 #include <vector>
-#include "library/machinetool/components/pointsManager/point/point.h"
+#include "machinetool/components/pointsManager/point/point.h"
 class PointsManager
 {
 public:

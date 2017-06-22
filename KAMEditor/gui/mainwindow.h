@@ -22,12 +22,12 @@
 #include <windows.h>
 #endif
 
-#include "library/machineTool/machinetool.h"
-#include "library/machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "machineTool/machinetool.h"
+#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
-#include "library/machinetool/components/commandInterpreter/commandinterpreter.h"
+#include "machinetool/components/commandInterpreter/commandinterpreter.h"
 
 #include "commands/commanddialog.h"
 #include "commands/linedialog.h"
@@ -53,10 +53,10 @@
 #include "commands/ttttsplinedialog.h"
 #include "commands/adddevicedialog.h"
 
-#include "library/machinetool/components/commandManager/commands/commands.h"
+#include "machinetool/components/commandManager/commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
-#include "library/machinetool/settingsManager/settingsmanager.h"
+#include "machinetool/settingsManager/settingsmanager.h"
 
 
 namespace Ui {
