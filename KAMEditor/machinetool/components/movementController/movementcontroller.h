@@ -10,6 +10,7 @@ private:
     Point currentCoordinates;
     Point currentCoordinatesFromBase;
     Point parkCoordinates;
+    Point axisesLength;
     // шаг движения
     double step;
     double velocity;
@@ -18,7 +19,7 @@ public:
     MovementController();
     virtual void stepMove(const Point &to);
     virtual void move(const Point &offset);
-    void checkCurrentCoordinates();
+    bool checkCurrentCoordinates(const Point &newCoordinates);
 };
 
 #endif // MOVEMENTCONTROLLER_H
