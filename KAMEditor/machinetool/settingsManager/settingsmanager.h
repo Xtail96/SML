@@ -1,15 +1,13 @@
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
-#include <algorithm>
-#include <map>
-#include <QString>
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
-#include <QFileDialog>
+
+#include <QSettings>
+#include <memory>
+
 class SettingsManager
 {
 private:
+    std::shared_ptr<QSettings> settings;
 
 public:
     SettingsManager();
