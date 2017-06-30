@@ -25,7 +25,8 @@ SettingsManager::SettingsManager(QString settingsIniPath)
 
 SettingsManager::~SettingsManager()
 {
-
+    // сохраняем настройки перед выходом
+    saveSettings();
 }
 
 void SettingsManager::saveSettings()
@@ -43,6 +44,31 @@ void SettingsManager::exportSettings(QString path)
     }
 
     expSettings.sync();
+}
+
+QVariant SettingsManager::get(QString group, QString key)
+{
+    if (settings->contains(key))
+    {
+        QVariant value;
+
+        settings->beginGroup(group);
+            value = settings->value(key);
+        settings->endGroup();
+
+        return value;
+    }
+    else
+    {
+        throw std::invalid_argument("Отсутствует ключ " + key.toStdString());
+    }
+}
+
+void SettingsManager::set(QString group, QString key, QVariant value)
+{
+    settings->beginGroup(group);
+        settings->setValue(key, value);
+    settings->endGroup();
 }
 
 void SettingsManager::generateDefaultSettings()

@@ -25,6 +25,9 @@ public:
 
     void exportSettings(QString path);
 
+    QVariant get(QString group, QString key);
+    void set(QString group, QString key, QVariant value);
+
     void generateDefaultSettings();
 };
 
