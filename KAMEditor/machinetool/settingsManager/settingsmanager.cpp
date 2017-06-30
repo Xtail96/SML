@@ -1,6 +1,6 @@
 #include "settingsmanager.h"
 
-SettingsManager::SettingsManager() : SettingsManager(defaultSettingsIniPath)
+SettingsManager::SettingsManager() : SettingsManager(defaultSettingsPath)
 {
 }
 
@@ -14,7 +14,7 @@ SettingsManager::SettingsManager(QString settingsIniPath)
                     "Файл с настройками не найден. Используем настройки по умолчанию").exec();
 
         // используем настройки по умолчанию
-        settings = std::shared_ptr<QSettings>( new QSettings(defaultSettingsIniPath, QSettings::IniFormat) );
+        settings = std::shared_ptr<QSettings>( new QSettings(defaultSettingsPath, QSettings::IniFormat) );
         generateDefaultSettings();
     }
     else
@@ -34,8 +34,9 @@ void SettingsManager::saveSettings()
     settings->sync();
 }
 
-void SettingsManager::exportSettings(QString path)
+void SettingsManager::exportSettings(QString dir)
 {
+    QString path = dir + defaultSettingsIniFile;
     QSettings expSettings(path, QSettings::IniFormat);
 
     for (QString key : settings->allKeys())

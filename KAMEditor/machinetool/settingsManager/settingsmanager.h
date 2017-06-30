@@ -22,8 +22,12 @@
 class SettingsManager
 {
 private:
-    /// Путь, где по умолчанию хранится файл с настройками
-    const QString defaultSettingsIniPath = "settings.ini";
+    /// Имя файла настроек
+    const QString defaultSettingsIniFile = "KAMEditorSettings.ini";
+    /// Директория, где по умолчанию хранится файл с настройками
+    const QString defaultSettingsDir = "";
+    /// Полный путь к файлу настроек
+    const QString defaultSettingsPath = defaultSettingsDir + defaultSettingsIniFile;
 
     /// Класс, непосредственно отвечающий за хранение "группа-ключ-значение"
     std::shared_ptr<QSettings> settings;
@@ -49,8 +53,9 @@ public:
     /**
      * @brief Экспортирует настройки по заданному пути
      * @param path путь, куда будут экспортированы настройки
+     * \warning путь должен заканчиваться прямым слешем - "/"
      */
-    void exportSettings(QString path);
+    void exportSettings(QString dir);
 
     /**
      * @brief Позволяет получить значение по заданным группе и ключу
