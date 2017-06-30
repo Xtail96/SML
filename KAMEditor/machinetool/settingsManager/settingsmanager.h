@@ -21,6 +21,10 @@ public:
     SettingsManager(QString settingsIniPath);
     ~SettingsManager();
 
+    void saveSettings();
+
+    void exportSettings(QString path);
+
     void generateDefaultSettings();
 };
 

@@ -28,6 +28,23 @@ SettingsManager::~SettingsManager()
 
 }
 
+void SettingsManager::saveSettings()
+{
+    settings->sync();
+}
+
+void SettingsManager::exportSettings(QString path)
+{
+    QSettings expSettings(path, QSettings::IniFormat);
+
+    for (QString key : settings->allKeys())
+    {
+        expSettings.setValue(key, settings->value(key));
+    }
+
+    expSettings.sync();
+}
+
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("Times");
@@ -247,5 +264,5 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     // применяем изменения
-    settings->sync();
+    saveSettings();
 }
