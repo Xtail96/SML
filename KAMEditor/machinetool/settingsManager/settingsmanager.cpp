@@ -1,25 +1,21 @@
 #include "settingsmanager.h"
 
-SettingsManager::SettingsManager() : SettingsManager(defaultSettingsPath)
-{
-}
-
-SettingsManager::SettingsManager(QString settingsIniPath)
+SettingsManager::SettingsManager(QString settingsPath)
 {
     // проверка на существование файла с настройками
-    if (!QFile(settingsIniPath).exists())
+    if (!QFileInfo::exists(settingsPath))
     {
         // если не существует, выводим соответствующее сообщение
         QMessageBox(QMessageBox::Warning, "Ошибка",
                     "Файл с настройками не найден. Используем настройки по умолчанию").exec();
 
         // используем настройки по умолчанию
-        settings = std::shared_ptr<QSettings>( new QSettings(defaultSettingsPath, QSettings::IniFormat) );
+        settings = std::shared_ptr<QSettings>( new QSettings("KAMEditorSettings.ini", QSettings::IniFormat) );
         generateDefaultSettings();
     }
     else
     {
-        settings = std::shared_ptr<QSettings>( new QSettings(settingsIniPath, QSettings::IniFormat) );
+        settings = std::shared_ptr<QSettings>( new QSettings(settingsPath, QSettings::IniFormat) );
     }
 }
 
@@ -34,9 +30,8 @@ void SettingsManager::saveSettings()
     settings->sync();
 }
 
-void SettingsManager::exportSettings(QString dir)
+void SettingsManager::exportSettings(QString path)
 {
-    QString path = dir + defaultSettingsIniFile;
     QSettings expSettings(path, QSettings::IniFormat);
 
     for (QString key : settings->allKeys())
@@ -47,7 +42,7 @@ void SettingsManager::exportSettings(QString dir)
     expSettings.sync();
 }
 
-QVariant SettingsManager::get(QString group, QString key)
+QVariant SettingsManager::get(QString group, QString key) const
 {
     if (settings->contains(key))
     {

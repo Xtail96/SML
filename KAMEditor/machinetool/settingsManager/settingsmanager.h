@@ -2,7 +2,7 @@
 #define SETTINGSMANAGER_H
 
 #include <QCoreApplication>
-#include <QFile>
+#include <QFileInfo>
 #include <QSettings>
 #include <QString>
 #include <QDateTime>
@@ -22,26 +22,15 @@
 class SettingsManager
 {
 private:
-    /// Имя файла настроек
-    const QString defaultSettingsIniFile = "KAMEditorSettings.ini";
-    /// Директория, где по умолчанию хранится файл с настройками
-    const QString defaultSettingsDir = "";
-    /// Полный путь к файлу настроек
-    const QString defaultSettingsPath = defaultSettingsDir + defaultSettingsIniFile;
-
     /// Класс, непосредственно отвечающий за хранение "группа-ключ-значение"
     std::shared_ptr<QSettings> settings;
 
 public:
-    /**
-     * @brief Импортирует настройки из файла, находящегося в директории по умолчанию
-     */
-    SettingsManager();
-    /**
+     /**
      * @brief Импортирует настройки из заданного файла
-     * @param settingsIniPath путь к файлу с настройками
+     * @param settingsPath путь к файлу с настройками
      */
-    SettingsManager(QString settingsIniPath);
+    SettingsManager(QString settingsPath = "KAMEditorSettings.ini");
 
     ~SettingsManager();
 
@@ -53,9 +42,8 @@ public:
     /**
      * @brief Экспортирует настройки по заданному пути
      * @param path путь, куда будут экспортированы настройки
-     * \warning путь должен заканчиваться прямым слешем - "/"
      */
-    void exportSettings(QString dir);
+    void exportSettings(QString path);
 
     /**
      * @brief Позволяет получить значение по заданным группе и ключу
@@ -64,7 +52,7 @@ public:
      * @return полученное по группе и ключу значение
      * \warning Если по заданному ключу не содержится никакое значение, выбрасывает исключение invalid_argument
      */
-    QVariant get(QString group, QString key);
+    QVariant get(QString group, QString key) const;
 
     /**
      * @brief Позволяет установить значение по заданным группе и ключу
