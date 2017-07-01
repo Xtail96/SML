@@ -1,5 +1,10 @@
 #include "settingsmanager.h"
 
+SettingsManager::SettingsManager() : SettingsManager(DEFAULT_SETTINGS_PATH)
+{
+
+}
+
 SettingsManager::SettingsManager(QString settingsPath)
 {
     // проверка на существование файла с настройками
@@ -10,7 +15,7 @@ SettingsManager::SettingsManager(QString settingsPath)
                     "Файл с настройками не найден. Используем настройки по умолчанию").exec();
 
         // используем настройки по умолчанию
-        settings = std::shared_ptr<QSettings>( new QSettings("KAMEditorSettings.ini", QSettings::IniFormat) );
+        settings = std::shared_ptr<QSettings>( new QSettings(DEFAULT_SETTINGS_PATH, QSettings::IniFormat) );
         generateDefaultSettings();
     }
     else

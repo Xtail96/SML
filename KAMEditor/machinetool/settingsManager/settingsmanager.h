@@ -9,6 +9,10 @@
 #include <QMessageBox>
 #include <memory>
 
+#define DEFAULT_SETTINGS_DIR ""
+#define DEFAULT_SETTINGS_FILE "KAMEditorSettings.ini"
+#define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE
+
 /**
  * @brief Класс для работы с настройками станка
  *
@@ -26,11 +30,15 @@ private:
     std::shared_ptr<QSettings> settings;
 
 public:
+    /**
+     * @brief Импортирует настройки из файла, находящегося в директории по умолчанию
+     */
+    SettingsManager();
      /**
      * @brief Импортирует настройки из заданного файла
      * @param settingsPath путь к файлу с настройками
      */
-    SettingsManager(QString settingsPath = "KAMEditorSettings.ini");
+    SettingsManager(QString settingsPath);
 
     ~SettingsManager();
 
