@@ -49,15 +49,13 @@ void SettingsManager::exportSettings(QString path)
 
 QVariant SettingsManager::get(QString group, QString key) const
 {
+    QVariant value;
+
     settings->beginGroup(group);
 
     if (settings->contains(key))
     {
-        QVariant value;
-
-            value = settings->value(key);
-
-        return value;
+        value = settings->value(key);
     }
     else
     {
@@ -66,6 +64,8 @@ QVariant SettingsManager::get(QString group, QString key) const
     }
 
     settings->endGroup();
+
+    return value;
 }
 
 void SettingsManager::set(QString group, QString key, QVariant value)
