@@ -19,5 +19,5 @@ int main(int argc, char *argv[])
 void test()
 {
     SettingsManager sm;
-    sm.saveSettings();
+    qDebug() << sm.get("Times", "StartTime").toString();
 }

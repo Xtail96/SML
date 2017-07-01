@@ -49,20 +49,23 @@ void SettingsManager::exportSettings(QString path)
 
 QVariant SettingsManager::get(QString group, QString key) const
 {
+    settings->beginGroup(group);
+
     if (settings->contains(key))
     {
         QVariant value;
 
-        settings->beginGroup(group);
             value = settings->value(key);
-        settings->endGroup();
 
         return value;
     }
     else
     {
+        settings->endGroup();
         throw std::invalid_argument("Отсутствует ключ " + key.toStdString());
     }
+
+    settings->endGroup();
 }
 
 void SettingsManager::set(QString group, QString key, QVariant value)
