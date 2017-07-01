@@ -2,7 +2,6 @@
 
 SettingsManager::SettingsManager() : SettingsManager(DEFAULT_SETTINGS_PATH)
 {
-
 }
 
 SettingsManager::SettingsManager(QString settingsPath)
@@ -16,12 +15,18 @@ SettingsManager::SettingsManager(QString settingsPath)
 
         // используем настройки по умолчанию
         settings = std::shared_ptr<QSettings>( new QSettings(DEFAULT_SETTINGS_PATH, QSettings::IniFormat) );
+        // используем кодировку юникод
+        settings->setIniCodec("UTF-8");
+
         generateDefaultSettings();
     }
     else
     {
         settings = std::shared_ptr<QSettings>( new QSettings(settingsPath, QSettings::IniFormat) );
+        // используем кодировку юникод
+        settings->setIniCodec("UTF-8");
     }
+
 }
 
 SettingsManager::~SettingsManager()
