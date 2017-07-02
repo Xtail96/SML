@@ -91,9 +91,33 @@ void MainWindow::initializeMachineTool()
 
 void MainWindow::updateSettingsField()
 {
-    int axisCount = machineTool->getAxises().size();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    int axisCount = axises.size();
     ui->axisSettingsTableWidget->setColumnCount(axisCount);
-    ui->axisSettingsTableWidget->setRowCount(9);
+
+    QStringList qAxisesSettingsHorizontalHeadersList;
+    for(auto axis : axises)
+    {
+        QString header = QString("Ось " + QString::fromStdString(axis->getName()));
+        qAxisesSettingsHorizontalHeadersList.append(header);
+    }
+
+    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qAxisesSettingsHorizontalHeadersList);
+
+    QStringList qAxisesSettingsVerticalHeadersList =
+    {
+        "Рывок",
+        "Ускорение",
+        "Скорость",
+        "Скорость Базирования",
+        "Канал",
+        "Длина",
+        "Шаг",
+        "Направление"
+    };
+    ui->axisSettingsTableWidget->setRowCount(qAxisesSettingsVerticalHeadersList.size());
+    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qAxisesSettingsVerticalHeadersList);
+
 
     for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
     {
