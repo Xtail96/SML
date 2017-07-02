@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 
+#include "../../settingsManager/settingsmanager.h"
+
 /*!
  * \brief Класс "Ось"
  * \brief Данный класс содержит информацию о настройках отдельной оси станка и позволяет взаимодействовать с ней.
@@ -105,7 +107,7 @@ public:
 
     //! Методы для настройки параметров Оси:
     /// \brief Метод комплексной настройки параметров текущей оси;
-    void setup(const std::map<std::string, std::string> &settingsMap);
+    void setup(const SettingsManager &settings);
 };
 
 #endif // AXIS_H

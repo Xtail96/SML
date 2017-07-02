@@ -125,5 +125,9 @@ void MachineTool::addMachineToolAxises(const unsigned int &count)
 
 void MachineTool::setupMachineToolAxises()
 {
-
+    SettingsManager settingsManager;
+    for(auto axis : axises)
+    {
+        axis->setup(settingsManager);
+    }
 }

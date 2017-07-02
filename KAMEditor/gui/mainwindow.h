@@ -100,6 +100,8 @@ private:
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 
+
+    MachineTool* machineTool;
 protected:
     void updatePoints();
     void updateCommands();

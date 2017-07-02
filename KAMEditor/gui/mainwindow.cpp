@@ -79,14 +79,13 @@ MainWindow::~MainWindow()
     }
 
     delete hightlighter;
+
+    delete machineTool;
 }
 
 void MainWindow::initializeMachineTool()
 {
-    //MachineTool &instance = MachineTool::Instance();
-    //instance.addMachineToolAxis(5);
-    MachineTool* fb3d = new MachineTool(5);
-    delete fb3d;
+    machineTool = new MachineTool(5);
 }
 
 void MainWindow::updateSettingsField()
