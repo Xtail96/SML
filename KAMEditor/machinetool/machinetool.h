@@ -33,6 +33,9 @@ public:
 
     void addMachineToolAxises(const unsigned int &count);
     void setupMachineToolAxises();
+    std::vector<std::shared_ptr<Axis> > getAxises() const;
+    void setAxises(const std::vector<std::shared_ptr<Axis> > &value);
+
 private:
     /// Оси станка
     std::vector< std::shared_ptr<Axis> > axises;

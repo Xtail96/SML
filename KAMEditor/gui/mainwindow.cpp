@@ -86,11 +86,19 @@ MainWindow::~MainWindow()
 void MainWindow::initializeMachineTool()
 {
     machineTool = new MachineTool(5);
+    updateSettingsField();
 }
 
 void MainWindow::updateSettingsField()
 {
+    int axisCount = machineTool->getAxises().size();
+    ui->axisSettingsTableWidget->setColumnCount(axisCount);
+    ui->axisSettingsTableWidget->setRowCount(9);
 
+    for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 }
 
 void MainWindow::setupShortcuts()

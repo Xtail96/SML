@@ -131,3 +131,13 @@ void MachineTool::setupMachineToolAxises()
         axis->setup(settingsManager);
     }
 }
+
+std::vector<std::shared_ptr<Axis> > MachineTool::getAxises() const
+{
+    return axises;
+}
+
+void MachineTool::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
+{
+    axises = value;
+}
