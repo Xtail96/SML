@@ -17,6 +17,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QString>
+#include <QTableWidgetItem>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -84,6 +85,7 @@ private:
 
     void initializeMachineTool();
     void updateSettingsField();
+    QTableWidgetItem* fillAxisesSettingsTable();
 
     void setupShortcuts(); 
     void setupEditorShortcuts();

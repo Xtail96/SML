@@ -91,38 +91,51 @@ void MainWindow::initializeMachineTool()
 
 void MainWindow::updateSettingsField()
 {
+    ui->axisSettingsTableWidget->clear();
+
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
     int axisCount = axises.size();
-    ui->axisSettingsTableWidget->setColumnCount(axisCount);
 
-    QStringList qAxisesSettingsHorizontalHeadersList;
+    QStringList qHorizontalHeaders;
     for(auto axis : axises)
     {
         QString header = QString("Ось " + QString::fromStdString(axis->getName()));
-        qAxisesSettingsHorizontalHeadersList.append(header);
+        qHorizontalHeaders.append(header);
     }
 
-    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qAxisesSettingsHorizontalHeadersList);
+    ui->axisSettingsTableWidget->setColumnCount(axisCount);
+    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
 
-    QStringList qAxisesSettingsVerticalHeadersList =
+    QStringList qVerticalHeaders =
     {
+        "Длина",
+        "Шаг",
+        "Направление",
         "Рывок",
         "Ускорение",
         "Скорость",
         "Скорость Базирования",
-        "Канал",
-        "Длина",
-        "Шаг",
-        "Направление"
+        "Канал"
     };
-    ui->axisSettingsTableWidget->setRowCount(qAxisesSettingsVerticalHeadersList.size());
-    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qAxisesSettingsVerticalHeadersList);
+    ui->axisSettingsTableWidget->setRowCount(qVerticalHeaders.size());
+    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qVerticalHeaders);
 
 
     for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->axisSettingsTableWidget->verticalHeader()->count(); j++)
+        {
+            QTableWidgetItem *item = fillAxisesSettingsTable();
+            ui->axisSettingsTableWidget->setItem(j, i, item);
+        }
     }
+}
+
+QTableWidgetItem* MainWindow::fillAxisesSettingsTable()
+{
+    std::string text = "Здесь должны быть параметры оси";
+    return new QTableWidgetItem(QString::fromStdString(text));
 }
 
 void MainWindow::setupShortcuts()
