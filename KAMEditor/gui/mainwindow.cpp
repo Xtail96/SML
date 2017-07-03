@@ -126,15 +126,44 @@ void MainWindow::updateSettingsField()
         ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         for(int j = 0; j < ui->axisSettingsTableWidget->verticalHeader()->count(); j++)
         {
-            QTableWidgetItem *item = fillAxisesSettingsTable();
+            QTableWidgetItem *item = fillAxisesSettingsTable(axises, i, j);
             ui->axisSettingsTableWidget->setItem(j, i, item);
         }
     }
 }
 
-QTableWidgetItem* MainWindow::fillAxisesSettingsTable()
+QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex)
 {
     std::string text = "Здесь должны быть параметры оси";
+    switch (parametrIndex) {
+    case 0:
+        text = std::to_string(axises[axisIndex]->getLength());
+        break;
+    case 1:
+        text = std::to_string(axises[axisIndex]->getStep());
+        break;
+    case 2:
+        text = std::to_string(axises[axisIndex]->getInvertDirection());
+        break;
+    case 3:
+        text = std::to_string(axises[axisIndex]->getJerk());
+        break;
+    case 4:
+        text = std::to_string(axises[axisIndex]->getAcceleration());
+        break;
+    case 5:
+        text = std::to_string(axises[axisIndex]->getVelocity());
+        break;
+    case 6:
+        text = std::to_string(axises[axisIndex]->getBasingVelocity());
+        break;
+    case 7:
+        text = std::to_string(axises[axisIndex]->getChannel());
+        break;
+    default:
+        text = "Unknown parametr";
+        break;
+    }
     return new QTableWidgetItem(QString::fromStdString(text));
 }
 

@@ -85,7 +85,7 @@ private:
 
     void initializeMachineTool();
     void updateSettingsField();
-    QTableWidgetItem* fillAxisesSettingsTable();
+    QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
     void setupShortcuts(); 
     void setupEditorShortcuts();
