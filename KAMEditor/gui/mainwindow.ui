@@ -132,31 +132,6 @@
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectItems</enum>
              </property>
-             <column>
-              <property name="text">
-               <string>X</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Y</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Z</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>A</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>B</string>
-              </property>
-             </column>
             </widget>
            </item>
           </layout>
@@ -3886,31 +3861,6 @@
                    <property name="alternatingRowColors">
                     <bool>true</bool>
                    </property>
-                   <column>
-                    <property name="text">
-                     <string>X</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Y</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Z</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>A</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>B</string>
-                    </property>
-                   </column>
                   </widget>
                  </item>
                  <item row="1" column="1">
