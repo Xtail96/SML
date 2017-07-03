@@ -33,3 +33,21 @@ bool Point::operator!=(const Point &other) const
 {
     return (coordinates != other.coordinates);
 }
+
+Point& Point::operator*=(double x)
+{
+    for (double& coord : coordinates)
+        coord *= x;
+
+    return *this;
+}
+
+Point operator*(double x, Point p)
+{
+    return (p *= x);
+}
+
+Point operator*(Point p, double x)
+{
+    return (p *= x);
+}

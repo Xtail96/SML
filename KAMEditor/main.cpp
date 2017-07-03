@@ -14,10 +14,12 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-
-#include "machineTool/settingsManager/settingsmanager.h"
 void test()
 {
-    SettingsManager sm;
-    qDebug() << sm.get("Times", "StartTime").toString();
+    Point p = { 1, 2, -3 };
+    Point resl = 1.5 * p;
+    Point resr = p * 1.5;
+
+    if (resl == resr)
+        qDebug() << "(1.5 * p) == (p * 1.5)";
 }

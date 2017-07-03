@@ -71,8 +71,45 @@ public:
      */
     bool operator==(const Point& other) const;
     bool operator!=(const Point& other) const;
+
+    /**
+     * @brief Домножает текущую точку на заданный коэффициент
+     * @param x коэффициент, на который домножится текущая точка
+     * @return полученная в результате домножения точка
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * point *= 1.5;
+     * \endcode
+     */
+    Point& operator*=(double x);
 };
 
+/**
+ * @brief Умножает заданную точку на заданный коэффициент слева
+ * @param x коэффициент
+ * @param p точка
+ * @return точка, полученная в результате умножения
+ *
+ * Пример использования:
+ * \code{.cpp}
+ * Point result = 1.5 * point;
+ * \endcode
+ */
+
+Point operator*(double x, Point p);
+/**
+ * @brief Умножает заданную точку на заданный коэффициент справа
+ * @param p точка
+ * @param x коэффициент
+ * @return точка, полученная в результате умножения
+ *
+ * Пример использования:
+ * \code{.cpp}
+ * Point result = point * 1.5;
+ * \endcode
+ */
+Point operator*(Point p, double x);
 
 #endif // POINT_H
 
