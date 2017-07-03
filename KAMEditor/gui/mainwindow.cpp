@@ -36,21 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     updateEdgesControlStatus();
     connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
 
-    // растянуть таблицу с координатами редактора точек
-    for (int i = 0; i < ui->pointsTableWidget->horizontalHeader()->count(); i++)
-    {
-        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
-    // в таблице редактора точек выделяется целиком вся строка
-    ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-
     // перевод кнопок, требующих дополнительных действий перед активацией, в неактивное состояние
     ui->spindelEnablePushButton->setEnabled(false);
     ui->spindelEnablePushButton->setStyleSheet("margin: 1px");
@@ -88,6 +73,7 @@ void MainWindow::initializeMachineTool()
     machineTool = new MachineTool(5);
     updateSettingsField();
     initializeCoordinatesFields();
+    initializePointsManager();
 }
 
 void MainWindow::updateSettingsField()
@@ -184,6 +170,39 @@ void MainWindow::initializeCoordinatesFields()
 
     ui->parkCoordinatesListWidget->clear();
     ui->parkCoordinatesListWidget->addItems(axisesLabels);
+}
+
+void MainWindow::initializePointsManager()
+{
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    int axisesCount = axises.size();
+    QStringList axisesLabels;
+
+    for(auto axis : axises)
+    {
+        axisesLabels.push_back(QString::fromStdString(axis->getName()));
+    }
+
+    ui->pointsTableWidget->setColumnCount(axisesCount);
+    ui->pointsTableWidget_2->setColumnCount(axisesCount);
+
+    ui->pointsTableWidget->setHorizontalHeaderLabels(axisesLabels);
+    ui->pointsTableWidget_2->setHorizontalHeaderLabels(axisesLabels);
+
+    // растянуть таблицу с координатами редактора точек
+    for (int i = 0; i < ui->pointsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    // в таблице редактора точек выделяется целиком вся строка
+    ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 }
 
 void MainWindow::setupShortcuts()

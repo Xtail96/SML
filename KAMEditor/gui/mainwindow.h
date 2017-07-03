@@ -88,6 +88,8 @@ private:
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
     void initializeCoordinatesFields();
 
+    void initializePointsManager();
+
     void setupShortcuts(); 
     void setupEditorShortcuts();
 
