@@ -23,18 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
 
-    // задаем горячие клавиши перемещения
-    setupShortcuts();
-
     // таймер обновления окна координат
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->setInterval(100);
     timer->start();
 
-    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
-    updateEdgesControlStatus();
-    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
 
     // перевод кнопок, требующих дополнительных действий перед активацией, в неактивное состояние
     ui->spindelEnablePushButton->setEnabled(false);
@@ -43,6 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // инициализация станка
     initializeMachineTool();
+
+    // задаем горячие клавиши перемещения
+    setupShortcuts();
+
+    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
+    updateEdgesControlStatus();
+    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
 }
 
 MainWindow::~MainWindow()
