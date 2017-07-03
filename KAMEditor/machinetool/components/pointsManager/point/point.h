@@ -63,6 +63,14 @@ public:
      * \see Point::operator[](size_t idx);
      */
     double& operator[](std::string name);
+
+    /**
+     * @brief Операторы проверки точек на равенство
+     * @param other точка, с которой сравнивается текущая точка
+     * @return true, если точки равны (оператор ==), либо не равны (оператор !=), иначе false
+     */
+    bool operator==(const Point& other) const;
+    bool operator!=(const Point& other) const;
 };
 
 
