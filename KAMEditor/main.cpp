@@ -17,6 +17,14 @@ int main(int argc, char *argv[])
 void test()
 {
     Point p = { 1, 2, -3 };
+    Point u = { 2, -2, 3 };
+
+    Point s1 = p + u;
+    Point s2 = u + p;
+
+    if (s1 == s2)
+        qDebug() << "(p + u) == (u + p)";
+
     Point resl = 1.5 * p;
     Point resr = p * 1.5;
 

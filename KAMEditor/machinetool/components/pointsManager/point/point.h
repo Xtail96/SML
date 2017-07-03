@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <assert.h>
+#include <algorithm>
 #include <vector>
 #include "machinetool/structs.h"
 
@@ -83,6 +85,14 @@ public:
      * \endcode
      */
     Point& operator*=(double x);
+
+    /**
+     * @brief Складывает текущую точку с заданной
+     * @param other точка, которая прибавляется к текущей
+     * @return результат сложения этих точек
+     * \warning Точки должны иметь одинаковое число координат
+     */
+    Point operator+(const Point& other);
 };
 
 /**

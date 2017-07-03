@@ -42,6 +42,20 @@ Point& Point::operator*=(double x)
     return *this;
 }
 
+Point Point::operator+(const Point &other)
+{
+    size_t N = coordinates.size();
+    assert(N == other.coordinates.size());
+
+    Point res(N);
+    std::transform(coordinates.begin(), coordinates.end(),
+                   other.coordinates.begin(),
+                   res.coordinates.begin(),
+                   std::plus<double>());
+
+    return res;
+}
+
 Point operator*(double x, Point p)
 {
     return (p *= x);
