@@ -86,6 +86,7 @@ private:
     void initializeMachineTool();
     void updateSettingsField();
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
+    void initializeCoordinatesFields();
 
     void setupShortcuts(); 
     void setupEditorShortcuts();

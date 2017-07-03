@@ -87,6 +87,7 @@ void MainWindow::initializeMachineTool()
 {
     machineTool = new MachineTool(5);
     updateSettingsField();
+    initializeCoordinatesFields();
 }
 
 void MainWindow::updateSettingsField()
@@ -165,6 +166,24 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
         break;
     }
     return new QTableWidgetItem(QString::fromStdString(text));
+}
+
+void MainWindow::initializeCoordinatesFields()
+{
+    QStringList axisesLabels;
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    for(auto axis : axises)
+    {
+        axisesLabels.push_back(QString(QString::fromStdString(axis->getName()) + ": "));
+    }
+    ui->currentCoordinatesListWidget->clear();
+    ui->currentCoordinatesListWidget->addItems(axisesLabels);
+
+    ui->baseCoordinatesListWidget->clear();
+    ui->baseCoordinatesListWidget->addItems(axisesLabels);
+
+    ui->parkCoordinatesListWidget->clear();
+    ui->parkCoordinatesListWidget->addItems(axisesLabels);
 }
 
 void MainWindow::setupShortcuts()
