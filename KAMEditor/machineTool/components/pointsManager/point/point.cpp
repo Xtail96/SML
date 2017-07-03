@@ -23,3 +23,13 @@ double& Point::operator[](std::string name)
     int idx = axisNames.getKeyByName(name);
     return operator[](idx);
 }
+
+bool Point::operator==(const Point &other) const
+{
+    return (coordinates == other.coordinates);
+}
+
+bool Point::operator!=(const Point &other) const
+{
+    return (coordinates != other.coordinates);
+}
