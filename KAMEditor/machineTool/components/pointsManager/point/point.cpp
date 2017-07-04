@@ -20,7 +20,7 @@ double& Point::operator[](size_t idx)
 
 double& Point::operator[](std::string name)
 {
-    int idx = axisNames.getKeyByName(name);
+    int idx = axisesNames.getKeyByName(name);
     return operator[](idx);
 }
 
