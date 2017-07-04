@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 
-#include "../../settingsManager/settingsmanager.h"
+#include "../../../settingsManager/settingsmanager.h"
 
 /*!
  * \brief Класс "Ось"

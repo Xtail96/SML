@@ -92,7 +92,8 @@ const int SEARCH_SOFT_ZERO_SENSOR = 0x0C;
 const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
 const int SEARCH_ATC_SENSOR = 0x0D;*/
 
-MachineTool::MachineTool()
+MachineTool::MachineTool(const unsigned int _axisesCount) :
+    movementController(_axisesCount)
 {
 }
 
@@ -101,43 +102,7 @@ MachineTool::~MachineTool()
 
 }
 
-MachineTool::MachineTool(const unsigned int _axisCount)
+MovementController MachineTool::getMovementController() const
 {
-    addMachineToolAxises(_axisCount);
-}
-
-void MachineTool::addMachineToolAxises(const unsigned int &count)
-{
-    unsigned int axisCount = count;
-    if(axisCount > 11)
-    {
-       axisCount = 11;
-    }
-    axises.reserve(axisCount);
-    for(unsigned int i = 0; i < axisCount; i++)
-    {
-        std::string axisName = axisNames.getNameByKey(i);
-        Axis* newAxis = new Axis(axisName);
-        axises.push_back(std::shared_ptr<Axis>(newAxis));
-    }
-    setupMachineToolAxises();
-}
-
-void MachineTool::setupMachineToolAxises()
-{
-    SettingsManager settingsManager;
-    for(auto axis : axises)
-    {
-        axis->setup(settingsManager);
-    }
-}
-
-std::vector<std::shared_ptr<Axis> > MachineTool::getAxises() const
-{
-    return axises;
-}
-
-void MachineTool::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
-{
-    axises = value;
+    return movementController;
 }

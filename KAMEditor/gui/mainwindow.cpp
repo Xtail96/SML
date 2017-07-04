@@ -81,7 +81,7 @@ void MainWindow::updateSettingsField()
 {
     ui->axisSettingsTableWidget->clear();
 
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     int axisCount = axises.size();
 
     QStringList qHorizontalHeaders;
@@ -158,7 +158,7 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
 void MainWindow::initializeCoordinatesFields()
 {
     QStringList axisesLabels;
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     for(auto axis : axises)
     {
         axisesLabels.push_back(QString(QString::fromStdString(axis->getName()) + ": "));
@@ -175,7 +175,7 @@ void MainWindow::initializeCoordinatesFields()
 
 void MainWindow::initializePointsManager()
 {
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     int axisesCount = axises.size();
     QStringList axisesLabels;
 

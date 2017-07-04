@@ -5,10 +5,13 @@
 class DimensionsController
 {
 private:
+    int axisesCount;
     bool isDimensionControlEnable;
 public:
-    DimensionsController(bool _isDimensionControlEnable = false);
-    bool isMovementCorrect(const Point &axisesLength, const Point &newCoordinates);
+    DimensionsController(int _axisesCount, bool _isDimensionControlEnable = false);
+    bool isMovementCorrect(Point &axisesLength, Point &newCoordinates);
+    bool checkAxisesCoordinates(Point &axisesLength, Point &newCoordinates);
+
     bool getIsDimensionControlEnable() const;
     void setIsDimensionControlEnable(bool value);
 };

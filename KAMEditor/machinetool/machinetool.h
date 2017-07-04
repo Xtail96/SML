@@ -8,7 +8,6 @@
 
 #include "machinetool/structs.h"
 #include "machinetool/settingsManager/settingsmanager.h"
-#include "machinetool/components/axises/axis.h"
 #include "machinetool/components/sensors/sensor.h"
 #include "machinetool/components/devices/device.h"
 #include "machinetool/components/movementController/movementcontroller.h"
@@ -26,19 +25,11 @@
 class MachineTool
 {
 public:
-    MachineTool();
+    MachineTool(const unsigned int _axisesCount = 3);
     ~MachineTool();
-    MachineTool(const unsigned int _axisCount);
 
-    void addMachineToolAxises(const unsigned int &count);
-    void setupMachineToolAxises();
-    std::vector<std::shared_ptr<Axis> > getAxises() const;
-    void setAxises(const std::vector<std::shared_ptr<Axis> > &value);
-
+    MovementController getMovementController() const;
 private:
-    /// Оси станка
-    std::vector< std::shared_ptr<Axis> > axises;
-
     //! Датчики станка
     std::vector< std::shared_ptr<Sensor> > sensors;
 
