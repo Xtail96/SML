@@ -8,7 +8,7 @@
 
 #include "machinetool/structs.h"
 
-/**
+/*!
  * \brief Класс "Модуль взаимодействия с контроллером"
  * \warning Является синглтоном
  * \brief Класс получает данные из буфера обмена данными и следит за корректностью разрядности;
@@ -17,8 +17,9 @@ class ControllerConnector : QObject
 {
 private:
     QSerialPort *serialPort;
-public:
+
     ControllerConnector();
+public:
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
     static ControllerConnector& Instance();
 
