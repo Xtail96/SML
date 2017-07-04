@@ -10,6 +10,11 @@ Point::Point(std::initializer_list<double> coords) : Point(coords.size())
     std::copy(coords.begin(), coords.end(), coordinates.begin());
 }
 
+Point::Point(const Point& other)
+{
+    coordinates = other.coordinates;
+}
+
 double& Point::operator[](size_t idx)
 {
     if (idx < coordinates.size())
@@ -42,18 +47,70 @@ Point& Point::operator*=(double x)
     return *this;
 }
 
-Point Point::operator+(const Point &other)
+Point& Point::operator*=(const Point &other)
 {
-    size_t N = coordinates.size();
-    assert(N == other.coordinates.size());
+    assert(coordinates.size() == other.coordinates.size());
 
-    Point res(N);
     std::transform(coordinates.begin(), coordinates.end(),
                    other.coordinates.begin(),
-                   res.coordinates.begin(),
-                   std::plus<double>());
+                   coordinates.begin(),
+                   std::multiplies<double>()
+                   );
 
-    return res;
+    return *this;
+}
+
+Point &Point::operator+=(const Point &other)
+{
+    assert(coordinates.size() == other.coordinates.size());
+
+    std::transform(coordinates.begin(), coordinates.end(),
+                   other.coordinates.begin(),
+                   coordinates.begin(),
+                   std::plus<double>()
+                   );
+
+    return *this;
+}
+
+Point &Point::operator-=(const Point &other)
+{
+    assert(coordinates.size() == other.coordinates.size());
+
+    std::transform(coordinates.begin(), coordinates.end(),
+                   other.coordinates.begin(),
+                   coordinates.begin(),
+                   std::minus<double>()
+                   );
+
+    return *this;
+}
+
+Point Point::operator-() const
+{
+    Point p(*this);
+    return (-1.0 * p);
+}
+
+Point Point::operator+(const Point& other)
+{
+    Point p(*this);
+
+    return (p += other);
+}
+
+Point Point::operator-(const Point &other)
+{
+    Point p(*this);
+
+    return (p -= other);
+}
+
+Point Point::operator*(const Point &other)
+{
+    Point p(*this);
+
+    return (p *= other);
 }
 
 Point operator*(double x, Point p)

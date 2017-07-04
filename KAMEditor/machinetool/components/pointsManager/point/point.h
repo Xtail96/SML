@@ -37,6 +37,12 @@ public:
     Point(std::initializer_list<double> coords);
 
     /**
+     * @brief Создает копию заданной точки
+     * @param other копируемая точка
+     */
+    Point(const Point& other);
+
+    /**
      * @brief Получение конкретной координаты по заданному номеру
      * @param idx номер координаты
      * @return ссылку на координату
@@ -45,7 +51,7 @@ public:
      * Пример использования:
      *
      * \code{.cpp}
-     * double x = point[1];
+     * double x = point[3];
      * \endcode
      */
     double& operator[](size_t idx);
@@ -69,9 +75,15 @@ public:
     /**
      * @brief Операторы проверки точек на равенство
      * @param other точка, с которой сравнивается текущая точка
-     * @return true, если точки равны (оператор ==), либо не равны (оператор !=), иначе false
+     * @return true, если точки равны, иначе false
      */
     bool operator==(const Point& other) const;
+
+    /**
+     * @brief Операторы проверки точек на неравенство
+     * @param other точка, с которой сравнивается текущая точка
+     * @return true, если точки не равны, иначе false
+     */
     bool operator!=(const Point& other) const;
 
     /**
@@ -87,12 +99,99 @@ public:
     Point& operator*=(double x);
 
     /**
-     * @brief Складывает текущую точку с заданной
+     * @brief Домножает текущую точку на заданную точку
+     * @param other точка, на который домножится текущая точка
+     * @return полученная в результате домножения точка
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 2, 3};
+     * Point b = {-1, 0.5, 0}
+     * a *= b; // a == {-1, 1, 0}
+     * \endcode
+     */
+    Point& operator*=(const Point& other);
+
+    /**
+     * @brief Складывает текущую точку с заданной точкой
+     * @param other точка, с которой складывается текущая точка
+     * @return полученная в результате сложения точка
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 2, 3};
+     * Point b = {-1, 0.5, 0}
+     * a += b; // a == {0, 2.5, 3}
+     * \endcode
+     */
+    Point& operator+=(const Point& other);
+
+    /**
+     * @brief Вычитает из текущей точку заданную точку
+     * @param other точка, которая вычитается из текущей точки
+     * @return полученная в результате вычитания точка
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 2, 3};
+     * Point b = {-1, 0.5, 0}
+     * a -= b; // a == {2, 1.5, 3}
+     * \endcode
+     */
+    Point& operator-=(const Point& other);
+
+    /**
+     * @return Возвращает текущую точку с инвертированными координатами
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 0, -2};
+     * Point b = -a; // b == {-1, 0, 2}
+     * \endcode
+     */
+    Point operator-() const;
+
+    /**
+     * @brief Складывает две точки
      * @param other точка, которая прибавляется к текущей
-     * @return результат сложения этих точек
-     * \warning Точки должны иметь одинаковое число координат
+     * @return результат сложения текущей точки с заданной
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 0, -2};
+     * Point b = {-1, 1, 2};
+     * Point s = a + b; // s == {0, 1, 0}
+     * \endcode
      */
     Point operator+(const Point& other);
+
+    /**
+     * @brief Находит разницу двух точек
+     * @param other точка, которая вычитается из текущей
+     * @return результат вычитания текущей точки и заданной
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 0, -2};
+     * Point b = {1, 1, -2};
+     * Point s = a - b; // s == {0, -1, 0}
+     * \endcode
+     */
+    Point operator-(const Point& other);
+
+    /**
+     * @brief Находит произведение двух точек
+     * @param other точка, которая умножается на текущую
+     * @return результат умножения текущей точки и заданной
+     *
+     * Пример использования:
+     * \code{.cpp}
+     * Point a = {1, 0, -2};
+     * Point b = {-1, 1, 2};
+     * Point s = a * b; // s == {-1, 0, -4}
+     * \endcode
+     */
+    Point operator*(const Point& other);
 };
 
 /**
