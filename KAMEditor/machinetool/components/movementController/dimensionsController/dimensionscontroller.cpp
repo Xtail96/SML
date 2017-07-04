@@ -20,7 +20,7 @@ bool DimensionsController::isMovementCorrect(Point &axisesLength, Point &newCoor
 {
     bool isMovementCorrect = true;
     // проверка не выходим ли за пределы стола
-    if(isDimensionControlEnable && checkAxisesCoordinates(axisesLength, newCoordinates))
+    if(isDimensionControlEnable && !checkAxisesCoordinates(axisesLength, newCoordinates))
     {
         isMovementCorrect = false;
     }
