@@ -44,9 +44,20 @@ private:
     /// \details содержит данные параметра "Скорость Базирования" для текущей оси;
     double basingVelocity;
 public:
-    //! Конструктор. Позволяет создавать объект класса Ось
-    /// \details Конструктор принимает на вход настройки оси и имеет начальное значение по умолчанию для каждого параметра (если он не был передан);
-    Axis(std::string id, double _step = 0, double _length = 1, bool invert = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0);
+
+    /*!
+     * \brief Позволяет создать объект класса "Ось"
+     * \param _name имя оси
+     * \param _step шаг по оси
+     * \param _length длина оси
+     * \param _invertDirection направление оси (прямое/обратное)
+     * \param _jerk рывок по оси
+     * \param _acceleration ускорение по оси
+     * \param _velocity максимальная скорость по оси
+     * \param _channel канал оси
+     * \param _basingVelocity максимальная скорость базирования по оси
+     */
+    Axis(std::string _name, double _step = 0, double _length = 1, bool _invertDirection = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0);
 
     ///! Методы получения и установки значений:
     /// \details Возвращает имя текущей Оси;
@@ -103,9 +114,11 @@ public:
     /// \details Устанавливает значение параметра "Скорость Базирования" для текущей оси;
     void setBasingVelocity(double value);
 
-    //! Методы для настройки параметров Оси:
-    /// \brief Метод комплексной настройки параметров текущей оси;
-    /// @param settings ссылка на менеджер настроек, который будет производить настройку
+    /*!
+     * \brief Метод комплексной настройки параметров текущей оси;
+     * \param settings ссылка на менеджер настроек, который будет производить настройку
+
+     */
     void setup(const SettingsManager &settings);
 };
 
