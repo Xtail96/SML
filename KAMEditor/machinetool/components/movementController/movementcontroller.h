@@ -25,10 +25,6 @@ public:
     void setupAxises();
     std::vector<std::shared_ptr<Axis> > getAxises() const;
     void setAxises(const std::vector<std::shared_ptr<Axis> > &value);
-
-
-
-
     virtual void stepMove(Point &to);
     virtual void move(const Point &offset);
     bool checkCurrentCoordinates(Point &newCoordinates);
