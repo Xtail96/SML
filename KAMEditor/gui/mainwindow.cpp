@@ -81,7 +81,7 @@ void MainWindow::updateSettingsField()
 {
     ui->axisSettingsTableWidget->clear();
 
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     int axisCount = axises.size();
 
     QStringList qHorizontalHeaders;
@@ -158,7 +158,7 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
 void MainWindow::initializeCoordinatesFields()
 {
     QStringList axisesLabels;
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     for(auto axis : axises)
     {
         axisesLabels.push_back(QString(QString::fromStdString(axis->getName()) + ": "));
@@ -175,7 +175,7 @@ void MainWindow::initializeCoordinatesFields()
 
 void MainWindow::initializePointsManager()
 {
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     int axisesCount = axises.size();
     QStringList axisesLabels;
 
@@ -676,27 +676,6 @@ void MainWindow::on_pointEditPushButton_clicked()
     }*/
 }
 
-void MainWindow::on_pointsTableWidget_doubleClicked(const QModelIndex &index)
-{
-    /*QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
-    if(select->hasSelection())
-    {
-        int current_row = index.row();
-
-        PointsManager& point_table = PointsManager::Instance();
-        point_table.setSelectedPoint(current_row);
-
-        EditPointDialog* editPoint = new EditPointDialog(this);
-        editPoint->exec();
-        delete editPoint;
-        updatePoints();
-    }
-    else
-    {
-         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }*/
-}
-
 void MainWindow::on_pointCopyPushButton_clicked()
 {
     /*PointsManager& instance = PointsManager::Instance();
@@ -717,26 +696,6 @@ void MainWindow::on_pointCopyPushButton_clicked()
     }
 
     updatePoints();*/
-}
-
-void MainWindow::on_commandsToolsListWidget_doubleClicked(const QModelIndex &index)
-{
-
-}
-
-void MainWindow::on_smlEditorTreeWidget_doubleClicked(const QModelIndex &index)
-{
-
-}
-
-void MainWindow::on_smlEditorTreeWidget_clicked(const QModelIndex &index)
-{
-
-}
-
-void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
-{
-
 }
 
 void MainWindow::updateEdgesControlStatus()

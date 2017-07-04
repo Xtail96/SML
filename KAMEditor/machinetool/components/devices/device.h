@@ -7,8 +7,10 @@
 #include "machinetool/structs.h"
 class Device
 {
+    bool isOn;
+    unsigned int outputNumber;
 public:
-    Device();
+    Device(unsigned int _outputNumber, bool _isOn = false);
 };
 
 #endif // DEVICE_H

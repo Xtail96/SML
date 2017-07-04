@@ -54,10 +54,10 @@ SOURCES += main.cpp\
     gui/oglwidget.cpp \
     machinetool/machinetool.cpp \
     machinetool/settingsManager/settingsmanager.cpp \
-    machinetool/components/axises/axis.cpp \
+    machinetool/components/movementController/axises/axis.cpp \
     machinetool/components/sensors/sensor.cpp \
     machinetool/components/devices/device.cpp \
-    machinetool/components/devices/spindel.cpp \
+#    machinetool/components/devices/spindel.cpp \
     machinetool/components/movementController/movementcontroller.cpp \
     machinetool/components/pointsManager/pointsManager/pointsmanager.cpp \
     machinetool/components/commandInterpreter/commandinterpreter.cpp \
@@ -101,10 +101,10 @@ HEADERS  += gui/mainwindow.h \
     machinetool/structs.h \
     machinetool/machinetool.h \
     machinetool/settingsManager/settingsmanager.h \
-    machinetool/components/axises/axis.h \
+    machinetool/components/movementController/axises/axis.h \
     machinetool/components/sensors/sensor.h \
     machinetool/components/devices/device.h \
-    machinetool/components/devices/spindel.h \
+#    machinetool/components/devices/spindel.h \
     machinetool/components/movementController/movementcontroller.h \
     machinetool/components/pointsManager/pointsManager/pointsmanager.h \
     machinetool/components/pointsManager/point/point.h \

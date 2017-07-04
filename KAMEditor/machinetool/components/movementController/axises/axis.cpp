@@ -1,9 +1,9 @@
 #include "axis.h"
-Axis::Axis(std::string id, double _step, double _length, bool invert, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
-    name(id),
+Axis::Axis(std::string _name, double _step, double _length, bool _invertDirection, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
+    name(_name),
     step(_step),
     length(_length),
-    invertDirection(invert),
+    invertDirection(_invertDirection),
     jerk(_jerk),
     acceleration(_acceleration),
     velocity(_velocity),

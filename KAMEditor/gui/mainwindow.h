@@ -157,13 +157,9 @@ private slots:
     void on_pointCursorPushButton_clicked();
     void on_pointEditPushButton_clicked();
     void on_pointCopyPushButton_clicked();
-    void on_commandsToolsListWidget_doubleClicked(const QModelIndex &index);
     void on_toBasePushButton_clicked();
     void on_spindelEnablePushButton_clicked();
     void on_millWarmingPushButton_clicked();
-    void on_pointsTableWidget_doubleClicked(const QModelIndex &index);
-    void on_smlEditorTreeWidget_doubleClicked(const QModelIndex &index);
-    void on_smlEditorTreeWidget_clicked(const QModelIndex &index);
     void on_open_action_triggered();
     void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();
