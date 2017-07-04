@@ -44,7 +44,7 @@ EditPointDialog::~EditPointDialog()
 
 void EditPointDialog::on_buttonBox_accepted()
 {
-    QString x_str = ui->edit_point_lineEdit_axis_x->text();
+    /*QString x_str = ui->edit_point_lineEdit_axis_x->text();
     double x = x_str.toDouble();
 
     QString y_str = ui->edit_point_lineEdit_axis_y->text();
@@ -59,7 +59,7 @@ void EditPointDialog::on_buttonBox_accepted()
     QString b_str = ui->edit_point_lineEdit_axis_b->text();
     double b = b_str.toDouble();
 
-    /*PointsManager& point_table = PointsManager::Instance();
+    PointsManager& point_table = PointsManager::Instance();
     unsigned int point_to_select = point_table.getSelectedPoint();
 
     std::vector<double> pointsOriginCoordinates =

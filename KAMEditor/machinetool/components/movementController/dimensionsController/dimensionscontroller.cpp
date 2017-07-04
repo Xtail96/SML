@@ -32,10 +32,10 @@ bool DimensionsController::checkAxisesCoordinates(Point &axisesLength, Point &ne
     bool isCoordinatesCorrect = true;
     for(int i = 0; i < axisesCount; i++)
     {
-        /*if(newCoordinates[i] >= axisesLength[i])
+        if(newCoordinates[i] >= axisesLength[i])
         {
             isCoordinatesCorrect = false;
-        }*/
+        }
     }
     return isCoordinatesCorrect;
 }
