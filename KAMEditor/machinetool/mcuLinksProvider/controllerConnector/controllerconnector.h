@@ -1,5 +1,7 @@
 #ifndef CONTROLLERCONNECTOR_H
 #define CONTROLLERCONNECTOR_H
+#include "libusb/include/libusb.h"
+
 #include <string>
 
 #include <QMainWindow>

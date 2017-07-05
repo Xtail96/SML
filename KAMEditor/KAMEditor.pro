@@ -17,6 +17,8 @@ CONFIG += c++11
 
 win32 {
   LIBS += -lglu32 -lopengl32
+  LIBS += -L"$$PWD/libusb/libs"
+  LIBS += -llibusb-1.0.dll
 }
 macx {
   LIBS += -framework OpenGl
