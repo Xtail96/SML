@@ -22,6 +22,8 @@ win32 {
 }
 macx {
   LIBS += -framework OpenGl
+  LIBS += -L"$$PWD/libusb/libs"
+  LIBS += -lusb-1.0
 }
 unix {
   LIBS += -lusb-1.0

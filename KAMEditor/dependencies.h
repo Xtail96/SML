@@ -5,4 +5,6 @@
 #include <libusb-1.0/libusb.h>
 #elif defined(Q_OS_WIN)
 #include "libusb/include/libusb.h"
+#elif defined(Q_OS_OSX)
+#include "libusb/include/libusb.h"
 #endif

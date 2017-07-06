@@ -114,7 +114,7 @@ void MainWindow::initializeMachineTool()
     }
 
     libusb_free_device_list(devices_list, 1);
-    libusb_exit(NULL);
+    libusb_exit(context);
 }
 
 void MainWindow::updateSettingsField()
