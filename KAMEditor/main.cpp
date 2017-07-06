@@ -1,6 +1,6 @@
 #include "gui/mainwindow.h"
 #include <QApplication>
-void test();
+int test();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -8,14 +8,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Semil");
     QCoreApplication::setOrganizationDomain("semil.ru");
     QCoreApplication::setApplicationName("KAMEditor");
-    //test();
+    test();
     MainWindow w;
     w.show();
     return a.exec();
 }
 
-void test()
+#include <libusb-1.0/libusb.h>
+
+int test()
 {
-    Point p = { 1, 2, -3 };
-    Point u = { 2, -2, 3 };
+
 }

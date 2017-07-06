@@ -23,7 +23,7 @@
 #include <windows.h>
 #endif
 
-#include "machineTool/machinetool.h"
+#include "machinetool/machinetool.h"
 #include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"

@@ -23,6 +23,9 @@ win32 {
 macx {
   LIBS += -framework OpenGl
 }
+unix {
+  LIBS += -lusb-1.0
+}
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
