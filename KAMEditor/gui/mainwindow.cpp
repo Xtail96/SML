@@ -97,7 +97,8 @@ void MainWindow::initializeMachineTool()
 
         if((descriptor.idVendor == VENDOR_ID) && (descriptor.idProduct == PRODUCT_ID))
         {
-            if(libusb_open(device, &device_handler) == 0)
+            int open_code = libusb_open(device, &device_handler);
+            if(open_code == 0)
             {
                 qDebug() << "Device is open" << endl;
                 ui->spindelEnablePushButton->setEnabled(true);
@@ -105,7 +106,7 @@ void MainWindow::initializeMachineTool()
             }
             else
             {
-                qDebug() << "Device is not open" << libusb_open(device, &device_handler) << endl;
+                qDebug() << "Device is not open" << open_code << endl;
                 ui->millWarmingPushButton->setEnabled(false);
             }
         }
