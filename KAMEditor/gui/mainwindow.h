@@ -59,6 +59,11 @@
 #include "gcodessyntaxhighlighter.h"
 #include "machinetool/settingsManager/settingsmanager.h"
 
+#include "libusb/include/libusb.h"
+#define VENDOR_ID 0x10c4
+#define PRODUCT_ID 0xea61
+#define USB_DEBUG_LEVEL 1
+#define DATA_SIZE 64
 
 namespace Ui {
 class MainWindow;

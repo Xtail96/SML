@@ -1,11 +1,14 @@
 #ifndef CONTROLLERCONNECTOR_H
 #define CONTROLLERCONNECTOR_H
-#include "libusb/include/libusb.h"
+
+//#define VENDOR_ID 0x10c4
+//#define PRODUCT_ID 0xea61
+//#define USB_DEBUG_LEVEL 1
+//#define DATA_SIZE 64
+
+//#include "libusb/include/libusb.h"
 
 #include <string>
-
-#include <QMainWindow>
-#include <QSerialPort>
 #include <QDebug>
 
 #include "machinetool/structs.h"
@@ -15,11 +18,9 @@
  * \warning Является синглтоном
  * \brief Класс получает данные из буфера обмена данными и следит за корректностью разрядности;
  */
-class ControllerConnector : QObject
+class ControllerConnector
 {
 private:
-    QSerialPort *serialPort;
-
     ControllerConnector();
 public:
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
