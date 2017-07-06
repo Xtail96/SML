@@ -14,8 +14,9 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
+#include "libusb/include/libusb.h"
+
 void test()
 {
-    Point p = { 1, 2, -3 };
-    Point u = { 2, -2, 3 };
+
 }

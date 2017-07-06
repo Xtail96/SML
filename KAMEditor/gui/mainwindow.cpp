@@ -75,6 +75,45 @@ void MainWindow::initializeMachineTool()
     updateSettingsField();
     initializeCoordinatesFields();
     initializePointsManager();
+
+    qDebug() << "vid = " << VENDOR_ID << "; pid = " << PRODUCT_ID << endl;
+    libusb_context *context = NULL;
+    libusb_device_handle *device_handler = NULL;
+    libusb_device **devices_list;
+
+    int code = libusb_init(&context);
+    qDebug() << "libusb_code =" << code << endl;
+
+    size_t device_count = libusb_get_device_list(context, &devices_list);
+    qDebug() << "Found" << device_count << "devices" << endl;
+
+    for(size_t i = 0; i < device_count; i++)
+    {
+        libusb_device *device = devices_list[i];
+        libusb_device_descriptor descriptor = {0};
+
+        libusb_get_device_descriptor(device, &descriptor);
+        qDebug() << "vid:pid =" << descriptor.idVendor << ":" << descriptor.idProduct;
+
+        if((descriptor.idVendor == VENDOR_ID) && (descriptor.idProduct == PRODUCT_ID))
+        {
+            if(libusb_open(device, &device_handler) == 0)
+            {
+                qDebug() << "Device is open" << endl;
+                ui->spindelEnablePushButton->setEnabled(true);
+                libusb_close(device_handler);
+            }
+            else
+            {
+                qDebug() << "Device is not open" << libusb_open(device, &device_handler) << endl;
+                ui->millWarmingPushButton->setEnabled(false);
+            }
+        }
+
+    }
+
+    libusb_free_device_list(devices_list, 1);
+    libusb_exit(NULL);
 }
 
 void MainWindow::updateSettingsField()
