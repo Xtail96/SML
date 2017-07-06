@@ -61,8 +61,8 @@
 
 #include "dependencies.h"
 
-#define VENDOR_ID 0x10c4
-#define PRODUCT_ID 0xea61
+#define VENDOR_ID  0x125f //0x10c4
+#define PRODUCT_ID 0x385a //0xea61
 #define USB_DEBUG_LEVEL 1
 #define DATA_SIZE 64
 
