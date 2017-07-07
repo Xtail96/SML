@@ -76,7 +76,7 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    UsbConnector usbConnector;
+    UsbDevice usbConnector;
     usbConnector.initialize();
     int openCode = usbConnector.open(0x125f, 0x385a);
     QString message = "";

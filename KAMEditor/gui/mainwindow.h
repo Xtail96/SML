@@ -61,7 +61,7 @@
 
 #include "dependencies.h"
 
-#include "machinetool/mcuLinksProvider/usbConnector/usbconnector.h"
+#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
 
 #define VENDOR_ID  0x10c4 //0x125f
 #define PRODUCT_ID 0xea61 //0x385a
