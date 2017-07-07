@@ -29,6 +29,12 @@ public:
     ~MachineTool();
 
     MovementController getMovementController() const;
+    std::vector<std::shared_ptr<Sensor> > getSensors() const;
+    void setSensors(const std::vector<std::shared_ptr<Sensor> > &value);
+
+    std::vector<std::shared_ptr<Device> > getDevices() const;
+    void setDevices(const std::vector<std::shared_ptr<Device> > &value);
+
 private:
     //! Датчики станка
     std::vector< std::shared_ptr<Sensor> > sensors;

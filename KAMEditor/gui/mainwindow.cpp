@@ -67,6 +67,8 @@ MainWindow::~MainWindow()
     delete hightlighter;
 
     delete machineTool;
+
+    delete debuger;
 }
 
 void MainWindow::initializeMachineTool()
@@ -76,63 +78,7 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    UsbConnector usbConnector;
-    usbConnector.initialize();
-    //int openCode = usbConnector.open(0x125f, 0x385a);
-    int openCode = usbConnector.open(VENDOR_ID, PRODUCT_ID);
-    QString message = "";
-    if(openCode == 0 && (usbConnector.getCurrentDeviceHandler() != NULL))
-    {
-        QString vid = QString::fromStdString(std::to_string(usbConnector.getCurrentVendorId()));
-        QString pid = QString::fromStdString(std::to_string(usbConnector.getCurrentProductId()));
-        message = QString("Device is open. vid:pid = ") + vid + ":" + pid;
-    }
-    else
-    {
-        QString openCodeQString = QString::fromStdString(std::to_string(openCode));
-        message = QString(QString("Device is not open. Error code = ") + openCodeQString);
-        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    }
-    ui->statusBar->showMessage(message);
-    /*qDebug() << "vid = " << VENDOR_ID << "; pid = " << PRODUCT_ID << endl;
-    libusb_context *context = NULL;
-    libusb_device_handle *device_handler = NULL;
-    libusb_device **devices_list;
-
-    int code = libusb_init(&context);
-    qDebug() << "libusb_code =" << code << endl;
-
-    size_t device_count = libusb_get_device_list(context, &devices_list);
-    qDebug() << "Found" << device_count << "devices" << endl;
-
-    for(size_t i = 0; i < device_count; i++)
-    {
-        libusb_device *device = devices_list[i];
-        libusb_device_descriptor descriptor = {0};
-
-        libusb_get_device_descriptor(device, &descriptor);
-        qDebug() << "vid:pid =" << descriptor.idVendor << ":" << descriptor.idProduct;
-
-        if((descriptor.idVendor == VENDOR_ID) && (descriptor.idProduct == PRODUCT_ID))
-        {
-            int open_code = libusb_open(device, &device_handler);
-            if(open_code == 0)
-            {
-                qDebug() << "Device is open" << endl;
-                ui->spindelEnablePushButton->setEnabled(true);
-                libusb_close(device_handler);
-            }
-            else
-            {
-                qDebug() << "Device is not open" << open_code << endl;
-                ui->millWarmingPushButton->setEnabled(false);
-            }
-        }
-
-    }
-
-    libusb_free_device_list(devices_list, 1);
-    libusb_exit(context);*/
+    debuger = new DebugModule(machineTool);
 }
 
 void MainWindow::updateSettingsField()
@@ -822,4 +768,24 @@ void MainWindow::on_importsettings_action_triggered()
 void MainWindow::on_savesettings_action_triggered()
 {
 
+}
+
+void MainWindow::on_startDegbugCommandLinkButton_clicked()
+{
+    int connectionCode = debuger->checkConnection();
+    QString message = "";
+    if(connectionCode == 0)
+    {
+        QString vid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentVendorId()));
+        QString pid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentProductId()));
+        message = QString("Device is open. vid:pid = ") + vid + ":" + pid;
+        ui->statusBar->setStyleSheet("background-color: #333; color: #2e8b57");
+    }
+    else
+    {
+        QString openCodeQString = QString::fromStdString(std::to_string(connectionCode));
+        message = QString(QString("Device is not open. Error code = ") + openCodeQString);
+        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+    }
+    ui->statusBar->showMessage(message);
 }

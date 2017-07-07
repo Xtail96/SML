@@ -106,3 +106,23 @@ MovementController MachineTool::getMovementController() const
 {
     return movementController;
 }
+
+std::vector<std::shared_ptr<Sensor> > MachineTool::getSensors() const
+{
+    return sensors;
+}
+
+void MachineTool::setSensors(const std::vector<std::shared_ptr<Sensor> > &value)
+{
+    sensors = value;
+}
+
+std::vector<std::shared_ptr<Device> > MachineTool::getDevices() const
+{
+    return devices;
+}
+
+void MachineTool::setDevices(const std::vector<std::shared_ptr<Device> > &value)
+{
+    devices = value;
+}
