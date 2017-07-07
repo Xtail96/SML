@@ -1,41 +1,41 @@
 #include "usbconnector.h"
 
-std::vector<std::pair<uint16_t, uint16_t> > usbConnector::getDevicesVidPid() const
+std::vector<std::pair<uint16_t, uint16_t> > UsbConnector::getDevicesVidPid() const
 {
     return devicesVidPid;
 }
 
-void usbConnector::setDevicesVidPid(const std::vector<std::pair<uint16_t, uint16_t> > &value)
+void UsbConnector::setDevicesVidPid(const std::vector<std::pair<uint16_t, uint16_t> > &value)
 {
     devicesVidPid = value;
 }
 
-uint16_t usbConnector::getCurrentVendorId() const
+uint16_t UsbConnector::getCurrentVendorId() const
 {
     return currentVendorId;
 }
 
-void usbConnector::setCurrentVendorId(const uint16_t &value)
+void UsbConnector::setCurrentVendorId(const uint16_t &value)
 {
     currentVendorId = value;
 }
 
-uint16_t usbConnector::getCurrentProductId() const
+uint16_t UsbConnector::getCurrentProductId() const
 {
     return currentProductId;
 }
 
-void usbConnector::setCurrentProductId(const uint16_t &value)
+void UsbConnector::setCurrentProductId(const uint16_t &value)
 {
     currentProductId = value;
 }
 
-libusb_device_handle *usbConnector::getCurrentDeviceHandler() const
+libusb_device_handle *UsbConnector::getCurrentDeviceHandler() const
 {
     return currentDeviceHandler;
 }
 
-usbConnector::usbConnector()
+UsbConnector::UsbConnector()
 {
 
     context = NULL;
@@ -55,7 +55,7 @@ usbConnector::usbConnector()
     isOpen = false;
 }
 
-usbConnector::~usbConnector()
+UsbConnector::~UsbConnector()
 {
     if(isInitialize)
     {
@@ -68,7 +68,7 @@ usbConnector::~usbConnector()
     }
 }
 
-void usbConnector::initialize()
+void UsbConnector::initialize()
 {
     initializationCode = libusb_init(&context);
     qDebug() << "libusb_code =" << initializationCode << endl;
@@ -94,7 +94,7 @@ void usbConnector::initialize()
     }
 }
 
-int usbConnector::open(uint16_t vendorId, uint16_t productId)
+int UsbConnector::open(uint16_t vendorId, uint16_t productId)
 {
     int openCode = -1;
     if(isInitialize)
@@ -106,10 +106,14 @@ int usbConnector::open(uint16_t vendorId, uint16_t productId)
 
             libusb_get_device_descriptor(device, &descriptor);
 
-            if((descriptor.idVendor == vendorId) && (descriptor.idProduct == productId))
+            uint16_t currentVid = descriptor.idVendor;
+            uint16_t currentPid = descriptor.idProduct;
+            if((currentVid == vendorId) && (currentPid == productId))
             {
                 currentDevice = device;
                 currentDeviceDescriptor = descriptor;
+                currentVendorId = currentVid;
+                currentProductId = currentPid;
                 openCode = libusb_open(currentDevice, &currentDeviceHandler);
                 if(openCode == 0)
                 {

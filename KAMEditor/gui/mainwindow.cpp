@@ -76,6 +76,23 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
+    UsbConnector usbConnector;
+    usbConnector.initialize();
+    int openCode = usbConnector.open(0x125f, 0x385a);
+    QString message = "";
+    if(openCode == 0 && (usbConnector.getCurrentDeviceHandler() != NULL))
+    {
+        QString vid = QString::fromStdString(std::to_string(usbConnector.getCurrentVendorId()));
+        QString pid = QString::fromStdString(std::to_string(usbConnector.getCurrentProductId()));
+        message = QString("Device is open. vid:pid = ") + vid + ":" + pid;
+    }
+    else
+    {
+        QString openCodeQString = QString::fromStdString(std::to_string(openCode));
+        message = QString(QString("Device is not open. Error code = ") + openCodeQString);
+        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+    }
+    ui->statusBar->showMessage(message);
     /*qDebug() << "vid = " << VENDOR_ID << "; pid = " << PRODUCT_ID << endl;
     libusb_context *context = NULL;
     libusb_device_handle *device_handler = NULL;

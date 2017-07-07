@@ -7,7 +7,7 @@
 
 #include "libusb/include/libusb.h"
 
-class usbConnector
+class UsbConnector
 {
     libusb_context *context;
     int initializationCode;
@@ -29,8 +29,8 @@ class usbConnector
     bool isOpen;
 
 public:
-    usbConnector();
-    ~usbConnector();
+    UsbConnector();
+    ~UsbConnector();
 
     void initialize();
     int open(uint16_t vendorId, uint16_t productId);
