@@ -76,7 +76,7 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    qDebug() << "vid = " << VENDOR_ID << "; pid = " << PRODUCT_ID << endl;
+    /*qDebug() << "vid = " << VENDOR_ID << "; pid = " << PRODUCT_ID << endl;
     libusb_context *context = NULL;
     libusb_device_handle *device_handler = NULL;
     libusb_device **devices_list;
@@ -114,7 +114,7 @@ void MainWindow::initializeMachineTool()
     }
 
     libusb_free_device_list(devices_list, 1);
-    libusb_exit(context);
+    libusb_exit(context);*/
 }
 
 void MainWindow::updateSettingsField()
