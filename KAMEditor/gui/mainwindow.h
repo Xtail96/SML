@@ -59,14 +59,11 @@
 #include "gcodessyntaxhighlighter.h"
 #include "machinetool/settingsManager/settingsmanager.h"
 
-#include "dependencies.h"
-
 #include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
 
-#define VENDOR_ID  0x10c4 //0x125f
-#define PRODUCT_ID 0xea61 //0x385a
-#define USB_DEBUG_LEVEL 1
-#define DATA_SIZE 64
+#define VENDOR_ID  0x125f //0x10c4
+#define PRODUCT_ID 0x385a //0xea61
 
 namespace Ui {
 class MainWindow;
@@ -115,6 +112,7 @@ private:
 
 
     MachineTool* machineTool;
+    DebugModule* debuger;
 protected:
     void updatePoints();
     void updateCommands();
@@ -172,6 +170,7 @@ private slots:
     void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
+    void on_startDegbugCommandLinkButton_clicked();
 };
 
 
