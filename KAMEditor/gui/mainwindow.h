@@ -112,7 +112,8 @@ private:
 
 
     MachineTool* machineTool;
-    DebugModule* debuger;
+    std::shared_ptr<UsbDevice> usbDevice;
+
 protected:
     void updatePoints();
     void updateCommands();

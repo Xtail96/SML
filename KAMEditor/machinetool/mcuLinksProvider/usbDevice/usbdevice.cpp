@@ -19,7 +19,7 @@ void UsbDevice::initialize_libusb()
     if (code != 0)
     {
         std::string errMsg = "libusb initialization error (code " + std::to_string(code) + ")";
-        qDebug() << errMsg;
+        qDebug() << QString::fromStdString(errMsg);
         throw std::runtime_error(errMsg);
     }
 }

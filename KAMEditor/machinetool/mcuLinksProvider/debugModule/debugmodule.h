@@ -10,15 +10,11 @@
 
 class DebugModule
 {
-    UsbDevice usbDevice;
-
-    uint16_t machineToolVendorId;
-
-    uint16_t machineToolProductId;
+    /*UsbDevice usbDevice;
 
     std::vector< std::shared_ptr<Sensor> > inputs;
 
-    std::vector< std::shared_ptr<Device> > outputs;
+    std::vector< std::shared_ptr<Device> > outputs;*/
 
 public:
     DebugModule(MachineTool *machineTool);
@@ -28,7 +24,6 @@ public:
     bool waitForSignal();
     bool switchDeviceOn();
     bool switchDeviceOff();
-    UsbDevice *getUsbConnector();
 };
 
 #endif // DEBUGMODULE_H

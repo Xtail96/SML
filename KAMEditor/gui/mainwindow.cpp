@@ -68,7 +68,6 @@ MainWindow::~MainWindow()
 
     delete machineTool;
 
-    delete debuger;
 }
 
 void MainWindow::initializeMachineTool()
@@ -78,7 +77,26 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    debuger = new DebugModule(machineTool);
+    try
+    {
+        usbDevice = std::shared_ptr<UsbDevice>(new UsbDevice(machineTool->getVendorId(), machineTool->getProductId()));
+    }
+    catch(std::runtime_error e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        usbDevice = NULL;
+    }
+
+    if(usbDevice != NULL)
+    {
+        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+        ui->statusBar->showMessage("Machine Tool is connected");
+    }
+    else
+    {
+        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+        ui->statusBar->showMessage("Machine Tool is disconected");
+    }
 }
 
 void MainWindow::updateSettingsField()
@@ -772,7 +790,7 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
-    int connectionCode = debuger->checkConnection();
+    /*int connectionCode = debuger->checkConnection();
     QString message = "";
     if(connectionCode == 0)
     {
@@ -787,5 +805,5 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
         message = QString(QString("Device is not open. Error code = ") + openCodeQString);
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     }
-    ui->statusBar->showMessage(message);
+    ui->statusBar->showMessage(message);*/
 }
