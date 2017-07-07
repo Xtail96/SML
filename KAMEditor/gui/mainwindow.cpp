@@ -78,7 +78,8 @@ void MainWindow::initializeMachineTool()
 
     UsbConnector usbConnector;
     usbConnector.initialize();
-    int openCode = usbConnector.open(0x125f, 0x385a);
+    //int openCode = usbConnector.open(0x125f, 0x385a);
+    int openCode = usbConnector.open(VENDOR_ID, PRODUCT_ID);
     QString message = "";
     if(openCode == 0 && (usbConnector.getCurrentDeviceHandler() != NULL))
     {
