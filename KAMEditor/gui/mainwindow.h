@@ -63,6 +63,9 @@
 
 #include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
 
+#define VENDOR_ID  0x125f //0x10c4
+#define PRODUCT_ID 0x385a //0xea61
+
 namespace Ui {
 class MainWindow;
 }

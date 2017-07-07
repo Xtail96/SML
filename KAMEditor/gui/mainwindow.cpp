@@ -73,7 +73,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMachineTool()
 {
-    machineTool = new MachineTool(5);
+    machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, 5);
     updateSettingsField();
     initializeCoordinatesFields();
     initializePointsManager();
@@ -779,7 +779,7 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
         QString vid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentVendorId()));
         QString pid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentProductId()));
         message = QString("Device is open. vid:pid = ") + vid + ":" + pid;
-        ui->statusBar->setStyleSheet("background-color: #333; color: #2e8b57");
+        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     }
     else
     {

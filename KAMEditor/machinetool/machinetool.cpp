@@ -92,8 +92,8 @@ const int SEARCH_SOFT_ZERO_SENSOR = 0x0C;
 const int SEARCH_SOFT_TOOL_SENSOR = 0x0B;
 const int SEARCH_ATC_SENSOR = 0x0D;*/
 
-MachineTool::MachineTool(const unsigned int _axisesCount) :
-    movementController(_axisesCount)
+MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, const unsigned int _axisesCount) :
+    vendorId(_vendorId), productId(_productId), movementController(_axisesCount)
 {
 }
 
@@ -125,4 +125,14 @@ std::vector<std::shared_ptr<Device> > MachineTool::getDevices() const
 void MachineTool::setDevices(const std::vector<std::shared_ptr<Device> > &value)
 {
     devices = value;
+}
+
+uint16_t MachineTool::getVendorId() const
+{
+    return vendorId;
+}
+
+uint16_t MachineTool::getProductId() const
+{
+    return productId;
 }

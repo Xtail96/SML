@@ -8,15 +8,16 @@
 #include "machinetool/components/devices/device.h"
 #include "machinetool/components/sensors/sensor.h"
 
-#define VENDOR_ID  0x10c4 //0x125f
-#define PRODUCT_ID 0xea61 //0x385a
-#define USB_DEBUG_LEVEL 1
-#define DATA_SIZE 64
-
 class DebugModule
 {
     UsbConnector usbConnector;
+
+    uint16_t machineToolVendorId;
+
+    uint16_t machineToolProductId;
+
     std::vector< std::shared_ptr<Sensor> > inputs;
+
     std::vector< std::shared_ptr<Device> > outputs;
 
 public:

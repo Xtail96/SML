@@ -7,6 +7,8 @@ UsbConnector* DebugModule::getUsbConnector()
 
 DebugModule::DebugModule(MachineTool *machineTool)
 {
+    machineToolVendorId = machineTool->getVendorId();
+    machineToolProductId = machineTool->getProductId();
     inputs = machineTool->getSensors();
     outputs = machineTool->getDevices();
 }
@@ -21,7 +23,7 @@ int DebugModule::checkConnection()
     int connectionCode = -1;
     usbConnector.initialize();
     //int openCode = usbConnector.open(VENDOR_ID, PRODUCT_ID);
-    int openCode = usbConnector.open(0x125f, 0x385a);
+    int openCode = usbConnector.open(machineToolVendorId, machineToolProductId);
     if(openCode == 0 && usbConnector.getCurrentDeviceHandler() != NULL)
     {
         connectionCode = openCode;
