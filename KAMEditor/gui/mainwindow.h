@@ -62,8 +62,8 @@
 #include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
 #include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
 
-#define VENDOR_ID  0x125f //0x10c4
-#define PRODUCT_ID 0x385a //0xea61
+#define VENDOR_ID  0x10c4 //0x125f
+#define PRODUCT_ID 0xea61 //0x385a
 
 namespace Ui {
 class MainWindow;
