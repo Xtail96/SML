@@ -74,7 +74,9 @@ SOURCES += main.cpp\
     machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp \
     machinetool/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
     machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp \
-    machinetool/components/pointsManager/point/point.cpp
+    machinetool/components/pointsManager/point/point.cpp \
+    machinetool/mcuLinksProvider/debugModule/debugmodule.cpp \
+    machinetool/mcuLinksProvider/usbConnector/usbconnector.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -123,7 +125,9 @@ HEADERS  += gui/mainwindow.h \
     machinetool/components/commandInterpreter/commandinterpreter.h \
     machinetool/components/movementController/dimensionsController/dimensionscontroller.h \
     machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h \
-    machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h
+    machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
+    machinetool/mcuLinksProvider/debugModule/debugmodule.h \
+    machinetool/mcuLinksProvider/usbConnector/usbconnector.h
 
 
 FORMS    += gui/mainwindow.ui \
