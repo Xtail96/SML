@@ -25,6 +25,17 @@ public:
     /**
      * @brief Удаляет точку из списка точек
      * @param p указатель на удаляемую точку
+     *
+     * \warning НЕ удаляет точку, если передать указатель на копию точки, не находящейся в списке
+     *
+     * Пример ошибки:
+     * \code{.cpp}
+     * manager.addPoint( new Point( {0, 1, 2} ) );
+     * Point* anotherPoint = new Point( { 0, 1, 2 } );
+     * manager.deletePoint(anotherPoint); // <- точка не была удалена
+     * manager.deletePoint( manager[0] ); // <- точка была удалена
+     * \endcode
+     *
      */
     void deletePoint(Point* p);
 
