@@ -19,6 +19,9 @@ private:
     /// Указатель для совершения операций ввода/вывода
     libusb_device_handle *deviceHandle = NULL;
 
+    //unsigned char endPointIn = ;
+    //unsigned char endPointOut = ;
+
     /**
      * @brief Инициализирует библиотеку libusb
      * \warning Если инициализация не удалась, бросает исключение runtime_error
@@ -52,18 +55,18 @@ private:
     libusb_device_handle* openDevice(libusb_device* device);
 
     /**
-     * @brief Захватывает интерфейс для управления устройством
+     * @brief Осуществляет подготовку конфигурации и захват интерфейса для управления устройством
      * @param interfaceNumber номер захватываемого интерфейса
-     * \warning Если не удалось захватить интерфейс, бросает исключение runtime_error
+     * \warning Если не удалось захватить интерфейс или установить конфигурацию, бросает исключение runtime_error
      */
-    void claimInterface(int interfaceNumber = 0);
+    void requestInterface(int interfaceNumber = 0);
 
     /**
      * @brief Освобожадет указанный интерфейс
      * @param interfaceNumber номер освобожадаемого интерфейса
      * \warning Если не удалось освободить интерфейс, бросает исключение runtime_error
      */
-    void releaseInterface(int interfaceNumber = 0);
+    void freeInterface(int interfaceNumber = 0);
 
 
 public:
@@ -74,6 +77,8 @@ public:
      */
     UsbDevice(uint16_t vendorId, uint16_t productId);
     ~UsbDevice();
+
+    void recieveData();
 };
 
 #endif // USBDEVICE_H

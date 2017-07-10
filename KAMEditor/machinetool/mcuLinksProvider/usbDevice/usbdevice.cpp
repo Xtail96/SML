@@ -4,14 +4,19 @@ UsbDevice::UsbDevice(uint16_t vendorId, uint16_t productId)
 {
     initialize_libusb();
     initializeDevice(vendorId, productId);
-    claimInterface();
+    requestInterface();
 }
 
 UsbDevice::~UsbDevice()
 {
-    releaseInterface();
+    freeInterface();
     libusb_close(deviceHandle);
     libusb_exit(context);
+}
+
+void UsbDevice::recieveData()
+{
+
 }
 
 void UsbDevice::initialize_libusb()
@@ -78,9 +83,15 @@ libusb_device_handle* UsbDevice::openDevice(libusb_device *device)
     return handle;
 }
 
-void UsbDevice::claimInterface(int interfaceNumber)
+void UsbDevice::requestInterface(int interfaceNumber)
 {
-    int code = libusb_claim_interface(deviceHandle, interfaceNumber);
+    int code = libusb_set_configuration(deviceHandle, 1);
+    if(code != 0)
+    {
+        std::string errMsg = "Can not set configuration" + code;
+        throw std::runtime_error(errMsg);
+    }
+    code = libusb_claim_interface(deviceHandle, interfaceNumber);
     if(code != 0)
     {
         std::string errMsg = "Interface Error " + code;
@@ -88,7 +99,7 @@ void UsbDevice::claimInterface(int interfaceNumber)
     }
 }
 
-void UsbDevice::releaseInterface(int interfaceNumber)
+void UsbDevice::freeInterface(int interfaceNumber)
 {
     int code = libusb_release_interface(deviceHandle, interfaceNumber);
     if(code != 0)
