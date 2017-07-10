@@ -78,7 +78,7 @@ public:
     UsbDevice(uint16_t vendorId, uint16_t productId);
     ~UsbDevice();
 
-    void recieveData();
+    void receiveData();
 };
 
 #endif // USBDEVICE_H

@@ -14,7 +14,7 @@ UsbDevice::~UsbDevice()
     libusb_exit(context);
 }
 
-void UsbDevice::recieveData()
+void UsbDevice::receiveData()
 {
 
 }
@@ -88,13 +88,14 @@ void UsbDevice::requestInterface(int interfaceNumber)
     int code = libusb_set_configuration(deviceHandle, 1);
     if(code != 0)
     {
-        std::string errMsg = "Can not set configuration" + code;
+        std::string errMsg = "Can not set configuration" + std::to_string(code);
         throw std::runtime_error(errMsg);
     }
     code = libusb_claim_interface(deviceHandle, interfaceNumber);
     if(code != 0)
     {
-        std::string errMsg = "Interface Error " + code;
+        //std::string errMsg = "Interface Error " + std::to_string(code);
+        std::string errMsg = libusb_error_name(code);
         throw std::runtime_error(errMsg);
     }
 }
@@ -104,7 +105,7 @@ void UsbDevice::freeInterface(int interfaceNumber)
     int code = libusb_release_interface(deviceHandle, interfaceNumber);
     if(code != 0)
     {
-        std::string errMsg = "Interface Error " + code;
+        std::string errMsg = "Interface Error " + std::to_string(code);
         throw std::runtime_error(errMsg);
         qDebug() << QString::fromStdString(errMsg) << endl;
     }
