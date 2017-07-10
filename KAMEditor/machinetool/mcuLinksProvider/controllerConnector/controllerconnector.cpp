@@ -1,26 +1,29 @@
 #include "controllerconnector.h"
-ControllerConnector& ControllerConnector::Instance()
+//ControllerConnector& ControllerConnector::Instance()
+//{
+//    static ControllerConnector m;
+//    return m;
+//}
+
+ControllerConnector::ControllerConnector(const MachineTool *machineTool)
 {
-    static ControllerConnector m;
-    return m;
+    try
+    {
+        u1 = std::shared_ptr<UsbDevice>(new UsbDevice(machineTool->getVendorId(), machineTool->getProductId()));
+    }
+    catch(std::runtime_error e)
+    {
+        u1 = NULL;
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
 
-ControllerConnector::ControllerConnector()
+std::shared_ptr<UsbDevice> ControllerConnector::getU1() const
 {
-
+    return u1;
 }
 
 ControllerConnector::~ControllerConnector()
-{
-
-}
-
-void ControllerConnector::send()
-{
-
-}
-
-void ControllerConnector::recieved()
 {
 
 }

@@ -68,6 +68,8 @@ MainWindow::~MainWindow()
 
     delete machineTool;
 
+    delete u1Connector;
+
 }
 
 void MainWindow::initializeMachineTool()
@@ -77,17 +79,8 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    try
-    {
-        usbDevice = std::shared_ptr<UsbDevice>(new UsbDevice(machineTool->getVendorId(), machineTool->getProductId()));
-    }
-    catch(std::runtime_error e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        usbDevice = NULL;
-    }
-
-    if(usbDevice != NULL)
+    u1Connector = new ControllerConnector(machineTool);
+    if(u1Connector->getU1() != NULL)
     {
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
         ui->statusBar->showMessage("Machine Tool is connected");

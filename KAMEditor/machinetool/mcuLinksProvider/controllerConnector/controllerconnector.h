@@ -12,26 +12,25 @@
 #include <QDebug>
 
 #include "machinetool/structs.h"
+#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/machinetool.h"
 
 /*!
  * \brief Класс "Модуль взаимодействия с контроллером"
  * \warning Является синглтоном
- * \brief Класс получает данные из буфера обмена данными и следит за корректностью разрядности;
+ * \brief является оберткой над классом UsbDevice, обеспечивая его единственность;
  */
 class ControllerConnector
 {
 private:
-    ControllerConnector();
+    //ControllerConnector();
+    std::shared_ptr<UsbDevice> u1;
 public:
+    ControllerConnector(const MachineTool *machineTool);
     //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
-    static ControllerConnector& Instance();
-
+    //static ControllerConnector& Instance();
     ~ControllerConnector();
-public slots:
-
-    //! Отправляет данные на контроллер
-    void send();
-    void recieved();
+    std::shared_ptr<UsbDevice> getU1() const;
 };
 
 #endif // CONTROLLERCONNECTOR_H

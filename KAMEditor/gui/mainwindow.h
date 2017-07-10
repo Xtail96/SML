@@ -61,6 +61,7 @@
 
 #include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
 #include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
+#include "machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h"
 
 #define VENDOR_ID  0x10c4 //0x125f
 #define PRODUCT_ID 0xea61 //0x385a
@@ -112,7 +113,7 @@ private:
 
 
     MachineTool* machineTool;
-    std::shared_ptr<UsbDevice> usbDevice;
+    ControllerConnector* u1Connector;
 
 protected:
     void updatePoints();
