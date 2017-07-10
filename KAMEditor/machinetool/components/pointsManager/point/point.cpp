@@ -29,6 +29,11 @@ double& Point::operator[](std::string name)
     return operator[](idx);
 }
 
+void Point::setCoordinatesCount(size_t num)
+{
+    coordinates.resize(num);
+}
+
 bool Point::operator==(const Point &other) const
 {
     return (coordinates == other.coordinates);

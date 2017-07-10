@@ -73,6 +73,12 @@ public:
     double& operator[](std::string name);
 
     /**
+     * @brief Устанавливает число координат точки
+     * @param num новое число координат
+     */
+    void setCoordinatesCount(size_t num);
+
+    /**
      * @brief Операторы проверки точек на равенство
      * @param other точка, с которой сравнивается текущая точка
      * @return true, если точки равны, иначе false
