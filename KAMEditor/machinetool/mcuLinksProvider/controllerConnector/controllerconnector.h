@@ -24,12 +24,24 @@ class ControllerConnector
 {
 private:
     //ControllerConnector();
+    /*!
+     * \brief u1 умный указатель на контроллер u1
+     */
     std::shared_ptr<UsbDevice> u1;
 public:
+    /*!
+     * \brief Создает экземпляр класса ControllerConnector
+     * \param machineTool станок, который необходимо свзять с контроллером
+     */
     ControllerConnector(const MachineTool *machineTool);
-    //! Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
+    // Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
     //static ControllerConnector& Instance();
     ~ControllerConnector();
+
+    /*!
+     * \brief getU1 Возвращает умный указатель на текущий контроллер u1
+     * \return умный указатель на экземпляр класса UsbDevice
+     */
     std::shared_ptr<UsbDevice> getU1() const;
 };
 
