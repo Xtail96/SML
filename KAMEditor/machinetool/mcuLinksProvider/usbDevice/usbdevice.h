@@ -51,6 +51,21 @@ private:
      */
     libusb_device_handle* openDevice(libusb_device* device);
 
+    /**
+     * @brief Захватывает интерфейс для управления устройством
+     * @param interfaceNumber номер захватываемого интерфейса
+     * \warning Если не удалось захватить интерфейс, бросает исключение runtime_error
+     */
+    void claimInterface(int interfaceNumber = 0);
+
+    /**
+     * @brief Освобожадет указанный интерфейс
+     * @param interfaceNumber номер освобожадаемого интерфейса
+     * \warning Если не удалось освободить интерфейс, бросает исключение runtime_error
+     */
+    void releaseInterface(int interfaceNumber = 0);
+
+
 public:
     /**
      * @brief Создает экземпляр класса для работы с заданным устройством

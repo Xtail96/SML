@@ -4,10 +4,12 @@ UsbDevice::UsbDevice(uint16_t vendorId, uint16_t productId)
 {
     initialize_libusb();
     initializeDevice(vendorId, productId);
+    claimInterface();
 }
 
 UsbDevice::~UsbDevice()
 {
+    releaseInterface();
     libusb_close(deviceHandle);
     libusb_exit(context);
 }
@@ -74,4 +76,25 @@ libusb_device_handle* UsbDevice::openDevice(libusb_device *device)
     }
 
     return handle;
+}
+
+void UsbDevice::claimInterface(int interfaceNumber)
+{
+    int code = libusb_claim_interface(deviceHandle, interfaceNumber);
+    if(code < 0)
+    {
+        std::string errMsg = "Interface Error " + code;
+        throw std::runtime_error(errMsg);
+    }
+}
+
+void UsbDevice::releaseInterface(int interfaceNumber)
+{
+    int code = libusb_release_interface(deviceHandle, interfaceNumber);
+    if(code < 0)
+    {
+        std::string errMsg = "Interface Error " + code;
+        throw std::runtime_error(errMsg);
+        qDebug() << QString::fromStdString(errMsg) << endl;
+    }
 }
