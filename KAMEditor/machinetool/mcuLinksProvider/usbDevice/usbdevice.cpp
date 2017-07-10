@@ -81,7 +81,7 @@ libusb_device_handle* UsbDevice::openDevice(libusb_device *device)
 void UsbDevice::claimInterface(int interfaceNumber)
 {
     int code = libusb_claim_interface(deviceHandle, interfaceNumber);
-    if(code < 0)
+    if(code != 0)
     {
         std::string errMsg = "Interface Error " + code;
         throw std::runtime_error(errMsg);
@@ -91,7 +91,7 @@ void UsbDevice::claimInterface(int interfaceNumber)
 void UsbDevice::releaseInterface(int interfaceNumber)
 {
     int code = libusb_release_interface(deviceHandle, interfaceNumber);
-    if(code < 0)
+    if(code != 0)
     {
         std::string errMsg = "Interface Error " + code;
         throw std::runtime_error(errMsg);
