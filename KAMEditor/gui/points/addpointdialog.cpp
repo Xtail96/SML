@@ -54,10 +54,10 @@ void AddPointDialog::on_buttonBox_accepted()
     }
 
     Point *p = new Point(qArguments.size());
-    /*for(int i = 0; i < qArguments.size(); i++)
+    for(int i = 0; i < qArguments.size(); i++)
     {
-        std::string argument = qArguments[i].toStdString();
-        p[i] = std::stod(argument);
-    }*/
+        p->get(i) = std::stod(qArguments[i].toStdString());
+    }
+
     machineTool->getPointsManager().addPoint(p);
 }
