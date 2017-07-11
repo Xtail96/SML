@@ -1,11 +1,38 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(QWidget *parent) :
+AddPointDialog::AddPointDialog(MachineTool *_machineTool, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddPointDialog)
+    ui(new Ui::AddPointDialog),
+    isEdit(false),
+    machineTool(_machineTool)
 {
     ui->setupUi(this);
+    axises = machineTool->getMovementController().getAxises();
+    QStringList qColumnsHeaders =
+    {
+        "Значение"
+    };
+    ui->addPointArgumentsTableWidget->setColumnCount(qColumnsHeaders.size());
+    ui->addPointArgumentsTableWidget->setHorizontalHeaderLabels(qColumnsHeaders);
+
+    QStringList qRowHeaders;
+    for(auto axis : axises)
+    {
+        QString header = QString("По оси " + QString::fromStdString(axis->getName()));
+        qRowHeaders.append(header);
+    }
+    ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
+    ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
+
+    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
+    {
+        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+        {
+            ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
+        }
+    }
 }
 
 AddPointDialog::~AddPointDialog()
@@ -15,29 +42,22 @@ AddPointDialog::~AddPointDialog()
 
 void AddPointDialog::on_buttonBox_accepted()
 {
-    QString x_str = ui->add_point_lineEdit_axis_x->text();
-    double x = x_str.toDouble();
-
-    QString y_str = ui->add_point_lineEdit_axis_y->text();
-    double y = y_str.toDouble();
-
-    QString z_str = ui->add_point_lineEdit_axis_z->text();
-    double z = z_str.toDouble();
-
-    QString a_str = ui->add_point_lineEdit_axis_a->text();
-    double a = a_str.toDouble();
-
-    QString b_str = ui->add_point_lineEdit_axis_b->text();
-    double b = b_str.toDouble();
-
-    std::vector<double> pointOriginCoordinates =
+    QStringList qArguments;
+    for(int i = 0; i < ui->addPointArgumentsTableWidget->rowCount(); i++)
     {
-        x,
-        y,
-        z,
-        a,
-        b
-    };
+        QString qArgument;
+        for(int j = 0; j < ui->addPointArgumentsTableWidget->columnCount(); j++)
+        {
+            qArgument = ui->addPointArgumentsTableWidget->item(i, j)->text();
+        }
+        qArguments.push_back(qArgument);
+    }
 
-    //PointsManager::Instance().addPoint(pointOriginCoordinates);
+    Point *p = new Point(qArguments.size());
+    /*for(int i = 0; i < qArguments.size(); i++)
+    {
+        std::string argument = qArguments[i].toStdString();
+        p[i] = std::stod(argument);
+    }*/
+    machineTool->getPointsManager().addPoint(p);
 }

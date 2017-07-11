@@ -136,3 +136,8 @@ uint16_t MachineTool::getProductId() const
 {
     return productId;
 }
+
+PointsManager& MachineTool::getPointsManager()
+{
+    return pointsManager;
+}

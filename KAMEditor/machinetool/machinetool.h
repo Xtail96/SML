@@ -40,6 +40,8 @@ public:
 
     uint16_t getProductId() const;
 
+    PointsManager &getPointsManager();
+
 private:
     uint16_t vendorId;
 

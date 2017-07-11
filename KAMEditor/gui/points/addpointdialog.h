@@ -2,6 +2,7 @@
 #define ADDPOINTDIALOG_H
 
 #include <QDialog>
+#include "machinetool/machinetool.h"
 #include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
 #include "machinetool/components/pointsManager/point/point.h"
 
@@ -14,7 +15,7 @@ class AddPointDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddPointDialog(QWidget *parent = 0);
+    explicit AddPointDialog(MachineTool *_machineTool, QWidget *parent = 0);
     ~AddPointDialog();
 
 private slots:
@@ -22,6 +23,9 @@ private slots:
 
 private:
     Ui::AddPointDialog *ui;
+    bool isEdit;
+    MachineTool* machineTool;
+    std::vector< std::shared_ptr<Axis> > axises;
 };
 
 #endif // ADDPOINTDIALOG_H

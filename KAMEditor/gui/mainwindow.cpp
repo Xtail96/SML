@@ -313,10 +313,9 @@ void MainWindow::updateCoordinates()
 
 void MainWindow::updatePoints()
 {
-    /*std::vector<Point> points = PointsManager::Instance().getPoints();
-
+    PointsManager pointsManager = machineTool->getPointsManager();
+    unsigned int pointsCount = pointsManager.pointCount();
     std::vector<QTableWidget*> tables = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
-
     // проходим по каждой таблице
     for (auto table = tables.begin(); table != tables.end(); table++)
     {
@@ -324,20 +323,29 @@ void MainWindow::updatePoints()
         (*table)->setRowCount(0);
 
         // проходим по всем точкам
-        for (unsigned int i = 0; i < points.size(); i++)
+        for (unsigned int i = 0; i < pointsCount; i++)
         {
-            // координаты текущей точки
-            //std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
-            //std::vector<double> pointCoordinates = points[i].getCoordinates();
-
+            std::shared_ptr<Point> p = pointsManager[i];
             // добавляем строку в таблицу для текущей точки
             (*table)->insertRow(i);
 
             // отображаем координаты текущей точки
-            //for (unsigned int coordinate = 0; coordinate < pointCoordinates.size(); coordinate++)
-                //(*table)->setItem(i, coordinate, new QTableWidgetItem( QString::number(pointCoordinates[coordinate])) );
+            for (unsigned int coordinate = 0; coordinate < machineTool->getMovementController().getAxises().size(); coordinate++)
+            {
+                std::string argument;
+                try
+                {
+                    argument = std::to_string(p.get()->operator [](coordinate));
+                }
+                catch(std::out_of_range e)
+                {
+                    QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+                    break;
+                }
+                (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::fromStdString(argument) ));
+            }
         }
-    }*/
+    }
 }
 
 void MainWindow::updateCommands()
@@ -629,11 +637,8 @@ void MainWindow::on_zeroPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    AddPointDialog* addPoint = new AddPointDialog(this);
+    AddPointDialog* addPoint = new AddPointDialog(machineTool, this);
     addPoint->exec();
-    delete addPoint;
-    //Point tmp = Point(rand(), rand(), rand(), rand(), rand());
-    //CommandInterpreter::Instance().addPoint(tmp);
     updatePoints();
 }
 
