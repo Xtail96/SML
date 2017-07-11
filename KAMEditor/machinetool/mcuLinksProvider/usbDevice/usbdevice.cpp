@@ -28,7 +28,7 @@ void UsbDevice::receiveData()
     int transferred = 0;
     unsigned int timeout = 0;
     qDebug() << "origin = " << *data << endl;
-    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data, data_size, &transferred, timeout);
+    int code = libusb_interrupt_transfer(deviceHandle, endPointOut, data, data_size, &transferred, timeout);
     qDebug() << "transferred" << transferred << "bytes" << endl;
     if(code == 0)
     {
