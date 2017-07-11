@@ -37,6 +37,12 @@ public:
     Point(std::initializer_list<double> coords);
 
     /**
+     * @brief Создает точку по заданному вектору координат
+     * @param v вектор координат
+     */
+    Point(const std::vector<double>& v);
+
+    /**
      * @brief Создает копию заданной точки
      * @param other копируемая точка
      */
@@ -71,6 +77,23 @@ public:
      * \see Point::operator[](size_t idx);
      */
     double& operator[](std::string name);
+
+    /**
+     * @brief Получение конкретной координаты по заданному номеру
+     * \see double& operator[](size_t idx)
+     */
+    double& get(size_t idx);
+
+    /**
+     * @brief Получение конкретной координаты по заданному имени оси
+     * \see double& operator[](std::string name)
+     */
+    double& get(std::string name);
+
+    /**
+     * @return текущее число координат точки
+     */
+    size_t size() const;
 
     /**
      * @brief Устанавливает число координат точки

@@ -330,7 +330,7 @@ void MainWindow::updatePoints()
             (*table)->insertRow(i);
 
             // отображаем координаты текущей точки
-            for (unsigned int coordinate = 0; coordinate < machineTool->getMovementController().getAxises().size(); coordinate++)
+            for (unsigned int coordinate = 0; coordinate < p->size(); coordinate++)
             {
                 std::string argument;
                 try
