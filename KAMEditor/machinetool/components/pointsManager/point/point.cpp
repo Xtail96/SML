@@ -10,6 +10,10 @@ Point::Point(std::initializer_list<double> coords) : Point(coords.size())
     std::copy(coords.begin(), coords.end(), coordinates.begin());
 }
 
+Point::Point(const std::vector<double> &v) : coordinates(v)
+{
+}
+
 Point::Point(const Point& other)
 {
     coordinates = other.coordinates;
@@ -27,6 +31,21 @@ double& Point::operator[](std::string name)
 {
     int idx = axisesNames.getKeyByName(name);
     return operator[](idx);
+}
+
+double& Point::get(size_t idx)
+{
+    return operator[](idx);
+}
+
+double& Point::get(std::string name)
+{
+    return operator[](name);
+}
+
+size_t Point::size() const
+{
+    return coordinates.size();
 }
 
 void Point::setCoordinatesCount(size_t num)
