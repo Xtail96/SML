@@ -788,6 +788,11 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
+    std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
+    if(u1 != NULL)
+    {
+        u1->receiveData();
+    }
     /*int connectionCode = debuger->checkConnection();
     QString message = "";
     if(connectionCode == 0)

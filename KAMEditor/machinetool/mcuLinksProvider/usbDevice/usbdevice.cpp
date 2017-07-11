@@ -16,7 +16,32 @@ UsbDevice::~UsbDevice()
 
 void UsbDevice::receiveData()
 {
-
+//    struct libusb_config_descriptor *config;
+//    struct libusb_endpoint_descriptor **endpoints;
+//    if(libusb_get_endpoint_descriptor(device, endpoints) == 0)
+//    {
+//        int le = endpoints->bEndpointAddress;
+//        qDebug() << le << endl;
+//    }
+    unsigned char* data = new unsigned char[64];
+    int data_size = 64;
+    int transferred = 0;
+    unsigned int timeout = 0;
+    qDebug() << "origin = " << *data << endl;
+    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data, data_size, &transferred, timeout);
+    qDebug() << "transferred" << transferred << "bytes" << endl;
+    if(code == 0)
+    {
+        qDebug() << *data << endl;
+    }
+    else
+    {
+        std::string errMsg = libusb_error_name(code);
+        QString errorDescription = QString::fromStdString(errMsg);
+        qDebug() << errorDescription << endl;
+    }
+    delete[] data;
+    qDebug() << "successful delete" << endl;
 }
 
 void UsbDevice::initialize_libusb()

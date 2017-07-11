@@ -6,6 +6,9 @@
 
 #include "dependencies.h"
 
+#define endPointIn 0x80 // host to device
+#define endPointOut 0x02 // device to host
+
 /**
  * @brief Класс для работы с usb устройствами (чтение и запись)
  */
@@ -18,9 +21,6 @@ private:
     libusb_device *device = NULL;
     /// Указатель для совершения операций ввода/вывода
     libusb_device_handle *deviceHandle = NULL;
-
-    //unsigned char endPointIn = ;
-    //unsigned char endPointOut = ;
 
     /**
      * @brief Инициализирует библиотеку libusb
