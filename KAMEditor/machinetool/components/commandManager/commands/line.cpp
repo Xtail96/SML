@@ -16,7 +16,7 @@ void Line::draw(OGLWidget *w) const
     w->drawLine(dx, dy, dz, v);
 }
 
-QString Line::getName() const
+std::string Line::getName() const
 {
     return "Линия";
 }
