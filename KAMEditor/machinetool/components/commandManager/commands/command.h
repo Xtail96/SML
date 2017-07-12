@@ -7,6 +7,8 @@
 class Command
 {
 public:
+    virtual ~Command() {}
+
     virtual void send() const = 0;
     virtual void draw(OGLWidget* w) const = 0;
 
