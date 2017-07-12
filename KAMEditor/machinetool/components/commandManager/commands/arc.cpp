@@ -3,8 +3,6 @@
 CArc::CArc(double R, double Al, double Fi, double v) :
     R(R), Al(Al), Fi(Fi), v(v)
 {
-    // для примера
-    id = 0;
 }
 
 void CArc::send() const
@@ -15,6 +13,11 @@ void CArc::send() const
 void CArc::draw(OGLWidget *w) const
 {
     w->drawArc(R, Al, Fi, v);
+}
+
+size_t CArc::getId() const
+{
+
 }
 
 std::string CArc::getName() const

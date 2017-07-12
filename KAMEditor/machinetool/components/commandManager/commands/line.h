@@ -11,6 +11,7 @@ public:
     void send() const override;
     void draw(OGLWidget* w) const override;
 
+    size_t getId() const override;
     std::string getName() const override;
     QString getArguments() const override;
 

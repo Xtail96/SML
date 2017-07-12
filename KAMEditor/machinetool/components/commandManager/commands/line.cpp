@@ -16,6 +16,11 @@ void Line::draw(OGLWidget *w) const
     w->drawLine(dx, dy, dz, v);
 }
 
+size_t Line::getId() const
+{
+
+}
+
 std::string Line::getName() const
 {
     return "Линия";

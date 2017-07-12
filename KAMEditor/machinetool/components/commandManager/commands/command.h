@@ -31,23 +31,12 @@ public:
     /**
      * @return ID команды
      */
-    size_t getId() const { return id; }
-
-
-    // скорее всего, временные методы, будет переделано при рефакторинге
-    /**
-     * @return цвет текущей команды в ребакторе
-     */
-    virtual std::string getEditorColor() const { return "#000000"; }
+    virtual size_t getId() const = 0;
 
     /**
      * @return строковое представление аргументов текущей команды
      */
     virtual QString getArguments() const = 0;
-
-protected:
-    /// ID текущей команды
-    size_t id;
 };
 
 #endif // COMMAND_H
