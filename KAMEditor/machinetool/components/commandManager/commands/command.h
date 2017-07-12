@@ -45,8 +45,7 @@ public:
      */
     virtual QString getArguments() const = 0;
 
-
-private:
+protected:
     /// ID текущей команды
     size_t id;
 };

@@ -19,7 +19,7 @@ void CArc::draw(OGLWidget *w) const
 
 std::string CArc::getName() const
 {
-    return QString("Дуга");
+    return "Дуга";
 }
 
 QString CArc::getArguments() const
