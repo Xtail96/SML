@@ -59,7 +59,7 @@
 #include "gcodessyntaxhighlighter.h"
 #include "machinetool/settingsManager/settingsmanager.h"
 
-#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h"
 #include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
 #include "machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h"
 
