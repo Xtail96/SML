@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "machinetool/machinetool.h"
-#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h"
 #include "machinetool/components/devices/device.h"
 #include "machinetool/components/sensors/sensor.h"
 

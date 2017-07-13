@@ -66,17 +66,17 @@ SOURCES += main.cpp\
     machinetool/components/devices/device.cpp \
 #    machinetool/components/devices/spindel.cpp \
     machinetool/components/movementController/movementcontroller.cpp \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.cpp \
+    machinetool/components/pointsManager/pointsmanager.cpp \
     machinetool/components/commandInterpreter/commandinterpreter.cpp \
     machinetool/components/commandManager/commandsmanager.cpp \
     machinetool/components/commandManager/commands/arc.cpp \
     machinetool/components/commandManager/commands/line.cpp \
     machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp \
     machinetool/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
-    machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.cpp \
+    machinetool/mcuLinksProvider/controllerConnector/binaryMaskHandler/binaryMaskHandler.cpp \
     machinetool/components/pointsManager/point/point.cpp \
     machinetool/mcuLinksProvider/debugModule/debugmodule.cpp \
-    machinetool/mcuLinksProvider/usbDevice/usbdevice.cpp
+    machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -115,7 +115,7 @@ HEADERS  += gui/mainwindow.h \
     machinetool/components/devices/device.h \
 #    machinetool/components/devices/spindel.h \
     machinetool/components/movementController/movementcontroller.h \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.h \
+    machinetool/components/pointsManager/pointsmanager.h \
     machinetool/components/pointsManager/point/point.h \
     machinetool/components/commandManager/commandsmanager.h \
     machinetool/components/commandManager/commands/command.h \

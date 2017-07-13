@@ -2,7 +2,7 @@
 #define EDITPOINTDIALOG_H
 
 #include <QDialog>
-#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "machinetool/components/pointsManager/pointsmanager.h"
 #include "machinetool/components/pointsManager/point/point.h"
 
 namespace Ui {

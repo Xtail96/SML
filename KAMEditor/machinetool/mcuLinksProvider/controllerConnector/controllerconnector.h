@@ -12,7 +12,7 @@
 #include <QDebug>
 
 #include "machinetool/structs.h"
-#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h"
 #include "machinetool/machinetool.h"
 
 /*!

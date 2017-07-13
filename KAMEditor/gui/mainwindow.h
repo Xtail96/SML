@@ -24,7 +24,7 @@
 #endif
 
 #include "machinetool/machinetool.h"
-#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "machinetool/components/pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
@@ -59,7 +59,7 @@
 #include "gcodessyntaxhighlighter.h"
 #include "machinetool/settingsManager/settingsmanager.h"
 
-#include "machinetool/mcuLinksProvider/usbDevice/usbdevice.h"
+#include "machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h"
 #include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
 #include "machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h"
 

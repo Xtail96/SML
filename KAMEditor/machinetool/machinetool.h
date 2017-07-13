@@ -11,7 +11,7 @@
 #include "machinetool/components/sensors/sensor.h"
 #include "machinetool/components/devices/device.h"
 #include "machinetool/components/movementController/movementcontroller.h"
-#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "machinetool/components/pointsManager/pointsmanager.h"
 #include "machinetool/components/commandInterpreter/commandinterpreter.h"
 #include "machinetool/components/commandManager/commandsmanager.h"
 
