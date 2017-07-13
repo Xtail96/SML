@@ -66,7 +66,7 @@ SOURCES += main.cpp\
     machinetool/components/devices/device.cpp \
 #    machinetool/components/devices/spindel.cpp \
     machinetool/components/movementController/movementcontroller.cpp \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.cpp \
+    machinetool/components/pointsManager/pointsmanager.cpp \
     machinetool/components/commandInterpreter/commandinterpreter.cpp \
     machinetool/components/commandManager/commandsmanager.cpp \
     machinetool/components/commandManager/commands/arc.cpp \
@@ -115,7 +115,7 @@ HEADERS  += gui/mainwindow.h \
     machinetool/components/devices/device.h \
 #    machinetool/components/devices/spindel.h \
     machinetool/components/movementController/movementcontroller.h \
-    machinetool/components/pointsManager/pointsManager/pointsmanager.h \
+    machinetool/components/pointsManager/pointsmanager.h \
     machinetool/components/pointsManager/point/point.h \
     machinetool/components/commandManager/commandsmanager.h \
     machinetool/components/commandManager/commands/command.h \

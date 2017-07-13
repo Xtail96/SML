@@ -24,7 +24,7 @@
 #endif
 
 #include "machinetool/machinetool.h"
-#include "machinetool/components/pointsManager/pointsManager/pointsmanager.h"
+#include "machinetool/components/pointsManager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
