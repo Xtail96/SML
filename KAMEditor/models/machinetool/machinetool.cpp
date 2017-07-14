@@ -102,7 +102,7 @@ MachineTool::~MachineTool()
 
 }
 
-MovementController MachineTool::getMovementController() const
+MovementsHandler MachineTool::getMovementController() const
 {
     return movementController;
 }

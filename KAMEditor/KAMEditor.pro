@@ -61,17 +61,17 @@ SOURCES += main.cpp\
     gui/oglwidget.cpp \
     models/machinetool/machinetool.cpp \
     models/machinetool/settingsmanager/settingsmanager.cpp \
-    models/machinetool/movementhandler/axis/axis.cpp \
+    models/machinetool/movementshandler/axis/axis.cpp \
     models/machinetool/sensorsmanager/sensor/sensor.cpp \
     models/machinetool/devicesmanager/device/device.cpp \
 #    machinetool/components/devices/spindel.cpp \
-    models/machinetool/movementhandler/movementhandler.cpp \
+    models/machinetool/movementshandler/movementhandler.cpp \
     models/machinetool/pointsmanager/pointsmanager.cpp \
     models/machinetool/commandsinterpreter/commandsinterpreter.cpp \
     models/machinetool/commandsmanager/commandsmanager.cpp \
     models/machinetool/commandsmanager/commands/arc.cpp \
     models/machinetool/commandsmanager/commands/line.cpp \
-    models/machinetool/movementhandler/dimensionsmanager/dimensionsmanager.cpp \
+    models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.cpp \
     models/controllerconnector/usbdevicemanager/usbdevicemanager.cpp \
     models/machinetool/pointsmanager/point/point.cpp \
     models/controllerconnector/debugmodule/debugmodule.cpp \
@@ -111,23 +111,25 @@ HEADERS  += gui/mainwindow.h \
     models/structs.h \
     models/machinetool/machinetool.h \
     models/machinetool/settingsmanager/settingsmanager.h \
-    models/machinetool/movementhandler/axis/axis.h \
+    models/machinetool/movementshandler/axis/axis.h \
     models/machinetool/sensorsmanager/sensor/sensor.h \
     models/machinetool/devicesmanager/device/device.h \
 #    machinetool/components/devices/spindel.h \
-    models/machinetool/movementhandler/movementhandler.h \
     models/machinetool/pointsmanager/pointsmanager.h \
     models/machinetool/commandsinterpreter/commandsinterpreter.h \
     models/machinetool/commandsmanager/commandsmanager.h \
     models/machinetool/commandsmanager/commands/arc.h \
     models/machinetool/commandsmanager/commands/line.h \
-    models/machinetool/movementhandler/dimensionsmanager/dimensionsmanager.h \
+    models/machinetool/commandsmanager/commands/commands.h \
+    models/machinetool/commandsmanager/commands/command.h \
+    models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h \
     models/controllerconnector/usbdevicemanager/usbdevicemanager.h \
     models/machinetool/pointsmanager/point/point.h \
     models/controllerconnector/debugmodule/debugmodule.h \
     models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h \
     models/controllerconnector/usbdevicemanager/usbdevice/kflop.h \
-    models/controllerconnector/usbdevicemanager/usbdevice/u1.h
+    models/controllerconnector/usbdevicemanager/usbdevice/u1.h \
+    models/machinetool/movementshandler/movementshandler.h
 
 
 FORMS    += gui/mainwindow.ui \

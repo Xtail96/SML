@@ -1,11 +1,11 @@
-#ifndef MOVEMENTCONTROLLER_H
-#define MOVEMENTCONTROLLER_H
+#ifndef MOVEMENTSHANDLER_H
+#define MOVEMENTSHANDLER_H
 #include "models/structs.h"
-#include "models/machinetool/movementhandler/axis/axis.h"
+#include "models/machinetool/movementshandler/axis/axis.h"
 #include "models/machinetool/pointsmanager/point/point.h"
-#include "models/machinetool/movementhandler/dimensionsmanager/dimensionsmanager.h"
+#include "models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h"
 
-class MovementController
+class MovementsHandler
 {
 private:
     /// Оси станка
@@ -18,9 +18,9 @@ private:
     // шаг движения
     double step;
     double velocity;
-    DimensionsController dimensionsController;
+    DimensionsManager dimensionsManager;
 public:
-    MovementController(unsigned int _axisesCount, double _step = -1, double _velocity = 30);
+    MovementsHandler(unsigned int _axisesCount, double _step = -1, double _velocity = 30);
     void addAxises(const unsigned int &count);
     void setupAxises();
     std::vector<std::shared_ptr<Axis> > getAxises() const;
@@ -31,4 +31,4 @@ public:
     Point getAxisesLength();
 };
 
-#endif // MOVEMENTCONTROLLER_H
+#endif // MOVEMENTSHANDLER_H

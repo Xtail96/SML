@@ -1,5 +1,5 @@
-#ifndef DIMENSIONSCONTROLLER_H
-#define DIMENSIONSCONTROLLER_H
+#ifndef DIMENSIONSMANAGER_H
+#define DIMENSIONSMANAGER_H
 #include "models/machinetool/pointsmanager/point/point.h"
 
 /**
@@ -7,7 +7,7 @@
  *
  * Содержит число осей станка и параметр типа bool, отвечающий за включение/выключение контроля габаритов
  */
-class DimensionsController
+class DimensionsManager
 {
 private:
     /// число осей станка
@@ -21,7 +21,7 @@ public:
      * \param _axisesCount число осей станка
      * \param _isDimensionControlEnable активен ли контроль габаритов (по умолчанию false)
      */
-    DimensionsController(int _axisesCount, bool _isDimensionControlEnable = false);
+    DimensionsManager(int _axisesCount, bool _isDimensionControlEnable = false);
     /*!
      * \brief Проверяет корректность перемещения
      * \param axisesLength длина по каждой из осей станка
@@ -51,4 +51,4 @@ public:
     void setIsDimensionControlEnable(bool value);
 };
 
-#endif // DIMENSIONSCONTROLLER_H
+#endif // DIMENSIONSMANAGER_H

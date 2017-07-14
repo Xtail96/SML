@@ -1,23 +1,23 @@
-#include "movementhandler.h"
+#include "movementshandler.h"
 
-std::vector<std::shared_ptr<Axis> > MovementController::getAxises() const
+std::vector<std::shared_ptr<Axis> > MovementsHandler::getAxises() const
 {
     return axises;
 }
 
-void MovementController::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
+void MovementsHandler::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
 {
     axises = value;
 }
 
-MovementController::MovementController(unsigned int _axisesCount, double _step, double _velocity) :
-    step(_step), velocity(_velocity), dimensionsController(_axisesCount)
+MovementsHandler::MovementsHandler(unsigned int _axisesCount, double _step, double _velocity) :
+    step(_step), velocity(_velocity), dimensionsManager(_axisesCount)
 {
     addAxises(_axisesCount);
     axisesLength = getAxisesLength();
 }
 
-void MovementController::addAxises(const unsigned int &count)
+void MovementsHandler::addAxises(const unsigned int &count)
 {
     unsigned int axisCount = count;
     if(axisCount > 11)
@@ -34,7 +34,7 @@ void MovementController::addAxises(const unsigned int &count)
     setupAxises();
 }
 
-void MovementController::setupAxises()
+void MovementsHandler::setupAxises()
 {
     SettingsManager settingsManager;
     for(auto axis : axises)
@@ -43,7 +43,7 @@ void MovementController::setupAxises()
     }
 }
 
-Point MovementController::getAxisesLength()
+Point MovementsHandler::getAxisesLength()
 {
     Point _axisesLength(axises.size());
     for(unsigned int i = 0; i < axises.size(); i++)
@@ -53,7 +53,7 @@ Point MovementController::getAxisesLength()
     return _axisesLength;
 }
 
-void MovementController::stepMove(Point &to)
+void MovementsHandler::stepMove(Point &to)
 {
     //double current_step = (step > 0) ? step : 0.01;
     if(checkCurrentCoordinates(to))
@@ -62,7 +62,7 @@ void MovementController::stepMove(Point &to)
     }
 }
 
-void MovementController::move(const Point& offset)
+void MovementsHandler::move(const Point& offset)
 {
     //double current_step = (step > 0) ? step : 0.01;
     Point newCoordinates = currentCoordinates + offset;
@@ -72,10 +72,10 @@ void MovementController::move(const Point& offset)
     }
 }
 
-bool MovementController::checkCurrentCoordinates(Point &newCoordinates)
+bool MovementsHandler::checkCurrentCoordinates(Point &newCoordinates)
 {
     bool isMovementCorrect = true;
-    if(!dimensionsController.isMovementCorrect(axisesLength, newCoordinates))
+    if(!dimensionsManager.isMovementCorrect(axisesLength, newCoordinates))
     {
         isMovementCorrect = false;
     }

@@ -1,22 +1,22 @@
 #include "dimensionsmanager.h"
 
-bool DimensionsController::getIsDimensionControlEnable() const
+bool DimensionsManager::getIsDimensionControlEnable() const
 {
     return isDimensionControlEnable;
 }
 
-void DimensionsController::setIsDimensionControlEnable(bool value)
+void DimensionsManager::setIsDimensionControlEnable(bool value)
 {
     isDimensionControlEnable = value;
 }
 
-DimensionsController::DimensionsController(int _axisesCount, bool _isDimensionControlEnable) :
+DimensionsManager::DimensionsManager(int _axisesCount, bool _isDimensionControlEnable) :
     axisesCount(_axisesCount), isDimensionControlEnable(_isDimensionControlEnable)
 {
 
 }
 
-bool DimensionsController::isMovementCorrect(Point &axisesLength, Point &newCoordinates)
+bool DimensionsManager::isMovementCorrect(Point &axisesLength, Point &newCoordinates)
 {
     bool isMovementCorrect = true;
     // проверка не выходим ли за пределы стола
@@ -27,7 +27,7 @@ bool DimensionsController::isMovementCorrect(Point &axisesLength, Point &newCoor
     return isMovementCorrect;
 }
 
-bool DimensionsController::checkAxisesCoordinates(Point &axisesLength, Point &newCoordinates)
+bool DimensionsManager::checkAxisesCoordinates(Point &axisesLength, Point &newCoordinates)
 {
     bool isCoordinatesCorrect = true;
     for(int i = 0; i < axisesCount; i++)
