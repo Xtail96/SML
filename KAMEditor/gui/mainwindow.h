@@ -113,7 +113,7 @@ private:
 
 
     MachineTool* machineTool;
-    ControllerConnector* u1Connector;
+    UsbDeviceManager* u1Connector;
 
 protected:
     void updatePoints();

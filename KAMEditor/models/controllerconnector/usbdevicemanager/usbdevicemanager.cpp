@@ -1,11 +1,6 @@
 #include "usbdevicemanager.h"
-//ControllerConnector& ControllerConnector::Instance()
-//{
-//    static ControllerConnector m;
-//    return m;
-//}
 
-ControllerConnector::ControllerConnector(const MachineTool *machineTool)
+UsbDeviceManager::UsbDeviceManager(const MachineTool *machineTool)
 {
     try
     {
@@ -18,12 +13,12 @@ ControllerConnector::ControllerConnector(const MachineTool *machineTool)
     }
 }
 
-std::shared_ptr<UsbDevice> ControllerConnector::getU1() const
+std::shared_ptr<UsbDevice> UsbDeviceManager::getU1() const
 {
     return u1;
 }
 
-ControllerConnector::~ControllerConnector()
+UsbDeviceManager::~UsbDeviceManager()
 {
 
 }

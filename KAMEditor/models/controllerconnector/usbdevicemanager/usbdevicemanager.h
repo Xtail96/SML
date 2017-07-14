@@ -1,5 +1,5 @@
-#ifndef CONTROLLERCONNECTOR_H
-#define CONTROLLERCONNECTOR_H
+#ifndef USBDEVICEMANAGER_H
+#define USBDEVICEMANAGER_H
 
 //#define VENDOR_ID 0x10c4
 //#define PRODUCT_ID 0xea61
@@ -20,10 +20,9 @@
  * \warning Является синглтоном
  * \brief является оберткой над классом UsbDevice, обеспечивая его единственность;
  */
-class ControllerConnector
+class UsbDeviceManager
 {
 private:
-    //ControllerConnector();
     /*!
      * \brief u1 умный указатель на контроллер u1
      */
@@ -33,10 +32,8 @@ public:
      * \brief Создает экземпляр класса ControllerConnector
      * \param machineTool станок, который необходимо свзять с контроллером
      */
-    ControllerConnector(const MachineTool *machineTool);
-    // Возвращает экземпляр класса "Модуль взаимосвязи с  контроллером"
-    //static ControllerConnector& Instance();
-    ~ControllerConnector();
+    UsbDeviceManager(const MachineTool *machineTool);
+    ~UsbDeviceManager();
 
     /*!
      * \brief getU1 Возвращает умный указатель на текущий контроллер u1
@@ -45,4 +42,4 @@ public:
     std::shared_ptr<UsbDevice> getU1() const;
 };
 
-#endif // CONTROLLERCONNECTOR_H
+#endif // USBDEVICEMANAGER_H
