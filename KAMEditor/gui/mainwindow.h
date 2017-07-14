@@ -23,12 +23,12 @@
 #include <windows.h>
 #endif
 
-#include "machinetool/machinetool.h"
-#include "machinetool/components/pointsManager/pointsmanager.h"
+#include "models/machinetool/machinetool.h"
+#include "models/machinetool/pointsmanager/pointsmanager.h"
 #include "points/addpointdialog.h"
 #include "points/mousetoselectionpointdialog.h"
 #include "points/editpointdialog.h"
-#include "machinetool/components/commandInterpreter/commandinterpreter.h"
+#include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 #include "commands/commanddialog.h"
 #include "commands/linedialog.h"
@@ -54,14 +54,14 @@
 #include "commands/ttttsplinedialog.h"
 #include "commands/adddevicedialog.h"
 
-#include "machinetool/components/commandManager/commands/commands.h"
+#include "models/machinetool/commandsmanager/commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
-#include "machinetool/settingsManager/settingsmanager.h"
+#include "models/machinetool/settingsManager/settingsmanager.h"
 
-#include "machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h"
-#include "machinetool/mcuLinksProvider/debugModule/debugmodule.h"
-#include "machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h"
+#include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
+#include "models/controllerconnector/debugmodule/debugmodule.h"
+#include "models/controllerconnector/usbdevicemanager/usbdevicemanager.h"
 
 #define VENDOR_ID  0x10c4 //0x125f
 #define PRODUCT_ID 0xea61 //0x385a

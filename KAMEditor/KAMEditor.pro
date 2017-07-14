@@ -59,26 +59,25 @@ SOURCES += main.cpp\
     gui/commands/adddevicedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/oglwidget.cpp \
-    machinetool/machinetool.cpp \
-    machinetool/settingsManager/settingsmanager.cpp \
-    machinetool/components/movementController/axises/axis.cpp \
-    machinetool/components/sensors/sensor.cpp \
-    machinetool/components/devices/device.cpp \
+    models/machinetool/machinetool.cpp \
+    models/machinetool/settingsmanager/settingsmanager.cpp \
+    models/machinetool/movementhandler/axis/axis.cpp \
+    models/machinetool/sensorsmanager/sensor/sensor.cpp \
+    models/machinetool/devicesmanager/device/device.cpp \
 #    machinetool/components/devices/spindel.cpp \
-    machinetool/components/movementController/movementcontroller.cpp \
-    machinetool/components/pointsManager/pointsmanager.cpp \
-    machinetool/components/commandInterpreter/commandinterpreter.cpp \
-    machinetool/components/commandManager/commandsmanager.cpp \
-    machinetool/components/commandManager/commands/arc.cpp \
-    machinetool/components/commandManager/commands/line.cpp \
-    machinetool/components/movementController/dimensionsController/dimensionscontroller.cpp \
-    machinetool/mcuLinksProvider/controllerConnector/controllerconnector.cpp \
-    machinetool/mcuLinksProvider/controllerConnector/binaryMaskHandler/binaryMaskHandler.cpp \
-    machinetool/components/pointsManager/point/point.cpp \
-    machinetool/mcuLinksProvider/debugModule/debugmodule.cpp \
-    machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.cpp \
-    machineTool/mcuLinksProvider/controllerConnector/usbDevice/kflop.cpp \
-    machineTool/mcuLinksProvider/controllerConnector/usbDevice/u1.cpp
+    models/machinetool/movementhandler/movementhandler.cpp \
+    models/machinetool/pointsmanager/pointsmanager.cpp \
+    models/machinetool/commandsinterpreter/commandsinterpreter.cpp \
+    models/machinetool/commandsmanager/commandsmanager.cpp \
+    models/machinetool/commandsmanager/commands/arc.cpp \
+    models/machinetool/commandsmanager/commands/line.cpp \
+    models/machinetool/movementhandler/dimensionsmanager/dimensionsmanager.cpp \
+    models/controllerconnector/usbdevicemanager/usbdevicemanager.cpp \
+    models/machinetool/pointsmanager/point/point.cpp \
+    models/controllerconnector/debugmodule/debugmodule.cpp \
+    models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.cpp \
+    models/controllerconnector/usbdevicemanager/usbdevice/kflop.cpp \
+    models/controllerconnector/usbdevicemanager/usbdevice/u1.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -109,29 +108,26 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/adddevicedialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/oglwidget.h \
-    machinetool/structs.h \
-    machinetool/machinetool.h \
-    machinetool/settingsManager/settingsmanager.h \
-    machinetool/components/movementController/axises/axis.h \
-    machinetool/components/sensors/sensor.h \
-    machinetool/components/devices/device.h \
+    models/structs.h \
+    models/machinetool/machinetool.h \
+    models/machinetool/settingsmanager/settingsmanager.h \
+    models/machinetool/movementhandler/axis/axis.h \
+    models/machinetool/sensorsmanager/sensor/sensor.h \
+    models/machinetool/devicesmanager/device/device.h \
 #    machinetool/components/devices/spindel.h \
-    machinetool/components/movementController/movementcontroller.h \
-    machinetool/components/pointsManager/pointsmanager.h \
-    machinetool/components/pointsManager/point/point.h \
-    machinetool/components/commandManager/commandsmanager.h \
-    machinetool/components/commandManager/commands/command.h \
-    machinetool/components/commandManager/commands/commands.h \
-    machinetool/components/commandManager/commands/arc.h \
-    machinetool/components/commandManager/commands/line.h \
-    machinetool/components/commandInterpreter/commandinterpreter.h \
-    machinetool/components/movementController/dimensionsController/dimensionscontroller.h \
-    machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h \
-    machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
-    machinetool/mcuLinksProvider/debugModule/debugmodule.h \
-    machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h \
-    machineTool/mcuLinksProvider/controllerConnector/usbDevice/kflop.h \
-    machineTool/mcuLinksProvider/controllerConnector/usbDevice/u1.h
+    models/machinetool/movementhandler/movementhandler.h \
+    models/machinetool/pointsmanager/pointsmanager.h \
+    models/machinetool/commandsinterpreter/commandsinterpreter.h \
+    models/machinetool/commandsmanager/commandsmanager.h \
+    models/machinetool/commandsmanager/commands/arc.h \
+    models/machinetool/commandsmanager/commands/line.h \
+    models/machinetool/movementhandler/dimensionsmanager/dimensionsmanager.h \
+    models/controllerconnector/usbdevicemanager/usbdevicemanager.h \
+    models/machinetool/pointsmanager/point/point.h \
+    models/controllerconnector/debugmodule/debugmodule.h \
+    models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h \
+    models/controllerconnector/usbdevicemanager/usbdevice/kflop.h \
+    models/controllerconnector/usbdevicemanager/usbdevice/u1.h
 
 
 FORMS    += gui/mainwindow.ui \
