@@ -6,7 +6,7 @@
 class U1 : public UsbDevice
 {
 public:
-    U1();
+    U1(uint16_t _vendorId, uint16_t _productId);
 };
 
 #endif // U1_H

@@ -129,7 +129,7 @@ HEADERS  += gui/mainwindow.h \
     machinetool/mcuLinksProvider/controllerConnector/controllerconnector.h \
     machinetool/mcuLinksProvider/binaryMaskHandler/binaryMaskHandler.h \
     machinetool/mcuLinksProvider/debugModule/debugmodule.h \
-    machinetool/mcuLinksProvider/usbDevice/usbdevice.h \
+    machinetool/mcuLinksProvider/controllerConnector/usbDevice/usbdevice.h \
     machineTool/mcuLinksProvider/controllerConnector/usbDevice/kflop.h \
     machineTool/mcuLinksProvider/controllerConnector/usbDevice/u1.h
 

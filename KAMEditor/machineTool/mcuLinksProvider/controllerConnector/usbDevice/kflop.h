@@ -6,7 +6,7 @@
 class KFlop : public UsbDevice
 {
 public:
-    KFlop();
+    KFlop(uint16_t _vendorId, uint16_t _productId);
 };
 
 #endif // KFLOP_H
