@@ -57,7 +57,7 @@
 #include "models/machinetool/commandsmanager/commands/commands.h"
 
 #include "gcodessyntaxhighlighter.h"
-#include "models/machinetool/settingsManager/settingsmanager.h"
+#include "models/machinetool/settingsmanager/settingsmanager.h"
 
 #include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
 #include "models/controllerconnector/debugmodule/debugmodule.h"

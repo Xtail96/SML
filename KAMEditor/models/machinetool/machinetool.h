@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "models/structs.h"
-#include "models/machinetool/settingsManager/settingsmanager.h"
+#include "models/machinetool/settingsmanager/settingsmanager.h"
 #include "models/machinetool/sensorsmanager/sensor/sensor.h"
 #include "models/machinetool/devicesmanager/device/device.h"
 #include "models/machinetool/movementshandler/movementshandler.h"
