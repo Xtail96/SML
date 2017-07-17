@@ -7,6 +7,8 @@ class U1 : public UsbDevice
 {
 public:
     U1(uint16_t _vendorId, uint16_t _productId);
+    virtual void receiveData() override;
+    virtual void sendData() override;
 };
 
 #endif // U1_H

@@ -14,7 +14,7 @@
  */
 class UsbDevice
 {
-private:
+protected:
     /// Контекст, в котором происходит работа с libusb
     libusb_context *context = NULL;
     /// Указатель на текущее устройство
@@ -78,7 +78,17 @@ public:
     UsbDevice(uint16_t vendorId, uint16_t productId);
     ~UsbDevice();
 
-    void receiveData();
+    /**
+     * @brief Принимает данные с устройства
+     * \warning Является чисто виртуальным методом
+     */
+    virtual void receiveData() = 0;
+
+    /**
+     * @brief Отправляет данные на устройство
+     * \warning Является чисто виртуальным методом
+     */
+    virtual void sendData() = 0;
 };
 
 #endif // USBDEVICE_H

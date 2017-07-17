@@ -13,11 +13,11 @@
 
 #include "models/structs.h"
 #include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
+#include "models/controllerconnector/usbdevicemanager/usbdevice/u1.h"
 #include "models/machinetool/machinetool.h"
 
 /*!
  * \brief Класс "Модуль взаимодействия с контроллером"
- * \warning Является синглтоном
  * \brief является оберткой над классом UsbDevice, обеспечивая его единственность;
  */
 class UsbDeviceManager
