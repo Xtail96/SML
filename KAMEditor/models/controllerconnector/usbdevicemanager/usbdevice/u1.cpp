@@ -15,16 +15,28 @@ void U1::receiveData()
     //        int le = endpoints->bEndpointAddress;
     //        qDebug() << le << endl;
     //    }
-    unsigned char* data = new unsigned char[64];
-    int data_size = 64;
+    int packetSize = libusb_get_max_packet_size(device, endPointOut);
+    qDebug() << "maxPacketSize = " << packetSize;
+    unsigned char data[64];
+    int data_size = packetSize;
+    for(int i = 0; i < data_size; i++)
+    {
+        data[i] = i;
+    }
     int transferred = 0;
     unsigned int timeout = 0;
-    qDebug() << "origin = " << *data << endl;
     int code = libusb_interrupt_transfer(deviceHandle, endPointOut, data, data_size, &transferred, timeout);
     qDebug() << "transferred" << transferred << "bytes" << endl;
     if(code == 0)
     {
-        qDebug() << *data << endl;
+        displayData(data, data_size);
+        code = libusb_clear_halt(deviceHandle, endPointOut);
+        if(code != 0)
+        {
+            std::string errMsg = libusb_error_name(code);
+            QString errorDescription = QString::fromStdString(errMsg);
+            qDebug() << errorDescription << endl;
+        }
     }
     else
     {
@@ -32,11 +44,17 @@ void U1::receiveData()
         QString errorDescription = QString::fromStdString(errMsg);
         qDebug() << errorDescription << endl;
     }
-    delete[] data;
-    qDebug() << "successful delete" << endl;
 }
 
 void U1::sendData()
 {
 
+}
+
+void U1::displayData(unsigned char *data, unsigned int dataSize)
+{
+    for(unsigned int i = 0; i < dataSize; i++)
+    {
+        qDebug() << data[i];
+    }
 }
