@@ -15,6 +15,18 @@ void U1::receiveData()
     //        int le = endpoints->bEndpointAddress;
     //        qDebug() << le << endl;
     //    }
+    uint8_t portNumber = libusb_get_port_number(device);
+    qDebug() << "Port number = " << portNumber;
+    uint8_t busNumber = libusb_get_bus_number(device);
+    qDebug() << "Bus number = " << busNumber;
+    uint8_t deviceAddress = libusb_get_device_address(device);
+    qDebug() << "Device address = " << deviceAddress;
+    int deviceSpeed = libusb_get_device_speed(device);
+    /*std::string deviceSpeedString = libusb_speed_name(deviceSpeed);
+    QString qDeviceSpeed = QString::fromStdString(deviceSpeedString);*/
+    qDebug() << "Device speed = " << deviceSpeed;
+
+
     int packetSize = libusb_get_max_packet_size(device, endPointOut);
     qDebug() << "maxPacketSize = " << packetSize;
     unsigned char data[64];
