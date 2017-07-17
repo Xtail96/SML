@@ -10,6 +10,7 @@ public:
     virtual void receiveData() override;
     virtual void sendData() override;
     void displayData(unsigned char *data, unsigned int dataSize);
+    void displayDeviceInfromation();
 };
 
 #endif // U1_H

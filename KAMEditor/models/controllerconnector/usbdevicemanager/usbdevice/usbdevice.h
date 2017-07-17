@@ -6,8 +6,8 @@
 
 #include "dependencies.h"
 
-#define endPointIn 0x80 // host to device
-#define endPointOut 0x02 // device to host
+#define endPointIn 0x82 // device to host
+#define endPointOut 0x02 // host to device
 
 /**
  * @brief Класс для работы с usb устройствами (чтение и запись)
