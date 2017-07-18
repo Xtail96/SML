@@ -44,6 +44,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // синхронизаци контроля габаритов и соответствующих элементов интерфейса
     updateEdgesControlStatus();
     connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+
+    // connects
+    //connect(ui->pointEditPushButton, SIGNAL(clicked(bool)), this, SLOT(on_pointsTableWidget_doubleClicked(QModelIndex)));
+    connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -675,7 +680,15 @@ void MainWindow::on_pointCursorPushButton_clicked()
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
+    QItemSelectionModel *select;
+    if(ui->smlEditorTab->isVisible())
+    {
+        select = ui->pointsTableWidget_2->selectionModel();
+    }
+    else
+    {
+        select = ui->pointsTableWidget->selectionModel();
+    }
     if(select->hasSelection())
     {
         //select->selectedRows();
