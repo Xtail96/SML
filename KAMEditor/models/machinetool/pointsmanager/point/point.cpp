@@ -19,6 +19,12 @@ Point::Point(const Point& other)
     coordinates = other.coordinates;
 }
 
+Point& Point::operator=(Point other)
+{
+    std::swap(coordinates, other.coordinates);
+    return *this;
+}
+
 double& Point::operator[](size_t idx)
 {
     if (idx < coordinates.size())
