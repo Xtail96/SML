@@ -675,17 +675,13 @@ void MainWindow::on_pointCursorPushButton_clicked()
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    /*QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     if(select->hasSelection())
     {
         //select->selectedRows();
 
         int current_row = select->currentIndex().row();
-
-        PointsManager& point_table = PointsManager::Instance();
-        point_table.setSelectedPoint(current_row);
-
-        EditPointDialog* editPoint = new EditPointDialog(this);
+        AddPointDialog* editPoint = new AddPointDialog(machineTool, machineTool->getPointsManager().operator [](current_row), current_row, this);
         editPoint->exec();
         delete editPoint;
         updatePoints();
@@ -693,7 +689,7 @@ void MainWindow::on_pointEditPushButton_clicked()
     else
     {
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointCopyPushButton_clicked()

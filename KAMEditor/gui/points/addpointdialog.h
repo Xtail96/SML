@@ -16,6 +16,7 @@ class AddPointDialog : public QDialog
 
 public:
     explicit AddPointDialog(MachineTool *_machineTool, QWidget *parent = 0);
+    explicit AddPointDialog(MachineTool *_machineTool, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent = 0);
     ~AddPointDialog();
 
 private slots:
@@ -23,8 +24,11 @@ private slots:
 
 private:
     Ui::AddPointDialog *ui;
+    void initializeFields();
+
     bool isEdit;
     MachineTool* machineTool;
+    unsigned int pointNumber;
     std::vector< std::shared_ptr<Axis> > axises;
 };
 
