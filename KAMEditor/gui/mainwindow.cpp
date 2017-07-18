@@ -644,7 +644,6 @@ void MainWindow::on_pointAddPushButton_clicked()
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    /*PointsManager& instance = PointsManager::Instance();
     QList<QTableWidgetItem*> selected = ui->pointsTableWidget->selectedItems();
     std::set<int> rows;
 
@@ -656,8 +655,9 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
     for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
     {
-        instance.removePoint(*i);
-    }*/
+        std::shared_ptr<Point> p = machineTool->getPointsManager().operator [](*i);
+        machineTool->getPointsManager().deletePoint(p);
+    }
     updatePoints();
 }
 
