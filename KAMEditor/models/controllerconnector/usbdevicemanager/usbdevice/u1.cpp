@@ -14,7 +14,6 @@ U1::U1(uint16_t _vendorId, uint16_t _productId) :
 std::vector<unsigned char> U1::receiveData()
 {
     displayDeviceInfromation();
-
     int maxPacketSize = libusb_get_max_packet_size(device, endPointIn);
     qDebug() << "maxPacketSize = " << maxPacketSize;
 
@@ -25,11 +24,9 @@ std::vector<unsigned char> U1::receiveData()
     try
     {
         sendData(GET_MCU_STATE, params);
-
         std::vector<unsigned char> data(packetSize, 0);
         int transferred = 0;
         unsigned int timeout = 5000;
-
         // если отправка запроса прошла без ошибок получаем данные
         int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, timeout);
         qDebug() << "transferred" << transferred << "bytes" << endl;
@@ -37,12 +34,7 @@ std::vector<unsigned char> U1::receiveData()
         {
             clearEndpoint(endPointIn);
             clearEndpoint(endPointOut);
-
-            for(int i = 0; i < packetSize; i++)
-            {
-                params[i] = data[i];
-            }
-            return params;
+            return data;
         }
         else
         {
