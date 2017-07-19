@@ -15,7 +15,7 @@ private:
      */
     const unsigned char GET_MCU_STATE = 9;
 
-    unsigned char *makePacket(unsigned char actionId, std::vector<unsigned char> params, unsigned int &dataSize);
+    std::vector<unsigned char> makePacket(unsigned char actionId, std::vector<unsigned char> params);
 public:
     /*!
      * \brief Для создания объекта класса U1 необходимы идентификатор производителя(vendor id) и идентификатор продукта(product id)

@@ -69,10 +69,8 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     unsigned int timeout = 5000;
 
 
-    unsigned int dataSize = sizeof(actionId) + params.size();
-    unsigned char* data = makePacket(actionId, params, dataSize);
-    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data, dataSize, &transferred, timeout);
-    delete[] data;
+    std::vector<unsigned char> data = makePacket(actionId, params);
+    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, timeout);
 
 
     qDebug() << "transferred" << transferred << "bytes" << endl;
@@ -89,17 +87,15 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     }
 }
 
-unsigned char* U1::makePacket(unsigned char actionId, std::vector<unsigned char> params, unsigned int &dataSize)
+std::vector<unsigned char> U1::makePacket(unsigned char actionId, std::vector<unsigned char> params)
 {
-    if(dataSize < params.size())
+    std::vector<unsigned char> dataPacket =
     {
-        dataSize = sizeof(actionId) + params.size();
-    }
-    unsigned char* dataPacket = new unsigned char[dataSize];
-    dataPacket[0] = actionId;
-    for(unsigned int i = 1; i < dataSize; i++)
+        actionId
+    };
+    for(auto it : params)
     {
-        dataPacket[i] = params[i - 1];
+        dataPacket.push_back(it);
     }
     return dataPacket;
 }
