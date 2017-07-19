@@ -38,7 +38,7 @@ byte_array U1::receiveData(int packetSize)
         if (packetSize != transferred)
         {
             std::string errMsg = libusb_error_name(code);
-            errMsg += " Отправлено " + std::to_string(transferred) + " байт ";
+            errMsg += " Получено " + std::to_string(transferred) + " байт ";
             errMsg += " из " + std::to_string(packetSize);
 
             throw std::runtime_error(errMsg);
@@ -71,6 +71,16 @@ int U1::sendData(const byte_array& data)
     {
         std::string errMsg = libusb_error_name(code);
         errMsg += " Не могу отправить запрос на получение данных о станке";
+        throw std::runtime_error(errMsg);
+    }
+
+    // если число запрошенных и отправленных байт не совпадает, ошибка
+    if (data.size() != transferred)
+    {
+        std::string errMsg = libusb_error_name(code);
+        errMsg += " Отправлено " + std::to_string(transferred) + " байт ";
+        errMsg += " из " + std::to_string(data.size());
+
         throw std::runtime_error(errMsg);
     }
 
