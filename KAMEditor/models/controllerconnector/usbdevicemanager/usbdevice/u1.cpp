@@ -21,9 +21,8 @@ std::vector<unsigned char> U1::receiveData()
         sendData(GET_MCU_STATE, params);
         std::vector<unsigned char> data(packetSize, 0);
         int transferred = 0;
-        unsigned int timeout = 5000;
         // если отправка запроса прошла без ошибок получаем данные
-        int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, timeout);
+        int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, RECV_TIMEOUT);
         qDebug() << "transferred" << transferred << "bytes" << endl;
         if(code == 0)
         {
@@ -49,10 +48,9 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     displayDeviceInfromation();
 
     int transferred = 0;
-    unsigned int timeout = 5000;
 
     std::vector<unsigned char> data = makePacket(actionId, params);
-    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, timeout);
+    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, SEND_TIMEOUT);
 
     qDebug() << "transferred" << transferred << "bytes" << endl;
 

@@ -15,6 +15,16 @@ private:
      */
     const unsigned char GET_MCU_STATE = 9;
 
+    /*!
+     * \brief максимальное время приема пакета
+     */
+    const unsigned int RECV_TIMEOUT = 5000;
+
+    /*!
+     * \brief максимальное время отправки пакета
+     */
+    const unsigned int SEND_TIMEOUT = 5000;
+
     std::vector<unsigned char> makePacket(unsigned char actionId, const std::vector<unsigned char>& params);
 public:
     /*!
