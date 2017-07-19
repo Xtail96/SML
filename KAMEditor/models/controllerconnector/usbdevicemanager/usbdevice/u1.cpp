@@ -6,29 +6,26 @@ U1::U1(uint16_t _vendorId, uint16_t _productId) :
 
 }
 
-byte_array U1::receiveData()
+byte_array U1::receiveData(int packetSize)
 {
-    displayDeviceInfromation();
-    int maxPacketSize = libusb_get_max_packet_size(device, endPointIn);
-    qDebug() << "maxPacketSize = " << maxPacketSize;
+    displayDeviceInformation();
 
-    int packetSize = std::max(maxPacketSize, 8);
-    //int packetSize = 32;
-    byte_array params(packetSize - 1, 0);
-    // отправляем запрос на получение информации о станке
+    if (packetSize == 0)
+        packetSize = libusb_get_max_packet_size(device, endPointIn);
+
     try
     {
-        sendData(GET_MCU_STATE, params);
         byte_array data(packetSize, 0);
         int transferred = 0;
-        // если отправка запроса прошла без ошибок получаем данные
+
+        requestReceiving();
+
         int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, RECV_TIMEOUT);
         qDebug() << "transferred" << transferred << "bytes" << endl;
+
         if(code == 0)
         {
             clearEndpoint(endPointIn);
-            clearEndpoint(endPointOut);
-            return data;
         }
         else
         {
@@ -36,6 +33,18 @@ byte_array U1::receiveData()
             errMsg+=" Не могу прочитать данные";
             throw std::runtime_error(errMsg);
         }
+
+        // если число запрошенных и полученных байт не совпадает, ошибка
+        if (packetSize != transferred)
+        {
+            std::string errMsg = libusb_error_name(code);
+            errMsg += " Отправлено " + std::to_string(transferred) + " байт ";
+            errMsg += " из " + std::to_string(packetSize);
+
+            throw std::runtime_error(errMsg);
+        }
+
+        return data;
     }
     catch(std::runtime_error e)
     {
@@ -43,14 +52,14 @@ byte_array U1::receiveData()
     }
 }
 
-void U1::sendData(unsigned char actionId, const byte_array &params)
+int U1::sendData(const byte_array& data)
 {
-    displayDeviceInfromation();
+    displayDeviceInformation();
 
     int transferred = 0;
+    byte* rawDataPtr = const_cast<byte*>(data.data());
 
-    byte_array data = makePacket(actionId, params);
-    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, SEND_TIMEOUT);
+    int code = libusb_bulk_transfer(deviceHandle, endPointOut, rawDataPtr, data.size(), &transferred, SEND_TIMEOUT);
 
     qDebug() << "transferred" << transferred << "bytes" << endl;
 
@@ -64,15 +73,15 @@ void U1::sendData(unsigned char actionId, const byte_array &params)
         errMsg += " Не могу отправить запрос на получение данных о станке";
         throw std::runtime_error(errMsg);
     }
+
+    return transferred;
 }
 
-byte_array U1::makePacket(unsigned char actionId, const byte_array &params)
+void U1::requestReceiving()
 {
-    byte_array dataPacket = { actionId };
+    byte_array data = { GET_MCU_STATE };
 
-    dataPacket.insert(dataPacket.end(), params.begin(), params.end());
-
-    return dataPacket;
+    sendData(data);
 }
 
 void U1::clearEndpoint(int endPoint)
@@ -94,7 +103,7 @@ void U1::displayData(unsigned char *data, unsigned int dataSize)
     }
 }
 
-void U1::displayDeviceInfromation()
+void U1::displayDeviceInformation()
 {
     uint8_t portNumber = libusb_get_port_number(device);
     qDebug() << "Port number = " << portNumber;

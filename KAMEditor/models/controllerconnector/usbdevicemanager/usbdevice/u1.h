@@ -25,7 +25,11 @@ private:
      */
     const unsigned int SEND_TIMEOUT = 5000;
 
-    byte_array makePacket(unsigned char actionId, const byte_array& params);
+    /*!
+     * \brief Отправить запрос на получение данных
+     */
+    void requestReceiving();
+
 public:
     /*!
      * \brief Для создания объекта класса U1 необходимы идентификатор производителя(vendor id) и идентификатор продукта(product id)
@@ -34,12 +38,12 @@ public:
      */
     U1(uint16_t _vendorId, uint16_t _productId);
 
-    virtual byte_array receiveData() override;
-    virtual void sendData(unsigned char actionId, const byte_array& params) override;
+    virtual byte_array receiveData(int packetSize = 0) override;
+    virtual int sendData(const byte_array &data) override;
 
     /*!
      * \brief Метод осуществляющий очистку выбранной точки выхода
-     * \param endPoint - точка выхода в щестнадцатиричной системе счисления.
+     * \param endPoint - точка выхода в шестнадцатиричной системе счисления.
      */
     void clearEndpoint(int endPoint);
 
@@ -49,7 +53,7 @@ public:
      * \brief Отображает информацию об устройстве:
      * Номер порта, Номер шины, Адерс устройства, Скорость обмена данными
      */
-    void displayDeviceInfromation();
+    void displayDeviceInformation();
 };
 
 #endif // U1_H

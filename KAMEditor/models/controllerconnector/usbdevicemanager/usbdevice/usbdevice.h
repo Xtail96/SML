@@ -9,8 +9,8 @@
 #define endPointIn 0x82 // device to host
 #define endPointOut 0x02 // host to device
 
-
-typedef std::vector<unsigned char> byte_array;
+typedef unsigned char byte;
+typedef std::vector<byte> byte_array;
 
 /**
  * @brief Класс для работы с usb устройствами (чтение и запись)
@@ -83,15 +83,18 @@ public:
 
     /**
      * @brief Принимает данные с устройства
+     * @param size число байт для приема (0 для максимального размера)
      * \warning Является чисто виртуальным методом
      */
-    virtual byte_array receiveData() = 0;
+    virtual byte_array receiveData(int packetSize = 0) = 0;
 
     /**
      * @brief Отправляет данные на устройство
+     * @param data отправляемые данные
+     * @return число реально отправленных байт
      * \warning Является чисто виртуальным методом
      */
-    virtual void sendData(unsigned char actionId, const byte_array& params) = 0;
+    virtual int sendData(const byte_array& data) = 0;
 };
 
 #endif // USBDEVICE_H
