@@ -105,11 +105,11 @@ void U1::clearEndpoint(int endPoint)
     }
 }
 
-void U1::displayData(unsigned char *data, unsigned int dataSize)
+void U1::displayData(const byte_array& data)
 {
-    for(unsigned int i = 0; i < dataSize; i++)
+    for(byte b : data)
     {
-        qDebug() << QString::number(data[i], 16);
+        qDebug() << QString::number(b, 16);
     }
 }
 

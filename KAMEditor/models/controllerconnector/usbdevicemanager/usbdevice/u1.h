@@ -47,7 +47,7 @@ public:
      */
     void clearEndpoint(int endPoint);
 
-    void displayData(unsigned char *data, unsigned int dataSize);
+    void displayData(const byte_array &data);
 
     /*!
      * \brief Отображает информацию об устройстве:
