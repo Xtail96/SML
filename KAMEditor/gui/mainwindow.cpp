@@ -800,7 +800,20 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
     std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
     if(u1 != NULL)
     {
-        u1->receiveData();
+        try
+        {
+            std::vector<unsigned char> recieved = u1->receiveData();
+            QString recievedData;
+            for(auto it : recieved)
+            {
+                recievedData += it + '\n';
+            }
+            ui->recievedDataTextEdit->setText(recievedData);
+        }
+        catch(std::runtime_error e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
     }
     /*int connectionCode = debuger->checkConnection();
     QString message = "";

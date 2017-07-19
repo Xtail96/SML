@@ -82,13 +82,13 @@ public:
      * @brief Принимает данные с устройства
      * \warning Является чисто виртуальным методом
      */
-    virtual void receiveData() = 0;
+    virtual std::vector<unsigned char> receiveData() = 0;
 
     /**
      * @brief Отправляет данные на устройство
      * \warning Является чисто виртуальным методом
      */
-    virtual void sendData() = 0;
+    virtual void sendData(unsigned char actionId, std::vector<unsigned char> params) = 0;
 };
 
 #endif // USBDEVICE_H

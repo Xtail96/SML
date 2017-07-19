@@ -1,72 +1,113 @@
 #include "u1.h"
 
+unsigned char U1::getGET_MCU_STATE() const
+{
+    return GET_MCU_STATE;
+}
+
 U1::U1(uint16_t _vendorId, uint16_t _productId) :
     UsbDevice(_vendorId, _productId)
 {
 
 }
 
-void U1::receiveData()
+std::vector<unsigned char> U1::receiveData()
 {
     displayDeviceInfromation();
-    int packetSize = libusb_get_max_packet_size(device, endPointIn);
-    qDebug() << "maxPacketSize = " << packetSize;
-    unsigned char data[64];
-    int data_size = 64;
-    for(int i = 0; i < data_size; i++)
+
+    int maxPacketSize = libusb_get_max_packet_size(device, endPointIn);
+    qDebug() << "maxPacketSize = " << maxPacketSize;
+
+    int packetSize = std::max(maxPacketSize, 8);
+    std::vector<unsigned char> params(packetSize - 1, 0);
+    // отправляем запрос на получение информации о станке
+    try
     {
-        data[i] = i;
-    }
-    int transferred = 0;
-    unsigned int timeout = 5000;
-    int code = libusb_interrupt_transfer(deviceHandle, endPointIn, data, data_size, &transferred, timeout);
-    qDebug() << "transferred" << transferred << "bytes" << endl;
-    if(code == 0)
-    {
-        displayData(data, data_size);
-        code = libusb_clear_halt(deviceHandle, endPointIn);
-        if(code != 0)
+        sendData(GET_MCU_STATE, params);
+
+        unsigned char *data = new unsigned char[packetSize];
+        for(int i = 0; i < packetSize; i++)
+        {
+            data[i] = 0;
+        }
+
+        int transferred = 0;
+        unsigned int timeout = 5000;
+
+        // если отправка запроса прошла без ошибок получаем данные
+        int code = libusb_bulk_transfer(deviceHandle, endPointIn, data, packetSize, &transferred, timeout);
+        qDebug() << "transferred" << transferred << "bytes" << endl;
+        if(code == 0)
+        {
+            clearEndpoint(endPointIn);
+            clearEndpoint(endPointOut);
+
+            for(int i = 0; i < packetSize; i++)
+            {
+                params[i] = data[i];
+            }
+            return params;
+        }
+        else
         {
             std::string errMsg = libusb_error_name(code);
-            QString errorDescription = QString::fromStdString(errMsg);
-            qDebug() << errorDescription << endl;
+            errMsg+=" Не могу прочитать данные";
+            throw std::runtime_error(errMsg);
         }
+    }
+    catch(std::runtime_error e)
+    {
+        throw;
+    }
+}
+
+void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
+{
+    displayDeviceInfromation();
+
+    int transferred = 0;
+    unsigned int timeout = 5000;
+
+
+    unsigned int dataSize = sizeof(actionId) + params.size();
+    unsigned char* data = makePacket(actionId, params, dataSize);
+    int code = libusb_bulk_transfer(deviceHandle, endPointOut, data, dataSize, &transferred, timeout);
+    delete[] data;
+
+
+    qDebug() << "transferred" << transferred << "bytes" << endl;
+
+    if(code == 0)
+    {
+        clearEndpoint(endPointOut);
     }
     else
     {
         std::string errMsg = libusb_error_name(code);
-        QString errorDescription = QString::fromStdString(errMsg);
-        qDebug() << errorDescription << endl;
+        errMsg += " Не могу отправить запрос на получение данных о станке";
+        throw std::runtime_error(errMsg);
     }
 }
 
-void U1::sendData()
+unsigned char* U1::makePacket(unsigned char actionId, std::vector<unsigned char> params, unsigned int &dataSize)
 {
-    displayDeviceInfromation();
-    int packetSize = libusb_get_max_packet_size(device, endPointOut);
-    qDebug() << "maxPacketSize = " << packetSize;
-    unsigned char data[64];
-    int data_size = 64;
-    for(int i = 0; i < data_size; i++)
+    if(dataSize < params.size())
     {
-        data[i] = i;
+        dataSize = sizeof(actionId) + params.size();
     }
-    int transferred = 0;
-    unsigned int timeout = 5000;
-    int code = libusb_interrupt_transfer(deviceHandle, endPointOut, data, data_size, &transferred, timeout);
-    qDebug() << "transferred" << transferred << "bytes" << endl;
-    if(code == 0)
+    unsigned char* dataPacket = new unsigned char[dataSize];
+    dataPacket[0] = actionId;
+    for(unsigned int i = 1; i < dataSize; i++)
     {
-        displayData(data, data_size);
-        code = libusb_clear_halt(deviceHandle, endPointOut);
-        if(code != 0)
-        {
-            std::string errMsg = libusb_error_name(code);
-            QString errorDescription = QString::fromStdString(errMsg);
-            qDebug() << errorDescription << endl;
-        }
+        dataPacket[i] = params[i - 1];
     }
-    else
+    return dataPacket;
+}
+
+void U1::clearEndpoint(int endPoint)
+{
+    int code = libusb_clear_halt(deviceHandle, endPoint);
+    if(code != 0)
     {
         std::string errMsg = libusb_error_name(code);
         QString errorDescription = QString::fromStdString(errMsg);

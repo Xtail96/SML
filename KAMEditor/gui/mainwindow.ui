@@ -4869,85 +4869,15 @@
        <attribute name="title">
         <string>Проверка системы</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_22">
-        <item>
-         <widget class="QGroupBox" name="debugToolsGroupBox">
-          <property name="title">
-           <string>Панель инструментов</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QComboBox" name="machineToolsComboBox">
-             <property name="frame">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="machineToolsVIdPIdLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCommandLinkButton" name="startDegbugCommandLinkButton">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Начать отладку</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCommandLinkButton" name="finishDebugCommandLinkButton">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Завершить отладку</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>100</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="1" column="1">
          <widget class="QFrame" name="inputsOutputsFrame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>3</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
@@ -4971,7 +4901,7 @@
             <widget class="QGroupBox" name="inputsGroupBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>1</horstretch>
+               <horstretch>3</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
@@ -4979,7 +4909,7 @@
               <string>Входы</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_32">
-              <item row="5" column="0">
+              <item row="5" column="1">
                <widget class="QCheckBox" name="inputCheckBox_5">
                 <property name="enabled">
                  <bool>false</bool>
@@ -4992,7 +4922,7 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
+              <item row="8" column="1">
                <widget class="QCheckBox" name="inputCheckBox_8">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5005,7 +4935,7 @@
                 </property>
                </widget>
               </item>
-              <item row="7" column="1">
+              <item row="7" column="2">
                <widget class="QCheckBox" name="inputCheckBox_16">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5018,7 +4948,7 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="6" column="2">
                <widget class="QCheckBox" name="inputCheckBox_15">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5031,7 +4961,7 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="0" column="2">
                <widget class="QCheckBox" name="inputCheckBox_10">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5044,7 +4974,7 @@
                 </property>
                </widget>
               </item>
-              <item row="9" column="0">
+              <item row="9" column="1">
                <widget class="QCheckBox" name="inputCheckBox_9">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5057,7 +4987,7 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="0">
+              <item row="6" column="1">
                <widget class="QCheckBox" name="inputCheckBox_6">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5070,7 +5000,7 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="1">
+              <item row="3" column="2">
                <widget class="QCheckBox" name="inputCheckBox_12">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5083,7 +5013,7 @@
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
+              <item row="5" column="2">
                <widget class="QCheckBox" name="inputCheckBox_14">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5096,7 +5026,7 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="0">
+              <item row="4" column="1">
                <widget class="QCheckBox" name="inputCheckBox_4">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5109,7 +5039,7 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
+              <item row="4" column="2">
                <widget class="QCheckBox" name="inputCheckBox_13">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5122,7 +5052,7 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
+              <item row="0" column="1">
                <widget class="QCheckBox" name="inputCheckBox_1">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5135,7 +5065,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="2" column="1">
                <widget class="QCheckBox" name="inputCheckBox_2">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5148,7 +5078,7 @@
                 </property>
                </widget>
               </item>
-              <item row="7" column="0">
+              <item row="7" column="1">
                <widget class="QCheckBox" name="inputCheckBox_7">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5161,7 +5091,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="2" column="2">
                <widget class="QCheckBox" name="inputCheckBox_11">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5174,7 +5104,7 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+              <item row="3" column="1">
                <widget class="QCheckBox" name="inputCheckBox_3">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5187,7 +5117,7 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
+              <item row="8" column="2">
                <widget class="QCheckBox" name="inputCheckBox_17">
                 <property name="enabled">
                  <bool>false</bool>
@@ -5200,7 +5130,7 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="2">
+              <item row="2" column="4">
                <spacer name="horizontalSpacer_10">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -5216,11 +5146,11 @@
              </layout>
             </widget>
            </item>
-           <item row="0" column="1">
+           <item row="0" column="2">
             <widget class="QGroupBox" name="outputsGroupBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>1</horstretch>
+               <horstretch>3</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
@@ -5367,7 +5297,84 @@
           </layout>
          </widget>
         </item>
-        <item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QGroupBox" name="debugToolsGroupBox">
+          <property name="title">
+           <string>Панель инструментов</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QComboBox" name="machineToolsComboBox">
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="machineToolsVIdPIdLineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCommandLinkButton" name="startDegbugCommandLinkButton">
+             <property name="font">
+              <font>
+               <family>Segoe UI</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Начать отладку</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>25</width>
+               <height>25</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCommandLinkButton" name="finishDebugCommandLinkButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Segoe UI</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Завершить отладку</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>100</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="1">
          <spacer name="verticalSpacer_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -5379,6 +5386,16 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="0" rowspan="3">
+         <widget class="QTextEdit" name="recievedDataTextEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -5392,7 +5409,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
