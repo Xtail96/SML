@@ -79,10 +79,9 @@ std::vector<unsigned char> U1::makePacket(unsigned char actionId, std::vector<un
     {
         actionId
     };
-    for(auto it : params)
-    {
-        dataPacket.push_back(it);
-    }
+
+    dataPacket.insert(dataPacket.end(), params.begin(), params.end());
+
     return dataPacket;
 }
 
