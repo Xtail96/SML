@@ -6,7 +6,7 @@ U1::U1(uint16_t _vendorId, uint16_t _productId) :
 
 }
 
-std::vector<unsigned char> U1::receiveData()
+byte_array U1::receiveData()
 {
     displayDeviceInfromation();
     int maxPacketSize = libusb_get_max_packet_size(device, endPointIn);
@@ -14,12 +14,12 @@ std::vector<unsigned char> U1::receiveData()
 
     int packetSize = std::max(maxPacketSize, 8);
     //int packetSize = 32;
-    std::vector<unsigned char> params(packetSize - 1, 0);
+    byte_array params(packetSize - 1, 0);
     // отправляем запрос на получение информации о станке
     try
     {
         sendData(GET_MCU_STATE, params);
-        std::vector<unsigned char> data(packetSize, 0);
+        byte_array data(packetSize, 0);
         int transferred = 0;
         // если отправка запроса прошла без ошибок получаем данные
         int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, RECV_TIMEOUT);
@@ -43,13 +43,13 @@ std::vector<unsigned char> U1::receiveData()
     }
 }
 
-void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
+void U1::sendData(unsigned char actionId, const byte_array &params)
 {
     displayDeviceInfromation();
 
     int transferred = 0;
 
-    std::vector<unsigned char> data = makePacket(actionId, params);
+    byte_array data = makePacket(actionId, params);
     int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, SEND_TIMEOUT);
 
     qDebug() << "transferred" << transferred << "bytes" << endl;
@@ -66,12 +66,9 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     }
 }
 
-std::vector<unsigned char> U1::makePacket(unsigned char actionId, const std::vector<unsigned char> &params)
+byte_array U1::makePacket(unsigned char actionId, const byte_array &params)
 {
-    std::vector<unsigned char> dataPacket =
-    {
-        actionId
-    };
+    byte_array dataPacket = { actionId };
 
     dataPacket.insert(dataPacket.end(), params.begin(), params.end());
 

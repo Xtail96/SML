@@ -25,7 +25,7 @@ private:
      */
     const unsigned int SEND_TIMEOUT = 5000;
 
-    std::vector<unsigned char> makePacket(unsigned char actionId, const std::vector<unsigned char>& params);
+    byte_array makePacket(unsigned char actionId, const byte_array& params);
 public:
     /*!
      * \brief Для создания объекта класса U1 необходимы идентификатор производителя(vendor id) и идентификатор продукта(product id)
@@ -34,8 +34,8 @@ public:
      */
     U1(uint16_t _vendorId, uint16_t _productId);
 
-    virtual std::vector<unsigned char> receiveData() override;
-    virtual void sendData(unsigned char actionId, std::vector<unsigned char> params) override;
+    virtual byte_array receiveData() override;
+    virtual void sendData(unsigned char actionId, const byte_array& params) override;
 
     /*!
      * \brief Метод осуществляющий очистку выбранной точки выхода

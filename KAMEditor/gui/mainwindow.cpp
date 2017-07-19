@@ -802,7 +802,7 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
     {
         try
         {
-            std::vector<unsigned char> recieved = u1->receiveData();
+            byte_array recieved = u1->receiveData();
             QString recievedData;
             for(auto it : recieved)
             {
