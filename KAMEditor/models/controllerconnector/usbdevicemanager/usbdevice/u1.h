@@ -15,7 +15,7 @@ private:
      */
     const unsigned char GET_MCU_STATE = 9;
 
-    std::vector<unsigned char> makePacket(unsigned char actionId, std::vector<unsigned char> params);
+    std::vector<unsigned char> makePacket(unsigned char actionId, const std::vector<unsigned char>& params);
 public:
     /*!
      * \brief Для создания объекта класса U1 необходимы идентификатор производителя(vendor id) и идентификатор продукта(product id)
@@ -40,7 +40,6 @@ public:
      * Номер порта, Номер шины, Адерс устройства, Скорость обмена данными
      */
     void displayDeviceInfromation();
-    unsigned char getGET_MCU_STATE() const;
 };
 
 #endif // U1_H

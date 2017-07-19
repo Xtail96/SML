@@ -1,10 +1,5 @@
 #include "u1.h"
 
-unsigned char U1::getGET_MCU_STATE() const
-{
-    return GET_MCU_STATE;
-}
-
 U1::U1(uint16_t _vendorId, uint16_t _productId) :
     UsbDevice(_vendorId, _productId)
 {
@@ -73,7 +68,7 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     }
 }
 
-std::vector<unsigned char> U1::makePacket(unsigned char actionId, std::vector<unsigned char> params)
+std::vector<unsigned char> U1::makePacket(unsigned char actionId, const std::vector<unsigned char> &params)
 {
     std::vector<unsigned char> dataPacket =
     {
