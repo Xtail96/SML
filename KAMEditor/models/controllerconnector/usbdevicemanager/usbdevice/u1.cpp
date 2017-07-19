@@ -19,23 +19,19 @@ std::vector<unsigned char> U1::receiveData()
     qDebug() << "maxPacketSize = " << maxPacketSize;
 
     int packetSize = std::max(maxPacketSize, 8);
+    //int packetSize = 32;
     std::vector<unsigned char> params(packetSize - 1, 0);
     // отправляем запрос на получение информации о станке
     try
     {
         sendData(GET_MCU_STATE, params);
 
-        unsigned char *data = new unsigned char[packetSize];
-        for(int i = 0; i < packetSize; i++)
-        {
-            data[i] = 0;
-        }
-
+        std::vector<unsigned char> data(packetSize, 0);
         int transferred = 0;
         unsigned int timeout = 5000;
 
         // если отправка запроса прошла без ошибок получаем данные
-        int code = libusb_bulk_transfer(deviceHandle, endPointIn, data, packetSize, &transferred, timeout);
+        int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, timeout);
         qDebug() << "transferred" << transferred << "bytes" << endl;
         if(code == 0)
         {
@@ -68,10 +64,8 @@ void U1::sendData(unsigned char actionId, std::vector<unsigned char> params)
     int transferred = 0;
     unsigned int timeout = 5000;
 
-
     std::vector<unsigned char> data = makePacket(actionId, params);
     int code = libusb_bulk_transfer(deviceHandle, endPointOut, data.data(), data.size(), &transferred, timeout);
-
 
     qDebug() << "transferred" << transferred << "bytes" << endl;
 
