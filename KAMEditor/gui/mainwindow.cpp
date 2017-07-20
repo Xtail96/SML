@@ -73,8 +73,9 @@ MainWindow::~MainWindow()
 
     delete machineTool;
 
-    delete u1Connector;
 
+    delete u1;
+    //delete u1Connector;
 }
 
 void MainWindow::initializeMachineTool()
@@ -84,7 +85,19 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    u1Connector = new UsbDevicesManager(machineTool);
+    try
+    {
+        u1 = new UsbXpressDevice();
+        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+        ui->statusBar->showMessage("Machine Tool is connected");
+    }
+    catch(std::runtime_error e)
+    {
+        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+        ui->statusBar->showMessage("Machine Tool is disconected");
+    }
+
+    /*u1Connector = new UsbDevicesManager(machineTool);
     if(u1Connector->getU1() != NULL)
     {
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
@@ -94,7 +107,7 @@ void MainWindow::initializeMachineTool()
     {
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
         ui->statusBar->showMessage("Machine Tool is disconected");
-    }
+    }*/
 }
 
 void MainWindow::updateSettingsField()
@@ -797,7 +810,7 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
-    std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
+    /*std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
     if(u1 != NULL)
     {
         try
@@ -814,7 +827,7 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
         {
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         }
-    }
+    }*/
     /*int connectionCode = debuger->checkConnection();
     QString message = "";
     if(connectionCode == 0)

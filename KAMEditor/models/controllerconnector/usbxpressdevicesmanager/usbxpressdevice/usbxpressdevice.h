@@ -14,6 +14,7 @@
 class UsbXpressDevice
 {
 public:
+    HANDLE siDeviceHandle;
     UsbXpressDevice();
     void initialize();
 };
