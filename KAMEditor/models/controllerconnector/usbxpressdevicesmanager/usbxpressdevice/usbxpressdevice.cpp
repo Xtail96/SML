@@ -8,7 +8,7 @@ UsbXpressDevice::UsbXpressDevice()
 void UsbXpressDevice::initialize()
 {
     DWORD num;
-    //int siDeviceNumber = -1;
+    int siDeviceNumber = -1;
     SI_DEVICE_STRING siDeviceString;
 
     SI_STATUS code = SI_GetNumDevices(&num);
@@ -21,7 +21,8 @@ void UsbXpressDevice::initialize()
             std::string siDeviceStringStd = std::string(siDeviceString);
             if(siDeviceStringStd == "semir" || siDeviceStringStd == "semil")
             {
-
+                siDeviceNumber = i;
+                break;
             }
             else
             {
@@ -29,6 +30,28 @@ void UsbXpressDevice::initialize()
                 qDebug() << QString::fromStdString(errMsg);
                 throw std::runtime_error(errMsg);
             }
+        }
+
+        if(siDeviceNumber > -1)
+        {
+            code = SI_Open(siDeviceNumber, &siDeviceHandle);
+            if(code == SI_SUCCESS)
+            {
+                /*SI_SETTIMEOUTS(500, 500);
+                SI_FLUSHBUFFERS(siDeviceHandle, 1, 1);*/
+            }
+            else
+            {
+                std::string errMsg = "Open Error";
+                qDebug() << QString::fromStdString(errMsg);
+                throw std::runtime_error(errMsg);
+            }
+        }
+        else
+        {
+            std::string errMsg = "Connection Error";
+            qDebug() << QString::fromStdString(errMsg);
+            throw std::runtime_error(errMsg);
         }
     }
     else
