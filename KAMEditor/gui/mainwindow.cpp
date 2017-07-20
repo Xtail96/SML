@@ -84,7 +84,7 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
-    u1Connector = new UsbDeviceManager(machineTool);
+    u1Connector = new UsbDevicesManager(machineTool);
     if(u1Connector->getU1() != NULL)
     {
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "models/machinetool/machinetool.h"
-#include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
+#include "models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h"
 #include "models/machinetool/devicesmanager/device/device.h"
 #include "models/machinetool/sensorsmanager/sensor/sensor.h"
 

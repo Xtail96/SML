@@ -1,5 +1,5 @@
-#ifndef USBDEVICEMANAGER_H
-#define USBDEVICEMANAGER_H
+#ifndef USBDEVICESMANAGER_H
+#define USBDEVICESMANAGER_H
 
 //#define VENDOR_ID 0x10c4
 //#define PRODUCT_ID 0xea61
@@ -12,15 +12,15 @@
 #include <QDebug>
 
 #include "models/structs.h"
-#include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
-#include "models/controllerconnector/usbdevicemanager/usbdevice/u1.h"
+#include "models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h"
+#include "models/controllerconnector/usbdevicesmanager/usbdevice/u1.h"
 #include "models/machinetool/machinetool.h"
 
 /*!
  * \brief Класс "Модуль взаимодействия с контроллером"
  * \brief является оберткой над классом UsbDevice, обеспечивая его единственность;
  */
-class UsbDeviceManager
+class UsbDevicesManager
 {
 private:
     /*!
@@ -32,8 +32,8 @@ public:
      * \brief Создает экземпляр класса ControllerConnector
      * \param machineTool станок, который необходимо свзять с контроллером
      */
-    UsbDeviceManager(const MachineTool *machineTool);
-    ~UsbDeviceManager();
+    UsbDevicesManager(const MachineTool *machineTool);
+    ~UsbDevicesManager();
 
     /*!
      * \brief getU1 Возвращает умный указатель на текущий контроллер u1
@@ -42,4 +42,4 @@ public:
     std::shared_ptr<UsbDevice> getU1() const;
 };
 
-#endif // USBDEVICEMANAGER_H
+#endif // USBDEVICESMANAGER_H

@@ -72,12 +72,14 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/arc.cpp \
     models/machinetool/commandsmanager/commands/line.cpp \
     models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.cpp \
-    models/controllerconnector/usbdevicemanager/usbdevicemanager.cpp \
+    models/controllerconnector/usbdevicesmanager/usbdevicesmanager.cpp \
     models/machinetool/pointsmanager/point/point.cpp \
     models/controllerconnector/debugmodule/debugmodule.cpp \
-    models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.cpp \
-    models/controllerconnector/usbdevicemanager/usbdevice/kflop.cpp \
-    models/controllerconnector/usbdevicemanager/usbdevice/u1.cpp
+    models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.cpp \
+    models/controllerconnector/usbdevicesmanager/usbdevice/kflop.cpp \
+    models/controllerconnector/usbdevicesmanager/usbdevice/u1.cpp \
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.cpp \
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -123,13 +125,15 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/commands.h \
     models/machinetool/commandsmanager/commands/command.h \
     models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h \
-    models/controllerconnector/usbdevicemanager/usbdevicemanager.h \
+    models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h \
     models/machinetool/pointsmanager/point/point.h \
     models/controllerconnector/debugmodule/debugmodule.h \
-    models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h \
-    models/controllerconnector/usbdevicemanager/usbdevice/kflop.h \
-    models/controllerconnector/usbdevicemanager/usbdevice/u1.h \
-    models/machinetool/movementshandler/movementshandler.h
+    models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h \
+    models/controllerconnector/usbdevicesmanager/usbdevice/kflop.h \
+    models/controllerconnector/usbdevicesmanager/usbdevice/u1.h \
+    models/machinetool/movementshandler/movementshandler.h \
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h \
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h
 
 
 FORMS    += gui/mainwindow.ui \

@@ -1,6 +1,6 @@
-#include "usbdevicemanager.h"
+#include "usbdevicesmanager.h"
 
-UsbDeviceManager::UsbDeviceManager(const MachineTool *machineTool)
+UsbDevicesManager::UsbDevicesManager(const MachineTool *machineTool)
 {
     try
     {
@@ -13,12 +13,12 @@ UsbDeviceManager::UsbDeviceManager(const MachineTool *machineTool)
     }
 }
 
-std::shared_ptr<UsbDevice> UsbDeviceManager::getU1() const
+std::shared_ptr<UsbDevice> UsbDevicesManager::getU1() const
 {
     return u1;
 }
 
-UsbDeviceManager::~UsbDeviceManager()
+UsbDevicesManager::~UsbDevicesManager()
 {
 
 }

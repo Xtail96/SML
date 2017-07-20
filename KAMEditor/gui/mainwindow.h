@@ -59,9 +59,9 @@
 #include "gcodessyntaxhighlighter.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
 
-#include "models/controllerconnector/usbdevicemanager/usbdevice/usbdevice.h"
+#include "models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h"
 #include "models/controllerconnector/debugmodule/debugmodule.h"
-#include "models/controllerconnector/usbdevicemanager/usbdevicemanager.h"
+#include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
 
 #define VENDOR_ID  0x10c4 //0x125f
 #define PRODUCT_ID 0xea61 //0x385a
@@ -113,7 +113,7 @@ private:
 
 
     MachineTool* machineTool;
-    UsbDeviceManager* u1Connector;
+    UsbDevicesManager* u1Connector;
 
 protected:
     void updatePoints();
