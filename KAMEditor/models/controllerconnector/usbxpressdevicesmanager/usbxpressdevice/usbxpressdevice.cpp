@@ -7,5 +7,6 @@ UsbXpressDevice::UsbXpressDevice()
 
 void UsbXpressDevice::initialize()
 {
-
+    DWORD num;
+    SI_STATUS res = SI_GetNumDevices(&num);
 }

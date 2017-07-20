@@ -19,6 +19,7 @@ win32 {
   LIBS += -lglu32 -lopengl32
   LIBS += -L"$$PWD/libusb/libs"
   LIBS += -llibusb-1.0.dll
+  LIBS += -L$$PWD/usbxpress/libs/ -lSiUSBXp
 }
 macx {
   LIBS += -framework OpenGl
@@ -28,6 +29,10 @@ macx {
 unix {
   LIBS += -lusb-1.0
 }
+
+INCLUDEPATH += $$PWD/usbxpress/include
+DEPENDPATH += $$PWD/usbxpress/include
+
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
@@ -133,7 +138,8 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbdevicesmanager/usbdevice/u1.h \
     models/machinetool/movementshandler/movementshandler.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h \
-    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h \
+    dependencies.h
 
 
 FORMS    += gui/mainwindow.ui \
