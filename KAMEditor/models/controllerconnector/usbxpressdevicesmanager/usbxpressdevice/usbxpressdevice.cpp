@@ -5,6 +5,11 @@ UsbXpressDevice::UsbXpressDevice()
     initialize();
 }
 
+UsbXpressDevice::~UsbXpressDevice()
+{
+    SI_Close(siDeviceHandle);
+}
+
 void UsbXpressDevice::initialize()
 {
     DWORD num;
@@ -37,8 +42,8 @@ void UsbXpressDevice::initialize()
             code = SI_Open(siDeviceNumber, &siDeviceHandle);
             if(code == SI_SUCCESS)
             {
-                /*SI_SETTIMEOUTS(500, 500);
-                SI_FLUSHBUFFERS(siDeviceHandle, 1, 1);*/
+                SI_SetTimeouts(500, 500);
+                SI_FlushBuffers(siDeviceHandle, 1, 1);
             }
             else
             {
