@@ -1,3 +1,7 @@
+# External dependencies
+libusb
+usbxpress
+
 # C++ objects and libs
 
 *.slo
