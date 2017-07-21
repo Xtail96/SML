@@ -19,7 +19,7 @@ class SiLabsU1 : public UsbXpressDevice
 public:
     SiLabsU1(MachineTool *machineTool);
     byte_array receiveData(int packetSize);
-    unsigned int sendData(const byte_array &data);
+    void sendData(const byte_array &data);
 
     void displayData(const byte_array &data);
 };

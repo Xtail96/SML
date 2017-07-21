@@ -50,7 +50,7 @@ void SiLabsU1::requestReceiving()
     sendData(data);
 }
 
-unsigned int SiLabsU1::sendData(const byte_array& data)
+void SiLabsU1::sendData(const byte_array& data)
 {
     byte* rawDataPtr = const_cast<byte*>(data.data());
     DWORD transferred = 0;
@@ -67,7 +67,6 @@ unsigned int SiLabsU1::sendData(const byte_array& data)
         errMsg += " из " + std::to_string(data.size());
         throw std::runtime_error(errMsg);
     }
-    return transferred;
 }
 
 void SiLabsU1::displayData(const byte_array& data)
