@@ -53,29 +53,21 @@ void SiLabsU1::requestReceiving()
 unsigned int SiLabsU1::sendData(const byte_array& data)
 {
     byte* rawDataPtr = const_cast<byte*>(data.data());
-    DWORD rawTransferredDataSize = 0;
-
-    SI_STATUS code = SI_Write(siDeviceHandle, rawDataPtr, data.size(), &rawTransferredDataSize);
-
-    qDebug() << "transferred" << rawTransferredDataSize << endl;
-
+    DWORD transferred = 0;
+    SI_STATUS code = SI_Write(siDeviceHandle, rawDataPtr, data.size(), &transferred);
     if(code != 0)
     {
         std::string errMsg = "Не могу отправить запрос на получение данных о станке" + std::to_string(code);
         throw std::runtime_error(errMsg);
     }
-
     // если число запрошенных и отправленных байт не совпадает, ошибка
-    /*if (data.size() != transferred)
+    if (data.size() != transferred)
     {
-        std::string errMsg = libusb_error_name(code);
-        errMsg += " Отправлено " + std::to_string(transferred) + " байт ";
+        std::string errMsg = " Отправлено " + std::to_string(transferred) + " байт ";
         errMsg += " из " + std::to_string(data.size());
-
         throw std::runtime_error(errMsg);
-    }*/
-
-    return rawTransferredDataSize;
+    }
+    return transferred;
 }
 
 void SiLabsU1::displayData(const byte_array& data)
