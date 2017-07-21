@@ -6,18 +6,14 @@ SiLabsU1::SiLabsU1(MachineTool *machineTool) :
 
 }
 
-byte_array SiLabsU1::receiveData(int packetSize)
+byte_array SiLabsU1::receiveData(unsigned int packetSize)
 {
     try
     {
         byte_array data(packetSize, 0);
         DWORD transferred = 0;
-
         requestReceiving();
-
-        //int code = libusb_bulk_transfer(deviceHandle, endPointIn, data.data(), data.size(), &transferred, RECV_TIMEOUT);
         SI_STATUS code = SI_Read(siDeviceHandle, data.data(), data.size(), &transferred);
-        qDebug() << "transferred" << transferred << "bytes" << endl;
         if(code != 0)
         {
             std::string errMsg = libusb_error_name(code);
@@ -25,17 +21,15 @@ byte_array SiLabsU1::receiveData(int packetSize)
             throw std::runtime_error(errMsg);
         }
 
-//        // если число запрошенных и полученных байт не совпадает, ошибка
-//        if (packetSize != transferred)
-//        {
-//            std::string errMsg = libusb_error_name(code);
-//            errMsg += " Получено " + std::to_string(transferred) + " байт ";
-//            errMsg += " из " + std::to_string(packetSize);
+        // если число запрошенных и полученных байт не совпадает, ошибка
+        if (packetSize != transferred)
+        {
+            std::string errMsg = libusb_error_name(code);
+            errMsg += " Получено " + std::to_string(transferred) + " байт ";
+            errMsg += " из " + std::to_string(packetSize);
 
-//            throw std::runtime_error(errMsg);
-//        }
-
-        displayData(data);
+            throw std::runtime_error(errMsg);
+        }
         return data;
     }
     catch(std::runtime_error e)

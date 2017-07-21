@@ -821,7 +821,7 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
             QString recievedData;
             for(auto it : recieved)
             {
-                recievedData = QString::number(it, 16);
+                recievedData = QString::number(it, 2);
                 ui->recievedDataTextEdit->append(recievedData);
             }
         }

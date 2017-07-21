@@ -31,7 +31,7 @@ public:
      * \param packetSize - ожидаемый размер полученных данных
      * \return данные, полученные от контроллера, в формате массива байт. Для хранения байта используется тип char
      */
-    byte_array receiveData(int packetSize);
+    byte_array receiveData(unsigned int packetSize);
 
     /*!
      * \brief Отправляет данные на контроллер
