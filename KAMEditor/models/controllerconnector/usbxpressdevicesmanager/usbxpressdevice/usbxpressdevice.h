@@ -6,24 +6,15 @@
 // usbxpress
 #include "dependencies.h"
 
+typedef unsigned char byte;
+typedef std::vector<byte> byte_array;
+
 /*!
  * \brief UsbXpressDevice Класс для работы с устройствами Silicon Labs с помощью бибилиотеки USBXpress
  */
 class UsbXpressDevice
 {
-public:
-    /// обработчик устройства
-    HANDLE siDeviceHandle;
-
-    UsbXpressDevice(std::string deviceName);
-    ~UsbXpressDevice();
-
-    /*!
-     * \brief Инициализирует устройтсва по его имени (SI_ProductString)
-     * \param deviceName - имя подключаемого устройтсва
-     */
-    void initialize(std::string deviceName);
-
+private:
     /*!
      * \brief Находит устройство в общем списке подключенных устройств от Silicon Labs
      * \param deviceName - имя устройства
@@ -37,6 +28,18 @@ public:
      * \param silabsDeviceNumber - номер устройства, может быть получен с помощью findDevice()
      */
     void setupSiLabsDevice(int silabsDeviceNumber);
+protected:
+    /// обработчик устройства
+    HANDLE siDeviceHandle;
+public:
+    UsbXpressDevice(std::string deviceName);
+    ~UsbXpressDevice();
+
+    /*!
+     * \brief Инициализирует устройтсва по его имени (SI_ProductString)
+     * \param deviceName - имя подключаемого устройтсва
+     */
+    void initialize(std::string deviceName);
 };
 
 #endif // USBXPRESSDEVICE_H

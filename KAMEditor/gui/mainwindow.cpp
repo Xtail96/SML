@@ -812,6 +812,24 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
+    ui->recievedDataTextEdit->clear();
+    if(u1 != nullptr)
+    {
+        try
+        {
+            byte_array recieved = u1->receiveData(16);
+            QString recievedData;
+            for(auto it : recieved)
+            {
+                recievedData = QString::number(it, 16);
+                ui->recievedDataTextEdit->append(recievedData);
+            }
+        }
+        catch(std::runtime_error e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
+    }
     /*std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
     if(u1 != NULL)
     {

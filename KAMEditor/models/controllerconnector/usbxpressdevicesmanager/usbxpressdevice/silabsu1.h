@@ -10,10 +10,18 @@
  */
 class SiLabsU1 : public UsbXpressDevice
 {
+    /*!
+     * \brief GET_MCU_STATE - получить данные о состоянии станка
+     */
+    const unsigned char GET_MCU_STATE = 9;
+
+    void requestReceiving();
 public:
     SiLabsU1(MachineTool *machineTool);
-    int receiveData();
-    int sendData();
+    byte_array receiveData(int packetSize);
+    unsigned int sendData(const byte_array &data);
+
+    void displayData(const byte_array &data);
 };
 
 #endif // SILABSU1_H
