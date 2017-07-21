@@ -15,7 +15,7 @@ public:
     /// обработчик устройства
     HANDLE siDeviceHandle;
 
-    UsbXpressDevice(std::string deviceName = "semil");
+    UsbXpressDevice(std::string deviceName);
     ~UsbXpressDevice();
 
     /*!

@@ -87,7 +87,7 @@ void MainWindow::initializeMachineTool()
 
     try
     {
-        u1 = new UsbXpressDevice("semir");
+        u1 = new SiLabsU1("semir");
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
         ui->statusBar->showMessage("Machine Tool is connected");
     }
