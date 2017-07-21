@@ -15,12 +15,34 @@ class SiLabsU1 : public UsbXpressDevice
      */
     const unsigned char GET_MCU_STATE = 9;
 
+    /*!
+     * \brief Осуществляет запрос на получение данных
+     */
     void requestReceiving();
 public:
+    /*!
+     * \brief Конструктор класса SiLabsU1
+     * \param machineTool - указатель на подключаемый к контроллеру станок
+     */
     SiLabsU1(MachineTool *machineTool);
+
+    /*!
+     * \brief Получает данные от контроллера
+     * \param packetSize - ожидаемый размер полученных данных
+     * \return данные, полученные от контроллера, в формате массива байт. Для хранения байта используется тип char
+     */
     byte_array receiveData(int packetSize);
+
+    /*!
+     * \brief Отправляет данные на контроллер
+     * \param data - отправляемые данные
+     */
     void sendData(const byte_array &data);
 
+    /*!
+     * \brief Отображает данне в консоли Qt
+     * \param data - отображаемые данные
+     */
     void displayData(const byte_array &data);
 };
 
