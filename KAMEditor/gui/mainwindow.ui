@@ -2561,6 +2561,13 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
+            <widget class="QPushButton" name="connectWithControllersPushButton">
+             <property name="text">
+              <string>Подключиться</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QGroupBox" name="millActionsGroupBox">
              <property name="title">
               <string>Работа с фрезерами:</string>
