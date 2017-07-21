@@ -864,19 +864,3 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
     }
     ui->statusBar->showMessage(message);*/
 }
-
-void MainWindow::on_connectWithControllersPushButton_clicked()
-{
-    try
-    {
-        u1Manager->getU1()->initialize(machineTool->getName());
-        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-        ui->statusBar->showMessage("Machine Tool is connected");
-    }
-    catch(std::runtime_error e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-        ui->statusBar->showMessage("Machine Tool is disconected");
-    }
-}
