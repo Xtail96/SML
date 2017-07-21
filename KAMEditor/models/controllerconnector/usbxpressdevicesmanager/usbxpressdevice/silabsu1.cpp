@@ -1,7 +1,7 @@
 #include "silabsu1.h"
 
-SiLabsU1::SiLabsU1(std::string deviceName) :
-    UsbXpressDevice(deviceName)
+SiLabsU1::SiLabsU1(MachineTool *machineTool) :
+    UsbXpressDevice(machineTool->getName())
 {
 
 }

@@ -25,7 +25,7 @@
 class MachineTool
 {
 public:
-    MachineTool(uint16_t _vendorId, uint16_t _productId, const unsigned int _axisesCount = 3);
+    MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _name, const unsigned int _axisesCount = 3);
     ~MachineTool();
 
     MovementsHandler getMovementController() const;
@@ -42,10 +42,15 @@ public:
 
     PointsManager &getPointsManager();
 
+    std::string getName() const;
+    void setName(const std::string &value);
+
 private:
     uint16_t vendorId;
 
     uint16_t productId;
+
+    std::string name;
 
     //! Датчики станка
     std::vector< std::shared_ptr<Sensor> > sensors;

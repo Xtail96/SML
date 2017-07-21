@@ -80,19 +80,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMachineTool()
 {
-    machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, 5);
+    machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
     updateSettingsField();
     initializeCoordinatesFields();
     initializePointsManager();
 
     try
     {
-        u1 = new SiLabsU1("semir");
+        u1 = new SiLabsU1(machineTool);
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
         ui->statusBar->showMessage("Machine Tool is connected");
     }
     catch(std::runtime_error e)
     {
+        u1 = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
         ui->statusBar->showMessage("Machine Tool is disconected");
