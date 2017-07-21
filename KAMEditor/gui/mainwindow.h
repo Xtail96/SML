@@ -63,6 +63,7 @@
 #include "models/controllerconnector/debugmodule/debugmodule.h"
 #include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
 
+#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
@@ -118,7 +119,7 @@ private:
     MachineTool* machineTool;
     //UsbDevicesManager* u1Connector;
 
-    SiLabsU1* u1;
+    UsbXpressDeviceManager* u1Manager;
 
 protected:
     void updatePoints();

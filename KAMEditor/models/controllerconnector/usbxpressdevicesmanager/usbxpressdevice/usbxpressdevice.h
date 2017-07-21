@@ -40,6 +40,11 @@ public:
      * \param deviceName - имя подключаемого устройтсва
      */
     void initialize(std::string deviceName);
+
+    /*!
+     * \brief Освобождает устройство
+     */
+    void free();
 };
 
 #endif // USBXPRESSDEVICE_H

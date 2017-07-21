@@ -7,7 +7,7 @@ UsbXpressDevice::UsbXpressDevice(std::string deviceName)
 
 UsbXpressDevice::~UsbXpressDevice()
 {
-    SI_Close(siDeviceHandle);
+   free();
 }
 
 void UsbXpressDevice::initialize(std::string deviceName)
@@ -36,6 +36,11 @@ void UsbXpressDevice::initialize(std::string deviceName)
         qDebug() << QString::fromStdString(errMsg);
         throw std::runtime_error(errMsg);
     }
+}
+
+void UsbXpressDevice::free()
+{
+    SI_Close(siDeviceHandle);
 }
 
 int UsbXpressDevice::findDevice(std::string deviceName, DWORD count)

@@ -74,7 +74,7 @@ MainWindow::~MainWindow()
     delete machineTool;
 
 
-    delete u1;
+    delete u1Manager;
     //delete u1Connector;
 }
 
@@ -87,13 +87,12 @@ void MainWindow::initializeMachineTool()
 
     try
     {
-        u1 = new SiLabsU1(machineTool);
+        u1Manager = new UsbXpressDeviceManager(machineTool);
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
         ui->statusBar->showMessage("Machine Tool is connected");
     }
     catch(std::runtime_error e)
     {
-        u1 = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
         ui->statusBar->showMessage("Machine Tool is disconected");
@@ -813,11 +812,11 @@ void MainWindow::on_savesettings_action_triggered()
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
     ui->recievedDataTextEdit->clear();
-    if(u1 != nullptr)
+    if(u1Manager->getU1() != nullptr)
     {
         try
         {
-            byte_array recieved = u1->receiveData(16);
+            byte_array recieved = u1Manager->getU1()->receiveData(16);
             QString recievedData;
             for(auto it : recieved)
             {
