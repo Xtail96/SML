@@ -30,12 +30,6 @@ public:
 
     MovementsHandler getMovementController() const;
 
-    std::vector<std::shared_ptr<Sensor> > getSensors() const;
-    void setSensors(const std::vector<std::shared_ptr<Sensor> > &value);
-
-    std::vector<std::shared_ptr<Device> > getDevices() const;
-    void setDevices(const std::vector<std::shared_ptr<Device> > &value);
-
     uint16_t getVendorId() const;
 
     uint16_t getProductId() const;
@@ -51,12 +45,6 @@ private:
     uint16_t productId;
 
     std::string name;
-
-    //! Датчики станка
-    std::vector< std::shared_ptr<Sensor> > sensors;
-
-    /// Внешние устройства
-    std::vector< std::shared_ptr<Device> > devices;
 
     MovementsHandler movementController;
     PointsManager pointsManager;
