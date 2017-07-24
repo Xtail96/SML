@@ -40,7 +40,10 @@ void UsbXpressDevice::initialize(std::string deviceName)
 
 void UsbXpressDevice::free()
 {
-    SI_Close(siDeviceHandle);
+    if(siDeviceHandle != NULL)
+    {
+        SI_Close(siDeviceHandle);
+    }
 }
 
 int UsbXpressDevice::findDevice(std::string deviceName, DWORD count)

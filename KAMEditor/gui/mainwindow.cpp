@@ -71,10 +71,10 @@ MainWindow::~MainWindow()
 
     delete hightlighter;
 
+    delete u1Manager;
+
     delete machineTool;
 
-
-    delete u1Manager;
     //delete u1Connector;
 }
 

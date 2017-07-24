@@ -14,14 +14,14 @@ UsbXpressDeviceManager::UsbXpressDeviceManager(MachineTool *_machineTool) :
     }
     catch(std::runtime_error e)
     {
-        u1 = nullptr;
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        u1 = NULL;
         throw;
     }
 }
 
 UsbXpressDeviceManager::~UsbXpressDeviceManager()
 {
+    u1->free();
     delete u1;
     delete machineTool;
 }
