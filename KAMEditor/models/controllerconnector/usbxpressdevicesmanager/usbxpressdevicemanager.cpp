@@ -14,14 +14,13 @@ UsbXpressDeviceManager::UsbXpressDeviceManager(MachineTool *_machineTool) :
     }
     catch(std::runtime_error e)
     {
-        u1 = NULL;
+        u1 = nullptr;
         throw;
     }
 }
 
 UsbXpressDeviceManager::~UsbXpressDeviceManager()
 {
-    u1->free();
     delete u1;
     delete machineTool;
 }

@@ -69,12 +69,11 @@ MainWindow::~MainWindow()
         editorShortcuts.pop_back();
     }
 
-    delete hightlighter;
-
     delete u1Manager;
 
     delete machineTool;
 
+    delete hightlighter;
     //delete u1Connector;
 }
 
@@ -93,6 +92,7 @@ void MainWindow::initializeMachineTool()
     }
     catch(std::runtime_error e)
     {
+        u1Manager = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
         ui->statusBar->showMessage("Machine Tool is disconected");

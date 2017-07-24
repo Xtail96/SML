@@ -30,7 +30,7 @@ private:
     void setupSiLabsDevice(int silabsDeviceNumber);
 protected:
     /// обработчик устройства
-    HANDLE siDeviceHandle;
+    HANDLE siDeviceHandle = NULL;
 public:
     UsbXpressDevice(std::string deviceName);
     ~UsbXpressDevice();
