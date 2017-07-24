@@ -418,31 +418,22 @@ void MainWindow::updateKabriolAvaliability()
 void MainWindow::updateMachineToolStatus()
 {
     ui->recievedDataTextEdit->clear();
-    if(u1Manager->getU1() != nullptr)
+    try
     {
-        try
+        byte_array recieved = u1Manager->getU1()->receiveData(16);
+        QString recievedData;
+        for(auto it : recieved)
         {
-            byte_array recieved = u1Manager->getU1()->receiveData(16);
-            QString recievedData;
-            for(auto it : recieved)
-            {
-                recievedData = QString::number(it, 2);
-                ui->recievedDataTextEdit->append(recievedData);
-            }
-            showMachineToolConnected();
+            recievedData = QString::number(it, 2);
+            ui->recievedDataTextEdit->append(recievedData);
         }
-        catch(std::runtime_error e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-            timer->stop();
-            showMachineToolDisconnected();
-        }
+        showMachineToolConnected();
     }
-    else
+    catch(std::runtime_error e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Ошибка обновления").exec();
-        showMachineToolDisconnected();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         timer->stop();
+        showMachineToolDisconnected();
     }
 }
 
