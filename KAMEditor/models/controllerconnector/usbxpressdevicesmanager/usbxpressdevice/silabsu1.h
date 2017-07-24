@@ -30,14 +30,16 @@ public:
      * \brief Получает данные от контроллера
      * \param packetSize - ожидаемый размер полученных данных
      * \return данные, полученные от контроллера, в формате массива байт. Для хранения байта используется тип char
+     * \warning является переопределением чисто вирутального метода базового класса
      */
-    byte_array receiveData(unsigned int packetSize);
+    byte_array receiveData(unsigned int packetSize) override;
 
     /*!
      * \brief Отправляет данные на контроллер
      * \param data - отправляемые данные
+     * \warning является переопределением чисто вирутального метода базового класса
      */
-    void sendData(const byte_array &data);
+    void sendData(const byte_array &data) override;
 
     /*!
      * \brief Отображает данне в консоли Qt

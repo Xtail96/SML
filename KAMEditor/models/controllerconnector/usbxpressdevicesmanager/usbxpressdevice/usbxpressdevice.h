@@ -45,6 +45,22 @@ public:
      * \brief Освобождает устройство
      */
     void free();
+
+    /*!
+     * \brief Получает данные от контроллера
+     * \param packetSize - ожидаемый размер полученных данных
+     * \return данные, полученные от контроллера, в формате массива байт. Для хранения байта используется тип char
+     * \warning чисто виртуальный метод
+     */
+    virtual byte_array receiveData(unsigned int packetSize) = 0;
+
+    /*!
+     * \brief Отправляет данные на контроллер
+     * \param data - отправляемые данные
+     * \warning чисто виртуальный метод
+     */
+    virtual void sendData(const byte_array &data) = 0;
+
 };
 
 #endif // USBXPRESSDEVICE_H
