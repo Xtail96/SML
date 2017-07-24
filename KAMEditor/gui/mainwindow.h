@@ -100,6 +100,8 @@ private:
 
     void initializePointsManager();
 
+    void initializeTimer();
+
     void setupShortcuts(); 
     void setupEditorShortcuts();
 
@@ -112,6 +114,10 @@ private:
     void updateCoordinates();
     void updateBatteryStatus();
     void updateKabriolAvaliability();
+
+    void updateMachineToolStatus();
+    void showMachineToolConnected();
+    void showMachineToolDisconnected();
 
     void setSelectedCommandVectorNumber(unsigned int& current_row);
 

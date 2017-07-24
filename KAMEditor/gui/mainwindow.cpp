@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
+
+
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
@@ -22,12 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
     hightlighter = new GCodesSyntaxHighlighter(this);
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
-
-    // таймер обновления окна координат
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->setInterval(100);
-    timer->start();
 
 
     // перевод кнопок, требующих дополнительных действий перед активацией, в неактивное состояние
@@ -49,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(ui->pointEditPushButton, SIGNAL(clicked(bool)), this, SLOT(on_pointsTableWidget_doubleClicked(QModelIndex)));
     connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+
+    initializeTimer();
 }
 
 MainWindow::~MainWindow()
@@ -87,15 +85,13 @@ void MainWindow::initializeMachineTool()
     try
     {
         u1Manager = new UsbXpressDeviceManager(machineTool);
-        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-        ui->statusBar->showMessage("Machine Tool is connected");
+        showMachineToolConnected();
     }
     catch(std::runtime_error e)
     {
         u1Manager = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-        ui->statusBar->showMessage("Machine Tool is disconected");
+        showMachineToolDisconnected();
     }
 
     /*u1Connector = new UsbDevicesManager(machineTool);
@@ -240,6 +236,14 @@ void MainWindow::initializePointsManager()
 
 }
 
+void MainWindow::initializeTimer()
+{
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->setInterval(100);
+    timer->start();
+}
+
 void MainWindow::setupShortcuts()
 {
     std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
@@ -296,10 +300,15 @@ void MainWindow::setupEditorShortcuts()
 
 void MainWindow::update()
 {
-    updateCoordinates();
     updateBatteryStatus();
-    updateKabriolAvaliability();
-    updateBaseStatus();
+
+    if(u1Manager != nullptr)
+    {
+        updateMachineToolStatus();
+        updateCoordinates();
+        //updateKabriolAvaliability();
+        //updateBaseStatus();
+    }
 }
 
 void MainWindow::deleteSelectedCommands()
@@ -404,6 +413,49 @@ void MainWindow::updateKabriolAvaliability()
         ui->movementBNegativePushButton->setEnabled(true);
         ui->movementBPositivePushButton->setEnabled(true);
     }
+}
+
+void MainWindow::updateMachineToolStatus()
+{
+    ui->recievedDataTextEdit->clear();
+    if(u1Manager->getU1() != nullptr)
+    {
+        try
+        {
+            byte_array recieved = u1Manager->getU1()->receiveData(16);
+            QString recievedData;
+            for(auto it : recieved)
+            {
+                recievedData = QString::number(it, 2);
+                ui->recievedDataTextEdit->append(recievedData);
+            }
+            showMachineToolConnected();
+        }
+        catch(std::runtime_error e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            timer->stop();
+            showMachineToolDisconnected();
+        }
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Ошибка обновления").exec();
+        showMachineToolDisconnected();
+        timer->stop();
+    }
+}
+
+void MainWindow::showMachineToolConnected()
+{
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+    ui->statusBar->showMessage("Machine Tool is connected");
+}
+
+void MainWindow::showMachineToolDisconnected()
+{
+    ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+    ui->statusBar->showMessage("Machine Tool is disconected");
 }
 
 void MainWindow::disableMovementButtonsShortcuts()
@@ -811,23 +863,11 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
-    ui->recievedDataTextEdit->clear();
-    if(u1Manager->getU1() != nullptr)
+    ui->finishDebugCommandLinkButton->setEnabled(true);
+    while(true)
     {
-        try
-        {
-            byte_array recieved = u1Manager->getU1()->receiveData(16);
-            QString recievedData;
-            for(auto it : recieved)
-            {
-                recievedData = QString::number(it, 2);
-                ui->recievedDataTextEdit->append(recievedData);
-            }
-        }
-        catch(std::runtime_error e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
+
+
     }
     /*std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
     if(u1 != NULL)
