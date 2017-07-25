@@ -855,43 +855,11 @@ void MainWindow::on_savesettings_action_triggered()
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
     ui->finishDebugCommandLinkButton->setEnabled(true);
-    while(true)
-    {
+    ui->startDegbugCommandLinkButton->setEnabled(false);
+}
 
-
-    }
-    /*std::shared_ptr<UsbDevice> u1 = u1Connector->getU1();
-    if(u1 != NULL)
-    {
-        try
-        {
-            byte_array recieved = u1->receiveData();
-            QString recievedData;
-            for(auto it : recieved)
-            {
-                recievedData += it + '\n';
-            }
-            ui->recievedDataTextEdit->setText(recievedData);
-        }
-        catch(std::runtime_error e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
-    }*/
-    /*int connectionCode = debuger->checkConnection();
-    QString message = "";
-    if(connectionCode == 0)
-    {
-        QString vid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentVendorId()));
-        QString pid = QString::fromStdString(std::to_string(debuger->getUsbConnector()->getCurrentProductId()));
-        message = QString("Device is open. vid:pid = ") + vid + ":" + pid;
-        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    }
-    else
-    {
-        QString openCodeQString = QString::fromStdString(std::to_string(connectionCode));
-        message = QString(QString("Device is not open. Error code = ") + openCodeQString);
-        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    }
-    ui->statusBar->showMessage(message);*/
+void MainWindow::on_finishDebugCommandLinkButton_clicked()
+{
+    ui->startDegbugCommandLinkButton->setEnabled(true);
+    ui->finishDebugCommandLinkButton->setEnabled(false);
 }
