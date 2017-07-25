@@ -103,7 +103,7 @@ private:
 
     void updateAxisSettingsField();
 
-    QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int parametrIndex, int axisIndex);
+    QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
     void initializeCoordinatesFields();
 
