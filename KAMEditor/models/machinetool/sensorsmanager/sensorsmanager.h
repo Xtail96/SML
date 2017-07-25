@@ -9,10 +9,12 @@
 
 class SensorsManager
 {
-public:
+private:
     std::vector< std::shared_ptr<Sensor> > sensors;
+public:
     SensorsManager();
     void initilize();
+    std::vector<std::shared_ptr<Sensor> > getSensors() const;
 };
 
 #endif // SENSORSMANAGER_H

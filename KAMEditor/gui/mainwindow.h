@@ -94,8 +94,17 @@ private:
 
 
     void initializeMachineTool();
-    void updateSettingsField();
+
+    void updateSettingsFields();
+
+    void updateSensorsSettingsField();
+
+    QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
+
+    void updateAxisSettingsField();
+
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
+
     void initializeCoordinatesFields();
 
     void initializePointsManager();

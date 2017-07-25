@@ -79,7 +79,7 @@ MainWindow::~MainWindow()
 void MainWindow::initializeMachineTool()
 {
     machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
-    updateSettingsField();
+    updateSettingsFields();
     initializeCoordinatesFields();
     initializePointsManager();
 
@@ -109,7 +109,13 @@ void MainWindow::initializeMachineTool()
     }*/
 }
 
-void MainWindow::updateSettingsField()
+void MainWindow::updateSettingsFields()
+{
+    updateAxisSettingsField();
+    updateSensorsSettingsField();
+}
+
+void MainWindow::updateAxisSettingsField()
 {
     ui->axisSettingsTableWidget->clear();
 
@@ -186,6 +192,61 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
     }
     return new QTableWidgetItem(QString::fromStdString(text));
 }
+
+
+void MainWindow::updateSensorsSettingsField()
+{
+    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager().getSensors();
+    int sensorsCount = sensors.size();
+    QStringList sensorsLabels;
+    for(auto sensor : sensors)
+    {
+        sensorsLabels.push_back(QString::fromStdString(sensor->getName()));
+    }
+    ui->sensorsTableWidget->setRowCount(sensorsCount);
+    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+
+    QStringList qHorizontalHeaders =
+    {
+        "Номер порта",
+        "Номер выхода",
+        "Состояние по умолчанию",
+    };
+    ui->sensorsTableWidget->setColumnCount(qHorizontalHeaders.size());
+    ui->sensorsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+
+    // растянуть таблицу с координатами редактора точек
+    for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->sensorsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->sensorsTableWidget->verticalHeader()->count(); j++)
+        {
+            QTableWidgetItem *item = fillSensorsSettingsTable(sensors, i, j);
+            ui->sensorsTableWidget->setItem(j, i, item);
+        }
+    }
+}
+
+QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex)
+{
+    std::string text = "Здесь должны быть параметры Датчика";
+    switch (parametrIndex) {
+    case 0:
+        text = std::to_string(sensors[sensorIndex]->getPortNumber());
+        break;
+    case 1:
+        text = std::to_string(sensors[sensorIndex]->getInputNumber());
+        break;
+    case 2:
+        text = std::to_string(sensors[sensorIndex]->getIsEnable());
+        break;
+    default:
+        text = "Unknown parametr";
+        break;
+    }
+    return new QTableWidgetItem(QString::fromStdString(text));
+}
+
 
 void MainWindow::initializeCoordinatesFields()
 {

@@ -1,5 +1,10 @@
 #include "sensorsmanager.h"
 
+std::vector<std::shared_ptr<Sensor> > SensorsManager::getSensors() const
+{
+    return sensors;
+}
+
 SensorsManager::SensorsManager()
 {
     initilize();
