@@ -6,7 +6,10 @@ bool Sensor::getIsEnable() const
 
 void Sensor::setIsEnable(bool value)
 {
-    isEnable = value;
+    if(isEnable != value)
+    {
+        isEnable = value;
+    }
 }
 
 unsigned int Sensor::getPortNumber() const
