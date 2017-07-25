@@ -85,7 +85,8 @@ SOURCES += main.cpp\
     models/controllerconnector/usbdevicesmanager/usbdevice/u1.cpp \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.cpp \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.cpp \
-    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
+    models/machinetool/sensorsmanager/sensorsmanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -141,7 +142,8 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h \
     dependencies.h \
-    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h
+    models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
+    models/machinetool/sensorsmanager/sensorsmanager.h
 
 
 FORMS    += gui/mainwindow.ui \

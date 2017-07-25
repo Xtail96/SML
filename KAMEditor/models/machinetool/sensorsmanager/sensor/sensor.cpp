@@ -9,8 +9,23 @@ void Sensor::setIsEnable(bool value)
     isEnable = value;
 }
 
-Sensor::Sensor(std::string _name, unsigned int _inputNumber, bool _isEnable) :
-    name(_name), inputNumber(_inputNumber), isEnable(_isEnable)
+unsigned int Sensor::getPortNumber() const
+{
+    return portNumber;
+}
+
+unsigned int Sensor::getInputNumber() const
+{
+    return inputNumber;
+}
+
+std::string Sensor::getName() const
+{
+    return name;
+}
+
+Sensor::Sensor(std::string _name, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable) :
+    name(_name), portNumber(_portNumber), inputNumber(_inputNumber), isEnable(_isEnable)
 {
 
 }

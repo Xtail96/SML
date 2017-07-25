@@ -80,4 +80,14 @@ struct
         }
     }
 } axisesNames;
+
+struct
+{
+
+} machineToolStateBuffer;
+
+struct
+{
+
+} sensorsMap;
 #endif // VECTOR_H

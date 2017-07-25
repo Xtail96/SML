@@ -14,6 +14,7 @@
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 #include "models/machinetool/commandsmanager/commandsmanager.h"
+#include "models/machinetool/sensorsmanager/sensorsmanager.h"
 
 /**
  * \brief Класс "Станок"
@@ -39,6 +40,8 @@ public:
     std::string getName() const;
     void setName(const std::string &value);
 
+    SensorsManager getSensorsManager() const;
+
 private:
     uint16_t vendorId;
 
@@ -48,6 +51,7 @@ private:
 
     MovementsHandler movementController;
     PointsManager pointsManager;
+    SensorsManager sensorsManager;
     CommandsManager commandsManager;
     CommandInterpreter commandInterpreter;
 };
