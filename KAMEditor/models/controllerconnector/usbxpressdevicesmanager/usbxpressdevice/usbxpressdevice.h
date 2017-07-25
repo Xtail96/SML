@@ -1,12 +1,12 @@
 #ifndef USBXPRESSDEVICE_H
 #define USBXPRESSDEVICE_H
 
-#ifdef Q_OS_WIN
-
 #include <QDebug>
 
 // usbxpress
 #include "dependencies.h"
+
+#ifdef Q_OS_WIN
 
 typedef unsigned char byte;
 typedef std::vector<byte> byte_array;

@@ -1,10 +1,10 @@
 #ifndef USBXPRESSDEVICEMANAGER_H
 #define USBXPRESSDEVICEMANAGER_H
 
-#ifdef Q_OS_WIN
 #include "models/machinetool/machinetool.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
+#ifdef Q_OS_WIN
 class UsbXpressDeviceManager
 {
 private:

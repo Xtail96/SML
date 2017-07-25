@@ -1,11 +1,10 @@
 #ifndef SILABSU1_H
 #define SILABSU1_H
 
-#ifdef Q_OS_WIN
-
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
 #include "models/machinetool/machinetool.h"
 
+#ifdef Q_OS_WIN
 /*!
  * \brief SiLabsU1 класс являющийся представлением контроллера u1 в системе станка
  * Наследник UsbXpressDevice
