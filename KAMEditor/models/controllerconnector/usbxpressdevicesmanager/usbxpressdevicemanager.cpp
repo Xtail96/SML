@@ -1,4 +1,6 @@
+
 #include "usbxpressdevicemanager.h"
+#ifdef Q_OS_WIN
 
 SiLabsU1 *UsbXpressDeviceManager::getU1() const
 {
@@ -39,3 +41,4 @@ void UsbXpressDeviceManager::connectWithSiLabsDevice()
         throw;
     }
 }
+#endif

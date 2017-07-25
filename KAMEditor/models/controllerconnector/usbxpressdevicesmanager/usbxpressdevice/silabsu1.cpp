@@ -1,5 +1,6 @@
 #include "silabsu1.h"
 
+#ifdef Q_OS_WIN
 SiLabsU1::SiLabsU1(MachineTool *machineTool) :
     UsbXpressDevice(machineTool->getName())
 {
@@ -70,3 +71,4 @@ void SiLabsU1::displayData(const byte_array& data)
         qDebug() << QString::number(b, 16);
     }
 }
+#endif

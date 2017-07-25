@@ -1,6 +1,7 @@
 #ifndef USBXPRESSDEVICEMANAGER_H
 #define USBXPRESSDEVICEMANAGER_H
 
+#ifdef Q_OS_WIN
 #include "models/machinetool/machinetool.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
@@ -16,5 +17,6 @@ public:
 
     SiLabsU1* getU1() const;
 };
+#endif
 
 #endif // USBXPRESSDEVICEMANAGER_H

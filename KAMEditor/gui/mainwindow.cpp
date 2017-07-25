@@ -67,8 +67,9 @@ MainWindow::~MainWindow()
         editorShortcuts.pop_back();
     }
 
+#ifdef Q_OS_WIN
     delete u1Manager;
-
+#endif
     delete machineTool;
 
     delete hightlighter;
@@ -82,6 +83,7 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
+#ifdef Q_OS_WIN
     try
     {
         u1Manager = new UsbXpressDeviceManager(machineTool);
@@ -93,7 +95,7 @@ void MainWindow::initializeMachineTool()
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
         showMachineToolDisconnected();
     }
-
+#endif
     /*u1Connector = new UsbDevicesManager(machineTool);
     if(u1Connector->getU1() != NULL)
     {
@@ -301,7 +303,7 @@ void MainWindow::setupEditorShortcuts()
 void MainWindow::update()
 {
     updateBatteryStatus();
-
+#ifdef Q_OS_WIN
     if(u1Manager != nullptr)
     {
         updateMachineToolStatus();
@@ -309,6 +311,7 @@ void MainWindow::update()
         //updateKabriolAvaliability();
         //updateBaseStatus();
     }
+#endif
 }
 
 void MainWindow::deleteSelectedCommands()
@@ -417,6 +420,7 @@ void MainWindow::updateKabriolAvaliability()
 
 void MainWindow::updateMachineToolStatus()
 {
+#ifdef Q_OS_WIN
     ui->recievedDataTextEdit->clear();
     try
     {
@@ -435,6 +439,7 @@ void MainWindow::updateMachineToolStatus()
         timer->stop();
         showMachineToolDisconnected();
     }
+#endif
 }
 
 void MainWindow::showMachineToolConnected()

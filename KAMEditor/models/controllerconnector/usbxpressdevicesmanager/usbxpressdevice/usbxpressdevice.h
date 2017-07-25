@@ -1,6 +1,8 @@
 #ifndef USBXPRESSDEVICE_H
 #define USBXPRESSDEVICE_H
 
+#ifdef Q_OS_WIN
+
 #include <QDebug>
 
 // usbxpress
@@ -62,5 +64,6 @@ public:
     virtual void sendData(const byte_array &data) = 0;
 
 };
+#endif
 
 #endif // USBXPRESSDEVICE_H

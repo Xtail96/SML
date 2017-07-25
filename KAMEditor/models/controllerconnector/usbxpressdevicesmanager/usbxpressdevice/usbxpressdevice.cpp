@@ -1,5 +1,7 @@
+
 #include "usbxpressdevice.h"
 
+#ifdef Q_OS_WIN
 UsbXpressDevice::UsbXpressDevice(std::string deviceName)
 {
     initialize(deviceName);
@@ -80,3 +82,4 @@ void UsbXpressDevice::setupSiLabsDevice(int silabsDeviceNumber)
         throw std::runtime_error(errMsg);
     }
 }
+#endif

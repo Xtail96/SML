@@ -125,7 +125,9 @@ private:
     MachineTool* machineTool;
     //UsbDevicesManager* u1Connector;
 
+#ifdef Q_OS_WIN
     UsbXpressDeviceManager* u1Manager;
+#endif
 
 protected:
     void updatePoints();

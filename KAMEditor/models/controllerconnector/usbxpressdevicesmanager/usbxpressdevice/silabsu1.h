@@ -1,5 +1,8 @@
 #ifndef SILABSU1_H
 #define SILABSU1_H
+
+#ifdef Q_OS_WIN
+
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
 #include "models/machinetool/machinetool.h"
 
@@ -47,5 +50,6 @@ public:
      */
     void displayData(const byte_array &data);
 };
+#endif
 
 #endif // SILABSU1_H
