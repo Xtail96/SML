@@ -298,6 +298,31 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("bazaSearchSpeed", 40);
     settings->endGroup();
 
+    settings->beginGroup("Sensors");
+        settings->setValue("count", 3);
+        settings->setValue("0", "X Axis Sensor");
+        settings->setValue("1", "Y Axis Sensor");
+        settings->setValue("2", "Z Axis Sensor");
+    settings->endGroup();
+
+    settings->beginGroup("X Axis Sensor");
+        settings->setValue("portNumber", 0);
+        settings->setValue("inputNumber", 0);
+        settings->setValue("defaultState", false);
+    settings->endGroup();
+
+    settings->beginGroup("Y Axis Sensor");
+        settings->setValue("portNumber", 0);
+        settings->setValue("inputNumber", 1);
+        settings->setValue("defaultState", false);
+    settings->endGroup();
+
+    settings->beginGroup("Z Axis Sensor");
+        settings->setValue("portNumber", 0);
+        settings->setValue("inputNumber", 2);
+        settings->setValue("defaultState", false);
+    settings->endGroup();
+
     // применяем изменения
     saveSettings();
 }
