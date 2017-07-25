@@ -122,17 +122,17 @@ void MainWindow::updateAxisSettingsField()
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
     int axisCount = axises.size();
 
-    QStringList qHorizontalHeaders;
+    QStringList qVerticalHeaders;
     for(auto axis : axises)
     {
         QString header = QString("Ось " + QString::fromStdString(axis->getName()));
-        qHorizontalHeaders.append(header);
+        qVerticalHeaders.append(header);
     }
 
-    ui->axisSettingsTableWidget->setColumnCount(axisCount);
-    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+    ui->axisSettingsTableWidget->setRowCount(axisCount);
+    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qVerticalHeaders);
 
-    QStringList qVerticalHeaders =
+    QStringList qHorizontalHeaders =
     {
         "Длина",
         "Шаг",
@@ -143,8 +143,8 @@ void MainWindow::updateAxisSettingsField()
         "Скорость Базирования",
         "Канал"
     };
-    ui->axisSettingsTableWidget->setRowCount(qVerticalHeaders.size());
-    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qVerticalHeaders);
+    ui->axisSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
+    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
 
 
     for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
@@ -158,7 +158,7 @@ void MainWindow::updateAxisSettingsField()
     }
 }
 
-QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex)
+QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int parametrIndex, int axisIndex)
 {
     std::string text = "Здесь должны быть параметры оси";
     switch (parametrIndex) {
