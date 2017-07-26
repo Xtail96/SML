@@ -327,25 +327,32 @@ void MainWindow::updateSensorsField()
     ui->sensorsTableWidget->setRowCount(sensorsCount);
     ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
 
-    QStringList qHorizontalHeaders =
+    QStringList headers =
     {
-        "Датчик активен?"
+        "Датчики"
     };
-    ui->sensorsTableWidget->setColumnCount(qHorizontalHeaders.size());
-    ui->sensorsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+    ui->sensorsTableWidget->setColumnCount(headers.size());
+    ui->sensorsTableWidget->setHorizontalHeaderLabels(headers);
 
-    // растянуть таблицу с координатами
+    // растянуть таблицу
     for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->sensorsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         for(int j = 0; j < ui->sensorsTableWidget->verticalHeader()->count(); j++)
         {
-            std::string text = std::to_string(sensors[j]->getIsEnable());
-            QTableWidgetItem *item = new QTableWidgetItem(QString::fromStdString(text));;
+            bool isEnable = sensors[j]->getIsEnable();
+            QTableWidgetItem *item = new QTableWidgetItem();
+            if(isEnable == false)
+            {
+                item->setBackgroundColor(QColor("#55bb55"));
+            }
+            else
+            {
+                item->setBackgroundColor(QColor("#b22222"));
+            }
             ui->sensorsTableWidget->setItem(j, i, item);
         }
     }
-
 }
 
 void MainWindow::setupShortcuts()
