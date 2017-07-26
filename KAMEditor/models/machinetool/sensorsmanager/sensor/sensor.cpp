@@ -33,3 +33,15 @@ Sensor::Sensor(std::string _name, unsigned int _portNumber, unsigned int _inputN
 
 }
 
+Sensor::Sensor(std::string _name) :
+    name(_name), portNumber(0), inputNumber(0), isEnable(false)
+{
+
+}
+
+void Sensor::setup(SettingsManager settingsManager)
+{
+    portNumber = QVariant(settingsManager.get(QString::fromStdString(name), "portNumber")).toUInt();
+    inputNumber = QVariant(settingsManager.get(QString::fromStdString(name), "inputNumber")).toUInt();
+    isEnable = QVariant(settingsManager.get(QString::fromStdString(name), "defaultState")).toBool();
+}

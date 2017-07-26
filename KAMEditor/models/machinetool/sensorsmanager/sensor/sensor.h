@@ -4,6 +4,7 @@
 #include <string>
 
 #include "models/structs.h"
+#include "models/machinetool/settingsmanager/settingsmanager.h"
 
 /*!
  * \brief Класс Датчик
@@ -31,6 +32,8 @@ public:
      * \param _isEnable - текущее состояние датчика
      */
     Sensor(std::string _name, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable = false);
+
+    Sensor(std::string _name);
 
     /*!
      * \brief Получает текущее состояние датчика
@@ -61,6 +64,8 @@ public:
      * \return имя датчика
      */
     std::string getName() const;
+
+    void setup(SettingsManager settingsManager);
 };
 
 #endif // SENSOR_H
