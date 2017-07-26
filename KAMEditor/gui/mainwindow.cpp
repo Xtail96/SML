@@ -83,6 +83,7 @@ void MainWindow::initializeMachineTool()
     machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
     updateSettingsFields();
     initializeCoordinatesFields();
+    initializePointsManager();
 
 #ifdef Q_OS_WIN
     try
@@ -218,7 +219,7 @@ void MainWindow::updateSensorsSettingsField()
     ui->sensorsSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
     ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
 
-    // растянуть таблицу с координатами редактора точек
+    // растянуть таблицу с координатами
     for (int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
