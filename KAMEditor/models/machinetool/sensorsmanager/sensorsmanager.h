@@ -19,7 +19,7 @@ private:
     std::vector< std::shared_ptr<Sensor> > sensors;
 public:
     /*!
-     * \brief Конструктор класса "Датчик"
+     * \brief Конструктор класса "Менеджер датчиков"
      */
     SensorsManager();
 
