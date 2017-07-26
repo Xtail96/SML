@@ -1,6 +1,5 @@
 #include "sensorsmanager.h"
-
-std::vector<std::shared_ptr<Sensor> > SensorsManager::getSensors() const
+std::vector<std::shared_ptr<Sensor> >& SensorsManager::getSensors()
 {
     return sensors;
 }
@@ -17,22 +16,18 @@ void SensorsManager::initilize()
     {
         unsigned int sensorsCount = QVariant(settingsManager.get("Sensors", "count")).toUInt();
 
-        QStringList sensorsNames;
+        std::vector<std::string> sensorsNames;
         for(unsigned int i = 0; i < sensorsCount; i++)
         {
-            QString qSensorNumberString = QString::fromStdString(std::to_string(i));
-            QVariant tmp = settingsManager.get("Sensors", qSensorNumberString);
-            sensorsNames.push_back(tmp.toString());
+            std::string sensorNumberString = std::to_string(i);
+            QVariant tmp = settingsManager.get("Sensors", QString::fromStdString(sensorNumberString));
+            sensorsNames.push_back(tmp.toString().toStdString());
         }
 
-        for(int i = 0; i < sensorsNames.size(); i++)
+        for(unsigned int i = 0; i < sensorsNames.size(); i++)
         {
-            QString currentSensorName = sensorsNames[i];
-
-            unsigned int portNumber = QVariant(settingsManager.get(currentSensorName, "portNumber")).toUInt();
-            unsigned int inputNumber = QVariant(settingsManager.get(currentSensorName, "inputNumber")).toUInt();
-            bool defaultState = QVariant(settingsManager.get(currentSensorName, "defaultState")).toBool();
-            Sensor* tmp = new Sensor(currentSensorName.toStdString(), portNumber, inputNumber, defaultState);
+            Sensor* tmp = new Sensor(sensorsNames[i]);
+            tmp->setup(settingsManager);
             sensors.push_back(std::shared_ptr<Sensor>(tmp));
         }
     }

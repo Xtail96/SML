@@ -32,7 +32,7 @@ public:
      * \brief Возвращает датчики станка
      * \return вектор умных указателей на датчики станка
      */
-    std::vector<std::shared_ptr<Sensor> > getSensors() const;
+    std::vector<std::shared_ptr<Sensor> > &getSensors();
 };
 
 #endif // SENSORSMANAGER_H
