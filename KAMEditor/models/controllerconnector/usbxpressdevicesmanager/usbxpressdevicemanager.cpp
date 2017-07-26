@@ -1,4 +1,3 @@
-
 #include "usbxpressdevicemanager.h"
 #ifdef Q_OS_WIN
 

@@ -66,14 +66,15 @@ MainWindow::~MainWindow()
         delete editorShortcuts.back();
         editorShortcuts.pop_back();
     }
-    delete machineTool;
-
     delete hightlighter;
     //delete u1Connector;
 
 #ifdef Q_OS_WIN
     delete u1Manager;
+#elif
+    delete machineTool;
 #endif
+
 }
 
 void MainWindow::initializeMachineTool()

@@ -35,7 +35,7 @@ protected:
     HANDLE siDeviceHandle = nullptr;
 public:
     UsbXpressDevice(std::string deviceName);
-    ~UsbXpressDevice();
+    virtual ~UsbXpressDevice();
 
     /*!
      * \brief Инициализирует устройтсва по его имени (SI_ProductString)

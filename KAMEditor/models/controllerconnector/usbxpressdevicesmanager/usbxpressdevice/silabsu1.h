@@ -27,6 +27,7 @@ public:
      * \param machineTool - указатель на подключаемый к контроллеру станок
      */
     SiLabsU1(MachineTool *machineTool);
+    ~SiLabsU1();
 
     /*!
      * \brief Получает данные от контроллера

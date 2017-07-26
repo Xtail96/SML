@@ -42,7 +42,7 @@ void UsbXpressDevice::initialize(std::string deviceName)
 
 void UsbXpressDevice::free()
 {
-    if(siDeviceHandle != NULL)
+    if(siDeviceHandle != nullptr)
     {
         SI_Close(siDeviceHandle);
     }

@@ -7,6 +7,11 @@ SiLabsU1::SiLabsU1(MachineTool *machineTool) :
 
 }
 
+SiLabsU1::~SiLabsU1()
+{
+    free();
+}
+
 byte_array SiLabsU1::receiveData(unsigned int packetSize)
 {
     try
