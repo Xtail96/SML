@@ -83,7 +83,6 @@ void MainWindow::initializeMachineTool()
     machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
     updateSettingsFields();
     initializeCoordinatesFields();
-    initializePointsManager();
 
 #ifdef Q_OS_WIN
     try
@@ -205,8 +204,9 @@ void MainWindow::updateSensorsSettingsField()
     {
         sensorsLabels.push_back(QString::fromStdString(sensor->getName()));
     }
-    ui->sensorsTableWidget->setRowCount(sensorsCount);
-    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+    ui->sensorsSettingsTableWidget->setRowCount(sensorsCount);
+    ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+
 
     QStringList qHorizontalHeaders =
     {
@@ -215,17 +215,17 @@ void MainWindow::updateSensorsSettingsField()
         "Номер входа",
         "Активное состояние датчика",
     };
-    ui->sensorsTableWidget->setColumnCount(qHorizontalHeaders.size());
-    ui->sensorsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+    ui->sensorsSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
+    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
 
     // растянуть таблицу с координатами редактора точек
-    for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)
+    for (int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
     {
-        ui->sensorsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->sensorsTableWidget->verticalHeader()->count(); j++)
+        ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->sensorsSettingsTableWidget->verticalHeader()->count(); j++)
         {
             QTableWidgetItem *item = fillSensorsSettingsTable(sensors, i, j);
-            ui->sensorsTableWidget->setItem(j, i, item);
+            ui->sensorsSettingsTableWidget->setItem(j, i, item);
         }
     }
 }
@@ -311,6 +311,40 @@ void MainWindow::initializeTimer()
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->setInterval(100);
     timer->start();
+}
+
+void MainWindow::updateSensorsField()
+{
+    ui->sensorsTableWidget->clear();
+    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
+    int sensorsCount = sensors.size();
+    QStringList sensorsLabels;
+    for(auto sensor : sensors)
+    {
+        sensorsLabels.push_back(QString::fromStdString(sensor->getName()));
+    }
+    ui->sensorsTableWidget->setRowCount(sensorsCount);
+    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+
+    QStringList qHorizontalHeaders =
+    {
+        "Датчик активен?"
+    };
+    ui->sensorsTableWidget->setColumnCount(qHorizontalHeaders.size());
+    ui->sensorsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+
+    // растянуть таблицу с координатами
+    for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->sensorsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->sensorsTableWidget->verticalHeader()->count(); j++)
+        {
+            std::string text = std::to_string(sensors[j]->getIsEnable());
+            QTableWidgetItem *item = new QTableWidgetItem(QString::fromStdString(text));;
+            ui->sensorsTableWidget->setItem(j, i, item);
+        }
+    }
+
 }
 
 void MainWindow::setupShortcuts()
@@ -495,6 +529,7 @@ void MainWindow::updateMachineToolStatus()
         machineTool->getBuffer().setBuffer(recieved);
 
         machineTool->checkState();
+        updateSensorsField();
 
         QString recievedData;
         for(auto it : recieved)

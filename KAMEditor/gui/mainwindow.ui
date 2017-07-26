@@ -4069,12 +4069,38 @@
                  </property>
                  <item>
                   <widget class="QTabWidget" name="devicesTabWidget">
-                   <property name="currentIndex">
-                    <number>1</number>
+                   <property name="tabShape">
+                    <enum>QTabWidget::Rounded</enum>
                    </property>
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="sensorsTab">
+                    <attribute name="title">
+                     <string>Датчики</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_22">
+                     <item>
+                      <widget class="QTableWidget" name="sensorsTableWidget">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                       <property name="alternatingRowColors">
+                        <bool>true</bool>
+                       </property>
+                       <property name="gridStyle">
+                        <enum>Qt::SolidLine</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
                    <widget class="QWidget" name="toolLengthSensorTab">
                     <attribute name="title">
-                     <string>Датчик вылета инструмента</string>
+                     <string>Длина инструмента</string>
                     </attribute>
                     <layout class="QGridLayout" name="gridLayout_23">
                      <item row="0" column="2">
@@ -4860,7 +4886,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QTableWidget" name="sensorsTableWidget">
+         <widget class="QTableWidget" name="sensorsSettingsTableWidget">
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>

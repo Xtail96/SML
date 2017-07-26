@@ -111,6 +111,8 @@ private:
 
     void initializeTimer();
 
+    void updateSensorsField();
+
     void setupShortcuts(); 
     void setupEditorShortcuts();
 
