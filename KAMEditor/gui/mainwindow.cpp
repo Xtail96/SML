@@ -329,23 +329,19 @@ void MainWindow::updateSensorsField()
     ui->sensorsTableWidget->setColumnCount(1);
 
     // растянуть таблицу
-    for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
-        ui->sensorsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->sensorsTableWidget->verticalHeader()->count(); j++)
+        bool isEnable = sensors[i]->getIsEnable();
+        QTableWidgetItem *item = new QTableWidgetItem();
+        if(isEnable == false)
         {
-            bool isEnable = sensors[j]->getIsEnable();
-            QTableWidgetItem *item = new QTableWidgetItem();
-            if(isEnable == false)
-            {
-                item->setBackgroundColor(QColor("#55bb55"));
-            }
-            else
-            {
-                item->setBackgroundColor(QColor("#b22222"));
-            }
-            ui->sensorsTableWidget->setItem(j, i, item);
+            item->setBackgroundColor(QColor("#55bb55"));
         }
+        else
+        {
+            item->setBackgroundColor(QColor("#b22222"));
+        }
+        ui->sensorsTableWidget->setItem(i, 0, item);
     }
 }
 
