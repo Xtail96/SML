@@ -15,6 +15,9 @@ private:
     /// имя датчика
     std::string name;
 
+    /// имя платы, к которой подключен датчик
+    std::string boardName;
+
     /// номер порта, ко входу которого подключен датчик
     unsigned int portNumber;
 
@@ -31,7 +34,7 @@ public:
      * \param _inputNumber - номер входа
      * \param _isEnable - текущее состояние датчика
      */
-    Sensor(std::string _name, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable = false);
+    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable = false);
 
     Sensor(std::string _name);
 
@@ -64,6 +67,9 @@ public:
      * \return имя датчика
      */
     std::string getName() const;
+
+
+    std::string getBoardName() const;
 
     void setup(SettingsManager settingsManager);
 };

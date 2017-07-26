@@ -210,6 +210,7 @@ void MainWindow::updateSensorsSettingsField()
 
     QStringList qHorizontalHeaders =
     {
+        "Имя платы, к которой подключен датчик",
         "Номер порта",
         "Номер входа",
         "Состояние датчика при включении станка",
@@ -234,12 +235,15 @@ QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::s
     std::string text = "Здесь должны быть параметры Датчика";
     switch (parametrIndex) {
     case 0:
-        text = std::to_string(sensors[sensorIndex]->getPortNumber());
+        text = sensors[sensorIndex]->getBoardName();
         break;
     case 1:
-        text = std::to_string(sensors[sensorIndex]->getInputNumber());
+        text = std::to_string(sensors[sensorIndex]->getPortNumber());
         break;
     case 2:
+        text = std::to_string(sensors[sensorIndex]->getInputNumber());
+        break;
+    case 3:
         text = std::to_string(sensors[sensorIndex]->getIsEnable());
         break;
     default:

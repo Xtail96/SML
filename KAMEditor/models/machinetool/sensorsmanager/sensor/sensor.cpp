@@ -27,14 +27,19 @@ std::string Sensor::getName() const
     return name;
 }
 
-Sensor::Sensor(std::string _name, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable) :
-    name(_name), portNumber(_portNumber), inputNumber(_inputNumber), isEnable(_isEnable)
+std::string Sensor::getBoardName() const
+{
+    return boardName;
+}
+
+Sensor::Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable) :
+    name(_name), boardName(_boardName), portNumber(_portNumber), inputNumber(_inputNumber), isEnable(_isEnable)
 {
 
 }
 
 Sensor::Sensor(std::string _name) :
-    name(_name), portNumber(0), inputNumber(0), isEnable(false)
+    name(_name), boardName("undefined"),portNumber(0), inputNumber(0), isEnable(false)
 {
 
 }
@@ -43,5 +48,6 @@ void Sensor::setup(SettingsManager settingsManager)
 {
     portNumber = QVariant(settingsManager.get(QString::fromStdString(name), "portNumber")).toUInt();
     inputNumber = QVariant(settingsManager.get(QString::fromStdString(name), "inputNumber")).toUInt();
+    boardName = QVariant(settingsManager.get(QString::fromStdString(name), "boardName")).toString().toStdString();
     isEnable = QVariant(settingsManager.get(QString::fromStdString(name), "defaultState")).toBool();
 }

@@ -308,18 +308,21 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("X Axis Sensor");
         settings->setValue("portNumber", 0);
         settings->setValue("inputNumber", 0);
+        settings->setValue("boardName", "portal");
         settings->setValue("defaultState", false);
     settings->endGroup();
 
     settings->beginGroup("Y Axis Sensor");
         settings->setValue("portNumber", 0);
         settings->setValue("inputNumber", 1);
+        settings->setValue("boardName", "portal");
         settings->setValue("defaultState", false);
     settings->endGroup();
 
     settings->beginGroup("Z Axis Sensor");
         settings->setValue("portNumber", 0);
         settings->setValue("inputNumber", 2);
+        settings->setValue("boardName", "portal");
         settings->setValue("defaultState", false);
     settings->endGroup();
 
