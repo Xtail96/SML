@@ -28,6 +28,8 @@ private:
 
     /// сотояние датчика (включен/выключен)
     bool isEnable;
+
+    QColor color;
 public:
     /*!
      * \brief Конструктор класса "Датчик"
@@ -36,7 +38,7 @@ public:
      * \param _inputNumber - номер входа
      * \param _isEnable - текущее состояние датчика
      */
-    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _isEnable = false);
+    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _isEnable = false, QColor _color = QColor(0, 125, 0));
 
     Sensor(std::string _name);
 
@@ -77,6 +79,7 @@ public:
     void setup(SettingsManager settingsManager);
 
     bool isActive();
+    QColor getColor() const;
 };
 
 #endif // SENSOR_H

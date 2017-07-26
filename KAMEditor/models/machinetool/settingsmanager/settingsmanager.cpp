@@ -310,6 +310,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("inputNumber", 0);
         settings->setValue("boardName", "portal");
         settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("Y Axis Sensor");
@@ -317,6 +318,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("inputNumber", 1);
         settings->setValue("boardName", "portal");
         settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("Z Axis Sensor");
@@ -324,6 +326,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("inputNumber", 2);
         settings->setValue("boardName", "portal");
         settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
     settings->endGroup();
 
     // применяем изменения

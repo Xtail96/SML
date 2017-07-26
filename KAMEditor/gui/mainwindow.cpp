@@ -335,11 +335,11 @@ void MainWindow::updateSensorsField()
         QTableWidgetItem *item = new QTableWidgetItem();
         if(isEnable == false)
         {
-            item->setBackgroundColor(QColor("#55bb55"));
+            item->setBackgroundColor(QColor(255, 255, 255));
         }
         else
         {
-            item->setBackgroundColor(QColor("#b22222"));
+            item->setBackgroundColor(sensors[i]->getColor());
         }
         ui->sensorsTableWidget->setItem(i, 0, item);
     }
