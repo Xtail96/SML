@@ -326,13 +326,7 @@ void MainWindow::updateSensorsField()
     }
     ui->sensorsTableWidget->setRowCount(sensorsCount);
     ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
-
-    QStringList headers =
-    {
-        "Датчики"
-    };
-    ui->sensorsTableWidget->setColumnCount(headers.size());
-    ui->sensorsTableWidget->setHorizontalHeaderLabels(headers);
+    ui->sensorsTableWidget->setColumnCount(1);
 
     // растянуть таблицу
     for (int i = 0; i < ui->sensorsTableWidget->horizontalHeader()->count(); i++)

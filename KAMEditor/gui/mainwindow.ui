@@ -4094,6 +4094,9 @@
                        <property name="gridStyle">
                         <enum>Qt::SolidLine</enum>
                        </property>
+                       <attribute name="horizontalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
                       </widget>
                      </item>
                     </layout>
@@ -5448,7 +5451,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
