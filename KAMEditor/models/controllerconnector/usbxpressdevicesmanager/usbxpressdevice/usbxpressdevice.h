@@ -5,11 +5,9 @@
 
 // usbxpress
 #include "dependencies.h"
+#include "models/structs.h"
 
 #ifdef Q_OS_WIN
-
-typedef unsigned char byte;
-typedef std::vector<byte> byte_array;
 
 /*!
  * \brief UsbXpressDevice Класс для работы с устройствами Silicon Labs с помощью бибилиотеки USBXpress

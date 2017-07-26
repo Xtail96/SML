@@ -42,6 +42,8 @@ public:
 
     SensorsManager *getSensorsManager() const;
 
+    StateBuffer& getBuffer();
+
 private:
     uint16_t vendorId;
 
@@ -54,6 +56,8 @@ private:
     SensorsManager *sensorsManager;
     CommandsManager *commandsManager;
     CommandInterpreter *commandInterpreter;
+
+    StateBuffer buffer;
 };
 
 #endif // MACHINETOOL_H

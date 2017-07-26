@@ -53,3 +53,8 @@ SensorsManager *MachineTool::getSensorsManager() const
 {
     return sensorsManager;
 }
+
+StateBuffer &MachineTool::getBuffer()
+{
+    return buffer;
+}

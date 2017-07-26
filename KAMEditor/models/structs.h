@@ -4,6 +4,10 @@
 #include <vector>
 #include <map>
 
+#include <QDebug>
+
+typedef unsigned char byte;
+typedef std::vector<byte> byte_array;
 
 struct VectorDouble
 {
@@ -81,13 +85,79 @@ struct
     }
 } axisesNames;
 
-struct
+struct StateBuffer
 {
+    byte_array buffer;
+    byte axisesStateSensors;
+    void setBuffer(byte_array value)
+    {
+        if(value.size() >= 16)
+        {
+            buffer = value;
+            if(checkMachineToolStateChanged(value[2]))
+            {
+                axisesStateSensors = buffer[2];
+            }
+        }
+    }
 
-} machineToolStateBuffer;
+    bool checkMachineToolStateChanged(byte value)
+    {
+        bool isMachineToolStateChanged = false;
+        if(axisesStateSensors != value)
+        {
+            isMachineToolStateChanged = true;
+        }
+        return isMachineToolStateChanged;
+    }
 
-struct
-{
+    bool isActive(std::string plateName, unsigned int portNumber, unsigned int inputNumber)
+    {
+        bool isActive = false;
+        if(plateName == "portal")
+        {
+            isActive = findValueInAxisesStateSensors(portNumber, inputNumber);
+        }
+        return isActive;
+    }
 
-} sensorsMap;
+    bool findValueInAxisesStateSensors(unsigned int portNumber, unsigned int inputNumber)
+    {
+        bool isEnable = false;
+        switch (portNumber) {
+        case 1:
+        {
+            switch (inputNumber) {
+            case 0:
+                if(axisesStateSensors % 2 == 0)
+                {
+                    isEnable = true;
+                    qDebug() << "Sensor p1.0 is Active";
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            default:
+                break;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+        return isEnable;
+    }
+};
 #endif // VECTOR_H
