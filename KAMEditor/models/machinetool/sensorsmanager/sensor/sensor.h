@@ -70,11 +70,13 @@ public:
      */
     std::string getName() const;
 
-
     std::string getBoardName() const;
 
-    void setup(SettingsManager settingsManager);
     bool getActiveState() const;
+
+    void setup(SettingsManager settingsManager);
+
+    bool isActive();
 };
 
 #endif // SENSOR_H

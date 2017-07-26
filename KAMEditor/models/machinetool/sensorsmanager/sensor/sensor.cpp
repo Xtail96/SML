@@ -58,3 +58,8 @@ void Sensor::setup(SettingsManager settingsManager)
     activeState = QVariant(settingsManager.get(QString::fromStdString(name), "activeState")).toBool();
     isEnable = false;
 }
+
+bool Sensor::isActive()
+{
+    return (isEnable == activeState);
+}
