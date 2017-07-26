@@ -71,7 +71,8 @@ MainWindow::~MainWindow()
 
 #ifdef Q_OS_WIN
     delete u1Manager;
-#elif
+#endif
+#ifdef Q_OS_UNIX
     delete machineTool;
 #endif
 
