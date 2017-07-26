@@ -70,18 +70,18 @@ void AddPointDialog::on_buttonBox_accepted()
 
     if(!isEdit)
     {
-        machineTool->getPointsManager().addPoint(p);
+        machineTool->getPointsManager()->addPoint(p);
     }
     else
     {
-        machineTool->getPointsManager().operator [](pointNumber) = std::shared_ptr<Point>(p);
+        machineTool->getPointsManager()->operator [](pointNumber) = std::shared_ptr<Point>(p);
     }
 }
 
 void AddPointDialog::initializeFields()
 {
     ui->setupUi(this);
-    axises = machineTool->getMovementController().getAxises();
+    axises = machineTool->getMovementController()->getAxises();
     QStringList qColumnsHeaders =
     {
         "Значение"

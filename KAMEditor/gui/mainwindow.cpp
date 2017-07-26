@@ -66,14 +66,14 @@ MainWindow::~MainWindow()
         delete editorShortcuts.back();
         editorShortcuts.pop_back();
     }
-
-#ifdef Q_OS_WIN
-    delete u1Manager;
-#endif
     delete machineTool;
 
     delete hightlighter;
     //delete u1Connector;
+
+#ifdef Q_OS_WIN
+    delete u1Manager;
+#endif
 }
 
 void MainWindow::initializeMachineTool()
@@ -119,7 +119,7 @@ void MainWindow::updateAxisSettingsField()
 {
     ui->axisSettingsTableWidget->clear();
 
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     int axisCount = axises.size();
 
     QStringList qHorizontalHeaders;
@@ -196,7 +196,7 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
 
 void MainWindow::updateSensorsSettingsField()
 {
-    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager().getSensors();
+    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
     int sensorsCount = sensors.size();
     QStringList sensorsLabels;
     for(auto sensor : sensors)
@@ -251,7 +251,7 @@ QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::s
 void MainWindow::initializeCoordinatesFields()
 {
     QStringList axisesLabels;
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     for(auto axis : axises)
     {
         axisesLabels.push_back(QString(QString::fromStdString(axis->getName()) + ": "));
@@ -268,7 +268,7 @@ void MainWindow::initializeCoordinatesFields()
 
 void MainWindow::initializePointsManager()
 {
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController().getAxises();
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     int axisesCount = axises.size();
     QStringList axisesLabels;
 
@@ -405,7 +405,7 @@ void MainWindow::updateCoordinates()
 
 void MainWindow::updatePoints()
 {
-    PointsManager pointsManager = machineTool->getPointsManager();
+    PointsManager pointsManager = *(machineTool->getPointsManager());
     unsigned int pointsCount = pointsManager.pointCount();
     std::vector<QTableWidget*> tables = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     // проходим по каждой таблице
@@ -783,8 +783,8 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
     for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
     {
-        std::shared_ptr<Point> p = machineTool->getPointsManager().operator [](*i);
-        machineTool->getPointsManager().deletePoint(p);
+        std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](*i);
+        machineTool->getPointsManager()->deletePoint(p);
     }
     updatePoints();
 }
@@ -817,7 +817,7 @@ void MainWindow::on_pointEditPushButton_clicked()
         //select->selectedRows();
 
         int current_row = select->currentIndex().row();
-        AddPointDialog* editPoint = new AddPointDialog(machineTool, machineTool->getPointsManager().operator [](current_row), current_row, this);
+        AddPointDialog* editPoint = new AddPointDialog(machineTool, machineTool->getPointsManager()->operator [](current_row), current_row, this);
         editPoint->exec();
         delete editPoint;
         updatePoints();

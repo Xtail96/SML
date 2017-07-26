@@ -29,18 +29,18 @@ public:
     MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _name, const unsigned int _axisesCount = 3);
     ~MachineTool();
 
-    MovementsHandler getMovementController() const;
+    MovementsHandler *getMovementController() const;
 
     uint16_t getVendorId() const;
 
     uint16_t getProductId() const;
 
-    PointsManager &getPointsManager();
+    PointsManager *getPointsManager() const;
 
     std::string getName() const;
     void setName(const std::string &value);
 
-    SensorsManager getSensorsManager() const;
+    SensorsManager *getSensorsManager() const;
 
 private:
     uint16_t vendorId;
@@ -49,11 +49,11 @@ private:
 
     std::string name;
 
-    MovementsHandler movementController;
-    PointsManager pointsManager;
-    SensorsManager sensorsManager;
-    CommandsManager commandsManager;
-    CommandInterpreter commandInterpreter;
+    MovementsHandler *movementController;
+    PointsManager *pointsManager;
+    SensorsManager *sensorsManager;
+    CommandsManager *commandsManager;
+    CommandInterpreter *commandInterpreter;
 };
 
 #endif // MACHINETOOL_H
