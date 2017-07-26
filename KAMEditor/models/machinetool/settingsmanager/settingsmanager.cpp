@@ -306,24 +306,24 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("X Axis Sensor");
-        settings->setValue("portNumber", 0);
+        settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 0);
         settings->setValue("boardName", "portal");
-        settings->setValue("defaultState", false);
+        settings->setValue("activeState", false);
     settings->endGroup();
 
     settings->beginGroup("Y Axis Sensor");
-        settings->setValue("portNumber", 0);
+        settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 1);
         settings->setValue("boardName", "portal");
-        settings->setValue("defaultState", false);
+        settings->setValue("activeState", false);
     settings->endGroup();
 
     settings->beginGroup("Z Axis Sensor");
-        settings->setValue("portNumber", 0);
+        settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 2);
         settings->setValue("boardName", "portal");
-        settings->setValue("defaultState", false);
+        settings->setValue("activeState", false);
     settings->endGroup();
 
     // применяем изменения

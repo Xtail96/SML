@@ -58,3 +58,17 @@ StateBuffer &MachineTool::getBuffer()
 {
     return buffer;
 }
+
+void MachineTool::checkState()
+{
+    std::vector< std::shared_ptr<Sensor> >& sensors = sensorsManager->getSensors();
+    for(auto sensor : sensors)
+    {
+        bool isEnable = buffer.isActive(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        if(isEnable != sensor->getIsEnable())
+        {
+            sensor->setIsEnable(isEnable);
+            qDebug() << "Sensor change its state";
+        }
+    }
+}

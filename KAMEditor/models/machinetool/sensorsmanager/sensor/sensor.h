@@ -24,6 +24,8 @@ private:
     /// номер входа, к которому подключен датчик
     unsigned int inputNumber;
 
+    bool activeState;
+
     /// сотояние датчика (включен/выключен)
     bool isEnable;
 public:
@@ -34,7 +36,7 @@ public:
      * \param _inputNumber - номер входа
      * \param _isEnable - текущее состояние датчика
      */
-    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _isEnable = false);
+    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _isEnable = false);
 
     Sensor(std::string _name);
 
@@ -72,6 +74,7 @@ public:
     std::string getBoardName() const;
 
     void setup(SettingsManager settingsManager);
+    bool getActiveState() const;
 };
 
 #endif // SENSOR_H

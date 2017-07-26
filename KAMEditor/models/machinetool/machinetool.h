@@ -44,6 +44,8 @@ public:
 
     StateBuffer& getBuffer();
 
+    void checkState();
+
 private:
     uint16_t vendorId;
 

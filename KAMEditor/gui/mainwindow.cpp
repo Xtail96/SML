@@ -213,7 +213,7 @@ void MainWindow::updateSensorsSettingsField()
         "Имя платы, к которой подключен датчик",
         "Номер порта",
         "Номер входа",
-        "Состояние датчика при включении станка",
+        "Активное состояние датчика",
     };
     ui->sensorsTableWidget->setColumnCount(qHorizontalHeaders.size());
     ui->sensorsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
@@ -244,7 +244,7 @@ QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::s
         text = std::to_string(sensors[sensorIndex]->getInputNumber());
         break;
     case 3:
-        text = std::to_string(sensors[sensorIndex]->getIsEnable());
+        text = std::to_string(sensors[sensorIndex]->getActiveState());
         break;
     default:
         text = "Unknown parametr";
@@ -494,7 +494,7 @@ void MainWindow::updateMachineToolStatus()
         byte_array recieved = u1Manager->getU1()->receiveData(16);
         machineTool->getBuffer().setBuffer(recieved);
 
-        machineTool->getBuffer().isActive("portal", 1, 0);
+        machineTool->checkState();
 
         QString recievedData;
         for(auto it : recieved)

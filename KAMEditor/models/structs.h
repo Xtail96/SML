@@ -132,7 +132,6 @@ struct StateBuffer
                 if(axisesStateSensors % 2 == 0)
                 {
                     isEnable = true;
-                    qDebug() << "Sensor p1.0 is Active";
                 }
                 break;
             case 1:
