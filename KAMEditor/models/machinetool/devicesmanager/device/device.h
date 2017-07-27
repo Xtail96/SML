@@ -4,12 +4,34 @@
 
 #include <QMainWindow>
 
+#include "models/machinetool/settingsmanager/settingsmanager.h"
+
 class Device
 {
-    bool isOn;
+    std::string name;
+
+    std::string boardName;
+
+    unsigned int portNumber;
+
     unsigned int outputNumber;
+
+    bool activeState;
+
+    bool enable;
 public:
-    Device(unsigned int _outputNumber, bool _isOn = false);
+    Device(std::string _name);
+
+    void setup(SettingsManager settingsManager);
+
+    bool isEnable();
+
+    std::string getBoardName() const;
+    void setBoardName(const std::string &value);
+    unsigned int getPortNumber() const;
+    void setPortNumber(unsigned int value);
+    unsigned int getOutputNumber() const;
+    void setOutputNumber(unsigned int value);
 };
 
 #endif // DEVICE_H

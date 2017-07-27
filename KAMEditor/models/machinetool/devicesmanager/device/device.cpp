@@ -1,7 +1,51 @@
 #include "device.h"
 
-Device::Device(unsigned int _outputNumber, bool _isOn) :
-    outputNumber(_outputNumber), isOn(_isOn)
+std::string Device::getBoardName() const
+{
+    return boardName;
+}
+
+void Device::setBoardName(const std::string &value)
+{
+    boardName = value;
+}
+
+unsigned int Device::getPortNumber() const
+{
+    return portNumber;
+}
+
+void Device::setPortNumber(unsigned int value)
+{
+    portNumber = value;
+}
+
+unsigned int Device::getOutputNumber() const
+{
+    return outputNumber;
+}
+
+void Device::setOutputNumber(unsigned int value)
+{
+    outputNumber = value;
+}
+
+Device::Device(std::string _name) :
+    name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), enable(false)
 {
 
+}
+
+void Device::setup(SettingsManager settingsManager)
+{
+    QString qName = QString::fromStdString(name);
+    boardName = QVariant(settingsManager.get(qName, "boardName")).toString().toStdString();
+    portNumber = QVariant(settingsManager.get(qName, "portNumber")).toUInt();
+    outputNumber = QVariant(settingsManager.get(qName, "outputNumber")).toUInt();
+    activeState = QVariant(settingsManager.get(qName, "activeState")).toBool();
+}
+
+bool Device::isEnable()
+{
+    return (activeState == enable);
 }

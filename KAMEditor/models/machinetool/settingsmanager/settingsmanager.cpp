@@ -151,11 +151,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("SavedSizeZ", 100);
     settings->endGroup();
 
-    settings->beginGroup("Devices");
-        settings->setValue("Device1Name", "Фрезер");
-        settings->setValue("UseDevice1", 1);
-    settings->endGroup();
-
     settings->beginGroup("Home");
         settings->setValue("X", -15278);
         settings->setValue("Y", 9256);
@@ -366,13 +361,57 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-
     settings->beginGroup("Zero Sensor");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 3);
         settings->setValue("boardName", "portal");
         settings->setValue("activeState", false);
         settings->setValue("color", "#b22222");
+    settings->endGroup();
+
+    settings->beginGroup("Devices");
+        settings->setValue("count", 5);
+        settings->setValue("0", "Фрезер");
+        settings->setValue("1", "Фрезер 2");
+        settings->setValue("2", "Шпиндель");
+        settings->setValue("3", "Муфта");
+        settings->setValue("4", "САС");
+    settings->endGroup();
+
+    settings->beginGroup("Фрезер");
+        settings->setValue("portNumber", 1);
+        settings->setValue("outputNumber", 3);
+        settings->setValue("boardName", "u1");
+        settings->setValue("activeState", false);
+    settings->endGroup();
+
+    settings->beginGroup("Фрезер 2");
+        settings->setValue("portNumber", 1);
+        settings->setValue("outputNumber", 7);
+        settings->setValue("boardName", "u1");
+        settings->setValue("activeState", false);
+    settings->endGroup();
+
+    settings->beginGroup("Шпиндель");
+        settings->setValue("portNumber", 0);
+        settings->setValue("outputNumber", 3);
+        settings->setValue("invertOutputNumber", 2);
+        settings->setValue("boardName", "u1");
+        settings->setValue("activeState", false);
+    settings->endGroup();
+
+    settings->beginGroup("Муфта");
+        settings->setValue("portNumber", 1);
+        settings->setValue("outputNumber", 5);
+        settings->setValue("boardName", "u1");
+        settings->setValue("activeState", false);
+    settings->endGroup();
+
+    settings->beginGroup("САС");
+        settings->setValue("portNumber", 2);
+        settings->setValue("outputNumber", 0);
+        settings->setValue("boardName", "u1");
+        settings->setValue("activeState", false);
     settings->endGroup();
     // применяем изменения
     saveSettings();

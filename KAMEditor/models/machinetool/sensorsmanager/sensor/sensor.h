@@ -79,6 +79,7 @@ public:
     void setup(SettingsManager settingsManager);
 
     bool isActive();
+
     QColor getColor() const;
 };
 
