@@ -525,7 +525,7 @@ void MainWindow::updateMachineToolStatus()
     try
     {
         byte_array recieved = u1Manager->getU1()->receiveData(16);
-        machineTool->getBuffer().setBuffer(recieved);
+        machineTool->getBuffer().updateBuffer(recieved);
 
         machineTool->checkState();
         updateSensorsField();
