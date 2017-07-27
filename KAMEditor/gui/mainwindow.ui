@@ -2904,7 +2904,7 @@
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>14</pointsize>
+                  <pointsize>12</pointsize>
                  </font>
                 </property>
                 <property name="acceptDrops">
@@ -3406,6 +3406,12 @@
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="feedrateLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>2</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
@@ -3418,6 +3424,12 @@
                  </item>
                  <item row="0" column="1">
                   <widget class="QLCDNumber" name="feedrateLcdNumber">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="palette">
                     <palette>
                      <active>
@@ -3894,6 +3906,12 @@
                  </property>
                  <item row="0" column="1">
                   <widget class="QLCDNumber" name="rotationsLcdNumber">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="palette">
                     <palette>
                      <active>
@@ -4361,6 +4379,12 @@
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="rotationsLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>2</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
