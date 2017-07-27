@@ -68,7 +68,6 @@ void MachineTool::checkState()
         if(isEnable != sensor->getIsEnable())
         {
             sensor->setIsEnable(isEnable);
-            qDebug() << "Sensor change its state";
         }
     }
 }
