@@ -54,17 +54,17 @@ SensorsManager *MachineTool::getSensorsManager() const
     return sensorsManager;
 }
 
-StateBuffer &MachineTool::getBuffer()
+StatesBuffer &MachineTool::getBuffer()
 {
     return buffer;
 }
 
-void MachineTool::checkState()
+void MachineTool::updateSensors()
 {
     std::vector< std::shared_ptr<Sensor> >& sensors = sensorsManager->getSensors();
     for(auto sensor : sensors)
     {
-        bool isEnable = buffer.isActive(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        bool isEnable = buffer.isEnable(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
         if(isEnable != sensor->getIsEnable())
         {
             sensor->setIsEnable(isEnable);
