@@ -124,38 +124,55 @@ struct StateBuffer
     bool findValueInAxisesStateSensors(unsigned int portNumber, unsigned int inputNumber)
     {
         bool isEnable = false;
-        switch (portNumber) {
+        byte tmp = axisesStateSensors;
+
+        switch(portNumber) {
         case 1:
         {
-            switch (inputNumber) {
-            case 0:
-                if(axisesStateSensors % 2 == 0)
-                {
-                    isEnable = true;
-                }
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            default:
-                break;
+            tmp = tmp << (7-inputNumber);
+            tmp = tmp >> 7;
+            if(tmp == 0x00)
+            {
+                isEnable = true;
             }
             break;
         }
         default:
             break;
         }
+
+//        switch (portNumber) {
+//        case 1:
+//        {
+//            switch (inputNumber) {
+//            case 0:
+//                if(axisesStateSensors % 2 == 0)
+//                {
+//                    isEnable = true;
+//                }
+//                break;
+//            case 1:
+//                break;
+//            case 2:
+//                break;
+//            case 3:
+//                break;
+//            case 4:
+//                break;
+//            case 5:
+//                break;
+//            case 6:
+//                break;
+//            case 7:
+//                break;
+//            default:
+//                break;
+//            }
+//            break;
+//        }
+//        default:
+//            break;
+//        }
         return isEnable;
     }
 };
