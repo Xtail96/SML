@@ -82,6 +82,7 @@ void MainWindow::initializeMachineTool()
 {
     machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
     updateSettingsFields();
+    updateSensorsField();
     initializeCoordinatesFields();
     initializePointsManager();
 
