@@ -299,10 +299,15 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensors");
-        settings->setValue("count", 3);
+        settings->setValue("count", 8);
         settings->setValue("0", "X Axis Sensor");
         settings->setValue("1", "Y Axis Sensor");
         settings->setValue("2", "Z Axis Sensor");
+        settings->setValue("3", "A Axis Sensor");
+        settings->setValue("4", "B Axis Sensor");
+        settings->setValue("5", "C Axis Sensor");
+        settings->setValue("6", "D Axis Sensor");
+        settings->setValue("7", "Zero Sensor");
     settings->endGroup();
 
     settings->beginGroup("X Axis Sensor");
@@ -329,6 +334,46 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
+    settings->beginGroup("A Axis Sensor");
+        settings->setValue("portNumber", 1);
+        settings->setValue("inputNumber", 7);
+        settings->setValue("boardName", "portal");
+        settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
+    settings->endGroup();
+
+    settings->beginGroup("B Axis Sensor");
+        settings->setValue("portNumber", 1);
+        settings->setValue("inputNumber", 4);
+        settings->setValue("boardName", "portal");
+        settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
+    settings->endGroup();
+
+    settings->beginGroup("C Axis Sensor");
+        settings->setValue("portNumber", 1);
+        settings->setValue("inputNumber", 5);
+        settings->setValue("boardName", "portal");
+        settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
+    settings->endGroup();
+
+    settings->beginGroup("D Axis Sensor");
+        settings->setValue("portNumber", 1);
+        settings->setValue("inputNumber", 6);
+        settings->setValue("boardName", "portal");
+        settings->setValue("activeState", false);
+        settings->setValue("color", "#55bb55");
+    settings->endGroup();
+
+
+    settings->beginGroup("Zero Sensor");
+        settings->setValue("portNumber", 1);
+        settings->setValue("inputNumber", 3);
+        settings->setValue("boardName", "portal");
+        settings->setValue("activeState", false);
+        settings->setValue("color", "#b22222");
+    settings->endGroup();
     // применяем изменения
     saveSettings();
 }
