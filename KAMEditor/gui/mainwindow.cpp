@@ -527,7 +527,7 @@ void MainWindow::updateMachineToolStatus()
         byte_array recieved = u1Manager->getU1()->receiveData(16);
         machineTool->getBuffer().updateBuffer(recieved);
 
-        machineTool->updateSensors();
+        machineTool->getSensorsManager()->updateSensors(machineTool->getBuffer());
         updateSensorsField();
 
         QString recievedData;

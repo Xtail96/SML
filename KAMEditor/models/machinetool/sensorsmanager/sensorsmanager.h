@@ -6,6 +6,7 @@
 
 #include "models/machinetool/sensorsmanager/sensor/sensor.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
+#include "models/structs.h"
 
 /*!
  * \brief Класс "Менеджер датчиков"
@@ -33,6 +34,8 @@ public:
      * \return вектор умных указателей на датчики станка
      */
     std::vector<std::shared_ptr<Sensor> > &getSensors();
+
+    void updateSensors(const StatesBuffer buffer);
 };
 
 #endif // SENSORSMANAGER_H

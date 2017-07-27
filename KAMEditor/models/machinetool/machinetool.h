@@ -44,8 +44,6 @@ public:
 
     StatesBuffer& getBuffer();
 
-    void updateSensors();
-
 private:
     uint16_t vendorId;
 

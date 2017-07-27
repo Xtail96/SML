@@ -4,6 +4,18 @@ std::vector<std::shared_ptr<Sensor> >& SensorsManager::getSensors()
     return sensors;
 }
 
+void SensorsManager::updateSensors(const StatesBuffer buffer)
+{
+    for(auto sensor : sensors)
+    {
+        bool isEnable = buffer.isEnable(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        if(isEnable != sensor->getIsEnable())
+        {
+            sensor->setIsEnable(isEnable);
+        }
+    }
+}
+
 SensorsManager::SensorsManager()
 {
     initilize();

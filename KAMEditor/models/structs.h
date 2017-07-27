@@ -142,7 +142,7 @@ public:
      * \param inputNumber - номер входа, к которому подключен датчик
      * \return true, если датчик активен, false - иначе
      */
-    bool isEnable(std::string plateName, unsigned int portNumber, unsigned int inputNumber)
+    bool isEnable(std::string plateName, unsigned int portNumber, unsigned int inputNumber) const
     {
         bool enable = false;
         if(plateName == "portal")
@@ -159,7 +159,7 @@ private:
      * \param inputNumber - номер входа, к которому подключен датчик
      * \return true, если датчик сработал, false - иначе
      */
-    bool checkSensorState(unsigned int portNumber, unsigned int inputNumber)
+    bool checkSensorState(unsigned int portNumber, unsigned int inputNumber) const
     {
         bool enable = false;
         byte tmp = portalFirstPortSensors;
