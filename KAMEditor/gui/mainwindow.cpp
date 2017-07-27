@@ -966,6 +966,23 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
     ui->finishDebugCommandLinkButton->setEnabled(true);
     ui->startDegbugCommandLinkButton->setEnabled(false);
+#ifdef Q_OS_WIN
+    byte_array data =
+    {
+        16,
+        0x01
+    };
+    try
+    {
+        u1Manager->getU1()->sendData(data);
+    }
+    catch(std::runtime_error e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        showMachineToolDisconnected();
+    }
+#endif
+
 }
 
 void MainWindow::on_finishDebugCommandLinkButton_clicked()
