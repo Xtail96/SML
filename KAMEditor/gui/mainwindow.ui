@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1450</width>
-    <height>731</height>
+    <height>739</height>
    </rect>
   </property>
   <property name="palette">
@@ -1591,21 +1591,31 @@
                 <property name="title">
                  <string>Редактор точек</string>
                 </property>
-                <layout class="QGridLayout" name="gridLayout">
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item row="1" column="1">
-                  <widget class="QFrame" name="existsPointsActionsButtonsFrame">
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QTableWidget" name="pointsTableWidget">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>3</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="alternatingRowColors">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="pointsActionsButtonsFrame">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
                    </property>
@@ -1629,12 +1639,80 @@
                      <number>5</number>
                     </property>
                     <item>
+                     <widget class="QPushButton" name="pointAddPushButton">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>+ Добавить точку</string>
+                      </property>
+                      <property name="shortcut">
+                       <string>+</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pointDeletePushButton">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>- Удалить точку</string>
+                      </property>
+                      <property name="shortcut">
+                       <string>-</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pointEditPushButton">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>= Редактировать точку</string>
+                      </property>
+                      <property name="shortcut">
+                       <string>=</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QPushButton" name="pointCursorPushButton">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
                         <verstretch>1</verstretch>
                        </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Shift + K - Курсор на точку</string>
@@ -1647,10 +1725,15 @@
                     <item>
                      <widget class="QPushButton" name="pointCopyPushButton">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
                         <verstretch>1</verstretch>
                        </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Shift + Enter Копирование точки</string>
@@ -1663,14 +1746,14 @@
                     <item>
                      <widget class="QPushButton" name="pointTransitionPushButton">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
                         <verstretch>1</verstretch>
                        </sizepolicy>
                       </property>
                       <property name="font">
                        <font>
-                        <pointsize>13</pointsize>
+                        <pointsize>10</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1684,10 +1767,15 @@
                     <item>
                      <widget class="QPushButton" name="pointsAmountPushButton">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
                         <verstretch>1</verstretch>
                        </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Shift + M - Количество точек</string>
@@ -1697,77 +1785,20 @@
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QFrame" name="pointsCreationsActionsFrame">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="lineWidth">
-                    <number>1</number>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_13">
-                    <property name="spacing">
-                     <number>5</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>5</number>
-                    </property>
                     <item>
-                     <widget class="QPushButton" name="pointAddPushButton">
-                      <property name="text">
-                       <string>+ Добавить точку</string>
+                     <spacer name="verticalSpacer_5">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
                       </property>
-                      <property name="shortcut">
-                       <string>+</string>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>100</height>
+                       </size>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pointDeletePushButton">
-                      <property name="text">
-                       <string>- Удалить точку</string>
-                      </property>
-                      <property name="shortcut">
-                       <string>-</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pointEditPushButton">
-                      <property name="text">
-                       <string>= Редактировать точку</string>
-                      </property>
-                      <property name="shortcut">
-                       <string>=</string>
-                      </property>
-                     </widget>
+                     </spacer>
                     </item>
                    </layout>
-                  </widget>
-                 </item>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QTableWidget" name="pointsTableWidget">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -1793,12 +1824,6 @@
                    <property name="currentIndex">
                     <number>0</number>
                    </property>
-                   <widget class="QWidget" name="sensorsTab">
-                    <attribute name="title">
-                     <string>Датчики</string>
-                    </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_22"/>
-                   </widget>
                    <widget class="QWidget" name="toolLengthSensorTab">
                     <attribute name="title">
                      <string>Длина инструмента</string>
@@ -5533,7 +5558,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
