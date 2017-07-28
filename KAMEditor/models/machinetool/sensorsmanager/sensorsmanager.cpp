@@ -8,11 +8,8 @@ void SensorsManager::updateSensors(const StatesBuffer buffer)
 {
     for(auto sensor : sensors)
     {
-        bool isEnable = buffer.isEnable(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
-        if(isEnable != sensor->getCurrentState())
-        {
-            sensor->setCurrentState(isEnable);
-        }
+        bool isVoltage = buffer.getSensorState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        sensor->setCurrentState(isVoltage);
     }
 }
 

@@ -142,7 +142,7 @@ public:
      * \param inputNumber - номер входа, к которому подключен датчик
      * \return true, если датчик активен, false - иначе
      */
-    bool isEnable(std::string plateName, unsigned int portNumber, unsigned int inputNumber) const
+    bool getSensorState(std::string plateName, unsigned int portNumber, unsigned int inputNumber) const
     {
         bool enable = false;
         if(plateName == "portal")
@@ -161,7 +161,7 @@ private:
      */
     bool checkSensorState(unsigned int portNumber, unsigned int inputNumber) const
     {
-        bool enable = false;
+        bool isVoltage = true;
         byte tmp = portalFirstPortSensors;
 
         switch(portNumber) {
@@ -173,17 +173,16 @@ private:
             // сдвигаем все биты вправо, чтобы все биты слева стали нулями, а нужный бит находился в младшем разряде
             tmp = tmp >> 7;
 
-            // 0 - датчик сработал, 1 - датчик не сработал
             if(tmp == 0x00)
             {
-                enable = true;
+                isVoltage = false;
             }
             break;
         }
         default:
             break;
         }
-        return enable;
+        return isVoltage;
     }
 };
 #endif // VECTOR_H
