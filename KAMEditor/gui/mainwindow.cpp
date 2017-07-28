@@ -212,10 +212,10 @@ void MainWindow::updateSensorsSettingsField()
 
     QStringList qHorizontalHeaders =
     {
-        "Имя платы, к которой подключен датчик",
+        "Имя платы",
         "Номер порта",
         "Номер входа",
-        "Активное состояние датчика",
+        "Активное состояние",
     };
     ui->sensorsSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
     ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
