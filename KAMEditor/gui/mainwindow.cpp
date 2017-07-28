@@ -1098,6 +1098,15 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 {
     std::string deviceName = index.data().toString().toStdString();
     Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
-    device.setCurrentState(!(device.getCurrentState()));
+    bool deviceState = device.getCurrentState();
+    byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !deviceState);
+    try
+    {
+        u1Manager->getU1()->sendData(data);
+    }
+    catch(std::runtime_error e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
     updateDevicesField();
 }

@@ -5,6 +5,11 @@ std::vector<std::shared_ptr<Device> > &DevicesManager::getDevices()
     return devices;
 }
 
+DevicesBuffer DevicesManager::getDevicesBuffer() const
+{
+    return devicesBuffer;
+}
+
 void DevicesManager::updateDevices(const std::vector<std::shared_ptr<Device> > &value)
 {
     devices = value;
@@ -38,28 +43,23 @@ void DevicesManager::initialize()
     }
 }
 
-DevicesBuffer DevicesManager::getDevicesBuffer() const
-{
-    return devicesBuffer;
-}
-
 DevicesManager::DevicesManager()
 {
     initialize();
 }
 
-byte_array DevicesManager::getSwitchDevicePackege(std::string deviceName, bool turnOn, byte firstAgrument, byte secondArgument)
+byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool turnOn, byte firstAgrument, byte secondArgument)
 {
-//    Device device = findDevice(deviceName);
-//    byte switchKey = getSwitchKey(device->getBoardName(), device->getPortNumber(), device->getOutputNumber());
-//    switchKey = devicesBuffer.createPackege(switchKey, turnOn);
-//    byte_array data =
-//    {
-//        switchKey,
-//        firstAgrument,
-//        secondArgument
-//    };
-//    return data;
+    byte switchKey = getSwitchKey(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
+    switchKey = devicesBuffer.createPackege(switchKey, turnOn);
+    byte_array data =
+    {
+        16,
+        switchKey,
+        firstAgrument,
+        secondArgument
+    };
+    return data;
 }
 
 Device &DevicesManager::findDevice(std::string deviceName)
@@ -77,45 +77,45 @@ Device &DevicesManager::findDevice(std::string deviceName)
 
 byte DevicesManager::getSwitchKey(std::string boardName, unsigned int portNumber, unsigned int outputNumber)
 {
-//    byte switchKey = 0xff;
-//    if(boardName == "u1")
-//    {
-//        switch(portNumber){
-//        case 0:
-//            switch (outputNumber) {
-//            case 3:
-//                switchKey = 0xfb;
-//                break;
-//            default:
-//                break;
-//            }
-//            break;
-//        case 1:
-//            switch (outputNumber) {
-//            case 3:
-//                switchKey = 0xfe;
-//                break;
-//            case 5:
-//                switchKey = 0x1f;
-//                break;
-//            case 7:
-//                switchKey = 0xfd;
-//                break;
-//            default:
-//                break;
-//            }
-//            break;
-//        case 2:
-//            switch (outputNumber) {
-//            case 0:
-//                switchKey = 0xf7;
-//                break;
-//            default:
-//                break;
-//            }
-//        default:
-//            break;
-//        }
-//    }
-//    return switchKey;
+    byte switchKey = 0xff;
+    if(boardName == "u1")
+    {
+        switch(portNumber){
+        case 0:
+            switch (outputNumber) {
+            case 3:
+                switchKey = 0xfb;
+                break;
+            default:
+                break;
+            }
+            break;
+        case 1:
+            switch (outputNumber) {
+            case 3:
+                switchKey = 0xfe;
+                break;
+            case 5:
+                switchKey = 0x1f;
+                break;
+            case 7:
+                switchKey = 0xfd;
+                break;
+            default:
+                break;
+            }
+            break;
+        case 2:
+            switch (outputNumber) {
+            case 0:
+                switchKey = 0xf7;
+                break;
+            default:
+                break;
+            }
+        default:
+            break;
+        }
+    }
+    return switchKey;
 }

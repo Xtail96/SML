@@ -198,17 +198,23 @@ public:
         devicesState = 0xff;
     }
 
-    byte createPackege(byte device, bool turnOn)
+    byte createPackege(byte deviceSwitchKey, bool turnOff)
     {
-//        if(turnOn)
-//        {
-//            devicesState = devicesState && device;
-//        }
-//        else
-//        {
-//            devicesState = devicesState || device;
-//        }
-//        return devicesState;
+        if(!turnOff)
+        {
+            devicesState = devicesState & deviceSwitchKey;
+        }
+        else
+        {
+            deviceSwitchKey = invertPackege(deviceSwitchKey);
+            devicesState = devicesState | deviceSwitchKey;
+        }
+        return devicesState;
+    }
+
+    byte invertPackege(byte packege)
+    {
+        return packege ^ 0xff;
     }
 
     byte &getDevicesState()

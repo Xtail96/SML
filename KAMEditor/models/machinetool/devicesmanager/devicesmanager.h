@@ -12,7 +12,6 @@ private:
     std::vector< std::shared_ptr<Device> > devices;
 
     DevicesBuffer devicesBuffer;
-
 public:
     DevicesManager();
 
@@ -24,7 +23,7 @@ public:
 
     void initialize();
 
-    byte_array getSwitchDevicePackege(std::string deviceName, bool turnOn, byte firstAgrument = 0x00, byte secondArgument = 0x00);
+    byte_array getSwitchDeviceData(const Device &device,  bool turnOn, byte firstAgrument = 0x00, byte secondArgument = 0x00);
 
     Device& findDevice(std::string deviceName);
 
