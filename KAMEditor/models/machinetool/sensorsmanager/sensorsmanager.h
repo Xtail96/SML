@@ -15,7 +15,7 @@ class SensorsManager
 {
 private:
     /*!
-     * \brief вектор умных указателей на датчики станка
+     * \brief Вектор умных указателей на датчики станка
      */
     std::vector< std::shared_ptr<Sensor> > sensors;
 public:
@@ -30,11 +30,15 @@ public:
     void initilize();
 
     /*!
-     * \brief Возвращает датчики станка
+     * \brief Возвращает ссылку на датчики станка
      * \return вектор умных указателей на датчики станка
      */
     std::vector<std::shared_ptr<Sensor> > &getSensors();
 
+    /*!
+     * \brief Обновляет состояния датчиков по буферу состояний станка
+     * \param buffer - буфер состояний станка
+     */
     void updateSensors(const StatesBuffer buffer);
 };
 
