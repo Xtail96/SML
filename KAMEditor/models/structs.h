@@ -200,6 +200,7 @@ public:
 
     byte createPackege(byte deviceSwitchKey, bool turnOff)
     {
+        qDebug() << "origin: " + QString::number(deviceSwitchKey, 2);
         if(!turnOff)
         {
             devicesState = devicesState & deviceSwitchKey;
@@ -207,8 +208,10 @@ public:
         else
         {
             deviceSwitchKey = invertPackege(deviceSwitchKey);
+            qDebug() << "invert:" + QString::number(deviceSwitchKey, 2);
             devicesState = devicesState | deviceSwitchKey;
         }
+        qDebug() << QString::number(devicesState, 2);
         return devicesState;
     }
 

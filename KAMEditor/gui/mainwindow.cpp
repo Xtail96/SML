@@ -1099,6 +1099,7 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
     std::string deviceName = index.data().toString().toStdString();
     Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
     bool deviceState = device.getCurrentState();
+    device.setCurrentState(!deviceState);
     byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !deviceState);
     try
     {
