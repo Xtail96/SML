@@ -28,7 +28,7 @@ private:
     bool activeState;
 
     /// сотояние датчика (включен/выключен)
-    bool isEnable;
+    bool currentState;
 
     /// цвет индикатора при срабатывании датчика
     QColor color;
@@ -43,7 +43,7 @@ public:
      * \param _isEnable - текущее состояние датчика
      * \param _color - цвет инидкатора при срабатывании датчика
      */
-    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _isEnable = false, QColor _color = QColor(0, 125, 0));
+    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _currentState = false, QColor _color = QColor(0, 125, 0));
 
     /*!
      * \brief Конструктор класса "Датчик"
@@ -55,13 +55,13 @@ public:
      * \brief Получает текущее состояние датчика
      * \return текущее состояние датчика
      */
-    bool getIsEnable() const;
+    bool getCurrentState() const;
 
     /*!
      * \brief Обновляет текущее состояния датчика, если новое значение НЕ совпадает с текущим
      * \param value - новое состояние датчика
      */
-    void setIsEnable(bool value);
+    void setCurrentState(bool value);
 
     /*!
      * \brief Получает номер порта датчика

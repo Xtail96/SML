@@ -83,6 +83,7 @@ void MainWindow::initializeMachineTool()
     machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
     updateSettingsFields();
     updateSensorsField();
+    updateDevicesField();
     initializeCoordinatesFields();
     initializePointsManager();
 
@@ -387,12 +388,11 @@ void MainWindow::updateSensorsField()
     ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
     ui->sensorsTableWidget->setColumnCount(1);
 
-    // растянуть таблицу
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
-        bool isEnable = sensors[i]->getIsEnable();
+        bool isEnable = sensors[i]->isActive();
         QTableWidgetItem *item = new QTableWidgetItem();
-        if(isEnable == false)
+        if(!isEnable)
         {
             item->setBackgroundColor(QColor(255, 255, 255));
         }
@@ -401,6 +401,26 @@ void MainWindow::updateSensorsField()
             item->setBackgroundColor(sensors[i]->getColor());
         }
         ui->sensorsTableWidget->setItem(i, 0, item);
+    }
+}
+
+void MainWindow::updateDevicesField()
+{
+    ui->devicesListWidget->clear();
+    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
+    for(auto device : devices)
+    {
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setText(QString::fromStdString(device->getName()));
+        if(device->isEnable())
+        {
+           item->setBackgroundColor(QColor("#b22222"));
+        }
+        else
+        {
+            item->setBackgroundColor(QColor(255, 255, 255));
+        }
+        ui->devicesListWidget->addItem(item);
     }
 }
 

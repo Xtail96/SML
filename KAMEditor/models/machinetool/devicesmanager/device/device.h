@@ -18,7 +18,7 @@ class Device
 
     bool activeState;
 
-    bool enable;
+    bool currentState;
 public:
     Device(std::string _name);
 

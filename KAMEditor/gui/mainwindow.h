@@ -117,6 +117,8 @@ private:
 
     void updateSensorsField();
 
+    void updateDevicesField();
+
     void setupShortcuts(); 
     void setupEditorShortcuts();
 

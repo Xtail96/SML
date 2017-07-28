@@ -51,7 +51,7 @@ void Device::setActiveState(bool value)
 }
 
 Device::Device(std::string _name) :
-    name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), enable(false)
+    name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), currentState(true)
 {
 
 }
@@ -63,9 +63,10 @@ void Device::setup(SettingsManager settingsManager)
     portNumber = QVariant(settingsManager.get(qName, "portNumber")).toUInt();
     outputNumber = QVariant(settingsManager.get(qName, "outputNumber")).toUInt();
     activeState = QVariant(settingsManager.get(qName, "activeState")).toBool();
+    currentState = !activeState;
 }
 
 bool Device::isEnable()
 {
-    return (activeState == enable);
+    return (activeState == currentState);
 }
