@@ -101,6 +101,10 @@ private:
 
     QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
 
+    void updateDevicesSettingsField();
+
+    QTableWidgetItem* fillDevicesSettingsTable(const std::vector< std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex);
+
     void updateAxisSettingsField();
 
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);

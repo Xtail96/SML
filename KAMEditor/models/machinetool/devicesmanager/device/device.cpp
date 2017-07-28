@@ -30,6 +30,26 @@ void Device::setOutputNumber(unsigned int value)
     outputNumber = value;
 }
 
+std::string Device::getName() const
+{
+    return name;
+}
+
+void Device::setName(const std::string &value)
+{
+    name = value;
+}
+
+bool Device::getActiveState() const
+{
+    return activeState;
+}
+
+void Device::setActiveState(bool value)
+{
+    activeState = value;
+}
+
 Device::Device(std::string _name) :
     name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), enable(false)
 {

@@ -32,6 +32,10 @@ public:
     void setPortNumber(unsigned int value);
     unsigned int getOutputNumber() const;
     void setOutputNumber(unsigned int value);
+    std::string getName() const;
+    void setName(const std::string &value);
+    bool getActiveState() const;
+    void setActiveState(bool value);
 };
 
 #endif // DEVICE_H

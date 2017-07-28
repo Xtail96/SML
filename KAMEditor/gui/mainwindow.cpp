@@ -116,6 +116,7 @@ void MainWindow::updateSettingsFields()
 {
     updateAxisSettingsField();
     updateSensorsSettingsField();
+    updateDevicesSettingsField();
 }
 
 void MainWindow::updateAxisSettingsField()
@@ -255,6 +256,63 @@ QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::s
     return new QTableWidgetItem(QString::fromStdString(text));
 }
 
+void MainWindow::updateDevicesSettingsField()
+{
+    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
+    int devicesCount = devices.size();
+    QStringList devicesLabels;
+    for(auto device : devices)
+    {
+        devicesLabels.push_back(QString::fromStdString(device->getName()));
+    }
+    ui->devicesSettingsTableWidget->setRowCount(devicesCount);
+    ui->devicesSettingsTableWidget->setVerticalHeaderLabels(devicesLabels);
+
+
+    QStringList qHorizontalHeaders =
+    {
+        "Имя платы",
+        "Номер порта",
+        "Номер выхода",
+        "Активное состояние",
+    };
+    ui->devicesSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
+    ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
+
+    // растянуть таблицу с координатами
+    for (int i = 0; i < ui->devicesSettingsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->devicesSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->devicesSettingsTableWidget->verticalHeader()->count(); j++)
+        {
+            QTableWidgetItem *item = fillDevicesSettingsTable(devices, i, j);
+            ui->devicesSettingsTableWidget->setItem(j, i, item);
+        }
+    }
+}
+
+QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex)
+{
+    std::string text = "Здесь должны быть параметры Датчика";
+    switch (parametrIndex) {
+    case 0:
+        text = devices[deviceIndex]->getBoardName();
+        break;
+    case 1:
+        text = std::to_string(devices[deviceIndex]->getPortNumber());
+        break;
+    case 2:
+        text = std::to_string(devices[deviceIndex]->getOutputNumber());
+        break;
+    case 3:
+        text = std::to_string(devices[deviceIndex]->getActiveState());
+        break;
+    default:
+        text = "Unknown parametr";
+        break;
+    }
+    return new QTableWidgetItem(QString::fromStdString(text));
+}
 
 void MainWindow::initializeCoordinatesFields()
 {
