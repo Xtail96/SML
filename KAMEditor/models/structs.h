@@ -198,26 +198,26 @@ public:
         devicesState = 0xff;
     }
 
-    byte createPackege(byte deviceSwitchKey, bool turnOff)
+    byte getDevicesMask(byte deviceMask, bool isDeviceEnable)
     {
-        qDebug() << "origin: " + QString::number(deviceSwitchKey, 2);
-        if(!turnOff)
+        qDebug() << "origin: " + QString::number(deviceMask, 2);
+        if(isDeviceEnable == false)
         {
-            devicesState = devicesState & deviceSwitchKey;
+            devicesState = devicesState & deviceMask;
         }
         else
         {
-            deviceSwitchKey = invertPackege(deviceSwitchKey);
-            qDebug() << "invert:" + QString::number(deviceSwitchKey, 2);
-            devicesState = devicesState | deviceSwitchKey;
+            deviceMask = invertByte(deviceMask);
+            qDebug() << "invert:" + QString::number(deviceMask, 2);
+            devicesState = devicesState | deviceMask;
         }
         qDebug() << QString::number(devicesState, 2);
         return devicesState;
     }
 
-    byte invertPackege(byte packege)
+    byte invertByte(byte byte)
     {
-        return packege ^ 0xff;
+        return byte ^ 0xff;
     }
 
     byte &getDevicesState()

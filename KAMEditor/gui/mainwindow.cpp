@@ -1097,15 +1097,23 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
 void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 {
     std::string deviceName = index.data().toString().toStdString();
-    Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
-    bool deviceState = device.getCurrentState();
-    device.setCurrentState(!deviceState);
-    byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !deviceState);
     try
     {
-        u1Manager->getU1()->sendData(data);
+        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device);
+#ifdef Q_OS_WIN
+        try
+        {
+            u1Manager->getU1()->sendData(data);
+        }
+        catch(std::runtime_error e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
+#endif
+        device.setCurrentState(!device.getCurrentState());
     }
-    catch(std::runtime_error e)
+    catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }

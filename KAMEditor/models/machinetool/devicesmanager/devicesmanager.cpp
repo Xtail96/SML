@@ -48,19 +48,6 @@ DevicesManager::DevicesManager()
     initialize();
 }
 
-byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool turnOn, byte firstAgrument, byte secondArgument)
-{
-    byte switchKey = getSwitchKey(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
-    switchKey = devicesBuffer.createPackege(switchKey, turnOn);
-    byte_array data =
-    {
-        16,
-        switchKey,
-        firstAgrument,
-        secondArgument
-    };
-    return data;
-}
 
 Device &DevicesManager::findDevice(std::string deviceName)
 {
@@ -75,16 +62,30 @@ Device &DevicesManager::findDevice(std::string deviceName)
     throw std::invalid_argument(errorString);
 }
 
-byte DevicesManager::getSwitchKey(std::string boardName, unsigned int portNumber, unsigned int outputNumber)
+byte_array DevicesManager::getSwitchDeviceData(const Device &device, byte firstAgrument, byte secondArgument)
 {
-    byte switchKey = 0xff;
+    byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
+    byte devicesMask = devicesBuffer.getDevicesMask(deviceMask, device.isEnable());
+    byte_array data =
+    {
+        SET_DEVICES,
+        devicesMask,
+        firstAgrument,
+        secondArgument
+    };
+    return data;
+}
+
+byte DevicesManager::getDeviceMask(std::string boardName, unsigned int portNumber, unsigned int outputNumber)
+{
+    byte deviceMask = 0xff;
     if(boardName == "u1")
     {
         switch(portNumber){
         case 0:
             switch (outputNumber) {
             case 3:
-                switchKey = 0xfb;
+                deviceMask = 0xfb;
                 break;
             default:
                 break;
@@ -93,13 +94,13 @@ byte DevicesManager::getSwitchKey(std::string boardName, unsigned int portNumber
         case 1:
             switch (outputNumber) {
             case 3:
-                switchKey = 0xfe;
+                deviceMask = 0xfe;
                 break;
             case 5:
-                switchKey = 0x1f;
+                deviceMask = 0x1f;
                 break;
             case 7:
-                switchKey = 0xfd;
+                deviceMask = 0xfd;
                 break;
             default:
                 break;
@@ -108,7 +109,7 @@ byte DevicesManager::getSwitchKey(std::string boardName, unsigned int portNumber
         case 2:
             switch (outputNumber) {
             case 0:
-                switchKey = 0xf7;
+                deviceMask = 0xf7;
                 break;
             default:
                 break;
@@ -117,5 +118,5 @@ byte DevicesManager::getSwitchKey(std::string boardName, unsigned int portNumber
             break;
         }
     }
-    return switchKey;
+    return deviceMask;
 }

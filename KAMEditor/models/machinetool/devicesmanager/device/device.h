@@ -24,7 +24,7 @@ public:
 
     void setup(SettingsManager settingsManager);
 
-    bool isEnable();
+    bool isEnable() const;
 
     std::string getBoardName() const;
     void setBoardName(const std::string &value);

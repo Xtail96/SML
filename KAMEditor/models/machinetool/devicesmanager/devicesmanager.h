@@ -9,9 +9,13 @@
 class DevicesManager
 {
 private:
+    const unsigned char SET_DEVICES = 16;
+
     std::vector< std::shared_ptr<Device> > devices;
 
     DevicesBuffer devicesBuffer;
+
+    byte getDeviceMask(std::string boardName, unsigned int portNumber, unsigned int outputNumber);
 public:
     DevicesManager();
 
@@ -23,11 +27,9 @@ public:
 
     void initialize();
 
-    byte_array getSwitchDeviceData(const Device &device,  bool turnOn, byte firstAgrument = 0x00, byte secondArgument = 0x00);
+    byte_array getSwitchDeviceData(const Device &device, byte firstAgrument = 0x00, byte secondArgument = 0x00);
 
     Device& findDevice(std::string deviceName);
-
-    byte getSwitchKey(std::string boardName, unsigned int portNumber, unsigned int outputNumber);
 };
 
 #endif // DEVICESMANAGER_H

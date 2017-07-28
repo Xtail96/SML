@@ -79,7 +79,7 @@ void Device::setup(SettingsManager settingsManager)
     currentState = !activeState;
 }
 
-bool Device::isEnable()
+bool Device::isEnable() const
 {
     return (activeState == currentState);
 }
