@@ -19,8 +19,10 @@ class Device
     bool activeState;
 
     bool currentState;
+
+    bool needToDisplay;
 public:
-    Device(std::string _name);
+    Device(std::string _name, std::string _boardName = "undefined", unsigned int _portNumber = 0, unsigned int _outputNumber = 0, bool _activeState = false, bool _currentState = true, bool _needToDisplay = true);
 
     void setup(SettingsManager settingsManager);
 
@@ -38,6 +40,8 @@ public:
     void setActiveState(bool value);
     bool getCurrentState() const;
     void setCurrentState(bool value);
+    bool getNeedToDisplay() const;
+    void setNeedToDisplay(bool value);
 };
 
 #endif // DEVICE_H

@@ -383,6 +383,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("outputNumber", 3);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
+        settings->setValue("needToDisplay", true);
     settings->endGroup();
 
     settings->beginGroup("Фрезер 2");
@@ -390,6 +391,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("outputNumber", 7);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
+        settings->setValue("needToDisplay", true);
     settings->endGroup();
 
     settings->beginGroup("Шпиндель");
@@ -398,6 +400,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("invertOutputNumber", 2);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
+        settings->setValue("needToDisplay", false);
     settings->endGroup();
 
     settings->beginGroup("Муфта");
@@ -405,6 +408,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("outputNumber", 5);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
+        settings->setValue("needToDisplay", true);
     settings->endGroup();
 
     settings->beginGroup("САС");
@@ -412,6 +416,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("outputNumber", 0);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
+        settings->setValue("needToDisplay", true);
     settings->endGroup();
     // применяем изменения
     saveSettings();

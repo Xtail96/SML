@@ -63,8 +63,24 @@ void Device::setCurrentState(bool value)
     }
 }
 
-Device::Device(std::string _name) :
-    name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), currentState(true)
+bool Device::getNeedToDisplay() const
+{
+    return needToDisplay;
+}
+
+void Device::setNeedToDisplay(bool value)
+{
+    needToDisplay = value;
+}
+
+Device::Device(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _outputNumber, bool _activeState, bool _currentState, bool _needToDisplay) :
+    name(_name),
+    boardName(_boardName),
+    portNumber(_portNumber),
+    outputNumber(_outputNumber),
+    activeState(_activeState),
+    currentState(_currentState),
+    needToDisplay(_needToDisplay)
 {
 
 }
@@ -76,6 +92,7 @@ void Device::setup(SettingsManager settingsManager)
     portNumber = QVariant(settingsManager.get(qName, "portNumber")).toUInt();
     outputNumber = QVariant(settingsManager.get(qName, "outputNumber")).toUInt();
     activeState = QVariant(settingsManager.get(qName, "activeState")).toBool();
+    needToDisplay = QVariant(settingsManager.get(qName, "needToDisplay")).toBool();
     currentState = !activeState;
 }
 

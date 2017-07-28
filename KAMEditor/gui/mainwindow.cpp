@@ -408,25 +408,32 @@ void MainWindow::updateDevicesField()
 {
     ui->devicesTableWidget->clear();
     std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
-    int devicesCount = devices.size();
-    ui->devicesTableWidget->setRowCount(devicesCount);
     ui->devicesTableWidget->setColumnCount(1);
 
-    for(int i = 0; i < ui->devicesTableWidget->verticalHeader()->count(); i++)
+    std::vector<QTableWidgetItem*> items;
+    for(unsigned int i = 0; i < devices.size(); i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem();
-        item->setText(QString::fromStdString(devices[i]->getName()));
-        if(devices[i]->isEnable())
+        if(devices[i]->getNeedToDisplay())
         {
-           item->setTextColor(QColor("#fff"));
-           item->setBackgroundColor(QColor("#b22222"));
+            QTableWidgetItem* item = new QTableWidgetItem();
+            item->setText(QString::fromStdString(devices[i]->getName()));
+            if(devices[i]->isEnable())
+            {
+                item->setTextColor(QColor("#fff"));
+                item->setBackgroundColor(QColor("#b22222"));
+            }
+            else
+            {
+                item->setTextColor(QColor("#333"));
+                item->setBackgroundColor(QColor(255, 255, 255));
+            }
+            items.push_back(item);
         }
-        else
-        {
-            item->setTextColor(QColor("#333"));
-            item->setBackgroundColor(QColor(255, 255, 255));
-        }
-        ui->devicesTableWidget->setItem(i, 0, item);
+    }
+    ui->devicesTableWidget->setRowCount(items.size());
+    for(int i = 0; i < ui->devicesTableWidget->rowCount(); i++)
+    {
+        ui->devicesTableWidget->setItem(i, 0, items[i]);
     }
     ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 }
@@ -1112,10 +1119,10 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
         }
 #endif
         device.setCurrentState(!device.getCurrentState());
+        updateDevicesField();
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
-    updateDevicesField();
 }
