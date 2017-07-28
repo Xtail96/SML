@@ -140,7 +140,7 @@ public:
      * \param plateName - имя платы, к которой подключен датчик
      * \param portNumber - номер порта, к которому подключен датчик
      * \param inputNumber - номер входа, к которому подключен датчик
-     * \return true, если датчик активен, false - иначе
+     * \return true, если есть напряжение на входе, false - иначе
      */
     bool getSensorState(std::string plateName, unsigned int portNumber, unsigned int inputNumber) const
     {
@@ -157,7 +157,7 @@ private:
      * \brief Проверяет состояние датчика
      * \param portNumber - номер порта, к которому подключен датчик
      * \param inputNumber - номер входа, к которому подключен датчик
-     * \return true, если датчик сработал, false - иначе
+     * \return true, если есть напряжение на входе, false - иначе
      */
     bool checkSensorState(unsigned int portNumber, unsigned int inputNumber) const
     {
