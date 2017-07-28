@@ -2429,7 +2429,12 @@
                <number>5</number>
               </property>
               <item>
-               <widget class="QListWidget" name="devicesListWidget">
+               <widget class="QTableWidget" name="devicesTableWidget">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
@@ -2439,6 +2444,12 @@
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                </widget>
               </item>
              </layout>
@@ -5609,7 +5620,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">

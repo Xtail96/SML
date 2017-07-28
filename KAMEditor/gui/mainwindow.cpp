@@ -406,13 +406,17 @@ void MainWindow::updateSensorsField()
 
 void MainWindow::updateDevicesField()
 {
-    ui->devicesListWidget->clear();
+    ui->devicesTableWidget->clear();
     std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
-    for(auto device : devices)
+    int devicesCount = devices.size();
+    ui->devicesTableWidget->setRowCount(devicesCount);
+    ui->devicesTableWidget->setColumnCount(1);
+
+    for(int i = 0; i < ui->devicesTableWidget->verticalHeader()->count(); i++)
     {
-        QListWidgetItem* item = new QListWidgetItem();
-        item->setText(QString::fromStdString(device->getName()));
-        if(device->isEnable())
+        QTableWidgetItem* item = new QTableWidgetItem();
+        item->setText(QString::fromStdString(devices[i]->getName()));
+        if(devices[i]->isEnable())
         {
            item->setBackgroundColor(QColor("#b22222"));
         }
@@ -420,8 +424,9 @@ void MainWindow::updateDevicesField()
         {
             item->setBackgroundColor(QColor(255, 255, 255));
         }
-        ui->devicesListWidget->addItem(item);
+        ui->devicesTableWidget->setItem(i, 0, item);
     }
+    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 }
 
 void MainWindow::setupShortcuts()
