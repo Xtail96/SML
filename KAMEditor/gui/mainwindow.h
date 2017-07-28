@@ -205,6 +205,7 @@ private slots:
     void on_savesettings_action_triggered();
     void on_startDegbugCommandLinkButton_clicked();
     void on_finishDebugCommandLinkButton_clicked();
+    void on_devicesTableWidget_clicked(const QModelIndex &index);
 };
 
 

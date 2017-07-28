@@ -418,10 +418,12 @@ void MainWindow::updateDevicesField()
         item->setText(QString::fromStdString(devices[i]->getName()));
         if(devices[i]->isEnable())
         {
+           item->setTextColor(QColor("#fff"));
            item->setBackgroundColor(QColor("#b22222"));
         }
         else
         {
+            item->setTextColor(QColor("#333"));
             item->setBackgroundColor(QColor(255, 255, 255));
         }
         ui->devicesTableWidget->setItem(i, 0, item);
@@ -1090,4 +1092,12 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
         showMachineToolDisconnected();
     }
 #endif
+}
+
+void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
+{
+    std::string deviceName = index.data().toString().toStdString();
+    Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+    device.setCurrentState(!(device.getCurrentState()));
+    updateDevicesField();
 }

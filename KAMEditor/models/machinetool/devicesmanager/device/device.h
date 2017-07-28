@@ -36,6 +36,8 @@ public:
     void setName(const std::string &value);
     bool getActiveState() const;
     void setActiveState(bool value);
+    bool getCurrentState() const;
+    void setCurrentState(bool value);
 };
 
 #endif // DEVICE_H

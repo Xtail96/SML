@@ -50,6 +50,19 @@ void Device::setActiveState(bool value)
     activeState = value;
 }
 
+bool Device::getCurrentState() const
+{
+    return currentState;
+}
+
+void Device::setCurrentState(bool value)
+{
+    if(currentState != value)
+    {
+        currentState = value;
+    }
+}
+
 Device::Device(std::string _name) :
     name(_name), boardName("undefined"), portNumber(0), outputNumber(0), activeState(false), currentState(true)
 {

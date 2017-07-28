@@ -185,4 +185,44 @@ private:
         return isVoltage;
     }
 };
+
+
+struct DevicesBuffer
+{
+private:
+    byte devicesState;
+public:
+
+    DevicesBuffer()
+    {
+        devicesState = 0xff;
+    }
+
+    byte createPackege(byte device, bool turnOn)
+    {
+//        if(turnOn)
+//        {
+//            devicesState = devicesState && device;
+//        }
+//        else
+//        {
+//            devicesState = devicesState || device;
+//        }
+//        return devicesState;
+    }
+
+    byte &getDevicesState()
+    {
+        return devicesState;
+    }
+
+    void setDevicesState(const byte &value)
+    {
+        if(devicesState != value)
+        {
+            devicesState = value;
+        }
+    }
+};
+
 #endif // VECTOR_H
