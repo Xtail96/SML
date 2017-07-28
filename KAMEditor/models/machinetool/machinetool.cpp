@@ -4,9 +4,10 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     vendorId(_vendorId), productId(_productId), name(_name),
     movementController(new MovementsHandler(_axisesCount)),
     pointsManager(new PointsManager()),
+    sensorsManager(new SensorsManager()),
+    devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager),
-    commandInterpreter(new CommandInterpreter()),
-    sensorsManager(new SensorsManager())
+    commandInterpreter(new CommandInterpreter())
 {
 }
 
@@ -17,6 +18,7 @@ MachineTool::~MachineTool()
     delete this->commandsManager;
     delete this->commandInterpreter;
     delete this->sensorsManager;
+    delete this->devicesManager;
 }
 
 MovementsHandler* MachineTool::getMovementController() const
@@ -57,4 +59,9 @@ SensorsManager *MachineTool::getSensorsManager() const
 StatesBuffer &MachineTool::getBuffer()
 {
     return buffer;
+}
+
+DevicesManager *MachineTool::getDevicesManager() const
+{
+    return devicesManager;
 }

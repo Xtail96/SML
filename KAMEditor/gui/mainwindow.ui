@@ -4939,7 +4939,30 @@
         <string>Настройки</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_37">
-        <item row="0" column="0">
+        <item row="1" column="0">
+         <widget class="QTableWidget" name="sensorsSettingsTableWidget">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QTableWidget" name="devicesSettingsTableWidget">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
          <widget class="QTableWidget" name="axisSettingsTableWidget">
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -4961,7 +4984,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0" colspan="2">
          <widget class="QFrame" name="actionsSettingsFrame">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -5017,19 +5040,6 @@
             </widget>
            </item>
           </layout>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QTableWidget" name="sensorsSettingsTableWidget">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
          </widget>
         </item>
        </layout>
@@ -5582,7 +5592,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">

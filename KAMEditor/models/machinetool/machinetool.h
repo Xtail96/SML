@@ -15,6 +15,7 @@
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 #include "models/machinetool/commandsmanager/commandsmanager.h"
 #include "models/machinetool/sensorsmanager/sensorsmanager.h"
+#include "models/machinetool/devicesmanager/devicesmanager.h"
 
 /**
  * \brief Класс "Станок"
@@ -44,6 +45,8 @@ public:
 
     StatesBuffer& getBuffer();
 
+    DevicesManager *getDevicesManager() const;
+
 private:
     uint16_t vendorId;
 
@@ -54,6 +57,7 @@ private:
     MovementsHandler *movementController;
     PointsManager *pointsManager;
     SensorsManager *sensorsManager;
+    DevicesManager *devicesManager;
     CommandsManager *commandsManager;
     CommandInterpreter *commandInterpreter;
 
