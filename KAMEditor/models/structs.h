@@ -186,18 +186,41 @@ private:
     }
 };
 
-
+/*!
+ * \brief Структура Буфер устройств
+ */
 struct DevicesBuffer
 {
 private:
+    /// текущее состояние всех устройств
     byte devicesState;
+
+    /*!
+     * \brief Инвертирует байт
+     * \param byte - байт
+     * \return инвертированный байт
+     */
+    byte invertByte(byte byte)
+    {
+        return byte ^ 0xff;
+    }
 public:
 
+    /*!
+     * \brief Конструктор структуры Буфер устройств
+     * Инициализиурет состояние всех устройств единицами
+     */
     DevicesBuffer()
     {
         devicesState = 0xff;
     }
 
+    /*!
+     * \brief Формирует нужную маску для включения/выключения устройства
+     * \param deviceMask - маска включения устройства
+     * \param isDeviceEnable - включено ли устройство
+     * \return маска включения/выключения устройства
+     */
     byte getDevicesMask(byte deviceMask, bool isDeviceEnable)
     {
         qDebug() << "origin: " + QString::number(deviceMask, 2);
@@ -215,16 +238,19 @@ public:
         return devicesState;
     }
 
-    byte invertByte(byte byte)
-    {
-        return byte ^ 0xff;
-    }
-
+    /*!
+     * \brief Возвращает текущее состояние устройств
+     * \return ссылка на байт с текущим состоянием устройств
+     */
     byte &getDevicesState()
     {
         return devicesState;
     }
 
+    /*!
+     * \brief Устанавливает новое состояние устройств
+     * \param value - байт с новым состоянием устройств
+     */
     void setDevicesState(const byte &value)
     {
         if(devicesState != value)
