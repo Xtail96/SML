@@ -365,7 +365,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 3);
         settings->setValue("boardName", "portal");
-        settings->setValue("activeState", false);
+        settings->setValue("activeState", true);
         settings->setValue("color", "#b22222");
     settings->endGroup();
 

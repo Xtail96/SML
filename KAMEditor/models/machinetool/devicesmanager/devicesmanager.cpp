@@ -97,7 +97,7 @@ byte DevicesManager::getDeviceMask(std::string boardName, unsigned int portNumbe
                 deviceMask = 0xfe;
                 break;
             case 5:
-                deviceMask = 0x1f;
+                deviceMask = 0xef;
                 break;
             case 7:
                 deviceMask = 0xfd;
