@@ -64,7 +64,8 @@ Device &DevicesManager::findDevice(std::string deviceName)
 
 byte_array DevicesManager::getSwitchDeviceData(const Device &device, byte firstAgrument, byte secondArgument)
 {
-    byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
+    //byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
+    byte deviceMask = device.getMask();
     byte devicesMask = devicesBuffer.getDevicesMask(deviceMask, device.isEnable());
     byte_array data =
     {

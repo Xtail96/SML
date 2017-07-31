@@ -5,6 +5,7 @@
 #include <QMainWindow>
 
 #include "models/machinetool/settingsmanager/settingsmanager.h"
+#include "models/structs.h"
 
 class Device
 {
@@ -21,10 +22,12 @@ class Device
     bool currentState;
 
     bool needToDisplay;
-public:
-    Device(std::string _name, std::string _boardName = "undefined", unsigned int _portNumber = 0, unsigned int _outputNumber = 0, bool _activeState = false, bool _currentState = true, bool _needToDisplay = true);
 
-    void setup(SettingsManager settingsManager);
+    byte mask;
+public:
+    Device(std::string _name, std::string _boardName = "undefined", unsigned int _portNumber = 0, unsigned int _outputNumber = 0, bool _activeState = false, bool _currentState = true, bool _needToDisplay = true, byte _mask = 0xff);
+
+    void setup(const SettingsManager &settingsManager);
 
     bool isEnable() const;
 
@@ -42,6 +45,8 @@ public:
     void setCurrentState(bool value);
     bool getNeedToDisplay() const;
     void setNeedToDisplay(bool value);
+    byte getMask() const;
+    void setMask(const byte &value);
 };
 
 #endif // DEVICE_H

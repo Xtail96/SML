@@ -373,7 +373,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("count", 5);
         settings->setValue("0", "Фрезер");
         settings->setValue("1", "Фрезер 2");
-        settings->setValue("2", "Шпиндель");
+        settings->setValue("2", "Шпиндель R");
         settings->setValue("3", "Муфта");
         settings->setValue("4", "САС");
     settings->endGroup();
@@ -384,6 +384,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
         settings->setValue("needToDisplay", true);
+        settings->setValue("mask", 0xfe);
     settings->endGroup();
 
     settings->beginGroup("Фрезер 2");
@@ -392,15 +393,17 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
         settings->setValue("needToDisplay", true);
+        settings->setValue("mask", 0xfd);
     settings->endGroup();
 
-    settings->beginGroup("Шпиндель");
+    settings->beginGroup("Шпиндель R");
         settings->setValue("portNumber", 0);
         settings->setValue("outputNumber", 3);
         settings->setValue("invertOutputNumber", 2);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
         settings->setValue("needToDisplay", false);
+        settings->setValue("mask", 0xfb);
     settings->endGroup();
 
     settings->beginGroup("Муфта");
@@ -409,6 +412,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
         settings->setValue("needToDisplay", true);
+        settings->setValue("mask", 0xef);
     settings->endGroup();
 
     settings->beginGroup("САС");
@@ -417,6 +421,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
         settings->setValue("needToDisplay", true);
+        settings->setValue("mask", 0xf7);
     settings->endGroup();
     // применяем изменения
     saveSettings();

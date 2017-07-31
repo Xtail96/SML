@@ -276,6 +276,7 @@ void MainWindow::updateDevicesSettingsField()
         "Номер порта",
         "Номер выхода",
         "Активное состояние",
+        "Маска"
     };
     ui->devicesSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
     ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
@@ -294,25 +295,28 @@ void MainWindow::updateDevicesSettingsField()
 
 QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex)
 {
-    std::string text = "Здесь должны быть параметры Датчика";
+    QString text = "Здесь должны быть параметры Датчика";
     switch (parametrIndex) {
     case 0:
-        text = devices[deviceIndex]->getBoardName();
+        text = QString::fromStdString(devices[deviceIndex]->getBoardName());
         break;
     case 1:
-        text = std::to_string(devices[deviceIndex]->getPortNumber());
+        text = QString::number(devices[deviceIndex]->getPortNumber());
         break;
     case 2:
-        text = std::to_string(devices[deviceIndex]->getOutputNumber());
+        text = QString::number(devices[deviceIndex]->getOutputNumber());
         break;
     case 3:
-        text = std::to_string(devices[deviceIndex]->getActiveState());
+        text = QString::number(devices[deviceIndex]->getActiveState());
+        break;
+    case 4:
+        text = QString::number(devices[deviceIndex]->getMask(), 2);
         break;
     default:
         text = "Unknown parametr";
         break;
     }
-    return new QTableWidgetItem(QString::fromStdString(text));
+    return new QTableWidgetItem(text);
 }
 
 void MainWindow::initializeCoordinatesFields()
