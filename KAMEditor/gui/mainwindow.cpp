@@ -1058,29 +1058,11 @@ void MainWindow::on_savesettings_action_triggered()
 
 }
 
+#include "models/controllerconnector/kmotion/kmapi.h"
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
-    ui->finishDebugCommandLinkButton->setEnabled(true);
-    ui->startDegbugCommandLinkButton->setEnabled(false);
-#ifdef Q_OS_WIN
-    byte_array data1=
-    {
-        10,
-        0x00,
-        0x46,
-        0x50
-    };
-    try
-    {
-        u1Manager->getU1()->sendData(data1);
-    }
-    catch(std::runtime_error e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        showMachineToolDisconnected();
-    }
-#endif
-
+    KM_New(NULL, 1);
+    //KM_Free(NULL);
 }
 
 void MainWindow::on_finishDebugCommandLinkButton_clicked()

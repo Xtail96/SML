@@ -20,6 +20,8 @@ win32 {
   LIBS += -L"$$PWD/libusb/libs"
   LIBS += -llibusb-1.0.dll
   LIBS += -L$$PWD/usbxpress/libs/ -lSiUSBXp
+  LIBS += -L$$PWD/models/controllerconnector/kmotion/lib
+  LIBS += -lKMotion_Interop -lKMotion_dotNet_Interop -lGCodeInterpreter -lKMotionDLL
 }
 macx {
   LIBS += -framework OpenGl

@@ -1,6 +1,12 @@
 #ifndef KMAPI_H
 #define KMAPI_H
 
-int KM_New(HANDLE handle, int board);
+#include <windows.h>
+
+extern "C"
+{
+    int KM_New(HANDLE h, int board);
+    //int KM_Free(HANDLE h);
+}
 
 #endif
