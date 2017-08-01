@@ -1065,7 +1065,7 @@ void MainWindow::on_startDegbugCommandLinkButton_clicked()
 #ifdef Q_OS_WIN
     byte_array data1=
     {
-        16,
+        10,
         0x00,
         0x46,
         0x50
