@@ -10,7 +10,6 @@
 
 
 
-#include <afxmt.h>
 #include "..\dsp_kflop\pc-dsp.h"
 
 // The following ifdef block is the standard way of creating macros which make exporting 

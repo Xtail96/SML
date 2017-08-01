@@ -17,6 +17,7 @@
 #define WINVER 0x0600 
 #define _WIN32_IE 0x0600 
 
+/*
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 #include <afxole.h>         // MFC OLE classes
@@ -27,7 +28,9 @@
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
 #include <afxmt.h>
+*/
 
+#include <windows.h>
 #include <conio.h>
 #include <math.h>
 #include <mmsystem.h>
