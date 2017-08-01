@@ -87,16 +87,7 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.cpp \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
-    models/machinetool/devicesmanager/devicesmanager.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/CLOAD.CPP \
-    models/controllerconnector/kmotiondll/KMotionDLL/COFFMAIN.CPP \
-    models/controllerconnector/kmotiondll/KMotionDLL/HiResTimer.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionApp.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionDLL.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionDLL_Direct.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/KmotionIO.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionLocal.cpp \
-    models/controllerconnector/kmotiondll/KMotionDLL/StdAfx.cpp
+    models/machinetool/devicesmanager/devicesmanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -155,19 +146,7 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/CLOAD.H \
-    models/controllerconnector/kmotiondll/KMotionDLL/COFF.H \
-    models/controllerconnector/kmotiondll/KMotionDLL/FTD2XX.H \
-    models/controllerconnector/kmotiondll/KMotionDLL/HiResTimer.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionApp.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionDLL.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionDLL_Direct.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/KmotionIO.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/KMotionLocal.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/PARAMS.H \
-    models/controllerconnector/kmotiondll/KMotionDLL/Resource.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/StdAfx.h \
-    models/controllerconnector/kmotiondll/KMotionDLL/VERSION.H
+    models/controllerconnector/kmotion/kmapi.h
 
 
 FORMS    += gui/mainwindow.ui \
