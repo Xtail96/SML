@@ -20,8 +20,6 @@ win32 {
   LIBS += -L"$$PWD/libusb/libs"
   LIBS += -llibusb-1.0.dll
   LIBS += -L$$PWD/usbxpress/libs/ -lSiUSBXp
-  LIBS += -L$$PWD/kmotion/lib
-  LIBS += -lKMotionDLL #-lKMotion_Interop -lKMotion_dotNet_Interop -lGCodeInterpreter
 }
 macx {
   LIBS += -framework OpenGl
@@ -89,7 +87,36 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.cpp \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
-    models/machinetool/devicesmanager/devicesmanager.cpp
+    models/machinetool/devicesmanager/devicesmanager.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/driver.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreter.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics3Rod.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/PT2D.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/PT3D.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc.cpp \
+    models/controllerconnector/kmotionx/GCodeInterpreter/TrajectoryPlanner.cpp \
+    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/ExecuteGCode.cpp \
+    models/controllerconnector/kmotionx/KMotionX/examples/KFlopConsole/cli.cpp \
+    models/controllerconnector/kmotionx/KMotionX/examples/test/test.cpp \
+    models/controllerconnector/kmotionx/KMotionX/JNI/KMotionXjni.cpp \
+    models/controllerconnector/kmotionx/KMotionX/src/CMutex.cpp \
+    models/controllerconnector/kmotionx/KMotionX/src/HiResTimer.cpp \
+    models/controllerconnector/kmotionx/KMotionX/src/KMotionX.cpp \
+    models/controllerconnector/kmotionx/KMotionX/src/MessageBox.cpp \
+    models/controllerconnector/kmotionx/KMotionX/src/SocketWrapper.cpp \
+    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/Stepper3Axis.c \
+    models/controllerconnector/kmotionx/GCodeInterpreter/StdAfx.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/CLOAD.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/COFFMAIN.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/HiResTimer.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionApp.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL_Direct.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KmotionIO.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KmotionIOX.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionLocal.cpp \
+    models/controllerconnector/kmotionx/KMotionDLL/StdAfx.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -148,7 +175,53 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    kmotion/include/kmapi.h
+    models/controllerconnector/kmotionx/GCodeInterpreter/canon.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/driver.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreter.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreterX.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics3Rod.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/PT2D.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/PT3D.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/TrajectoryPlanner.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/linux/armhf/ftd2xx.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/linux/armhf/WinTypes.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_32/WinTypes.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_64/ftd2xx.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_64/WinTypes.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftdi/windows/FTD2XX.H \
+    models/controllerconnector/kmotionx/KMotionX/include/win/stdint.h \
+    models/controllerconnector/kmotionx/KMotionX/include/afxmt.h \
+    models/controllerconnector/kmotionx/KMotionX/include/afxtempl.h \
+    models/controllerconnector/kmotionx/KMotionX/include/afxwin.h \
+    models/controllerconnector/kmotionx/KMotionX/include/CMutex.h \
+    models/controllerconnector/kmotionx/KMotionX/include/CString.h \
+    models/controllerconnector/kmotionx/KMotionX/include/dbg.h \
+    models/controllerconnector/kmotionx/KMotionX/include/ftd2xx.h \
+    models/controllerconnector/kmotionx/KMotionX/include/HiResTimer.h \
+    models/controllerconnector/kmotionx/KMotionX/include/KMotionX.h \
+    models/controllerconnector/kmotionx/KMotionX/include/MessageBox.h \
+    models/controllerconnector/kmotionx/KMotionX/include/SocketWrapper.h \
+    models/controllerconnector/kmotionx/KMotionX/include/stdstring.h \
+    models/controllerconnector/kmotionx/KMotionX/JNI/com_dynomotion_kmotionx_KMotion.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/StdAfx.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc_errors.h \
+    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc_return.h \
+    models/controllerconnector/kmotionx/KMotionDLL/CLOAD.h \
+    models/controllerconnector/kmotionx/KMotionDLL/COFF.h \
+    models/controllerconnector/kmotionx/KMotionDLL/FTD2XX.h \
+    models/controllerconnector/kmotionx/KMotionDLL/HiResTimer.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionApp.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL_Direct.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLLX.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KmotionIO.h \
+    models/controllerconnector/kmotionx/KMotionDLL/KMotionLocal.h \
+    models/controllerconnector/kmotionx/KMotionDLL/PARAMS.h \
+    models/controllerconnector/kmotionx/KMotionDLL/Resource.h \
+    models/controllerconnector/kmotionx/KMotionDLL/StdAfx.h \
+    models/controllerconnector/kmotionx/KMotionDLL/VERSION.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -186,6 +259,63 @@ RESOURCES += \
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
-    models/controllerconnector/kmotiondll/KMotionDLL/Driver Model.doc \
-    models/controllerconnector/kmotiondll/KMotionDLL/FTD2XX.LIB \
-    models/controllerconnector/kmotiondll/KMotionDLL/WINMM.LIB
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/libftd2xx.a \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/libftd2xx.a \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/libftd2xx.a \
+    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/libftd2xx.a \
+    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/libftd2xx.1.2.2.dylib \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/swt-debug.jar \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/swt.jar \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/libftd2xx.so.1.1.12 \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/libftd2xx.so.1.1.12 \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/libftd2xx.so.1.1.12 \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/install.sh \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/install.sh \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/install.sh \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.classpath \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.project \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/GCodeViewer.launch \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/TestCoff.launch \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/src.zip \
+    models/controllerconnector/kmotionx/KMotionX/doc/images/main.png \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about.html \
+    models/controllerconnector/kmotionx/KMotionX/doc/Advanced.md \
+    models/controllerconnector/kmotionx/KMotionX/doc/MacOSX.md \
+    models/controllerconnector/kmotionx/KMotionX/doc/RaspberryPi.md \
+    models/controllerconnector/kmotionx/KMotionX/doc/Troubleshooting.md \
+    models/controllerconnector/kmotionx/KMotionX/doc/Ubuntu.md \
+    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/examples/KFlopConsole/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/examples/test/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/JNI/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.settings/org.eclipse.jdt.core.prefs \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about_files/IJG_README \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about_files/mpl-v11.txt \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/ReadMe.txt \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/ReadMe.txt \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/ReadMe.txt \
+    models/controllerconnector/kmotionx/KMotionX/lib/linux/ReadMe-linux.txt \
+    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/ReadMe.txt \
+    models/controllerconnector/kmotionx/KMotionX/src/.gitignore \
+    models/controllerconnector/kmotionx/KMotionX/usb/etc/udev/rules.d/10.kflop-sio-unbind.rules \
+    models/controllerconnector/kmotionx/KMotionX/usb/etc/udev/rules.d/10.kflop.rules \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/viewer/GCodeLineStyler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/viewer/GCodeViewer.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/TestCoff.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/CompleteCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/ConsoleCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/ErrorCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/StatusCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/UserCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/UserMCodeCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/BoardType.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/KMotionLockStatus.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/ReadyState.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/IndexCallbackHandler.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/KMotion.java \
+    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/MotionParams.java \
+    models/controllerconnector/kmotionx/KMotionDLL/Driver Model.doc \
+    models/controllerconnector/kmotionx/KMotionDLL/FTD2XX.lib \
+    models/controllerconnector/kmotionx/KMotionDLL/WINMM.lib \
+    models/controllerconnector/kmotionx/KMotionDLL/.gitignore
