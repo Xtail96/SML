@@ -5,7 +5,7 @@
 
 extern "C"
 {
-    int KM_New(HANDLE h, int board);
+    //int KM_New(HANDLE h, int board);
     //int KM_Free(HANDLE h);
 }
 

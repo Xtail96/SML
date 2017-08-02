@@ -1058,10 +1058,9 @@ void MainWindow::on_savesettings_action_triggered()
 
 }
 
-#include "models/controllerconnector/kmotion/kmapi.h"
 void MainWindow::on_startDegbugCommandLinkButton_clicked()
 {
-    KM_New(NULL, 1);
+    //KM_New(NULL, 1);
     //KM_Free(NULL);
 }
 

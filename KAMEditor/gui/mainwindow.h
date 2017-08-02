@@ -67,6 +67,8 @@
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
+#include "dependencies.h"
+
 #define VENDOR_ID  0x10c4 //0x125f
 #define PRODUCT_ID 0xea61 //0x385a
 
