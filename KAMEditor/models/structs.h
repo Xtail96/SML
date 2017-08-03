@@ -218,13 +218,13 @@ public:
     /*!
      * \brief Формирует нужную маску для включения/выключения устройства
      * \param deviceMask - маска включения устройства
-     * \param isDeviceEnable - включено ли устройство
+     * \param deviceState - true, устройство включено, false - иначе
      * \return маска включения/выключения устройства
      */
-    byte getDevicesMask(byte deviceMask, bool isDeviceEnable)
+    byte getDevicesMask(byte deviceMask, bool deviceState)
     {
         qDebug() << "origin: " + QString::number(deviceMask, 2);
-        if(isDeviceEnable == false)
+        if(deviceState == false)
         {
             devicesState = devicesState & deviceMask;
         }

@@ -65,11 +65,12 @@ public:
     /*!
      * \brief Формирует посылку, которую нужно послать контроллеру для включения/отключения нужного устройства
      * \param device - устройство, которое необходимо включить/выключить
+     * \param onOff - true, включить устройство, false -выключить устрой ство
      * \param firstAgrument - 1 аргумент для включения/выключения устройства (по умолчанию 0x00)
      * \param secondArgument - 2 аргумент для включения/выключения устройства (по умолчанию 0x00)
      * \return послыка для контроллера включающая/отключающая устройство device с аргументами firstArgument и secondArgument
      */
-    byte_array getSwitchDeviceData(const Device &device, byte firstAgrument = 0x00, byte secondArgument = 0x00);
+    byte_array getSwitchDeviceData(const Device &device, bool onOff, byte firstAgrument = 0x00, byte secondArgument = 0x00);
 
     /*!
      * \brief Производит поиск устройства в списке устройств

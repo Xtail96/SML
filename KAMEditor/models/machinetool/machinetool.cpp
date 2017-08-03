@@ -65,3 +65,8 @@ DevicesManager *MachineTool::getDevicesManager() const
 {
     return devicesManager;
 }
+
+CommandsManager *MachineTool::getCommandsManager() const
+{
+    return commandsManager;
+}

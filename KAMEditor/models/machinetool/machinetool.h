@@ -47,6 +47,8 @@ public:
 
     DevicesManager *getDevicesManager() const;
 
+    CommandsManager *getCommandsManager() const;
+
 private:
     uint16_t vendorId;
 

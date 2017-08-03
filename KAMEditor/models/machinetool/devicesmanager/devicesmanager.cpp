@@ -62,11 +62,11 @@ Device &DevicesManager::findDevice(std::string deviceName)
     throw std::invalid_argument(errorString);
 }
 
-byte_array DevicesManager::getSwitchDeviceData(const Device &device, byte firstAgrument, byte secondArgument)
+byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool onOff, byte firstAgrument, byte secondArgument)
 {
     //byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
     byte deviceMask = device.getMask();
-    byte devicesMask = devicesBuffer.getDevicesMask(deviceMask, device.isEnable());
+    byte devicesMask = devicesBuffer.getDevicesMask(deviceMask, onOff);
     byte_array data =
     {
         SET_DEVICES,

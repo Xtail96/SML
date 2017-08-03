@@ -577,6 +577,25 @@ void MainWindow::updatePoints()
 
 void MainWindow::updateCommands()
 {
+    ui->smlEditorTreeWidget->clear();
+    std::vector< std::shared_ptr<Command> > commands = machineTool->getCommandsManager()->getCommands();
+    QList<QTreeWidgetItem*> qSmlCommands;
+    int tmp = 0;
+    for(auto command : commands)
+    {
+        tmp++;
+        QStringList commandStringList =
+        {
+            QString::number(tmp),
+            QString::fromStdString(command->getName()),
+            command->getArguments()
+        };
+        QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
+        item->setTextColor(1, QColor("#33bb33"));
+        qSmlCommands.push_back(item);
+    }
+    ui->smlEditorTreeWidget->addTopLevelItems(qSmlCommands);
+    ui->smlEditorTreeWidget->resizeColumnToContents(0);
 }
 
 void MainWindow::updateBatteryStatus()
@@ -1092,7 +1111,7 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
     try
     {
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
-        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device);
+        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
 #ifdef Q_OS_WIN
         try
         {
@@ -1110,4 +1129,18 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
+}
+
+void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
+{
+    QString commandName = item->text();
+    if(commandName == "Включить")
+    {
+        OnDialog(machineTool, this).exec();
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
+    }
+    updateCommands();
 }

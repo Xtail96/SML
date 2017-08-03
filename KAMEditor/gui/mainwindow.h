@@ -18,6 +18,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QTableWidgetItem>
+#include <QListWidget>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -208,6 +209,7 @@ private slots:
     void on_startDegbugCommandLinkButton_clicked();
     void on_finishDebugCommandLinkButton_clicked();
     void on_devicesTableWidget_clicked(const QModelIndex &index);
+    void on_commandsToolsListWidget_itemClicked(QListWidgetItem *item);
 };
 
 

@@ -1,9 +1,10 @@
 #include "ondialog.h"
 #include "ui_ondialog.h"
 
-OnDialog::OnDialog(QWidget *parent) :
+OnDialog::OnDialog(MachineTool *_machineTool, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::OnDialog)
+    ui(new Ui::OnDialog),
+    machineTool(_machineTool)
 {
     ui->setupUi(this);
     fillFields();
@@ -12,55 +13,30 @@ OnDialog::OnDialog(QWidget *parent) :
 OnDialog::~OnDialog()
 {
     delete ui;
+    //delete machineTool;
 }
 
 void OnDialog::fillFields()
 {
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    bool editSignal = instance.getSelectedCommandEditSignal();
-    if(editSignal)
+    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
+    QStringList devicesNames;
+    for(auto it : devices)
     {
-        unsigned int current_command_number = instance.getSelectedCommand();
-        std::vector <Command> commands = instance.getCommands();
-        std::vector <std::string> current_command_arguments;
-        current_command_arguments = commands[current_command_number].args;
-
-        for(unsigned int i = 0; i < current_command_arguments.size(); i++)
-        {
-            if(current_command_arguments[i] == "Шпиндель")
-            {
-                ui->spindle_on_checkBox->setChecked(true);
-            }
-            if(current_command_arguments[i] == "Кабриоль")
-            {
-                ui->kabriol_on_checkBox->setChecked(true);
-            }
-        }
+        QString deviceName = QString::fromStdString(it->getName());
+        devicesNames.push_back(deviceName);
     }
+    ui->devicesComboBox->addItems(devicesNames);
 }
 
 void OnDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_ON;
-
-    cmd.commandColor = COMMANDCOLORS[warningColor];
-
-
-    std::string argument;
-
-    if(ui->spindle_on_checkBox->isChecked())
+    QString qDeviceName = ui->devicesComboBox->currentText();
+    QString argument = ui->argumentsLineEdit->text();
+    std::vector<std::string> commandString =
     {
-        argument = "Шпиндель";
-        cmd.args.push_back(argument);
-        argument = "";
-    }
-
-    if(ui->kabriol_on_checkBox->isChecked())
-    {
-        argument = "Кабриоль";
-        cmd.args.push_back(argument);
-        argument ="";
-    }
-    setCommandArguments(cmd);
+        qDeviceName.toStdString(),
+        argument.toStdString()
+    };
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(machineTool, commandString));
+    machineTool->getCommandsManager()->addCommand(cmd);
 }

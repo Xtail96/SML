@@ -5620,7 +5620,7 @@
      <x>0</x>
      <y>0</y>
      <width>1450</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
