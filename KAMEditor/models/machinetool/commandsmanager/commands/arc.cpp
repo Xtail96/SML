@@ -5,7 +5,7 @@ CArc::CArc(double R, double Al, double Fi, double v) :
 {
 }
 
-void CArc::send() const
+byte_array CArc::getDataForMachineTool() const
 {
 
 }
@@ -28,6 +28,11 @@ std::string CArc::getName() const
 QString CArc::getArguments() const
 {
     return "Not implemented yet";
+}
+
+QColor CArc::getColor() const
+{
+    return QColor("#333");
 }
 
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)

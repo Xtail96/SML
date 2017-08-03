@@ -1,7 +1,12 @@
 #include "switchon.h"
 
-SwitchOn::SwitchOn(MachineTool *_machineTool, std::vector<std::string> _arguments) :
-    machineTool(_machineTool), arguments(_arguments)
+QColor SwitchOn::getColor() const
+{
+    return color;
+}
+
+SwitchOn::SwitchOn(MachineTool *_machineTool, std::string _deviceName, std::string _parametrs) :
+    machineTool(_machineTool), deviceName(_deviceName), parametrs(_parametrs)
 {
 
 }
@@ -11,23 +16,14 @@ SwitchOn::~SwitchOn()
     //delete machineTool;
 }
 
-void SwitchOn::send() const
+byte_array SwitchOn::getDataForMachineTool() const
 {
     try
     {
-        Device &device = machineTool->getDevicesManager()->findDevice(arguments[0]);
+        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        //toDo Преобразования строки в 2 байта
         byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, true);
-#ifdef Q_OS_WIN
-        try
-        {
-            u1Manager->getU1()->sendData(data);
-        }
-        catch(std::runtime_error e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
-#endif
-        device.setCurrentState(device.getActiveState());
+        return data;
     }
     catch(std::invalid_argument e)
     {
@@ -52,10 +48,6 @@ size_t SwitchOn::getId() const
 
 QString SwitchOn::getArguments() const
 {
-    std::string argumentsString = "";
-    for(auto argument : arguments)
-    {
-        argumentsString += argument + ", ";
-    }
+    std::string argumentsString = deviceName + ", " + parametrs;
     return QString::fromStdString(argumentsString);
 }

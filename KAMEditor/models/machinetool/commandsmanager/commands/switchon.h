@@ -2,7 +2,6 @@
 #define SWITCHON_H
 
 #include "models/machinetool/commandsmanager/commands/command.h"
-#include "models/structs.h"
 #include "models/machinetool/machinetool.h"
 
 class SwitchOn : public Command
@@ -10,15 +9,17 @@ class SwitchOn : public Command
     size_t id = 2;
     const std::string name = "Включить";
     MachineTool* machineTool;
-    std::vector<std::string> arguments;
+    std::string deviceName;
+    std::string parametrs;
+    QColor color = QColor("#b22222");
 public:
-    SwitchOn(MachineTool* _machineTool, std::vector<std::string> _arguments);
+    SwitchOn(MachineTool* _machineTool, std::string _deviceName, std::string _parametrs = 0);
     ~SwitchOn();
 
     /**
-     * @brief Отправляет текущую команду на станок
+     * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
      */
-    virtual void send() const override;
+    virtual byte_array getDataForMachineTool() const override;
 
     /**
      * @brief Отвечает за графическое отображение команды
@@ -40,6 +41,8 @@ public:
      * @return строковое представление аргументов текущей команды
      */
     virtual QString getArguments() const override;
+
+    QColor getColor() const override;
 };
 
 #endif // SWITCHON_H

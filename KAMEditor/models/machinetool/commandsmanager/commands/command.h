@@ -2,6 +2,8 @@
 #define COMMAND_H
 
 #include <QString>
+
+#include "models/structs.h"
 #include "../../../../gui/oglwidget.h"
 
 /**
@@ -13,9 +15,9 @@ public:
     virtual ~Command() {}
 
     /**
-     * @brief Отправляет текущую команду на станок
+     * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
      */
-    virtual void send() const = 0;
+    virtual byte_array getDataForMachineTool() const = 0;
 
     /**
      * @brief Отвечает за графическое отображение команды
@@ -37,6 +39,8 @@ public:
      * @return строковое представление аргументов текущей команды
      */
     virtual QString getArguments() const = 0;
+
+    virtual QColor getColor() const = 0;
 };
 
 #endif // COMMAND_H

@@ -30,13 +30,8 @@ void OnDialog::fillFields()
 
 void OnDialog::on_buttonBox_accepted()
 {
-    QString qDeviceName = ui->devicesComboBox->currentText();
-    QString argument = ui->argumentsLineEdit->text();
-    std::vector<std::string> commandString =
-    {
-        qDeviceName.toStdString(),
-        argument.toStdString()
-    };
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(machineTool, commandString));
+    std::string deviceName = ui->devicesComboBox->currentText().toStdString();
+    std::string parametrs = ui->argumentsLineEdit->text().toStdString();
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(machineTool, deviceName, parametrs));
     machineTool->getCommandsManager()->addCommand(cmd);
 }

@@ -591,11 +591,18 @@ void MainWindow::updateCommands()
             command->getArguments()
         };
         QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
-        item->setTextColor(1, QColor("#33bb33"));
+        for(int i = 1; i < ui->smlEditorTreeWidget->columnCount(); i++)
+        {
+            item->setTextColor(i, command->getColor());
+        }
         qSmlCommands.push_back(item);
     }
     ui->smlEditorTreeWidget->addTopLevelItems(qSmlCommands);
-    ui->smlEditorTreeWidget->resizeColumnToContents(0);
+
+    for(int i = 0; i < ui->smlEditorTreeWidget->columnCount() - 1; i++)
+    {
+        ui->smlEditorTreeWidget->resizeColumnToContents(i);
+    }
 }
 
 void MainWindow::updateBatteryStatus()

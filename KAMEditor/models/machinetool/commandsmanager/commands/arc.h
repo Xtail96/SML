@@ -10,12 +10,14 @@ class CArc : public Command
 public:
     CArc(double R, double Al, double Fi, double v = 1);
 
-    void send() const override;
+    virtual byte_array getDataForMachineTool() const override;
     void draw(OGLWidget* w) const override;
 
     size_t getId() const override;
     std::string getName() const override;
     QString getArguments() const override;
+
+    virtual QColor getColor() const override;
 
 private:
     // радиус дуги

@@ -6,7 +6,7 @@ Line::Line(double dx, double dy, double dz, double v) :
 
 }
 
-void Line::send() const
+byte_array Line::getDataForMachineTool() const
 {
 
 }
@@ -29,6 +29,11 @@ std::string Line::getName() const
 QString Line::getArguments() const
 {
     return "";
+}
+
+QColor Line::getColor() const
+{
+    return QColor("#333");
 }
 
 void OGLWidget::drawLine(double dx, double dy, double dz, double v)

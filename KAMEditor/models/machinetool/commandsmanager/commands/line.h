@@ -8,12 +8,14 @@ class Line : public Command
 public:
     Line(double dx, double dy, double dz, double v = 1);
 
-    void send() const override;
+    byte_array getDataForMachineTool() const override;
     void draw(OGLWidget* w) const override;
 
     size_t getId() const override;
     std::string getName() const override;
     QString getArguments() const override;
+
+    virtual QColor getColor() const override;
 
 private:
     double dx, dy, dz;
