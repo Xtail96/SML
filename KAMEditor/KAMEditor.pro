@@ -88,35 +88,6 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/driver.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreter.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics3Rod.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/PT2D.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/PT3D.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc.cpp \
-    models/controllerconnector/kmotionx/GCodeInterpreter/TrajectoryPlanner.cpp \
-    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/ExecuteGCode.cpp \
-    models/controllerconnector/kmotionx/KMotionX/examples/KFlopConsole/cli.cpp \
-    models/controllerconnector/kmotionx/KMotionX/examples/test/test.cpp \
-    models/controllerconnector/kmotionx/KMotionX/JNI/KMotionXjni.cpp \
-    models/controllerconnector/kmotionx/KMotionX/src/CMutex.cpp \
-    models/controllerconnector/kmotionx/KMotionX/src/HiResTimer.cpp \
-    models/controllerconnector/kmotionx/KMotionX/src/KMotionX.cpp \
-    models/controllerconnector/kmotionx/KMotionX/src/MessageBox.cpp \
-    models/controllerconnector/kmotionx/KMotionX/src/SocketWrapper.cpp \
-    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/Stepper3Axis.c \
-    models/controllerconnector/kmotionx/GCodeInterpreter/StdAfx.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/CLOAD.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/COFFMAIN.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/HiResTimer.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionApp.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL_Direct.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KmotionIO.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KmotionIOX.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionLocal.cpp \
-    models/controllerconnector/kmotionx/KMotionDLL/StdAfx.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -175,53 +146,6 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/canon.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/driver.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreter.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/GCodeInterpreterX.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/Kinematics3Rod.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/PT2D.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/PT3D.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/TrajectoryPlanner.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/linux/armhf/ftd2xx.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/linux/armhf/WinTypes.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_32/WinTypes.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_64/ftd2xx.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/macosx/x86_64/WinTypes.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftdi/windows/FTD2XX.H \
-    models/controllerconnector/kmotionx/KMotionX/include/win/stdint.h \
-    models/controllerconnector/kmotionx/KMotionX/include/afxmt.h \
-    models/controllerconnector/kmotionx/KMotionX/include/afxtempl.h \
-    models/controllerconnector/kmotionx/KMotionX/include/afxwin.h \
-    models/controllerconnector/kmotionx/KMotionX/include/CMutex.h \
-    models/controllerconnector/kmotionx/KMotionX/include/CString.h \
-    models/controllerconnector/kmotionx/KMotionX/include/dbg.h \
-    models/controllerconnector/kmotionx/KMotionX/include/ftd2xx.h \
-    models/controllerconnector/kmotionx/KMotionX/include/HiResTimer.h \
-    models/controllerconnector/kmotionx/KMotionX/include/KMotionX.h \
-    models/controllerconnector/kmotionx/KMotionX/include/MessageBox.h \
-    models/controllerconnector/kmotionx/KMotionX/include/SocketWrapper.h \
-    models/controllerconnector/kmotionx/KMotionX/include/stdstring.h \
-    models/controllerconnector/kmotionx/KMotionX/JNI/com_dynomotion_kmotionx_KMotion.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/StdAfx.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc_errors.h \
-    models/controllerconnector/kmotionx/GCodeInterpreter/rs274ngc_return.h \
-    models/controllerconnector/kmotionx/KMotionDLL/CLOAD.h \
-    models/controllerconnector/kmotionx/KMotionDLL/COFF.h \
-    models/controllerconnector/kmotionx/KMotionDLL/FTD2XX.h \
-    models/controllerconnector/kmotionx/KMotionDLL/HiResTimer.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionApp.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLL_Direct.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionDLLX.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KmotionIO.h \
-    models/controllerconnector/kmotionx/KMotionDLL/KMotionLocal.h \
-    models/controllerconnector/kmotionx/KMotionDLL/PARAMS.h \
-    models/controllerconnector/kmotionx/KMotionDLL/Resource.h \
-    models/controllerconnector/kmotionx/KMotionDLL/StdAfx.h \
-    models/controllerconnector/kmotionx/KMotionDLL/VERSION.h
 
 
 FORMS    += gui/mainwindow.ui \

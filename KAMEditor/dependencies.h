@@ -6,7 +6,6 @@
 #elif defined(Q_OS_WIN)
 #include "libusb/include/libusb.h"
 #include "SiUSBXp.h"
-#include "kmotion/include/kmapi.h"
 #elif defined(Q_OS_OSX)
 #include "libusb/include/libusb.h"
 #endif
