@@ -303,6 +303,15 @@ struct SmlColors
     }
 
     /*!
+     * \brief Возвращает светло-серый цвет
+     * \return #dfdfdf
+     */
+    static QString lightGray()
+    {
+        return QString("#dfdfdf");
+    }
+
+    /*!
      * \brief Возвращает белый цвет
      * \return #fff
      */

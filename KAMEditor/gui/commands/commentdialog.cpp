@@ -1,17 +1,12 @@
 #include "commentdialog.h"
 #include "ui_commentdialog.h"
 
-CommentDialog::CommentDialog(QWidget *parent) :
+CommentDialog::CommentDialog(MachineTool *_machineTool, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::CommentDialog)
+    ui(new Ui::CommentDialog),
+    machineTool(_machineTool)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->comment_text_lineEdit
-    };
-    fillFields(fields);
 }
 
 CommentDialog::~CommentDialog()
@@ -21,12 +16,7 @@ CommentDialog::~CommentDialog()
 
 void CommentDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_COMMENT;
-
-
-    cmd.commandColor = COMMANDCOLORS[commentColor];
-    std::string commentText = ui->comment_text_lineEdit->text().toStdString();
-    cmd.args.push_back(commentText);
-    setCommandArguments(cmd);
+    std::string comment = ui->commentTextLineEdit->text().toStdString();
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Comment(comment));
+    machineTool->getCommandsManager()->addCommand(cmd);
 }

@@ -56,7 +56,7 @@ SOURCES += main.cpp\
 #    gui/commands/velocitydialog.cpp \
 #    gui/commands/pausedialog.cpp \
 #    gui/commands/stopdialog.cpp \
-#    gui/commands/commentdialog.cpp \
+    gui/commands/commentdialog.cpp \
 #    gui/commands/ttzarcdialog.cpp \
 #    gui/commands/tttarcdialog.cpp \
 #    gui/commands/splinedialog.cpp \
@@ -89,7 +89,8 @@ SOURCES += main.cpp\
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
     models/machinetool/commandsmanager/commands/switchon.cpp \
-    models/machinetool/commandsmanager/commands/switchoff.cpp
+    models/machinetool/commandsmanager/commands/switchoff.cpp \
+    models/machinetool/commandsmanager/commands/comment.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -112,7 +113,7 @@ HEADERS  += gui/mainwindow.h \
 #    gui/commands/velocitydialog.h \
 #    gui/commands/pausedialog.h \
 #    gui/commands/stopdialog.h \
-#    gui/commands/commentdialog.h \
+    gui/commands/commentdialog.h \
 #    gui/commands/ttzarcdialog.h \
 #    gui/commands/tttarcdialog.h \
 #    gui/commands/splinedialog.h \
@@ -149,7 +150,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
     models/machinetool/commandsmanager/commands/switchon.h \
-    models/machinetool/commandsmanager/commands/switchoff.h
+    models/machinetool/commandsmanager/commands/switchoff.h \
+    models/machinetool/commandsmanager/commands/comment.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -173,7 +175,7 @@ FORMS    += gui/mainwindow.ui \
 #    gui/commands/velocitydialog.ui \
 #    gui/commands/pausedialog.ui \
 #    gui/commands/stopdialog.ui \
-#    gui/commands/commentdialog.ui \
+    gui/commands/commentdialog.ui \
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

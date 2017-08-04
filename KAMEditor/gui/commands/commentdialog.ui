@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="comment_title_label">
+    <widget class="QLabel" name="commentTitleLabel">
      <property name="font">
       <font>
        <pointsize>21</pointsize>
@@ -30,38 +30,24 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="comment_arguments_groupBox">
+    <widget class="QLabel" name="commentTextLabel">
      <property name="font">
       <font>
-       <pointsize>8</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
-     <property name="title">
-      <string>Аргументы</string>
+     <property name="text">
+      <string>Текст комментария:</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QLabel" name="comment_text_label">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Текст комментария:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="comment_text_lineEdit">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="commentTextLineEdit">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
     </widget>
    </item>
    <item>
