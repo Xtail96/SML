@@ -276,6 +276,15 @@ struct SmlColors
     }
 
     /*!
+     * \brief Возвращает светло-зеленый цвет
+     * \return #55bb55
+     */
+    static QString lightGreen()
+    {
+        return QString("#55bb55");
+    }
+
+    /*!
      * \brief Возвращает красный цвет
      * \return #b22222
      */

@@ -398,7 +398,7 @@ void MainWindow::updateSensorsField()
         QTableWidgetItem *item = new QTableWidgetItem();
         if(!isEnable)
         {
-            item->setBackgroundColor(QColor(255, 255, 255));
+            item->setBackgroundColor(QColor(SmlColors::white()));
         }
         else
         {
@@ -423,13 +423,13 @@ void MainWindow::updateDevicesField()
             item->setText(QString::fromStdString(devices[i]->getName()));
             if(devices[i]->isEnable())
             {
-                item->setTextColor(QColor("#fff"));
-                item->setBackgroundColor(QColor("#b22222"));
+                item->setTextColor(QColor(SmlColors::white()));
+                item->setBackgroundColor(QColor(SmlColors::red()));
             }
             else
             {
-                item->setTextColor(QColor("#333"));
-                item->setBackgroundColor(QColor(255, 255, 255));
+                item->setTextColor(QColor(SmlColors::gray()));
+                item->setBackgroundColor(QColor(SmlColors::white()));
             }
             items.push_back(item);
         }
