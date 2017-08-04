@@ -1,17 +1,12 @@
 #include "pausedialog.h"
 #include "ui_pausedialog.h"
 
-PauseDialog::PauseDialog(QWidget *parent) :
+PauseDialog::PauseDialog(MachineTool* _machineTool, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::PauseDialog)
+    ui(new Ui::PauseDialog),
+    machineTool(_machineTool)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->pause_value_lineEdit
-    };
-    fillFields(fields);
 }
 
 PauseDialog::~PauseDialog()
@@ -21,10 +16,7 @@ PauseDialog::~PauseDialog()
 
 void PauseDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_PAUSE;
-    cmd.commandColor = COMMANDCOLORS[warningColor];
-    std::string pauseArgument  = ui->pause_value_lineEdit->text().toStdString();
-    cmd.args.push_back(pauseArgument);
-    setCommandArguments(cmd);
+    size_t pauseLength = ui->pauseValueLineEdit->text().toUInt();
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Pause(pauseLength));
+    machineTool->getCommandsManager()->addCommand(cmd);
 }

@@ -54,7 +54,7 @@ SOURCES += main.cpp\
 #    gui/commands/commanddialog.cpp \
 #    gui/commands/scaledialog.cpp \
 #    gui/commands/velocitydialog.cpp \
-#    gui/commands/pausedialog.cpp \
+    gui/commands/pausedialog.cpp \
 #    gui/commands/stopdialog.cpp \
     gui/commands/commentdialog.cpp \
 #    gui/commands/ttzarcdialog.cpp \
@@ -90,7 +90,8 @@ SOURCES += main.cpp\
     models/machinetool/devicesmanager/devicesmanager.cpp \
     models/machinetool/commandsmanager/commands/switchon.cpp \
     models/machinetool/commandsmanager/commands/switchoff.cpp \
-    models/machinetool/commandsmanager/commands/comment.cpp
+    models/machinetool/commandsmanager/commands/comment.cpp \
+    models/machinetool/commandsmanager/commands/pause.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -111,7 +112,7 @@ HEADERS  += gui/mainwindow.h \
 #    gui/commands/commanddialog.h \
 #    gui/commands/scaledialog.h \
 #    gui/commands/velocitydialog.h \
-#    gui/commands/pausedialog.h \
+    gui/commands/pausedialog.h \
 #    gui/commands/stopdialog.h \
     gui/commands/commentdialog.h \
 #    gui/commands/ttzarcdialog.h \
@@ -151,7 +152,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/devicesmanager/devicesmanager.h \
     models/machinetool/commandsmanager/commands/switchon.h \
     models/machinetool/commandsmanager/commands/switchoff.h \
-    models/machinetool/commandsmanager/commands/comment.h
+    models/machinetool/commandsmanager/commands/comment.h \
+    models/machinetool/commandsmanager/commands/pause.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -173,7 +175,7 @@ FORMS    += gui/mainwindow.ui \
 #    gui/commands/callprocdialog.ui \
 #    gui/commands/scaledialog.ui \
 #    gui/commands/velocitydialog.ui \
-#    gui/commands/pausedialog.ui \
+    gui/commands/pausedialog.ui \
 #    gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
 #    gui/commands/ttzarcdialog.ui \
@@ -188,64 +190,4 @@ RESOURCES += \
     gui/images.qrc
 
 DISTFILES += \
-    machinetool/components/movementController/about.txt \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/libftd2xx.a \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/libftd2xx.a \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/libftd2xx.a \
-    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/libftd2xx.a \
-    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/libftd2xx.1.2.2.dylib \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/swt-debug.jar \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/swt.jar \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/libftd2xx.so.1.1.12 \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/libftd2xx.so.1.1.12 \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/libftd2xx.so.1.1.12 \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/install.sh \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/install.sh \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/install.sh \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.classpath \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.project \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/GCodeViewer.launch \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/TestCoff.launch \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/src.zip \
-    models/controllerconnector/kmotionx/KMotionX/doc/images/main.png \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about.html \
-    models/controllerconnector/kmotionx/KMotionX/doc/Advanced.md \
-    models/controllerconnector/kmotionx/KMotionX/doc/MacOSX.md \
-    models/controllerconnector/kmotionx/KMotionX/doc/RaspberryPi.md \
-    models/controllerconnector/kmotionx/KMotionX/doc/Troubleshooting.md \
-    models/controllerconnector/kmotionx/KMotionX/doc/Ubuntu.md \
-    models/controllerconnector/kmotionx/KMotionX/examples/ExecuteGCode/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/examples/KFlopConsole/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/examples/test/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/JNI/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.settings/org.eclipse.jdt.core.prefs \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about_files/IJG_README \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/lib/swt-4-macosx/about_files/mpl-v11.txt \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armhf/ReadMe.txt \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/armsf/ReadMe.txt \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/x86_64/ReadMe.txt \
-    models/controllerconnector/kmotionx/KMotionX/lib/linux/ReadMe-linux.txt \
-    models/controllerconnector/kmotionx/KMotionX/lib/macosx/x86_64/ReadMe.txt \
-    models/controllerconnector/kmotionx/KMotionX/src/.gitignore \
-    models/controllerconnector/kmotionx/KMotionX/usb/etc/udev/rules.d/10.kflop-sio-unbind.rules \
-    models/controllerconnector/kmotionx/KMotionX/usb/etc/udev/rules.d/10.kflop.rules \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/viewer/GCodeLineStyler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/viewer/GCodeViewer.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/examples/com/dynomotion/kmotionx/TestCoff.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/CompleteCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/ConsoleCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/ErrorCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/StatusCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/UserCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/callback/UserMCodeCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/BoardType.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/KMotionLockStatus.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/types/ReadyState.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/IndexCallbackHandler.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/KMotion.java \
-    models/controllerconnector/kmotionx/KMotionX/KMotionJNI/src/com/dynomotion/kmotionx/MotionParams.java \
-    models/controllerconnector/kmotionx/KMotionDLL/Driver Model.doc \
-    models/controllerconnector/kmotionx/KMotionDLL/FTD2XX.lib \
-    models/controllerconnector/kmotionx/KMotionDLL/WINMM.lib \
-    models/controllerconnector/kmotionx/KMotionDLL/.gitignore
+    machinetool/components/movementController/about.txt

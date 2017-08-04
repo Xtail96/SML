@@ -31,7 +31,7 @@ public:
     virtual std::string getName() const = 0;
 
     /**
-     * @return ID команды
+     * @return Id команды
      */
     virtual size_t getId() const = 0;
 
@@ -40,6 +40,9 @@ public:
      */
     virtual QString getArguments() const = 0;
 
+    /**
+     * @return цвет текущей команды
+     */
     virtual QColor getColor() const = 0;
 };
 

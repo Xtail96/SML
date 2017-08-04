@@ -1153,6 +1153,9 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     case CMD_COMMENT:
         CommentDialog(machineTool, this).exec();
         break;
+    case CMD_PAUSE:
+        PauseDialog(machineTool, this).exec();
+        break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;

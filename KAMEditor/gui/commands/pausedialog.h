@@ -5,17 +5,19 @@
 #include <QMessageBox>
 
 #include "commanddialog.h"
+#include "models/machinetool/machinetool.h"
+#include "models/machinetool/commandsmanager/commands/pause.h"
 
 namespace Ui {
 class PauseDialog;
 }
 
-class PauseDialog : public QDialog, private CommandDialog
+class PauseDialog : public QDialog//, private CommandDialog
 {
     Q_OBJECT
 
 public:
-    explicit PauseDialog(QWidget *parent = 0);
+    explicit PauseDialog(MachineTool* _machineTool, QWidget *parent = 0);
     ~PauseDialog();
 
 private slots:
@@ -23,6 +25,7 @@ private slots:
 
 private:
     Ui::PauseDialog *ui;
+    MachineTool* machineTool;
 };
 
 #endif // PAUSEDIALOG_H
