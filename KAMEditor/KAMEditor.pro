@@ -91,7 +91,8 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/switchon.cpp \
     models/machinetool/commandsmanager/commands/switchoff.cpp \
     models/machinetool/commandsmanager/commands/comment.cpp \
-    models/machinetool/commandsmanager/commands/pause.cpp
+    models/machinetool/commandsmanager/commands/pause.cpp \
+    gui/programvisualizewidow.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -153,7 +154,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/switchon.h \
     models/machinetool/commandsmanager/commands/switchoff.h \
     models/machinetool/commandsmanager/commands/comment.h \
-    models/machinetool/commandsmanager/commands/pause.h
+    models/machinetool/commandsmanager/commands/pause.h \
+    gui/programvisualizewidow.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -178,6 +180,7 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/pausedialog.ui \
 #    gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
+    gui/programvisualizewidow.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

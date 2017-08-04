@@ -1168,3 +1168,8 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     }
     updateCommands();
 }
+
+void MainWindow::on_viewPushButton_clicked()
+{
+    ProgramVisualizeWidow(this).exec();
+}

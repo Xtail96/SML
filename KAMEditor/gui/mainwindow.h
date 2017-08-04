@@ -54,6 +54,7 @@
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
 #include "commands/adddevicedialog.h"
+#include "programvisualizewidow.h"
 
 #include "models/machinetool/commandsmanager/commands/commands.h"
 
@@ -210,6 +211,7 @@ private slots:
     void on_finishDebugCommandLinkButton_clicked();
     void on_devicesTableWidget_clicked(const QModelIndex &index);
     void on_commandsToolsListWidget_itemClicked(QListWidgetItem *item);
+    void on_viewPushButton_clicked();
 };
 
 
