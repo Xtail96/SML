@@ -7,7 +7,7 @@
 class Comment : public Command
 {
 private:
-    size_t id = 12;
+    size_t id = CMD_COMMENT;
     const std::string name = "Комментарий";
     std::string comment;
     QColor color = QColor(SmlColors::lightGray());

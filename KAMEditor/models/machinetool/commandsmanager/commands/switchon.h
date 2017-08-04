@@ -6,7 +6,7 @@
 
 class SwitchOn : public Command
 {
-    size_t id = 2;
+    size_t id = CMD_SWITCH_ON;
     const std::string name = "Включить";
     MachineTool* machineTool;
     std::string deviceName;

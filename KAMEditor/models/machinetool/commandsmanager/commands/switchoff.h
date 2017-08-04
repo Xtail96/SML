@@ -7,7 +7,7 @@
 class SwitchOff : public Command
 {
 private:
-    size_t id = 3;
+    size_t id = CMD_SWITCH_OFF;
     const std::string name = "Выключить";
     MachineTool* machineTool;
     std::string deviceName;

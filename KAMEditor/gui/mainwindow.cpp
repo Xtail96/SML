@@ -1141,27 +1141,21 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 {
     QString commandName = item->text();
-    if(commandName == "Включить")
-    {
+    int commandNumber = CommandsIds.getId(commandName.toStdString());
+
+    switch (commandNumber) {
+    case CMD_SWITCH_ON:
         OnDialog(machineTool, this).exec();
-    }
-    else
-    {
-        if(commandName == "Выключить")
-        {
-            OffDialog(machineTool, this).exec();
-        }
-        else
-        {
-            if(commandName == "Комментарий")
-            {
-                CommentDialog(machineTool, this).exec();
-            }
-            else
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
-            }
-        }
+        break;
+    case CMD_SWITCH_OFF:
+        OffDialog(machineTool, this).exec();
+        break;
+    case CMD_COMMENT:
+        CommentDialog(machineTool, this).exec();
+        break;
+    default:
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
+        break;
     }
     updateCommands();
 }

@@ -331,4 +331,91 @@ struct SmlColors
 
 };
 
+enum COMMANDS_IDS
+{
+    CMD_ARC,
+    CMD_ARC2,
+    CMD_CALL, //
+    CMD_END, //
+    CMD_CYCLE, //
+    CMD_END_CYCLE, //
+    CMD_GOTO, //
+    CMD_LABEL, //
+    CMD_LINE,
+    CMD_MILL,
+    CMD_SWITCH_ON,
+    CMD_SWITCH_OFF,
+    CMD_PARK,
+    CMD_PAUSE,
+    CMD_FUNCTION,
+    CMD_RELARC,
+    CMD_COMMENT,
+    CMD_RETURN, //
+    CMD_ROTATE,
+    CMD_SCALE,
+    CMD_SPEED,
+    CMD_STOP,
+    CMD_TO_PARK,
+    CMD_TO_ZERO,
+    CMD_TPARC,
+    CMD_TPZARC,
+    CMD_TTARC,
+    CMD_TTLINE,
+    CMD_TTPOINT,
+    CMD_SPLINE,
+    CMD_TTTARC,
+    CMD_TTTLINE,
+    CMD_TTTTSPLINE,
+    CMD_TTTZARC,
+    CMD_ZERO
+};
+
+struct
+{
+    std::map<std::string, int> ids =
+    {
+        {"Линия", CMD_LINE},
+        {"ТТ-Линия", CMD_TTLINE},
+        {"Дуга", CMD_ARC},
+        {"Относительная дуга", CMD_ARC2},
+        {"ТТТ-Дуга", CMD_TTTARC},
+        {"ТТТZ-Дуга", CMD_TTTZARC},
+        {"Сплайн", CMD_SPLINE},
+        {"ТТТТ-Сплайн", CMD_TTTTSPLINE},
+        {"Поворот", CMD_ROTATE},
+        {"Масштаб", CMD_SCALE},
+        {"Метка", CMD_LABEL},
+        {"На метку", CMD_GOTO},
+        {"Цикл", CMD_CYCLE},
+        {"Конец цикла", CMD_END_CYCLE},
+        {"Попрограмма", CMD_FUNCTION},
+        {"Вернуться", CMD_RETURN},
+        {"Вызов подпрограммы", CMD_CALL},
+        {"Комментарий", CMD_COMMENT},
+        {"Обнулить", CMD_ZERO},
+        {"Окончить", CMD_END},
+        {"Включить", CMD_SWITCH_ON},
+        {"Выключить", CMD_SWITCH_OFF},
+        {"Скорость", CMD_SPEED},
+        {"Пауза", CMD_PAUSE},
+        {"Стоп", CMD_STOP},
+        {"В Ноль", CMD_TO_ZERO},
+    };
+
+    int getId(const std::string &name) const
+    {
+        int commandNumber = -1;
+        for(auto it : ids)
+        {
+            if(it.first == name)
+            {
+                commandNumber = it.second;
+                break;
+            }
+        }
+        return commandNumber;
+    }
+
+} CommandsIds;
+
 #endif // VECTOR_H
