@@ -28,7 +28,7 @@ std::string Line::getName() const
 
 QString Line::getArguments() const
 {
-    std::string arguments = std::to_string(dx) + ", " + std::to_string(dy) + ", " + std::to_string(dz) + ", v = " + std::to_string(v);
+    std::string arguments = "dx = " + std::to_string(dx) + ", dy = " + std::to_string(dy) + ", dz = " + std::to_string(dz) + ", v = " + std::to_string(v);
     return QString::fromStdString(arguments);
 }
 

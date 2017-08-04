@@ -1159,6 +1159,9 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     case CMD_LINE:
         LineDialog(machineTool, this).exec();
         break;
+    case CMD_ARC:
+        ArcDialog(machineTool, this).exec();
+        break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;

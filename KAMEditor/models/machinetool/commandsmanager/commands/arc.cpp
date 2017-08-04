@@ -27,7 +27,7 @@ std::string CArc::getName() const
 
 QString CArc::getArguments() const
 {
-    std::string arguments = std::to_string(R) + ", " + std::to_string(Al) + ", " + std::to_string(Fi) + ", v = " + std::to_string(v);
+    std::string arguments = "R = " + std::to_string(R) + ", Al = " + std::to_string(Al) + ", Fi = " + std::to_string(Fi) + ", v = " + std::to_string(v);
     return QString::fromStdString(arguments);
 }
 
