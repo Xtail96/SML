@@ -331,53 +331,114 @@ struct SmlColors
 
 };
 
+/*!
+ * \brief Перечисление идентификаторов команд
+ */
 enum COMMANDS_IDS
 {
+    /// Дуга
     CMD_ARC,
-    CMD_ARC2,
-    CMD_CALL, //
-    CMD_END, //
-    CMD_CYCLE, //
-    CMD_END_CYCLE, //
-    CMD_GOTO, //
-    CMD_LABEL, //
-    CMD_LINE,
-    CMD_MILL,
-    CMD_SWITCH_ON,
-    CMD_SWITCH_OFF,
-    CMD_PARK,
-    CMD_PAUSE,
-    CMD_FUNCTION,
+
+    /// Относительная дуга
     CMD_RELARC,
-    CMD_COMMENT,
-    CMD_RETURN, //
-    CMD_ROTATE,
-    CMD_SCALE,
-    CMD_SPEED,
-    CMD_STOP,
-    CMD_TO_PARK,
-    CMD_TO_ZERO,
-    CMD_TPARC,
-    CMD_TPZARC,
-    CMD_TTARC,
-    CMD_TTLINE,
-    CMD_TTPOINT,
-    CMD_SPLINE,
+
+    /// ТТТ-Дуга
     CMD_TTTARC,
-    CMD_TTTLINE,
-    CMD_TTTTSPLINE,
+
+    /// ТТТZ-Дуга
     CMD_TTTZARC,
+
+    /// Вызов подпрограммы
+    CMD_CALL,
+
+    /// Окончить
+    CMD_END,
+
+    /// Цикл
+    CMD_CYCLE,
+
+    /// Конец цикла
+    CMD_END_CYCLE,
+
+    /// Переход на метку
+    CMD_GOTO,
+
+    /// Метка
+    CMD_LABEL,
+
+    /// Линия
+    CMD_LINE,
+
+    /// Включить
+    CMD_SWITCH_ON,
+
+    /// Выключить
+    CMD_SWITCH_OFF,
+
+    /// Парк
+    CMD_PARK,
+
+    /// Пауза
+    CMD_PAUSE,
+
+    /// Подпрограмма
+    CMD_FUNCTION,
+
+    /// Комментарий
+    CMD_COMMENT,
+
+    /// Вернуться
+    CMD_RETURN,
+
+    /// Поворот
+    CMD_ROTATE,
+
+    /// Масштаб
+    CMD_SCALE,
+
+    /// Скорость
+    CMD_SPEED,
+
+    /// Стоп
+    CMD_STOP,
+
+    /// В Парк
+    CMD_TO_PARK,
+
+    /// В Ноль
+    CMD_TO_ZERO,
+
+    /// ТТ-Линия
+    CMD_TTLINE,
+
+    /// Сплайн
+    CMD_SPLINE,
+
+    /// ТТТТ-Сплайн
+    CMD_TTTTSPLINE,
+
+    /// Ноль
     CMD_ZERO
 };
 
+/*!
+ * \brief Структура Идентификаторы команд
+ * Задает каждой команде идентификатор из перечисления идентификаторов
+ * Позволяет получить идентификатор команды по ее имени
+ */
 struct
 {
+    /*!
+     * \brief Карта имен команд и соответствующих им идентификаторов
+     * Ключь - имя команды
+     * Значение - идентификатор команд
+     */
     std::map<std::string, int> ids =
     {
         {"Линия", CMD_LINE},
         {"ТТ-Линия", CMD_TTLINE},
         {"Дуга", CMD_ARC},
-        {"Относительная дуга", CMD_ARC2},
+        {"Относительная дуга", CMD_RELARC},
         {"ТТТ-Дуга", CMD_TTTARC},
         {"ТТТZ-Дуга", CMD_TTTZARC},
         {"Сплайн", CMD_SPLINE},
@@ -402,6 +463,11 @@ struct
         {"В Ноль", CMD_TO_ZERO},
     };
 
+    /*!
+     * \brief Возвращает идентификатор команды по ее имени
+     * \param name - имя команды
+     * \return идентификатор команды
+     */
     int getId(const std::string &name) const
     {
         int commandNumber = -1;
