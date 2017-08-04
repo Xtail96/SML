@@ -26,6 +26,9 @@ protected:
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
+
+    void drawCoordinatesVector();
+    void drawCommands();
 };
 
 #endif // OGLWIDGET_H
