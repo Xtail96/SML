@@ -260,4 +260,33 @@ public:
     }
 };
 
+struct SmlColors
+{
+    static QString green()
+    {
+        return QString("#2e8b57");
+    }
+
+    static QString red()
+    {
+        return QString("#b22222");
+    }
+
+    static QString gray()
+    {
+        return QString("#333");
+    }
+
+    static QString white()
+    {
+        return QString("#fff");
+    }
+
+    static QString blue()
+    {
+        return QString("#4682b4");
+    }
+
+};
+
 #endif // VECTOR_H

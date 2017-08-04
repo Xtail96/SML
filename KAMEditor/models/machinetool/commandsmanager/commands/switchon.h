@@ -11,7 +11,7 @@ class SwitchOn : public Command
     MachineTool* machineTool;
     std::string deviceName;
     std::string parametrs;
-    QColor color = QColor("#b22222");
+    QColor color = QColor(SmlColors::red());
 public:
     SwitchOn(MachineTool* _machineTool, std::string _deviceName, std::string _parametrs = 0);
     ~SwitchOn();
