@@ -34,7 +34,7 @@ size_t Pause::getId() const
 
 QString Pause::getArguments() const
 {
-    return QString::number(length);
+    return QString::number(length) + " секунд";
 }
 
 QColor Pause::getColor() const
