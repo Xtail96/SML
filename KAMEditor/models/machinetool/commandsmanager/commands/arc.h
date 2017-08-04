@@ -20,14 +20,23 @@ public:
     virtual QColor getColor() const override;
 
 private:
+    size_t id = CMD_ARC;
+
+    std::string name = "Дуга";
+
     // радиус дуги
     double R;
+
     // начальный угол
     double Al;
+
     // величина поворота
     double Fi;
+
     // скорость
     double v;
+
+    QColor color = SmlColors::gray();
 };
 
 #endif // ARC_H

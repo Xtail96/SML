@@ -17,7 +17,7 @@ void CArc::draw(OGLWidget *w) const
 
 size_t CArc::getId() const
 {
-
+    return id;
 }
 
 std::string CArc::getName() const
@@ -27,12 +27,13 @@ std::string CArc::getName() const
 
 QString CArc::getArguments() const
 {
-    return "Not implemented yet";
+    std::string arguments = std::to_string(R) + ", " + std::to_string(Al) + ", " + std::to_string(Fi) + ", v = " + std::to_string(v);
+    return QString::fromStdString(arguments);
 }
 
 QColor CArc::getColor() const
 {
-    return QColor("#333");
+    return color;
 }
 
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
