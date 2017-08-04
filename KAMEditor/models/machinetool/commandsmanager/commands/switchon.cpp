@@ -18,17 +18,18 @@ SwitchOn::~SwitchOn()
 
 byte_array SwitchOn::getDataForMachineTool() const
 {
+    byte_array data;
     try
     {
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
-        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, true);
-        return data;
+        data = machineTool->getDevicesManager()->getSwitchDeviceData(device, true);
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
+    return data;
 }
 
 void SwitchOn::draw(OGLWidget *w) const

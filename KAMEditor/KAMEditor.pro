@@ -88,7 +88,8 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
-    models/machinetool/commandsmanager/commands/switchon.cpp
+    models/machinetool/commandsmanager/commands/switchon.cpp \
+    models/machinetool/commandsmanager/commands/switchoff.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -147,7 +148,8 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    models/machinetool/commandsmanager/commands/switchon.h
+    models/machinetool/commandsmanager/commands/switchon.h \
+    models/machinetool/commandsmanager/commands/switchoff.h
 
 
 FORMS    += gui/mainwindow.ui \
