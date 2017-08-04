@@ -1,20 +1,12 @@
 #include "arcdialog.h"
 #include "ui_arcdialog.h"
 
-ArcDialog::ArcDialog(QWidget *parent) :
+ArcDialog::ArcDialog(MachineTool *_machineTool, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ArcDialog)
+    ui(new Ui::ArcDialog),
+    machineTool(_machineTool)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->arc_lineEdit_r,
-         ui->arc_lineEdit_al,
-         ui->arc_lineEdit_fi,
-         ui->arc_lineEdit_velocity
-    };
-    fillFields(fields);
 }
 
 ArcDialog::~ArcDialog()
@@ -24,21 +16,10 @@ ArcDialog::~ArcDialog()
 
 void ArcDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_ARC;
-
-    cmd.commandColor = COMMANDCOLORS[defaultColor];
-
-    std::string r = ui->arc_lineEdit_r->text().toStdString();
-    std::string al = ui->arc_lineEdit_al->text().toStdString();
-    std::string fi = ui->arc_lineEdit_fi->text().toStdString();
-    std::string velocity = ui->arc_lineEdit_velocity->text().toStdString();
-
-    cmd.args = {
-     r,
-     al,
-     fi,
-     velocity,
-    };
-    setCommandArguments(cmd);
+    double r = ui->rLineEdit->text().toDouble();
+    double al = ui->alLineEdit->text().toDouble();
+    double fi = ui->fiLneEdit->text().toDouble();
+    double velocity = ui->velocityLineEdit->text().toDouble();
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new CArc(r, al, fi, velocity));
+    machineTool->getCommandsManager()->addCommand(cmd);
 }

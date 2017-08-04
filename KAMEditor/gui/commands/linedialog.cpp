@@ -14,10 +14,10 @@ LineDialog::~LineDialog()
 }
 void LineDialog::on_buttonBox_accepted()
 {
-    double dx = ui->lineAxisXLineEdit->text().toDouble();
-    double dy = ui->lineAxisYLineEdit->text().toDouble();
-    double dz = ui->lineAxisZLineEdit->text().toDouble();
-    double velocity = ui->lineVelocityLineEdit->text().toDouble();
+    double dx = ui->xAxisLineEdit->text().toDouble();
+    double dy = ui->yAxisLineEdit->text().toDouble();
+    double dz = ui->zAxisLineEdit->text().toDouble();
+    double velocity = ui->velocityLineEdit->text().toDouble();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, velocity));
     machineTool->getCommandsManager()->addCommand(cmd);
 }

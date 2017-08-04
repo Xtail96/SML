@@ -64,40 +64,40 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineAxisZLineEdit"/>
+       <widget class="QLineEdit" name="zAxisLineEdit"/>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="lineAxisXLabel">
+       <widget class="QLabel" name="xAxisLabel">
         <property name="text">
          <string>Ось X</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="lineAxisZLabel">
+       <widget class="QLabel" name="zAxisLabel">
         <property name="text">
          <string>Ось Z</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineAxisXLineEdit"/>
+       <widget class="QLineEdit" name="xAxisLineEdit"/>
       </item>
       <item row="0" column="3">
-       <widget class="QLineEdit" name="lineVelocityLineEdit"/>
+       <widget class="QLineEdit" name="velocityLineEdit"/>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineAxisYLineEdit"/>
+       <widget class="QLineEdit" name="yAxisLineEdit"/>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="lineAxisYLabel">
+       <widget class="QLabel" name="yAxisLabel">
         <property name="text">
          <string>Ось Y</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="lineVelocityLabel">
+       <widget class="QLabel" name="velocityLabel">
         <property name="text">
          <string>Скорость</string>
         </property>
