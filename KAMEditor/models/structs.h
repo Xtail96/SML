@@ -308,7 +308,7 @@ struct SmlColors
      */
     static QString lightGray()
     {
-        return QString("#dfdfdf");
+        return QString("#888");
     }
 
     /*!
