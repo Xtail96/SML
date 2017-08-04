@@ -328,7 +328,7 @@
        <number>5</number>
       </property>
       <item row="0" column="0">
-       <widget class="OGLWidget" name="openGLWidget">
+       <widget class="OGLWidget" name="programOpenGLWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>5</horstretch>
