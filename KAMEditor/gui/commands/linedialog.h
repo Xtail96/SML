@@ -5,17 +5,19 @@
 #include <QMessageBox>
 
 #include "commanddialog.h"
+#include "models/machinetool/machinetool.h"
+#include "models/machinetool/commandsmanager/commands/line.h"
 
 namespace Ui {
 class LineDialog;
 }
 
-class LineDialog : public QDialog, private CommandDialog
+class LineDialog : public QDialog//, private CommandDialog
 {
     Q_OBJECT
 
 public:
-    explicit LineDialog(QWidget *parent = 0);
+    explicit LineDialog(MachineTool* _machineTool, QWidget *parent = 0);
     ~LineDialog();
 
 private slots:
@@ -23,6 +25,7 @@ private slots:
 
 private:
     Ui::LineDialog *ui;
+    MachineTool* machineTool;
 };
 
 #endif // LINEDIALOG_H

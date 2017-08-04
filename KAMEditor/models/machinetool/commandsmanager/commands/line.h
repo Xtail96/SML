@@ -18,8 +18,11 @@ public:
     virtual QColor getColor() const override;
 
 private:
+    size_t id = CMD_LINE;
+    std::string name = "Линия";
     double dx, dy, dz;
     double v;
+    QColor color = SmlColors::gray();
 };
 
 #endif // LINE_H

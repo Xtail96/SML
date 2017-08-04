@@ -39,7 +39,7 @@ SOURCES += main.cpp\
     gui/points/addpointdialog.cpp \
     gui/points/mousetoselectionpointdialog.cpp \
     gui/points/editpointdialog.cpp \
-#    gui/commands/linedialog.cpp \
+    gui/commands/linedialog.cpp \
 #    gui/commands/arcdialog.cpp \
 #    gui/commands/labeldialog.cpp \
 #    gui/commands/ttlinedialog.cpp \
@@ -97,7 +97,7 @@ HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
     gui/points/mousetoselectionpointdialog.h \
     gui/points/editpointdialog.h \
-#    gui/commands/linedialog.h \
+    gui/commands/linedialog.h \
 #    gui/commands/arcdialog.h \
 #    gui/commands/labeldialog.h \
 #    gui/commands/ttlinedialog.h \
@@ -161,7 +161,7 @@ FORMS    += gui/mainwindow.ui \
     gui/points/mousetoselectionpointdialog.ui \
     gui/points/editpointdialog.ui \
     gui/commands/adddevicedialog.ui \
-#    gui/commands/linedialog.ui \
+    gui/commands/linedialog.ui \
 #    gui/commands/arcdialog.ui \
 #    gui/commands/labeldialog.ui \
 #    gui/commands/ttlinedialog.ui \

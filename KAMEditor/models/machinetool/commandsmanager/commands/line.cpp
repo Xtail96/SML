@@ -18,22 +18,23 @@ void Line::draw(OGLWidget *w) const
 
 size_t Line::getId() const
 {
-
+    return id;
 }
 
 std::string Line::getName() const
 {
-    return "Линия";
+    return name;
 }
 
 QString Line::getArguments() const
 {
-    return "";
+    std::string arguments = std::to_string(dx) + ", " + std::to_string(dy) + ", " + std::to_string(dz) + ", v = " + std::to_string(v);
+    return QString::fromStdString(arguments);
 }
 
 QColor Line::getColor() const
 {
-    return QColor("#333");
+    return color;
 }
 
 void OGLWidget::drawLine(double dx, double dy, double dz, double v)

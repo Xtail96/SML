@@ -24,7 +24,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="line_title_label">
+    <widget class="QLabel" name="lineTitleLabel">
      <property name="font">
       <font>
        <pointsize>21</pointsize>
@@ -52,7 +52,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QGroupBox" name="line_arguments_groupBox">
+    <widget class="QGroupBox" name="argumentsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -63,65 +63,45 @@
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineAxisZLineEdit"/>
+      </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="line_label_axis_x">
+       <widget class="QLabel" name="lineAxisXLabel">
         <property name="text">
          <string>Ось X</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_x"/>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="line_label_velocity">
-        <property name="text">
-         <string>Скорость</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="line_lineEdit_velocity"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="line_label_axis_y">
-        <property name="text">
-         <string>Ось Y</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_y"/>
-      </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="line_label_axis_z">
+       <widget class="QLabel" name="lineAxisZLabel">
         <property name="text">
          <string>Ось Z</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_z"/>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineAxisXLineEdit"/>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="line_label_axis_a">
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="lineVelocityLineEdit"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineAxisYLineEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lineAxisYLabel">
         <property name="text">
-         <string>Ось A</string>
+         <string>Ось Y</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_a"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="line_label_axis_b">
+      <item row="0" column="2">
+       <widget class="QLabel" name="lineVelocityLabel">
         <property name="text">
-         <string>Ось B</string>
+         <string>Скорость</string>
         </property>
        </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_b"/>
       </item>
      </layout>
     </widget>
