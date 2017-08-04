@@ -1147,7 +1147,14 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     }
     else
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
+        if(commandName == "Выключить")
+        {
+            OffDialog(machineTool, this).exec();
+        }
+        else
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
+        }
     }
     updateCommands();
 }
