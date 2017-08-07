@@ -67,58 +67,72 @@ void OGLWidget::drawCommands()
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    if (mouseEvent->buttons() == Qt::RightButton)
+    double dx = mouseEvent->x() - mousePositionX;
+    double dy = mouseEvent->y() - mousePositionY;
+
+    if (mouseEvent->buttons() == Qt::LeftButton)
     {
-        if(abs(mouseEvent->x() - mousePositionX) >= 20)
-        {
-            mousePositionX = mouseEvent->x();
-        }
-        if(abs(mouseEvent->y() - mousePositionY) >= 20)
-        {
-            mousePositionY = mouseEvent->y();
-        }
-
-        angleX += (mousePositionY - mouseEvent->y())/2;
-        angleZ += (mousePositionX - mouseEvent->x())/2;
-
-        mousePositionX = mouseEvent->x();
-        mousePositionY = mouseEvent->y();
-
-        rotate();
+        setXAngle(angleX + 1 * dy);
+        setYAngle(angleY + 1 * dx);
     }
+    else
+    {
+        if(mouseEvent->buttons() == Qt::RightButton)
+        {
+            setXAngle(angleX + 1*dy);
+            setZAngle(angleZ + 1*dx);
+        }
+    }
+    rotate();
 }
 
 void OGLWidget::rotate()
 {
-    if(angleX > 360)
-    {
-        angleX = 0;
-    }
-    if(angleZ > 360)
-    {
-        angleZ = 0;
-    }
-    if(angleX < 0)
-    {
-        angleX = 360;
-    }
-    if(angleZ < 0)
-    {
-        angleZ = 360;
-    }
+//    if(angleX > 360)
+//    {
+//        angleX = 0;
+//    }
+//    if(angleZ > 360)
+//    {
+//        angleZ = 0;
+//    }
+//    if(angleX < 0)
+//    {
+//        angleX = 360;
+//    }
+//    if(angleZ < 0)
+//    {
+//        angleZ = 360;
+//    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glRotated(angleX, 1, 0, 0);
-    glRotated(angleZ, 0, 1, 0);
+    glRotated(angleX / 64, 1, 0, 0);
+    glRotated(angleY / 64, 0, 1, 0);
+    glRotated(angleZ / 64, 0, 0, 1);
 
     //qDebug() << angleX << " : " << angleZ;
 
     //paintGL();
     updateGL();
+}
+
+void OGLWidget::setXAngle(double angle)
+{
+    angleX = angle;
+}
+
+void OGLWidget::setYAngle(double angle)
+{
+    angleY = angle;
+}
+
+void OGLWidget::setZAngle(double angle)
+{
+    angleZ = angle;
 }
 
 void OGLWidget::move()

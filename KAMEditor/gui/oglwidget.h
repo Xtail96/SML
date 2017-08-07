@@ -39,6 +39,10 @@ protected:
     int mousePositionY = 0;
     void mouseMoveEvent(QMouseEvent *mouseEvent);
     void rotate();
+    void setXAngle(double angle);
+    void setYAngle(double angle);
+    void setZAngle(double angle);
+
     void move();
     void wheelEvent(QWheelEvent *wheelEvent);
 };
