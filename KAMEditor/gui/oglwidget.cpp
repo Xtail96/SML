@@ -53,14 +53,14 @@ void OGLWidget::drawCommands()
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    /*if(abs(mouseEvent->x() - mousePositionX) >= 20)
+    if(abs(mouseEvent->x() - mousePositionX) >= 20)
     {
         mousePositionX = mouseEvent->x();
     }
     if(abs(mouseEvent->y() - mousePositionY) >= 20)
     {
         mousePositionY = mouseEvent->y();
-    }*/
+    }
 
     angleX += (mousePositionY - mouseEvent->y())/2;
     angleZ += (mousePositionX - mouseEvent->x())/2;
@@ -73,7 +73,7 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
 void OGLWidget::rotate()
 {
-    /*if(angleX > 360)
+    if(angleX > 360)
     {
         angleX = 0;
     }
@@ -88,7 +88,7 @@ void OGLWidget::rotate()
     if(angleZ < 0)
     {
         angleZ = 360;
-    }*/
+    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
