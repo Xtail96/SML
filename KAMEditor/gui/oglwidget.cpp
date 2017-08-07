@@ -53,22 +53,25 @@ void OGLWidget::drawCommands()
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    if(abs(mouseEvent->x() - mousePositionX) >= 20)
+    if (mouseEvent->buttons() == Qt::RightButton)
     {
+        if(abs(mouseEvent->x() - mousePositionX) >= 20)
+        {
+            mousePositionX = mouseEvent->x();
+        }
+        if(abs(mouseEvent->y() - mousePositionY) >= 20)
+        {
+            mousePositionY = mouseEvent->y();
+        }
+
+        angleX += (mousePositionY - mouseEvent->y())/2;
+        angleZ += (mousePositionX - mouseEvent->x())/2;
+
         mousePositionX = mouseEvent->x();
-    }
-    if(abs(mouseEvent->y() - mousePositionY) >= 20)
-    {
         mousePositionY = mouseEvent->y();
+
+        rotate();
     }
-
-    angleX += (mousePositionY - mouseEvent->y())/2;
-    angleZ += (mousePositionX - mouseEvent->x())/2;
-
-    mousePositionX = mouseEvent->x();
-    mousePositionY = mouseEvent->y();
-
-    rotate();
 }
 
 void OGLWidget::rotate()
