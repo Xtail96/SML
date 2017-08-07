@@ -23,15 +23,28 @@ void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    drawCoordinatesVector();
+    drawCoordinatesVectors();
     drawCommands();
 }
 
-void OGLWidget::drawCoordinatesVector()
+void OGLWidget::drawCoordinatesVectors()
 {
-    drawLine(1, 0, 0);
-    drawLine(0, 1, 0);
-    drawLine(0, 0, 1);
+    glBegin(GL_LINES);
+
+    glColor3f(1, 0, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(1, 0, 0);
+
+    glColor3f(0, 1, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, 1, 0);
+
+
+    glColor3f(0, 0, 1);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, 0, 1);
+
+    glEnd();
 }
 
 void OGLWidget::drawCommands()

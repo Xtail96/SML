@@ -39,7 +39,7 @@ QColor Line::getColor() const
 
 void OGLWidget::drawLine(double dx, double dy, double dz, double v)
 {
-    glColor3f(0, 1, 0);
+    //glColor3f(0, 1, 0);
     glBegin(GL_LINES);
 
     glVertex3f(0, 0, 0);
