@@ -21,10 +21,19 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
+    //qDebug() << "paint";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //Задаем режим матрицы
+    glMatrixMode(GL_PROJECTION);
+
+    //Загружаем матрицу
+    glLoadIdentity();
+
     drawCoordinatesVectors();
-    drawCommands();
+    //drawCommands();
+
+    //glSwapAPPLE();
 }
 
 void OGLWidget::drawCoordinatesVectors()
@@ -32,6 +41,13 @@ void OGLWidget::drawCoordinatesVectors()
     drawLine(1, 0, 0, 1, 1, 0, 0);
     drawLine(0, 1, 0, 1, 0, 1, 0);
     drawLine(0, 0, 1, 1, 0, 0, 1);
+
+    /*glBegin(GL_QUADS);
+    glVertex3f (0.51, 0.51, 0.51);
+    glVertex3f (-0.51, 0.51, 0.51);
+    glVertex3f (-0.51, -0.51, 0.51);
+    glVertex3f (0.51, -0.51, 0.51);
+    glEnd();*/
 }
 
 void OGLWidget::drawCommands()
@@ -40,6 +56,58 @@ void OGLWidget::drawCommands()
 
     /*for (auto command : commands)
         command->draw(this);*/
+}
+
+void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
+{
+    /*if(abs(mouseEvent->x() - mousePositionX) >= 20)
+    {
+        mousePositionX = mouseEvent->x();
+    }
+    if(abs(mouseEvent->y() - mousePositionY) >= 20)
+    {
+        mousePositionY = mouseEvent->y();
+    }*/
+
+    angleX += (mousePositionY - mouseEvent->y())/2;
+    angleZ += (mousePositionX - mouseEvent->x())/2;
+
+    mousePositionX = mouseEvent->x();
+    mousePositionY = mouseEvent->y();
+
+    rotate();
+}
+
+void OGLWidget::rotate()
+{
+    /*if(angleX > 360)
+    {
+        angleX = 0;
+    }
+    if(angleZ > 360)
+    {
+        angleZ = 0;
+    }
+    if(angleX < 0)
+    {
+        angleX = 360;
+    }
+    if(angleZ < 0)
+    {
+        angleZ = 360;
+    }*/
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glRotated(angleX, 1, 0, 0);
+    glRotated(angleZ, 0, 1, 0);
+
+    //qDebug() << angleX << " : " << angleZ;
+
+    paintGL();
 }
 
 void OGLWidget::resizeGL(int w, int h)
