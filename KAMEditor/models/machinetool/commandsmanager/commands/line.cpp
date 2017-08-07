@@ -11,9 +11,9 @@ byte_array Line::getDataForMachineTool() const
 
 }
 
-void Line::draw(OGLWidget *w, double red, double green, double blue) const
+void Line::draw(OGLWidget *w) const
 {
-    w->drawLine(dx, dy, dz, v, red, green, blue);
+    w->drawLine(dx, dy, dz, v);
 }
 
 size_t Line::getId() const
@@ -38,9 +38,8 @@ QColor Line::getColor() const
 }
 
 
-void OGLWidget::drawLine(double dx, double dy, double dz, double v, double red, double green, double blue)
+void OGLWidget::drawLine(double dx, double dy, double dz, double v)
 {
-    glColor3f(red, green, blue);
     glBegin(GL_LINES);
 
     glVertex3f(0, 0, 0);

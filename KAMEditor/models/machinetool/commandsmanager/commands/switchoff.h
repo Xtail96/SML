@@ -26,7 +26,7 @@ public:
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    virtual void draw(OGLWidget* w, double red = 0, double green = 0, double blue = 0) const override;
+    virtual void draw(OGLWidget* w) const override;
 
     /**
      * @return имя текущей команды

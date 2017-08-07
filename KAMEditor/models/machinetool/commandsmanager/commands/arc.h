@@ -11,7 +11,7 @@ public:
     CArc(double R, double Al, double Fi, double v = 1);
 
     virtual byte_array getDataForMachineTool() const override;
-    void draw(OGLWidget* w, double red = 0, double green = 0, double blue = 0) const override;
+    void draw(OGLWidget* w) const override;
 
     size_t getId() const override;
     std::string getName() const override;

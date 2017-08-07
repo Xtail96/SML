@@ -17,7 +17,7 @@ byte_array Comment::getDataForMachineTool() const
     return data;
 }
 
-void Comment::draw(OGLWidget *w, double red, double green, double blue) const
+void Comment::draw(OGLWidget *w) const
 {
 
 }
