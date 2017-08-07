@@ -4,19 +4,21 @@
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 OGLWidget::OGLWidget(QWidget *parent) :
-    QOpenGLWidget(parent)
+    QGLWidget(parent)
 {
-
+    initializeGL();
 }
 
 void OGLWidget::initializeGL()
 {
     glClearColor(0.913, 0.933, 0.996, 1);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
+
+    paintGL();
 }
 
 void OGLWidget::paintGL()
@@ -33,7 +35,7 @@ void OGLWidget::paintGL()
     drawCoordinatesVectors();
     //drawCommands();
 
-    //glSwapAPPLE();
+    swapBuffers();
 }
 
 void OGLWidget::drawCoordinatesVectors()
@@ -41,13 +43,6 @@ void OGLWidget::drawCoordinatesVectors()
     drawLine(1, 0, 0, 1, 1, 0, 0);
     drawLine(0, 1, 0, 1, 0, 1, 0);
     drawLine(0, 0, 1, 1, 0, 0, 1);
-
-    /*glBegin(GL_QUADS);
-    glVertex3f (0.51, 0.51, 0.51);
-    glVertex3f (-0.51, 0.51, 0.51);
-    glVertex3f (-0.51, -0.51, 0.51);
-    glVertex3f (0.51, -0.51, 0.51);
-    glEnd();*/
 }
 
 void OGLWidget::drawCommands()
@@ -114,7 +109,10 @@ void OGLWidget::resizeGL(int w, int h)
 {
     glViewport(0,0,w,h);
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();/*
+    glLoadIdentity();
+
+    paintGL();
+    /*
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();*/

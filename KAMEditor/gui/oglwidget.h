@@ -2,7 +2,7 @@
 #define OGLWIDGET_H
 
 #include <QWidget>
-#include <QOpenGLWidget>
+#include <QGLWidget>
 #include <QMouseEvent>
 #ifdef Q_OS_WIN
     #include <GL/glu.h>
@@ -14,7 +14,7 @@
     #include <OpenGL/gl.h>
 #endif
 
-class OGLWidget : public QOpenGLWidget
+class OGLWidget : public QGLWidget
 {
 public:
     OGLWidget(QWidget *parent = 0);
