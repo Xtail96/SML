@@ -19,7 +19,6 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
-    //qDebug() << "paint";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Задаем режим матрицы
@@ -109,23 +108,6 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
 void OGLWidget::rotate()
 {
-//    if(angleX > 360)
-//    {
-//        angleX = 0;
-//    }
-//    if(angleZ > 360)
-//    {
-//        angleZ = 0;
-//    }
-//    if(angleX < 0)
-//    {
-//        angleX = 360;
-//    }
-//    if(angleZ < 0)
-//    {
-//        angleZ = 360;
-//    }
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -135,9 +117,6 @@ void OGLWidget::rotate()
     glRotated(angleY / 64, 0, 1, 0);
     glRotated(angleZ / 64, 0, 0, 1);
 
-    //qDebug() << angleX << " : " << angleZ;
-
-    //paintGL();
     updateGL();
 }
 
