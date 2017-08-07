@@ -10,9 +10,9 @@ byte_array CArc::getDataForMachineTool() const
 
 }
 
-void CArc::draw(OGLWidget *w) const
+void CArc::draw(OGLWidget *w, double red, double green, double blue) const
 {
-    w->drawArc(R, Al, Fi, v);
+    w->drawArc(R, Al, Fi, v, red, green, blue);
 }
 
 size_t CArc::getId() const
@@ -36,7 +36,7 @@ QColor CArc::getColor() const
     return color;
 }
 
-void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
+void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v, double red, double green, double blue)
 {
     double endAngle = startAngle + arcAngle;
     double angleIncrement = 0.01;

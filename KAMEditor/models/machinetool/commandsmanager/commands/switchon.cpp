@@ -32,7 +32,7 @@ byte_array SwitchOn::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOn::draw(OGLWidget *w) const
+void SwitchOn::draw(OGLWidget *w, double red, double green, double blue) const
 {
 
 }

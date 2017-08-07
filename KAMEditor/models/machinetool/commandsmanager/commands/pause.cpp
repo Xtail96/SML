@@ -17,7 +17,7 @@ byte_array Pause::getDataForMachineTool() const
     return data;
 }
 
-void Pause::draw(OGLWidget *w) const
+void Pause::draw(OGLWidget *w, double red, double green, double blue) const
 {
 
 }
