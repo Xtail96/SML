@@ -31,7 +31,7 @@ protected:
     void drawCoordinatesVectors();
     void drawCommands();
 
-
+    double scale = 1.0;
     double angleX = 0;
     double angleY = 0;
     double angleZ = 0;
@@ -40,6 +40,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *mouseEvent);
     void rotate();
     void move();
+    void wheelEvent(QWheelEvent *wheelEvent);
 };
 
 #endif // OGLWIDGET_H

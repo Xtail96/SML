@@ -28,6 +28,7 @@ void OGLWidget::paintGL()
     //Загружаем матрицу
     glLoadIdentity();
 
+    glScalef(scale, scale, scale);
     drawCoordinatesVectors();
     //drawCommands();
 
@@ -108,12 +109,32 @@ void OGLWidget::rotate()
 
     //qDebug() << angleX << " : " << angleZ;
 
-    paintGL();
+    //paintGL();
+    updateGL();
 }
 
 void OGLWidget::move()
 {
 
+}
+
+void OGLWidget::wheelEvent(QWheelEvent *wheelEvent)
+{
+    // если колесико вращаем вперед -- умножаем переменную масштаба на 1.1
+    // иначе -- делим на 1.1
+    if ((wheelEvent->delta()) > 0)
+    {
+        scale *= 1.1;
+    }
+    else
+    {
+        if ((wheelEvent->delta()) < 0)
+        {
+            scale /= 1.1;
+        }
+    }
+
+    updateGL();
 }
 
 void OGLWidget::resizeGL(int w, int h)
