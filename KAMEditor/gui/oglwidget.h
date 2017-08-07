@@ -23,12 +23,14 @@ public:
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1, double red = 0, double green = 0, double blue = 1);
     void drawLine(double dx, double dy, double dz, double v = 1, double red = 0, double green = 0, double blue = 1);
 protected:
+
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
 
     void drawCoordinatesVectors();
     void drawCommands();
+
 
     double angleX = 0;
     double angleY = 0;
@@ -37,6 +39,7 @@ protected:
     int mousePositionY = 0;
     void mouseMoveEvent(QMouseEvent *mouseEvent);
     void rotate();
+    void move();
 };
 
 #endif // OGLWIDGET_H

@@ -36,6 +36,8 @@ void OGLWidget::paintGL()
 
 void OGLWidget::drawCoordinatesVectors()
 {
+    glLineWidth(3.0f);
+
     drawLine(1, 0, 0, 1, 1, 0, 0);
     renderText(1, 0, 0, "X");
 
@@ -107,6 +109,11 @@ void OGLWidget::rotate()
     //qDebug() << angleX << " : " << angleZ;
 
     paintGL();
+}
+
+void OGLWidget::move()
+{
+
 }
 
 void OGLWidget::resizeGL(int w, int h)
