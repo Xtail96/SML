@@ -11,7 +11,7 @@ OGLWidget::OGLWidget(QWidget *parent) :
 
 void OGLWidget::initializeGL()
 {
-    glClearColor(1, 1, 1, 1);
+    glClearColor(0.913, 0.933, 0.996, 1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
