@@ -4,7 +4,7 @@
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 OGLWidget::OGLWidget(QWidget *parent) :
-    QGLWidget(parent)
+    QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
 
 }
