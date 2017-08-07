@@ -82,18 +82,24 @@ void OGLWidget::drawCommands()
             glVertex3f( 0.1f, 0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f,-0.1f);
-         glEnd();
+            glEnd();
+}
+
+void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
+{
+    mousePositionX = mouseEvent->x();
+    mousePositionY = mouseEvent->y();
 }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    double dx = mouseEvent->x() - mousePositionX;
-    double dy = mouseEvent->y() - mousePositionY;
+    double dx = (mouseEvent->x() - mousePositionX) / 2;
+    double dy = (mouseEvent->y() - mousePositionY) / 2;
 
     if (mouseEvent->buttons() == Qt::LeftButton)
     {
         setXAngle(angleX + 1 * dy);
-        setYAngle(angleY + 1 * dx);
+        //setYAngle(angleY + 1 * dx);
     }
     else
     {
@@ -113,9 +119,9 @@ void OGLWidget::rotate()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glRotated(angleX / 128, 1, 0, 0);
-    glRotated(angleY / 128, 0, 1, 0);
-    glRotated(angleZ / 128, 0, 0, 1);
+    glRotated(angleX, 1, 0, 0);
+    glRotated(angleY, 0, 1, 0);
+    glRotated(angleZ, 0, 0, 1);
 
     updateGL();
 }

@@ -37,6 +37,10 @@ protected:
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
+
+
+    void mousePressEvent(QMouseEvent *mouseEvent);
+
     void mouseMoveEvent(QMouseEvent *mouseEvent);
     void rotate();
     void setXAngle(double angle);
