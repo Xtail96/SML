@@ -13,8 +13,6 @@ void OGLWidget::initializeGL()
 {
     glClearColor(0.913, 0.933, 0.996, 1);
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
 }
@@ -39,8 +37,13 @@ void OGLWidget::paintGL()
 void OGLWidget::drawCoordinatesVectors()
 {
     drawLine(1, 0, 0, 1, 1, 0, 0);
+    renderText(1, 0, 0, "X");
+
     drawLine(0, 1, 0, 1, 0, 1, 0);
+    renderText(0, 1, 0, "Y");
+
     drawLine(0, 0, 1, 1, 0, 0, 1);
+    renderText(0, 0, 1, "Z");
 }
 
 void OGLWidget::drawCommands()
