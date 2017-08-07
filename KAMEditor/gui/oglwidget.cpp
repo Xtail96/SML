@@ -113,9 +113,9 @@ void OGLWidget::rotate()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glRotated(angleX / 64, 1, 0, 0);
-    glRotated(angleY / 64, 0, 1, 0);
-    glRotated(angleZ / 64, 0, 0, 1);
+    glRotated(angleX / 128, 1, 0, 0);
+    glRotated(angleY / 128, 0, 1, 0);
+    glRotated(angleZ / 128, 0, 0, 1);
 
     updateGL();
 }
