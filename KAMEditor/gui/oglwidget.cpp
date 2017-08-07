@@ -30,14 +30,15 @@ void OGLWidget::paintGL()
 
     glScalef(scale, scale, scale);
     drawCoordinatesVectors();
-    //drawCommands();
+
+    drawCommands();
 
     swapBuffers();
 }
 
 void OGLWidget::drawCoordinatesVectors()
 {
-    glLineWidth(3.0f);
+    glLineWidth(2.0f);
 
     glColor3f(1, 0, 0);
     drawLine(1, 0, 0, 1);
@@ -54,6 +55,10 @@ void OGLWidget::drawCoordinatesVectors()
 
 void OGLWidget::drawCommands()
 {
+    glLineWidth(1.0f);
+    qglColor(Qt::gray);
+    drawLine(10, 10, 10);
+    drawArc(10, 0, 360);
     //auto commands = CommandInterpreter::Instance().getCommands();
 
     /*for (auto command : commands)

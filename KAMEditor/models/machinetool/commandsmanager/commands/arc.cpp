@@ -43,7 +43,6 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
 
     double x, y;
 
-    glColor3f(0, 0, 1);
     glBegin(GL_LINE_STRIP);
 
     for (double theta = startAngle; theta < endAngle; theta += angleIncrement)

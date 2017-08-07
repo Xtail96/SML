@@ -31,7 +31,7 @@ protected:
     void drawCoordinatesVectors();
     void drawCommands();
 
-    double scale = 1.0;
+    double scale = 0.1;
     double angleX = 0;
     double angleY = 0;
     double angleZ = 0;
