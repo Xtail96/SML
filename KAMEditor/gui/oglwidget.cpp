@@ -105,8 +105,8 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
     {
         if(mouseEvent->buttons() == Qt::RightButton)
         {
-            setXAngle(angleX + 1 * dy);
-            setZAngle(angleZ + 1 * dx);
+            setXAngle(angleX - 1 * dy);
+            setZAngle(angleZ - 1 * dx);
         }
     }
     rotate();
