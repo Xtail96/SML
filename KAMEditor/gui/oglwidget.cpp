@@ -98,8 +98,8 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
     if (mouseEvent->buttons() == Qt::LeftButton)
     {
-        setXAngle(angleX + 1 * dy);
-        //setYAngle(angleY + 1 * dx);
+        setXAngle(angleX - 1 * dy);
+        setYAngle(angleY - 1 * dx);
     }
     else
     {
