@@ -57,12 +57,33 @@ void OGLWidget::drawCommands()
 {
     glLineWidth(1.0f);
     qglColor(Qt::gray);
-    drawLine(10, 10, 10);
-    drawArc(10, 0, 360);
-    //auto commands = CommandInterpreter::Instance().getCommands();
 
-    /*for (auto command : commands)
-        command->draw(this);*/
+    glBegin(GL_QUADS);
+            glVertex3f( 0.1f, 0.1f,-0.1f);
+            glVertex3f(-0.1f, 0.1f,-0.1f);
+            glVertex3f(-0.1f, 0.1f, 0.1f);
+            glVertex3f( 0.1f, 0.1f, 0.1f);
+            glVertex3f( 0.1f,-0.1f, 0.1f);
+            glVertex3f(-0.1f,-0.1f, 0.1f);
+            glVertex3f(-0.1f,-0.1f,-0.1f);
+            glVertex3f( 0.1f,-0.1f,-0.1f);
+            glVertex3f( 0.1f, 0.1f, 0.1f);
+            glVertex3f(-0.1f, 0.1f, 0.1f);
+            glVertex3f(-0.1f,-0.1f, 0.1f);
+            glVertex3f( 0.1f,-0.1f, 0.1f);
+            glVertex3f( 0.1f,-0.1f,-0.1f);
+            glVertex3f(-0.1f,-0.1f,-0.1f);
+            glVertex3f(-0.1f, 0.1f,-0.1f);
+            glVertex3f( 0.1f, 0.1f,-0.1f);
+            glVertex3f(-0.1f, 0.1f, 0.1f);
+            glVertex3f(-0.1f, 0.1f,-0.1f);
+            glVertex3f(-0.1f,-0.1f,-0.1f);
+            glVertex3f(-0.1f,-0.1f, 0.1f);
+            glVertex3f( 0.1f, 0.1f,-0.1f);
+            glVertex3f( 0.1f, 0.1f, 0.1f);
+            glVertex3f( 0.1f,-0.1f, 0.1f);
+            glVertex3f( 0.1f,-0.1f,-0.1f);
+         glEnd();
 }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
@@ -79,8 +100,8 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
     {
         if(mouseEvent->buttons() == Qt::RightButton)
         {
-            setXAngle(angleX + 1*dy);
-            setZAngle(angleZ + 1*dx);
+            setXAngle(angleX + 1 * dy);
+            setZAngle(angleZ + 1 * dx);
         }
     }
     rotate();
