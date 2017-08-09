@@ -36,9 +36,9 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
 void ProgramVisualizeWidow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
-    ui->programOpenGLWidget->setXAngle(0);
-    ui->programOpenGLWidget->setYAngle(90);
-    ui->programOpenGLWidget->setZAngle(0);
+    ui->programOpenGLWidget->setXAngle(-90);
+    ui->programOpenGLWidget->setYAngle(0);
+    ui->programOpenGLWidget->setZAngle(90);
     ui->programOpenGLWidget->rotate();
 }
 
