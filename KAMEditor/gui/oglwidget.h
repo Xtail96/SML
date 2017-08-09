@@ -32,6 +32,9 @@ public:
     void setScale(double value);
     void updateField();
 
+    int getMouseMoveAction() const;
+    void setMouseMoveAction(int value);
+
 protected:
 
     void initializeGL();
@@ -47,6 +50,9 @@ protected:
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
+
+
+    int mouseMoveAction = 1;
 
 
     void mousePressEvent(QMouseEvent *mouseEvent);

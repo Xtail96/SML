@@ -86,6 +86,16 @@ void OGLWidget::drawCommands()
             glEnd();
 }
 
+int OGLWidget::getMouseMoveAction() const
+{
+    return mouseMoveAction;
+}
+
+void OGLWidget::setMouseMoveAction(int value)
+{
+    mouseMoveAction = value;
+}
+
 double OGLWidget::getScale() const
 {
     return scale;
@@ -109,23 +119,31 @@ void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    double dx = (mouseEvent->x() - mousePositionX) / 2;
-    double dy = (mouseEvent->y() - mousePositionY) / 2;
+    switch (mouseMoveAction) {
+    case 1:
+    {
+        double dx = (mouseEvent->x() - mousePositionX) / 2;
+        double dy = (mouseEvent->y() - mousePositionY) / 2;
 
-    if (mouseEvent->buttons() == Qt::LeftButton)
-    {
-        setXAngle(angleX - 1 * dy);
-        setYAngle(angleY - 1 * dx);
-    }
-    else
-    {
-        if(mouseEvent->buttons() == Qt::RightButton)
+        if (mouseEvent->buttons() == Qt::LeftButton)
         {
             setXAngle(angleX - 1 * dy);
-            setZAngle(angleZ - 1 * dx);
+            setYAngle(angleY - 1 * dx);
         }
+        else
+        {
+            if(mouseEvent->buttons() == Qt::RightButton)
+            {
+                setXAngle(angleX - 1 * dy);
+                setZAngle(angleZ - 1 * dx);
+            }
+        }
+        rotate();
+        break;
     }
-    rotate();
+    default:
+        break;
+    }
 }
 
 void OGLWidget::rotate()
