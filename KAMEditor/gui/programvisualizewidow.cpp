@@ -23,3 +23,11 @@ void ProgramVisualizeWidow::on_zoomOutPushButton_clicked()
 {
     ui->programOpenGLWidget->scaling(-1);
 }
+
+void ProgramVisualizeWidow::on_topPushButton_clicked()
+{
+    ui->programOpenGLWidget->setXAngle(0);
+    ui->programOpenGLWidget->setYAngle(0);
+    ui->programOpenGLWidget->setZAngle(0);
+    ui->programOpenGLWidget->rotate();
+}

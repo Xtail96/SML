@@ -23,6 +23,8 @@ private slots:
 
     void on_zoomOutPushButton_clicked();
 
+    void on_topPushButton_clicked();
+
 private:
     Ui::ProgramVisualizeWidow *ui;
 
