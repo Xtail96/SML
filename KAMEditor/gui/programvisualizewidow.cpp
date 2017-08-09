@@ -26,7 +26,7 @@ void ProgramVisualizeWidow::on_zoomOutPushButton_clicked()
 
 void ProgramVisualizeWidow::on_topPushButton_clicked()
 {
-    ui->programOpenGLWidget->setXAngle(0);
+    ui->programOpenGLWidget->setXAngle(180);
     ui->programOpenGLWidget->setYAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->rotate();
