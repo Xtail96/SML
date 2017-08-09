@@ -87,6 +87,16 @@ void OGLWidget::drawCommands()
             glEnd();
 }
 
+double OGLWidget::getScale() const
+{
+    return scale;
+}
+
+void OGLWidget::setScale(double value)
+{
+    scale = value;
+}
+
 void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
 {
     mousePositionX = mouseEvent->x();

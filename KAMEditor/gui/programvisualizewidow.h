@@ -25,6 +25,12 @@ private slots:
 
     void on_topPushButton_clicked();
 
+    void on_sidePushButton_clicked();
+
+    void on_frontPushButton_clicked();
+
+    void on_centerPushButton_clicked();
+
 private:
     Ui::ProgramVisualizeWidow *ui;
 

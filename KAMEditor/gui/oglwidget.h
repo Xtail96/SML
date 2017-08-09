@@ -28,6 +28,9 @@ public:
     void setXAngle(double angle);
     void setYAngle(double angle);
     void setZAngle(double angle);
+    double getScale() const;
+    void setScale(double value);
+
 protected:
 
     void initializeGL();
