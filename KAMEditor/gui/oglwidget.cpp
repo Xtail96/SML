@@ -16,7 +16,7 @@ void OGLWidget::initializeGL()
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
 
-    rotate();
+    rotateField();
 }
 
 void OGLWidget::paintGL()
@@ -97,6 +97,11 @@ void OGLWidget::setScale(double value)
     scale = value;
 }
 
+void OGLWidget::updateField()
+{
+    updateGL();
+}
+
 void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
 {
     mousePositionX = mouseEvent->x();
@@ -121,10 +126,10 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
             setZAngle(angleZ - 1 * dx);
         }
     }
-    rotate();
+    rotateField();
 }
 
-void OGLWidget::rotate()
+void OGLWidget::rotateField()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
