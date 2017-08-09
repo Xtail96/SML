@@ -15,6 +15,8 @@ void OGLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
+
+    rotate();
 }
 
 void OGLWidget::paintGL()

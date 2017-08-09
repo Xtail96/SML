@@ -38,7 +38,7 @@ protected:
     void drawCommands();
 
     double scale = 0.1;
-    double angleX = 0;
+    double angleX = 180;
     double angleY = 0;
     double angleZ = 0;
     int mousePositionX = 0;
