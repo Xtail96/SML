@@ -16,7 +16,7 @@ void OGLWidget::initializeGL()
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
 
-    rotateField();
+    rotate();
 }
 
 void OGLWidget::paintGL()
@@ -126,10 +126,10 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
             setZAngle(angleZ - 1 * dx);
         }
     }
-    rotateField();
+    rotate();
 }
 
-void OGLWidget::rotateField()
+void OGLWidget::rotate()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

@@ -30,7 +30,7 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
     ui->programOpenGLWidget->setXAngle(180);
     ui->programOpenGLWidget->setYAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->rotateField();
+    ui->programOpenGLWidget->rotate();
 }
 
 void ProgramVisualizeWidow::on_sidePushButton_clicked()
@@ -39,7 +39,7 @@ void ProgramVisualizeWidow::on_sidePushButton_clicked()
     ui->programOpenGLWidget->setXAngle(0);
     ui->programOpenGLWidget->setYAngle(90);
     ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->rotateField();
+    ui->programOpenGLWidget->rotate();
 }
 
 void ProgramVisualizeWidow::on_frontPushButton_clicked()
@@ -48,11 +48,11 @@ void ProgramVisualizeWidow::on_frontPushButton_clicked()
     ui->programOpenGLWidget->setXAngle(90);
     ui->programOpenGLWidget->setYAngle(180);
     ui->programOpenGLWidget->setZAngle(180);
-    ui->programOpenGLWidget->rotateField();
+    ui->programOpenGLWidget->rotate();
 }
 
 void ProgramVisualizeWidow::on_centerPushButton_clicked()
 {
     ui->programOpenGLWidget->setScale(0.1);
-    ui->programOpenGLWidget->updateField();
+    ui->programOpenGLWidget->update();
 }

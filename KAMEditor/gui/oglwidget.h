@@ -24,7 +24,7 @@ public:
     void drawLine(double dx, double dy, double dz, double v = 1);
 
     void scaling(int delta);
-    void rotateField();
+    void rotate();
     void setXAngle(double angle);
     void setYAngle(double angle);
     void setZAngle(double angle);
