@@ -18,6 +18,11 @@ public:
     explicit ProgramVisualizeWidow(QWidget *parent = 0, bool _run = false);
     ~ProgramVisualizeWidow();
 
+private slots:
+    void on_zoomInPushButton_clicked();
+
+    void on_zoomOutPushButton_clicked();
+
 private:
     Ui::ProgramVisualizeWidow *ui;
 

@@ -13,3 +13,13 @@ ProgramVisualizeWidow::~ProgramVisualizeWidow()
 {
     delete ui;
 }
+
+void ProgramVisualizeWidow::on_zoomInPushButton_clicked()
+{
+    ui->programOpenGLWidget->scaling(1);
+}
+
+void ProgramVisualizeWidow::on_zoomOutPushButton_clicked()
+{
+    ui->programOpenGLWidget->scaling(-1);
+}
