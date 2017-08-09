@@ -15,7 +15,6 @@ void OGLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
-
     rotate();
 }
 
@@ -188,7 +187,7 @@ void OGLWidget::scaling(int delta)
 
 void OGLWidget::resizeGL(int w, int h)
 {
-    glViewport(0,0,w,h);
+    glViewport(0,0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     /*
