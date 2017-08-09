@@ -148,20 +148,24 @@ void OGLWidget::move()
 
 void OGLWidget::wheelEvent(QWheelEvent *wheelEvent)
 {
+    scaling(wheelEvent->delta());
+}
+
+void OGLWidget::scaling(int delta)
+{
     // если колесико вращаем вперед -- умножаем переменную масштаба на 1.1
     // иначе -- делим на 1.1
-    if ((wheelEvent->delta()) > 0)
+    if (delta > 0)
     {
         scale *= 1.1;
     }
     else
     {
-        if ((wheelEvent->delta()) < 0)
+        if (delta < 0)
         {
             scale /= 1.1;
         }
     }
-
     updateGL();
 }
 

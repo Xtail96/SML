@@ -22,6 +22,8 @@ public:
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
     void drawLine(double dx, double dy, double dz, double v = 1);
+
+    void scaling(int delta);
 protected:
 
     void initializeGL();
