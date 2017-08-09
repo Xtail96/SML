@@ -26,6 +26,7 @@ void ProgramVisualizeWidow::on_zoomOutPushButton_clicked()
 
 void ProgramVisualizeWidow::on_topPushButton_clicked()
 {
+    // поворот в плоскость X0Y
     ui->programOpenGLWidget->setXAngle(180);
     ui->programOpenGLWidget->setYAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
@@ -35,11 +36,19 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
 void ProgramVisualizeWidow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
+    ui->programOpenGLWidget->setXAngle(0);
+    ui->programOpenGLWidget->setYAngle(90);
+    ui->programOpenGLWidget->setZAngle(0);
+    ui->programOpenGLWidget->rotate();
 }
 
 void ProgramVisualizeWidow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
+    ui->programOpenGLWidget->setXAngle(90);
+    ui->programOpenGLWidget->setYAngle(180);
+    ui->programOpenGLWidget->setZAngle(180);
+    ui->programOpenGLWidget->rotate();
 }
 
 void ProgramVisualizeWidow::on_centerPushButton_clicked()
