@@ -34,7 +34,7 @@ byte_array SwitchOn::getDataForMachineTool() const
 
 void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
 {
-
+    w->drawCylinder(0.1, 0.2, sourcePoint);
 }
 
 Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const
@@ -56,4 +56,23 @@ QString SwitchOn::getArguments() const
 {
     std::string argumentsString = deviceName + ", " + parametrs;
     return QString::fromStdString(argumentsString);
+}
+
+void OGLWidget::drawCylinder(double radius, double height, Point3D src)
+{
+    double angleIncrement = 0.01;
+
+    double x, y;
+
+    glBegin(GL_LINE_STRIP);
+
+    for (double theta = 0; theta < 360; theta += angleIncrement)
+    {
+        x = radius * cos(theta) + src.x;
+        y = radius * sin(theta) + src.y;
+
+        glVertex2f(x, y);
+    }
+
+    glEnd();
 }

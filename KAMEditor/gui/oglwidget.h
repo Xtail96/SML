@@ -30,6 +30,8 @@ public:
 
     void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
 
+    void drawCylinder(double radius, double height, Point3D src = Point3D());
+
     void scaling(int delta);
 
     void rotate();
