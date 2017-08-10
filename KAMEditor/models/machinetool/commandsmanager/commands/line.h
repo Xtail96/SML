@@ -9,7 +9,7 @@ public:
     Line(double dx, double dy, double dz, double v = 1);
 
     byte_array getDataForMachineTool() const override;
-    void draw(OGLWidget* w) const override;
+    void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
 
     size_t getId() const override;
     std::string getName() const override;

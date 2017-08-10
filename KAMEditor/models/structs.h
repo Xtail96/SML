@@ -21,6 +21,15 @@ struct VectorDouble
     VectorDouble(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
+struct SourcePoint
+{
+    double x;
+    double y;
+    double z;
+
+    SourcePoint(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
+};
+
 /*!
  * \brief Объект "Имена осей"
  * \brief Данная структура содержит список всех доступных осей и их имен для использования в системе управления.

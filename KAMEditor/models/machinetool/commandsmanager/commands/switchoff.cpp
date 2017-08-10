@@ -29,7 +29,7 @@ byte_array SwitchOff::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOff::draw(OGLWidget *w) const
+void SwitchOff::draw(OGLWidget *w, SourcePoint sourcePoint) const
 {
 
 }

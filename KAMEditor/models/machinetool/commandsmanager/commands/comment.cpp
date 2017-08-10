@@ -17,7 +17,7 @@ byte_array Comment::getDataForMachineTool() const
     return data;
 }
 
-void Comment::draw(OGLWidget *w) const
+void Comment::draw(OGLWidget *w, SourcePoint sourcePoint) const
 {
 
 }

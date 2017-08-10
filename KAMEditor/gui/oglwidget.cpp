@@ -40,16 +40,18 @@ void OGLWidget::drawCoordinatesVectors()
 {
     glLineWidth(2.0f);
 
+    SourcePoint zeroPoint;
+
     glColor3f(1, 0, 0);
-    drawLine(1, 0, 0, 1);
+    drawLine(1, 0, 0, 1, zeroPoint);
     renderText(1, 0, 0, "X");
 
     glColor3f(0, 1, 0);
-    drawLine(0, 1, 0, 1);
+    drawLine(0, 1, 0, 1, zeroPoint);
     renderText(0, 1, 0, "Y");
 
     glColor3f(0, 0, 1);
-    drawLine(0, 0, 1, 1);
+    drawLine(0, 0, 1, 1, zeroPoint);
     renderText(0, 0, 1, "Z");
 }
 
@@ -58,9 +60,10 @@ void OGLWidget::drawCommands()
     glLineWidth(1.0f);
     qglColor(Qt::gray);
 
+    SourcePoint src(10, 0, 0);
     for(auto command : commands)
     {
-        command->draw(this);
+        command->draw(this, src);
     }
     /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);

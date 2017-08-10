@@ -14,7 +14,9 @@
     #include <OpenGL/gl.h>
 #endif
 
+#include "models/structs.h"
 #include "models/machinetool/commandsmanager/commands/command.h"
+
 class Command;
 
 class OGLWidget : public QGLWidget
@@ -26,7 +28,7 @@ public:
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
 
-    void drawLine(double dx, double dy, double dz, double v = 1);
+    void drawLine(double dx, double dy, double dz, double v = 1, SourcePoint src = SourcePoint());
 
     void scaling(int delta);
 
