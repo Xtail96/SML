@@ -21,12 +21,30 @@ struct VectorDouble
     VectorDouble(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
+/*!
+ * \brief Структура 3D-Точка
+ * Используется для 3D-представления команд, выбранных пользователем
+ */
 struct Point3D
 {
+    /// Координата точки по оси X
     double x;
+
+    /// Координата точки по оси Y
     double y;
+
+    /// Координата точки по оси Z
     double z;
 
+
+
+
+    /*!
+     * \brief Конструктор 3D-Точки
+     * \param _x - координата точки по оси X
+     * \param _y - координата точки по оси Y
+     * \param _z - координата точки по оси Z
+     */
     Point3D(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
 };
 
