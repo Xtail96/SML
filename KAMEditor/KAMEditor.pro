@@ -61,7 +61,6 @@ SOURCES += main.cpp\
 #    gui/commands/tttarcdialog.cpp \
 #    gui/commands/splinedialog.cpp \
 #    gui/commands/ttttsplinedialog.cpp \
-    gui/commands/adddevicedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/oglwidget.cpp \
     models/machinetool/machinetool.cpp \
@@ -120,7 +119,6 @@ HEADERS  += gui/mainwindow.h \
 #    gui/commands/tttarcdialog.h \
 #    gui/commands/splinedialog.h \
 #    gui/commands/ttttsplinedialog.h \
-    gui/commands/adddevicedialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/oglwidget.h \
     models/structs.h \
@@ -162,7 +160,6 @@ FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
     gui/points/mousetoselectionpointdialog.ui \
     gui/points/editpointdialog.ui \
-    gui/commands/adddevicedialog.ui \
     gui/commands/linedialog.ui \
     gui/commands/arcdialog.ui \
 #    gui/commands/labeldialog.ui \
