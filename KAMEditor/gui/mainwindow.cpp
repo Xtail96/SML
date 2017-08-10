@@ -513,25 +513,28 @@ void MainWindow::update()
 
 void MainWindow::deleteSelectedCommands()
 {
-    QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
-    if(selectedCommandsItems.size() > 0)
+    if(ui->editorTab->isVisible())
     {
-        std::deque<unsigned int> selectedCommandsIndexes;
-        for(auto item : selectedCommandsItems)
+        QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
+        if(selectedCommandsItems.size() > 0)
         {
-            selectedCommandsIndexes.push_front(item->text(0).toUInt() - 1);
-        }
-        try
-        {
-            for(auto commandIndex : selectedCommandsIndexes)
+            std::deque<unsigned int> selectedCommandsIndexes;
+            for(auto item : selectedCommandsItems)
             {
-                machineTool->getCommandsManager()->deleteCommand(commandIndex);
+                selectedCommandsIndexes.push_front(item->text(0).toUInt() - 1);
             }
-            updateCommands();
-        }
-        catch(std::out_of_range e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            try
+            {
+                for(auto commandIndex : selectedCommandsIndexes)
+                {
+                    machineTool->getCommandsManager()->deleteCommand(commandIndex);
+                }
+                updateCommands();
+            }
+            catch(std::out_of_range e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            }
         }
     }
 }
