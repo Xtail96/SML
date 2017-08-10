@@ -60,10 +60,11 @@ void OGLWidget::drawCommands()
     glLineWidth(1.0f);
     qglColor(Qt::gray);
 
-    SourcePoint src(10, 0, 0);
+    SourcePoint src(0, 0, 0);
     for(auto command : commands)
     {
         command->draw(this, src);
+        src = command->returnDestinationPoint(src);
     }
     /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);

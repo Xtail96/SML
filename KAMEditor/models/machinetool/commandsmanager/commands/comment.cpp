@@ -22,6 +22,11 @@ void Comment::draw(OGLWidget *w, SourcePoint sourcePoint) const
 
 }
 
+SourcePoint Comment::returnDestinationPoint(SourcePoint sourcePoint) const
+{
+    return sourcePoint;
+}
+
 std::string Comment::getName() const
 {
     return "***";

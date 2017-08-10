@@ -20,28 +20,29 @@ public:
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
      */
-    virtual byte_array getDataForMachineTool() const override;
+    byte_array getDataForMachineTool() const override;
 
     /**
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    virtual void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
+    void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
+    SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const override;
 
     /**
      * @return имя текущей команды
      */
-    virtual std::string getName() const override;
+    std::string getName() const override;
 
     /**
      * @return ID команды
      */
-    virtual size_t getId() const override;
+    size_t getId() const override;
 
     /**
      * @return строковое представление аргументов текущей команды
      */
-    virtual QString getArguments() const override;
+    QString getArguments() const override;
 
     QColor getColor() const override;
 };

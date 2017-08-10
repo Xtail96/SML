@@ -27,6 +27,8 @@ public:
      */
     virtual void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const = 0;
 
+    virtual SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const = 0;
+
     /**
      * @return имя текущей команды
      */

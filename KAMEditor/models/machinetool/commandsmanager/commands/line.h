@@ -10,12 +10,13 @@ public:
 
     byte_array getDataForMachineTool() const override;
     void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
+    SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const override;
 
     size_t getId() const override;
     std::string getName() const override;
     QString getArguments() const override;
 
-    virtual QColor getColor() const override;
+    QColor getColor() const override;
 
 private:
     size_t id = CMD_LINE;

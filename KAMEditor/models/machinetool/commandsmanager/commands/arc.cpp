@@ -15,6 +15,11 @@ void CArc::draw(OGLWidget *w, SourcePoint sourcePoint) const
     w->drawArc(R, Al, Fi, v);
 }
 
+SourcePoint CArc::returnDestinationPoint(SourcePoint sourcePoint) const
+{
+    return sourcePoint;
+}
+
 size_t CArc::getId() const
 {
     return id;

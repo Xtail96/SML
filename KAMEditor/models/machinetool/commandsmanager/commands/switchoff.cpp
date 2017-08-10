@@ -34,6 +34,11 @@ void SwitchOff::draw(OGLWidget *w, SourcePoint sourcePoint) const
 
 }
 
+SourcePoint SwitchOff::returnDestinationPoint(SourcePoint sourcePoint) const
+{
+    return sourcePoint;
+}
+
 std::string SwitchOff::getName() const
 {
     return name;

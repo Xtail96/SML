@@ -22,6 +22,11 @@ void Pause::draw(OGLWidget *w, SourcePoint sourcePoint) const
 
 }
 
+SourcePoint Pause::returnDestinationPoint(SourcePoint sourcePoint) const
+{
+    return sourcePoint;
+}
+
 std::string Pause::getName() const
 {
     return name;

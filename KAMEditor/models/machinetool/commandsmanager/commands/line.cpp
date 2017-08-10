@@ -16,6 +16,12 @@ void Line::draw(OGLWidget *w, SourcePoint src) const
     w->drawLine(dx, dy, dz, v, src);
 }
 
+SourcePoint Line::returnDestinationPoint(SourcePoint sourcePoint) const
+{
+    SourcePoint destinationPoint(dx + sourcePoint.x, dy + sourcePoint.y, dz + sourcePoint.z);
+    return destinationPoint;
+}
+
 size_t Line::getId() const
 {
     return id;
