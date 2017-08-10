@@ -34,8 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // инициализация станка
     initializeMachineTool();
 
-    // задаем горячие клавиши перемещения
+    // задаем горячие клавиши
     setupShortcuts();
+    setupEditorShortcuts();
 
     // синхронизаци контроля габаритов и соответствующих элементов интерфейса
     updateEdgesControlStatus();
@@ -512,6 +513,27 @@ void MainWindow::update()
 
 void MainWindow::deleteSelectedCommands()
 {
+    QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
+    if(selectedCommandsItems.size() > 0)
+    {
+        std::deque<unsigned int> selectedCommandsIndexes;
+        for(auto item : selectedCommandsItems)
+        {
+            selectedCommandsIndexes.push_front(item->text(0).toUInt() - 1);
+        }
+        try
+        {
+            for(auto commandIndex : selectedCommandsIndexes)
+            {
+                machineTool->getCommandsManager()->deleteCommand(commandIndex);
+            }
+            updateCommands();
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
+    }
 }
 
 void MainWindow::updateCoordinates()

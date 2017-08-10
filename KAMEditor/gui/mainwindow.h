@@ -6,6 +6,7 @@
 #include <set>
 #include <tuple>
 #include <vector>
+#include <deque>
 
 #include <QMainWindow>
 #include <QTimer>
