@@ -28,7 +28,7 @@ public:
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
 
-    void drawLine(double dx, double dy, double dz, double v = 1, SourcePoint src = SourcePoint());
+    void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
 
     void scaling(int delta);
 

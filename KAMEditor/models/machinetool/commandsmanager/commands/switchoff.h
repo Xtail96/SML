@@ -26,8 +26,8 @@ public:
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
-    SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const override;
+    void draw(OGLWidget* w, Point3D sourcePoint = Point3D()) const override;
+    Point3D returnDestinationPoint(Point3D sourcePoint = Point3D()) const override;
 
     /**
      * @return имя текущей команды

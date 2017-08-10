@@ -11,14 +11,14 @@ byte_array Line::getDataForMachineTool() const
 
 }
 
-void Line::draw(OGLWidget *w, SourcePoint src) const
+void Line::draw(OGLWidget *w, Point3D src) const
 {
     w->drawLine(dx, dy, dz, v, src);
 }
 
-SourcePoint Line::returnDestinationPoint(SourcePoint sourcePoint) const
+Point3D Line::returnDestinationPoint(Point3D sourcePoint) const
 {
-    SourcePoint destinationPoint(dx + sourcePoint.x, dy + sourcePoint.y, dz + sourcePoint.z);
+    Point3D destinationPoint(dx + sourcePoint.x, dy + sourcePoint.y, dz + sourcePoint.z);
     return destinationPoint;
 }
 
@@ -44,7 +44,7 @@ QColor Line::getColor() const
 }
 
 
-void OGLWidget::drawLine(double dx, double dy, double dz, double v, SourcePoint src)
+void OGLWidget::drawLine(double dx, double dy, double dz, double v, Point3D src)
 {
     glBegin(GL_LINES);
 

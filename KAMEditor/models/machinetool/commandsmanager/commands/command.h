@@ -25,9 +25,9 @@ public:
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    virtual void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const = 0;
+    virtual void draw(OGLWidget* w, Point3D sourcePoint = Point3D()) const = 0;
 
-    virtual SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const = 0;
+    virtual Point3D returnDestinationPoint(Point3D sourcePoint = Point3D()) const = 0;
 
     /**
      * @return имя текущей команды

@@ -11,8 +11,8 @@ public:
     CArc(double R, double Al, double Fi, double v = 1);
 
     byte_array getDataForMachineTool() const override;
-    void draw(OGLWidget* w, SourcePoint sourcePoint = SourcePoint()) const override;
-    SourcePoint returnDestinationPoint(SourcePoint sourcePoint = SourcePoint()) const override;
+    void draw(OGLWidget* w, Point3D sourcePoint = Point3D()) const override;
+    Point3D returnDestinationPoint(Point3D sourcePoint = Point3D()) const override;
 
     size_t getId() const override;
     std::string getName() const override;

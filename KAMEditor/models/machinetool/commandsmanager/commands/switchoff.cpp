@@ -29,12 +29,12 @@ byte_array SwitchOff::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOff::draw(OGLWidget *w, SourcePoint sourcePoint) const
+void SwitchOff::draw(OGLWidget *w, Point3D sourcePoint) const
 {
 
 }
 
-SourcePoint SwitchOff::returnDestinationPoint(SourcePoint sourcePoint) const
+Point3D SwitchOff::returnDestinationPoint(Point3D sourcePoint) const
 {
     return sourcePoint;
 }

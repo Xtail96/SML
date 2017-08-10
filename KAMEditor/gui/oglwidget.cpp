@@ -40,7 +40,7 @@ void OGLWidget::drawCoordinatesVectors()
 {
     glLineWidth(2.0f);
 
-    SourcePoint zeroPoint;
+    Point3D zeroPoint;
 
     glColor3f(1, 0, 0);
     drawLine(1, 0, 0, 1, zeroPoint);
@@ -60,7 +60,7 @@ void OGLWidget::drawCommands()
     glLineWidth(1.0f);
     qglColor(Qt::gray);
 
-    SourcePoint src(0, 0, 0);
+    Point3D src(0, 0, 0);
     for(auto command : commands)
     {
         command->draw(this, src);

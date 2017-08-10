@@ -21,13 +21,13 @@ struct VectorDouble
     VectorDouble(double _x = 0, double _y = 0, double _z = 0, double _a = 0, double _b = 0) : x(_x), y(_y), z(_z), a(_a), b(_b) {}
 };
 
-struct SourcePoint
+struct Point3D
 {
     double x;
     double y;
     double z;
 
-    SourcePoint(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
+    Point3D(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
 };
 
 /*!

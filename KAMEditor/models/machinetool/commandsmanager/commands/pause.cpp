@@ -17,12 +17,12 @@ byte_array Pause::getDataForMachineTool() const
     return data;
 }
 
-void Pause::draw(OGLWidget *w, SourcePoint sourcePoint) const
+void Pause::draw(OGLWidget *w, Point3D sourcePoint) const
 {
 
 }
 
-SourcePoint Pause::returnDestinationPoint(SourcePoint sourcePoint) const
+Point3D Pause::returnDestinationPoint(Point3D sourcePoint) const
 {
     return sourcePoint;
 }

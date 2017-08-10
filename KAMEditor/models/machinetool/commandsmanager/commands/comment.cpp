@@ -17,12 +17,12 @@ byte_array Comment::getDataForMachineTool() const
     return data;
 }
 
-void Comment::draw(OGLWidget *w, SourcePoint sourcePoint) const
+void Comment::draw(OGLWidget *w, Point3D sourcePoint) const
 {
 
 }
 
-SourcePoint Comment::returnDestinationPoint(SourcePoint sourcePoint) const
+Point3D Comment::returnDestinationPoint(Point3D sourcePoint) const
 {
     return sourcePoint;
 }
