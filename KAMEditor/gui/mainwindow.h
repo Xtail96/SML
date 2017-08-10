@@ -54,7 +54,6 @@
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
-#include "commands/adddevicedialog.h"
 #include "programvisualizewidow.h"
 
 #include "models/machinetool/commandsmanager/commands/commands.h"

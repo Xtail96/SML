@@ -6,6 +6,8 @@
 #include "models/structs.h"
 #include "../../../../gui/oglwidget.h"
 
+class OGLWidget;
+
 /**
  * @brief Абстрактный класс "Команда"
  */

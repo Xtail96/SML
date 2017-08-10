@@ -1196,5 +1196,5 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    ProgramVisualizeWidow(this).exec();
+    ProgramVisualizeWidow(machineTool->getCommandsManager()->getCommands(), this).exec();
 }

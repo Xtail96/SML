@@ -58,7 +58,11 @@ void OGLWidget::drawCommands()
     glLineWidth(1.0f);
     qglColor(Qt::gray);
 
-    glBegin(GL_QUADS);
+    for(auto command : commands)
+    {
+        command->draw(this);
+    }
+    /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);
             glVertex3f(-0.1f, 0.1f,-0.1f);
             glVertex3f(-0.1f, 0.1f, 0.1f);
@@ -83,7 +87,17 @@ void OGLWidget::drawCommands()
             glVertex3f( 0.1f, 0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f,-0.1f);
-            glEnd();
+            glEnd();*/
+}
+
+std::vector<std::shared_ptr<Command> > OGLWidget::getCommands() const
+{
+    return commands;
+}
+
+void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)
+{
+    commands = value;
 }
 
 int OGLWidget::getMouseMoveAction() const

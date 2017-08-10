@@ -14,26 +14,42 @@
     #include <OpenGL/gl.h>
 #endif
 
+#include "models/machinetool/commandsmanager/commands/command.h"
+class Command;
+
 class OGLWidget : public QGLWidget
 {
 public:
     OGLWidget(QWidget *parent = 0);
+
     ~OGLWidget() {}
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
+
     void drawLine(double dx, double dy, double dz, double v = 1);
 
     void scaling(int delta);
+
     void rotate();
+
     void setXAngle(double angle);
+
     void setYAngle(double angle);
+
     void setZAngle(double angle);
+
     double getScale() const;
+
     void setScale(double value);
+
     void updateField();
 
     int getMouseMoveAction() const;
+
     void setMouseMoveAction(int value);
+
+    std::vector<std::shared_ptr<Command> > getCommands() const;
+    void setCommands(const std::vector<std::shared_ptr<Command> > &value);
 
 protected:
 
@@ -50,10 +66,8 @@ protected:
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
-
-
     int mouseMoveAction = 1;
-
+    std::vector< std::shared_ptr<Command> > commands;
 
     void mousePressEvent(QMouseEvent *mouseEvent);
 

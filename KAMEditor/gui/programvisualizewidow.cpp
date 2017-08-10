@@ -1,13 +1,14 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Command> > _commands, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
     run(_run)
 {
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
+    ui->programOpenGLWidget->setCommands(_commands);
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
