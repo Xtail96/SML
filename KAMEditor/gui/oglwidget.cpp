@@ -63,11 +63,11 @@ void OGLWidget::drawCoordinatesVectors()
 void OGLWidget::drawCommands()
 {
     glLineWidth(1.0f);
-    qglColor(Qt::gray);
 
     Point3D src(0, 0, 0);
     for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
     {
+        qglColor(Qt::gray);
         commandsManager->operator [](i)->draw(this, src);
         src = commandsManager->operator [](i)->returnDestinationPoint(src);
     }

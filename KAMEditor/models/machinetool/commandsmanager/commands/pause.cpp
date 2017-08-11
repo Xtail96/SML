@@ -19,7 +19,9 @@ byte_array Pause::getDataForMachineTool() const
 
 void Pause::draw(OGLWidget *w, Point3D sourcePoint) const
 {
-
+    QString text = "Пауза " + getArguments();
+    w->qglColor(Qt::red);
+    w->renderText(sourcePoint.x, sourcePoint.y, sourcePoint.z, text);
 }
 
 Point3D Pause::returnDestinationPoint(Point3D sourcePoint) const

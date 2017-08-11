@@ -32,8 +32,6 @@ void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
     glPointSize(5.0f);
     w->qglColor(Qt::red);
     w->drawPoint(sourcePoint);
-    w->qglColor(Qt::gray);
-    glPointSize(1.0f);
 }
 
 Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const
