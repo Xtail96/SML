@@ -1172,19 +1172,19 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
         OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(machineTool, this).exec();
+        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_COMMENT:
-        CommentDialog(machineTool, this).exec();
+        CommentDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(machineTool, this).exec();
+        PauseDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_LINE:
-        LineDialog(machineTool, this).exec();
+        LineDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_ARC:
-        ArcDialog(machineTool, this).exec();
+        ArcDialog(machineTool->getCommandsManager(), this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();

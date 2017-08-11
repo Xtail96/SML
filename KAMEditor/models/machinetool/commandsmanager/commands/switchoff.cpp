@@ -1,7 +1,7 @@
 #include "switchoff.h"
 
-SwitchOff::SwitchOff(MachineTool *_machineTool, std::string _deviceName, std::string _parametrs) :
-    machineTool(_machineTool),
+SwitchOff::SwitchOff(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+    devicesManager(_devicesManager),
     deviceName(_deviceName),
     parametrs(_parametrs)
 {
@@ -18,9 +18,9 @@ byte_array SwitchOff::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        Device &device = devicesManager->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
-        data = machineTool->getDevicesManager()->getSwitchDeviceData(device, false);
+        data = devicesManager->getSwitchDeviceData(device, false);
     }
     catch(std::invalid_argument e)
     {
