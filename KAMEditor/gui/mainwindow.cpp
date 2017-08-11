@@ -1167,7 +1167,7 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     QString commandName = item->text();
     int commandNumber = CommandsIds.getId(commandName.toStdString());
 
-    int currentCommandNumber = machineTool->getCommandsManager()->getCommandsCount();
+    size_t currentCommandNumber = machineTool->getCommandsManager()->getCommandsCount();
 
     QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
     if(selectedItems.size() > 0)

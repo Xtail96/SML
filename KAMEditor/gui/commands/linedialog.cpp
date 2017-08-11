@@ -1,7 +1,7 @@
 #include "linedialog.h"
 #include "ui_linedialog.h"
 
-LineDialog::LineDialog(CommandsManager *_commandsManager, int _position, QWidget *parent) :
+LineDialog::LineDialog(CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LineDialog),
     commandsManager(_commandsManager),

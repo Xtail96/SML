@@ -1,7 +1,7 @@
 #include "commentdialog.h"
 #include "ui_commentdialog.h"
 
-CommentDialog::CommentDialog(CommandsManager* _commandsManager, int _position, QWidget *parent) :
+CommentDialog::CommentDialog(CommandsManager* _commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CommentDialog),
     commandsManager(_commandsManager),

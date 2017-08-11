@@ -1,7 +1,7 @@
 #include "arcdialog.h"
 #include "ui_arcdialog.h"
 
-ArcDialog::ArcDialog(CommandsManager *_commandsManager, int _position, QWidget *parent) :
+ArcDialog::ArcDialog(CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ArcDialog),
     commandsManager(_commandsManager),

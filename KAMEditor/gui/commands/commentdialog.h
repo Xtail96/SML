@@ -17,7 +17,7 @@ class CommentDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CommentDialog(CommandsManager* _commandsManager, int _position, QWidget *parent = 0);
+    explicit CommentDialog(CommandsManager* _commandsManager, size_t _position, QWidget *parent = 0);
     ~CommentDialog();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 private:
     Ui::CommentDialog *ui;
     CommandsManager* commandsManager;
-    int position;
+    size_t position;
 };
 
 #endif // COMMENTDIALOG_H

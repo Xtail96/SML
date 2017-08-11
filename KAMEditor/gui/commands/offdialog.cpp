@@ -1,7 +1,7 @@
 #include "offdialog.h"
 #include "ui_offdialog.h"
 
-OffDialog::OffDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, int _position, QWidget *parent) :
+OffDialog::OffDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OffDialog),
     devicesManager(_devicesManager),

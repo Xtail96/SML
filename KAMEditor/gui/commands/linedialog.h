@@ -17,7 +17,7 @@ class LineDialog : public QDialog//, private CommandDialog
     Q_OBJECT
 
 public:
-    explicit LineDialog(CommandsManager* _commandsManager, int _position, QWidget *parent = 0);
+    explicit LineDialog(CommandsManager* _commandsManager, size_t _position, QWidget *parent = 0);
     ~LineDialog();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 private:
     Ui::LineDialog *ui;
     CommandsManager* commandsManager;
-    int position;
+    size_t position;
 };
 
 #endif // LINEDIALOG_H

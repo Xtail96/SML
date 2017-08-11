@@ -1,7 +1,7 @@
 #include "ondialog.h"
 #include "ui_ondialog.h"
 
-OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, int _position, QWidget *parent) :
+OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OnDialog),
     devicesManager(_devicesManager),

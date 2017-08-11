@@ -17,7 +17,7 @@ class OnDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OnDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, int _position, QWidget *parent = 0);
+    explicit OnDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, size_t _position, QWidget *parent = 0);
     ~OnDialog();
 private slots:
     void on_buttonBox_accepted();
@@ -25,7 +25,7 @@ private:
     Ui::OnDialog *ui;
     DevicesManager* devicesManager;
     CommandsManager* commandsManager;
-    int position;
+    size_t position;
 
     void fillFields();
 };

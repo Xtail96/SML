@@ -1,7 +1,7 @@
 #include "pausedialog.h"
 #include "ui_pausedialog.h"
 
-PauseDialog::PauseDialog(CommandsManager *_commandsManager, int _position, QWidget *parent) :
+PauseDialog::PauseDialog(CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PauseDialog),
     commandsManager(_commandsManager),
