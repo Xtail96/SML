@@ -34,8 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // инициализация станка
     initializeMachineTool();
 
-    // задаем горячие клавиши перемещения
+    // задаем горячие клавиши
     setupShortcuts();
+    setupEditorShortcuts();
 
     // синхронизаци контроля габаритов и соответствующих элементов интерфейса
     updateEdgesControlStatus();
@@ -295,7 +296,7 @@ void MainWindow::updateDevicesSettingsField()
 
 QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex)
 {
-    QString text = "Здесь должны быть параметры Датчика";
+    QString text = "Здесь должны быть параметры Устройства";
     switch (parametrIndex) {
     case 0:
         text = QString::fromStdString(devices[deviceIndex]->getBoardName());
@@ -512,6 +513,30 @@ void MainWindow::update()
 
 void MainWindow::deleteSelectedCommands()
 {
+    if(ui->editorTab->isVisible())
+    {
+        QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
+        if(selectedCommandsItems.size() > 0)
+        {
+            std::deque<unsigned int> selectedCommandsIndexes;
+            for(auto item : selectedCommandsItems)
+            {
+                selectedCommandsIndexes.push_front(item->text(0).toUInt() - 1);
+            }
+            try
+            {
+                for(auto commandIndex : selectedCommandsIndexes)
+                {
+                    machineTool->getCommandsManager()->deleteCommand(commandIndex);
+                }
+                updateCommands();
+            }
+            catch(std::out_of_range e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            }
+        }
+    }
 }
 
 void MainWindow::updateCoordinates()
@@ -578,22 +603,21 @@ void MainWindow::updatePoints()
 void MainWindow::updateCommands()
 {
     ui->smlEditorTreeWidget->clear();
-    std::vector< std::shared_ptr<Command> > commands = machineTool->getCommandsManager()->getCommands();
+    unsigned int commandsCount = machineTool->getCommandsManager()->getCommandsCount();
     QList<QTreeWidgetItem*> qSmlCommands;
-    int tmp = 0;
-    for(auto command : commands)
+
+    for(unsigned int i = 0; i < commandsCount; i++)
     {
-        tmp++;
         QStringList commandStringList =
         {
-            QString::number(tmp),
-            QString::fromStdString(command->getName()),
-            command->getArguments()
+            QString::number(i+1),
+            QString::fromStdString(machineTool->getCommandsManager()->operator [](i)->getName()),
+            machineTool->getCommandsManager()->operator [](i)->getArguments()
         };
         QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
-        for(int i = 1; i < ui->smlEditorTreeWidget->columnCount(); i++)
+        for(int j = 1; j < ui->smlEditorTreeWidget->columnCount(); j++)
         {
-            item->setTextColor(i, command->getColor());
+            item->setTextColor(j, machineTool->getCommandsManager()->operator [](i)->getColor());
         }
         qSmlCommands.push_back(item);
     }
@@ -1145,22 +1169,22 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(machineTool, this).exec();
+        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(machineTool, this).exec();
+        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_COMMENT:
-        CommentDialog(machineTool, this).exec();
+        CommentDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(machineTool, this).exec();
+        PauseDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_LINE:
-        LineDialog(machineTool, this).exec();
+        LineDialog(machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_ARC:
-        ArcDialog(machineTool, this).exec();
+        ArcDialog(machineTool->getCommandsManager(), this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
@@ -1171,5 +1195,5 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    ProgramVisualizeWidow(this).exec();
+    ProgramVisualizeWidow(machineTool->getCommandsManager(), machineTool->getPointsManager(), this).exec();
 }

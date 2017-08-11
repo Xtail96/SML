@@ -17,7 +17,7 @@ class PauseDialog : public QDialog//, private CommandDialog
     Q_OBJECT
 
 public:
-    explicit PauseDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit PauseDialog(CommandsManager* _commandsManager, QWidget *parent = 0);
     ~PauseDialog();
 
 private slots:
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::PauseDialog *ui;
-    MachineTool* machineTool;
+    CommandsManager* commandsManager;
 };
 
 #endif // PAUSEDIALOG_H

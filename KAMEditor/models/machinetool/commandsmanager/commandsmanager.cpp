@@ -5,6 +5,12 @@ CommandsManager::CommandsManager(std::vector<std::shared_ptr<Command> > cmds) :
 {
 }
 
+CommandsManager::CommandsManager(const CommandsManager &object) :
+    m_commands(object.m_commands)
+{
+
+}
+
 std::shared_ptr<Command>& CommandsManager::operator[](size_t idx)
 {
     if (idx < m_commands.size())
@@ -20,10 +26,15 @@ std::shared_ptr<Command>& CommandsManager::operator[](size_t idx)
     }
 }
 
-std::vector<std::shared_ptr<Command> >& CommandsManager::getCommands()
+unsigned int CommandsManager::getCommandsCount()
+{
+    return m_commands.size();
+}
+
+/*std::vector<std::shared_ptr<Command> >& CommandsManager::getCommands()
 {
     return m_commands;
-}
+}*/
 
 void CommandsManager::addCommand(Command *cmd)
 {

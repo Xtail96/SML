@@ -11,9 +11,15 @@ byte_array Line::getDataForMachineTool() const
 
 }
 
-void Line::draw(OGLWidget *w) const
+void Line::draw(OGLWidget *w, Point3D src) const
 {
-    w->drawLine(dx, dy, dz, v);
+    w->drawLine(dx, dy, dz, v, src);
+}
+
+Point3D Line::returnDestinationPoint(Point3D sourcePoint) const
+{
+    Point3D destinationPoint(dx + sourcePoint.x, dy + sourcePoint.y, dz + sourcePoint.z);
+    return destinationPoint;
 }
 
 size_t Line::getId() const
@@ -38,12 +44,12 @@ QColor Line::getColor() const
 }
 
 
-void OGLWidget::drawLine(double dx, double dy, double dz, double v)
+void OGLWidget::drawLine(double dx, double dy, double dz, double v, Point3D src)
 {
     glBegin(GL_LINES);
 
-    glVertex3f(0, 0, 0);
-    glVertex3f(dx, dy, dz);
+    glVertex3f(src.x, src.y, src.z);
+    glVertex3f(src.x + dx, src.y + dy, src.z + dz);
 
     glEnd();
 }

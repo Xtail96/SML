@@ -17,14 +17,14 @@ class ArcDialog : public QDialog//, private CommandDialog
     Q_OBJECT
 
 public:
-    explicit ArcDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit ArcDialog(CommandsManager* _commandsManager, QWidget *parent = 0);
     ~ArcDialog();
 
 private slots:
     void on_buttonBox_accepted();
 private:
     Ui::ArcDialog *ui;
-    MachineTool* machineTool;
+    CommandsManager* commandsManager;
 };
 
 #endif // ARCDIALOG_H

@@ -15,7 +15,6 @@ void OGLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
-
     rotate();
 }
 
@@ -34,6 +33,11 @@ void OGLWidget::paintGL()
 
     drawCommands();
 
+    if(pointsVisible)
+    {
+        drawPoints();
+    }
+
     swapBuffers();
 }
 
@@ -41,25 +45,33 @@ void OGLWidget::drawCoordinatesVectors()
 {
     glLineWidth(2.0f);
 
+    Point3D zeroPoint;
+
     glColor3f(1, 0, 0);
-    drawLine(1, 0, 0, 1);
-    renderText(1, 0, 0, "X");
+    drawLine(100, 0, 0, 1, zeroPoint);
+    renderText(100, 0, 0, "X");
 
     glColor3f(0, 1, 0);
-    drawLine(0, 1, 0, 1);
-    renderText(0, 1, 0, "Y");
+    drawLine(0, 100, 0, 1, zeroPoint);
+    renderText(0, 100, 0, "Y");
 
     glColor3f(0, 0, 1);
-    drawLine(0, 0, 1, 1);
-    renderText(0, 0, 1, "Z");
+    drawLine(0, 0, 100, 1, zeroPoint);
+    renderText(0, 0, 100, "Z");
 }
 
 void OGLWidget::drawCommands()
 {
     glLineWidth(1.0f);
-    qglColor(Qt::gray);
 
-    glBegin(GL_QUADS);
+    Point3D src(0, 0, 0);
+    for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
+    {
+        qglColor(Qt::gray);
+        commandsManager->operator [](i)->draw(this, src);
+        src = commandsManager->operator [](i)->returnDestinationPoint(src);
+    }
+    /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);
             glVertex3f(-0.1f, 0.1f,-0.1f);
             glVertex3f(-0.1f, 0.1f, 0.1f);
@@ -84,7 +96,58 @@ void OGLWidget::drawCommands()
             glVertex3f( 0.1f, 0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f,-0.1f);
-            glEnd();
+            glEnd();*/
+}
+
+void OGLWidget::drawPoints()
+{
+    glPointSize(3.0f);
+    for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
+    {
+        glColor3f(0, 0, 0);
+        Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
+        drawPoint(src, QString::number(i));
+    }
+}
+
+CommandsManager *OGLWidget::getCommandsManager() const
+{
+    return commandsManager;
+}
+
+void OGLWidget::setCommandsManager(CommandsManager *value)
+{
+    commandsManager = value;
+}
+
+PointsManager *OGLWidget::getPointsManager() const
+{
+    return pointsManager;
+}
+
+void OGLWidget::setPointsManager(PointsManager *value)
+{
+    pointsManager = value;
+}
+
+bool OGLWidget::getPointsVisible() const
+{
+    return pointsVisible;
+}
+
+void OGLWidget::setPointsVisible(bool value)
+{
+    pointsVisible = value;
+}
+
+int OGLWidget::getMouseMoveAction() const
+{
+    return mouseMoveAction;
+}
+
+void OGLWidget::setMouseMoveAction(int value)
+{
+    mouseMoveAction = value;
 }
 
 double OGLWidget::getScale() const
@@ -110,23 +173,31 @@ void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    double dx = (mouseEvent->x() - mousePositionX) / 2;
-    double dy = (mouseEvent->y() - mousePositionY) / 2;
+    switch (mouseMoveAction) {
+    case 1:
+    {
+        double dx = (mouseEvent->x() - mousePositionX) / 2;
+        double dy = (mouseEvent->y() - mousePositionY) / 2;
 
-    if (mouseEvent->buttons() == Qt::LeftButton)
-    {
-        setXAngle(angleX - 1 * dy);
-        setYAngle(angleY - 1 * dx);
-    }
-    else
-    {
-        if(mouseEvent->buttons() == Qt::RightButton)
+        if (mouseEvent->buttons() == Qt::LeftButton)
         {
             setXAngle(angleX - 1 * dy);
-            setZAngle(angleZ - 1 * dx);
+            setYAngle(angleY - 1 * dx);
         }
+        else
+        {
+            if(mouseEvent->buttons() == Qt::RightButton)
+            {
+                setXAngle(angleX - 1 * dy);
+                setZAngle(angleZ - 1 * dx);
+            }
+        }
+        rotate();
+        break;
     }
-    rotate();
+    default:
+        break;
+    }
 }
 
 void OGLWidget::rotate()
@@ -188,11 +259,19 @@ void OGLWidget::scaling(int delta)
 
 void OGLWidget::resizeGL(int w, int h)
 {
-    glViewport(0,0,w,h);
+    glViewport(0,0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     /*
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();*/
+}
+
+void OGLWidget::drawPoint(Point3D src, QString text)
+{
+    glBegin(GL_POINTS);
+    glVertex3f(src.x, src.y, src.z);
+    glEnd();
+    renderText(src.x, src.y, src.z, text);
 }

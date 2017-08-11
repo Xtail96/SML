@@ -14,23 +14,53 @@
     #include <OpenGL/gl.h>
 #endif
 
+#include "models/structs.h"
+#include "models/machinetool/commandsmanager/commandsmanager.h"
+#include "models/machinetool/pointsmanager/pointsmanager.h"
+
+class CommandsManager;
+
 class OGLWidget : public QGLWidget
 {
 public:
     OGLWidget(QWidget *parent = 0);
+
     ~OGLWidget() {}
 
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
-    void drawLine(double dx, double dy, double dz, double v = 1);
+
+    void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
+
+    void drawPoint(Point3D src = Point3D(), QString text = "");
 
     void scaling(int delta);
+
     void rotate();
+
     void setXAngle(double angle);
+
     void setYAngle(double angle);
+
     void setZAngle(double angle);
+
     double getScale() const;
+
     void setScale(double value);
+
     void updateField();
+
+    int getMouseMoveAction() const;
+
+    void setMouseMoveAction(int value);
+
+    bool getPointsVisible() const;
+    void setPointsVisible(bool value);
+
+    PointsManager* getPointsManager() const;
+    void setPointsManager(PointsManager *value);
+
+    CommandsManager* getCommandsManager() const;
+    void setCommandsManager(CommandsManager *value);
 
 protected:
 
@@ -40,6 +70,7 @@ protected:
 
     void drawCoordinatesVectors();
     void drawCommands();
+    void drawPoints();
 
     double scale = 0.1;
     double angleX = 180;
@@ -47,7 +78,12 @@ protected:
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
+    int mouseMoveAction = 1;
 
+    CommandsManager* commandsManager;
+
+    bool pointsVisible = false;
+    PointsManager* pointsManager;
 
     void mousePressEvent(QMouseEvent *mouseEvent);
 

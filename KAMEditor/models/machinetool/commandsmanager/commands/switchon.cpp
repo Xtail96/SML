@@ -1,19 +1,14 @@
 #include "switchon.h"
 
-QColor SwitchOn::getColor() const
-{
-    return color;
-}
-
-SwitchOn::SwitchOn(MachineTool *_machineTool, std::string _deviceName, std::string _parametrs) :
-    machineTool(_machineTool), deviceName(_deviceName), parametrs(_parametrs)
+SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+    devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 
 }
 
 SwitchOn::~SwitchOn()
 {
-    //delete machineTool;
+
 }
 
 byte_array SwitchOn::getDataForMachineTool() const
@@ -21,9 +16,9 @@ byte_array SwitchOn::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        Device &device = devicesManager->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
-        data = machineTool->getDevicesManager()->getSwitchDeviceData(device, true);
+        data = devicesManager->getSwitchDeviceData(device, true);
     }
     catch(std::invalid_argument e)
     {
@@ -32,9 +27,16 @@ byte_array SwitchOn::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOn::draw(OGLWidget *w) const
+void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
 {
+    glPointSize(5.0f);
+    w->qglColor(Qt::red);
+    w->drawPoint(sourcePoint);
+}
 
+Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const
+{
+    return sourcePoint;
 }
 
 std::string SwitchOn::getName() const
@@ -51,4 +53,9 @@ QString SwitchOn::getArguments() const
 {
     std::string argumentsString = deviceName + ", " + parametrs;
     return QString::fromStdString(argumentsString);
+}
+
+QColor SwitchOn::getColor() const
+{
+    return color;
 }

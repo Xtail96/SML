@@ -17,7 +17,7 @@ class CommentDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CommentDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit CommentDialog(CommandsManager* _commandsManager, QWidget *parent = 0);
     ~CommentDialog();
 
 private slots:
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::CommentDialog *ui;
-    MachineTool* machineTool;
+    CommandsManager* commandsManager;
 };
 
 #endif // COMMENTDIALOG_H

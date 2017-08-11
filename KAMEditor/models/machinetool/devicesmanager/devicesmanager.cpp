@@ -48,6 +48,13 @@ DevicesManager::DevicesManager()
     initialize();
 }
 
+DevicesManager::DevicesManager(const DevicesManager &object) :
+    devices(object.devices),
+    devicesBuffer(object.devicesBuffer)
+{
+
+}
+
 
 Device &DevicesManager::findDevice(std::string deviceName)
 {

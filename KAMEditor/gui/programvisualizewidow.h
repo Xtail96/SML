@@ -2,6 +2,7 @@
 #define PROGRAMVISUALIZEWIDOW_H
 
 #include <QDialog>
+#include <QTableWidgetItem>
 
 #include "gui/oglwidget.h"
 #include "models/machinetool/machinetool.h"
@@ -15,7 +16,7 @@ class ProgramVisualizeWidow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProgramVisualizeWidow(QWidget *parent = 0, bool _run = false);
+    explicit ProgramVisualizeWidow(CommandsManager* _commandsManager, PointsManager* _pointsManager, QWidget *parent = 0, bool _run = false);
     ~ProgramVisualizeWidow();
 
 private slots:
@@ -31,8 +32,18 @@ private slots:
 
     void on_centerPushButton_clicked();
 
+    void on_rotatePushButton_clicked();
+
+    void on_movePushButton_clicked();
+
+    void on_pointsCheckBox_clicked();
+
 private:
     Ui::ProgramVisualizeWidow *ui;
+
+    void showCommands();
+    QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
+    CommandsManager* commandsManager;
 
     bool run;
 };

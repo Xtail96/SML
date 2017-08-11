@@ -5,6 +5,12 @@
 #include <memory>
 #include "commands/command.h"
 
+class Command;
+
+/**
+ * @brief Класс Менеджер команд
+ * Взаимодействие с SML-командами происходит через этот класс
+ */
 class CommandsManager
 {
 public:
@@ -16,6 +22,12 @@ public:
             std::vector< std::shared_ptr<Command> >());
 
     /**
+     * @brief Конструктор копирования для класса Менеджер команд
+     * @param object ссылка на объект класса Менеджер команд
+     */
+    CommandsManager(const CommandsManager &object);
+
+    /**
      * @brief Возвращает команду по заданному номеру
      * @param idx номер требуемой команды
      * @return ссылку на команду (на указатель на команду)
@@ -24,9 +36,10 @@ public:
     std::shared_ptr<Command>& operator[](size_t idx);
 
     /**
-     * @return ссылку на список всех текущих команд
+     * @brief Возвращает число команд
+     * @return число команд
      */
-    std::vector< std::shared_ptr<Command> >& getCommands();
+    unsigned int getCommandsCount();
 
     /**
      * @brief Добавляет команду в список команд

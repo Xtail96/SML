@@ -13,35 +13,37 @@ private:
     QColor color = QColor(SmlColors::lightGray());
 public:
     Comment(std::string _comment = "");
-    virtual ~Comment();
+    ~Comment();
 
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
      */
-    virtual byte_array getDataForMachineTool() const;
+    byte_array getDataForMachineTool() const override;
 
     /**
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    virtual void draw(OGLWidget* w) const;
+    void draw(OGLWidget* w, Point3D sourcePoint = Point3D()) const override;
+
+    Point3D returnDestinationPoint(Point3D sourcePoint = Point3D()) const override;
 
     /**
      * @return имя текущей команды
      */
-    virtual std::string getName() const;
+    std::string getName() const override;
 
     /**
      * @return ID команды
      */
-    virtual size_t getId() const;
+    size_t getId() const override;
 
     /**
      * @return строковое представление аргументов текущей команды
      */
-    virtual QString getArguments() const;
+    QString getArguments() const override;
 
-    virtual QColor getColor() const;
+    QColor getColor() const override;
 };
 
 #endif // COMMENT_H

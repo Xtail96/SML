@@ -17,14 +17,15 @@ class OffDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OffDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit OffDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, QWidget *parent = 0);
     ~OffDialog();
 
 private slots:
     void on_buttonBox_accepted();
 private:
     Ui::OffDialog *ui;
-    MachineTool* machineTool;
+    DevicesManager* devicesManager;
+    CommandsManager* commandsManager;
 
     void fillFields();
 };

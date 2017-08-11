@@ -6,6 +6,12 @@ PointsManager::PointsManager()
     m_points.reserve(32);
 }
 
+PointsManager::PointsManager(const PointsManager &object) :
+    m_points(object.m_points)
+{
+
+}
+
 PointsManager::~PointsManager()
 {
 

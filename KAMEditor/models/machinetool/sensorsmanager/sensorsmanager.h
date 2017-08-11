@@ -25,6 +25,12 @@ public:
     SensorsManager();
 
     /*!
+     * \brief Конструктор копирования класса Менеджер датчиков
+     * \param object ссылка на объект класса Менеджер датчиков
+     */
+    SensorsManager(const SensorsManager &object);
+
+    /*!
      * \brief Инициализирует датчики по файлу настроек
      */
     void initilize();

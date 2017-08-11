@@ -1,10 +1,10 @@
 #include "linedialog.h"
 #include "ui_linedialog.h"
 
-LineDialog::LineDialog(MachineTool *_machineTool, QWidget *parent) :
+LineDialog::LineDialog(CommandsManager *_commandsManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LineDialog),
-    machineTool(_machineTool)
+    commandsManager(_commandsManager)
 {
     ui->setupUi(this);
 }
@@ -19,5 +19,5 @@ void LineDialog::on_buttonBox_accepted()
     double dz = ui->zAxisLineEdit->text().toDouble();
     double velocity = ui->velocityLineEdit->text().toDouble();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, velocity));
-    machineTool->getCommandsManager()->addCommand(cmd);
+    commandsManager->addCommand(cmd);
 }

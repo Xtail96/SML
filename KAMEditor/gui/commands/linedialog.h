@@ -17,7 +17,7 @@ class LineDialog : public QDialog//, private CommandDialog
     Q_OBJECT
 
 public:
-    explicit LineDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit LineDialog(CommandsManager* _commandsManager, QWidget *parent = 0);
     ~LineDialog();
 
 private slots:
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::LineDialog *ui;
-    MachineTool* machineTool;
+    CommandsManager* commandsManager;
 };
 
 #endif // LINEDIALOG_H

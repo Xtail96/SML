@@ -10,9 +10,14 @@ byte_array CArc::getDataForMachineTool() const
 
 }
 
-void CArc::draw(OGLWidget *w) const
+void CArc::draw(OGLWidget *w, Point3D sourcePoint) const
 {
     w->drawArc(R, Al, Fi, v);
+}
+
+Point3D CArc::returnDestinationPoint(Point3D sourcePoint) const
+{
+    return sourcePoint;
 }
 
 size_t CArc::getId() const

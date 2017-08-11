@@ -33,11 +33,16 @@ private:
     */
     byte getDeviceMask(std::string boardName, unsigned int portNumber, unsigned int outputNumber);
 public:
-
     /*!
      * \brief Конструктор класса Менеджер устройств
      */
     DevicesManager();
+
+    /*!
+     * \brief Конструктор копирования класса Менеджер устройств
+     * \param object ссылка на объект класса Менеджер устройств
+     */
+    DevicesManager(const DevicesManager &object);
 
     /*!
      * \brief Возвращет ссылку на контейнер устройств
