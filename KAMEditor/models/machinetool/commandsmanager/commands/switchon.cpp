@@ -34,8 +34,9 @@ byte_array SwitchOn::getDataForMachineTool() const
 
 void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
 {
-    //glColor3f(1, 0, 0);
-    w->drawPoint(sourcePoint, "Включение");
+    w->qglColor(Qt::red);
+    w->drawPoint(sourcePoint);
+    w->qglColor(Qt::gray);
 }
 
 Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const

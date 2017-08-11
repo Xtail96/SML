@@ -269,6 +269,7 @@ void OGLWidget::resizeGL(int w, int h)
 
 void OGLWidget::drawPoint(Point3D src, QString text)
 {
+    glPointSize(5.0f);
     glBegin(GL_POINTS);
     glVertex3f(src.x, src.y, src.z);
     glEnd();
