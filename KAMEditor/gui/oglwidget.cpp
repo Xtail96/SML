@@ -33,6 +33,11 @@ void OGLWidget::paintGL()
 
     drawCommands();
 
+    if(pointsVisible)
+    {
+        drawPoints();
+    }
+
     swapBuffers();
 }
 
@@ -92,6 +97,36 @@ void OGLWidget::drawCommands()
             glVertex3f( 0.1f,-0.1f, 0.1f);
             glVertex3f( 0.1f,-0.1f,-0.1f);
             glEnd();*/
+}
+
+void OGLWidget::drawPoints()
+{
+    for(unsigned int i = 0; i < pointsManager.pointCount(); i++)
+    {
+        glColor3f(0, 0, 0);
+        Point3D src(pointsManager.operator [](i)->get("X"), pointsManager.operator [](i)->get("Y"), pointsManager.operator [](i)->get("Z"));
+        renderText(src.x, src.y, src.z, QString::fromStdString(std::to_string(i)));
+    }
+}
+
+PointsManager OGLWidget::getPointsManager() const
+{
+    return pointsManager;
+}
+
+void OGLWidget::setPointsManager(const PointsManager &value)
+{
+    pointsManager = value;
+}
+
+bool OGLWidget::getPointsVisible() const
+{
+    return pointsVisible;
+}
+
+void OGLWidget::setPointsVisible(bool value)
+{
+    pointsVisible = value;
 }
 
 std::vector<std::shared_ptr<Command> > OGLWidget::getCommands() const

@@ -1,7 +1,7 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Command> > _commands, QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Command> > _commands, PointsManager _pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
     run(_run)
@@ -9,6 +9,7 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Comman
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
     ui->programOpenGLWidget->setCommands(_commands);
+    ui->programOpenGLWidget->setPointsManager(_pointsManager);
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
@@ -71,4 +72,9 @@ void ProgramVisualizeWidow::on_movePushButton_clicked()
     ui->rotatePushButton->setEnabled(true);
     ui->movePushButton->setEnabled(false);
     ui->programOpenGLWidget->setMouseMoveAction(0);
+}
+
+void ProgramVisualizeWidow::on_pointsCheckBox_clicked()
+{
+    ui->programOpenGLWidget->setPointsVisible(!(ui->programOpenGLWidget->getPointsVisible()));
 }

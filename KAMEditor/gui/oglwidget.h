@@ -16,6 +16,7 @@
 
 #include "models/structs.h"
 #include "models/machinetool/commandsmanager/commands/command.h"
+#include "models/machinetool/pointsmanager/pointsmanager.h"
 
 class Command;
 
@@ -55,6 +56,12 @@ public:
     std::vector<std::shared_ptr<Command> > getCommands() const;
     void setCommands(const std::vector<std::shared_ptr<Command> > &value);
 
+    bool getPointsVisible() const;
+    void setPointsVisible(bool value);
+
+    PointsManager getPointsManager() const;
+    void setPointsManager(const PointsManager &value);
+
 protected:
 
     void initializeGL();
@@ -63,6 +70,7 @@ protected:
 
     void drawCoordinatesVectors();
     void drawCommands();
+    void drawPoints();
 
     double scale = 0.1;
     double angleX = 180;
@@ -72,6 +80,9 @@ protected:
     int mousePositionY = 0;
     int mouseMoveAction = 1;
     std::vector< std::shared_ptr<Command> > commands;
+
+    bool pointsVisible = false;
+    PointsManager pointsManager;
 
     void mousePressEvent(QMouseEvent *mouseEvent);
 

@@ -15,7 +15,7 @@ class ProgramVisualizeWidow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProgramVisualizeWidow(std::vector<std::shared_ptr<Command> > _commands, QWidget *parent = 0, bool _run = false);
+    explicit ProgramVisualizeWidow(std::vector<std::shared_ptr<Command> > _commands, PointsManager _pointsManager, QWidget *parent = 0, bool _run = false);
     ~ProgramVisualizeWidow();
 
 private slots:
@@ -34,6 +34,8 @@ private slots:
     void on_rotatePushButton_clicked();
 
     void on_movePushButton_clicked();
+
+    void on_pointsCheckBox_clicked();
 
 private:
     Ui::ProgramVisualizeWidow *ui;
