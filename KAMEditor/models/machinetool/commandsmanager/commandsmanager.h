@@ -7,6 +7,10 @@
 
 class Command;
 
+/**
+ * @brief Класс Менеджер команд
+ * Взаимодействие с SML-командами происходит через этот класс
+ */
 class CommandsManager
 {
 public:
@@ -17,6 +21,10 @@ public:
     CommandsManager(std::vector< std::shared_ptr<Command> > cmds =
             std::vector< std::shared_ptr<Command> >());
 
+    /**
+     * @brief Конструктор копирования для класса Менеджер команд
+     * @param object ссылка на объект класса Менеджер команд
+     */
     CommandsManager(const CommandsManager &object);
 
     /**
@@ -27,12 +35,11 @@ public:
      */
     std::shared_ptr<Command>& operator[](size_t idx);
 
-    unsigned int getCommandsCount();
-
     /**
-     * @return ссылку на список всех текущих команд
+     * @brief Возвращает число команд
+     * @return число команд
      */
-    //std::vector< std::shared_ptr<Command> >& getCommands();
+    unsigned int getCommandsCount();
 
     /**
      * @brief Добавляет команду в список команд
