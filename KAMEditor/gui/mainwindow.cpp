@@ -603,22 +603,21 @@ void MainWindow::updatePoints()
 void MainWindow::updateCommands()
 {
     ui->smlEditorTreeWidget->clear();
-    std::vector< std::shared_ptr<Command> > commands = machineTool->getCommandsManager()->getCommands();
+    unsigned int commandsCount = machineTool->getCommandsManager()->getCommandsCount();
     QList<QTreeWidgetItem*> qSmlCommands;
-    int tmp = 0;
-    for(auto command : commands)
+
+    for(unsigned int i = 0; i < commandsCount; i++)
     {
-        tmp++;
         QStringList commandStringList =
         {
-            QString::number(tmp),
-            QString::fromStdString(command->getName()),
-            command->getArguments()
+            QString::number(i+1),
+            QString::fromStdString(machineTool->getCommandsManager()->operator [](i)->getName()),
+            machineTool->getCommandsManager()->operator [](i)->getArguments()
         };
         QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
-        for(int i = 1; i < ui->smlEditorTreeWidget->columnCount(); i++)
+        for(int j = 1; j < ui->smlEditorTreeWidget->columnCount(); j++)
         {
-            item->setTextColor(i, command->getColor());
+            item->setTextColor(j, machineTool->getCommandsManager()->operator [](i)->getColor());
         }
         qSmlCommands.push_back(item);
     }
@@ -1196,5 +1195,6 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    ProgramVisualizeWidow(machineTool->getCommandsManager()->getCommands(), *(machineTool->getPointsManager()), this).exec();
+    CommandsManager* commandsManagerCopy = new CommandsManager(*(machineTool->getCommandsManager()));
+    ProgramVisualizeWidow(std::shared_ptr<CommandsManager>(commandsManagerCopy), *(machineTool->getPointsManager()), this).exec();
 }

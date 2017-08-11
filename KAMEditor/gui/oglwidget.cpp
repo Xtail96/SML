@@ -66,10 +66,10 @@ void OGLWidget::drawCommands()
     qglColor(Qt::gray);
 
     Point3D src(0, 0, 0);
-    for(auto command : commands)
+    for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
     {
-        command->draw(this, src);
-        src = command->returnDestinationPoint(src);
+        commandsManager->operator [](i)->draw(this, src);
+        src = commandsManager->operator [](i)->returnDestinationPoint(src);
     }
     /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);
@@ -109,6 +109,16 @@ void OGLWidget::drawPoints()
     }
 }
 
+std::shared_ptr<CommandsManager> OGLWidget::getCommandsManager() const
+{
+    return commandsManager;
+}
+
+void OGLWidget::setCommandsManager(const std::shared_ptr<CommandsManager> &value)
+{
+    commandsManager = value;
+}
+
 PointsManager OGLWidget::getPointsManager() const
 {
     return pointsManager;
@@ -127,16 +137,6 @@ bool OGLWidget::getPointsVisible() const
 void OGLWidget::setPointsVisible(bool value)
 {
     pointsVisible = value;
-}
-
-std::vector<std::shared_ptr<Command> > OGLWidget::getCommands() const
-{
-    return commands;
-}
-
-void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)
-{
-    commands = value;
 }
 
 int OGLWidget::getMouseMoveAction() const

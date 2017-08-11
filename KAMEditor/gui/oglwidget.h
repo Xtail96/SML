@@ -15,10 +15,10 @@
 #endif
 
 #include "models/structs.h"
-#include "models/machinetool/commandsmanager/commands/command.h"
+#include "models/machinetool/commandsmanager/commandsmanager.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
-class Command;
+class CommandsManager;
 
 class OGLWidget : public QGLWidget
 {
@@ -53,14 +53,14 @@ public:
 
     void setMouseMoveAction(int value);
 
-    std::vector<std::shared_ptr<Command> > getCommands() const;
-    void setCommands(const std::vector<std::shared_ptr<Command> > &value);
-
     bool getPointsVisible() const;
     void setPointsVisible(bool value);
 
     PointsManager getPointsManager() const;
     void setPointsManager(const PointsManager &value);
+
+    std::shared_ptr<CommandsManager> getCommandsManager() const;
+    void setCommandsManager(const std::shared_ptr<CommandsManager> &value);
 
 protected:
 
@@ -79,7 +79,8 @@ protected:
     int mousePositionX = 0;
     int mousePositionY = 0;
     int mouseMoveAction = 1;
-    std::vector< std::shared_ptr<Command> > commands;
+
+    std::shared_ptr<CommandsManager> commandsManager;
 
     bool pointsVisible = false;
     PointsManager pointsManager;

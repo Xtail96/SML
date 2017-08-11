@@ -1,15 +1,15 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Command> > _commands, PointsManager _pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _commandsManager, PointsManager _pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
-    run(_run),
-    commands(_commands)
+    commandsManager(_commandsManager),
+    run(_run)
 {
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
-    ui->programOpenGLWidget->setCommands(_commands);
+    ui->programOpenGLWidget->setCommandsManager(_commandsManager);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
     showCommands();
 }
@@ -92,7 +92,7 @@ void ProgramVisualizeWidow::showCommands()
     ui->commandsTableWidget->setHorizontalHeaderLabels(columnsHeaders);
 
     QStringList rowsHeaders;
-    for(unsigned int i = 0; i < commands.size(); i++)
+    for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
     {
         rowsHeaders.push_back(QString::number(i+1));
     }
@@ -115,10 +115,10 @@ QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, uns
     QString text = "Здесь должна быть команда";
     switch (column) {
     case 0:
-        text = QString::fromStdString(commands[row]->getName());
+        text = QString::fromStdString(commandsManager->operator [](row)->getName());
         break;
     case 1:
-        text = commands[row]->getArguments();
+        text = commandsManager->operator [](row)->getArguments();
         break;
     default:
         text = "Unknown parametr";

@@ -5,6 +5,8 @@
 #include <memory>
 #include "commands/command.h"
 
+class Command;
+
 class CommandsManager
 {
 public:
@@ -15,6 +17,8 @@ public:
     CommandsManager(std::vector< std::shared_ptr<Command> > cmds =
             std::vector< std::shared_ptr<Command> >());
 
+    CommandsManager(const CommandsManager &object);
+
     /**
      * @brief Возвращает команду по заданному номеру
      * @param idx номер требуемой команды
@@ -23,10 +27,12 @@ public:
      */
     std::shared_ptr<Command>& operator[](size_t idx);
 
+    unsigned int getCommandsCount();
+
     /**
      * @return ссылку на список всех текущих команд
      */
-    std::vector< std::shared_ptr<Command> >& getCommands();
+    //std::vector< std::shared_ptr<Command> >& getCommands();
 
     /**
      * @brief Добавляет команду в список команд
