@@ -16,7 +16,7 @@ class ProgramVisualizeWidow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _commandsManager, std::shared_ptr<PointsManager> _pointsManager, QWidget *parent = 0, bool _run = false);
+    explicit ProgramVisualizeWidow(CommandsManager* _commandsManager, PointsManager* _pointsManager, QWidget *parent = 0, bool _run = false);
     ~ProgramVisualizeWidow();
 
 private slots:
@@ -43,8 +43,7 @@ private:
 
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
-
-    std::shared_ptr<CommandsManager> commandsManager;
+    CommandsManager* commandsManager;
 
     bool run;
 };

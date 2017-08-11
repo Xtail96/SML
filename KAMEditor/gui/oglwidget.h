@@ -56,11 +56,11 @@ public:
     bool getPointsVisible() const;
     void setPointsVisible(bool value);
 
-    std::shared_ptr<PointsManager> getPointsManager() const;
-    void setPointsManager(const std::shared_ptr<PointsManager> &value);
+    PointsManager* getPointsManager() const;
+    void setPointsManager(PointsManager *value);
 
-    std::shared_ptr<CommandsManager> getCommandsManager() const;
-    void setCommandsManager(const std::shared_ptr<CommandsManager> &value);
+    CommandsManager* getCommandsManager() const;
+    void setCommandsManager(CommandsManager *value);
 
 protected:
 
@@ -80,10 +80,10 @@ protected:
     int mousePositionY = 0;
     int mouseMoveAction = 1;
 
-    std::shared_ptr<CommandsManager> commandsManager;
+    CommandsManager* commandsManager;
 
     bool pointsVisible = false;
-    std::shared_ptr<PointsManager> pointsManager;
+    PointsManager* pointsManager;
 
     void mousePressEvent(QMouseEvent *mouseEvent);
 

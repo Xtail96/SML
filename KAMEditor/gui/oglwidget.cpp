@@ -109,22 +109,22 @@ void OGLWidget::drawPoints()
     }
 }
 
-std::shared_ptr<CommandsManager> OGLWidget::getCommandsManager() const
+CommandsManager *OGLWidget::getCommandsManager() const
 {
     return commandsManager;
 }
 
-void OGLWidget::setCommandsManager(const std::shared_ptr<CommandsManager> &value)
+void OGLWidget::setCommandsManager(CommandsManager *value)
 {
     commandsManager = value;
 }
 
-std::shared_ptr<PointsManager> OGLWidget::getPointsManager() const
+PointsManager *OGLWidget::getPointsManager() const
 {
     return pointsManager;
 }
 
-void OGLWidget::setPointsManager(const std::shared_ptr<PointsManager> &value)
+void OGLWidget::setPointsManager(PointsManager *value)
 {
     pointsManager = value;
 }

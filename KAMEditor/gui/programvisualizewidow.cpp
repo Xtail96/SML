@@ -1,7 +1,7 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _commandsManager, std::shared_ptr<PointsManager> _pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsManager *_commandsManager, PointsManager *_pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
     commandsManager(_commandsManager),
