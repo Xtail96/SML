@@ -40,6 +40,10 @@ private slots:
 private:
     Ui::ProgramVisualizeWidow *ui;
 
+    void showCommands();
+
+    std::vector< std::shared_ptr<Command> > commands;
+
     bool run;
 };
 

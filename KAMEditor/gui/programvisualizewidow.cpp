@@ -4,12 +4,14 @@
 ProgramVisualizeWidow::ProgramVisualizeWidow(std::vector< std::shared_ptr<Command> > _commands, PointsManager _pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
-    run(_run)
+    run(_run),
+    commands(_commands)
 {
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
     ui->programOpenGLWidget->setCommands(_commands);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
+    showCommands();
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
@@ -77,4 +79,23 @@ void ProgramVisualizeWidow::on_movePushButton_clicked()
 void ProgramVisualizeWidow::on_pointsCheckBox_clicked()
 {
     ui->programOpenGLWidget->setPointsVisible(!(ui->programOpenGLWidget->getPointsVisible()));
+}
+
+void ProgramVisualizeWidow::showCommands()
+{
+    QStringList columnsHeaders =
+    {
+        "Команда",
+        "Аргументы"
+    };
+    ui->commandsTableWidget->setColumnCount(columnsHeaders.size());
+    ui->commandsTableWidget->setHorizontalHeaderLabels(columnsHeaders);
+
+    QStringList rowsHeaders;
+    for(unsigned int i = 0; i < commands.size(); i++)
+    {
+        rowsHeaders.push_back(QString::number(i+1));
+    }
+    ui->commandsTableWidget->setRowCount(rowsHeaders.size());
+    ui->commandsTableWidget->setVerticalHeaderLabels(rowsHeaders);
 }
