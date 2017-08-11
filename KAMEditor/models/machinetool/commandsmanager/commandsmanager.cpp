@@ -59,3 +59,15 @@ void CommandsManager::deleteCommand(size_t idx)
         throw std::out_of_range(errMsg);
     }
 }
+
+void CommandsManager::insertCommand(size_t pos, std::shared_ptr<Command> cmd)
+{
+    if (pos < m_commands.size())
+    {
+        m_commands.insert(m_commands.begin() + pos, cmd);
+    }
+    else
+    {
+        m_commands.push_back(cmd);
+    }
+}

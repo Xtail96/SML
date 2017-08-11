@@ -59,6 +59,16 @@ public:
      */
     void deleteCommand(size_t idx);
 
+    /**
+     * @brief Вставляет команду в список команд по заданному индексу
+     * @param pos индекс, по которому вставится команда
+     * @param cmd команда
+     *
+     * Если pos превышает размер списка, вставка происходит в конец списка
+     */
+    void insertCommand(size_t pos, std::shared_ptr<Command> cmd);
+
+
 private:
     /// Список всех команд
     std::vector< std::shared_ptr<Command> > m_commands;
