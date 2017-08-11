@@ -5,9 +5,16 @@
 #include <memory>
 #include "models/machinetool/pointsmanager/point/point.h"
 
+/**
+ * @brief Класс Менеджер точек
+ * Взаимодействие с точками происходит через этот класс
+ */
 class PointsManager
 {
 public:
+    /**
+     * @brief Конструктор класа Менеджер точек
+     */
     PointsManager();
 
     /**
