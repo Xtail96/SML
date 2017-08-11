@@ -17,7 +17,7 @@ class ArcDialog : public QDialog//, private CommandDialog
     Q_OBJECT
 
 public:
-    explicit ArcDialog(CommandsManager* _commandsManager, QWidget *parent = 0);
+    explicit ArcDialog(CommandsManager* _commandsManager, int _position, QWidget *parent = 0);
     ~ArcDialog();
 
 private slots:
@@ -25,6 +25,7 @@ private slots:
 private:
     Ui::ArcDialog *ui;
     CommandsManager* commandsManager;
+    int position;
 };
 
 #endif // ARCDIALOG_H

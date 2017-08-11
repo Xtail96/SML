@@ -1167,24 +1167,32 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     QString commandName = item->text();
     int commandNumber = CommandsIds.getId(commandName.toStdString());
 
+    int currentCommandNumber = machineTool->getCommandsManager()->getCommandsCount();
+
+    QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
+    if(selectedItems.size() > 0)
+    {
+        currentCommandNumber = selectedItems[0]->text(0).toInt()-1;
+    }
+
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
+        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
+        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
-        CommentDialog(machineTool->getCommandsManager(), this).exec();
+        CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(machineTool->getCommandsManager(), this).exec();
+        PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_LINE:
-        LineDialog(machineTool->getCommandsManager(), this).exec();
+        LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_ARC:
-        ArcDialog(machineTool->getCommandsManager(), this).exec();
+        ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();

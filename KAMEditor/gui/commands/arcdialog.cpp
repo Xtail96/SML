@@ -1,10 +1,11 @@
 #include "arcdialog.h"
 #include "ui_arcdialog.h"
 
-ArcDialog::ArcDialog(CommandsManager *_commandsManager, QWidget *parent) :
+ArcDialog::ArcDialog(CommandsManager *_commandsManager, int _position, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ArcDialog),
-    commandsManager(_commandsManager)
+    commandsManager(_commandsManager),
+    position(_position)
 {
     ui->setupUi(this);
 }
@@ -21,5 +22,5 @@ void ArcDialog::on_buttonBox_accepted()
     double fi = ui->fiLneEdit->text().toDouble();
     double velocity = ui->velocityLineEdit->text().toDouble();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new CArc(r, al, fi, velocity));
-    commandsManager->addCommand(cmd);
+    commandsManager->insertCommand(position, cmd);
 }
