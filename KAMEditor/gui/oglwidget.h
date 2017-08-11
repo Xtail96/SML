@@ -31,7 +31,7 @@ public:
 
     void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
 
-    void drawCylinder(double radius, double height, Point3D src = Point3D());
+    void drawPoint(Point3D src = Point3D(), QString text = "");
 
     void scaling(int delta);
 

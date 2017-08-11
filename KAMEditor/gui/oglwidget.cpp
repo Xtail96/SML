@@ -105,7 +105,7 @@ void OGLWidget::drawPoints()
     {
         glColor3f(0, 0, 0);
         Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
-        renderText(src.x, src.y, src.z, QString::number(i));
+        drawPoint(src, QString::number(i));
     }
 }
 
@@ -265,4 +265,12 @@ void OGLWidget::resizeGL(int w, int h)
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();*/
+}
+
+void OGLWidget::drawPoint(Point3D src, QString text)
+{
+    glBegin(GL_POINTS);
+    glVertex3f(src.x, src.y, src.z);
+    glEnd();
+    renderText(src.x, src.y, src.z, text);
 }
