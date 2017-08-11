@@ -101,6 +101,7 @@ void OGLWidget::drawCommands()
 
 void OGLWidget::drawPoints()
 {
+    glPointSize(3.0f);
     for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
     {
         glColor3f(0, 0, 0);
@@ -269,7 +270,6 @@ void OGLWidget::resizeGL(int w, int h)
 
 void OGLWidget::drawPoint(Point3D src, QString text)
 {
-    glPointSize(5.0f);
     glBegin(GL_POINTS);
     glVertex3f(src.x, src.y, src.z);
     glEnd();

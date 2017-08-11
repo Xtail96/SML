@@ -1,10 +1,5 @@
 #include "switchon.h"
 
-QColor SwitchOn::getColor() const
-{
-    return color;
-}
-
 SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
     devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
@@ -13,7 +8,7 @@ SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std
 
 SwitchOn::~SwitchOn()
 {
-    //delete machineTool;
+
 }
 
 byte_array SwitchOn::getDataForMachineTool() const
@@ -34,9 +29,11 @@ byte_array SwitchOn::getDataForMachineTool() const
 
 void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
 {
+    glPointSize(5.0f);
     w->qglColor(Qt::red);
     w->drawPoint(sourcePoint);
     w->qglColor(Qt::gray);
+    glPointSize(1.0f);
 }
 
 Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const
@@ -58,4 +55,9 @@ QString SwitchOn::getArguments() const
 {
     std::string argumentsString = deviceName + ", " + parametrs;
     return QString::fromStdString(argumentsString);
+}
+
+QColor SwitchOn::getColor() const
+{
+    return color;
 }
