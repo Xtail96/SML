@@ -18,6 +18,12 @@ SensorsManager::SensorsManager()
     initilize();
 }
 
+SensorsManager::SensorsManager(const SensorsManager &object) :
+    sensors(object.sensors)
+{
+
+}
+
 void SensorsManager::initilize()
 {
     SettingsManager settingsManager;
