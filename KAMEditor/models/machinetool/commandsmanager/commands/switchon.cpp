@@ -5,8 +5,8 @@ QColor SwitchOn::getColor() const
     return color;
 }
 
-SwitchOn::SwitchOn(MachineTool *_machineTool, std::string _deviceName, std::string _parametrs) :
-    machineTool(_machineTool), deviceName(_deviceName), parametrs(_parametrs)
+SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+    devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 
 }
@@ -21,9 +21,9 @@ byte_array SwitchOn::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        Device &device = devicesManager->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
-        data = machineTool->getDevicesManager()->getSwitchDeviceData(device, true);
+        data = devicesManager->getSwitchDeviceData(device, true);
     }
     catch(std::invalid_argument e)
     {

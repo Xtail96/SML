@@ -8,12 +8,12 @@ class SwitchOn : public Command
 {
     size_t id = CMD_SWITCH_ON;
     const std::string name = "Включить";
-    MachineTool* machineTool;
+    DevicesManager* devicesManager;
     std::string deviceName;
     std::string parametrs;
     QColor color = QColor(SmlColors::red());
 public:
-    SwitchOn(MachineTool* _machineTool, std::string _deviceName, std::string _parametrs = 0);
+    SwitchOn(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = 0);
     ~SwitchOn();
 
     /**

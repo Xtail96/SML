@@ -1169,7 +1169,7 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(machineTool, this).exec();
+        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), this).exec();
         break;
     case CMD_SWITCH_OFF:
         OffDialog(machineTool, this).exec();

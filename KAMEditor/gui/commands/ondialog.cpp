@@ -1,10 +1,11 @@
 #include "ondialog.h"
 #include "ui_ondialog.h"
 
-OnDialog::OnDialog(MachineTool *_machineTool, QWidget *parent) :
+OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OnDialog),
-    machineTool(_machineTool)
+    devicesManager(_devicesManager),
+    commandsManager(_commandsManager)
 {
     ui->setupUi(this);
     fillFields();
@@ -18,7 +19,7 @@ OnDialog::~OnDialog()
 
 void OnDialog::fillFields()
 {
-    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
+    std::vector< std::shared_ptr<Device> > devices = devicesManager->getDevices();
     QStringList devicesNames;
     for(auto it : devices)
     {
@@ -32,6 +33,6 @@ void OnDialog::on_buttonBox_accepted()
 {
     std::string deviceName = ui->devicesComboBox->currentText().toStdString();
     std::string parametrs = ui->argumentsLineEdit->text().toStdString();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(machineTool, deviceName, parametrs));
-    machineTool->getCommandsManager()->addCommand(cmd);
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(devicesManager, deviceName, parametrs));
+    commandsManager->addCommand(cmd);
 }

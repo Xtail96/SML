@@ -17,13 +17,14 @@ class OnDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OnDialog(MachineTool* _machineTool, QWidget *parent = 0);
+    explicit OnDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, QWidget *parent = 0);
     ~OnDialog();
 private slots:
     void on_buttonBox_accepted();
 private:
     Ui::OnDialog *ui;
-    MachineTool* machineTool;
+    DevicesManager* devicesManager;
+    CommandsManager* commandsManager;
 
     void fillFields();
 };
