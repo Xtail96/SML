@@ -1196,5 +1196,6 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_viewPushButton_clicked()
 {
     CommandsManager* commandsManagerCopy = new CommandsManager(*(machineTool->getCommandsManager()));
-    ProgramVisualizeWidow(std::shared_ptr<CommandsManager>(commandsManagerCopy), *(machineTool->getPointsManager()), this).exec();
+    PointsManager* pointsManagerCopy = new PointsManager(*(machineTool->getPointsManager()));
+    ProgramVisualizeWidow(std::shared_ptr<CommandsManager>(commandsManagerCopy), std::shared_ptr<PointsManager>(pointsManagerCopy), this).exec();
 }

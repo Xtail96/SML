@@ -1,7 +1,7 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _commandsManager, PointsManager _pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _commandsManager, std::shared_ptr<PointsManager> _pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
     commandsManager(_commandsManager),
@@ -9,7 +9,7 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(std::shared_ptr<CommandsManager> _c
 {
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
-    ui->programOpenGLWidget->setCommandsManager(_commandsManager);
+    ui->programOpenGLWidget->setCommandsManager(commandsManager);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
     showCommands();
 }

@@ -101,10 +101,10 @@ void OGLWidget::drawCommands()
 
 void OGLWidget::drawPoints()
 {
-    for(unsigned int i = 0; i < pointsManager.pointCount(); i++)
+    for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
     {
         glColor3f(0, 0, 0);
-        Point3D src(pointsManager.operator [](i)->get("X"), pointsManager.operator [](i)->get("Y"), pointsManager.operator [](i)->get("Z"));
+        Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
         renderText(src.x, src.y, src.z, QString::number(i));
     }
 }
@@ -119,12 +119,12 @@ void OGLWidget::setCommandsManager(const std::shared_ptr<CommandsManager> &value
     commandsManager = value;
 }
 
-PointsManager OGLWidget::getPointsManager() const
+std::shared_ptr<PointsManager> OGLWidget::getPointsManager() const
 {
     return pointsManager;
 }
 
-void OGLWidget::setPointsManager(const PointsManager &value)
+void OGLWidget::setPointsManager(const std::shared_ptr<PointsManager> &value)
 {
     pointsManager = value;
 }

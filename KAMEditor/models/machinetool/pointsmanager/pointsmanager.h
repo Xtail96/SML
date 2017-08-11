@@ -9,6 +9,13 @@ class PointsManager
 {
 public:
     PointsManager();
+
+    /**
+     * @brief Конструктор копирования для класса Менеджер точек
+     * @param object ссылка на объект класса Менеджер команд
+     */
+    PointsManager(const PointsManager &object);
+
     ~PointsManager();
 
     /**
