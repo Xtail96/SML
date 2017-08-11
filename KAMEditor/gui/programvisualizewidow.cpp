@@ -98,4 +98,31 @@ void ProgramVisualizeWidow::showCommands()
     }
     ui->commandsTableWidget->setRowCount(rowsHeaders.size());
     ui->commandsTableWidget->setVerticalHeaderLabels(rowsHeaders);
+
+    for (int i = 0; i < ui->commandsTableWidget->horizontalHeader()->count(); i++)
+    {
+        ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->commandsTableWidget->verticalHeader()->count(); j++)
+        {
+            QTableWidgetItem *item = fillCommandsTable(j, i);
+            ui->commandsTableWidget->setItem(j, i, item);
+        }
+    }
+}
+
+QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, unsigned int column)
+{
+    QString text = "Здесь должна быть команда";
+    switch (column) {
+    case 0:
+        text = QString::fromStdString(commands[row]->getName());
+        break;
+    case 1:
+        text = commands[row]->getArguments();
+        break;
+    default:
+        text = "Unknown parametr";
+        break;
+    }
+    return new QTableWidgetItem(text);
 }

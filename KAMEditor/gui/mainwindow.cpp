@@ -296,7 +296,7 @@ void MainWindow::updateDevicesSettingsField()
 
 QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex)
 {
-    QString text = "Здесь должны быть параметры Датчика";
+    QString text = "Здесь должны быть параметры Устройства";
     switch (parametrIndex) {
     case 0:
         text = QString::fromStdString(devices[deviceIndex]->getBoardName());

@@ -2,6 +2,7 @@
 #define PROGRAMVISUALIZEWIDOW_H
 
 #include <QDialog>
+#include <QTableWidgetItem>
 
 #include "gui/oglwidget.h"
 #include "models/machinetool/machinetool.h"
@@ -41,6 +42,7 @@ private:
     Ui::ProgramVisualizeWidow *ui;
 
     void showCommands();
+    QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
 
     std::vector< std::shared_ptr<Command> > commands;
 
