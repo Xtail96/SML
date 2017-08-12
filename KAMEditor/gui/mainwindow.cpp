@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(ui->pointEditPushButton, SIGNAL(clicked(bool)), this, SLOT(on_pointsTableWidget_doubleClicked(QModelIndex)));
     connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
 
     initializeTimer();
 }
@@ -962,13 +964,28 @@ void MainWindow::on_pointAddPushButton_clicked()
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    QList<QTableWidgetItem*> selected = ui->pointsTableWidget->selectedItems();
+    QList<QTableWidgetItem*> selected;
     std::set<int> rows;
-
-    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+    if(ui->adjustmentTab->isVisible())
     {
-        int row = ui->pointsTableWidget->row(*i);
-        rows.insert(row);
+        selected = ui->pointsTableWidget->selectedItems();
+        for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+        {
+            int row = ui->pointsTableWidget->row(*i);
+            rows.insert(row);
+        }
+    }
+    else
+    {
+        if(ui->editorTab->isVisible())
+        {
+            selected = ui->pointsTableWidget_2->selectedItems();
+            for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+            {
+                int row = ui->pointsTableWidget_2->row(*i);
+                rows.insert(row);
+            }
+        }
     }
 
     for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
