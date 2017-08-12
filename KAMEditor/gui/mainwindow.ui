@@ -1645,7 +1645,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>+ Добавить точку</string>
+                       <string>Добавить точку</string>
                       </property>
                       <property name="shortcut">
                        <string>+</string>
@@ -1666,7 +1666,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>- Удалить точку</string>
+                       <string>Удалить точку</string>
                       </property>
                       <property name="shortcut">
                        <string>-</string>
@@ -1687,7 +1687,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>= Редактировать точку</string>
+                       <string>Редактировать точку</string>
                       </property>
                       <property name="shortcut">
                        <string>=</string>
@@ -1708,7 +1708,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Shift + K - Курсор на точку</string>
+                       <string>Курсор на точку</string>
                       </property>
                       <property name="shortcut">
                        <string>Shift+K</string>
@@ -1729,7 +1729,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Shift + Enter Копирование точки</string>
+                       <string>Копирование точки</string>
                       </property>
                       <property name="shortcut">
                        <string>Shift+Return</string>
@@ -1750,7 +1750,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Shift + F3 - Переход на точку</string>
+                       <string>Переход на точку</string>
                       </property>
                       <property name="shortcut">
                        <string>Shift+F3</string>
@@ -1771,7 +1771,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Shift + M - Количество точек</string>
+                       <string>Количество точек</string>
                       </property>
                       <property name="shortcut">
                        <string>Shift+M</string>
