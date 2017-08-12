@@ -65,7 +65,14 @@ void AddPointDialog::on_buttonBox_accepted()
     Point* p = new Point(qArguments.size());
     for(int i = 0; i < qArguments.size(); i++)
     {
-        p->get(i) = std::stod(qArguments[i].toStdString());
+        try
+        {
+           p->get(i) = std::stod(qArguments[i].toStdString());
+        }
+        catch(...)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", "Неверный аргумент").exec();
+        }
     }
 
     if(!isEdit)
