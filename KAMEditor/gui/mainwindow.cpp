@@ -1033,24 +1033,24 @@ void MainWindow::on_pointEditPushButton_clicked()
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    /*PointsManager& instance = PointsManager::Instance();
-    std::vector<Point> points = instance.getPoints();
-
-    QList<QTableWidgetItem*> selected = ui->pointsTableWidget->selectedItems();
-    std::set<int> rows;
-
-    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+    if(ui->adjustmentTab->isVisible())
     {
-        int row = ui->pointsTableWidget->row(*i);
-        rows.insert(row);
+        int selectedPointNumber = ui->pointsTableWidget->currentRow();
+        if(selectedPointNumber >= 0)
+        {
+            try
+            {
+                std::shared_ptr<Point> currentPoint = machineTool->getPointsManager()->operator [](selectedPointNumber);
+                Point* insertedPoint = new Point(*currentPoint.get());
+                machineTool->getPointsManager()->addPoint(insertedPoint);
+            }
+            catch(std::out_of_range e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            }
+        }
     }
-
-    for (std::set<int>::iterator i = rows.begin(); i != rows.end(); i++)
-    {
-        instance.addPoint(points[*i]);
-    }
-
-    updatePoints();*/
+    updatePoints();
 }
 
 void MainWindow::updateEdgesControlStatus()
