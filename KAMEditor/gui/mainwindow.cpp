@@ -1249,10 +1249,10 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     case CMD_SWITCH_OFF:
         OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    /*case CMD_COMMENT:
-        CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+    case CMD_COMMENT:
+        CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    case CMD_PAUSE:
+    /*case CMD_PAUSE:
         PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_LINE:

@@ -479,7 +479,7 @@ struct
         {"Попрограмма", CMD_FUNCTION},
         {"Вернуться", CMD_RETURN},
         {"Вызов подпрограммы", CMD_CALL},
-        {"Комментарий", CMD_COMMENT},
+        {"***", CMD_COMMENT},
         {"Обнулить", CMD_ZERO},
         {"Окончить", CMD_END},
         {"Включить", CMD_SWITCH_ON},
