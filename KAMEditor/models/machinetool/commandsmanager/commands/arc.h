@@ -16,7 +16,7 @@ public:
 
     size_t getId() const override;
     std::string getName() const override;
-    QString getArguments() const override;
+    QStringList getArguments() const override;
 
     QColor getColor() const override;
 

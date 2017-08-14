@@ -30,10 +30,16 @@ std::string CArc::getName() const
     return "Дуга";
 }
 
-QString CArc::getArguments() const
+QStringList CArc::getArguments() const
 {
-    std::string arguments = "R = " + std::to_string(R) + ", Al = " + std::to_string(Al) + ", Fi = " + std::to_string(Fi) + ", v = " + std::to_string(v);
-    return QString::fromStdString(arguments);
+    QStringList arguments =
+    {
+        "R = " + QString::number(R),
+        "Al = " + QString::number(Al),
+        "Fi = " + QString::number(Fi),
+        "v = " + QString::number(v)
+    };
+    return arguments;
 }
 
 QColor CArc::getColor() const

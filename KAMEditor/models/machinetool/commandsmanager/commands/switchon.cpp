@@ -49,10 +49,14 @@ size_t SwitchOn::getId() const
     return id;
 }
 
-QString SwitchOn::getArguments() const
+QStringList SwitchOn::getArguments() const
 {
-    std::string argumentsString = deviceName + ", " + parametrs;
-    return QString::fromStdString(argumentsString);
+    QStringList arguments =
+    {
+        QString::fromStdString(deviceName),
+        QString::fromStdString(parametrs)
+    };
+    return arguments;
 }
 
 QColor SwitchOn::getColor() const

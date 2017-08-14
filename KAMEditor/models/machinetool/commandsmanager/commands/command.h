@@ -42,7 +42,7 @@ public:
     /**
      * @return строковое представление аргументов текущей команды
      */
-    virtual QString getArguments() const = 0;
+    virtual QStringList getArguments() const = 0;
 
     /**
      * @return цвет текущей команды

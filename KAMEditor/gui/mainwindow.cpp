@@ -610,12 +610,21 @@ void MainWindow::updateCommands()
 
     for(unsigned int i = 0; i < commandsCount; i++)
     {
+        QString commandArgumentsString = "";
+        QStringList commandArguments = machineTool->getCommandsManager()->operator [](i)->getArguments();
+        for(auto argument : commandArguments)
+        {
+            commandArgumentsString += argument + ", ";
+        }
+
         QStringList commandStringList =
         {
             QString::number(i+1),
             QString::fromStdString(machineTool->getCommandsManager()->operator [](i)->getName()),
-            machineTool->getCommandsManager()->operator [](i)->getArguments()
+            commandArgumentsString
         };
+
+
         QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
         for(int j = 1; j < ui->smlEditorTreeWidget->columnCount(); j++)
         {

@@ -115,14 +115,25 @@ QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, uns
     QString text = "Здесь должна быть команда";
     switch (column) {
     case 0:
+    {
         text = QString::fromStdString(commandsManager->operator [](row)->getName());
         break;
+    }
     case 1:
-        text = commandsManager->operator [](row)->getArguments();
+    {
+        text = "";
+        QStringList argumentsTmp = commandsManager->operator [](row)->getArguments();
+        for(auto argument : argumentsTmp)
+        {
+            text += argument + ", ";
+        }
         break;
+    }
     default:
+    {
         text = "Unknown parametr";
         break;
+    }
     }
     return new QTableWidgetItem(text);
 }

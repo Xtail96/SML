@@ -32,10 +32,16 @@ std::string Line::getName() const
     return name;
 }
 
-QString Line::getArguments() const
+QStringList Line::getArguments() const
 {
-    std::string arguments = "dx = " + std::to_string(dx) + ", dy = " + std::to_string(dy) + ", dz = " + std::to_string(dz) + ", v = " + std::to_string(v);
-    return QString::fromStdString(arguments);
+    QStringList arguments =
+    {
+        "dx = " + QString::number(dx),
+        "dy = " + QString::number(dy),
+        "dz = " + QString::number(dz),
+        "v = " + QString::number(v)
+    };
+    return arguments;
 }
 
 QColor Line::getColor() const

@@ -40,7 +40,7 @@ public:
     /**
      * @return строковое представление аргументов текущей команды
      */
-    QString getArguments() const override;
+    QStringList getArguments() const override;
 
     QColor getColor() const override;
 };

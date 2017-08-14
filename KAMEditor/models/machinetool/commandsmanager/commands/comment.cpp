@@ -37,9 +37,13 @@ size_t Comment::getId() const
     return id;
 }
 
-QString Comment::getArguments() const
+QStringList Comment::getArguments() const
 {
-    return QString::fromStdString(comment);
+    QStringList arguments =
+    {
+        QString::fromStdString(comment)
+    };
+    return arguments;
 }
 
 QColor Comment::getColor() const
