@@ -36,6 +36,14 @@ void OnDialog::fillFields()
         QStringList arguments = currentCommand->getArguments();
         QString deviceName = arguments[0];
         ui->devicesComboBox->setCurrentText(deviceName);
+
+
+        QString parametrs = "";
+        for(int i = 1; i < arguments.size(); i++)
+        {
+            parametrs += arguments[i];
+        }
+        ui->argumentsLineEdit->setText(parametrs);
     }
 }
 
