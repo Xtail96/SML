@@ -1252,10 +1252,10 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     case CMD_COMMENT:
         CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    /*case CMD_PAUSE:
-        PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+    case CMD_PAUSE:
+        PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    case CMD_LINE:
+    /*case CMD_LINE:
         LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_ARC:

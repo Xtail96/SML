@@ -43,7 +43,7 @@ QStringList Pause::getArguments() const
 {
     QStringList arguments =
     {
-        QString::number(length) + " секунд"
+        QString::number(length)
     };
     return arguments;
 }
