@@ -33,7 +33,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="arcRLabel">
+       <widget class="QLabel" name="rLabel">
         <property name="text">
          <string>R</string>
         </property>

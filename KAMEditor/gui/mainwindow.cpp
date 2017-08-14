@@ -1258,9 +1258,9 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     case CMD_LINE:
         LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    /*case CMD_ARC:
-        ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
-        break;*/
+    case CMD_ARC:
+        ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;

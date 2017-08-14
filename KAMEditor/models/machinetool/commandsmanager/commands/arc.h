@@ -20,6 +20,7 @@ public:
 
     QColor getColor() const override;
 
+    QString getArgumentsString() const;
 private:
     size_t id = CMD_ARC;
 
