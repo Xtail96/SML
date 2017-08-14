@@ -17,7 +17,7 @@ class OffDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OffDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, size_t _position, QWidget *parent = 0);
+    explicit OffDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, size_t _index, QWidget *parent = 0, bool _edit = false);
     ~OffDialog();
 
 private slots:
@@ -26,7 +26,8 @@ private:
     Ui::OffDialog *ui;
     DevicesManager* devicesManager;
     CommandsManager* commandsManager;
-    size_t position;
+    size_t index;
+    bool edit;
 
     void fillFields();
 };

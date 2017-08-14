@@ -212,6 +212,7 @@ private slots:
     void on_devicesTableWidget_clicked(const QModelIndex &index);
     void on_commandsToolsListWidget_itemClicked(QListWidgetItem *item);
     void on_viewPushButton_clicked();
+    void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 };
 
 

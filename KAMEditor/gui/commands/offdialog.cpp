@@ -1,12 +1,13 @@
 #include "offdialog.h"
 #include "ui_offdialog.h"
 
-OffDialog::OffDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
+OffDialog::OffDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::OffDialog),
     devicesManager(_devicesManager),
     commandsManager(_commandsManager),
-    position(_position)
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
     fillFields();
@@ -22,7 +23,14 @@ void OffDialog::on_buttonBox_accepted()
     std::string deviceName = ui->devicesComboBox->currentText().toStdString();
     std::string parametrs = ui->argumentsLineEdit->text().toStdString();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName, parametrs));
-    commandsManager->insertCommand(position, cmd);
+    if(edit)
+    {
+        commandsManager->operator [](index) = cmd;
+    }
+    else
+    {
+        commandsManager->insertCommand(index, cmd);
+    }
 }
 
 void OffDialog::fillFields()

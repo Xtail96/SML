@@ -1222,3 +1222,39 @@ void MainWindow::on_viewPushButton_clicked()
 {
     ProgramVisualizeWidow(machineTool->getCommandsManager(), machineTool->getPointsManager(), this).exec();
 }
+
+void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if(column != 1)
+    {
+        column = 1;
+    }
+    QString commandName = item->text(column);
+    int commandNumber = CommandsIds.getId(commandName.toStdString());
+
+    unsigned int currentCommandNumber = item->text(0).toUInt() - 1;
+    switch (commandNumber) {
+    case CMD_SWITCH_ON:
+        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        break;
+    case CMD_SWITCH_OFF:
+        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        break;
+    /*case CMD_COMMENT:
+        CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        break;
+    case CMD_PAUSE:
+        PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        break;
+    case CMD_LINE:
+        LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        break;
+    case CMD_ARC:
+        ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        break;*/
+    default:
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
+        break;
+    }
+    updateCommands();
+}

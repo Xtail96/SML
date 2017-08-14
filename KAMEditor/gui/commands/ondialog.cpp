@@ -1,12 +1,13 @@
 #include "ondialog.h"
 #include "ui_ondialog.h"
 
-OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _position, QWidget *parent) :
+OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::OnDialog),
     devicesManager(_devicesManager),
     commandsManager(_commandsManager),
-    position(_position)
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
     fillFields();
@@ -35,5 +36,12 @@ void OnDialog::on_buttonBox_accepted()
     std::string deviceName = ui->devicesComboBox->currentText().toStdString();
     std::string parametrs = ui->argumentsLineEdit->text().toStdString();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(devicesManager, deviceName, parametrs));
-    commandsManager->insertCommand(position, cmd);
+    if(edit)
+    {
+        commandsManager->operator [](index) = cmd;
+    }
+    else
+    {
+        commandsManager->insertCommand(index, cmd);
+    }
 }
