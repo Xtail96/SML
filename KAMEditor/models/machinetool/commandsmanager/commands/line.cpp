@@ -36,10 +36,10 @@ QStringList Line::getArguments() const
 {
     QStringList arguments =
     {
-        "dx = " + QString::number(dx),
-        "dy = " + QString::number(dy),
-        "dz = " + QString::number(dz),
-        "v = " + QString::number(v)
+        QString::number(dx),
+        QString::number(dy),
+        QString::number(dz),
+        QString::number(v)
     };
     return arguments;
 }

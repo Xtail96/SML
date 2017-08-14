@@ -1255,10 +1255,10 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     case CMD_PAUSE:
         PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    /*case CMD_LINE:
-        LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+    case CMD_LINE:
+        LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
-    case CMD_ARC:
+    /*case CMD_ARC:
         ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;*/
     default:
