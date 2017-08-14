@@ -29,6 +29,14 @@ void OnDialog::fillFields()
         devicesNames.push_back(deviceName);
     }
     ui->devicesComboBox->addItems(devicesNames);
+
+    if(edit)
+    {
+        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
+        QStringList arguments = currentCommand->getArguments();
+        QString deviceName = arguments[0];
+        ui->devicesComboBox->setCurrentText(deviceName);
+    }
 }
 
 void OnDialog::on_buttonBox_accepted()
