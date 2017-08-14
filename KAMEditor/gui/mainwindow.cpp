@@ -1035,7 +1035,7 @@ void MainWindow::on_pointEditPushButton_clicked()
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    int selectedPointNumber;
+    int selectedPointNumber = -1;
     if(ui->adjustmentTab->isVisible())
     {
         selectedPointNumber = ui->pointsTableWidget->currentRow();
