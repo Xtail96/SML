@@ -498,7 +498,6 @@ void MainWindow::setupEditorShortcuts()
     }
 
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
-    connect(ui->numOfDotsPushButton, SIGNAL(clicked()), this, SLOT(on_pointsAmountPushButton_clicked()));
 }
 
 void MainWindow::update()
