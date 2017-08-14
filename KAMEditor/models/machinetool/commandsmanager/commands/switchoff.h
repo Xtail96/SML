@@ -14,7 +14,7 @@ private:
     std::string parametrs;
     QColor color = QColor(SmlColors::green());
 public:
-    SwitchOff(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = 0);
+    SwitchOff(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
     ~SwitchOff();
 
     /**

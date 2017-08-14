@@ -21,8 +21,7 @@ OffDialog::~OffDialog()
 void OffDialog::on_buttonBox_accepted()
 {
     std::string deviceName = ui->devicesComboBox->currentText().toStdString();
-    std::string parametrs = ui->argumentsLineEdit->text().toStdString();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName, parametrs));
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName));
     if(edit)
     {
         commandsManager->operator [](index) = cmd;
@@ -50,11 +49,5 @@ void OffDialog::fillFields()
         QStringList arguments = currentCommand->getArguments();
         QString deviceName = arguments[0];
         ui->devicesComboBox->setCurrentText(deviceName);
-
-        QString parametrs = "";
-        for(int i = 1; i < arguments.size(); i++)
-        {
-            parametrs += arguments[i];
-        }
     }
 }
