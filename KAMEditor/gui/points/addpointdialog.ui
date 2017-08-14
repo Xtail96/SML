@@ -28,7 +28,7 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="add_point_title_label">
+    <widget class="QLabel" name="addPointTitleLabel">
      <property name="font">
       <font>
        <pointsize>18</pointsize>

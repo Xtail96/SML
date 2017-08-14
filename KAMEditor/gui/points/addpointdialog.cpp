@@ -27,7 +27,8 @@ AddPointDialog::AddPointDialog(MachineTool *_machineTool, std::shared_ptr<Point>
     pointNumber(_pointNumber)
 {
     initializeFields();
-    ui->add_point_title_label->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
+    setWindowTitle("Редактировать точку");
+    ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
 
     for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
     {
