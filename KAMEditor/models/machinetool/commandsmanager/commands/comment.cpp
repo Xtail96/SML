@@ -46,6 +46,11 @@ QStringList Comment::getArguments() const
     return arguments;
 }
 
+QString Comment::getArgumentsString() const
+{
+    return QString::fromStdString(comment);
+}
+
 QColor Comment::getColor() const
 {
     return color;

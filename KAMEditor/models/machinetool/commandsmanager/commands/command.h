@@ -40,9 +40,14 @@ public:
     virtual size_t getId() const = 0;
 
     /**
-     * @return строковое представление аргументов текущей команды
+     * @return строковое представление каждого из аргументов текущей команды
      */
     virtual QStringList getArguments() const = 0;
+
+    /**
+     * @return подробное строковое представление аргументов текущей команды
+     */
+    virtual QString getArgumentsString() const = 0;
 
     /**
      * @return цвет текущей команды

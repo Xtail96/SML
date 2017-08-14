@@ -14,7 +14,16 @@ public:
 
     size_t getId() const override;
     std::string getName() const override;
+
+    /**
+     * @return строковое представление каждого из аргументов текущей команды
+     */
     QStringList getArguments() const override;
+
+    /**
+     * @return подробное строковое представление аргументов текущей команды
+     */
+    QString getArgumentsString() const override;
 
     QColor getColor() const override;
 

@@ -44,8 +44,8 @@ QStringList CArc::getArguments() const
 
 QString CArc::getArgumentsString() const
 {
-    QString argumentsString = "R = " + QString::number(R) + ", Al = " + QString::number(Al) + ", Fi = " + QString::number(Fi) + ", v = " + QString::number(v);
-    return argumentsString;
+    QString qArgumentsString = "R = " + QString::number(R) + ", Al = " + QString::number(Al) + ", Fi = " + QString::number(Fi) + ", v = " + QString::number(v);
+    return qArgumentsString;
 }
 
 QColor CArc::getColor() const

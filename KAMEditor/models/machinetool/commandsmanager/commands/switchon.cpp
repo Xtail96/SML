@@ -59,6 +59,12 @@ QStringList SwitchOn::getArguments() const
     return arguments;
 }
 
+QString SwitchOn::getArgumentsString() const
+{
+    QString qArgumentsString = QString::fromStdString(deviceName) + ", " + QString::fromStdString(parametrs);
+    return qArgumentsString;
+}
+
 QColor SwitchOn::getColor() const
 {
     return color;

@@ -16,11 +16,18 @@ public:
 
     size_t getId() const override;
     std::string getName() const override;
+
+    /**
+     * @return строковое представление каждого из аргументов текущей команды
+     */
     QStringList getArguments() const override;
 
     QColor getColor() const override;
 
-    QString getArgumentsString() const;
+    /**
+     * @return подробное строковое представление аргументов текущей команды
+     */
+    QString getArgumentsString() const override;
 private:
     size_t id = CMD_ARC;
 

@@ -44,6 +44,12 @@ QStringList Line::getArguments() const
     return arguments;
 }
 
+QString Line::getArgumentsString() const
+{
+    QString qArgumentsString = "dx = " + QString::number(dx) + ", dy = " + QString::number(dy) + ", dz = " + QString::number(dz) + ", v = " + QString::number(v);
+    return qArgumentsString;
+}
+
 QColor Line::getColor() const
 {
     return color;

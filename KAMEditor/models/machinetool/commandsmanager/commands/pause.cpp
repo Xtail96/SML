@@ -48,6 +48,11 @@ QStringList Pause::getArguments() const
     return arguments;
 }
 
+QString Pause::getArgumentsString() const
+{
+    return QString::number(length) + " секунд";
+}
+
 QColor Pause::getColor() const
 {
     return color;
