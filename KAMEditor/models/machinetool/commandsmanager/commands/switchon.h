@@ -13,7 +13,7 @@ class SwitchOn : public Command
     std::string parametrs;
     QColor color = QColor(SmlColors::red());
 public:
-    SwitchOn(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = 0);
+    SwitchOn(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
     ~SwitchOn();
 
     /**
