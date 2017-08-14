@@ -1001,14 +1001,8 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    /*MouseToSelectionPointDialog* toPoint = new MouseToSelectionPointDialog(this);
-    toPoint->exec();
-    delete toPoint;
-
-    PointsManager& point_table = PointsManager::Instance();
-
-    unsigned int point_to_select = point_table.getSelectedPoint();
-    ui->pointsTableWidget->selectRow(point_to_select);*/
+    ToSelectionPointDialog(this).exec();
+    updatePoints();
 }
 
 void MainWindow::on_pointEditPushButton_clicked()

@@ -37,7 +37,6 @@ DEPENDPATH += $$PWD/usbxpress/include
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
     gui/points/addpointdialog.cpp \
-    gui/points/mousetoselectionpointdialog.cpp \
     gui/commands/linedialog.cpp \
     gui/commands/arcdialog.cpp \
 #    gui/commands/labeldialog.cpp \
@@ -90,11 +89,11 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/switchoff.cpp \
     models/machinetool/commandsmanager/commands/comment.cpp \
     models/machinetool/commandsmanager/commands/pause.cpp \
-    gui/programvisualizewidow.cpp
+    gui/programvisualizewidow.cpp \
+    gui/points/toselectionpointdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
-    gui/points/mousetoselectionpointdialog.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
 #    gui/commands/labeldialog.h \
@@ -151,12 +150,12 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/switchoff.h \
     models/machinetool/commandsmanager/commands/comment.h \
     models/machinetool/commandsmanager/commands/pause.h \
-    gui/programvisualizewidow.h
+    gui/programvisualizewidow.h \
+    gui/points/toselectionpointdialog.h
 
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
-    gui/points/mousetoselectionpointdialog.ui \
     gui/commands/linedialog.ui \
     gui/commands/arcdialog.ui \
 #    gui/commands/labeldialog.ui \
@@ -174,7 +173,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/pausedialog.ui \
 #    gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
-    gui/programvisualizewidow.ui
+    gui/programvisualizewidow.ui \
+    gui/points/toselectionpointdialog.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

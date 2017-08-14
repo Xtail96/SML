@@ -1,19 +1,19 @@
-#include "mousetoselectionpointdialog.h"
-#include "ui_mousetoselectionpointdialog.h"
+#include "toselectionpointdialog.h"
+#include "ui_toselectionpointdialog.h"
 
-MouseToSelectionPointDialog::MouseToSelectionPointDialog(QWidget *parent) :
+ToSelectionPointDialog::ToSelectionPointDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::MouseToSelectionPointDialog)
+    ui(new Ui::ToSelectionPointDialog)
 {
     ui->setupUi(this);
 }
 
-MouseToSelectionPointDialog::~MouseToSelectionPointDialog()
+ToSelectionPointDialog::~ToSelectionPointDialog()
 {
     delete ui;
 }
 
-void MouseToSelectionPointDialog::on_buttonBox_accepted()
+void ToSelectionPointDialog::on_buttonBox_accepted()
 {
     /*QString point_number_str = ui->mouse_to_point_lineEdit->text();
     unsigned int point_number = point_number_str.toUInt() - 1;

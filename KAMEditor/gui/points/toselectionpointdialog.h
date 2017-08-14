@@ -1,5 +1,5 @@
-#ifndef MOUSETOSELECTIONPOINTDIALOG_H
-#define MOUSETOSELECTIONPOINTDIALOG_H
+#ifndef TOSELECTIONPOINTDIALOG_H
+#define TOSELECTIONPOINTDIALOG_H
 
 #include <QDialog>
 #include <QMessageBox>
@@ -7,22 +7,22 @@
 #include "models/machinetool/pointsmanager/point/point.h"
 
 namespace Ui {
-class MouseToSelectionPointDialog;
+class ToSelectionPointDialog;
 }
 
-class MouseToSelectionPointDialog : public QDialog
+class ToSelectionPointDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MouseToSelectionPointDialog(QWidget *parent = 0);
-    ~MouseToSelectionPointDialog();
+    explicit ToSelectionPointDialog(QWidget *parent = 0);
+    ~ToSelectionPointDialog();
 
 private slots:
     void on_buttonBox_accepted();
 
 private:
-    Ui::MouseToSelectionPointDialog *ui;
+    Ui::ToSelectionPointDialog *ui;
 };
 
 #endif // MOUSETOSELECTIONPOINTDIALOG_H

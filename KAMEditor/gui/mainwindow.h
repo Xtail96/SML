@@ -28,8 +28,7 @@
 #include "models/machinetool/machinetool.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 #include "points/addpointdialog.h"
-#include "points/mousetoselectionpointdialog.h"
-#include "points/editpointdialog.h"
+#include "points/toselectionpointdialog.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 #include "commands/commanddialog.h"
