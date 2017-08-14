@@ -75,7 +75,7 @@ int U1::sendData(const byte_array& data)
     }
 
     // если число запрошенных и отправленных байт не совпадает, ошибка
-    if (data.size() != transferred)
+    if (data.size() != (size_t)transferred)
     {
         std::string errMsg = libusb_error_name(code);
         errMsg += " Отправлено " + std::to_string(transferred) + " байт ";

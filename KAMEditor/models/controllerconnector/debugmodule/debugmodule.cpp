@@ -1,6 +1,6 @@
 #include "debugmodule.h"
 
-DebugModule::DebugModule(MachineTool *machineTool)
+DebugModule::DebugModule()
 {
 
 }

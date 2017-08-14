@@ -17,7 +17,7 @@ class DebugModule
     std::vector< std::shared_ptr<Device> > outputs;*/
 
 public:
-    DebugModule(MachineTool *machineTool);
+    DebugModule();
     ~DebugModule();
 
     int checkConnection();
