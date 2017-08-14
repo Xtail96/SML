@@ -1,11 +1,12 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(MachineTool *_machineTool, QWidget *parent) :
+AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     isEdit(false),
-    machineTool(_machineTool),
+    movementsHandler(_movementsHandler),
+    pointsManager(_pointsManager),
     pointNumber(-1)
 {
     initializeFields();
@@ -19,11 +20,12 @@ AddPointDialog::AddPointDialog(MachineTool *_machineTool, QWidget *parent) :
     }
 }
 
-AddPointDialog::AddPointDialog(MachineTool *_machineTool, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent) :
+AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     isEdit(true),
-    machineTool(_machineTool),
+    movementsHandler(_movementsHandler),
+    pointsManager(_pointsManager),
     pointNumber(_pointNumber)
 {
     initializeFields();
@@ -78,18 +80,18 @@ void AddPointDialog::on_buttonBox_accepted()
 
     if(!isEdit)
     {
-        machineTool->getPointsManager()->addPoint(p);
+        pointsManager->addPoint(p);
     }
     else
     {
-        machineTool->getPointsManager()->operator [](pointNumber) = std::shared_ptr<Point>(p);
+        pointsManager->operator [](pointNumber) = std::shared_ptr<Point>(p);
     }
 }
 
 void AddPointDialog::initializeFields()
 {
     ui->setupUi(this);
-    axises = machineTool->getMovementController()->getAxises();
+    axises = movementsHandler->getAxises();
     QStringList qColumnsHeaders =
     {
         "Значение"

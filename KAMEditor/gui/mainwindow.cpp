@@ -960,7 +960,7 @@ void MainWindow::on_zeroPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    AddPointDialog* addPoint = new AddPointDialog(machineTool, this);
+    AddPointDialog* addPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this);
     addPoint->exec();
     updatePoints();
 }
@@ -1001,8 +1001,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    ToSelectionPointDialog(this).exec();
-    updatePoints();
+    ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
@@ -1021,7 +1020,7 @@ void MainWindow::on_pointEditPushButton_clicked()
         //select->selectedRows();
 
         int current_row = select->currentIndex().row();
-        AddPointDialog* editPoint = new AddPointDialog(machineTool, machineTool->getPointsManager()->operator [](current_row), current_row, this);
+        AddPointDialog* editPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), machineTool->getPointsManager()->operator [](current_row), current_row, this);
         editPoint->exec();
         delete editPoint;
         updatePoints();
