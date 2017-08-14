@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
     connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
     initializeTimer();
 }
@@ -1002,6 +1004,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
 void MainWindow::on_pointCursorPushButton_clicked()
 {
     ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
+    updatePoints();
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
@@ -1033,21 +1036,30 @@ void MainWindow::on_pointEditPushButton_clicked()
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
+    int selectedPointNumber;
     if(ui->adjustmentTab->isVisible())
     {
-        int selectedPointNumber = ui->pointsTableWidget->currentRow();
-        if(selectedPointNumber >= 0)
+        selectedPointNumber = ui->pointsTableWidget->currentRow();
+    }
+    else
+    {
+        if(ui->editorTab->isVisible())
         {
-            try
-            {
-                std::shared_ptr<Point> currentPoint = machineTool->getPointsManager()->operator [](selectedPointNumber);
-                Point* insertedPoint = new Point(*currentPoint.get());
-                machineTool->getPointsManager()->addPoint(insertedPoint);
-            }
-            catch(std::out_of_range e)
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-            }
+            selectedPointNumber = ui->pointsTableWidget_2->currentRow();
+        }
+    }
+
+    if(selectedPointNumber >= 0)
+    {
+        try
+        {
+            std::shared_ptr<Point> currentPoint = machineTool->getPointsManager()->operator [](selectedPointNumber);
+            Point* insertedPoint = new Point(*currentPoint.get());
+            machineTool->getPointsManager()->addPoint(insertedPoint);
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         }
     }
     updatePoints();
