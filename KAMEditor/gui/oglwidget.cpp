@@ -63,7 +63,7 @@ void OGLWidget::drawCoordinatesVectors()
 
 void OGLWidget::drawCommands()
 {
-    glLineWidth(1.0f);
+    glLineWidth(3.0f);
 
     Point3D src(0, 0, 0);
     Point3D dest(0, 0, 0);
