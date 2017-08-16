@@ -72,7 +72,7 @@ protected:
     void drawCommands();
     void drawPoints();
 
-    double scale = 0.1;
+    double scale = 0.005;
     double angleX = 180;
     double angleY = 0;
     double angleZ = 0;
