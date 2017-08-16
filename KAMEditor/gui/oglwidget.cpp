@@ -48,16 +48,16 @@ void OGLWidget::drawCoordinatesVectors()
     Point3D zeroPoint;
 
     glColor3f(1, 0, 0);
-    drawLine(100, 0, 0, 1, zeroPoint);
-    renderText(100, 0, 0, "X");
+    drawLine(10, 0, 0, 1, zeroPoint);
+    renderText(10, 0, 0, "X");
 
     glColor3f(0, 1, 0);
-    drawLine(0, 100, 0, 1, zeroPoint);
-    renderText(0, 100, 0, "Y");
+    drawLine(0, 10, 0, 1, zeroPoint);
+    renderText(0, 10, 0, "Y");
 
     glColor3f(0, 0, 1);
-    drawLine(0, 0, 100, 1, zeroPoint);
-    renderText(0, 0, 100, "Z");
+    drawLine(0, 0, 10, 1, zeroPoint);
+    renderText(0, 0, 10, "Z");
 }
 
 void OGLWidget::drawCommands()
@@ -67,7 +67,14 @@ void OGLWidget::drawCommands()
     Point3D src(0, 0, 0);
     for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
     {
-        qglColor(Qt::gray);
+        if(src.z > 0)
+        {
+            qglColor(Qt::white);
+        }
+        else
+        {
+            qglColor(Qt::darkGray);
+        }
         commandsManager->operator [](i)->draw(this, src);
         src = commandsManager->operator [](i)->returnDestinationPoint(src);
     }
