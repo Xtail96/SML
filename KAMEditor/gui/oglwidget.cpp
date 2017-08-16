@@ -43,7 +43,8 @@ void OGLWidget::paintGL()
 
 void OGLWidget::drawCoordinatesVectors()
 {
-    glLineWidth(2.0f);
+    glLineWidth(2.0f); 
+    glDisable(GL_LINE_STIPPLE);
 
     Point3D zeroPoint;
 
@@ -65,18 +66,22 @@ void OGLWidget::drawCommands()
     glLineWidth(1.0f);
 
     Point3D src(0, 0, 0);
+    Point3D dest(0, 0, 0);
     for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
-    {
-        if(src.z > 0)
+    {    
+        qglColor(Qt::darkGray);
+        dest = commandsManager->operator [](i)->returnDestinationPoint(src);
+        if(dest.z > 0)
         {
-            qglColor(Qt::white);
+            glEnable(GL_LINE_STIPPLE);
+            glLineStipple(1, 0x1111);
         }
         else
         {
-            qglColor(Qt::darkGray);
+            glDisable(GL_LINE_STIPPLE);
         }
         commandsManager->operator [](i)->draw(this, src);
-        src = commandsManager->operator [](i)->returnDestinationPoint(src);
+        src = dest;
     }
     /*glBegin(GL_QUADS);
             glVertex3f( 0.1f, 0.1f,-0.1f);
