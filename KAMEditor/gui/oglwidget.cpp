@@ -118,7 +118,7 @@ void OGLWidget::drawPoints()
     {
         glColor3f(0, 0, 0);
         Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
-        drawPoint(src, QString::number(i));
+        drawPoint(src, QString::number(i+1));
     }
 }
 
