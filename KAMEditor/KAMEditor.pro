@@ -90,7 +90,8 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/comment.cpp \
     models/machinetool/commandsmanager/commands/pause.cpp \
     gui/programvisualizewidow.cpp \
-    gui/points/toselectionpointdialog.cpp
+    gui/points/toselectionpointdialog.cpp \
+    models/machinetool/filemanager/filemanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -151,7 +152,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/comment.h \
     models/machinetool/commandsmanager/commands/pause.h \
     gui/programvisualizewidow.h \
-    gui/points/toselectionpointdialog.h
+    gui/points/toselectionpointdialog.h \
+    models/machinetool/filemanager/filemanager.h
 
 
 FORMS    += gui/mainwindow.ui \
