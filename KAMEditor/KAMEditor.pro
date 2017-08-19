@@ -92,7 +92,7 @@ SOURCES += main.cpp\
     gui/programvisualizewidow.cpp \
     gui/points/toselectionpointdialog.cpp \
     models/machinetool/filemanager/filemanager.cpp \
-    gui/kabriolwidget.cpp
+    gui/kabriolwindow.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -155,7 +155,7 @@ HEADERS  += gui/mainwindow.h \
     gui/programvisualizewidow.h \
     gui/points/toselectionpointdialog.h \
     models/machinetool/filemanager/filemanager.h \
-    gui/kabriolwidget.h
+    gui/kabriolwindow.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -179,7 +179,7 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/commentdialog.ui \
     gui/programvisualizewidow.ui \
     gui/points/toselectionpointdialog.ui \
-    gui/kabriolwidget.ui
+    gui/kabriolwindow.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

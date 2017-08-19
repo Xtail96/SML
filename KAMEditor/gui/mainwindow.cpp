@@ -1206,3 +1206,8 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     }
     updateCommands();
 }
+
+void MainWindow::on_kabriolWidgetPushButton_clicked()
+{
+    KabriolWindow().exec();
+}
