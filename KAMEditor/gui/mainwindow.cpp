@@ -160,6 +160,11 @@ void MainWindow::updateAxisSettingsField()
             ui->axisSettingsTableWidget->setItem(j, i, item);
         }
     }
+
+    for(int i = 0; i < ui->axisSettingsTableWidget->verticalHeader()->count(); i++)
+    {
+        ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 }
 
 QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex)
