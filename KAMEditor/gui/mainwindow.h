@@ -68,7 +68,7 @@
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
-#include "gui/kabriolwindow.h"
+#include "gui/options/kabriolwindow.h"
 
 #include "dependencies.h"
 
