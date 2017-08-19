@@ -1859,7 +1859,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QGroupBox" name="devicesGroupBox">
+               <widget class="QGroupBox" name="optionsGroupBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>1</horstretch>
@@ -1867,9 +1867,9 @@
                  </sizepolicy>
                 </property>
                 <property name="title">
-                 <string>Работа с внешними устройствами</string>
+                 <string>Опции</string>
                 </property>
-                <layout class="QGridLayout" name="gridLayout_17">
+                <layout class="QVBoxLayout" name="verticalLayout_3">
                  <property name="leftMargin">
                   <number>5</number>
                  </property>
@@ -1882,7 +1882,7 @@
                  <property name="bottomMargin">
                   <number>5</number>
                  </property>
-                 <item row="0" column="0" colspan="2">
+                 <item>
                   <widget class="QPushButton" name="toolLengthSensorPushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -1898,131 +1898,25 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
-                  <widget class="QPushButton" name="movementBNegativePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
+                 <item>
+                  <widget class="QPushButton" name="kabriolWidgetPushButton">
                    <property name="text">
-                    <string>B -</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
+                    <string>Кабриоль</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QPushButton" name="movementBPositivePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
                    </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>B +</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
-                   </property>
-                   <property name="iconSize">
+                   <property name="sizeHint" stdset="0">
                     <size>
-                     <width>64</width>
-                     <height>64</height>
+                     <width>20</width>
+                     <height>100</height>
                     </size>
                    </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QFrame" name="cabriolModeFrame">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>3</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_6">
-                    <item>
-                     <widget class="QRadioButton" name="kabriolOffRadioButton">
-                      <property name="text">
-                       <string>Кабриоль выключена</string>
-                      </property>
-                      <property name="checked">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="kabriolOnRadioButton">
-                      <property name="text">
-                       <string>Кабриоль включена</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="kabriolServoRadioButton">
-                      <property name="text">
-                       <string>Сервокабриоль включена</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="verticalSpacer">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>20</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </widget>
+                  </spacer>
                  </item>
                 </layout>
                </widget>

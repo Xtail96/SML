@@ -456,8 +456,6 @@ void MainWindow::setupShortcuts()
         std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
         std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
         std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
-        std::make_tuple("M", ui->movementBNegativePushButton, SLOT(on_movementBNegativePushButton_clicked())),
-        std::make_tuple("U", ui->movementBPositivePushButton, SLOT(on_movementBPositivePushButton_clicked())),
     };
 
     for (auto i = shortcutsMap.begin(); i != shortcutsMap.end(); i++)
@@ -650,20 +648,6 @@ void MainWindow::updateBaseStatus()
 
 }
 
-void MainWindow::updateKabriolAvaliability()
-{
-    if(ui->kabriolOffRadioButton->isChecked())
-    {
-        ui->movementBNegativePushButton->setEnabled(false);
-        ui->movementBPositivePushButton->setEnabled(false);
-    }
-    if(ui->kabriolServoRadioButton->isChecked() || ui->kabriolOnRadioButton->isChecked())
-    {
-        ui->movementBNegativePushButton->setEnabled(true);
-        ui->movementBPositivePushButton->setEnabled(true);
-    }
-}
-
 void MainWindow::updateMachineToolStatus()
 {
 #ifdef Q_OS_WIN
@@ -738,10 +722,7 @@ void MainWindow::setMovementButtonsRepeatState(bool state)
         ui->movementZNegativePushButton,
 
         ui->movementAPositivePushButton,
-        ui->movementANegativePushButton,
-
-        ui->movementBPositivePushButton,
-        ui->movementBNegativePushButton
+        ui->movementANegativePushButton
     };
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
@@ -897,24 +878,6 @@ void MainWindow::on_movementANegativePushButton_clicked()
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
     v.a = -1;
-
-    i.stepMove(v);*/
-}
-
-void MainWindow::on_movementBPositivePushButton_clicked()
-{
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.b = 1;
-
-    i.stepMove(v);*/
-}
-
-void MainWindow::on_movementBNegativePushButton_clicked()
-{
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.b = -1;
 
     i.stepMove(v);*/
 }

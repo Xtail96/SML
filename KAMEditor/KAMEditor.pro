@@ -91,7 +91,8 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/pause.cpp \
     gui/programvisualizewidow.cpp \
     gui/points/toselectionpointdialog.cpp \
-    models/machinetool/filemanager/filemanager.cpp
+    models/machinetool/filemanager/filemanager.cpp \
+    gui/kabriolwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -153,7 +154,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/pause.h \
     gui/programvisualizewidow.h \
     gui/points/toselectionpointdialog.h \
-    models/machinetool/filemanager/filemanager.h
+    models/machinetool/filemanager/filemanager.h \
+    gui/kabriolwidget.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -176,7 +178,8 @@ FORMS    += gui/mainwindow.ui \
 #    gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
     gui/programvisualizewidow.ui \
-    gui/points/toselectionpointdialog.ui
+    gui/points/toselectionpointdialog.ui \
+    gui/kabriolwidget.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

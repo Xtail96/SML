@@ -182,9 +182,6 @@ private slots:
     void on_movementAPositivePushButton_clicked();
     void on_movementANegativePushButton_clicked();
 
-    void on_movementBPositivePushButton_clicked();
-    void on_movementBNegativePushButton_clicked();
-
     void on_feedrateScrollBar_valueChanged(int value);
 
     void on_rotationsScrollBar_valueChanged(int value);
