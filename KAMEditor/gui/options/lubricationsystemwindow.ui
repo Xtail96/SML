@@ -17,6 +17,27 @@
    <property name="sizeConstraint">
     <enum>QLayout::SetFixedSize</enum>
    </property>
+   <item row="2" column="0" colspan="2">
+    <widget class="QLineEdit" name="statusLineEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="lubricatePushButton">
+     <property name="text">
+      <string>Начать смазку</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="lastLubricateLabel">
+     <property name="text">
+      <string>Дата последней смазки</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="3">
     <widget class="QLabel" name="lubricationSystemTitleLabel">
      <property name="font">
@@ -29,20 +50,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="lubricatePushButton">
-     <property name="text">
-      <string>Начать смазку</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLineEdit" name="statusLineEdit">
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -62,10 +69,10 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QLabel" name="lastLubricateLabel">
-     <property name="text">
-      <string>Дата последней смазки</string>
+   <item row="3" column="0" colspan="3">
+    <widget class="QProgressBar" name="lubricateProgressBar">
+     <property name="value">
+      <number>24</number>
      </property>
     </widget>
    </item>
