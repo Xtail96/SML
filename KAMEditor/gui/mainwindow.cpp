@@ -1209,5 +1209,10 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
 
 void MainWindow::on_kabriolWidgetPushButton_clicked()
 {
-    KabriolWindow().exec();
+    KabriolWindow(this).exec();
+}
+
+void MainWindow::on_toolLengthSensorPushButton_clicked()
+{
+    ToolLengthSensorWindow(this).exec();
 }

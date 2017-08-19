@@ -69,6 +69,7 @@
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
 #include "gui/options/kabriolwindow.h"
+#include "gui/options/toollengthsensorwindow.h"
 
 #include "dependencies.h"
 
@@ -210,6 +211,7 @@ private slots:
     void on_viewPushButton_clicked();
     void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_kabriolWidgetPushButton_clicked();
+    void on_toolLengthSensorPushButton_clicked();
 };
 
 

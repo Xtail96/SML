@@ -1884,17 +1884,8 @@
                  </property>
                  <item>
                   <widget class="QPushButton" name="toolLengthSensorPushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
                    <property name="text">
-                    <string>L - Вычислить длину фрезы</string>
-                   </property>
-                   <property name="shortcut">
-                    <string>L</string>
+                    <string>ДВИ</string>
                    </property>
                   </widget>
                  </item>
