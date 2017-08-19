@@ -1216,3 +1216,8 @@ void MainWindow::on_toolLengthSensorPushButton_clicked()
 {
     ToolLengthSensorWindow(this).exec();
 }
+
+void MainWindow::on_lubricationSystemPushButton_clicked()
+{
+    LubricationSystemWindow(this).exec();
+}
