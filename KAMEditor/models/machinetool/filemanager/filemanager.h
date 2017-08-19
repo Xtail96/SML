@@ -7,7 +7,7 @@
 class FileManager
 {
 public:
-    FileManager();
+    FileManager(CommandsManager *cm, PointsManager *pm);
 
 private:
     CommandsManager cmd_mgr;

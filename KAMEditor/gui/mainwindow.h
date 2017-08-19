@@ -200,8 +200,6 @@ private slots:
     void on_pointEditPushButton_clicked();
     void on_pointCopyPushButton_clicked();
     void on_toBasePushButton_clicked();
-    void on_spindelEnablePushButton_clicked();
-    void on_millWarmingPushButton_clicked();
     void on_open_action_triggered();
     void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();

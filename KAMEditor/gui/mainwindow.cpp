@@ -25,12 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
 
-
-    // перевод кнопок, требующих дополнительных действий перед активацией, в неактивное состояние
-    ui->spindelEnablePushButton->setEnabled(false);
-    ui->spindelEnablePushButton->setStyleSheet("margin: 1px");
-    ui->toolLengthSensorPushButton->setEnabled(false);
-
     // инициализация станка
     initializeMachineTool();
 
@@ -1081,22 +1075,6 @@ void MainWindow::updateEdgesControlStatus()
 }
 
 void MainWindow::on_toBasePushButton_clicked()
-{
-
-}
-
-void MainWindow::on_spindelEnablePushButton_clicked()
-{
-    /*
-    ui->spindelEnablePushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
-    ui->spindelEnablePushButton->setText("F1 - Включить шпиндель");
-
-    ui->spindelEnablePushButton->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
-    ui->spindelEnablePushButton->setText("F1 - Выключить шпиндель");
-    */
-}
-
-void MainWindow::on_millWarmingPushButton_clicked()
 {
 
 }
