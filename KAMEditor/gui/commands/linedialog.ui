@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>300</height>
+    <width>350</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -64,35 +64,35 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="2" column="1">
-       <widget class="QLineEdit" name="zAxisLineEdit"/>
+       <widget class="QLineEdit" name="dzLineEdit"/>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="xAxisLabel">
+       <widget class="QLabel" name="dxLabel">
         <property name="text">
-         <string>Ось X</string>
+         <string>dx</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="zAxisLabel">
+       <widget class="QLabel" name="dzLabel">
         <property name="text">
-         <string>Ось Z</string>
+         <string>dz</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="xAxisLineEdit"/>
+       <widget class="QLineEdit" name="dxLineEdit"/>
       </item>
       <item row="0" column="3">
        <widget class="QLineEdit" name="velocityLineEdit"/>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="yAxisLineEdit"/>
+       <widget class="QLineEdit" name="dyLineEdit"/>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="yAxisLabel">
+       <widget class="QLabel" name="dyLabel">
         <property name="text">
-         <string>Ось Y</string>
+         <string>dy</string>
         </property>
        </widget>
       </item>

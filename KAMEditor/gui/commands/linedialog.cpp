@@ -17,9 +17,9 @@ LineDialog::~LineDialog()
 }
 void LineDialog::on_buttonBox_accepted()
 {
-    double dx = ui->xAxisLineEdit->text().toDouble();
-    double dy = ui->yAxisLineEdit->text().toDouble();
-    double dz = ui->zAxisLineEdit->text().toDouble();
+    double dx = ui->dxLineEdit->text().toDouble();
+    double dy = ui->dyLineEdit->text().toDouble();
+    double dz = ui->dzLineEdit->text().toDouble();
     double velocity = ui->velocityLineEdit->text().toDouble();
     std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, velocity));
 
@@ -63,9 +63,9 @@ void LineDialog::fillFields()
                 break;
             }
         }
-        ui->xAxisLineEdit->setText(dxString);
-        ui->yAxisLineEdit->setText(dyString);
-        ui->zAxisLineEdit->setText(dzString);
+        ui->dxLineEdit->setText(dxString);
+        ui->dyLineEdit->setText(dyString);
+        ui->dzLineEdit->setText(dzString);
         ui->velocityLineEdit->setText(vString);
     }
 }
