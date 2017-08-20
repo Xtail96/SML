@@ -31,12 +31,12 @@ unsigned int CommandsInterpreter::commandsCount()
 
 void CommandsInterpreter::updateProgram()
 {
-    m_commands.clear();
     makeProgram();
 }
 
 void CommandsInterpreter::makeProgram()
 {
+    m_commands.clear();
     for(unsigned int i = 0; i < commandsManager->commandsCount(); i++)
     {
         m_commands.push_back(commandsManager->operator [](i));

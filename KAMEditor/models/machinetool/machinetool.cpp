@@ -6,7 +6,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     pointsManager(new PointsManager()),
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
-    commandsManager(new CommandsManager),
+    commandsManager(new CommandsManager()),
     commandsInterpreter(new CommandsInterpreter(commandsManager))
 {
 }
