@@ -7,7 +7,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager),
-    commandInterpreter(new CommandInterpreter())
+    commandsInterpreter(new CommandsInterpreter(commandsManager))
 {
 }
 
@@ -16,7 +16,7 @@ MachineTool::~MachineTool()
     delete this->movementController;
     delete this->pointsManager;
     delete this->commandsManager;
-    delete this->commandInterpreter;
+    delete this->commandsInterpreter;
     delete this->sensorsManager;
     delete this->devicesManager;
 }
@@ -69,4 +69,9 @@ DevicesManager *MachineTool::getDevicesManager() const
 CommandsManager *MachineTool::getCommandsManager() const
 {
     return commandsManager;
+}
+
+CommandsInterpreter *MachineTool::getCommandsInterpreter() const
+{
+    return commandsInterpreter;
 }

@@ -39,7 +39,7 @@ public:
      * @brief Возвращает число команд
      * @return число команд
      */
-    unsigned int getCommandsCount();
+    unsigned int commandsCount();
 
     /**
      * @brief Добавляет команду в список команд

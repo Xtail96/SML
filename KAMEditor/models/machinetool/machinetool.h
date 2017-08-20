@@ -49,6 +49,8 @@ public:
 
     CommandsManager *getCommandsManager() const;
 
+    CommandsInterpreter *getCommandsInterpreter() const;
+
 private:
     uint16_t vendorId;
 
@@ -61,7 +63,7 @@ private:
     SensorsManager *sensorsManager;
     DevicesManager *devicesManager;
     CommandsManager *commandsManager;
-    CommandInterpreter *commandInterpreter;
+    CommandsInterpreter *commandsInterpreter;
 
     StatesBuffer buffer;
 };

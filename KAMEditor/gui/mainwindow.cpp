@@ -603,7 +603,7 @@ void MainWindow::updatePoints()
 void MainWindow::updateCommands()
 {
     ui->smlEditorTreeWidget->clear();
-    unsigned int commandsCount = machineTool->getCommandsManager()->getCommandsCount();
+    unsigned int commandsCount = machineTool->getCommandsManager()->commandsCount();
     QList<QTreeWidgetItem*> qSmlCommands;
 
     for(unsigned int i = 0; i < commandsCount; i++)
@@ -1137,7 +1137,7 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     QString commandName = item->text();
     int commandNumber = CommandsIds.getId(commandName.toStdString());
 
-    size_t currentCommandNumber = machineTool->getCommandsManager()->getCommandsCount();
+    size_t currentCommandNumber = machineTool->getCommandsManager()->commandsCount();
 
     QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
     if(selectedItems.size() > 0)
@@ -1173,7 +1173,8 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    ProgramVisualizeWidow(machineTool->getCommandsManager(), machineTool->getPointsManager(), this).exec();
+    machineTool->getCommandsInterpreter()->updateProgram();
+    ProgramVisualizeWidow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)

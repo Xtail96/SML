@@ -67,10 +67,10 @@ void OGLWidget::drawCommands()
 
     Point3D src(0, 0, 0);
     Point3D dest(0, 0, 0);
-    for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
+    for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
     {    
         qglColor(Qt::darkGray);
-        dest = commandsManager->operator [](i)->returnDestinationPoint(src);
+        dest = commandsInterpreter->operator [](i)->returnDestinationPoint(src);
         if(dest.z > 0)
         {
             glEnable(GL_LINE_STIPPLE);
@@ -80,7 +80,7 @@ void OGLWidget::drawCommands()
         {
             glDisable(GL_LINE_STIPPLE);
         }
-        commandsManager->operator [](i)->draw(this, src);
+        commandsInterpreter->operator [](i)->draw(this, src);
         src = dest;
     }
     /*glBegin(GL_QUADS);
@@ -122,14 +122,14 @@ void OGLWidget::drawPoints()
     }
 }
 
-CommandsManager *OGLWidget::getCommandsManager() const
+CommandsInterpreter *OGLWidget::getCommandsInterpreter() const
 {
-    return commandsManager;
+    return commandsInterpreter;
 }
 
-void OGLWidget::setCommandsManager(CommandsManager *value)
+void OGLWidget::setCommandsInterpreter(CommandsInterpreter *value)
 {
-    commandsManager = value;
+    commandsInterpreter = value;
 }
 
 PointsManager *OGLWidget::getPointsManager() const

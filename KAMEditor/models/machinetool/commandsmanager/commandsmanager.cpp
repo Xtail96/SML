@@ -26,7 +26,7 @@ std::shared_ptr<Command>& CommandsManager::operator[](size_t idx)
     }
 }
 
-unsigned int CommandsManager::getCommandsCount()
+unsigned int CommandsManager::commandsCount()
 {
     return m_commands.size();
 }

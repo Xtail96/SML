@@ -15,10 +15,10 @@
 #endif
 
 #include "models/structs.h"
-#include "models/machinetool/commandsmanager/commandsmanager.h"
+#include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
-class CommandsManager;
+class CommandsInterpreter;
 
 class OGLWidget : public QGLWidget
 {
@@ -59,8 +59,9 @@ public:
     PointsManager* getPointsManager() const;
     void setPointsManager(PointsManager *value);
 
-    CommandsManager* getCommandsManager() const;
-    void setCommandsManager(CommandsManager *value);
+
+    CommandsInterpreter *getCommandsInterpreter() const;
+    void setCommandsInterpreter(CommandsInterpreter *value);
 
 protected:
 
@@ -80,7 +81,7 @@ protected:
     int mousePositionY = 0;
     int mouseMoveAction = 1;
 
-    CommandsManager* commandsManager;
+    CommandsInterpreter* commandsInterpreter;
 
     bool pointsVisible = false;
     PointsManager* pointsManager;

@@ -1,15 +1,15 @@
 #include "programvisualizewidow.h"
 #include "ui_programvisualizewidow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsManager *_commandsManager, PointsManager *_pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInterpreter, PointsManager *_pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWidow),
-    commandsManager(_commandsManager),
+    commandsInterpreter(_commandsInterpreter),
     run(_run)
 {
     ui->setupUi(this);
     ui->rotatePushButton->setEnabled(false);
-    ui->programOpenGLWidget->setCommandsManager(commandsManager);
+    ui->programOpenGLWidget->setCommandsInterpreter(commandsInterpreter);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
     showCommands();
 }
@@ -92,7 +92,7 @@ void ProgramVisualizeWidow::showCommands()
     ui->commandsTableWidget->setHorizontalHeaderLabels(columnsHeaders);
 
     QStringList rowsHeaders;
-    for(unsigned int i = 0; i < commandsManager->getCommandsCount(); i++)
+    for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
     {
         rowsHeaders.push_back(QString::number(i+1));
     }
@@ -116,13 +116,13 @@ QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, uns
     switch (column) {
     case 0:
     {
-        text = QString::fromStdString(commandsManager->operator [](row)->getName());
+        text = QString::fromStdString(commandsInterpreter->operator [](row)->getName());
         break;
     }
     case 1:
     {
         text = "";
-        QStringList argumentsTmp = commandsManager->operator [](row)->getArguments();
+        QStringList argumentsTmp = commandsInterpreter->operator [](row)->getArguments();
         for(auto argument : argumentsTmp)
         {
             text += argument + ", ";
