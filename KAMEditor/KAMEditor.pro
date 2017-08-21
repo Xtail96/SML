@@ -94,7 +94,8 @@ SOURCES += main.cpp\
     models/machinetool/filemanager/filemanager.cpp \
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
-    gui/options/lubricationsystemwindow.cpp
+    gui/options/lubricationsystemwindow.cpp \
+    gui/smllistwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -159,7 +160,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/filemanager/filemanager.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
-    gui/options/lubricationsystemwindow.h
+    gui/options/lubricationsystemwindow.h \
+    gui/smllistwidget.h
 
 
 FORMS    += gui/mainwindow.ui \

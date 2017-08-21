@@ -443,7 +443,7 @@
                 <number>5</number>
                </property>
                <item>
-                <widget class="QListWidget" name="commandsToolsListWidget">
+                <widget class="SMLListWidget" name="commandsToolsListWidget">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -4849,6 +4849,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SMLListWidget</class>
+   <extends>QListWidget</extends>
+   <header>gui/smllistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>
