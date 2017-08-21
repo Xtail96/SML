@@ -599,7 +599,7 @@
   <customwidget>
    <class>OGLWidget</class>
    <extends>QOpenGLWidget</extends>
-   <header>gui/oglwidget.h</header>
+   <header>gui/widgets/oglwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

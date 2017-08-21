@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QTableWidgetItem>
 
-#include "gui/oglwidget.h"
+#include "gui/widgets/oglwidget.h"
 #include "models/machinetool/machinetool.h"
 
 namespace Ui {

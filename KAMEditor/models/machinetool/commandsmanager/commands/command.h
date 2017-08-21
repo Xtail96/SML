@@ -4,7 +4,7 @@
 #include <QString>
 
 #include "models/structs.h"
-#include "../../../../gui/oglwidget.h"
+#include "../../../../gui/widgets/oglwidget.h"
 
 class OGLWidget;
 

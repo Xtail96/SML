@@ -60,7 +60,7 @@ SOURCES += main.cpp\
 #    gui/commands/splinedialog.cpp \
 #    gui/commands/ttttsplinedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
-    gui/oglwidget.cpp \
+    gui/widgets/oglwidget.cpp \
     models/machinetool/machinetool.cpp \
     models/machinetool/settingsmanager/settingsmanager.cpp \
     models/machinetool/movementshandler/axis/axis.cpp \
@@ -95,7 +95,7 @@ SOURCES += main.cpp\
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
-    gui/smllistwidget.cpp
+    gui/widgets/smllistwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -122,7 +122,7 @@ HEADERS  += gui/mainwindow.h \
 #    gui/commands/splinedialog.h \
 #    gui/commands/ttttsplinedialog.h \
     gui/gcodessyntaxhighlighter.h \
-    gui/oglwidget.h \
+    gui/widgets/oglwidget.h \
     models/structs.h \
     models/machinetool/machinetool.h \
     models/machinetool/settingsmanager/settingsmanager.h \
@@ -161,7 +161,7 @@ HEADERS  += gui/mainwindow.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
-    gui/smllistwidget.h
+    gui/widgets/smllistwidget.h
 
 
 FORMS    += gui/mainwindow.ui \

@@ -4853,7 +4853,7 @@
   <customwidget>
    <class>SMLListWidget</class>
    <extends>QListWidget</extends>
-   <header>gui/smllistwidget.h</header>
+   <header>gui/widgets/smllistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>
