@@ -29,35 +29,13 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         {
             this->setCurrentItem(this->itemAbove(selectedItem));
         }
-        else
-        {
-            if(currentRow == 0)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
         break;
     }
     case Qt::Key_Down:
     {
-        if(currentRow >= 0)
+        if(currentRow >= 0 && currentRow < rowsCount - 1)
         {
-            if(currentRow == rowsCount - 1)
-            {
-
-            }
-            else
-            {
-                this->setCurrentItem(this->itemBelow(selectedItem));
-            }
-        }
-        else
-        {
-
+            this->setCurrentItem(this->itemBelow(selectedItem));
         }
         break;
     }
