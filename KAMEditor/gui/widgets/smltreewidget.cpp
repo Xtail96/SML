@@ -13,6 +13,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     int rowsCount = this->topLevelItemCount();
 
     int keyPressed = keyEvent->key();
+    Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
 
     switch (keyPressed) {
     case Qt::Key_Return:
@@ -38,6 +39,13 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
             this->setCurrentItem(this->itemBelow(selectedItem));
         }
         break;
+    }
+    case Qt::Key_A:
+    {
+        if(modifiers == Qt::ControlModifier)
+        {
+            this->selectAll();
+        }
     }
     default:
     {
