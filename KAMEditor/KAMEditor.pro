@@ -95,7 +95,8 @@ SOURCES += main.cpp\
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
-    gui/widgets/smllistwidget.cpp
+    gui/widgets/smllistwidget.cpp \
+    gui/widgets/smltreewidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -161,7 +162,8 @@ HEADERS  += gui/mainwindow.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
-    gui/widgets/smllistwidget.h
+    gui/widgets/smllistwidget.h \
+    gui/widgets/smltreewidget.h
 
 
 FORMS    += gui/mainwindow.ui \
