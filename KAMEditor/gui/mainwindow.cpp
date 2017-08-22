@@ -518,11 +518,13 @@ void MainWindow::deleteSelectedCommands()
         QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
         if(selectedCommandsItems.size() > 0)
         {
-            std::deque<unsigned int> selectedCommandsIndexes;
+            std::vector<unsigned int> selectedCommandsIndexes;
             for(auto item : selectedCommandsItems)
             {
-                selectedCommandsIndexes.push_front(item->text(0).toUInt() - 1);
+                selectedCommandsIndexes.push_back(item->text(0).toUInt() - 1);
             }
+            std::sort(selectedCommandsIndexes.begin(), selectedCommandsIndexes.begin() + selectedCommandsIndexes.size());
+            std::reverse(selectedCommandsIndexes.begin(), selectedCommandsIndexes.begin() + selectedCommandsIndexes.size());
             try
             {
                 for(auto commandIndex : selectedCommandsIndexes)

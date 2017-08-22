@@ -14,6 +14,18 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
 
     int keyPressed = keyEvent->key();
     Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
+    qDebug() << keyPressed << modifiers;
+
+    if(modifiers == (Qt::ControlModifier | Qt::KeypadModifier))
+    {
+        qDebug() << "multi selection set up";
+        this->setSelectionMode(QAbstractItemView::MultiSelection);
+    }
+    else
+    {
+        qDebug() << "single selection set up";
+        this->setSelectionMode(QAbstractItemView::SingleSelection);
+    }
 
     switch (keyPressed) {
     case Qt::Key_Return:
@@ -44,6 +56,8 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     {
         if(modifiers == Qt::ControlModifier)
         {
+            qDebug() << "multi selection set up";
+            this->setSelectionMode(QAbstractItemView::MultiSelection);
             this->selectAll();
         }
     }

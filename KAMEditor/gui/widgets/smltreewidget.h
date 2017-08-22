@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeWidget>
 #include <QKeyEvent>
+#include <QAbstractItemView>
 
 #include <QDebug>
 
