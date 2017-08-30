@@ -410,6 +410,7 @@ void MainWindow::updateSensorsField()
         }
         ui->sensorsTableWidget->setItem(i, 0, item);
     }
+    ui->sensorsTableWidget->resizeRowsToContents();
 }
 
 void MainWindow::updateDevicesField()
