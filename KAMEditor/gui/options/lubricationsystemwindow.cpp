@@ -33,8 +33,9 @@ void LubricationSystemWindow::on_lubricatePushButton_clicked()
 
     generalLubricationTimer->start();
     stepLubriactionTimer->start();
-
     ui->lubricateProgressBar->setValue(0);
+
+    ui->statusLineEdit->setText("Смазка начата!");
 }
 
 void LubricationSystemWindow::stop()
@@ -47,9 +48,13 @@ void LubricationSystemWindow::stop()
     ui->lubricateProgressBar->setValue(100);
 
     ui->lastLubricationDateTimeEdit->setDate(QDate::currentDate());
+    ui->lastLubricationDateTimeEdit->setTime(QTime::currentTime());
+
+    ui->statusLineEdit->setText("Смазка завершена!");
 }
 
 void LubricationSystemWindow::updateProgressBar()
 {
+    ui->statusLineEdit->setText("Идет смазка!");
     ui->lubricateProgressBar->setValue(ui->lubricateProgressBar->value() + 1);
 }
