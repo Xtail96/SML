@@ -7,7 +7,9 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
-    commandsInterpreter(new CommandsInterpreter(commandsManager))
+    commandsInterpreter(new CommandsInterpreter(commandsManager)),
+    velocity(10),
+    spindelRotations(5000)
 {
 }
 
@@ -74,4 +76,24 @@ CommandsManager *MachineTool::getCommandsManager() const
 CommandsInterpreter *MachineTool::getCommandsInterpreter() const
 {
     return commandsInterpreter;
+}
+
+unsigned int MachineTool::getVelocity() const
+{
+    return velocity;
+}
+
+void MachineTool::setVelocity(unsigned int value)
+{
+    velocity = value;
+}
+
+unsigned int MachineTool::getSpindelRotations() const
+{
+    return spindelRotations;
+}
+
+void MachineTool::setSpindelRotations(unsigned int value)
+{
+    spindelRotations = value;
 }

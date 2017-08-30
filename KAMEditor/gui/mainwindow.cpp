@@ -86,6 +86,13 @@ void MainWindow::initializeMachineTool()
     initializeCoordinatesFields();
     initializePointsManager();
 
+
+    unsigned int velocity = machineTool->getVelocity();
+    ui->feedrateScrollBar->setValue(velocity);
+
+    unsigned int spindelRotations = machineTool->getSpindelRotations();
+    ui->rotationsScrollBar->setValue(spindelRotations);
+
 #ifdef Q_OS_WIN
     try
     {
@@ -896,16 +903,14 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    //MachineTool::Instance().setVelocity(value);
-
-    ui->feedrateLcdNumber->display(value);
+    machineTool->setVelocity(value);
+    ui->feedrateLcdNumber->display(QString::number(machineTool->getVelocity()));
 }
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
-    //MachineTool::Instance().setRotation(value);
-
-    ui->rotationsLcdNumber->display(value);
+    machineTool->setSpindelRotations(value);
+    ui->rotationsLcdNumber->display(QString::number(machineTool->getSpindelRotations()));
 }
 
 void MainWindow::on_exit_action_triggered()

@@ -51,6 +51,12 @@ public:
 
     CommandsInterpreter *getCommandsInterpreter() const;
 
+    unsigned int getVelocity() const;
+    void setVelocity(unsigned int value);
+
+    unsigned int getSpindelRotations() const;
+    void setSpindelRotations(unsigned int value);
+
 private:
     uint16_t vendorId;
 
@@ -66,6 +72,9 @@ private:
     CommandsInterpreter *commandsInterpreter;
 
     StatesBuffer buffer;
+
+    unsigned int velocity;
+    unsigned int spindelRotations;
 };
 
 #endif // MACHINETOOL_H
