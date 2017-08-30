@@ -985,11 +985,18 @@ void MainWindow::on_pointEditPushButton_clicked()
     {
         //select->selectedRows();
 
-        int current_row = select->currentIndex().row();
-        AddPointDialog* editPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), machineTool->getPointsManager()->operator [](current_row), current_row, this);
-        editPoint->exec();
-        delete editPoint;
-        updatePoints();
+        unsigned int current_row = (unsigned int) select->currentIndex().row();
+        try
+        {
+            AddPointDialog* editPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), machineTool->getPointsManager()->operator [](current_row), current_row, this);
+            editPoint->exec();
+            delete editPoint;
+            updatePoints();
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
     }
     else
     {

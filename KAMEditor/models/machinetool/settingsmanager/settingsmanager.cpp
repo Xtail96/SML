@@ -402,7 +402,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("invertOutputNumber", 2);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
-        settings->setValue("needToDisplay", false);
+        settings->setValue("needToDisplay", true);
         settings->setValue("mask", 0xfb);
     settings->endGroup();
 
@@ -420,7 +420,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("outputNumber", 0);
         settings->setValue("boardName", "u1");
         settings->setValue("activeState", false);
-        settings->setValue("needToDisplay", true);
+        settings->setValue("needToDisplay", false);
         settings->setValue("mask", 0xf7);
     settings->endGroup();
     // применяем изменения
