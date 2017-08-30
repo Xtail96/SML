@@ -1244,5 +1244,5 @@ void MainWindow::on_toolLengthSensorPushButton_clicked()
 
 void MainWindow::on_lubricationSystemPushButton_clicked()
 {
-    LubricationSystemWindow(this).exec();
+    LubricationSystemWindow(machineTool->getDevicesManager(), this).exec();
 }

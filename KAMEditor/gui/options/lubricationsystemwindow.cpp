@@ -1,9 +1,10 @@
 #include "lubricationsystemwindow.h"
 #include "ui_lubricationsystemwindow.h"
 
-LubricationSystemWindow::LubricationSystemWindow(QWidget *parent) :
+LubricationSystemWindow::LubricationSystemWindow(DevicesManager *_devicesManager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LubricationSystemWindow),
+    devicesManager(_devicesManager),
     generalLubricationTimer(new QTimer(this)),
     stepLubriactionTimer(new QTimer(this))
 {
@@ -30,6 +31,7 @@ LubricationSystemWindow::~LubricationSystemWindow()
 void LubricationSystemWindow::on_lubricatePushButton_clicked()
 {
     // включить САС
+    switchLubricationSystem();
 
     generalLubricationTimer->start();
     stepLubriactionTimer->start();
@@ -41,6 +43,8 @@ void LubricationSystemWindow::on_lubricatePushButton_clicked()
 void LubricationSystemWindow::stop()
 {
     // выключить САС
+    switchLubricationSystem();
+
     generalLubricationTimer->stop();
 
     stepLubriactionTimer->stop();
@@ -57,4 +61,29 @@ void LubricationSystemWindow::updateProgressBar()
 {
     ui->statusLineEdit->setText("Идет смазка!");
     ui->lubricateProgressBar->setValue(ui->lubricateProgressBar->value() + 1);
+}
+
+void LubricationSystemWindow::switchLubricationSystem()
+{
+    std::string deviceName = "САС";
+    try
+    {
+        Device &device = devicesManager->findDevice(deviceName);
+        byte_array data = devicesManager->getSwitchDeviceData(device, !device.getCurrentState());
+#ifdef Q_OS_WIN
+        try
+        {
+            u1Manager->getU1()->sendData(data);
+        }
+        catch(std::runtime_error e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
+#endif
+        device.setCurrentState(!device.getCurrentState());
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
