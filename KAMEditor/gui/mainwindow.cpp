@@ -410,7 +410,11 @@ void MainWindow::updateSensorsField()
         }
         ui->sensorsTableWidget->setItem(i, 0, item);
     }
-    ui->sensorsTableWidget->resizeRowsToContents();
+    for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
+    {
+        ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
+        ui->sensorsTableWidget->setRowHeight(i, 25);
+    }
 }
 
 void MainWindow::updateDevicesField()

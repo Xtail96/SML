@@ -2764,7 +2764,7 @@
                  <bool>false</bool>
                 </attribute>
                 <attribute name="verticalHeaderMinimumSectionSize">
-                 <number>25</number>
+                 <number>20</number>
                 </attribute>
                </widget>
               </item>
