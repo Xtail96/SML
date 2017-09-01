@@ -234,6 +234,10 @@
         <property name="text">
          <string>top</string>
         </property>
+        <property name="icon">
+         <iconset resource="images.qrc">
+          <normaloff>:/new/prefix1/images/Top.png</normaloff>:/new/prefix1/images/Top.png</iconset>
+        </property>
         <property name="iconSize">
          <size>
           <width>50</width>
@@ -247,6 +251,10 @@
         <property name="text">
          <string>side</string>
         </property>
+        <property name="icon">
+         <iconset resource="images.qrc">
+          <normaloff>:/new/prefix1/images/Side.png</normaloff>:/new/prefix1/images/Side.png</iconset>
+        </property>
         <property name="iconSize">
          <size>
           <width>50</width>
@@ -259,6 +267,10 @@
        <widget class="QPushButton" name="frontPushButton">
         <property name="text">
          <string>front</string>
+        </property>
+        <property name="icon">
+         <iconset resource="images.qrc">
+          <normaloff>:/new/prefix1/images/Front.png</normaloff>:/new/prefix1/images/Front.png</iconset>
         </property>
         <property name="iconSize">
          <size>
