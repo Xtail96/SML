@@ -106,6 +106,11 @@ void MainWindow::initializeMachineTool()
         showMachineToolDisconnected();
     }
 #endif
+
+    QString machineToolId = "Vendor Id = " + QString::number(machineTool->getVendorId()) + "; Product Id = "+ QString::number(machineTool->getProductId());
+    ui->machineToolsVIdPIdLineEdit->setText(machineToolId);
+    ui->machineToolsComboBox->addItem(QString::fromStdString(machineTool->getName()));
+
     /*u1Connector = new UsbDevicesManager(machineTool);
     if(u1Connector->getU1() != NULL)
     {
