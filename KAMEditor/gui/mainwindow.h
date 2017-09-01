@@ -74,9 +74,6 @@
 
 #include "dependencies.h"
 
-#define VENDOR_ID  0x10c4 //0x125f
-#define PRODUCT_ID 0xea61 //0x385a
-
 namespace Ui {
 class MainWindow;
 }

@@ -82,12 +82,21 @@ void MainWindow::initializeMachineTool()
     SettingsManager settingsManager;
     QString machineToolInformationGroupName = "MachineToolInformation";
 
-    machineTool = new MachineTool(
-                settingsManager.get(machineToolInformationGroupName, "VendorId").toUInt(),
-                settingsManager.get(machineToolInformationGroupName, "ProductId").toUInt(),
-                settingsManager.get(machineToolInformationGroupName, "Name").toString().toStdString(),
-                settingsManager.get(machineToolInformationGroupName, "AxisCount").toUInt()
-                );
+    try
+    {
+        machineTool = new MachineTool(
+                    settingsManager.get(machineToolInformationGroupName, "VendorId").toUInt(),
+                    settingsManager.get(machineToolInformationGroupName, "ProductId").toUInt(),
+                    settingsManager.get(machineToolInformationGroupName, "Name").toString().toStdString(),
+                    settingsManager.get(machineToolInformationGroupName, "AxisCount").toUInt()
+                    );
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации станка!") + QString(e.what()) + QString("; Приложение будет закрыто.")).exec();
+        on_exit_action_triggered();
+    }
+
     updateSettingsFields();
     updateSensorsField();
     updateDevicesField();
