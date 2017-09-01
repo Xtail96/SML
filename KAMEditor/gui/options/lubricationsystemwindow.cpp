@@ -71,14 +71,14 @@ void LubricationSystemWindow::switchLubricationSystem()
         Device &device = devicesManager->findDevice(deviceName);
         byte_array data = devicesManager->getSwitchDeviceData(device, !device.getCurrentState());
 #ifdef Q_OS_WIN
-        try
+        /*try
         {
             u1Manager->getU1()->sendData(data);
         }
         catch(std::runtime_error e)
         {
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
+        }*/
 #endif
         device.setCurrentState(!device.getCurrentState());
     }

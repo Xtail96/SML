@@ -1155,13 +1155,20 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
         byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
 #ifdef Q_OS_WIN
-        try
+        if(u1Manager != nullptr)
         {
-            u1Manager->getU1()->sendData(data);
+            try
+            {
+                u1Manager->getU1()->sendData(data);
+            }
+            catch(std::runtime_error e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            }
         }
-        catch(std::runtime_error e)
+        else
         {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            QMessageBox(QMessageBox::Warning, "Ошибка инициализации", "Не могу связаться со станком").exec();
         }
 #endif
         device.setCurrentState(!device.getCurrentState());
