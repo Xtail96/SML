@@ -82,6 +82,13 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 
 void SettingsManager::generateDefaultSettings()
 {
+    settings->beginGroup("MachineToolInformation");
+        settings->setValue("VendorId", 0x10c4);
+        settings->setValue("ProductId", 0xea61);
+        settings->setValue("Name", "semir");
+        settings->setValue("AxisCount", 5);
+    settings->endGroup();
+
     settings->beginGroup("Times");
         settings->setValue("StartTime", QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
         settings->setValue("Filter", 3629);

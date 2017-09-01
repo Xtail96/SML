@@ -79,7 +79,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMachineTool()
 {
-    machineTool = new MachineTool(VENDOR_ID, PRODUCT_ID, "semir", 5);
+    SettingsManager settingsManager;
+    QString machineToolInformationGroupName = "MachineToolInformation";
+
+    machineTool = new MachineTool(
+                settingsManager.get(machineToolInformationGroupName, "VendorId").toUInt(),
+                settingsManager.get(machineToolInformationGroupName, "ProductId").toUInt(),
+                settingsManager.get(machineToolInformationGroupName, "Name").toString().toStdString(),
+                settingsManager.get(machineToolInformationGroupName, "AxisCount").toUInt()
+                );
     updateSettingsFields();
     updateSensorsField();
     updateDevicesField();
