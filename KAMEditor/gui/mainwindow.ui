@@ -802,6 +802,12 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>350</height>
+              </size>
+             </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
@@ -1097,12 +1103,6 @@
                   <horstretch>0</horstretch>
                   <verstretch>1</verstretch>
                  </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>350</height>
-                 </size>
                 </property>
                 <property name="title">
                  <string/>
@@ -1436,12 +1436,6 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>350</height>
-                 </size>
                 </property>
                 <property name="title">
                  <string/>
