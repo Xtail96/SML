@@ -557,17 +557,17 @@
               </property>
               <item>
                <property name="text">
-                <string>XY</string>
+                <string>X0Y</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>XZ</string>
+                <string>X0Z</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>YZ</string>
+                <string>Y0Z</string>
                </property>
               </item>
              </widget>

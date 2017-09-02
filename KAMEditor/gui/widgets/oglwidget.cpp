@@ -138,16 +138,64 @@ void OGLWidget::drawGrid()
     Point3D src(0, 0, 0);
     for(int i = 0; i < gridSize; i+=gridCellSize)
     {
-        drawLine(gridSize, 0, 0, 1, src);
-        src.y += gridCellSize;
+        if(gridPlane == "X0Y")
+        {
+            drawLine(gridSize, 0, 0, 1, src);
+            src.y += gridCellSize;
+        }
+        else
+        {
+            if(gridPlane == "X0Z")
+            {
+                drawLine(gridSize, 0, 0, 1, src);
+                src.z += gridCellSize;
+            }
+            else
+            {
+                if(gridPlane == "Y0Z")
+                {
+                    drawLine(0, gridSize, 0, 1, src);
+                    src.z += gridCellSize;
+                }
+            }
+        }
     }
 
     src = Point3D();
     for(int i = 0; i < gridSize; i+=gridCellSize)
     {
-        drawLine(0, gridSize, 0, 1, src);
-        src.x += gridCellSize;
+        if(gridPlane == "X0Y")
+        {
+            drawLine(0, gridSize, 0, 1, src);
+            src.x += gridCellSize;
+        }
+        else
+        {
+            if(gridPlane == "X0Z")
+            {
+                drawLine(0, 0, gridSize, 1, src);
+                src.x += gridCellSize;
+            }
+            else
+            {
+                if(gridPlane == "Y0Z")
+                {
+                    drawLine(0, 0, gridSize, 1, src);
+                    src.y += gridCellSize;
+                }
+            }
+        }
     }
+}
+
+std::string OGLWidget::getGridPlane() const
+{
+    return gridPlane;
+}
+
+void OGLWidget::setGridPlane(const std::string &value)
+{
+    gridPlane = value;
 }
 
 int OGLWidget::getGridCellSize() const

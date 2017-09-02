@@ -72,6 +72,9 @@ public:
     int getGridCellSize() const;
     void setGridCellSize(int value);
 
+    std::string getGridPlane() const;
+    void setGridPlane(const std::string &value);
+
 protected:
 
     void initializeGL();
@@ -92,6 +95,7 @@ protected:
     int mouseMoveAction = 1;
 
     bool gridVisible = false;
+    std::string gridPlane = "X0Y";
     int gridSize = 1000;
     int gridCellSize = 1;
 
