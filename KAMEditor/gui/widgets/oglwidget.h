@@ -69,8 +69,8 @@ public:
     bool getGridVisible() const;
     void setGridVisible(bool value);
 
-    double getGridCellSize() const;
-    void setGridCellSize(double value);
+    unsigned int getGridCellSize() const;
+    void setGridCellSize(unsigned int value);
 
     std::string getGridPlane() const;
     void setGridPlane(const std::string &value);
@@ -97,7 +97,7 @@ protected:
     bool gridVisible = false;
     std::string gridPlane = "X0Y";
     unsigned int gridSize = 1000;
-    double gridCellSize = 1;
+    unsigned int gridCellSize = 1;
 
     CommandsInterpreter* commandsInterpreter;
 

@@ -136,7 +136,7 @@ void OGLWidget::drawGrid()
     glLineWidth(1.0f);
 
     Point3D src(0, 0, 0);
-    for(int i = 0; i < gridSize; i+=gridCellSize)
+    for(unsigned int i = 0; i < gridSize; i+=gridCellSize)
     {
         if(gridPlane == "X0Y")
         {
@@ -162,7 +162,7 @@ void OGLWidget::drawGrid()
     }
 
     src = Point3D();
-    for(int i = 0; i < gridSize; i+=gridCellSize)
+    for(unsigned int i = 0; i < gridSize; i+=gridCellSize)
     {
         if(gridPlane == "X0Y")
         {
@@ -198,12 +198,12 @@ void OGLWidget::setGridPlane(const std::string &value)
     gridPlane = value;
 }
 
-double OGLWidget::getGridCellSize() const
+unsigned int OGLWidget::getGridCellSize() const
 {
     return gridCellSize;
 }
 
-void OGLWidget::setGridCellSize(double value)
+void OGLWidget::setGridCellSize(unsigned int value)
 {
     gridCellSize = value;
 }

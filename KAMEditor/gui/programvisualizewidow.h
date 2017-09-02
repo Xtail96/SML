@@ -46,6 +46,10 @@ private:
     CommandsInterpreter* commandsInterpreter;
 
     bool run;
+
+
+    unsigned int minimalGridSize = 1;
+    unsigned int minimalGridCellSize = 1;
 };
 
 #endif // PROGRAMVISUALIZEWIDOW_H
