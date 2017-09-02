@@ -138,7 +138,9 @@ void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
     if(ui->gridCheckBox->isChecked())
     {
         int gridSize = ui->gridSizeLineEdit->text().toUInt();
+        int gridCellSize = ui->gridCellSizeLineEdit->text().toUInt();
         ui->programOpenGLWidget->setGridSize(gridSize);
+        ui->programOpenGLWidget->setGridCellSize(gridCellSize);
         ui->programOpenGLWidget->setGridVisible(true);
     }
     else

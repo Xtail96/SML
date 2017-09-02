@@ -69,6 +69,9 @@ public:
     bool getGridVisible() const;
     void setGridVisible(bool value);
 
+    int getGridCellSize() const;
+    void setGridCellSize(int value);
+
 protected:
 
     void initializeGL();
@@ -89,7 +92,8 @@ protected:
     int mouseMoveAction = 1;
 
     bool gridVisible = false;
-    int gridSize = 1;
+    int gridSize = 1000;
+    int gridCellSize = 1;
 
     CommandsInterpreter* commandsInterpreter;
 

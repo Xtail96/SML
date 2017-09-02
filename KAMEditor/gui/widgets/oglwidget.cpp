@@ -136,18 +136,28 @@ void OGLWidget::drawGrid()
     glLineWidth(1.0f);
 
     Point3D src(0, 0, 0);
-    for(int i = 0; i < 1000; i+=gridSize)
+    for(int i = 0; i < gridSize; i+=gridCellSize)
     {
-        drawLine(1000, 0, 0, 1, src);
-        src.y += gridSize;
+        drawLine(gridSize, 0, 0, 1, src);
+        src.y += gridCellSize;
     }
 
     src = Point3D();
-    for(int i = 0; i < 1000; i+=gridSize)
+    for(int i = 0; i < gridSize; i+=gridCellSize)
     {
-        drawLine(0, 1000, 0, 1, src);
-        src.x += gridSize;
+        drawLine(0, gridSize, 0, 1, src);
+        src.x += gridCellSize;
     }
+}
+
+int OGLWidget::getGridCellSize() const
+{
+    return gridCellSize;
+}
+
+void OGLWidget::setGridCellSize(int value)
+{
+    gridCellSize = value;
 }
 
 bool OGLWidget::getGridVisible() const
