@@ -135,53 +135,37 @@ void OGLWidget::drawGrid()
     glLineStipple(1, 0x1111);
     glLineWidth(1.0f);
 
-    Point3D src(0, 0, 0);
+    Point3D srcFirst(0, 0, 0);
+    Point3D srcSecond(0, 0, 0);
     for(unsigned int i = 0; i < gridSize; i+=gridCellSize)
     {
         if(gridPlane == "X0Y")
         {
-            drawLine(gridSize, 0, 0, 1, src);
-            src.y += gridCellSize;
-        }
-        else
-        {
-            if(gridPlane == "X0Z")
-            {
-                drawLine(gridSize, 0, 0, 1, src);
-                src.z += gridCellSize;
-            }
-            else
-            {
-                if(gridPlane == "Y0Z")
-                {
-                    drawLine(0, gridSize, 0, 1, src);
-                    src.z += gridCellSize;
-                }
-            }
-        }
-    }
+            drawLine(gridSize, 0, 0, 1, srcFirst);
+            srcFirst.y += gridCellSize;
 
-    src = Point3D();
-    for(unsigned int i = 0; i < gridSize; i+=gridCellSize)
-    {
-        if(gridPlane == "X0Y")
-        {
-            drawLine(0, gridSize, 0, 1, src);
-            src.x += gridCellSize;
+            drawLine(0, gridSize, 0, 1, srcSecond);
+            srcSecond.x += gridCellSize;
         }
         else
         {
             if(gridPlane == "X0Z")
             {
-                drawLine(0, 0, gridSize, 1, src);
-                src.x += gridCellSize;
+                drawLine(gridSize, 0, 0, 1, srcFirst);
+                srcFirst.z += gridCellSize;
+
+                drawLine(0, 0, gridSize, 1, srcSecond);
+                srcSecond.x += gridCellSize;
             }
             else
             {
                 if(gridPlane == "Y0Z")
                 {
-                    drawLine(0, 0, gridSize, 1, src);
-                    src.y += gridCellSize;
+                    drawLine(0, gridSize, 0, 1, srcFirst);
+                    srcFirst.z += gridCellSize;
+
+                    drawLine(0, 0, gridSize, 1, srcSecond);
+                    srcSecond.y += gridCellSize;
                 }
             }
         }
