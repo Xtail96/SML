@@ -129,11 +129,9 @@ void OGLWidget::drawPoints()
 
 void OGLWidget::drawGrid()
 {
-    qglColor(Qt::lightGray);
 
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x1111);
-    glLineWidth(1.0f);
 
     Point3D srcFirst(0, 0, 0);
     Point3D srcSecond(0, 0, 0);
@@ -141,10 +139,28 @@ void OGLWidget::drawGrid()
     {
         if(gridPlane == "X0Y")
         {
+            glLineWidth(2.0f);
+            qglColor(Qt::black);
             drawLine(gridSize, 0, 0, 1, srcFirst);
-            srcFirst.y += gridCellSize;
-
             drawLine(0, gridSize, 0, 1, srcSecond);
+
+            glLineWidth(1.0f);
+            qglColor(Qt::lightGray);
+            Point3D tmpSrcFirst = srcFirst;
+            Point3D tmpSrcSecond = srcSecond;
+            double tmpSize = gridCellSize;
+            tmpSrcFirst.y += tmpSize/100;
+            tmpSrcSecond.x += tmpSize/100;
+            for(unsigned int j = 0; j < 99; j++)
+            {
+                drawLine(gridSize, 0, 0, 1, tmpSrcFirst);
+                tmpSrcFirst.y += tmpSize/100;
+
+                drawLine(0, gridSize, 0, 1, tmpSrcSecond);
+                tmpSrcSecond.x += tmpSize/100;
+            }
+
+            srcFirst.y += gridCellSize;
             srcSecond.x += gridCellSize;
         }
         else
