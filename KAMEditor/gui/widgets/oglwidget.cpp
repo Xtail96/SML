@@ -129,38 +129,27 @@ void OGLWidget::drawPoints()
 
 void OGLWidget::drawGrid()
 {
-
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x1111);
+    glLineWidth(1.0f);
+
+    qglColor(Qt::lightGray);
 
     Point3D srcFirst(0, 0, 0);
     Point3D srcSecond(0, 0, 0);
-    for(unsigned int i = 0; i < gridSize; i+=gridCellSize)
+
+    double multiplier = 1/gridMinimalAccuracy;
+    unsigned int step = gridCellSize*multiplier;
+    unsigned int stepCount = gridSize*multiplier;
+
+    for(unsigned int i = 0; i <= stepCount; i+=step)
     {
         if(gridPlane == "X0Y")
         {
-            glLineWidth(2.0f);
-            qglColor(Qt::black);
             drawLine(gridSize, 0, 0, 1, srcFirst);
-            drawLine(0, gridSize, 0, 1, srcSecond);
-
-            glLineWidth(1.0f);
-            qglColor(Qt::lightGray);
-            Point3D tmpSrcFirst = srcFirst;
-            Point3D tmpSrcSecond = srcSecond;
-            double tmpSize = gridCellSize;
-            tmpSrcFirst.y += tmpSize/100;
-            tmpSrcSecond.x += tmpSize/100;
-            for(unsigned int j = 0; j < 99; j++)
-            {
-                drawLine(gridSize, 0, 0, 1, tmpSrcFirst);
-                tmpSrcFirst.y += tmpSize/100;
-
-                drawLine(0, gridSize, 0, 1, tmpSrcSecond);
-                tmpSrcSecond.x += tmpSize/100;
-            }
-
             srcFirst.y += gridCellSize;
+
+            drawLine(0, gridSize, 0, 1, srcSecond);
             srcSecond.x += gridCellSize;
         }
         else
@@ -188,6 +177,16 @@ void OGLWidget::drawGrid()
     }
 }
 
+unsigned int OGLWidget::getGridMinimalAccuracy() const
+{
+    return gridMinimalAccuracy;
+}
+
+void OGLWidget::setGridMinimalAccuracy(unsigned int value)
+{
+    gridMinimalAccuracy = value;
+}
+
 std::string OGLWidget::getGridPlane() const
 {
     return gridPlane;
@@ -198,12 +197,12 @@ void OGLWidget::setGridPlane(const std::string &value)
     gridPlane = value;
 }
 
-unsigned int OGLWidget::getGridCellSize() const
+double OGLWidget::getGridCellSize() const
 {
     return gridCellSize;
 }
 
-void OGLWidget::setGridCellSize(unsigned int value)
+void OGLWidget::setGridCellSize(double value)
 {
     gridCellSize = value;
 }

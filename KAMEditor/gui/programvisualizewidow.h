@@ -49,7 +49,7 @@ private:
 
 
     unsigned int minimalGridSize = 1;
-    unsigned int minimalGridCellSize = 1;
+    double minimalGridCellSize = 0.01;
 };
 
 #endif // PROGRAMVISUALIZEWIDOW_H
