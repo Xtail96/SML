@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1461</width>
-    <height>773</height>
+    <width>1475</width>
+    <height>785</height>
    </rect>
   </property>
   <property name="palette">
@@ -1098,6 +1098,12 @@
                   <verstretch>1</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>350</height>
+                 </size>
+                </property>
                 <property name="title">
                  <string/>
                 </property>
@@ -1430,6 +1436,12 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>350</height>
+                 </size>
                 </property>
                 <property name="title">
                  <string/>
@@ -4680,7 +4692,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1461</width>
+     <width>1475</width>
      <height>22</height>
     </rect>
    </property>
