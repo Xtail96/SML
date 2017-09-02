@@ -198,12 +198,12 @@ void OGLWidget::setGridPlane(const std::string &value)
     gridPlane = value;
 }
 
-int OGLWidget::getGridCellSize() const
+double OGLWidget::getGridCellSize() const
 {
     return gridCellSize;
 }
 
-void OGLWidget::setGridCellSize(int value)
+void OGLWidget::setGridCellSize(double value)
 {
     gridCellSize = value;
 }
@@ -218,12 +218,12 @@ void OGLWidget::setGridVisible(bool value)
     gridVisible = value;
 }
 
-int OGLWidget::getGridSize() const
+unsigned int OGLWidget::getGridSize() const
 {
     return gridSize;
 }
 
-void OGLWidget::setGridSize(int value)
+void OGLWidget::setGridSize(unsigned int value)
 {
     gridSize = value;
 }

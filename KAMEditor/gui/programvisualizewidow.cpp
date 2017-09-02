@@ -140,7 +140,7 @@ void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
 
         std::string gridPlane = ui->gridPlaneComboBox->currentText().toStdString();
         int gridSize = ui->gridSizeLineEdit->text().toUInt();
-        int gridCellSize = ui->gridCellSizeLineEdit->text().toUInt();
+        int gridCellSize = ui->gridCellSizeLineEdit->text().toDouble();
         ui->programOpenGLWidget->setGridPlane(gridPlane);
         ui->programOpenGLWidget->setGridSize(gridSize);
         ui->programOpenGLWidget->setGridCellSize(gridCellSize);
