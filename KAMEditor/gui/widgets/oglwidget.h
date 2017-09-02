@@ -72,6 +72,7 @@ protected:
     void drawCoordinatesVectors();
     void drawCommands();
     void drawPoints();
+    void drawGrid();
 
     double scale = 0.005;
     double angleX = 180;

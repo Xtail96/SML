@@ -36,6 +36,7 @@ void OGLWidget::paintGL()
     if(pointsVisible)
     {
         drawPoints();
+        drawGrid();
     }
 
     swapBuffers();
@@ -119,6 +120,29 @@ void OGLWidget::drawPoints()
         glColor3f(0, 0, 0);
         Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
         drawPoint(src, QString::number(i+1));
+    }
+}
+
+void OGLWidget::drawGrid()
+{
+    qglColor(Qt::lightGray);
+
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(1, 0x1111);
+    glLineWidth(1.0f);
+
+    Point3D src(0, 0, 0);
+    for(int i = 0; i < this->size().width(); i++)
+    {
+        drawLine(this->size().height(), 0, 0, 1, src);
+        src.y += 1;
+    }
+
+    src = Point3D();
+    for(int i = 0; i < this->size().height(); i++)
+    {
+        drawLine(0, this->size().width(), 0, 1, src);
+        src.x += 1;
     }
 }
 
