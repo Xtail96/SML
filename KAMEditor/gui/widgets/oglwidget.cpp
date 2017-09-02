@@ -136,16 +136,16 @@ void OGLWidget::drawGrid()
     glLineWidth(1.0f);
 
     Point3D src(0, 0, 0);
-    for(int i = 0; i < this->size().width(); i++)
+    for(int i = 0; i < 1000; i+=gridSize)
     {
-        drawLine(this->size().height(), 0, 0, 1, src);
+        drawLine(1000, 0, 0, 1, src);
         src.y += gridSize;
     }
 
     src = Point3D();
-    for(int i = 0; i < this->size().height(); i++)
+    for(int i = 0; i < 1000; i+=gridSize)
     {
-        drawLine(0, this->size().width(), 0, 1, src);
+        drawLine(0, 1000, 0, 1, src);
         src.x += gridSize;
     }
 }
