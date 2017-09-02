@@ -430,6 +430,10 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("needToDisplay", false);
         settings->setValue("mask", 0xf7);
     settings->endGroup();
+
+    settings->beginGroup("Visualisation");
+        settings->setValue("Grid Maximal Accuracy", 0.01);
+    settings->endGroup();
     // применяем изменения
     saveSettings();
 }

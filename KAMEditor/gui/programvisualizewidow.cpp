@@ -11,6 +11,17 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
     ui->rotatePushButton->setEnabled(false);
     ui->programOpenGLWidget->setCommandsInterpreter(commandsInterpreter);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
+
+    SettingsManager settingsManager;
+    try
+    {
+        ui->programOpenGLWidget->setGridMaximalAccuracy(settingsManager.get("Visualisation", "Grid Maximal Accuracy").toDouble());
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+
     showCommands();
 }
 
