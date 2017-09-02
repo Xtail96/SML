@@ -75,8 +75,8 @@ public:
     std::string getGridPlane() const;
     void setGridPlane(const std::string &value);
 
-    unsigned int getGridMinimalAccuracy() const;
-    void setGridMinimalAccuracy(unsigned int value);
+    double getGridMaximalAccuracy() const;
+    void setGridMaximalAccuracy(double value);
 
 protected:
 
@@ -101,7 +101,7 @@ protected:
     std::string gridPlane = "X0Y";
     unsigned int gridSize = 1000;
     double gridCellSize = 1;
-    double gridMinimalAccuracy = 0.01;
+    double gridMaximalAccuracy = 0.01;
 
     CommandsInterpreter* commandsInterpreter;
 

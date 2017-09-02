@@ -138,7 +138,7 @@ void OGLWidget::drawGrid()
     Point3D srcFirst(0, 0, 0);
     Point3D srcSecond(0, 0, 0);
 
-    double multiplier = 1/gridMinimalAccuracy;
+    double multiplier = 1/gridMaximalAccuracy;
     unsigned int step = gridCellSize*multiplier;
     unsigned int stepCount = gridSize*multiplier;
 
@@ -177,14 +177,14 @@ void OGLWidget::drawGrid()
     }
 }
 
-unsigned int OGLWidget::getGridMinimalAccuracy() const
+double OGLWidget::getGridMaximalAccuracy() const
 {
-    return gridMinimalAccuracy;
+    return gridMaximalAccuracy;
 }
 
-void OGLWidget::setGridMinimalAccuracy(unsigned int value)
+void OGLWidget::setGridMaximalAccuracy(double value)
 {
-    gridMinimalAccuracy = value;
+    gridMaximalAccuracy = value;
 }
 
 std::string OGLWidget::getGridPlane() const
