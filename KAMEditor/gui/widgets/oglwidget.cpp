@@ -36,6 +36,10 @@ void OGLWidget::paintGL()
     if(pointsVisible)
     {
         drawPoints();
+    }
+
+    if(gridVisible)
+    {
         drawGrid();
     }
 
@@ -135,15 +139,35 @@ void OGLWidget::drawGrid()
     for(int i = 0; i < this->size().width(); i++)
     {
         drawLine(this->size().height(), 0, 0, 1, src);
-        src.y += 1;
+        src.y += gridSize;
     }
 
     src = Point3D();
     for(int i = 0; i < this->size().height(); i++)
     {
         drawLine(0, this->size().width(), 0, 1, src);
-        src.x += 1;
+        src.x += gridSize;
     }
+}
+
+bool OGLWidget::getGridVisible() const
+{
+    return gridVisible;
+}
+
+void OGLWidget::setGridVisible(bool value)
+{
+    gridVisible = value;
+}
+
+int OGLWidget::getGridSize() const
+{
+    return gridSize;
+}
+
+void OGLWidget::setGridSize(int value)
+{
+    gridSize = value;
 }
 
 CommandsInterpreter *OGLWidget::getCommandsInterpreter() const

@@ -76,11 +76,6 @@ void ProgramVisualizeWidow::on_movePushButton_clicked()
     ui->programOpenGLWidget->setMouseMoveAction(0);
 }
 
-void ProgramVisualizeWidow::on_pointsCheckBox_clicked()
-{
-    ui->programOpenGLWidget->setPointsVisible(!(ui->programOpenGLWidget->getPointsVisible()));
-}
-
 void ProgramVisualizeWidow::showCommands()
 {
     QStringList columnsHeaders =
@@ -136,4 +131,29 @@ QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, uns
     }
     }
     return new QTableWidgetItem(text);
+}
+
+void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
+{
+    if(ui->gridCheckBox->isChecked())
+    {
+        int gridSize = ui->gridSizeLineEdit->text().toUInt();
+        ui->programOpenGLWidget->setGridSize(gridSize);
+        ui->programOpenGLWidget->setGridVisible(true);
+    }
+    else
+    {
+        ui->programOpenGLWidget->setGridVisible(false);
+    }
+
+    if(ui->pointsCheckBox->isChecked())
+    {
+        ui->programOpenGLWidget->setPointsVisible(true);
+    }
+    else
+    {
+        ui->programOpenGLWidget->setPointsVisible(false);
+    }
+
+    ui->programOpenGLWidget->repaint();
 }

@@ -63,6 +63,12 @@ public:
     CommandsInterpreter *getCommandsInterpreter() const;
     void setCommandsInterpreter(CommandsInterpreter *value);
 
+    int getGridSize() const;
+    void setGridSize(int value);
+
+    bool getGridVisible() const;
+    void setGridVisible(bool value);
+
 protected:
 
     void initializeGL();
@@ -81,6 +87,9 @@ protected:
     int mousePositionX = 0;
     int mousePositionY = 0;
     int mouseMoveAction = 1;
+
+    bool gridVisible = false;
+    int gridSize = 1;
 
     CommandsInterpreter* commandsInterpreter;
 

@@ -36,7 +36,7 @@ private slots:
 
     void on_movePushButton_clicked();
 
-    void on_pointsCheckBox_clicked();
+    void on_acceptOptionsPushButton_clicked();
 
 private:
     Ui::ProgramVisualizeWidow *ui;
