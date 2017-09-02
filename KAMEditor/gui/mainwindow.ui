@@ -1435,28 +1435,8 @@
                  <string/>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_5">
-                 <item row="3" column="2">
-                  <widget class="QPushButton" name="movementDPositivePushButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="text">
-                    <string>D+</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QPushButton" name="movementBPositivePushButton">
+                 <item row="0" column="0" rowspan="2">
+                  <widget class="QPushButton" name="movementZPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1469,11 +1449,11 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>B +</string>
+                    <string>Z +</string>
                    </property>
                    <property name="icon">
                     <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1489,135 +1469,7 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QPushButton" name="movementBNegativePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>B -</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="2">
-                  <widget class="QPushButton" name="movementCPositivePushButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>C +</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QPushButton" name="movementCNegativePushButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>C -</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QPushButton" name="movementDNegativePushButton">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="text">
-                    <string>D-</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
+                 <item row="0" column="1">
                   <widget class="QPushButton" name="movementANegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1691,7 +1543,75 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1" rowspan="2">
+                 <item row="1" column="1">
+                  <widget class="QPushButton" name="movementBNegativePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>B -</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QPushButton" name="movementBPositivePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>B +</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0" rowspan="2">
                   <widget class="QPushButton" name="movementZNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1725,8 +1645,11 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1" rowspan="2">
-                  <widget class="QPushButton" name="movementZPositivePushButton">
+                 <item row="2" column="1">
+                  <widget class="QPushButton" name="movementCNegativePushButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1739,11 +1662,11 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Z +</string>
+                    <string>C -</string>
                    </property>
                    <property name="icon">
                     <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
+                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1756,6 +1679,83 @@
                    </property>
                    <property name="default">
                     <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QPushButton" name="movementCPositivePushButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>C +</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QPushButton" name="movementDNegativePushButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>D-</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QPushButton" name="movementDPositivePushButton">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>D+</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
                    </property>
                   </widget>
                  </item>
