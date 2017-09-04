@@ -55,7 +55,7 @@ QColor CArc::getColor() const
 
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
 {
-    double endAngle = startAngle/57 + arcAngle/57;
+    double endAngle = (M_PI/180)*(startAngle + arcAngle);
     double angleIncrement = 0.01;
 
     double x, y;
