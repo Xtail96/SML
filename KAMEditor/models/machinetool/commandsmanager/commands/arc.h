@@ -28,8 +28,6 @@ public:
      * @return подробное строковое представление аргументов текущей команды
      */
     QString getArgumentsString() const override;
-    Point3D getCenter() const;
-    void setCenter(const Point3D &value);
 
 private:
     size_t id = CMD_ARC;
@@ -47,8 +45,6 @@ private:
 
     // скорость
     double v;
-
-    Point3D center;
 
     QColor color = SmlColors::gray();
 };

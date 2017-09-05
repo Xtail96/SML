@@ -1,7 +1,7 @@
 #include "arc.h"
 
 CArc::CArc(double R, double Al, double Fi, double v) :
-    R(R), Al(Al), Fi(Fi), v(v)
+    R(R), Al((M_PI/180)*Al), Fi((M_PI/180)*Fi), v(v)
 {
 }
 
@@ -17,7 +17,15 @@ void CArc::draw(OGLWidget *w, Point3D sourcePoint) const
 
 Point3D CArc::returnDestinationPoint(Point3D sourcePoint) const
 {
-    return sourcePoint;
+    Point3D center;
+    center.x = sourcePoint.x;
+    center.y = sourcePoint.y - R;
+
+    Point3D destinationPoint = sourcePoint;
+    destinationPoint.x = center.x + R * cos(Fi);
+    destinationPoint.y = center.y + R * sin(Fi);
+
+    return destinationPoint;
 }
 
 size_t CArc::getId() const
@@ -48,16 +56,6 @@ QString CArc::getArgumentsString() const
     return qArgumentsString;
 }
 
-Point3D CArc::getCenter() const
-{
-    return center;
-}
-
-void CArc::setCenter(const Point3D &value)
-{
-    center = value;
-}
-
 QColor CArc::getColor() const
 {
     return color;
@@ -65,9 +63,6 @@ QColor CArc::getColor() const
 
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v, Point3D src)
 {
-    startAngle = (M_PI/180)*startAngle;
-    arcAngle = (M_PI/180)*arcAngle;
-
     double angleIncrement = 0.01;
 
     double x, y;
