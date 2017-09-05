@@ -47,6 +47,9 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
     ui->programOpenGLWidget->setYAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->rotate();
+
+
+    showDimensions();
 }
 
 void ProgramVisualizeWidow::on_sidePushButton_clicked()
@@ -180,4 +183,29 @@ void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
     }
 
     ui->programOpenGLWidget->repaint();
+}
+
+void ProgramVisualizeWidow::showDimensions()
+{
+    Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
+    Point3D positiveOffset = ui->programOpenGLWidget->getMaxPositiveOffset();
+    Point3D negativeOffset = ui->programOpenGLWidget->getMaxNegativeOffset();
+
+    QString qPositiveXOffsetString = "X+: " + QString::number(positiveOffset.x) + '\n';
+    QString qPositiveYOffsetString = "Y+: " + QString::number(positiveOffset.y) + '\n';
+    QString qPositiveZOffsetString = "Z+: " + QString::number(positiveOffset.z) + '\n';
+
+    QString qNegativeXOffsetString = "X-: " + QString::number(negativeOffset.x) + '\n';
+    QString qNegativeYOffsetString = "Y-: " + QString::number(negativeOffset.y) + '\n';
+    QString qNegativeZOffsetString = "Z-: " + QString::number(negativeOffset.z) + '\n';
+
+    QString qGeneralXOffsetString = "dX: " + QString::number(generalOffset.x) + '\n';
+    QString qGeneralYOffsetString = "dY: " + QString::number(generalOffset.y) + '\n';
+    QString qGeneralZOffsetString = "dZ: " + QString::number(generalOffset.z) + '\n';
+
+    QString qDimensionsString = qPositiveXOffsetString + qNegativeXOffsetString + qGeneralXOffsetString + '\n' +
+            qPositiveYOffsetString + qNegativeYOffsetString + qGeneralYOffsetString + '\n' +
+            qPositiveZOffsetString + qNegativeZOffsetString + qGeneralZOffsetString;
+
+    ui->dimensionsTextEdit->setText(qDimensionsString);
 }

@@ -356,6 +356,69 @@ void OGLWidget::wheelEvent(QWheelEvent *wheelEvent)
     scaling(wheelEvent->delta());
 }
 
+Point3D OGLWidget::getGeneralOffset() const
+{
+    return generalOffset;
+}
+
+void OGLWidget::setGeneralOffset(const Point3D &value)
+{
+    generalOffset = value;
+}
+
+Point3D OGLWidget::getMaxNegativeOffset() const
+{
+    return maxNegativeOffset;
+}
+
+void OGLWidget::setMaxNegativeOffset(const Point3D &value)
+{
+    maxNegativeOffset = value;
+}
+
+Point3D OGLWidget::getMaxPositiveOffset() const
+{
+    return maxPositiveOffset;
+}
+
+void OGLWidget::setMaxPositiveOffset(const Point3D &value)
+{
+    maxPositiveOffset = value;
+}
+
+void OGLWidget::updateDimensions(Point3D newVertex)
+{
+    if(newVertex.x > maxPositiveOffset.x)
+    {
+        maxPositiveOffset.x = newVertex.x;
+    }
+    if(newVertex.y > maxPositiveOffset.y)
+    {
+        maxPositiveOffset.y = newVertex.y;
+    }
+    if(newVertex.z > maxPositiveOffset.z)
+    {
+        maxPositiveOffset.z = newVertex.z;
+    }
+
+    if(newVertex.x < maxNegativeOffset.x)
+    {
+        maxNegativeOffset.x = newVertex.x;
+    }
+    if(newVertex.y < maxNegativeOffset.y)
+    {
+        maxNegativeOffset.y = newVertex.y;
+    }
+    if(newVertex.z > maxNegativeOffset.z)
+    {
+        maxNegativeOffset.z = newVertex.z;
+    }
+
+    generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+    generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+    generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+}
+
 void OGLWidget::scaling(int delta)
 {
     // если колесико вращаем вперед -- умножаем переменную масштаба на 1.1

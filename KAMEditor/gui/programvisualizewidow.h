@@ -41,6 +41,7 @@ private slots:
 private:
     Ui::ProgramVisualizeWidow *ui;
 
+    void showDimensions();
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
     CommandsInterpreter* commandsInterpreter;

@@ -79,6 +79,9 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
         y = center.y + radius * sin(theta);
 
         glVertex2f(x, y);
+
+        Point3D newVertex(x, y, src.z);
+        updateDimensions(newVertex);
     }
 
     glEnd();

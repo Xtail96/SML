@@ -78,6 +78,15 @@ public:
     double getGridMaximalAccuracy() const;
     void setGridMaximalAccuracy(double value);
 
+    Point3D getMaxPositiveOffset() const;
+    void setMaxPositiveOffset(const Point3D &value);
+
+    Point3D getMaxNegativeOffset() const;
+    void setMaxNegativeOffset(const Point3D &value);
+
+    Point3D getGeneralOffset() const;
+    void setGeneralOffset(const Point3D &value);
+
 protected:
 
     void initializeGL();
@@ -114,6 +123,13 @@ protected:
 
     void move();
     void wheelEvent(QWheelEvent *wheelEvent);
+
+    Point3D maxPositiveOffset = Point3D();
+    Point3D maxNegativeOffset = Point3D();
+    Point3D generalOffset = Point3D();
+
+
+    void updateDimensions(Point3D newVertex);
 };
 
 #endif // OGLWIDGET_H
