@@ -48,6 +48,16 @@ QString CArc::getArgumentsString() const
     return qArgumentsString;
 }
 
+Point3D CArc::getCenter() const
+{
+    return center;
+}
+
+void CArc::setCenter(const Point3D &value)
+{
+    center = value;
+}
+
 QColor CArc::getColor() const
 {
     return color;
@@ -57,18 +67,21 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
 {
     startAngle = (M_PI/180)*startAngle;
     arcAngle = (M_PI/180)*arcAngle;
-    double endAngle = startAngle + arcAngle;
 
     double angleIncrement = 0.01;
 
     double x, y;
 
+    Point3D center;
+    center.x = src.x /*+ cos(startAngle)*/;
+    center.y = src.y /*- sin(startAngle)*/ - radius;
+
     glBegin(GL_LINE_STRIP);
 
-    for (double theta = startAngle; theta < endAngle; theta += angleIncrement)
+    for (double theta = 0; theta < arcAngle; theta += angleIncrement)
     {
-        x = radius * cos(theta) + src.x;
-        y = radius * sin(theta) + src.y - radius;
+        x = center.x + radius * cos(theta);
+        y = center.y + radius * sin(theta);
 
         glVertex2f(x, y);
     }
