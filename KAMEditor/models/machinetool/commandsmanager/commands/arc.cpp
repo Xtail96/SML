@@ -12,7 +12,7 @@ byte_array CArc::getDataForMachineTool() const
 
 void CArc::draw(OGLWidget *w, Point3D sourcePoint) const
 {
-    w->drawArc(R, Al, Fi, v);
+    w->drawArc(R, Al, Fi, v, sourcePoint);
 }
 
 Point3D CArc::returnDestinationPoint(Point3D sourcePoint) const
@@ -53,9 +53,12 @@ QColor CArc::getColor() const
     return color;
 }
 
-void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
+void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v, Point3D src)
 {
-    double endAngle = (M_PI/180)*(startAngle + arcAngle);
+    startAngle = (M_PI/180)*startAngle;
+    arcAngle = (M_PI/180)*arcAngle;
+    double endAngle = startAngle + arcAngle;
+
     double angleIncrement = 0.01;
 
     double x, y;
@@ -64,8 +67,8 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
 
     for (double theta = startAngle; theta < endAngle; theta += angleIncrement)
     {
-        x = radius * cos(theta);
-        y = radius * sin(theta);
+        x = radius * cos(theta) + src.x;
+        y = radius * sin(theta) + src.y - radius;
 
         glVertex2f(x, y);
     }
