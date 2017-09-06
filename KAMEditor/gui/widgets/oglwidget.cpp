@@ -302,6 +302,17 @@ void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     switch (mouseMoveAction) {
+    case 0:
+    {
+        double dx = (mouseEvent->x() - mousePositionX) / 10;
+        double dy = (mouseEvent->y() - mousePositionY) / 10;
+
+        if(mouseEvent->buttons() == Qt::LeftButton)
+        {
+            move(dx, dy);
+        }
+        break;
+    }
     case 1:
     {
         double dx = (mouseEvent->x() - mousePositionX) / 2;
@@ -357,9 +368,16 @@ void OGLWidget::setZAngle(double angle)
     angleZ = angle;
 }
 
-void OGLWidget::move()
+void OGLWidget::move(double dx, double dy)
 {
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glTranslatef(0.5f+dx,-(0.5f+dy), 0);
+
+    updateGL();
 }
 
 void OGLWidget::wheelEvent(QWheelEvent *wheelEvent)

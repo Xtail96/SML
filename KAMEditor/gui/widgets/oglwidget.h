@@ -125,7 +125,7 @@ protected:
 
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
-    void move();
+    void move(double dx, double dy);
     void wheelEvent(QWheelEvent *wheelEvent);
 
     bool updateOffsetsIsNeed = false;
