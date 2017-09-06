@@ -141,7 +141,10 @@ void OGLWidget::drawGrid()
     glLineStipple(1, 0x1111);
     glLineWidth(1.0f);
 
+    updateOffsetsIsNeed = false;
+
     qglColor(Qt::lightGray);
+
 
     Point3D srcFirst(0, 0, 0);
     Point3D srcSecond(0, 0, 0);
