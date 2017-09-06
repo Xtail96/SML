@@ -23,6 +23,8 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
     }
 
     showCommands();
+
+    connect(ui->programOpenGLWidget, SIGNAL(dimensionsChanged()), this, SLOT(showDimensions()));
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
@@ -47,9 +49,6 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
     ui->programOpenGLWidget->setYAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->rotate();
-
-
-    showDimensions();
 }
 
 void ProgramVisualizeWidow::on_sidePushButton_clicked()

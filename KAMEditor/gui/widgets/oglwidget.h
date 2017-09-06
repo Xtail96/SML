@@ -22,6 +22,10 @@ class CommandsInterpreter;
 
 class OGLWidget : public QGLWidget
 {
+    Q_OBJECT
+
+signals:
+    void dimensionsChanged();
 public:
     OGLWidget(QWidget *parent = 0);
 

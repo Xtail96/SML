@@ -44,6 +44,8 @@ void OGLWidget::paintGL()
     }
 
     swapBuffers();
+
+    //emit updateProgram();
 }
 
 void OGLWidget::drawCoordinatesVectors()
@@ -417,6 +419,8 @@ void OGLWidget::updateDimensions(Point3D newVertex)
     generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
     generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
     generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+
+    emit dimensionsChanged();
 }
 
 void OGLWidget::scaling(int delta)

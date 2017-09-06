@@ -41,13 +41,15 @@ private slots:
 private:
     Ui::ProgramVisualizeWidow *ui;
 
-    void showDimensions();
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
     CommandsInterpreter* commandsInterpreter;
 
     bool run;
     unsigned int minimalGridSize = 1;
+
+public slots:
+    void showDimensions();
 };
 
 #endif // PROGRAMVISUALIZEWIDOW_H
