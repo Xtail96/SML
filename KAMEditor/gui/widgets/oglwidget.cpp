@@ -44,14 +44,14 @@ void OGLWidget::paintGL()
     }
 
     swapBuffers();
-
-    //emit updateProgram();
 }
 
 void OGLWidget::drawCoordinatesVectors()
 {
     glLineWidth(2.0f); 
     glDisable(GL_LINE_STIPPLE);
+
+    updateDimensionsIsNeed = false;
 
     Point3D zeroPoint;
 
@@ -71,6 +71,8 @@ void OGLWidget::drawCoordinatesVectors()
 void OGLWidget::drawCommands()
 {
     glLineWidth(3.0f);
+
+    updateDimensionsIsNeed = true;
 
     Point3D src(0, 0, 0);
     Point3D dest(0, 0, 0);
@@ -121,6 +123,10 @@ void OGLWidget::drawCommands()
 void OGLWidget::drawPoints()
 {
     glPointSize(3.0f);
+
+
+    updateDimensionsIsNeed = false;
+
     for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
     {
         glColor3f(0, 0, 0);
@@ -390,35 +396,38 @@ void OGLWidget::setMaxPositiveOffset(const Point3D &value)
 
 void OGLWidget::updateDimensions(Point3D newVertex)
 {
-    if(newVertex.x > maxPositiveOffset.x)
+    if(updateDimensionsIsNeed)
     {
-        maxPositiveOffset.x = newVertex.x;
-    }
-    if(newVertex.y > maxPositiveOffset.y)
-    {
-        maxPositiveOffset.y = newVertex.y;
-    }
-    if(newVertex.z > maxPositiveOffset.z)
-    {
-        maxPositiveOffset.z = newVertex.z;
-    }
+        if(newVertex.x > maxPositiveOffset.x)
+        {
+            maxPositiveOffset.x = newVertex.x;
+        }
+        if(newVertex.y > maxPositiveOffset.y)
+        {
+            maxPositiveOffset.y = newVertex.y;
+        }
+        if(newVertex.z > maxPositiveOffset.z)
+        {
+            maxPositiveOffset.z = newVertex.z;
+        }
 
-    if(newVertex.x < maxNegativeOffset.x)
-    {
-        maxNegativeOffset.x = newVertex.x;
-    }
-    if(newVertex.y < maxNegativeOffset.y)
-    {
-        maxNegativeOffset.y = newVertex.y;
-    }
-    if(newVertex.z < maxNegativeOffset.z)
-    {
-        maxNegativeOffset.z = newVertex.z;
-    }
+        if(newVertex.x < maxNegativeOffset.x)
+        {
+            maxNegativeOffset.x = newVertex.x;
+        }
+        if(newVertex.y < maxNegativeOffset.y)
+        {
+            maxNegativeOffset.y = newVertex.y;
+        }
+        if(newVertex.z < maxNegativeOffset.z)
+        {
+            maxNegativeOffset.z = newVertex.z;
+        }
 
-    generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
-    generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
-    generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+        generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+        generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+        generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+    }
 
     emit dimensionsChanged();
 }

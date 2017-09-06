@@ -128,6 +128,7 @@ protected:
     void move();
     void wheelEvent(QWheelEvent *wheelEvent);
 
+    bool updateDimensionsIsNeed = false;
     Point3D maxPositiveOffset = Point3D();
     Point3D maxNegativeOffset = Point3D();
     Point3D generalOffset = Point3D();
