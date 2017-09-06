@@ -72,8 +72,10 @@ void ProgramVisualizeWidow::on_frontPushButton_clicked()
 
 void ProgramVisualizeWidow::on_centerPushButton_clicked()
 {
-    ui->programOpenGLWidget->setScale(0.1);
-    ui->programOpenGLWidget->update();
+    ui->programOpenGLWidget->setPositionX(0);
+    ui->programOpenGLWidget->setPositionY(0);
+    ui->programOpenGLWidget->setPositionZ(0);
+    ui->programOpenGLWidget->move();
 }
 
 void ProgramVisualizeWidow::on_rotatePushButton_clicked()

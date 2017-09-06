@@ -41,6 +41,8 @@ public:
 
     void rotate();
 
+    void move();
+
     void setXAngle(double angle);
 
     void setYAngle(double angle);
@@ -91,6 +93,15 @@ public:
     Point3D getGeneralOffset() const;
     void setGeneralOffset(const Point3D &value);
 
+    double getPositionX() const;
+    void setPositionX(double value);
+
+    double getPositionY() const;
+    void setPositionY(double value);
+
+    double getPositionZ() const;
+    void setPositionZ(double value);
+
 protected:
 
     void initializeGL();
@@ -123,9 +134,11 @@ protected:
 
     void mousePressEvent(QMouseEvent *mouseEvent);
 
+    double positionX = 0;
+    double positionY = 0;
+    double positionZ = 0;
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
-    void move(double dx, double dy);
     void wheelEvent(QWheelEvent *wheelEvent);
 
     bool updateOffsetsIsNeed = false;

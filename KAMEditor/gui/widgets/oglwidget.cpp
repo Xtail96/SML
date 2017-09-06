@@ -299,6 +299,36 @@ void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
     mousePositionY = mouseEvent->y();
 }
 
+double OGLWidget::getPositionZ() const
+{
+    return positionZ;
+}
+
+void OGLWidget::setPositionZ(double value)
+{
+    positionZ = value;
+}
+
+double OGLWidget::getPositionY() const
+{
+    return positionY;
+}
+
+void OGLWidget::setPositionY(double value)
+{
+    positionY = value;
+}
+
+double OGLWidget::getPositionX() const
+{
+    return positionX;
+}
+
+void OGLWidget::setPositionX(double value)
+{
+    positionX = value;
+}
+
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     switch (mouseMoveAction) {
@@ -309,7 +339,9 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
         if(mouseEvent->buttons() == Qt::LeftButton)
         {
-            move(dx, dy);
+            setPositionX(positionX + dx);
+            setPositionY(positionY + dy);
+            move();
         }
         break;
     }
@@ -368,14 +400,14 @@ void OGLWidget::setZAngle(double angle)
     angleZ = angle;
 }
 
-void OGLWidget::move(double dx, double dy)
+void OGLWidget::move()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glTranslatef(0.5f+dx,-(0.5f+dy), 0);
+    glTranslatef(positionX,-positionY, positionZ);
 
     updateGL();
 }
