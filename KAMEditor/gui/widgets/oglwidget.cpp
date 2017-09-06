@@ -398,38 +398,49 @@ void OGLWidget::updateDimensions(Point3D newVertex)
 {
     if(updateDimensionsIsNeed)
     {
+        bool emitSignalIsNeed = false;
         if(newVertex.x > maxPositiveOffset.x)
         {
             maxPositiveOffset.x = newVertex.x;
+            generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+            emitSignalIsNeed = true;
         }
         if(newVertex.y > maxPositiveOffset.y)
         {
             maxPositiveOffset.y = newVertex.y;
+            generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+            emitSignalIsNeed = true;
         }
         if(newVertex.z > maxPositiveOffset.z)
         {
             maxPositiveOffset.z = newVertex.z;
+            generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+            emitSignalIsNeed = true;
         }
 
         if(newVertex.x < maxNegativeOffset.x)
         {
             maxNegativeOffset.x = newVertex.x;
+            generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+            emitSignalIsNeed = true;
         }
         if(newVertex.y < maxNegativeOffset.y)
         {
             maxNegativeOffset.y = newVertex.y;
+            generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+            emitSignalIsNeed = true;
         }
         if(newVertex.z < maxNegativeOffset.z)
         {
             maxNegativeOffset.z = newVertex.z;
+            generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+            emitSignalIsNeed = true;
         }
-
-        generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
-        generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
-        generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+        if(emitSignalIsNeed)
+        {
+            emit dimensionsChanged();
+        }
     }
-
-    emit dimensionsChanged();
 }
 
 void OGLWidget::scaling(int delta)
