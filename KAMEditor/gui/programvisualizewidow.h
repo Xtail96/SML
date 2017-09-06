@@ -38,6 +38,8 @@ private slots:
 
     void on_acceptOptionsPushButton_clicked();
 
+    void showOffsets();
+
 private:
     Ui::ProgramVisualizeWidow *ui;
 
@@ -47,9 +49,6 @@ private:
 
     bool run;
     unsigned int minimalGridSize = 1;
-
-public slots:
-    void showDimensions();
 };
 
 #endif // PROGRAMVISUALIZEWIDOW_H

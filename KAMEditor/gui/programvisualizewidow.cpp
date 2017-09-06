@@ -24,7 +24,7 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
 
     showCommands();
 
-    connect(ui->programOpenGLWidget, SIGNAL(dimensionsChanged()), this, SLOT(showDimensions()));
+    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
@@ -184,7 +184,7 @@ void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
     ui->programOpenGLWidget->repaint();
 }
 
-void ProgramVisualizeWidow::showDimensions()
+void ProgramVisualizeWidow::showOffsets()
 {
     Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
     Point3D positiveOffset = ui->programOpenGLWidget->getMaxPositiveOffset();

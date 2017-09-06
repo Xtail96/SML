@@ -51,7 +51,7 @@ void OGLWidget::drawCoordinatesVectors()
     glLineWidth(2.0f); 
     glDisable(GL_LINE_STIPPLE);
 
-    updateDimensionsIsNeed = false;
+    updateOffsetsIsNeed = false;
 
     Point3D zeroPoint;
 
@@ -72,7 +72,7 @@ void OGLWidget::drawCommands()
 {
     glLineWidth(3.0f);
 
-    updateDimensionsIsNeed = true;
+    updateOffsetsIsNeed = true;
 
     Point3D src(0, 0, 0);
     Point3D dest(0, 0, 0);
@@ -125,7 +125,7 @@ void OGLWidget::drawPoints()
     glPointSize(3.0f);
 
 
-    updateDimensionsIsNeed = false;
+    updateOffsetsIsNeed = false;
 
     for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
     {
@@ -394,9 +394,9 @@ void OGLWidget::setMaxPositiveOffset(const Point3D &value)
     maxPositiveOffset = value;
 }
 
-void OGLWidget::updateDimensions(Point3D newVertex)
+void OGLWidget::updateOffsets(Point3D newVertex)
 {
-    if(updateDimensionsIsNeed)
+    if(updateOffsetsIsNeed)
     {
         bool emitSignalIsNeed = false;
         if(newVertex.x > maxPositiveOffset.x)
@@ -438,7 +438,7 @@ void OGLWidget::updateDimensions(Point3D newVertex)
         }
         if(emitSignalIsNeed)
         {
-            emit dimensionsChanged();
+            emit offsetsChanged();
         }
     }
 }

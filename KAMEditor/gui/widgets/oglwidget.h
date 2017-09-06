@@ -25,7 +25,7 @@ class OGLWidget : public QGLWidget
     Q_OBJECT
 
 signals:
-    void dimensionsChanged();
+    void offsetsChanged();
 public:
     OGLWidget(QWidget *parent = 0);
 
@@ -128,13 +128,13 @@ protected:
     void move();
     void wheelEvent(QWheelEvent *wheelEvent);
 
-    bool updateDimensionsIsNeed = false;
+    bool updateOffsetsIsNeed = false;
     Point3D maxPositiveOffset = Point3D();
     Point3D maxNegativeOffset = Point3D();
     Point3D generalOffset = Point3D();
 
 
-    void updateDimensions(Point3D newVertex);
+    void updateOffsets(Point3D newVertex);
 };
 
 #endif // OGLWIDGET_H

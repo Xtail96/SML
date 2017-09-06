@@ -68,7 +68,7 @@ void OGLWidget::drawLine(double dx, double dy, double dz, double v, Point3D src)
 
     glVertex3f(newX, newY, newZ);
 
-    updateDimensions(Point3D(newX, newY, newZ));
+    updateOffsets(Point3D(newX, newY, newZ));
 
     glEnd();
 }

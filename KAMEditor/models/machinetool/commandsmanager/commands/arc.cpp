@@ -81,7 +81,7 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
         glVertex2f(x, y);
 
         Point3D newVertex(x, y, src.z);
-        updateDimensions(newVertex);
+        updateOffsets(newVertex);
     }
 
     glEnd();
