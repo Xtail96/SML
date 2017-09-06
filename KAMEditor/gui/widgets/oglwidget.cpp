@@ -409,7 +409,7 @@ void OGLWidget::updateDimensions(Point3D newVertex)
     {
         maxNegativeOffset.y = newVertex.y;
     }
-    if(newVertex.z > maxNegativeOffset.z)
+    if(newVertex.z < maxNegativeOffset.z)
     {
         maxNegativeOffset.z = newVertex.z;
     }
