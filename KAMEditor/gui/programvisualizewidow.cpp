@@ -25,6 +25,7 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
     showCommands();
 
     connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
+    showOffsets();
 }
 
 ProgramVisualizeWidow::~ProgramVisualizeWidow()
