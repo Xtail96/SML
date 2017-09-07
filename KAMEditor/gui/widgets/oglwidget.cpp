@@ -293,16 +293,6 @@ void OGLWidget::mousePressEvent(QMouseEvent *mouseEvent)
     mousePositionY = mouseEvent->y();
 }
 
-double OGLWidget::getPositionZ() const
-{
-    return positionZ;
-}
-
-void OGLWidget::setPositionZ(double value)
-{
-    positionZ = value;
-}
-
 double OGLWidget::getPositionY() const
 {
     return positionY;
@@ -350,18 +340,13 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 void OGLWidget::rotate()
 {
     glRotated(angleX, 1, 0, 0);
-    glRotated(angleY, 0, 1, 0);
+    //glRotated(angleY, 0, 1, 0);
     glRotated(angleZ, 0, 0, 1);
 }
 
 void OGLWidget::setXAngle(double angle)
 {
     angleX = angle;
-}
-
-void OGLWidget::setYAngle(double angle)
-{
-    angleY = angle;
 }
 
 void OGLWidget::setZAngle(double angle)
@@ -461,7 +446,7 @@ void OGLWidget::updateOffsets(Point3D newVertex)
 void OGLWidget::scaling(int delta)
 {
     // если колесико вращаем вперед -- умножаем переменную масштаба на 1.1
-    // иначе -- делим на 1.1
+    // иначе - делим на 1.1
     if (delta > 0)
     {
         scale *= 1.1;

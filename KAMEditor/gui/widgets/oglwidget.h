@@ -45,8 +45,6 @@ public:
 
     void setXAngle(double angle);
 
-    void setYAngle(double angle);
-
     void setZAngle(double angle);
 
     double getScale() const;
@@ -95,9 +93,6 @@ public:
     double getPositionY() const;
     void setPositionY(double value);
 
-    double getPositionZ() const;
-    void setPositionZ(double value);
-
 protected:
 
     void initializeGL();
@@ -111,7 +106,7 @@ protected:
 
     double scale = 0.005;
     double angleX = 180;
-    double angleY = 0;
+    //double angleY = 0;
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
@@ -131,7 +126,6 @@ protected:
 
     double positionX = 0;
     double positionY = 0;
-    double positionZ = 0;
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
     void wheelEvent(QWheelEvent *wheelEvent);
