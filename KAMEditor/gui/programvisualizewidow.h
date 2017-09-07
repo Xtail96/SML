@@ -32,10 +32,6 @@ private slots:
 
     void on_centerPushButton_clicked();
 
-    void on_rotatePushButton_clicked();
-
-    void on_movePushButton_clicked();
-
     void on_acceptOptionsPushButton_clicked();
 
     void showOffsets();

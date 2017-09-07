@@ -55,10 +55,6 @@ public:
 
     void updateField();
 
-    int getMouseMoveAction() const;
-
-    void setMouseMoveAction(int value);
-
     bool getPointsVisible() const;
     void setPointsVisible(bool value);
 
@@ -119,7 +115,6 @@ protected:
     double angleZ = 0;
     int mousePositionX = 0;
     int mousePositionY = 0;
-    int mouseMoveAction = 1;
 
     bool gridVisible = false;
     std::string gridPlane = "X0Y";

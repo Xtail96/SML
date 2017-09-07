@@ -8,7 +8,6 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
     run(_run)
 {
     ui->setupUi(this);
-    ui->rotatePushButton->setEnabled(false);
     ui->programOpenGLWidget->setCommandsInterpreter(commandsInterpreter);
     ui->programOpenGLWidget->setPointsManager(_pointsManager);
 
@@ -76,20 +75,6 @@ void ProgramVisualizeWidow::on_centerPushButton_clicked()
     ui->programOpenGLWidget->setPositionY(0);
     ui->programOpenGLWidget->setPositionZ(0);
     ui->programOpenGLWidget->move();
-}
-
-void ProgramVisualizeWidow::on_rotatePushButton_clicked()
-{
-    ui->movePushButton->setEnabled(true);
-    ui->rotatePushButton->setEnabled(false);
-    ui->programOpenGLWidget->setMouseMoveAction(1);
-}
-
-void ProgramVisualizeWidow::on_movePushButton_clicked()
-{
-    ui->rotatePushButton->setEnabled(true);
-    ui->movePushButton->setEnabled(false);
-    ui->programOpenGLWidget->setMouseMoveAction(0);
 }
 
 void ProgramVisualizeWidow::showCommands()

@@ -274,16 +274,6 @@ void OGLWidget::setPointsVisible(bool value)
     pointsVisible = value;
 }
 
-int OGLWidget::getMouseMoveAction() const
-{
-    return mouseMoveAction;
-}
-
-void OGLWidget::setMouseMoveAction(int value)
-{
-    mouseMoveAction = value;
-}
-
 double OGLWidget::getScale() const
 {
     return scale;
@@ -338,31 +328,23 @@ void OGLWidget::setPositionX(double value)
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
 
-    switch (mouseMoveAction) {
-    case 1:
-    {
-        double dx = (mouseEvent->x() - mousePositionX) / 2;
-        double dy = (mouseEvent->y() - mousePositionY) / 2;
+    double dx = (mouseEvent->x() - mousePositionX) / 2;
+    double dy = (mouseEvent->y() - mousePositionY) / 2;
 
-        if (mouseEvent->buttons() == Qt::LeftButton)
-        {
-            //setXAngle(angleX - 1 * dy);
-            //setYAngle(angleY - 1 * dx);
-            setPositionX(positionX + dx/1000);
-            setPositionY(positionY + dy/1000);
-        }
-        else
-        {
-            if(mouseEvent->buttons() == Qt::RightButton)
-            {
-                setXAngle(angleX + 1 * dy);
-                setZAngle(angleZ - 1 * dx);
-            }
-        }
-        break;
+    if (mouseEvent->buttons() == Qt::LeftButton)
+    {
+        //setXAngle(angleX - 1 * dy);
+        //setYAngle(angleY - 1 * dx);
+        setPositionX(positionX + dx/1000);
+        setPositionY(positionY + dy/1000);
     }
-    default:
-        break;
+    else
+    {
+        if(mouseEvent->buttons() == Qt::RightButton)
+        {
+            setXAngle(angleX + 1 * dy);
+            setZAngle(angleZ - 1 * dx);
+        }
     }
     updateGL();
 }
@@ -372,7 +354,6 @@ void OGLWidget::rotate()
     glRotated(angleX, 1, 0, 0);
     glRotated(angleY, 0, 1, 0);
     glRotated(angleZ, 0, 0, 1);
-    //updateGL();
 }
 
 void OGLWidget::setXAngle(double angle)
