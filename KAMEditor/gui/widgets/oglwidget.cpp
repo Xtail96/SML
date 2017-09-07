@@ -47,8 +47,6 @@ void OGLWidget::paintGL()
         drawGrid();
     }
 
-
-
     swapBuffers();
 }
 
