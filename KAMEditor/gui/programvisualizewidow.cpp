@@ -53,7 +53,7 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
 void ProgramVisualizeWidow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
-    ui->programOpenGLWidget->setXAngle(-90);
+    ui->programOpenGLWidget->setXAngle(90);
     ui->programOpenGLWidget->setZAngle(90);
     ui->programOpenGLWidget->updateField();
 }
@@ -62,7 +62,7 @@ void ProgramVisualizeWidow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
     ui->programOpenGLWidget->setXAngle(90);
-    ui->programOpenGLWidget->setZAngle(180);
+    ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->updateField();
 }
 
