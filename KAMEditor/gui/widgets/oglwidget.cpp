@@ -28,6 +28,10 @@ void OGLWidget::paintGL()
     //Загружаем матрицу
     glLoadIdentity();
 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    move();
+    rotate();
+
     glScalef(scale, scale, scale);
     drawCoordinatesVectors();
 
@@ -42,6 +46,8 @@ void OGLWidget::paintGL()
     {
         drawGrid();
     }
+
+
 
     swapBuffers();
 }
@@ -331,20 +337,8 @@ void OGLWidget::setPositionX(double value)
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    switch (mouseMoveAction) {
-    case 0:
-    {
-        double dx = (mouseEvent->x() - mousePositionX) / 10;
-        double dy = (mouseEvent->y() - mousePositionY) / 10;
 
-        if(mouseEvent->buttons() == Qt::LeftButton)
-        {
-            setPositionX(positionX + dx);
-            setPositionY(positionY + dy);
-            move();
-        }
-        break;
-    }
+    switch (mouseMoveAction) {
     case 1:
     {
         double dx = (mouseEvent->x() - mousePositionX) / 2;
@@ -352,37 +346,33 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
         if (mouseEvent->buttons() == Qt::LeftButton)
         {
-            setXAngle(angleX - 1 * dy);
-            setYAngle(angleY - 1 * dx);
+            //setXAngle(angleX - 1 * dy);
+            //setYAngle(angleY - 1 * dx);
+            setPositionX(positionX + dx/1000);
+            setPositionY(positionY + dy/1000);
         }
         else
         {
             if(mouseEvent->buttons() == Qt::RightButton)
             {
-                setXAngle(angleX - 1 * dy);
+                setXAngle(angleX + 1 * dy);
                 setZAngle(angleZ - 1 * dx);
             }
         }
-        rotate();
         break;
     }
     default:
         break;
     }
+    updateGL();
 }
 
 void OGLWidget::rotate()
 {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glRotated(angleX, 1, 0, 0);
     glRotated(angleY, 0, 1, 0);
     glRotated(angleZ, 0, 0, 1);
-
-    updateGL();
+    //updateGL();
 }
 
 void OGLWidget::setXAngle(double angle)
@@ -402,14 +392,7 @@ void OGLWidget::setZAngle(double angle)
 
 void OGLWidget::move()
 {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glTranslatef(positionX,-positionY, positionZ);
-
-    updateGL();
+    glTranslatef(0.5f*positionX, -(0.5f*positionY), 0);
 }
 
 void OGLWidget::wheelEvent(QWheelEvent *wheelEvent)
