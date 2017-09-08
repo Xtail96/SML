@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>202</height>
+    <width>295</width>
+    <height>248</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,30 +54,10 @@
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="2">
-       <widget class="QLabel" name="velocityLabel">
-        <property name="text">
-         <string>Скорость</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLineEdit" name="velocityLineEdit"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="destinationPointLineEdit"/>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="destinationPointLabel">
         <property name="text">
          <string>№ Точки окончания</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="dzLineEdit">
-        <property name="enabled">
-         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -94,6 +74,26 @@
          <string>Воздушный переход</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="destinationPointLineEdit"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="dzLineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="velocityLabel">
+        <property name="text">
+         <string>Скорость</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="velocityLineEdit"/>
       </item>
      </layout>
     </widget>
