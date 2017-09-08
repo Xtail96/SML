@@ -79,7 +79,7 @@ void TTLineDialog::fillFields()
             }
         }
         ui->destinationPointLineEdit->setText(destinationPointNumberString);
-        ui->airPassageCheckBox->setChecked(true);
+        ui->airPassageCheckBox->setChecked(airPassageIsNeed.toUInt());
         if(ui->airPassageCheckBox->isChecked())
         {
             ui->dzLineEdit->setEnabled(true);
