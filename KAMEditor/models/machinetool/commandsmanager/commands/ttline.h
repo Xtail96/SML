@@ -6,7 +6,7 @@
 class TTLine : public Command
 {
 public:
-    TTLine(std::shared_ptr<Point> _destinationPoint, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v = 1);
+    TTLine(PointsManager* _pointsManager, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v = 1);
     ~TTLine();
 
     byte_array getDataForMachineTool() const override;
@@ -35,7 +35,7 @@ private:
     size_t id = CMD_LINE;
     std::string name = "ТТ-Линия";
 
-    std::shared_ptr<Point> destinationPoint;
+    PointsManager* pointsManager;
     unsigned int destinationPointNumber;
     bool airPassageIsNeed;
     double dz;

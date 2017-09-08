@@ -1,7 +1,7 @@
 #include "ttline.h"
 
-TTLine::TTLine(std::shared_ptr<Point> _destinationPoint, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v) :
-    destinationPoint(_destinationPoint), destinationPointNumber(_destinationPointNumber), airPassageIsNeed(_airPassageIsNeed), dz(_dz), v(_v)
+TTLine::TTLine(PointsManager *_pointsManager, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v) :
+    pointsManager(_pointsManager), destinationPointNumber(_destinationPointNumber), airPassageIsNeed(_airPassageIsNeed), dz(_dz), v(_v)
 {
 
 }
@@ -30,10 +30,18 @@ void TTLine::draw(OGLWidget *w, Point3D sourcePoint) const
 
 Point3D TTLine::returnDestinationPoint(Point3D sourcePoint) const
 {
-    Point3D destination = sourcePoint;
-    destination.x = destinationPoint->get("X");
-    destination.y = destinationPoint->get("Y");
-    destination.z = destinationPoint->get("Z");
+    Point3D destination;
+    try
+    {
+        std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumber-1);
+        destination.x = destinationPoint->get("X");
+        destination.y = destinationPoint->get("Y");
+        destination.z = destinationPoint->get("Z");
+    }
+    catch(...)
+    {
+        destination = sourcePoint;
+    }
     return destination;
 }
 

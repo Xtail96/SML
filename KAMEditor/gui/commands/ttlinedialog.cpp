@@ -23,32 +23,29 @@ void TTLineDialog::on_buttonBox_accepted()
 {
     unsigned int destinationPointNumber = ui->destinationPointLineEdit->text().toUInt();
 
-    try
+    //std::shared_ptr<Point> destination = pointsManager->operator [](destinationPointNumber - 1);
+
+    bool airPassageIsNeed = ui->airPassageCheckBox->isChecked();
+    double dz = 0;
+    if(airPassageIsNeed)
     {
-        std::shared_ptr<Point> destination = pointsManager->operator [](destinationPointNumber - 1);
-
-        bool airPassageIsNeed = ui->airPassageCheckBox->isChecked();
-        double dz = 0;
-        if(airPassageIsNeed)
-        {
-            dz = ui->dzLineEdit->text().toDouble();
-        }
-        double velocity = ui->velocityLineEdit->text().toDouble();
-
-        std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new TTLine(destination, destinationPointNumber, airPassageIsNeed, dz, velocity));
-        if(edit)
-        {
-            commandsManager->operator [](index) = cmd;
-        }
-        else
-        {
-            commandsManager->insertCommand(index, cmd);
-        }
+        dz = ui->dzLineEdit->text().toDouble();
     }
-    catch(std::out_of_range e)
+    double velocity = ui->velocityLineEdit->text().toDouble();
+
+    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, velocity));
+    if(edit)
+    {
+        commandsManager->operator [](index) = cmd;
+    }
+    else
+    {
+        commandsManager->insertCommand(index, cmd);
+    }
+    /*catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void TTLineDialog::fillFields()
