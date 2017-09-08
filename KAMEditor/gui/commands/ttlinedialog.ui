@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>245</height>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QGroupBox" name="ttline_arguments_groupBox">
+    <widget class="QGroupBox" name="ttlineArgumentsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>5</horstretch>
@@ -54,61 +54,52 @@
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="ttline_start_point_lineEdit"/>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="ttline_start_point_label">
-        <property name="text">
-         <string>№ Точки Начала</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="ttline_velocity_label">
+      <item row="1" column="2">
+       <widget class="QLabel" name="velocityLabel">
         <property name="text">
          <string>Скорость</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="ttline_finish_point_lineEdit"/>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="velocityLineEdit"/>
       </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="ttline_velocity_lineEdit"/>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="destinationPointLineEdit"/>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="ttline_finish_point_label">
+       <widget class="QLabel" name="destinationPointLabel">
         <property name="text">
          <string>№ Точки окончания</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="ttline_dz_label">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="dzLineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="dzLabel">
         <property name="text">
          <string>dz</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="ttline_dz_lineEdit"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="ttline_a_coordinate_label">
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="airPassageCheckBox">
         <property name="text">
-         <string>A</string>
+         <string>Воздушный переход</string>
         </property>
        </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="ttline_a_coordinate_lineEdit"/>
       </item>
      </layout>
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
-    <widget class="QLabel" name="ttline_title_label">
+    <widget class="QLabel" name="ttlineTitleLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>

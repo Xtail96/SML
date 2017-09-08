@@ -40,7 +40,7 @@ SOURCES += main.cpp\
     gui/commands/linedialog.cpp \
     gui/commands/arcdialog.cpp \
 #    gui/commands/labeldialog.cpp \
-#    gui/commands/ttlinedialog.cpp \
+    gui/commands/ttlinedialog.cpp \
 #    gui/commands/arc2dialog.cpp \
 #    gui/commands/cycledialog.cpp \
     gui/commands/offdialog.cpp \
@@ -96,14 +96,15 @@ SOURCES += main.cpp\
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
     gui/widgets/smllistwidget.cpp \
-    gui/widgets/smltreewidget.cpp
+    gui/widgets/smltreewidget.cpp \
+    models/machinetool/commandsmanager/commands/ttline.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
 #    gui/commands/labeldialog.h \
-#    gui/commands/ttlinedialog.h \
+    gui/commands/ttlinedialog.h \
 #    gui/commands/arc2dialog.h \
 #    gui/commands/cycledialog.h \
     gui/commands/offdialog.h \
@@ -163,7 +164,8 @@ HEADERS  += gui/mainwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
     gui/widgets/smllistwidget.h \
-    gui/widgets/smltreewidget.h
+    gui/widgets/smltreewidget.h \
+    models/machinetool/commandsmanager/commands/ttline.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -171,7 +173,7 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/linedialog.ui \
     gui/commands/arcdialog.ui \
 #    gui/commands/labeldialog.ui \
-#    gui/commands/ttlinedialog.ui \
+    gui/commands/ttlinedialog.ui \
 #    gui/commands/arc2dialog.ui \
 #    gui/commands/cycledialog.ui \
     gui/commands/offdialog.ui \

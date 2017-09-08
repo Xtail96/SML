@@ -1212,6 +1212,9 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
     case CMD_ARC:
         ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
+    case CMD_TTLINE:
+        TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this).exec();
+        break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
@@ -1253,6 +1256,9 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         break;
     case CMD_ARC:
         ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        break;
+    case CMD_TTLINE:
+        TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this, true).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();

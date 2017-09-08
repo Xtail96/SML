@@ -35,6 +35,11 @@ public:
 
     void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
 
+    void drawTTLine(Point3D dest, double v = 1, Point3D src = Point3D());
+
+
+    void drawAirPassage(Point3D dest, double dz, double v = 1, Point3D src = Point3D());
+
     void drawPoint(Point3D src = Point3D(), QString text = "");
 
     void scaling(int delta);

@@ -1,21 +1,17 @@
 #include "ttlinedialog.h"
 #include "ui_ttlinedialog.h"
 
-TTLineDialog::TTLineDialog(QWidget *parent) :
+TTLineDialog::TTLineDialog(CommandsManager *_commandsManager, PointsManager *_pointsManager, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::TTLineDialog)
+    ui(new Ui::TTLineDialog),
+    commandsManager(_commandsManager),
+    pointsManager(_pointsManager),
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
 
-    std::vector<QLineEdit*> fields =
-    {
-        ui->ttline_start_point_lineEdit,
-        ui->ttline_finish_point_lineEdit,
-        ui->ttline_dz_lineEdit,
-        ui->ttline_velocity_lineEdit,
-        ui->ttline_a_coordinate_lineEdit
-    };
-    fillFields(fields);
+    fillFields();
 }
 
 TTLineDialog::~TTLineDialog()
@@ -25,20 +21,89 @@ TTLineDialog::~TTLineDialog()
 
 void TTLineDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_TTLINE;
-    std::string startPoint = ui->ttline_start_point_lineEdit->text().toStdString();
-    std::string finishPoint = ui->ttline_finish_point_lineEdit->text().toStdString();
-    std::string velocity = ui->ttline_velocity_lineEdit->text().toStdString();
-    std::string dzOffset = ui->ttline_dz_lineEdit->text().toStdString();
-    std::string aCoordinate = ui->ttline_a_coordinate_lineEdit->text().toStdString();
-    cmd.commandColor = COMMANDCOLORS[defaultColor];
-    cmd.args = {
-     startPoint,
-     finishPoint,
-     dzOffset,
-     velocity,
-     aCoordinate
-    };
-    setCommandArguments(cmd);
+    unsigned int destinationPointNumber = ui->destinationPointLineEdit->text().toUInt();
+
+    try
+    {
+        std::shared_ptr<Point> destination = pointsManager->operator [](destinationPointNumber - 1);
+
+        bool airPassageIsNeed = ui->airPassageCheckBox->isChecked();
+        double dz = 0;
+        if(airPassageIsNeed)
+        {
+            dz = ui->dzLineEdit->text().toDouble();
+        }
+        double velocity = ui->velocityLineEdit->text().toDouble();
+
+        std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new TTLine(destination, destinationPointNumber, airPassageIsNeed, dz, velocity));
+        if(edit)
+        {
+            commandsManager->operator [](index) = cmd;
+        }
+        else
+        {
+            commandsManager->insertCommand(index, cmd);
+        }
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void TTLineDialog::fillFields()
+{
+    if(edit)
+    {
+        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
+        QStringList arguments = currentCommand->getArguments();
+
+        QString destinationPointNumberString = "";
+        QString airPassageIsNeed = "";
+        QString dzString = "";
+        QString vString = "";
+        for(int i = 0; i < arguments.size(); i++)
+        {
+            switch (i) {
+            case 0:
+                destinationPointNumberString = arguments[i];
+                break;
+            case 1:
+                airPassageIsNeed = arguments[i];
+                break;
+            case 2:
+                dzString = arguments[i];
+                break;
+            case 3:
+                vString = arguments[i];
+                break;
+            default:
+                break;
+            }
+        }
+        ui->destinationPointLineEdit->setText(destinationPointNumberString);
+        ui->airPassageCheckBox->setChecked(true);
+        if(ui->airPassageCheckBox->isChecked())
+        {
+            ui->dzLineEdit->setEnabled(true);
+            ui->dzLineEdit->setText(dzString);
+        }
+        else
+        {
+            ui->dzLineEdit->setEnabled(false);
+        }
+        ui->velocityLineEdit->setText(vString);
+    }
+}
+
+void TTLineDialog::on_airPassageCheckBox_clicked()
+{
+    if(ui->airPassageCheckBox->isChecked())
+    {
+        ui->dzLineEdit->setEnabled(true);
+    }
+    else
+    {
+        ui->dzLineEdit->setEnabled(false);
+    }
 }
