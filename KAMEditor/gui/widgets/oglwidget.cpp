@@ -317,8 +317,8 @@ void OGLWidget::setPositionX(double value)
 void OGLWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
 
-    double dx = (mouseEvent->x() - mousePositionX) / 2;
-    double dy = (mouseEvent->y() - mousePositionY) / 2;
+    double dx = (mouseEvent->x() - mousePositionX) / 10;
+    double dy = (mouseEvent->y() - mousePositionY) / 10;
 
     if (mouseEvent->buttons() == Qt::LeftButton)
     {
