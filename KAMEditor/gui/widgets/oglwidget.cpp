@@ -28,7 +28,6 @@ void OGLWidget::paintGL()
     //Загружаем матрицу
     glLoadIdentity();
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     move();
     rotate();
 
@@ -47,8 +46,9 @@ void OGLWidget::paintGL()
         drawGrid();
     }
 
-    makeCurrent();
+#ifdef Q_OS_UNIX
     swapBuffers();
+#endif;
 }
 
 void OGLWidget::drawCoordinatesVectors()
