@@ -318,13 +318,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>250</width>
+       <width>300</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>250</width>
+       <width>300</width>
        <height>16777215</height>
       </size>
      </property>
@@ -378,6 +378,11 @@
          </property>
          <item row="0" column="0">
           <widget class="QTextEdit" name="dimensionsTextEdit">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -441,6 +446,11 @@
             </property>
             <item row="4" column="0">
              <widget class="QLabel" name="gridSizeLabel">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Величина поля, мм</string>
               </property>
@@ -448,20 +458,13 @@
             </item>
             <item row="6" column="0">
              <widget class="QLabel" name="gridPlaneLabel">
-              <property name="text">
-               <string>Сетка в плоскости</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="gridCheckBox">
               <property name="font">
                <font>
-                <pointsize>14</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
-               <string>Показать сетку</string>
+               <string>Сетка в плоскости</string>
               </property>
              </widget>
             </item>
@@ -531,6 +534,18 @@
                 <string>Y0Z</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QCheckBox" name="gridCheckBox">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Показать сетку</string>
+              </property>
              </widget>
             </item>
            </layout>
