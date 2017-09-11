@@ -97,7 +97,6 @@ void OGLWidget::drawCommands()
         {
             glDisable(GL_LINE_STIPPLE);
         }*/
-        glDisable(GL_LINE_STIPPLE);
         commandsInterpreter->operator [](i)->draw(this);
     }
 }

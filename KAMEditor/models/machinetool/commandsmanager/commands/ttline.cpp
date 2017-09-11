@@ -81,6 +81,16 @@ QColor TTLine::getColor() const
 
 void OGLWidget::drawTTLine(Point3D dest, double v)
 {
+    if(dest.z > 0 && updateCurrentPointIsNeed)
+    {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0x1111);
+    }
+    else
+    {
+        glDisable(GL_LINE_STIPPLE);
+    }
+
     glBegin(GL_LINES);
 
     glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
