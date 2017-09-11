@@ -128,46 +128,74 @@ void OGLWidget::drawGrid()
     qglColor(Qt::lightGray);
 
 
-    Point3D srcFirst(0, 0, 0);
-    Point3D srcSecond(0, 0, 0);
+    Point3D tmp = currentPoint;
+
+    currentPoint.x = 0;
+    currentPoint.y = 0;
+    currentPoint.z = 0;
+
+    updateCurrentPointIsNeed = false;
 
     double multiplier = 1/gridMaximalAccuracy;
     unsigned int step = gridCellSize*multiplier;
     unsigned int stepCount = gridSize*multiplier;
 
-    /*for(unsigned int i = 0; i <= stepCount; i+=step)
+    for(unsigned int i = 0; i <= stepCount; i+=step)
     {
         if(gridPlane == "X0Y")
         {
-            drawLine(gridSize, 0, 0, 1, srcFirst);
-            srcFirst.y += gridCellSize;
-
-            drawLine(0, gridSize, 0, 1, srcSecond);
-            srcSecond.x += gridCellSize;
+            drawLine(gridSize, 0, 0);
+            currentPoint.y += gridCellSize;
         }
         else
         {
             if(gridPlane == "X0Z")
             {
-                drawLine(gridSize, 0, 0, 1, srcFirst);
-                srcFirst.z += gridCellSize;
-
-                drawLine(0, 0, gridSize, 1, srcSecond);
-                srcSecond.x += gridCellSize;
+                drawLine(gridSize, 0, 0);
+                currentPoint.z += gridCellSize;
             }
             else
             {
                 if(gridPlane == "Y0Z")
                 {
-                    drawLine(0, gridSize, 0, 1, srcFirst);
-                    srcFirst.z += gridCellSize;
-
-                    drawLine(0, 0, gridSize, 1, srcSecond);
-                    srcSecond.y += gridCellSize;
+                    drawLine(0, gridSize, 0);
+                    currentPoint.z += gridCellSize;
                 }
             }
         }
-    }*/
+    }
+
+    currentPoint.x = 0;
+    currentPoint.y = 0;
+    currentPoint.z = 0;
+
+    for(unsigned int i = 0; i <= stepCount; i+=step)
+    {
+        if(gridPlane == "X0Y")
+        {
+            drawLine(0, gridSize, 0);
+            currentPoint.x += gridCellSize;
+        }
+        else
+        {
+            if(gridPlane == "X0Z")
+            {
+                drawLine(0, 0, gridSize);
+                currentPoint.x += gridCellSize;
+            }
+            else
+            {
+                if(gridPlane == "Y0Z")
+                {
+                    drawLine(0, 0, gridSize);
+                    currentPoint.y += gridCellSize;
+                }
+            }
+        }
+    }
+
+    currentPoint = tmp;
+    updateCurrentPointIsNeed = true;
 }
 
 double OGLWidget::getGridMaximalAccuracy() const
