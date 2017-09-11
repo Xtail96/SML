@@ -1,9 +1,9 @@
-#include "programvisualizewidow.h"
-#include "ui_programvisualizewidow.h"
+#include "programvisualizewindow.h"
+#include "ui_programvisualizewindow.h"
 
-ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInterpreter, PointsManager *_pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWindow::ProgramVisualizeWindow(CommandsInterpreter *_commandsInterpreter, PointsManager *_pointsManager, QWidget *parent, bool _run) :
     QDialog(parent),
-    ui(new Ui::ProgramVisualizeWidow),
+    ui(new Ui::ProgramVisualizeWindow),
     commandsInterpreter(_commandsInterpreter),
     run(_run)
 {
@@ -27,22 +27,22 @@ ProgramVisualizeWidow::ProgramVisualizeWidow(CommandsInterpreter *_commandsInter
     showOffsets();
 }
 
-ProgramVisualizeWidow::~ProgramVisualizeWidow()
+ProgramVisualizeWindow::~ProgramVisualizeWindow()
 {
     delete ui;
 }
 
-void ProgramVisualizeWidow::on_zoomInPushButton_clicked()
+void ProgramVisualizeWindow::on_zoomInPushButton_clicked()
 {
     ui->programOpenGLWidget->scaling(1);
 }
 
-void ProgramVisualizeWidow::on_zoomOutPushButton_clicked()
+void ProgramVisualizeWindow::on_zoomOutPushButton_clicked()
 {
     ui->programOpenGLWidget->scaling(-1);
 }
 
-void ProgramVisualizeWidow::on_topPushButton_clicked()
+void ProgramVisualizeWindow::on_topPushButton_clicked()
 {
     // поворот в плоскость X0Y
     ui->programOpenGLWidget->setXAngle(180);
@@ -50,7 +50,7 @@ void ProgramVisualizeWidow::on_topPushButton_clicked()
     ui->programOpenGLWidget->updateField();
 }
 
-void ProgramVisualizeWidow::on_sidePushButton_clicked()
+void ProgramVisualizeWindow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
     ui->programOpenGLWidget->setXAngle(90);
@@ -58,7 +58,7 @@ void ProgramVisualizeWidow::on_sidePushButton_clicked()
     ui->programOpenGLWidget->updateField();
 }
 
-void ProgramVisualizeWidow::on_frontPushButton_clicked()
+void ProgramVisualizeWindow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
     ui->programOpenGLWidget->setXAngle(90);
@@ -66,14 +66,14 @@ void ProgramVisualizeWidow::on_frontPushButton_clicked()
     ui->programOpenGLWidget->updateField();
 }
 
-void ProgramVisualizeWidow::on_centerPushButton_clicked()
+void ProgramVisualizeWindow::on_centerPushButton_clicked()
 {
     ui->programOpenGLWidget->setPositionX(0);
     ui->programOpenGLWidget->setPositionY(0);
     ui->programOpenGLWidget->updateField();
 }
 
-void ProgramVisualizeWidow::showCommands()
+void ProgramVisualizeWindow::showCommands()
 {
     QStringList columnsHeaders =
     {
@@ -102,7 +102,7 @@ void ProgramVisualizeWidow::showCommands()
     }
 }
 
-QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, unsigned int column)
+QTableWidgetItem *ProgramVisualizeWindow::fillCommandsTable(unsigned int row, unsigned int column)
 {
     QString text = "Здесь должна быть команда";
     switch (column) {
@@ -130,7 +130,7 @@ QTableWidgetItem *ProgramVisualizeWidow::fillCommandsTable(unsigned int row, uns
     return new QTableWidgetItem(text);
 }
 
-void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
+void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()
 {
     if(ui->gridCheckBox->isChecked())
     {
@@ -168,7 +168,7 @@ void ProgramVisualizeWidow::on_acceptOptionsPushButton_clicked()
     ui->programOpenGLWidget->repaint();
 }
 
-void ProgramVisualizeWidow::showOffsets()
+void ProgramVisualizeWindow::showOffsets()
 {
     Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
     Point3D positiveOffset = ui->programOpenGLWidget->getMaxPositiveOffset();
@@ -191,4 +191,16 @@ void ProgramVisualizeWidow::showOffsets()
             qPositiveZOffsetString + qNegativeZOffsetString + qGeneralZOffsetString;
 
     ui->dimensionsTextEdit->setText(qDimensionsString);
+}
+
+void ProgramVisualizeWindow::on_printPushButton_clicked()
+{
+    //QPrinter printer;
+   // printer.setup(this);
+
+    //QPainter painter(&printer);
+    //QRect rect = painter.viewport();
+    //int side = std::min(rect.height(), rect.width());
+    //painter.setViewport(0, 0, side, side);
+    //painter.setWindow(-50, -50, 100, 100);
 }

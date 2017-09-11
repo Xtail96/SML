@@ -89,7 +89,6 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/switchoff.cpp \
     models/machinetool/commandsmanager/commands/comment.cpp \
     models/machinetool/commandsmanager/commands/pause.cpp \
-    gui/programvisualizewidow.cpp \
     gui/points/toselectionpointdialog.cpp \
     models/machinetool/filemanager/filemanager.cpp \
     gui/options/kabriolwindow.cpp \
@@ -97,7 +96,8 @@ SOURCES += main.cpp\
     gui/options/lubricationsystemwindow.cpp \
     gui/widgets/smllistwidget.cpp \
     gui/widgets/smltreewidget.cpp \
-    models/machinetool/commandsmanager/commands/ttline.cpp
+    models/machinetool/commandsmanager/commands/ttline.cpp \
+    gui/programvisualizewindow.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -157,7 +157,6 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/switchoff.h \
     models/machinetool/commandsmanager/commands/comment.h \
     models/machinetool/commandsmanager/commands/pause.h \
-    gui/programvisualizewidow.h \
     gui/points/toselectionpointdialog.h \
     models/machinetool/filemanager/filemanager.h \
     gui/options/kabriolwindow.h \
@@ -165,7 +164,8 @@ HEADERS  += gui/mainwindow.h \
     gui/options/lubricationsystemwindow.h \
     gui/widgets/smllistwidget.h \
     gui/widgets/smltreewidget.h \
-    models/machinetool/commandsmanager/commands/ttline.h
+    models/machinetool/commandsmanager/commands/ttline.h \
+    gui/programvisualizewindow.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -187,11 +187,11 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/pausedialog.ui \
 #    gui/commands/stopdialog.ui \
     gui/commands/commentdialog.ui \
-    gui/programvisualizewidow.ui \
     gui/points/toselectionpointdialog.ui \
     gui/options/kabriolwindow.ui \
     gui/options/toollengthsensorwindow.ui \
-    gui/options/lubricationsystemwindow.ui
+    gui/options/lubricationsystemwindow.ui \
+    gui/programvisualizewindow.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

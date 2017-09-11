@@ -1,23 +1,26 @@
-#ifndef PROGRAMVISUALIZEWIDOW_H
-#define PROGRAMVISUALIZEWIDOW_H
+#ifndef PROGRAMVISUALIZEWINDOW_H
+#define PROGRAMVISUALIZEWINDOW_H
 
 #include <QDialog>
 #include <QTableWidgetItem>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QPainter>
 
 #include "gui/widgets/oglwidget.h"
 #include "models/machinetool/machinetool.h"
 
 namespace Ui {
-class ProgramVisualizeWidow;
+class ProgramVisualizeWindow;
 }
 
-class ProgramVisualizeWidow : public QDialog
+class ProgramVisualizeWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ProgramVisualizeWidow(CommandsInterpreter* _commandsInterpreter, PointsManager* _pointsManager, QWidget *parent = 0, bool _run = false);
-    ~ProgramVisualizeWidow();
+    explicit ProgramVisualizeWindow(CommandsInterpreter* _commandsInterpreter, PointsManager* _pointsManager, QWidget *parent = 0, bool _run = false);
+    ~ProgramVisualizeWindow();
 
 private slots:
     void on_zoomInPushButton_clicked();
@@ -36,8 +39,10 @@ private slots:
 
     void showOffsets();
 
+    void on_printPushButton_clicked();
+
 private:
-    Ui::ProgramVisualizeWidow *ui;
+    Ui::ProgramVisualizeWindow *ui;
 
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
@@ -47,4 +52,4 @@ private:
     unsigned int minimalGridSize = 1;
 };
 
-#endif // PROGRAMVISUALIZEWIDOW_H
+#endif // PROGRAMVISUALIZEWINDOW_H

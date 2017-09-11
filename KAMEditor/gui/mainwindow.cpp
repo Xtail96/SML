@@ -1225,7 +1225,7 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_viewPushButton_clicked()
 {
     machineTool->getCommandsInterpreter()->updateProgram();
-    ProgramVisualizeWidow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();
+    ProgramVisualizeWindow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
