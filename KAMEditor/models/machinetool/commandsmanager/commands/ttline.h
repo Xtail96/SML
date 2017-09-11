@@ -11,9 +11,8 @@ public:
 
     byte_array getDataForMachineTool() const override;
 
-    void draw(OGLWidget* w, Point3D sourcePoint = Point3D()) const override;
-
-    Point3D returnDestinationPoint(Point3D sourcePoint = Point3D()) const override;
+    void draw(OGLWidget* w) const override;
+    Point3D destinationPoint(OGLWidget *w) const;
 
     size_t getId() const override;
 

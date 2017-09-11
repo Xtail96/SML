@@ -48,7 +48,7 @@ void OGLWidget::paintGL()
 
 #ifdef Q_OS_UNIX
     swapBuffers();
-#endif;
+#endif
 }
 
 void OGLWidget::drawCoordinatesVectors()
@@ -57,19 +57,22 @@ void OGLWidget::drawCoordinatesVectors()
     glDisable(GL_LINE_STIPPLE);
 
     updateOffsetsIsNeed = false;
+    updateCurrentPointIsNeed = false;
 
-    Point3D zeroPoint;
+    currentPoint.x = 0;
+    currentPoint.y = 0;
+    currentPoint.z = 0;
 
     glColor3f(1, 0, 0);
-    drawLine(10, 0, 0, 1, zeroPoint);
+    drawLine(10, 0, 0, 1);
     renderText(10, 0, 0, "X");
 
     glColor3f(0, 1, 0);
-    drawLine(0, 10, 0, 1, zeroPoint);
+    drawLine(0, 10, 0, 1);
     renderText(0, 10, 0, "Y");
 
     glColor3f(0, 0, 1);
-    drawLine(0, 0, 10, 1, zeroPoint);
+    drawLine(0, 0, 10, 1);
     renderText(0, 0, 10, "Z");
 }
 
@@ -78,14 +81,14 @@ void OGLWidget::drawCommands()
     glLineWidth(3.0f);
 
     updateOffsetsIsNeed = true;
+    updateCurrentPointIsNeed = true;
 
-    Point3D src(0, 0, 0);
-    Point3D dest(0, 0, 0);
+    //Point3D dest(0, 0, 0);
     for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
     {    
         qglColor(Qt::darkGray);
-        dest = commandsInterpreter->operator [](i)->returnDestinationPoint(src);
-        if(dest.z > 0)
+        //dest = commandsInterpreter->operator [](i)->returnDestinationPoint(src);
+        /*if(dest.z > 0)
         {
             glEnable(GL_LINE_STIPPLE);
             glLineStipple(1, 0x1111);
@@ -93,36 +96,10 @@ void OGLWidget::drawCommands()
         else
         {
             glDisable(GL_LINE_STIPPLE);
-        }
-        commandsInterpreter->operator [](i)->draw(this, src);
-        src = dest;
+        }*/
+        glDisable(GL_LINE_STIPPLE);
+        commandsInterpreter->operator [](i)->draw(this);
     }
-    /*glBegin(GL_QUADS);
-            glVertex3f( 0.1f, 0.1f,-0.1f);
-            glVertex3f(-0.1f, 0.1f,-0.1f);
-            glVertex3f(-0.1f, 0.1f, 0.1f);
-            glVertex3f( 0.1f, 0.1f, 0.1f);
-            glVertex3f( 0.1f,-0.1f, 0.1f);
-            glVertex3f(-0.1f,-0.1f, 0.1f);
-            glVertex3f(-0.1f,-0.1f,-0.1f);
-            glVertex3f( 0.1f,-0.1f,-0.1f);
-            glVertex3f( 0.1f, 0.1f, 0.1f);
-            glVertex3f(-0.1f, 0.1f, 0.1f);
-            glVertex3f(-0.1f,-0.1f, 0.1f);
-            glVertex3f( 0.1f,-0.1f, 0.1f);
-            glVertex3f( 0.1f,-0.1f,-0.1f);
-            glVertex3f(-0.1f,-0.1f,-0.1f);
-            glVertex3f(-0.1f, 0.1f,-0.1f);
-            glVertex3f( 0.1f, 0.1f,-0.1f);
-            glVertex3f(-0.1f, 0.1f, 0.1f);
-            glVertex3f(-0.1f, 0.1f,-0.1f);
-            glVertex3f(-0.1f,-0.1f,-0.1f);
-            glVertex3f(-0.1f,-0.1f, 0.1f);
-            glVertex3f( 0.1f, 0.1f,-0.1f);
-            glVertex3f( 0.1f, 0.1f, 0.1f);
-            glVertex3f( 0.1f,-0.1f, 0.1f);
-            glVertex3f( 0.1f,-0.1f,-0.1f);
-            glEnd();*/
 }
 
 void OGLWidget::drawPoints()
@@ -158,7 +135,7 @@ void OGLWidget::drawGrid()
     unsigned int step = gridCellSize*multiplier;
     unsigned int stepCount = gridSize*multiplier;
 
-    for(unsigned int i = 0; i <= stepCount; i+=step)
+    /*for(unsigned int i = 0; i <= stepCount; i+=step)
     {
         if(gridPlane == "X0Y")
         {
@@ -190,7 +167,7 @@ void OGLWidget::drawGrid()
                 }
             }
         }
-    }
+    }*/
 }
 
 double OGLWidget::getGridMaximalAccuracy() const
@@ -442,6 +419,26 @@ void OGLWidget::updateOffsets(Point3D newVertex)
             emit offsetsChanged();
         }
     }
+}
+
+void OGLWidget::updateCurrentPoint(Point3D destination)
+{
+    if(updateCurrentPointIsNeed)
+    {
+        currentPoint.x = destination.x;
+        currentPoint.y = destination.y;
+        currentPoint.z = destination.z;
+    }
+}
+
+Point3D OGLWidget::getCurrentPoint() const
+{
+    return currentPoint;
+}
+
+void OGLWidget::setCurrentPoint(const Point3D &value)
+{
+    currentPoint = value;
 }
 
 void OGLWidget::scaling(int delta)

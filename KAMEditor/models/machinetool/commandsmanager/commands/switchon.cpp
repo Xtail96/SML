@@ -27,16 +27,11 @@ byte_array SwitchOn::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOn::draw(OGLWidget *w, Point3D sourcePoint) const
+void SwitchOn::draw(OGLWidget *w) const
 {
     glPointSize(5.0f);
     w->qglColor(Qt::red);
-    w->drawPoint(sourcePoint);
-}
-
-Point3D SwitchOn::returnDestinationPoint(Point3D sourcePoint) const
-{
-    return sourcePoint;
+    w->drawPoint(w->getCurrentPoint());
 }
 
 std::string SwitchOn::getName() const

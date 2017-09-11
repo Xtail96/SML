@@ -17,14 +17,9 @@ byte_array Comment::getDataForMachineTool() const
     return data;
 }
 
-void Comment::draw(OGLWidget *w, Point3D sourcePoint) const
+void Comment::draw(OGLWidget *w) const
 {
 
-}
-
-Point3D Comment::returnDestinationPoint(Point3D sourcePoint) const
-{
-    return sourcePoint;
 }
 
 std::string Comment::getName() const

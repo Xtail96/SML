@@ -10,22 +10,9 @@ byte_array CArc::getDataForMachineTool() const
 
 }
 
-void CArc::draw(OGLWidget *w, Point3D sourcePoint) const
+void CArc::draw(OGLWidget *w) const
 {
-    w->drawArc(R, Al, Fi, v, sourcePoint);
-}
-
-Point3D CArc::returnDestinationPoint(Point3D sourcePoint) const
-{
-    Point3D center;
-    center.x = sourcePoint.x;
-    center.y = sourcePoint.y - R;
-
-    Point3D destinationPoint = sourcePoint;
-    destinationPoint.x = center.x + R * cos(Fi);
-    destinationPoint.y = center.y + R * sin(Fi);
-
-    return destinationPoint;
+    w->drawArc(R, Al, Fi, v);
 }
 
 size_t CArc::getId() const
@@ -61,15 +48,15 @@ QColor CArc::getColor() const
     return color;
 }
 
-void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v, Point3D src)
+void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
 {
     double angleIncrement = 0.01;
 
     double x, y;
 
     Point3D center;
-    center.x = src.x /*+ cos(startAngle)*/;
-    center.y = src.y /*- sin(startAngle)*/ - radius;
+    center.x = currentPoint.x /*+ cos(startAngle)*/;
+    center.y = currentPoint.y /*- sin(startAngle)*/ - radius;
 
     glBegin(GL_LINE_STRIP);
 
@@ -80,8 +67,9 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
 
         glVertex2f(x, y);
 
-        Point3D newVertex(x, y, src.z);
+        Point3D newVertex(x, y, currentPoint.z);
         updateOffsets(newVertex);
+        updateCurrentPoint(newVertex);
     }
 
     glEnd();

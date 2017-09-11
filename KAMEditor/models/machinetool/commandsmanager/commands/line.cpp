@@ -11,15 +11,9 @@ byte_array Line::getDataForMachineTool() const
 
 }
 
-void Line::draw(OGLWidget *w, Point3D src) const
+void Line::draw(OGLWidget *w) const
 {
-    w->drawLine(dx, dy, dz, v, src);
-}
-
-Point3D Line::returnDestinationPoint(Point3D sourcePoint) const
-{
-    Point3D destinationPoint(dx + sourcePoint.x, dy + sourcePoint.y, dz + sourcePoint.z);
-    return destinationPoint;
+    w->drawLine(dx, dy, dz, v);
 }
 
 size_t Line::getId() const
@@ -56,19 +50,21 @@ QColor Line::getColor() const
 }
 
 
-void OGLWidget::drawLine(double dx, double dy, double dz, double v, Point3D src)
+void OGLWidget::drawLine(double dx, double dy, double dz, double v)
 {
     glBegin(GL_LINES);
 
-    glVertex3f(src.x, src.y, src.z);
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
 
-    double newX = src.x + dx;
-    double newY = src.y + dy;
-    double newZ = src.z + dz;
+    double newX = currentPoint.x + dx;
+    double newY = currentPoint.y + dy;
+    double newZ = currentPoint.z + dz;
 
     glVertex3f(newX, newY, newZ);
 
-    updateOffsets(Point3D(newX, newY, newZ));
-
     glEnd();
+
+    Point3D destinaton(newX, newY, newZ);
+    updateOffsets(destinaton);
+    updateCurrentPoint(destinaton);
 }

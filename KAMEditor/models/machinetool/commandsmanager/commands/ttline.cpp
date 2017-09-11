@@ -16,19 +16,19 @@ byte_array TTLine::getDataForMachineTool() const
 
 }
 
-void TTLine::draw(OGLWidget *w, Point3D sourcePoint) const
+void TTLine::draw(OGLWidget *w) const
 {
     if(!airPassageIsNeed)
     {
-        w->drawTTLine(returnDestinationPoint(sourcePoint), 1, sourcePoint);
+        w->drawTTLine(destinationPoint(w));
     }
     else
     {
-        w->drawAirPassage(returnDestinationPoint(sourcePoint), dz, 1, sourcePoint);
+        w->drawAirPassage(destinationPoint(w), dz, 1);
     }
 }
 
-Point3D TTLine::returnDestinationPoint(Point3D sourcePoint) const
+Point3D TTLine::destinationPoint(OGLWidget *w) const
 {
     Point3D destination;
     try
@@ -40,7 +40,7 @@ Point3D TTLine::returnDestinationPoint(Point3D sourcePoint) const
     }
     catch(...)
     {
-        destination = sourcePoint;
+        destination = w->getCurrentPoint();
     }
     return destination;
 }
@@ -79,24 +79,25 @@ QColor TTLine::getColor() const
     return color;
 }
 
-void OGLWidget::drawTTLine(Point3D dest, double v, Point3D src)
+void OGLWidget::drawTTLine(Point3D dest, double v)
 {
     glBegin(GL_LINES);
 
-    glVertex3f(src.x, src.y, src.z);
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
 
     glVertex3f(dest.x, dest.y, dest.z);
 
-    updateOffsets(dest);
-
     glEnd();
+
+    updateOffsets(dest);
+    updateCurrentPoint(dest);
 }
 
-void OGLWidget::drawAirPassage(Point3D dest, double dz, double v, Point3D src)
+void OGLWidget::drawAirPassage(Point3D dest, double dz, double v)
 {
 
-    double newZ = src.z + dz;
-    Point3D firstVertex = Point3D(src.x, src.y, newZ);
+    double newZ = currentPoint.z + dz;
+    Point3D firstVertex = Point3D(currentPoint.x, currentPoint.y, newZ);
     Point3D secondVertex = Point3D(dest.x, dest.y, newZ);
 
     glEnable(GL_LINE_STIPPLE);
@@ -104,7 +105,7 @@ void OGLWidget::drawAirPassage(Point3D dest, double dz, double v, Point3D src)
 
     glBegin(GL_LINES);
 
-    glVertex3f(src.x, src.y, src.z);
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
 
     glVertex3f(firstVertex.x, firstVertex.y, firstVertex.z);
 
@@ -131,4 +132,6 @@ void OGLWidget::drawAirPassage(Point3D dest, double dz, double v, Point3D src)
     updateOffsets(secondVertex);
 
     updateOffsets(dest);
+
+    updateCurrentPoint(dest);
 }

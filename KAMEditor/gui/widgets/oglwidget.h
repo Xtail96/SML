@@ -31,14 +31,14 @@ public:
 
     ~OGLWidget() {}
 
-    void drawArc(double radius, double startAngle, double arcAngle, double v = 1, Point3D src = Point3D());
+    void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
 
-    void drawLine(double dx, double dy, double dz, double v = 1, Point3D src = Point3D());
+    void drawLine(double dx, double dy, double dz, double v = 1);
 
-    void drawTTLine(Point3D dest, double v = 1, Point3D src = Point3D());
+    void drawTTLine(Point3D dest, double v = 1);
 
 
-    void drawAirPassage(Point3D dest, double dz, double v = 1, Point3D src = Point3D());
+    void drawAirPassage(Point3D dest, double dz, double v = 1);
 
     void drawPoint(Point3D src = Point3D(), QString text = "");
 
@@ -98,6 +98,9 @@ public:
     double getPositionY() const;
     void setPositionY(double value);
 
+    Point3D getCurrentPoint() const;
+    void setCurrentPoint(const Point3D &value);
+
 protected:
 
     void initializeGL();
@@ -142,6 +145,10 @@ protected:
 
 
     void updateOffsets(Point3D newVertex);
+
+    Point3D currentPoint = Point3D();
+    bool updateCurrentPointIsNeed = false;
+    void updateCurrentPoint(Point3D destination);
 };
 
 #endif // OGLWIDGET_H

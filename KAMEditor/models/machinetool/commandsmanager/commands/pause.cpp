@@ -17,16 +17,11 @@ byte_array Pause::getDataForMachineTool() const
     return data;
 }
 
-void Pause::draw(OGLWidget *w, Point3D sourcePoint) const
+void Pause::draw(OGLWidget *w) const
 {
     QString text = "Пауза";
     w->qglColor(Qt::red);
-    w->renderText(sourcePoint.x, sourcePoint.y, sourcePoint.z, text);
-}
-
-Point3D Pause::returnDestinationPoint(Point3D sourcePoint) const
-{
-    return sourcePoint;
+    w->renderText(w->getCurrentPoint().x, w->getCurrentPoint().y, w->getCurrentPoint().z, text);
 }
 
 std::string Pause::getName() const
