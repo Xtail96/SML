@@ -14,7 +14,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
 
     int keyPressed = keyEvent->key();
     Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
-    qDebug() << modifiers;
+    //qDebug() << modifiers;
 
     switch (modifiers) {
     case Qt::ControlModifier | Qt::KeypadModifier:

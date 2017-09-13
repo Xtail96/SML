@@ -96,6 +96,9 @@ private:
 
     GCodesSyntaxHighlighter* hightlighter;
 
+    void initializeWidgets();
+    void initializeTreeWidget();
+    void initializeStatusBar();
 
     void initializeMachineTool();
 
@@ -156,7 +159,7 @@ protected:
     void updateBaseStatus();
 
 private slots:
-     void deleteSelectedCommands();
+    void deleteSelectedCommands();
 
     void update();
     void updateEdgesControlStatus();
@@ -211,6 +214,11 @@ private slots:
     void on_kabriolWidgetPushButton_clicked();
     void on_toolLengthSensorPushButton_clicked();
     void on_lubricationSystemPushButton_clicked();
+
+    void commandsCopySlot();
+    void commandsCutSlot();
+    void commandsPasteSlot();
+    void commandsUndoSlot();
 };
 
 

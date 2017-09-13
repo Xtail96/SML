@@ -9,21 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
-
-
-    // установка оформления statusBar
-    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->setFont(QFont("Consolas", 14));
-    ui->statusBar->showMessage(tr("State: ready 0123456789"));
-
-    // установка древесной структуры в 1 столбец виджета отображения sml-команд
-    QTreeWidget*  editorField = ui->smlEditorTreeWidget;
-    editorField->setTreePosition(1);
-
-    // устанвиливаем подсветку текста в виджете отображения G-кодов
-    hightlighter = new GCodesSyntaxHighlighter(this);
-    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
-    hightlighter->setPattern();
+    initializeWidgets();
 
     // инициализация станка
     initializeMachineTool();
@@ -73,6 +59,36 @@ MainWindow::~MainWindow()
 #endif
     delete machineTool;
 
+}
+
+void MainWindow::initializeWidgets()
+{
+    initializeStatusBar();
+    initializeTreeWidget();
+    // устанвиливаем подсветку текста в виджете отображения G-кодов
+    hightlighter = new GCodesSyntaxHighlighter(this);
+    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
+    hightlighter->setPattern();
+
+}
+
+void MainWindow::initializeTreeWidget()
+{
+    // установка древесной структуры в 1 столбец виджета отображения sml-команд
+    QTreeWidget*  editorField = ui->smlEditorTreeWidget;
+    editorField->setTreePosition(1);
+    connect(ui->smlEditorTreeWidget, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
+    connect(ui->smlEditorTreeWidget, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
+    connect(ui->smlEditorTreeWidget, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
+    connect(ui->smlEditorTreeWidget, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+}
+
+void MainWindow::initializeStatusBar()
+{
+    // установка оформления statusBar
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+    ui->statusBar->setFont(QFont("Consolas", 14));
+    ui->statusBar->showMessage(tr("State: ready 0123456789"));
 }
 
 void MainWindow::initializeMachineTool()
@@ -1278,4 +1294,24 @@ void MainWindow::on_toolLengthSensorPushButton_clicked()
 void MainWindow::on_lubricationSystemPushButton_clicked()
 {
     LubricationSystemWindow(machineTool->getDevicesManager(), this).exec();
+}
+
+void MainWindow::commandsCopySlot()
+{
+    qDebug() << "Copy signal received";
+}
+
+void MainWindow::commandsCutSlot()
+{
+    qDebug() << "Cut signal received";
+}
+
+void MainWindow::commandsPasteSlot()
+{
+    qDebug() << "Paste signal received";
+}
+
+void MainWindow::commandsUndoSlot()
+{
+    qDebug() << "Undo signal received";
 }
