@@ -9,29 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
-    initializeWidgets();
+    // настройка виджетов
+    setupWidgets();
 
-    // инициализация станка
-    initializeMachineTool();
+    // настройка станка
+    setupMachineTool();
 
-    // задаем горячие клавиши
-    setupShortcuts();
-    setupEditorShortcuts();
-
-    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
-    updateEdgesControlStatus();
-    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
-
-    // connects
-    //connect(ui->pointEditPushButton, SIGNAL(clicked(bool)), this, SLOT(on_pointsTableWidget_doubleClicked(QModelIndex)));
-    connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-    connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
-    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
-    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
-
-    initializeTimer();
+    setupTimer();
 }
 
 MainWindow::~MainWindow()
@@ -61,18 +45,22 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::initializeWidgets()
+void MainWindow::setupWidgets()
 {
-    initializeStatusBar();
-    initializeTreeWidget();
-    // устанвиливаем подсветку текста в виджете отображения G-кодов
-    hightlighter = new GCodesSyntaxHighlighter(this);
-    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
-    hightlighter->setPattern();
+    // задаем горячие клавиши
+    setupShortcuts();
+    setupEditorShortcuts();
 
+    // проводим настройку необходимых виджетов
+    setupStatusBar();
+    setupTreeWidget();
+    setupGСodesSyntaxHighlighter();
+    setupEdgesControl();
+    setupPointsTableWidgets();
+    setupPointsPushButtons();
 }
 
-void MainWindow::initializeTreeWidget()
+void MainWindow::setupTreeWidget()
 {
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
     QTreeWidget*  editorField = ui->smlEditorTreeWidget;
@@ -83,7 +71,7 @@ void MainWindow::initializeTreeWidget()
     connect(ui->smlEditorTreeWidget, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
 }
 
-void MainWindow::initializeStatusBar()
+void MainWindow::setupStatusBar()
 {
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
@@ -91,7 +79,38 @@ void MainWindow::initializeStatusBar()
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 }
 
-void MainWindow::initializeMachineTool()
+void MainWindow::setupGСodesSyntaxHighlighter()
+{
+    // устанвиливаем подсветку текста в виджете отображения G-кодов
+    hightlighter = new GCodesSyntaxHighlighter(this);
+    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
+    hightlighter->setPattern();
+}
+
+void MainWindow::setupEdgesControl()
+{
+    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
+    updateEdgesControlStatus();
+    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+}
+
+void MainWindow::setupPointsTableWidgets()
+{
+    //connect(ui->pointEditPushButton, SIGNAL(clicked(bool)), this, SLOT(on_pointsTableWidget_doubleClicked(QModelIndex)));
+    connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+}
+
+void MainWindow::setupPointsPushButtons()
+{
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+
+}
+
+void MainWindow::setupMachineTool()
 {
     SettingsManager settingsManager;
     QString machineToolInformationGroupName = "MachineToolInformation";
@@ -114,8 +133,8 @@ void MainWindow::initializeMachineTool()
     updateSettingsFields();
     updateSensorsField();
     updateDevicesField();
-    initializeCoordinatesFields();
-    initializePointsManager();
+    setupCoordinatesFields();
+    setupPointsManager();
 
 
     unsigned int velocity = machineTool->getVelocity();
@@ -366,7 +385,7 @@ QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::sh
     return new QTableWidgetItem(text);
 }
 
-void MainWindow::initializeCoordinatesFields()
+void MainWindow::setupCoordinatesFields()
 {
     QStringList axisesLabels;
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
@@ -384,7 +403,7 @@ void MainWindow::initializeCoordinatesFields()
     ui->parkCoordinatesListWidget->addItems(axisesLabels);
 }
 
-void MainWindow::initializePointsManager()
+void MainWindow::setupPointsManager()
 {
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     int axisesCount = axises.size();
@@ -417,7 +436,7 @@ void MainWindow::initializePointsManager()
 
 }
 
-void MainWindow::initializeTimer()
+void MainWindow::setupTimer()
 {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));

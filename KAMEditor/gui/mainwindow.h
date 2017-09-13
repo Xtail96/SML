@@ -96,11 +96,15 @@ private:
 
     GCodesSyntaxHighlighter* hightlighter;
 
-    void initializeWidgets();
-    void initializeTreeWidget();
-    void initializeStatusBar();
+    void setupWidgets();
+    void setupTreeWidget();
+    void setupStatusBar();
+    void setupGСodesSyntaxHighlighter();
+    void setupEdgesControl();
+    void setupPointsTableWidgets();
+    void setupPointsPushButtons();
 
-    void initializeMachineTool();
+    void setupMachineTool();
 
     void updateSettingsFields();
 
@@ -116,11 +120,11 @@ private:
 
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
-    void initializeCoordinatesFields();
+    void setupCoordinatesFields();
 
-    void initializePointsManager();
+    void setupPointsManager();
 
-    void initializeTimer();
+    void setupTimer();
 
     void updateSensorsField();
 
