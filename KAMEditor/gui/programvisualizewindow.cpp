@@ -45,7 +45,7 @@ void ProgramVisualizeWindow::on_zoomOutPushButton_clicked()
 void ProgramVisualizeWindow::on_topPushButton_clicked()
 {
     // поворот в плоскость X0Y
-    ui->programOpenGLWidget->setXAngle(180);
+    ui->programOpenGLWidget->setXAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->updateField();
 }
