@@ -351,12 +351,26 @@ void OGLWidget::rotate()
 
 void OGLWidget::setXAngle(double angle)
 {
-    angleX = angle;
+    if(angle >= 180)
+    {
+        angleX = 0;
+    }
+    else
+    {
+        angleX = angle;
+    }
 }
 
 void OGLWidget::setZAngle(double angle)
 {
-    angleZ = angle;
+    if(angle >= 180)
+    {
+        angleZ = 0;
+    }
+    else
+    {
+        angleZ = angle;
+    }
 }
 
 void OGLWidget::move()
