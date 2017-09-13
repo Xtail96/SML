@@ -6,12 +6,11 @@ SiLabsU1 *UsbXpressDeviceManager::getU1() const
     return u1;
 }
 
-UsbXpressDeviceManager::UsbXpressDeviceManager(MachineTool *_machineTool) :
-    machineTool(_machineTool)
+UsbXpressDeviceManager::UsbXpressDeviceManager(std::string deviceName)
 {
     try
     {
-        u1 = new SiLabsU1(machineTool);
+        u1 = new SiLabsU1(deviceName);
     }
     catch(std::runtime_error e)
     {
@@ -23,10 +22,9 @@ UsbXpressDeviceManager::UsbXpressDeviceManager(MachineTool *_machineTool) :
 UsbXpressDeviceManager::~UsbXpressDeviceManager()
 {
     delete u1;
-    delete machineTool;
 }
 
-void UsbXpressDeviceManager::connectWithSiLabsDevice()
+/*void UsbXpressDeviceManager::connectWithSiLabsDevice()
 {
     try
     {
@@ -39,5 +37,5 @@ void UsbXpressDeviceManager::connectWithSiLabsDevice()
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         throw;
     }
-}
+}*/
 #endif

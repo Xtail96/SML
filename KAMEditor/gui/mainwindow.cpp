@@ -71,9 +71,7 @@ MainWindow::~MainWindow()
 #ifdef Q_OS_WIN
     delete u1Manager;
 #endif
-#ifdef Q_OS_UNIX
     delete machineTool;
-#endif
 
 }
 
@@ -113,7 +111,7 @@ void MainWindow::initializeMachineTool()
 #ifdef Q_OS_WIN
     try
     {
-        u1Manager = new UsbXpressDeviceManager(machineTool);
+        u1Manager = new UsbXpressDeviceManager(machineTool->getName());
         showMachineToolConnected();
     }
     catch(std::runtime_error e)

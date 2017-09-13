@@ -1,8 +1,8 @@
 #include "silabsu1.h"
 
 #ifdef Q_OS_WIN
-SiLabsU1::SiLabsU1(MachineTool *machineTool) :
-    UsbXpressDevice(machineTool->getName())
+SiLabsU1::SiLabsU1(std::string deviceName) :
+    UsbXpressDevice(deviceName)
 {
 
 }

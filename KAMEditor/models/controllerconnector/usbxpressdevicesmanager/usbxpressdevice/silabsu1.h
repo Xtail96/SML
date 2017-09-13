@@ -2,7 +2,6 @@
 #define SILABSU1_H
 
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
-#include "models/machinetool/machinetool.h"
 
 #ifdef Q_OS_WIN
 /*!
@@ -26,7 +25,7 @@ public:
      * \brief Конструктор класса SiLabsU1
      * \param machineTool - указатель на подключаемый к контроллеру станок
      */
-    SiLabsU1(MachineTool *machineTool);
+    SiLabsU1(std::string deviceName);
     ~SiLabsU1();
 
     /*!
