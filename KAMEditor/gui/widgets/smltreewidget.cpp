@@ -63,6 +63,39 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
             this->setSelectionMode(QAbstractItemView::MultiSelection);
             this->selectAll();
         }
+        break;
+    }
+    case Qt::Key_C:
+    {
+        if(modifiers == Qt::ControlModifier)
+        {
+            emit copySignal();
+        }
+        break;
+    }
+    case Qt::Key_X:
+    {
+        if(modifiers == Qt::ControlModifier)
+        {
+            emit cutSignal();
+        }
+        break;
+    }
+    case Qt::Key_V:
+    {
+        if(modifiers == Qt::ControlModifier)
+        {
+            emit pasteSignal();
+        }
+        break;
+    }
+    case Qt::Key_Z:
+    {
+        if(modifiers == Qt::ControlModifier)
+        {
+            emit undoSignal();
+        }
+        break;
     }
     case Qt::Key_Escape:
         this->setSelectionMode(QAbstractItemView::SingleSelection);

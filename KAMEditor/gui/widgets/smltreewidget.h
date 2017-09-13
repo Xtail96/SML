@@ -10,6 +10,12 @@
 
 class SMLTreeWidget : public QTreeWidget
 {
+    Q_OBJECT
+signals:
+    void copySignal();
+    void cutSignal();
+    void pasteSignal();
+    void undoSignal();
 public:
     SMLTreeWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
