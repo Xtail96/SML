@@ -211,74 +211,264 @@ public:
      */
     void setGridPlane(const std::string &value);
 
+    /*!
+     * \brief Возвращает максимальную точность сетки
+     * \return максимальная точность сетки
+     */
     double getGridMaximalAccuracy() const;
+
+    /*!
+     * \brief Устанавливает максимальную точность сетки
+     * \param value - максимальная точность сетки
+     */
     void setGridMaximalAccuracy(double value);
 
+    /*!
+     * \brief Возвращает максимальное, на текущий момент, смещение в положительную сторону
+     * \return максимальное, на текущий момент, смещение в положительную сторону
+     */
     Point3D getMaxPositiveOffset() const;
+
+    /*!
+     * \brief Устанавливает максимальное, на текущий момент, смещение в положительную сторону
+     * \param value - новое значение смещения в положительную сторону
+     */
     void setMaxPositiveOffset(const Point3D &value);
 
+    /*!
+     * \brief Возвращает максимальное, на текущий момент, смещение в отрицательную сторону
+     * \return максимальное, на текущий момент, значение смещения в отрицательную сторону
+     */
     Point3D getMaxNegativeOffset() const;
+
+    /*!
+     * \brief Устанавливает максимальное, на текущий момент, смещение в отрицательную сторону
+     * \param value - новое значение смещения в отрицательную сторону
+     */
     void setMaxNegativeOffset(const Point3D &value);
 
+    /*!
+     * \brief Возвращает общее, на текущий момент, смещение по осям
+     * \return общее, на текущий момент, смещение по осям
+     */
     Point3D getGeneralOffset() const;
+
+    /*!
+     * \brief Устанавливает общее, на текущий момент, смещение по осям
+     * \param value - общее, на текущий момент, смещение по осям
+     */
     void setGeneralOffset(const Point3D &value);
 
+
+    /*!
+     * \brief Возвращает текущую позицию сцены виджета по оси X
+     * \return текущая позицию сцены виджета по оси X
+     */
     double getPositionX() const;
+
+    /*!
+     * \brief Устанавливает текущую позицию сцены виджета по оси X
+     * \param value - позиция сцены виджета по оси X
+     */
     void setPositionX(double value);
 
+    /*!
+     * \brief Возвращает текущую позицию сцены виджета по оси Y
+     * \return текущая позицию сцены виджета по оси Y
+     */
     double getPositionY() const;
+
+    /*!
+     * \brief Устанавливает текущую позицию сцены виджета по оси Y
+     * \param value - позиция сцены виджета по оси Y
+     */
     void setPositionY(double value);
 
+    /*!
+     * \brief Возвращает текущую точку траектории
+     * \return текущая точка траектории
+     */
     Point3D getCurrentPoint() const;
+
+    /*!
+     * \brief Устанавливает текущую точку траектории
+     * \param value - точка траектории, которую нужно сделать текущей
+     */
     void setCurrentPoint(const Point3D &value);
 
 protected:
-
+    /*!
+     * \brief Инициализирует виджет
+     */
     void initializeGL();
+
+    /*!
+     * \brief Изменияет размер виджета
+     * \param w - новая ширина виджета
+     * \param h - новая высота виджета
+     */
     void resizeGL(int w, int h);
+
+    /*!
+     * \brief Осуществляет рисование на виджете
+     */
     void paintGL();
 
+    /*!
+     * \brief Рисует векторы координат
+     */
     void drawCoordinatesVectors();
+
+    /*!
+     * \brief Рисует команды
+     */
     void drawCommands();
+
+    /*!
+     * \brief Рисует точки
+     */
     void drawPoints();
+
+    /*!
+     * \brief Рисует сетку
+     */
     void drawGrid();
 
+    /*!
+     * \brief Коэффициент приближения/отдаления сцены (начальное значение = 0.005)
+     */
     double scale = 0.005;
-    double angleX = 180;
+
+    /*!
+     * \brief Угол поворота сцены по оси X (начальное значение = 0)
+     */
+    double angleX = 0;
+
     //double angleY = 0;
+
+    /*!
+     * \brief Угол поворота сцены по оси Z (начальное значение = 0)
+     */
     double angleZ = 0;
+
+    /*!
+     * \brief Текущая позиция мыши по оси X (начальное значение = 0)
+     */
     int mousePositionX = 0;
+
+    /*!
+     * \brief Текущая позиция мыши по оси Y (начальное значение = 0)
+     */
     int mousePositionY = 0;
 
+    /*!
+     * \brief Нужно ли отрисовывать сетку (начальное значение = false)
+     */
     bool gridVisible = false;
+
+    /*!
+     * \brief Строковое представление плоскости для рисования сетки (начальное значение = "X0Y")
+     */
     std::string gridPlane = "X0Y";
+
+    /*!
+     * \brief Размер сетки, мм (начальное значение = 1000)
+     */
     unsigned int gridSize = 1000;
+
+    /*!
+     * \brief Размер ячейки сетки, мм (начальное значение = 1)
+     */
     double gridCellSize = 1;
+
+    /*!
+     * \brief Максимальная точность сетки, мм (начальное значение = 0.01)
+     */
     double gridMaximalAccuracy = 0.01;
 
+    /*!
+     * \brief Указатель на интерпретатор команд
+     */
     CommandsInterpreter* commandsInterpreter;
 
+    /*!
+     * \brief Нужно ли отрисовывать точки (начальное значение = false)
+     */
     bool pointsVisible = false;
+
+    /*!
+     * \brief Указатель на менеджер точек
+     */
     PointsManager* pointsManager;
 
+    /*!
+     * \brief Обрабатывает нажатие клавиш мыши
+     * \param mouseEvent - событие мыши
+     */
     void mousePressEvent(QMouseEvent *mouseEvent);
 
+    /*!
+     * \brief Позиция сцены по оси X (начальное значение = 0)
+     */
     double positionX = 0;
+
+    /*!
+     * \brief Позиция сцены по оси Y (начальное значение = 0)
+     */
     double positionY = 0;
+
+    /*!
+     * \brief Обрабатывает перемещение мыши
+     * \param mouseEvent - событие мыши
+     */
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
+    /*!
+     * \brief Обрабатывает вращение колесика мыши
+     * \param wheelEvent - событие колесика мыши
+     */
     void wheelEvent(QWheelEvent *wheelEvent);
 
+    /*!
+     * \brief Нужно ли обновлять максимальные смещения по координатам (начальное значение = false)
+     */
     bool updateOffsetsIsNeed = false;
+
+    /*!
+     * \brief Макcимальное смещение по координатам в положительную сторону (начальное значение Point(X = 0; Y = 0; Z = 0))
+     */
     Point3D maxPositiveOffset = Point3D();
+
+    /*!
+     * \brief Максимальное смещение по координатам в отрицательную сторону (начальное значение Point(X = 0; Y = 0; Z = 0))
+     */
     Point3D maxNegativeOffset = Point3D();
+
+    /*!
+     * \brief Максимальное общее смещение по координатам (начальное значение Point(X = 0; Y = 0; Z = 0))
+     */
     Point3D generalOffset = Point3D();
 
-
+    /*!
+     * \brief Обновляет максимальные смещения
+     * \param newVertex - новая вершина
+     */
     void updateOffsets(Point3D newVertex);
 
+    /*!
+     * \brief Текущая точка траектории (начальное значение Point(X = 0; Y = 0; Z = 0))
+     */
     Point3D currentPoint = Point3D();
+
+    /*!
+     * \brief Нужно ли обновлять текущую точку траектории (начальное значение = false)
+     */
     bool updateCurrentPointIsNeed = false;
+
+    /*!
+     * \brief Обновляет теущую точку
+     * \param destination - точка, которую нужно сделать текущей
+     */
     void updateCurrentPoint(Point3D destination);
 };
 
