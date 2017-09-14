@@ -437,3 +437,8 @@ void SettingsManager::generateDefaultSettings()
     // применяем изменения
     saveSettings();
 }
+
+QStringList SettingsManager::settingsKeys()
+{
+    return settings->allKeys();
+}

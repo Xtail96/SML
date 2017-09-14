@@ -25,7 +25,7 @@
  */
 class SettingsManager
 {
-private:
+protected:
     /// Класс, непосредственно отвечающий за хранение "группа-ключ-значение"
     std::shared_ptr<QSettings> settings;
 
@@ -74,6 +74,12 @@ public:
      * @brief Генерирует настройки станка по умолчанию
      */
     void generateDefaultSettings();
+
+    /**
+     * @brief Возвращает все ключи файла настроек
+     * @return Все ключи файла настроек
+     */
+    QStringList settingsKeys();
 };
 
 #endif // SETTINGSMANAGER_H
