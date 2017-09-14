@@ -46,7 +46,7 @@ void OGLWidget::paintGL()
         drawGrid();
     }
 
-#ifdef Q_OS_UNIX
+#ifdef Q_OS_MACOS
     swapBuffers();
 #endif
 }
