@@ -54,7 +54,7 @@ void MainWindow::setupWidgets()
     // проводим настройку необходимых виджетов
     setupStatusBar();
     setupTreeWidget();
-    setupGСodesSyntaxHighlighter();
+    setupGCodesSyntaxHighlighter();
     setupEdgesControl();
     setupPointsTableWidgets();
     setupPointsPushButtons();
@@ -79,7 +79,7 @@ void MainWindow::setupStatusBar()
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 }
 
-void MainWindow::setupGСodesSyntaxHighlighter()
+void MainWindow::setupGCodesSyntaxHighlighter()
 {
     // устанвиливаем подсветку текста в виджете отображения G-кодов
     hightlighter = new GCodesSyntaxHighlighter(this);
