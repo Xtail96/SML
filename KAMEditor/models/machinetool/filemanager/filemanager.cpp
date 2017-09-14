@@ -12,7 +12,7 @@ FileManager::FileManager(CommandsManager *cm, PointsManager *pm) :
 
 QFile FileManager::createFile()
 {
-    if (changed)
+    /*if (changed)
     {
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Сохранение изменений", "Файл был изменен. Сохранить файл?",
@@ -20,7 +20,7 @@ QFile FileManager::createFile()
 
         if (reply == QMessageBox::Yes)
             saveFile();
-    }
+    }*/
 
 
 }
@@ -38,7 +38,7 @@ void FileManager::saveFile()
 
 void FileManager::saveCommands(QFile &f)
 {
-    f.write("[commands]");
+   /* f.write("[commands]");
 
     size_t commandNumber = cmd_mgr->getCommandsCount();
 
@@ -52,12 +52,12 @@ void FileManager::saveCommands(QFile &f)
 
     }
 
-    f.write(textcmd.toUtf8());
+    f.write(textcmd.toUtf8());*/
 }
 
 void FileManager::savePoints(QFile &f)
 {
-    f.write("[points]");
+    /*f.write("[points]");
 
     size_t pointNumber = pnt_mgr->
 
@@ -67,5 +67,5 @@ void FileManager::savePoints(QFile &f)
 
         QString textcmd = point->getName() + " " + cmd->getArgumentsString();
         f.write(textcmd.toUtf8());
-    }
+    }*/
 }
