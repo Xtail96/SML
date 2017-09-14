@@ -99,7 +99,7 @@ private:
     void setupWidgets();
     void setupTreeWidget();
     void setupStatusBar();
-    void setupGСodesSyntaxHighlighter();
+    void setupGCodesSyntaxHighlighter();
     void setupEdgesControl();
     void setupPointsTableWidgets();
     void setupPointsPushButtons();
