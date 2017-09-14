@@ -49,7 +49,6 @@ void MainWindow::setupWidgets()
 {
     // задаем горячие клавиши
     setupShortcuts();
-    setupEditorShortcuts();
 
     // проводим настройку необходимых виджетов
     setupStatusBar();
@@ -58,6 +57,7 @@ void MainWindow::setupWidgets()
     setupEdgesControl();
     setupPointsTableWidgets();
     setupPointsPushButtons();
+    setupEditorFileActionsPushButtons();
 }
 
 void MainWindow::setupTreeWidget()
@@ -69,6 +69,7 @@ void MainWindow::setupTreeWidget()
     connect(ui->smlEditorTreeWidget, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
     connect(ui->smlEditorTreeWidget, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
     connect(ui->smlEditorTreeWidget, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+    connect(ui->smlEditorTreeWidget, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
 }
 
 void MainWindow::setupStatusBar()
@@ -543,24 +544,8 @@ void MainWindow::setupShortcuts()
     }
 }
 
-void MainWindow::setupEditorShortcuts()
+void MainWindow::setupEditorFileActionsPushButtons()
 {
-    std::vector<std::pair<const char*, const char*> > editorShortcutsMap = {
-        std::make_pair("Backspace", SLOT(deleteSelectedCommands())),
-    };
-
-    for (unsigned int i = 0; i < editorShortcutsMap.size(); i++)
-    {
-        const char* shortcutKey = editorShortcutsMap[i].first;
-        const char* shortcutSlot = editorShortcutsMap[i].second;
-
-        QShortcut* shortcut = new QShortcut(this);
-        shortcut->setKey(QKeySequence(shortcutKey));
-        connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
-
-        editorShortcuts.push_back(shortcut);
-    }
-
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 

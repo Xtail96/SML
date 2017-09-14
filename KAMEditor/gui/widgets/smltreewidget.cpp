@@ -100,6 +100,9 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     case Qt::Key_Escape:
         this->setSelectionMode(QAbstractItemView::SingleSelection);
         break;
+    case Qt::Key_Backspace:
+        emit eraseSignal();
+        break;
     default:
     {
         break;

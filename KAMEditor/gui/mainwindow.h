@@ -131,7 +131,7 @@ private:
     void updateDevicesField();
 
     void setupShortcuts(); 
-    void setupEditorShortcuts();
+    void setupEditorFileActionsPushButtons();
 
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();

@@ -16,6 +16,7 @@ signals:
     void cutSignal();
     void pasteSignal();
     void undoSignal();
+    void eraseSignal();
 public:
     SMLTreeWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
