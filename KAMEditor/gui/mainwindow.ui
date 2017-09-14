@@ -2938,16 +2938,16 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <property name="leftMargin">
-               <number>1</number>
+               <number>5</number>
               </property>
               <property name="topMargin">
-               <number>1</number>
+               <number>5</number>
               </property>
               <property name="rightMargin">
-               <number>1</number>
+               <number>5</number>
               </property>
               <property name="bottomMargin">
-               <number>1</number>
+               <number>5</number>
               </property>
               <item>
                <widget class="QTableWidget" name="sensorsTableWidget">
@@ -2959,21 +2959,26 @@
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>105</width>
+                  <width>95</width>
                   <height>0</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>105</width>
+                  <width>95</width>
                   <height>16777215</height>
                  </size>
                 </property>
                 <property name="baseSize">
                  <size>
-                  <width>105</width>
+                  <width>95</width>
                   <height>0</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>9</pointsize>
+                 </font>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
@@ -3009,7 +3014,7 @@
                  <bool>false</bool>
                 </attribute>
                 <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>20</number>
+                 <number>10</number>
                 </attribute>
                 <attribute name="horizontalHeaderHighlightSections">
                  <bool>false</bool>
@@ -3025,6 +3030,9 @@
                 </attribute>
                 <attribute name="verticalHeaderMinimumSectionSize">
                  <number>20</number>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>false</bool>
                 </attribute>
                </widget>
               </item>
