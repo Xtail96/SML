@@ -14,7 +14,7 @@ ProgramVisualizeWindow::ProgramVisualizeWindow(CommandsInterpreter *_commandsInt
     SettingsManager settingsManager;
     try
     {
-        ui->programOpenGLWidget->setGridMaximalAccuracy(settingsManager.get("Visualisation", "Grid Maximal Accuracy").toDouble());
+        ui->programOpenGLWidget->setGridMaximalAccuracy(settingsManager.get("Visualisation", "GridMaximalAccuracy").toDouble());
     }
     catch(std::invalid_argument e)
     {

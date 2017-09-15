@@ -432,7 +432,7 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Visualisation");
-        settings->setValue("Grid Maximal Accuracy", 0.01);
+        settings->setValue("GridMaximalAccuracy", 0.01);
     settings->endGroup();
     // применяем изменения
     saveSettings();
