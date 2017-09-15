@@ -5,6 +5,7 @@
 
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
+#include "controllers/mainwindowcontroller/mainbridge/mainbridge.h"
 
 class MainWindowController : public QObject
 {
