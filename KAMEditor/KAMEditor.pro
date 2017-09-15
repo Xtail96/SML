@@ -98,7 +98,8 @@ SOURCES += main.cpp\
     gui/widgets/smltreewidget.cpp \
     models/machinetool/commandsmanager/commands/ttline.cpp \
     gui/programvisualizewindow.cpp \
-    controllers/mainbridge/mainbridge.cpp
+    controllers/mainwindowcontroller/mainbridge/mainbridge.cpp \
+    controllers/mainwindowcontroller/mainwindowcontroller.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -167,7 +168,8 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smltreewidget.h \
     models/machinetool/commandsmanager/commands/ttline.h \
     gui/programvisualizewindow.h \
-    controllers/mainbridge/mainbridge.h
+    controllers/mainwindowcontroller/mainbridge/mainbridge.h \
+    controllers/mainwindowcontroller/mainwindowcontroller.h
 
 
 FORMS    += gui/mainwindow.ui \

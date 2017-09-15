@@ -1,6 +1,6 @@
-#include "mainbridge.h"
+#include "mainwindowcontroller.h"
 
-MainBridge::MainBridge()
+MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
     SettingsManager settingsManager;
     QString machineToolInformationGroupName = "MachineToolInformation";
@@ -22,7 +22,7 @@ MainBridge::MainBridge()
     }
 }
 
-MainBridge::~MainBridge()
+MainWindowController::~MainWindowController()
 {
     delete machineTool;
 }
