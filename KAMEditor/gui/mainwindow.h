@@ -96,15 +96,6 @@ private:
 
     GCodesSyntaxHighlighter* hightlighter;
 
-    // ok
-    void setupWidgets();
-    void setupTreeWidget();
-    void setupStatusBar();
-    void setupGCodesSyntaxHighlighter();
-    void setupEdgesControl();
-    void setupPointsTableWidgets();
-    void setupPointsPushButtons();
-
     void setupMachineTool();
 
     void updateSettingsFields();
@@ -121,19 +112,11 @@ private:
 
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
-    void setupCoordinatesFields();
-
-    void setupPointsManager();
-
-    void setupTimer();
-
     void updateSensorsField();
 
     void updateDevicesField();
 
     // ok
-    void setupShortcuts(); 
-    void setupEditorFileActionsPushButtons();
 
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();
@@ -165,11 +148,47 @@ protected:
     void updateBaseStatus();
 
 private slots:
-    void deleteSelectedCommands();
+    /// Слоты для настройки виджетов
+    void setupWidgets();
 
+    /// Слоты для настройки горячих клавиш
+    void setupAxisesShortcuts();
+
+    /// Слоты для настройки Status Bar
+    void setupStatusBar();
+
+    /// Слоты для настройки панели координат
+    void setupCoordinatesPanel();
+    void setupEdgesControl();
+
+    /// Слоты для настройки редактора команд
+    void setupTreeWidget();
+    void setupGCodesSyntaxHighlighter();
+
+    /// Слоты для настройки элементов менеджера файлов
+    void setupEditorFileActionsPushButtons();
+
+    /// Слоты, для настройки редактора точек
+    void setupPointsTableWidgets();
+    void setupPointsPushButtons();
+
+    /// Слоты для настройки таймера обновления панелей
+    void setupTimer();
+
+    /// Слоты для обновления панелей
     void update();
     void updateEdgesControlStatus();
 
+
+    /// Слоты для обработки сигналов виджета дерева SML-команд
+    void commandsCopySlot();
+    void commandsCutSlot();
+    void commandsPasteSlot();
+    void commandsUndoSlot();
+    void deleteSelectedCommands();
+
+
+    /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();
     void on_discreteRadioButton_2_clicked();
     void on_discreteRadioButton_3_clicked();
@@ -220,11 +239,6 @@ private slots:
     void on_kabriolWidgetPushButton_clicked();
     void on_toolLengthSensorPushButton_clicked();
     void on_lubricationSystemPushButton_clicked();
-
-    void commandsCopySlot();
-    void commandsCutSlot();
-    void commandsPasteSlot();
-    void commandsUndoSlot();
 };
 
 
