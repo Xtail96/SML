@@ -112,11 +112,6 @@ private:
     /// Метод для настройки таблиц настроек
     void setupSettingsWidgets();
 
-    /// Методы для заполнения таблиц настроек
-    QTableWidgetItem* fillDevicesSettingsTable(const std::vector< std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex);
-    QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
-
-
     /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();

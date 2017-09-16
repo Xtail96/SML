@@ -89,3 +89,50 @@ QList<QStringList> MainBridge::devicesSettings(std::vector<std::shared_ptr<Devic
     }
     return devicesSettings;
 }
+
+QStringList MainBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
+{
+    QStringList names;
+    for(auto axis : axises)
+    {
+        names.push_back(QString::fromStdString(axis->getName()));
+    }
+    return names;
+}
+
+QStringList MainBridge::axisesParametrsNames()
+{
+    QStringList parametrsNames =
+    {
+        "Длина",
+        "Шаг",
+        "Направление",
+        "Рывок",
+        "Ускорение",
+        "Скорость",
+        "Скорость Базирования",
+        "Канал"
+    };
+    return parametrsNames;
+}
+
+QList<QStringList> MainBridge::axisesSettings(std::vector<std::shared_ptr<Axis> > axises)
+{
+    QList<QStringList> axisesSettings;
+    for(auto axis : axises)
+    {
+        QStringList axisSettings =
+        {
+            QString::number(axis->getLength()),
+            QString::number(axis->getStep()),
+            QString::number(axis->getInvertDirection()),
+            QString::number(axis->getJerk()),
+            QString::number(axis->getAcceleration()),
+            QString::number(axis->getVelocity()),
+            QString::number(axis->getBasingVelocity()),
+            QString::number(axis->getChannel())
+        };
+        axisesSettings.push_back(axisSettings);
+    }
+    return axisesSettings;
+}

@@ -15,16 +15,6 @@ MainWindowController::~MainWindowController()
 #endif
 }
 
-MainBridge *MainWindowController::getMainBridge() const
-{
-    return mainBridge;
-}
-
-void MainWindowController::setMainBridge(MainBridge *value)
-{
-    mainBridge = value;
-}
-
 QStringList MainWindowController::getSensorsNames()
 {
     return mainBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
@@ -53,6 +43,21 @@ QStringList MainWindowController::getDevicesParametrsNames()
 QList<QStringList> MainWindowController::getDevicesSettings()
 {
     return mainBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
+}
+
+QStringList MainWindowController::getAxisesNames()
+{
+    return mainBridge->axisesNames(machineTool->getMovementController()->getAxises());
+}
+
+QStringList MainWindowController::getAxisesParametrsNames()
+{
+    return mainBridge->axisesParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getAxisesSettings()
+{
+    return mainBridge->axisesSettings(machineTool->getMovementController()->getAxises());
 }
 
 void MainWindowController::loadMachineToolSettings()

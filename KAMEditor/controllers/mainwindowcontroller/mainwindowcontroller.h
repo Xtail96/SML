@@ -26,8 +26,6 @@ public:
       * \brief Деструктор класса Контроллер главного окна
       */
     ~MainWindowController();
-    MainBridge *getMainBridge() const;
-    void setMainBridge(MainBridge *value);
 
     QStringList getSensorsNames();
     QStringList getSensorsParametrsNames();
@@ -36,6 +34,10 @@ public:
     QStringList getDevicesNames();
     QStringList getDevicesParametrsNames();
     QList<QStringList> getDevicesSettings();
+
+    QStringList getAxisesNames();
+    QStringList getAxisesParametrsNames();
+    QList<QStringList> getAxisesSettings();
 
 protected:
     /*!

@@ -158,87 +158,35 @@ void MainWindow::updateSettingsFields()
 
 void MainWindow::updateAxisSettingsField()
 {
-    /*ui->axisSettingsTableWidget->clear();
+    QStringList names = mainWindowController->getAxisesNames();
+    QStringList axisesParametrsNames = mainWindowController->getAxisesParametrsNames();
+    QList<QStringList> axisesSettings = mainWindowController->getAxisesSettings();
 
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
-    int axisCount = axises.size();
+    ui->axisSettingsTableWidget->clear();
+    ui->axisSettingsTableWidget->setColumnCount(names.size());
+    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(names);
+    ui->axisSettingsTableWidget->setRowCount(axisesParametrsNames.size());
+    ui->axisSettingsTableWidget->setVerticalHeaderLabels(axisesParametrsNames);
 
-    QStringList qHorizontalHeaders;
-    for(auto axis : axises)
+    for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
     {
-        QString header = QString("Ось " + QString::fromStdString(axis->getName()));
-        qHorizontalHeaders.append(header);
+        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    ui->axisSettingsTableWidget->setColumnCount(axisCount);
-    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
-
-    QStringList qVerticalHeaders =
+    for(int i = 0; i < ui->axisSettingsTableWidget->verticalHeader()->count(); i++)
     {
-        "Длина",
-        "Шаг",
-        "Направление",
-        "Рывок",
-        "Ускорение",
-        "Скорость",
-        "Скорость Базирования",
-        "Канал"
-    };
-    ui->axisSettingsTableWidget->setRowCount(qVerticalHeaders.size());
-    ui->axisSettingsTableWidget->setVerticalHeaderLabels(qVerticalHeaders);
-
+        ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 
     for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         for(int j = 0; j < ui->axisSettingsTableWidget->verticalHeader()->count(); j++)
         {
-            QTableWidgetItem *item = fillAxisesSettingsTable(axises, i, j);
-            ui->axisSettingsTableWidget->setItem(j, i, item);
+            ui->axisSettingsTableWidget->setItem(j, i, new QTableWidgetItem(axisesSettings[i][j]));
         }
     }
-
-    for(int i = 0; i < ui->axisSettingsTableWidget->verticalHeader()->count(); i++)
-    {
-        ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }*/
 }
-
-QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex)
-{
-    std::string text = "Здесь должны быть параметры оси";
-    switch (parametrIndex) {
-    case 0:
-        text = std::to_string(axises[axisIndex]->getLength());
-        break;
-    case 1:
-        text = std::to_string(axises[axisIndex]->getStep());
-        break;
-    case 2:
-        text = std::to_string(axises[axisIndex]->getInvertDirection());
-        break;
-    case 3:
-        text = std::to_string(axises[axisIndex]->getJerk());
-        break;
-    case 4:
-        text = std::to_string(axises[axisIndex]->getAcceleration());
-        break;
-    case 5:
-        text = std::to_string(axises[axisIndex]->getVelocity());
-        break;
-    case 6:
-        text = std::to_string(axises[axisIndex]->getBasingVelocity());
-        break;
-    case 7:
-        text = std::to_string(axises[axisIndex]->getChannel());
-        break;
-    default:
-        text = "Unknown parametr";
-        break;
-    }
-    return new QTableWidgetItem(QString::fromStdString(text));
-}
-
 
 void MainWindow::updateSensorsSettingsField()
 {
@@ -246,6 +194,7 @@ void MainWindow::updateSensorsSettingsField()
     QStringList sensorsParametrsNames = mainWindowController->getSensorsParametrsNames();
     QList<QStringList> sensorsSettings = mainWindowController->getSensorsSettings();
 
+    ui->sensorsSettingsTableWidget->clear();
     ui->sensorsSettingsTableWidget->setRowCount(sensorsNames.size());
     ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsNames);
     ui->sensorsSettingsTableWidget->setColumnCount(sensorsParametrsNames.size());
@@ -271,6 +220,7 @@ void MainWindow::updateDevicesSettingsField()
     QStringList devicesParametrsNames = mainWindowController->getDevicesParametrsNames();
     QList<QStringList> devicesSettings = mainWindowController->getDevicesSettings();
 
+    ui->devicesTableWidget->clear();
     ui->devicesSettingsTableWidget->setRowCount(devicesNames.size());
     ui->devicesSettingsTableWidget->setVerticalHeaderLabels(devicesNames);
     ui->devicesSettingsTableWidget->setColumnCount(devicesParametrsNames.size());

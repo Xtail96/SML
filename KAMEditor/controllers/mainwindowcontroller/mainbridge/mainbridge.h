@@ -20,6 +20,10 @@ public:
     QStringList devicesNames(std::vector< std::shared_ptr<Device> > devices);
     QStringList devicesParametrsNames();
     QList<QStringList> devicesSettings(std::vector< std::shared_ptr<Device> > devices);
+
+    QStringList axisesNames(std::vector< std::shared_ptr<Axis> > axises);
+    QStringList axisesParametrsNames();
+    QList<QStringList> axisesSettings(std::vector< std::shared_ptr<Axis> > axises);
 private:
 };
 
