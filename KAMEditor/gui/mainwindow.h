@@ -131,7 +131,7 @@ private slots:
     void setupStatusBar();
 
     /// Слоты для настройки панели координат
-    void setupCoordinatesPanel();
+    void setupCoordinatesScreen();
     void setupEdgesControl();
 
     /// Слоты для настройки редактора команд
@@ -147,6 +147,9 @@ private slots:
 
     /// Слоты для настройки панели скорости
     void setupVelocityPanel();
+
+    /// Cлот для настройки панели оборотов шпинделя
+    void setupSpindelRotationsPanel();
 
     /// Слоты для настройки таймера обновления панелей
     void setupTimer();
@@ -192,6 +195,9 @@ private slots:
 
     /// Слот для обновления скорости
     void updateVelocityPanel();
+
+    /// Слот для обновления оборотов шпинделя
+    void updateSpindelRotations();
 
     // to do исправить слот
     void updateEdgesControlStatus();

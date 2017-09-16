@@ -61,7 +61,9 @@ void MainWindow::setupWidgets()
     setupPointsTableWidgets();
     setupPointsPushButtons();
     setupEditorFileActionsPushButtons();
-    setupCoordinatesPanel();
+    setupCoordinatesScreen();
+    setupVelocityPanel();
+    setupSpindelRotationsPanel();
 
     setupSettingsWidgets();
 }
@@ -157,6 +159,11 @@ void MainWindow::setupVelocityPanel()
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
 }
 
+void MainWindow::setupSpindelRotationsPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotations()));
+}
+
 void MainWindow::updateSettingsBoards()
 {
     updateAxisesBoard();
@@ -248,7 +255,7 @@ void MainWindow::updateDevicesBoard()
     }
 }
 
-void MainWindow::setupCoordinatesPanel()
+void MainWindow::setupCoordinatesScreen()
 {
     /*QStringList axisesLabels;
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
@@ -523,6 +530,13 @@ void MainWindow::updateVelocityPanel()
     ui->feedrateScrollBar->setValue(velocity);
 }
 
+void MainWindow::updateSpindelRotations()
+{
+    int rotations = mainWindowController->getSpindelRotations();
+    ui->rotationsLcdNumber->display(QString::number(rotations));
+    ui->rotationsScrollBar->setValue(rotations);
+}
+
 void MainWindow::updateMachineToolStatusScreen()
 {
 /*
@@ -767,8 +781,8 @@ void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
-    //machineTool->setSpindelRotations(value);
-    //ui->rotationsLcdNumber->display(QString::number(machineTool->getSpindelRotations()));
+    mainWindowController->updateSpindelRotations(value);
+    updateSpindelRotations();
 }
 
 void MainWindow::on_exit_action_triggered()

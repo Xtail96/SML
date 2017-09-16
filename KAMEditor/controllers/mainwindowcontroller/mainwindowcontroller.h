@@ -44,6 +44,7 @@ public:
 
 
     unsigned int getVelocity();
+    unsigned int getSpindelRotations();
 
 protected:
     /*!
@@ -78,6 +79,7 @@ public slots:
 
     void switchDevice(QString qDeviceName);
     void updateVelocity(int value);
+    void updateSpindelRotations(int value);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

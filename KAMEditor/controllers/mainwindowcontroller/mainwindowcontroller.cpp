@@ -80,6 +80,11 @@ unsigned int MainWindowController::getVelocity()
     return machineTool->getVelocity();
 }
 
+unsigned int MainWindowController::getSpindelRotations()
+{
+    return machineTool->getSpindelRotations();
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;
@@ -159,5 +164,17 @@ void MainWindowController::updateVelocity(int value)
     else
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицатльной").exec();
+    }
+}
+
+void MainWindowController::updateSpindelRotations(int value)
+{
+    if(value > 0)
+    {
+        machineTool->setSpindelRotations(value);
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицатльными").exec();
     }
 }
