@@ -96,6 +96,7 @@ private:
 
     GCodesSyntaxHighlighter* hightlighter;
 
+    // ok
     void setupWidgets();
     void setupTreeWidget();
     void setupStatusBar();
@@ -130,6 +131,7 @@ private:
 
     void updateDevicesField();
 
+    // ok
     void setupShortcuts(); 
     void setupEditorFileActionsPushButtons();
 

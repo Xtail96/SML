@@ -65,11 +65,11 @@ void MainWindow::setupTreeWidget()
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
     QTreeWidget*  editorField = ui->smlEditorTreeWidget;
     editorField->setTreePosition(1);
-    connect(ui->smlEditorTreeWidget, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
-    connect(ui->smlEditorTreeWidget, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
-    connect(ui->smlEditorTreeWidget, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
-    connect(ui->smlEditorTreeWidget, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
-    connect(ui->smlEditorTreeWidget, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
+    connect(editorField, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
+    connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
+    connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
+    connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+    connect(editorField, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
 }
 
 void MainWindow::setupStatusBar()
