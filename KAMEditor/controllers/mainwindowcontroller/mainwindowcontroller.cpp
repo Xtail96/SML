@@ -112,3 +112,35 @@ void MainWindowController::connectWithU1()
     }
 #endif
 }
+
+void MainWindowController::switchDevice(QString qDeviceName)
+{
+    std::string deviceName = qDeviceName.toStdString();
+    try
+    {
+        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
+        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
+#ifdef Q_OS_WIN
+        if(u1Manager != nullptr)
+        {
+            try
+            {
+                u1Manager->getU1()->sendData(data);
+            }
+            catch(std::runtime_error e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            }
+        }
+        else
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка инициализации", "Не могу связаться со станком").exec();
+        }
+#endif
+        device.setCurrentState(!device.getCurrentState());
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}

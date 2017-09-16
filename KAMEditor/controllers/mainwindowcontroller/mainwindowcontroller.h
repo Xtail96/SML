@@ -72,6 +72,8 @@ signals:
 public slots:
     void loadMachineToolSettings();
     void connectWithU1();
+
+    void switchDevice(QString qDeviceName);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

@@ -37,7 +37,9 @@ MainWindow::~MainWindow()
 void MainWindow::setupMainWindowController()
 {
     mainWindowController = new MainWindowController();
+
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
+    connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -971,35 +973,8 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
 
 void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 {
-    /*std::string deviceName = index.data().toString().toStdString();
-    try
-    {
-        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
-        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
-#ifdef Q_OS_WIN
-        if(u1Manager != nullptr)
-        {
-            try
-            {
-                u1Manager->getU1()->sendData(data);
-            }
-            catch(std::runtime_error e)
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-            }
-        }
-        else
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка инициализации", "Не могу связаться со станком").exec();
-        }
-#endif
-        device.setCurrentState(!device.getCurrentState());
-        updateDevicesPanel();
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
+    QString deviceName = index.data().toString();
+    emit deviceClicked(deviceName);
 }
 
 void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
