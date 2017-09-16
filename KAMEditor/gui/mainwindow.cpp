@@ -61,7 +61,7 @@ void MainWindow::setupWidgets()
     setupPointsTableWidgets();
     setupPointsPushButtons();
     setupEditorFileActionsPushButtons();
-    setupCoordinatesScreen();
+    setupCoordinatesDisplay();
     setupVelocityPanel();
     setupSpindelRotationsPanel();
 
@@ -255,7 +255,7 @@ void MainWindow::updateDevicesBoard()
     }
 }
 
-void MainWindow::setupCoordinatesScreen()
+void MainWindow::setupCoordinatesDisplay()
 {
     /*QStringList axisesLabels;
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
@@ -279,10 +279,10 @@ void MainWindow::setupTimer()
     timer->setInterval(100);
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateScreens()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateDisplays()));
 }
 
-void MainWindow::updateSensorsScreen()
+void MainWindow::updateSensorsDisplay()
 {
     QStringList sensorsNames = mainWindowController->getSensorsNames();
     QList<QColor> sensorsLeds = mainWindowController->getSensorsLeds();
@@ -301,7 +301,7 @@ void MainWindow::updateSensorsScreen()
     }
 }
 
-void MainWindow::updateDevicesScreen()
+void MainWindow::updateDevicesDisplay()
 {
     QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
     QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
@@ -363,11 +363,11 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 
-void MainWindow::updateScreens()
+void MainWindow::updateDisplays()
 {
-    updateBatteryStatusScreen();
-    updateSensorsScreen();
-    updateDevicesScreen();
+    updateBatteryStatusDisplay();
+    updateSensorsDisplay();
+    updateDevicesDisplay();
 #ifdef Q_OS_WIN
     if(u1Manager != nullptr)
     {
@@ -409,7 +409,7 @@ void MainWindow::deleteSelectedCommands()
     }*/
 }
 
-void MainWindow::updateCoordinatesScreen()
+void MainWindow::updateCoordinatesDisplay()
 {
     /*MachineTool &i = MachineTool::Instance();
 
@@ -502,7 +502,7 @@ void MainWindow::updateSMLCommandsTreeWidget()
     }*/
 }
 
-void MainWindow::updateBatteryStatusScreen()
+void MainWindow::updateBatteryStatusDisplay()
 {
     #ifdef Q_OS_WIN
         SYSTEM_POWER_STATUS status;
@@ -537,7 +537,7 @@ void MainWindow::updateSpindelRotations()
     ui->rotationsScrollBar->setValue(rotations);
 }
 
-void MainWindow::updateMachineToolStatusScreen()
+void MainWindow::updateMachineToolStatusDisplay()
 {
 /*
 #ifdef Q_OS_WIN

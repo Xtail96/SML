@@ -130,8 +130,8 @@ private slots:
     /// Слоты для настройки Status Bar
     void setupStatusBar();
 
-    /// Слоты для настройки панели координат
-    void setupCoordinatesScreen();
+    /// Слоты для настройки дисплея координат
+    void setupCoordinatesDisplay();
     void setupEdgesControl();
 
     /// Слоты для настройки редактора команд
@@ -151,26 +151,26 @@ private slots:
     /// Cлот для настройки панели оборотов шпинделя
     void setupSpindelRotationsPanel();
 
-    /// Слоты для настройки таймера обновления панелей
+    /// Слоты для настройки таймера обновления дисплеев
     void setupTimer();
 
-    /// Слоты для обновления панелей
-    void updateScreens();
+    /// Слоты для обновления дисплеев
+    void updateDisplays();
 
-    /// Слот для обновления панели координат
-    void updateCoordinatesScreen();
+    /// Слот для обновления дисплея координат
+    void updateCoordinatesDisplay();
 
-    /// Слот для обновления панели датчиков
-    void updateSensorsScreen();
+    /// Слот для обновления дисплея датчиков
+    void updateSensorsDisplay();
 
-    /// Слот для обновления панели устройств
-    void updateDevicesScreen();
+    /// Слот для обновления дисплея устройств
+    void updateDevicesDisplay();
 
-    /// Слот для обновления панели заряда батареи
-    void updateBatteryStatusScreen();
+    /// Слот для обновления дисплея заряда батареи
+    void updateBatteryStatusDisplay();
 
-    /// Слот для обновления панели посылки со станка
-    void updateMachineToolStatusScreen();
+    /// Слот для обновления дисплея посылки со станка
+    void updateMachineToolStatusDisplay();
 
     /// Слот для обновления настроек
     void updateSettingsBoards();
