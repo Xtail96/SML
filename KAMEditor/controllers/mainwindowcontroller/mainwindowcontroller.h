@@ -33,6 +33,10 @@ public:
     QStringList getSensorsParametrsNames();
     QList<QStringList> getSensorsSettings();
 
+    QStringList getDevicesNames();
+    QStringList getDevicesParametrsNames();
+    QList<QStringList> getDevicesSettings();
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться

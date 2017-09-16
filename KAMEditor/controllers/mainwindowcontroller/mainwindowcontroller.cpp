@@ -40,6 +40,21 @@ QList<QStringList> MainWindowController::getSensorsSettings()
     return mainBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
 }
 
+QStringList MainWindowController::getDevicesNames()
+{
+    return mainBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
+}
+
+QStringList MainWindowController::getDevicesParametrsNames()
+{
+    return mainBridge->devicesParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getDevicesSettings()
+{
+    return mainBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

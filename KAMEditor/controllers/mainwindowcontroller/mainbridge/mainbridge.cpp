@@ -48,3 +48,44 @@ QList<QStringList> MainBridge::sensorsSettings(std::vector<std::shared_ptr<Senso
     }
     return sensorsSettings;
 }
+
+QStringList MainBridge::devicesNames(std::vector<std::shared_ptr<Device> > devices)
+{
+    QStringList names;
+    for(auto device : devices)
+    {
+        names.push_back(QString::fromStdString(device->getName()));
+    }
+    return names;
+}
+
+QStringList MainBridge::devicesParametrsNames()
+{
+    QStringList parametrsNames =
+    {
+        "Имя платы",
+        "Номер порта",
+        "Номер выхода",
+        "Активное состояние",
+        "Маска",
+    };
+    return parametrsNames;
+}
+
+QList<QStringList> MainBridge::devicesSettings(std::vector<std::shared_ptr<Device> > devices)
+{
+    QList<QStringList> devicesSettings;
+    for(auto device : devices)
+    {
+        QStringList deviceSettings =
+        {
+            QString::fromStdString(device->getBoardName()),
+            QString::number(device->getPortNumber()),
+            QString::number(device->getOutputNumber()),
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+    return devicesSettings;
+}

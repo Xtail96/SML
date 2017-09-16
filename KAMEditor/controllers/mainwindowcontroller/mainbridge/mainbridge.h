@@ -16,6 +16,10 @@ public:
     QStringList sensorsNames(std::vector< std::shared_ptr<Sensor> > sensors);
     QStringList sensorsParametrsNames();
     QList<QStringList> sensorsSettings(std::vector< std::shared_ptr<Sensor> > sensors);
+
+    QStringList devicesNames(std::vector< std::shared_ptr<Device> > devices);
+    QStringList devicesParametrsNames();
+    QList<QStringList> devicesSettings(std::vector< std::shared_ptr<Device> > devices);
 private:
 };
 
