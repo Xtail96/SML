@@ -169,20 +169,20 @@ void MainWindow::updateAxisSettingsField()
     ui->axisSettingsTableWidget->setRowCount(axisesParametrsNames.size());
     ui->axisSettingsTableWidget->setVerticalHeaderLabels(axisesParametrsNames);
 
-    for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
     {
         ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    for(int i = 0; i < ui->axisSettingsTableWidget->verticalHeader()->count(); i++)
+    for(int i = 0; i < ui->axisSettingsTableWidget->rowCount(); i++)
     {
         ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    for(int i = 0; i < ui->axisSettingsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
     {
         ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->axisSettingsTableWidget->verticalHeader()->count(); j++)
+        for(int j = 0; j < ui->axisSettingsTableWidget->rowCount(); j++)
         {
             ui->axisSettingsTableWidget->setItem(j, i, new QTableWidgetItem(axisesSettings[i][j]));
         }
@@ -201,14 +201,14 @@ void MainWindow::updateSensorsSettingsField()
     ui->sensorsSettingsTableWidget->setColumnCount(sensorsParametrsNames.size());
     ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(sensorsParametrsNames);
 
-    for(int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->sensorsSettingsTableWidget->columnCount(); i++)
     {
         ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    for (int i = 0; i < ui->sensorsSettingsTableWidget->verticalHeader()->count(); i++)
+    for (int i = 0; i < ui->sensorsSettingsTableWidget->rowCount(); i++)
     {
-        for(int j = 0; j < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); j++)
+        for(int j = 0; j < ui->sensorsSettingsTableWidget->columnCount(); j++)
         {
             ui->sensorsSettingsTableWidget->setItem(i, j, new QTableWidgetItem(sensorsSettings[i][j]));
         }
@@ -227,14 +227,14 @@ void MainWindow::updateDevicesSettingsField()
     ui->devicesSettingsTableWidget->setColumnCount(devicesParametrsNames.size());
     ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(devicesParametrsNames);
 
-    for(int i = 0; i < ui->devicesSettingsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->devicesSettingsTableWidget->columnCount(); i++)
     {
         ui->devicesSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
 
-    for (int i = 0; i < ui->devicesSettingsTableWidget->verticalHeader()->count(); i++)
+    for (int i = 0; i < ui->devicesSettingsTableWidget->rowCount(); i++)
     {
-        for(int j = 0; j < ui->devicesSettingsTableWidget->horizontalHeader()->count(); j++)
+        for(int j = 0; j < ui->devicesSettingsTableWidget->columnCount(); j++)
         {
             ui->devicesSettingsTableWidget->setItem(i, j, new QTableWidgetItem(devicesSettings[i][j]));
         }
