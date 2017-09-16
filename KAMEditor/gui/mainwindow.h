@@ -75,6 +75,8 @@
 /// Подключение файла с библиотечными зависимостями
 #include "dependencies.h"
 
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -86,10 +88,17 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+signals:
+    /// Виджеты настроены
+    void widgetsIsSetUp();
 
 
 private:
     Ui::MainWindow *ui;
+
+    /// Контроллер главного окна
+    MainWindowController* mainWindowController;
+    void setupMainWindowController();
 
     /// Таймер для обновления панелей
     QTimer *timer;
@@ -99,6 +108,9 @@ private:
 
     /// Подсветки синтаксиса в редакторе G-кодов
     GCodesSyntaxHighlighter* hightlighter;
+
+    /// Метод для настройки таблиц настроек
+    void setupSettingsWidgets();
 
     /// Методы для заполнения таблиц настроек
     QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
@@ -111,18 +123,6 @@ private:
     void enableMovementButtonsShortcuts();
     void setMovementButtonsShortcutsState(bool state);
     void setMovementButtonsRepeatState(bool state);
-
-    /// Методы для отображения поддержки/отсутсвия связи со станком
-    void showMachineToolConnected();
-    void showMachineToolDisconnected();
-
-    // Перенести в MainWindowController
-    MachineTool* machineTool;
-    void setupMachineTool();
-
-#ifdef Q_OS_WIN
-    UsbXpressDeviceManager* u1Manager;
-#endif
 
 private slots:
     /// Слоты для настройки виджетов
@@ -202,6 +202,9 @@ private slots:
     void commandsUndoSlot();
     void deleteSelectedCommands();
 
+    /// Слоты для отображения поддержки/отсутсвия связи со станком
+    void showMachineToolConnected();
+    void showMachineToolDisconnected();
 
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();

@@ -54,6 +54,8 @@ signals:
     void u1IsDisconnected();
 
 public slots:
+    void loadMachineToolSettings();
+    void connectWithU1();
 };
 
 #endif // MAINWINDOWCONTROLLER_H

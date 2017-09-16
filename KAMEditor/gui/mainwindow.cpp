@@ -9,41 +9,45 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
-    // настройка станка
-    setupMachineTool();
+    setupMainWindowController();
 
     // настройка виджетов
     setupWidgets();
-
     setupTimer();
 }
 
 MainWindow::~MainWindow()
 {
-    delete timer;
-    delete ui;
-
     // удаляем горячие клавиши
     while (axisesShortcuts.size() > 0)
     {
         delete axisesShortcuts.back();
         axisesShortcuts.pop_back();
     }
+
     delete hightlighter;
-    //delete u1Connector;
+    delete timer;
+    delete mainWindowController;
+    delete ui;
+}
 
-#ifdef Q_OS_WIN
-    delete u1Manager;
-#endif
-    delete machineTool;
+void MainWindow::setupMainWindowController()
+{
+    mainWindowController = new MainWindowController();
+    connect(this, SIGNAL(widgetsIsSetUp()), mainWindowController, SLOT(loadMachineToolSettings()));
+}
 
+void MainWindow::setupSettingsWidgets()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisSettingsField()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesSettingsField()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsSettingsField()));
 }
 
 void MainWindow::setupWidgets()
 {
     // задаем горячие клавиши
     setupAxisesShortcuts();
-
     // проводим настройку необходимых виджетов
     setupStatusBar();
     setupTreeWidget();
@@ -53,6 +57,10 @@ void MainWindow::setupWidgets()
     setupPointsPushButtons();
     setupEditorFileActionsPushButtons();
     setupCoordinatesPanel();
+
+    setupSettingsWidgets();
+
+    emit widgetsIsSetUp();
 }
 
 void MainWindow::setupTreeWidget()
@@ -75,6 +83,10 @@ void MainWindow::setupStatusBar()
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
+
+    // Подключение слотов для обработки сигналов контроллера
+    connect(mainWindowController, SIGNAL(u1Connected()), this, SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
 }
 
 void MainWindow::setupGCodesSyntaxHighlighter()
@@ -94,7 +106,7 @@ void MainWindow::setupEdgesControl()
 
 void MainWindow::setupPointsTableWidgets()
 {
-    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
+    /*std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     int axisesCount = axises.size();
     QStringList axisesLabels;
 
@@ -125,77 +137,16 @@ void MainWindow::setupPointsTableWidgets()
 
     connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    */
 }
 
 void MainWindow::setupPointsPushButtons()
 {
-    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    /*connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
     connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
     connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));*/
 
-}
-
-void MainWindow::setupMachineTool()
-{
-    SettingsManager settingsManager;
-    QString machineToolInformationGroupName = "MachineToolInformation";
-
-    try
-    {
-        machineTool = new MachineTool(
-                    settingsManager.get(machineToolInformationGroupName, "VendorId").toUInt(),
-                    settingsManager.get(machineToolInformationGroupName, "ProductId").toUInt(),
-                    settingsManager.get(machineToolInformationGroupName, "Name").toString().toStdString(),
-                    settingsManager.get(machineToolInformationGroupName, "AxisCount").toUInt()
-                    );
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации станка!") + QString(e.what()) + QString("; Приложение будет закрыто.")).exec();
-        on_exit_action_triggered();
-    }
-
-    updateSettingsFields();
-    updateSensorsPanel();
-    updateDevicesPanel();
-
-
-    unsigned int velocity = machineTool->getVelocity();
-    ui->feedrateScrollBar->setValue(velocity);
-
-    unsigned int spindelRotations = machineTool->getSpindelRotations();
-    ui->rotationsScrollBar->setValue(spindelRotations);
-
-#ifdef Q_OS_WIN
-    try
-    {
-        u1Manager = new UsbXpressDeviceManager(machineTool->getName());
-        showMachineToolConnected();
-    }
-    catch(std::runtime_error e)
-    {
-        u1Manager = nullptr;
-        QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        showMachineToolDisconnected();
-    }
-#endif
-
-    QString machineToolId = "Vendor Id = " + QString::number(machineTool->getVendorId()) + "; Product Id = "+ QString::number(machineTool->getProductId());
-    ui->machineToolsVIdPIdLineEdit->setText(machineToolId);
-    ui->machineToolsComboBox->addItem(QString::fromStdString(machineTool->getName()));
-
-    /*u1Connector = new UsbDevicesManager(machineTool);
-    if(u1Connector->getU1() != NULL)
-    {
-        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-        ui->statusBar->showMessage("Machine Tool is connected");
-    }
-    else
-    {
-        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-        ui->statusBar->showMessage("Machine Tool is disconected");
-    }*/
 }
 
 void MainWindow::updateSettingsFields()
@@ -207,7 +158,7 @@ void MainWindow::updateSettingsFields()
 
 void MainWindow::updateAxisSettingsField()
 {
-    ui->axisSettingsTableWidget->clear();
+    /*ui->axisSettingsTableWidget->clear();
 
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     int axisCount = axises.size();
@@ -250,7 +201,7 @@ void MainWindow::updateAxisSettingsField()
     for(int i = 0; i < ui->axisSettingsTableWidget->verticalHeader()->count(); i++)
     {
         ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
+    }*/
 }
 
 QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex)
@@ -291,7 +242,8 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
 
 void MainWindow::updateSensorsSettingsField()
 {
-    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
+    qDebug() << "Machine Tool settings is loaded";
+    /*std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
     int sensorsCount = sensors.size();
     QStringList sensorsLabels;
     for(auto sensor : sensors)
@@ -320,7 +272,7 @@ void MainWindow::updateSensorsSettingsField()
             QTableWidgetItem *item = fillSensorsSettingsTable(sensors, i, j);
             ui->sensorsSettingsTableWidget->setItem(j, i, item);
         }
-    }
+    }*/
 }
 
 QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex)
@@ -348,7 +300,7 @@ QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::s
 
 void MainWindow::updateDevicesSettingsField()
 {
-    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
+    /*std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
     int devicesCount = devices.size();
     QStringList devicesLabels;
     for(auto device : devices)
@@ -379,7 +331,7 @@ void MainWindow::updateDevicesSettingsField()
             QTableWidgetItem *item = fillDevicesSettingsTable(devices, i, j);
             ui->devicesSettingsTableWidget->setItem(j, i, item);
         }
-    }
+    }*/
 }
 
 QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex)
@@ -410,7 +362,7 @@ QTableWidgetItem* MainWindow::fillDevicesSettingsTable(const std::vector<std::sh
 
 void MainWindow::setupCoordinatesPanel()
 {
-    QStringList axisesLabels;
+    /*QStringList axisesLabels;
     std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
     for(auto axis : axises)
     {
@@ -423,7 +375,7 @@ void MainWindow::setupCoordinatesPanel()
     ui->baseCoordinatesListWidget->addItems(axisesLabels);
 
     ui->parkCoordinatesListWidget->clear();
-    ui->parkCoordinatesListWidget->addItems(axisesLabels);
+    ui->parkCoordinatesListWidget->addItems(axisesLabels);*/
 }
 
 void MainWindow::setupTimer()
@@ -436,7 +388,7 @@ void MainWindow::setupTimer()
 
 void MainWindow::updateSensorsPanel()
 {
-    ui->sensorsTableWidget->clear();
+    /*ui->sensorsTableWidget->clear();
     std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
     int sensorsCount = sensors.size();
     QStringList sensorsLabels;
@@ -465,12 +417,12 @@ void MainWindow::updateSensorsPanel()
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
         ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
-    }
+    }*/
 }
 
 void MainWindow::updateDevicesPanel()
 {
-    ui->devicesTableWidget->clear();
+    /*ui->devicesTableWidget->clear();
     std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
     ui->devicesTableWidget->setColumnCount(1);
 
@@ -499,7 +451,7 @@ void MainWindow::updateDevicesPanel()
     {
         ui->devicesTableWidget->setItem(i, 0, items[i]);
     }
-    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);*/
 }
 
 void MainWindow::setupAxisesShortcuts()
@@ -553,7 +505,7 @@ void MainWindow::update()
 
 void MainWindow::deleteSelectedCommands()
 {
-    if(ui->editorTab->isVisible())
+    /*if(ui->editorTab->isVisible())
     {
         QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
         if(selectedCommandsItems.size() > 0)
@@ -578,7 +530,7 @@ void MainWindow::deleteSelectedCommands()
                 QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
             }
         }
-    }
+    }*/
 }
 
 void MainWindow::updateCoordinatesPanel()
@@ -607,7 +559,7 @@ void MainWindow::updateCoordinatesPanel()
 
 void MainWindow::updatePointsEditorTableWidgets()
 {
-    PointsManager pointsManager = *(machineTool->getPointsManager());
+    /*PointsManager pointsManager = *(machineTool->getPointsManager());
     unsigned int pointsCount = pointsManager.pointCount();
     std::vector<QTableWidget*> tables = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     // проходим по каждой таблице
@@ -639,12 +591,12 @@ void MainWindow::updatePointsEditorTableWidgets()
                 (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::fromStdString(argument) ));
             }
         }
-    }
+    }*/
 }
 
 void MainWindow::updateSMLCommandsTreeWidget()
 {
-    ui->smlEditorTreeWidget->clear();
+    /*ui->smlEditorTreeWidget->clear();
     unsigned int commandsCount = machineTool->getCommandsManager()->commandsCount();
     QList<QTreeWidgetItem*> qSmlCommands;
 
@@ -671,7 +623,7 @@ void MainWindow::updateSMLCommandsTreeWidget()
     for(int i = 0; i < ui->smlEditorTreeWidget->columnCount() - 1; i++)
     {
         ui->smlEditorTreeWidget->resizeColumnToContents(i);
-    }
+    }*/
 }
 
 void MainWindow::updateBatteryStatusPanel()
@@ -697,6 +649,7 @@ void MainWindow::updateBaseStatus()
 
 void MainWindow::updateMachineToolStatusPanel()
 {
+/*
 #ifdef Q_OS_WIN
     ui->recievedDataTextEdit->clear();
     try
@@ -722,6 +675,7 @@ void MainWindow::updateMachineToolStatusPanel()
         showMachineToolDisconnected();
     }
 #endif
+*/
 }
 
 void MainWindow::showMachineToolConnected()
@@ -931,14 +885,14 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    machineTool->setVelocity(value);
-    ui->feedrateLcdNumber->display(QString::number(machineTool->getVelocity()));
+    //machineTool->setVelocity(value);
+    //ui->feedrateLcdNumber->display(QString::number(machineTool->getVelocity()));
 }
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
-    machineTool->setSpindelRotations(value);
-    ui->rotationsLcdNumber->display(QString::number(machineTool->getSpindelRotations()));
+    //machineTool->setSpindelRotations(value);
+    //ui->rotationsLcdNumber->display(QString::number(machineTool->getSpindelRotations()));
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -963,14 +917,14 @@ void MainWindow::on_zeroPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    AddPointDialog* addPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this);
+    /*AddPointDialog* addPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this);
     addPoint->exec();
-    updatePointsEditorTableWidgets();
+    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    QList<QTableWidgetItem*> selected;
+    /*QList<QTableWidgetItem*> selected;
     std::set<int> rows;
     if(ui->adjustmentTab->isVisible())
     {
@@ -999,18 +953,18 @@ void MainWindow::on_pointDeletePushButton_clicked()
         std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](*i);
         machineTool->getPointsManager()->deletePoint(p);
     }
-    updatePointsEditorTableWidgets();
+    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
-    updatePointsEditorTableWidgets();
+    /*ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
+    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    QItemSelectionModel *select;
+    /*QItemSelectionModel *select;
     if(ui->smlEditorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -1039,12 +993,12 @@ void MainWindow::on_pointEditPushButton_clicked()
     else
     {
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }
+    }*/
 }
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    int selectedPointNumber = -1;
+    /*int selectedPointNumber = -1;
     if(ui->adjustmentTab->isVisible())
     {
         selectedPointNumber = ui->pointsTableWidget->currentRow();
@@ -1070,7 +1024,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         }
     }
-    updatePointsEditorTableWidgets();
+    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::updateEdgesControlStatus()
@@ -1155,7 +1109,7 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
 
 void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 {
-    std::string deviceName = index.data().toString().toStdString();
+    /*std::string deviceName = index.data().toString().toStdString();
     try
     {
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
@@ -1183,12 +1137,12 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
 {
-    QString commandName = item->text();
+    /*QString commandName = item->text();
     int commandNumber = CommandsIds.getId(commandName.toStdString());
 
     size_t currentCommandNumber = machineTool->getCommandsManager()->commandsCount();
@@ -1225,18 +1179,18 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
     }
-    updateSMLCommandsTreeWidget();
+    updateSMLCommandsTreeWidget();*/
 }
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    machineTool->getCommandsInterpreter()->updateProgram();
-    ProgramVisualizeWindow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();
+    /*machineTool->getCommandsInterpreter()->updateProgram();
+    ProgramVisualizeWindow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();*/
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
-    if(column != 1)
+    /*if(column != 1)
     {
         column = 1;
     }
@@ -1270,22 +1224,22 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;
     }
-    updateSMLCommandsTreeWidget();
+    updateSMLCommandsTreeWidget();*/
 }
 
 void MainWindow::on_kabriolWidgetPushButton_clicked()
 {
-    KabriolWindow(this).exec();
+    //KabriolWindow(this).exec();
 }
 
 void MainWindow::on_toolLengthSensorPushButton_clicked()
 {
-    ToolLengthSensorWindow(this).exec();
+    //ToolLengthSensorWindow(this).exec();
 }
 
 void MainWindow::on_lubricationSystemPushButton_clicked()
 {
-    LubricationSystemWindow(machineTool->getDevicesManager(), this).exec();
+    //LubricationSystemWindow(machineTool->getDevicesManager(), this).exec();
 }
 
 void MainWindow::commandsCopySlot()
