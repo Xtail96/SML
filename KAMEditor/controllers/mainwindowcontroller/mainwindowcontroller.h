@@ -42,6 +42,9 @@ public:
     QStringList getAxisesParametrsNames();
     QList<QStringList> getAxisesSettings();
 
+
+    unsigned int getVelocity();
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться
@@ -74,6 +77,7 @@ public slots:
     void connectWithU1();
 
     void switchDevice(QString qDeviceName);
+    void updateVelocity(int value);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

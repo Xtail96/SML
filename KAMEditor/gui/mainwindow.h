@@ -145,6 +145,9 @@ private slots:
     void setupPointsTableWidgets();
     void setupPointsPushButtons();
 
+    /// Слоты для настройки панели скорости
+    void setupVelocityPanel();
+
     /// Слоты для настройки таймера обновления панелей
     void setupTimer();
 
@@ -186,6 +189,9 @@ private slots:
 
     /// Слот для обновления статуса баировки станка
     void updateBaseStatus();
+
+    /// Слот для обновления скорости
+    void updateVelocity();
 
     // to do исправить слот
     void updateEdgesControlStatus();

@@ -152,6 +152,11 @@ void MainWindow::setupPointsPushButtons()
 
 }
 
+void MainWindow::setupVelocityPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocity()));
+}
+
 void MainWindow::updateSettingsFields()
 {
     updateAxisSettingsField();
@@ -511,6 +516,13 @@ void MainWindow::updateBaseStatus()
 
 }
 
+void MainWindow::updateVelocity()
+{
+    int velocity = mainWindowController->getVelocity();
+    ui->feedrateLcdNumber->display(QString::number(velocity));
+    ui->feedrateScrollBar->setValue(velocity);
+}
+
 void MainWindow::updateMachineToolStatusPanel()
 {
 /*
@@ -749,8 +761,8 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    //machineTool->setVelocity(value);
-    //ui->feedrateLcdNumber->display(QString::number(machineTool->getVelocity()));
+    mainWindowController->updateVelocity(value);
+    updateVelocity();
 }
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)

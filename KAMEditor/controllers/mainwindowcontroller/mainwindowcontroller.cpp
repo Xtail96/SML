@@ -75,6 +75,11 @@ QList<QStringList> MainWindowController::getAxisesSettings()
     return mainBridge->axisesSettings(machineTool->getMovementController()->getAxises());
 }
 
+unsigned int MainWindowController::getVelocity()
+{
+    return machineTool->getVelocity();
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;
@@ -142,5 +147,17 @@ void MainWindowController::switchDevice(QString qDeviceName)
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindowController::updateVelocity(int value)
+{
+    if(value > 0)
+    {
+        machineTool->setVelocity(value);
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицатльной").exec();
     }
 }
