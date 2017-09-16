@@ -1,12 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QDebug>
-
 #include <set>
 #include <tuple>
 #include <vector>
-#include <deque>
 
 #include <QMainWindow>
 #include <QTimer>
@@ -20,17 +17,20 @@
 #include <QString>
 #include <QTableWidgetItem>
 #include <QListWidget>
+#include <QDebug>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
 
+/// Подключение станка
 #include "models/machinetool/machinetool.h"
-#include "models/machinetool/pointsmanager/pointsmanager.h"
+
+/// Подключение диалогов редактора точек
 #include "points/addpointdialog.h"
 #include "points/toselectionpointdialog.h"
-#include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
+/// Подключение диалогов команд
 #include "commands/commanddialog.h"
 #include "commands/linedialog.h"
 #include "commands/ttlinedialog.h"
@@ -53,25 +53,26 @@
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
+
+/// Подключение окна визуализации УП
 #include "programvisualizewindow.h"
 
-#include "models/machinetool/commandsmanager/commands/commands.h"
-
+/// Подключение подсветки синтаксиса G-кодов
 #include "gcodessyntaxhighlighter.h"
+
+/// Подключение менеджера настроек
 #include "models/machinetool/settingsmanager/settingsmanager.h"
 
-#include "models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h"
-#include "models/controllerconnector/debugmodule/debugmodule.h"
+/// Подключение классов для работы с устройствами по usb
 #include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
-
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
-#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h"
-#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h"
 
+/// Подключение диалогов опций
 #include "gui/options/kabriolwindow.h"
 #include "gui/options/toollengthsensorwindow.h"
 #include "gui/options/lubricationsystemwindow.h"
 
+/// Подключение файла с библиотечными зависимостями
 #include "dependencies.h"
 
 namespace Ui {
@@ -99,34 +100,29 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     GCodesSyntaxHighlighter* hightlighter;
 
-    void setupMachineTool();
-
-    /// Методя для заполнения таблиц настроек
+    /// Методы для заполнения таблиц настроек
     QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
     QTableWidgetItem* fillDevicesSettingsTable(const std::vector< std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex);
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
 
+    /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();
-
     void setMovementButtonsShortcutsState(bool state);
     void setMovementButtonsRepeatState(bool state);
 
+    /// Методы для отображения поддержки/отсутсвия связи со станком
     void showMachineToolConnected();
     void showMachineToolDisconnected();
 
-    void setSelectedCommandVectorNumber(unsigned int& current_row);
-
-
+    // Перенести в MainWindowController
     MachineTool* machineTool;
-    //UsbDevicesManager* u1Connector;
+    void setupMachineTool();
 
 #ifdef Q_OS_WIN
     UsbXpressDeviceManager* u1Manager;
 #endif
-
-protected:
 
 private slots:
     /// Слоты для настройки виджетов
