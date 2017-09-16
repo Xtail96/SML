@@ -476,7 +476,6 @@ void MainWindow::updateSensorsField()
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
         ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
-        ui->sensorsTableWidget->setRowHeight(i, 25);
     }
 }
 
