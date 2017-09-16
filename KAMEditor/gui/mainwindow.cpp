@@ -24,16 +24,10 @@ MainWindow::~MainWindow()
     delete ui;
 
     // удаляем горячие клавиши
-    while (shortcuts.size() > 0)
+    while (axisesShortcuts.size() > 0)
     {
-        delete shortcuts.back();
-        shortcuts.pop_back();
-    }
-
-    while(editorShortcuts.size() > 0)
-    {
-        delete editorShortcuts.back();
-        editorShortcuts.pop_back();
+        delete axisesShortcuts.back();
+        axisesShortcuts.pop_back();
     }
     delete hightlighter;
     //delete u1Connector;
@@ -534,7 +528,7 @@ void MainWindow::setupAxisesShortcuts()
         QShortcut* shortcut = new QShortcut(QKeySequence(shortcutKey), shortcutButton);
         connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
 
-        shortcuts.push_back(shortcut);
+        axisesShortcuts.push_back(shortcut);
     }
 }
 
@@ -754,7 +748,7 @@ void MainWindow::enableMovementButtonsShortcuts()
 
 void MainWindow::setMovementButtonsShortcutsState(bool state)
 {
-    for (auto i = shortcuts.begin(); i != shortcuts.end(); i++)
+    for (auto i = axisesShortcuts.begin(); i != axisesShortcuts.end(); i++)
         (*i)->setAutoRepeat(state);
 }
 

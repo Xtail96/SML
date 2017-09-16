@@ -89,11 +89,14 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    /// Таймер для обновления панелей
     QTimer *timer;
 
-    std::vector<QShortcut*> shortcuts;
-    std::vector<QShortcut*> editorShortcuts;
+    /// Горячие клавиши кнопок для перемещения по осям станка
+    std::vector<QShortcut*> axisesShortcuts;
 
+    /// Подсветки синтаксиса в редакторе G-кодов
     GCodesSyntaxHighlighter* hightlighter;
 
     void setupMachineTool();
