@@ -163,8 +163,8 @@ void MainWindow::setupMachineTool()
     }
 
     updateSettingsFields();
-    updateSensorsField();
-    updateDevicesField();
+    updateSensorsPanel();
+    updateDevicesPanel();
 
 
     unsigned int velocity = machineTool->getVelocity();
@@ -318,7 +318,6 @@ void MainWindow::updateSensorsSettingsField()
     ui->sensorsSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
     ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
 
-    // растянуть таблицу с координатами
     for (int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
@@ -441,7 +440,7 @@ void MainWindow::setupTimer()
     timer->start();
 }
 
-void MainWindow::updateSensorsField()
+void MainWindow::updateSensorsPanel()
 {
     ui->sensorsTableWidget->clear();
     std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
@@ -475,7 +474,7 @@ void MainWindow::updateSensorsField()
     }
 }
 
-void MainWindow::updateDevicesField()
+void MainWindow::updateDevicesPanel()
 {
     ui->devicesTableWidget->clear();
     std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
@@ -546,7 +545,7 @@ void MainWindow::setupEditorFileActionsPushButtons()
 
 void MainWindow::update()
 {
-    updateBatteryStatus();
+    updateBatteryStatusPanel();
 #ifdef Q_OS_WIN
     if(u1Manager != nullptr)
     {
@@ -578,7 +577,7 @@ void MainWindow::deleteSelectedCommands()
                 {
                     machineTool->getCommandsManager()->deleteCommand(commandIndex);
                 }
-                updateCommands();
+                updateSMLCommandsTreeWidget();
             }
             catch(std::out_of_range e)
             {
@@ -588,7 +587,7 @@ void MainWindow::deleteSelectedCommands()
     }
 }
 
-void MainWindow::updateCoordinates()
+void MainWindow::updateCoordinatesPanel()
 {
     /*MachineTool &i = MachineTool::Instance();
 
@@ -612,7 +611,7 @@ void MainWindow::updateCoordinates()
     }*/
 }
 
-void MainWindow::updatePoints()
+void MainWindow::updatePointsEditorTableWidgets()
 {
     PointsManager pointsManager = *(machineTool->getPointsManager());
     unsigned int pointsCount = pointsManager.pointCount();
@@ -649,7 +648,7 @@ void MainWindow::updatePoints()
     }
 }
 
-void MainWindow::updateCommands()
+void MainWindow::updateSMLCommandsTreeWidget()
 {
     ui->smlEditorTreeWidget->clear();
     unsigned int commandsCount = machineTool->getCommandsManager()->commandsCount();
@@ -681,7 +680,7 @@ void MainWindow::updateCommands()
     }
 }
 
-void MainWindow::updateBatteryStatus()
+void MainWindow::updateBatteryStatusPanel()
 {
     #ifdef Q_OS_WIN
         SYSTEM_POWER_STATUS status;
@@ -702,7 +701,7 @@ void MainWindow::updateBaseStatus()
 
 }
 
-void MainWindow::updateMachineToolStatus()
+void MainWindow::updateMachineToolStatusPanel()
 {
 #ifdef Q_OS_WIN
     ui->recievedDataTextEdit->clear();
@@ -972,7 +971,7 @@ void MainWindow::on_pointAddPushButton_clicked()
 {
     AddPointDialog* addPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this);
     addPoint->exec();
-    updatePoints();
+    updatePointsEditorTableWidgets();
 }
 
 void MainWindow::on_pointDeletePushButton_clicked()
@@ -1006,13 +1005,13 @@ void MainWindow::on_pointDeletePushButton_clicked()
         std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](*i);
         machineTool->getPointsManager()->deletePoint(p);
     }
-    updatePoints();
+    updatePointsEditorTableWidgets();
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
     ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
-    updatePoints();
+    updatePointsEditorTableWidgets();
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
@@ -1036,7 +1035,7 @@ void MainWindow::on_pointEditPushButton_clicked()
             AddPointDialog* editPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), machineTool->getPointsManager()->operator [](current_row), current_row, this);
             editPoint->exec();
             delete editPoint;
-            updatePoints();
+            updatePointsEditorTableWidgets();
         }
         catch(std::out_of_range e)
         {
@@ -1077,7 +1076,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         }
     }
-    updatePoints();
+    updatePointsEditorTableWidgets();
 }
 
 void MainWindow::updateEdgesControlStatus()
@@ -1185,7 +1184,7 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
         }
 #endif
         device.setCurrentState(!device.getCurrentState());
-        updateDevicesField();
+        updateDevicesPanel();
     }
     catch(std::invalid_argument e)
     {
@@ -1232,7 +1231,7 @@ void MainWindow::on_commandsToolsListWidget_itemClicked(QListWidgetItem *item)
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
     }
-    updateCommands();
+    updateSMLCommandsTreeWidget();
 }
 
 void MainWindow::on_viewPushButton_clicked()
@@ -1277,7 +1276,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;
     }
-    updateCommands();
+    updateSMLCommandsTreeWidget();
 }
 
 void MainWindow::on_kabriolWidgetPushButton_clicked()

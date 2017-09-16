@@ -98,25 +98,11 @@ private:
 
     void setupMachineTool();
 
-    void updateSettingsFields();
-
-    void updateSensorsSettingsField();
-
+    /// Методя для заполнения таблиц настроек
     QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
-
-    void updateDevicesSettingsField();
-
     QTableWidgetItem* fillDevicesSettingsTable(const std::vector< std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex);
-
-    void updateAxisSettingsField();
-
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 
-    void updateSensorsField();
-
-    void updateDevicesField();
-
-    // ok
 
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();
@@ -124,11 +110,6 @@ private:
     void setMovementButtonsShortcutsState(bool state);
     void setMovementButtonsRepeatState(bool state);
 
-    void updateCoordinates();
-    void updateBatteryStatus();
-    void updateKabriolAvaliability();
-
-    void updateMachineToolStatus();
     void showMachineToolConnected();
     void showMachineToolDisconnected();
 
@@ -143,9 +124,6 @@ private:
 #endif
 
 protected:
-    void updatePoints();
-    void updateCommands();
-    void updateBaseStatus();
 
 private slots:
     /// Слоты для настройки виджетов
@@ -177,6 +155,44 @@ private slots:
 
     /// Слоты для обновления панелей
     void update();
+
+    /// Слот для обновления панели координат
+    void updateCoordinatesPanel();
+
+    /// Слот для обновления панели датчиков
+    void updateSensorsPanel();
+
+    /// Слот для обновления панели устройств
+    void updateDevicesPanel();
+
+    /// Слот для обновления панели заряда батареи
+    void updateBatteryStatusPanel();
+
+    /// Слот для обновления панели посылки со станка
+    void updateMachineToolStatusPanel();
+
+    /// Слот для обновления настроек
+    void updateSettingsFields();
+
+    /// Слот для обновления таблицы настроек датчиков
+    void updateSensorsSettingsField();
+
+    /// Слот для обновления таблицы настроек устройств
+    void updateDevicesSettingsField();
+
+    /// Слот для обновления таблицы настроек осей
+    void updateAxisSettingsField();
+
+    /// Слот для обновления таблиц редактора точек
+    void updatePointsEditorTableWidgets();
+
+    /// Слот для обновления дерева SML-команд
+    void updateSMLCommandsTreeWidget();
+
+    /// Слот для обновления статуса баировки станка
+    void updateBaseStatus();
+
+    // to do исправить слот
     void updateEdgesControlStatus();
 
 
