@@ -152,22 +152,22 @@ private slots:
     void setupTimer();
 
     /// Слоты для обновления панелей
-    void updatePanels();
+    void updateScreens();
 
     /// Слот для обновления панели координат
-    void updateCoordinatesPanel();
+    void updateCoordinatesScreen();
 
     /// Слот для обновления панели датчиков
-    void updateSensorsPanel();
+    void updateSensorsScreen();
 
     /// Слот для обновления панели устройств
-    void updateDevicesPanel();
+    void updateDevicesScreen();
 
     /// Слот для обновления панели заряда батареи
-    void updateBatteryStatusPanel();
+    void updateBatteryStatusScreen();
 
     /// Слот для обновления панели посылки со станка
-    void updateMachineToolStatusPanel();
+    void updateMachineToolStatusScreen();
 
     /// Слот для обновления настроек
     void updateSettingsBoards();
@@ -191,7 +191,7 @@ private slots:
     void updateBaseStatus();
 
     /// Слот для обновления скорости
-    void updateVelocity();
+    void updateVelocityPanel();
 
     // to do исправить слот
     void updateEdgesControlStatus();

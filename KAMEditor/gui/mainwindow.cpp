@@ -154,7 +154,7 @@ void MainWindow::setupPointsPushButtons()
 
 void MainWindow::setupVelocityPanel()
 {
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocity()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
 }
 
 void MainWindow::updateSettingsBoards()
@@ -272,10 +272,10 @@ void MainWindow::setupTimer()
     timer->setInterval(100);
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updatePanels()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateScreens()));
 }
 
-void MainWindow::updateSensorsPanel()
+void MainWindow::updateSensorsScreen()
 {
     QStringList sensorsNames = mainWindowController->getSensorsNames();
     QList<QColor> sensorsLeds = mainWindowController->getSensorsLeds();
@@ -294,7 +294,7 @@ void MainWindow::updateSensorsPanel()
     }
 }
 
-void MainWindow::updateDevicesPanel()
+void MainWindow::updateDevicesScreen()
 {
     QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
     QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
@@ -356,11 +356,11 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 
-void MainWindow::updatePanels()
+void MainWindow::updateScreens()
 {
-    updateBatteryStatusPanel();
-    updateSensorsPanel();
-    updateDevicesPanel();
+    updateBatteryStatusScreen();
+    updateSensorsScreen();
+    updateDevicesScreen();
 #ifdef Q_OS_WIN
     if(u1Manager != nullptr)
     {
@@ -402,7 +402,7 @@ void MainWindow::deleteSelectedCommands()
     }*/
 }
 
-void MainWindow::updateCoordinatesPanel()
+void MainWindow::updateCoordinatesScreen()
 {
     /*MachineTool &i = MachineTool::Instance();
 
@@ -495,7 +495,7 @@ void MainWindow::updateSMLCommandsTreeWidget()
     }*/
 }
 
-void MainWindow::updateBatteryStatusPanel()
+void MainWindow::updateBatteryStatusScreen()
 {
     #ifdef Q_OS_WIN
         SYSTEM_POWER_STATUS status;
@@ -516,14 +516,14 @@ void MainWindow::updateBaseStatus()
 
 }
 
-void MainWindow::updateVelocity()
+void MainWindow::updateVelocityPanel()
 {
     int velocity = mainWindowController->getVelocity();
     ui->feedrateLcdNumber->display(QString::number(velocity));
     ui->feedrateScrollBar->setValue(velocity);
 }
 
-void MainWindow::updateMachineToolStatusPanel()
+void MainWindow::updateMachineToolStatusScreen()
 {
 /*
 #ifdef Q_OS_WIN
@@ -762,7 +762,7 @@ void MainWindow::on_movementANegativePushButton_clicked()
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
     mainWindowController->updateVelocity(value);
-    updateVelocity();
+    updateVelocityPanel();
 }
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
