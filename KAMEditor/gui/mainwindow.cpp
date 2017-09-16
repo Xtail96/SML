@@ -280,10 +280,6 @@ void MainWindow::updateSensorsPanel()
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
         ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
-    }
-
-    for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
-    {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setBackground(sensorsLeds[i]);
         ui->sensorsTableWidget->setItem(i, 0, item);
