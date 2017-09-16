@@ -30,6 +30,11 @@ QList<QStringList> MainWindowController::getSensorsSettings()
     return mainBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
 }
 
+QList<QColor> MainWindowController::getSensorsLeds()
+{
+    return mainBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
+}
+
 QStringList MainWindowController::getDevicesNames()
 {
     return mainBridge->devicesNames(machineTool->getDevicesManager()->getDevices());

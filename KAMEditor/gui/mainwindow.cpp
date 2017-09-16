@@ -13,7 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // настройка виджетов
     setupWidgets();
+
     setupTimer();
+
+    emit ready();
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +37,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupMainWindowController()
 {
     mainWindowController = new MainWindowController();
-    connect(this, SIGNAL(widgetsIsSetUp()), mainWindowController, SLOT(loadMachineToolSettings()));
+    connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -59,8 +62,6 @@ void MainWindow::setupWidgets()
     setupCoordinatesPanel();
 
     setupSettingsWidgets();
-
-    emit widgetsIsSetUp();
 }
 
 void MainWindow::setupTreeWidget()
@@ -261,43 +262,32 @@ void MainWindow::setupCoordinatesPanel()
 void MainWindow::setupTimer()
 {
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->setInterval(100);
-    timer->start();
+
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updatePanels()));
 }
 
 void MainWindow::updateSensorsPanel()
 {
-    /*ui->sensorsTableWidget->clear();
-    std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
-    int sensorsCount = sensors.size();
-    QStringList sensorsLabels;
-    for(auto sensor : sensors)
-    {
-        sensorsLabels.push_back(QString::fromStdString(sensor->getName()));
-    }
-    ui->sensorsTableWidget->setRowCount(sensorsCount);
-    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+    QStringList sensorsNames = mainWindowController->getSensorsNames();
+    QList<QColor> sensorsLeds = mainWindowController->getSensorsLeds();
+
+    ui->sensorsTableWidget->setRowCount(sensorsNames.size());
+    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsNames);
     ui->sensorsTableWidget->setColumnCount(1);
 
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
-        bool isEnable = sensors[i]->isActive();
-        QTableWidgetItem *item = new QTableWidgetItem();
-        if(!isEnable)
-        {
-            item->setBackgroundColor(QColor(SmlColors::white()));
-        }
-        else
-        {
-            item->setBackgroundColor(sensors[i]->getColor());
-        }
-        ui->sensorsTableWidget->setItem(i, 0, item);
+        ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
     }
+
     for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
     {
-        ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
-    }*/
+        QTableWidgetItem *item = new QTableWidgetItem();
+        item->setBackground(sensorsLeds[i]);
+        ui->sensorsTableWidget->setItem(i, 0, item);
+    }
 }
 
 void MainWindow::updateDevicesPanel()
@@ -369,9 +359,11 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 
-void MainWindow::update()
+void MainWindow::updatePanels()
 {
     updateBatteryStatusPanel();
+    updateSensorsPanel();
+    updateDevicesPanel();
 #ifdef Q_OS_WIN
     if(u1Manager != nullptr)
     {

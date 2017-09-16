@@ -49,6 +49,21 @@ QList<QStringList> MainBridge::sensorsSettings(std::vector<std::shared_ptr<Senso
     return sensorsSettings;
 }
 
+QList<QColor> MainBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> > sensors)
+{
+    QList<QColor> sensorsLeds;
+    for(auto sensor : sensors)
+    {
+        QColor sensorLed(SmlColors::white());
+        if(sensor->isActive())
+        {
+            sensorLed = sensor->getColor();
+        }
+        sensorsLeds.push_back(sensorLed);
+    }
+    return sensorsLeds;
+}
+
 QStringList MainBridge::devicesNames(std::vector<std::shared_ptr<Device> > devices)
 {
     QStringList names;

@@ -30,6 +30,7 @@ public:
     QStringList getSensorsNames();
     QStringList getSensorsParametrsNames();
     QList<QStringList> getSensorsSettings();
+    QList<QColor> getSensorsLeds();
 
     QStringList getDevicesNames();
     QStringList getDevicesParametrsNames();

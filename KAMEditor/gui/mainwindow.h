@@ -90,7 +90,7 @@ public:
     ~MainWindow();
 signals:
     /// Виджеты настроены
-    void widgetsIsSetUp();
+    void ready();
 
 
 private:
@@ -147,7 +147,7 @@ private slots:
     void setupTimer();
 
     /// Слоты для обновления панелей
-    void update();
+    void updatePanels();
 
     /// Слот для обновления панели координат
     void updateCoordinatesPanel();
