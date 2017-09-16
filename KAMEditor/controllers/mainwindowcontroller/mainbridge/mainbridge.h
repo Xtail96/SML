@@ -1,11 +1,21 @@
 #ifndef MAINBRIDGE_H
 #define MAINBRIDGE_H
 
+#include <QStringList>
+#include <QTableWidgetItem>
+
+#include "models/structs.h"
+#include "models/machinetool/machinetool.h"
+
 class MainBridge
 {
 public:
     MainBridge();
     ~MainBridge();
+
+    QStringList sensorsNames(std::vector< std::shared_ptr<Sensor> > sensors);
+    QStringList sensorsParametrsNames();
+    QList<QStringList> sensorsSettings(std::vector< std::shared_ptr<Sensor> > sensors);
 private:
 };
 

@@ -26,6 +26,13 @@ public:
       * \brief Деструктор класса Контроллер главного окна
       */
     ~MainWindowController();
+    MainBridge *getMainBridge() const;
+    void setMainBridge(MainBridge *value);
+
+    QStringList getSensorsNames();
+    QStringList getSensorsParametrsNames();
+    QList<QStringList> getSensorsSettings();
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться

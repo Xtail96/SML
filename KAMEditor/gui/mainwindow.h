@@ -113,7 +113,6 @@ private:
     void setupSettingsWidgets();
 
     /// Методы для заполнения таблиц настроек
-    QTableWidgetItem* fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex);
     QTableWidgetItem* fillDevicesSettingsTable(const std::vector< std::shared_ptr<Device> > &devices, int parametrIndex, int deviceIndex);
     QTableWidgetItem* fillAxisesSettingsTable(const std::vector<std::shared_ptr<Axis> > &axises, int axisIndex, int parametrIndex);
 

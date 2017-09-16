@@ -242,60 +242,27 @@ QTableWidgetItem* MainWindow::fillAxisesSettingsTable(const std::vector< std::sh
 
 void MainWindow::updateSensorsSettingsField()
 {
-    qDebug() << "Machine Tool settings is loaded";
-    /*std::vector< std::shared_ptr<Sensor> > sensors = machineTool->getSensorsManager()->getSensors();
-    int sensorsCount = sensors.size();
-    QStringList sensorsLabels;
-    for(auto sensor : sensors)
-    {
-        sensorsLabels.push_back(QString::fromStdString(sensor->getName()));
-    }
-    ui->sensorsSettingsTableWidget->setRowCount(sensorsCount);
-    ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsLabels);
+    QStringList sensorsNames = mainWindowController->getSensorsNames();
+    QStringList sensorsParametrsNames = mainWindowController->getSensorsParametrsNames();
+    QList<QStringList> sensorsSettings = mainWindowController->getSensorsSettings();
 
+    ui->sensorsSettingsTableWidget->setRowCount(sensorsNames.size());
+    ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsNames);
+    ui->sensorsSettingsTableWidget->setColumnCount(sensorsParametrsNames.size());
+    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(sensorsParametrsNames);
 
-    QStringList qHorizontalHeaders =
-    {
-        "Имя платы",
-        "Номер порта",
-        "Номер входа",
-        "Активное состояние",
-    };
-    ui->sensorsSettingsTableWidget->setColumnCount(qHorizontalHeaders.size());
-    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(qHorizontalHeaders);
-
-    for (int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
+    for(int i = 0; i < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); i++)
     {
         ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->sensorsSettingsTableWidget->verticalHeader()->count(); j++)
-        {
-            QTableWidgetItem *item = fillSensorsSettingsTable(sensors, i, j);
-            ui->sensorsSettingsTableWidget->setItem(j, i, item);
-        }
-    }*/
-}
-
-QTableWidgetItem* MainWindow::fillSensorsSettingsTable(const std::vector< std::shared_ptr<Sensor> > &sensors, int parametrIndex, int sensorIndex)
-{
-    std::string text = "Здесь должны быть параметры Датчика";
-    switch (parametrIndex) {
-    case 0:
-        text = sensors[sensorIndex]->getBoardName();
-        break;
-    case 1:
-        text = std::to_string(sensors[sensorIndex]->getPortNumber());
-        break;
-    case 2:
-        text = std::to_string(sensors[sensorIndex]->getInputNumber());
-        break;
-    case 3:
-        text = std::to_string(sensors[sensorIndex]->getActiveState());
-        break;
-    default:
-        text = "Unknown parametr";
-        break;
     }
-    return new QTableWidgetItem(QString::fromStdString(text));
+
+    for (int i = 0; i < ui->sensorsSettingsTableWidget->verticalHeader()->count(); i++)
+    {
+        for(int j = 0; j < ui->sensorsSettingsTableWidget->horizontalHeader()->count(); j++)
+        {
+            ui->sensorsSettingsTableWidget->setItem(i, j, new QTableWidgetItem(sensorsSettings[i][j]));
+        }
+    }
 }
 
 void MainWindow::updateDevicesSettingsField()

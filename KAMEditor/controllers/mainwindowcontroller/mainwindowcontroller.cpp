@@ -15,6 +15,31 @@ MainWindowController::~MainWindowController()
 #endif
 }
 
+MainBridge *MainWindowController::getMainBridge() const
+{
+    return mainBridge;
+}
+
+void MainWindowController::setMainBridge(MainBridge *value)
+{
+    mainBridge = value;
+}
+
+QStringList MainWindowController::getSensorsNames()
+{
+    return mainBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
+}
+
+QStringList MainWindowController::getSensorsParametrsNames()
+{
+    return mainBridge->sensorsParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getSensorsSettings()
+{
+    return mainBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;
