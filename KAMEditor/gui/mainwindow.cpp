@@ -273,6 +273,7 @@ void MainWindow::updateSensorsPanel()
     QStringList sensorsNames = mainWindowController->getSensorsNames();
     QList<QColor> sensorsLeds = mainWindowController->getSensorsLeds();
 
+    ui->sensorsTableWidget->clear();
     ui->sensorsTableWidget->setRowCount(sensorsNames.size());
     ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsNames);
     ui->sensorsTableWidget->setColumnCount(1);
