@@ -50,6 +50,16 @@ QList<QStringList> MainWindowController::getDevicesSettings()
     return mainBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
 }
 
+QStringList MainWindowController::getOnScreenDevicesNames()
+{
+    return mainBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
+}
+
+QList<bool> MainWindowController::getOnScreenDevicesStates()
+{
+    return mainBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
+}
+
 QStringList MainWindowController::getAxisesNames()
 {
     return mainBridge->axisesNames(machineTool->getMovementController()->getAxises());

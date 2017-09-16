@@ -35,6 +35,8 @@ public:
     QStringList getDevicesNames();
     QStringList getDevicesParametrsNames();
     QList<QStringList> getDevicesSettings();
+    QStringList getOnScreenDevicesNames();
+    QList<bool> getOnScreenDevicesStates();
 
     QStringList getAxisesNames();
     QStringList getAxisesParametrsNames();

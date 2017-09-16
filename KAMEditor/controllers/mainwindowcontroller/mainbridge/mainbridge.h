@@ -21,6 +21,8 @@ public:
     QStringList devicesNames(std::vector< std::shared_ptr<Device> > devices);
     QStringList devicesParametrsNames();
     QList<QStringList> devicesSettings(std::vector< std::shared_ptr<Device> > devices);
+    QStringList onScreenDevicesNames(std::vector< std::shared_ptr<Device> > devices);
+    QList<bool> onScreenDevicesStates(std::vector< std::shared_ptr<Device> > devices);
 
     QStringList axisesNames(std::vector< std::shared_ptr<Axis> > axises);
     QStringList axisesParametrsNames();

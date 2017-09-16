@@ -105,6 +105,32 @@ QList<QStringList> MainBridge::devicesSettings(std::vector<std::shared_ptr<Devic
     return devicesSettings;
 }
 
+QStringList MainBridge::onScreenDevicesNames(std::vector<std::shared_ptr<Device> > devices)
+{
+    QStringList names;
+    for(auto device : devices)
+    {
+        if(device->getNeedToDisplay())
+        {
+            names.push_back(QString::fromStdString(device->getName()));
+        }
+    }
+    return names;
+}
+
+QList<bool> MainBridge::onScreenDevicesStates(std::vector<std::shared_ptr<Device> > devices)
+{
+    QList<bool> devicesStates;
+    for(auto device : devices)
+    {
+        if(device->getNeedToDisplay())
+        {
+            devicesStates.push_back(device->isEnable());
+        }
+    }
+    return devicesStates;
+}
+
 QStringList MainBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
 {
     QStringList names;

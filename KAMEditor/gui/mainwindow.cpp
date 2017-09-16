@@ -278,7 +278,7 @@ void MainWindow::updateSensorsPanel()
     ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsNames);
     ui->sensorsTableWidget->setColumnCount(1);
 
-    for(int i = 0; i < ui->sensorsTableWidget->verticalHeader()->count(); i++)
+    for(int i = 0; i < ui->sensorsTableWidget->rowCount(); i++)
     {
         ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
         QTableWidgetItem *item = new QTableWidgetItem();
@@ -289,36 +289,29 @@ void MainWindow::updateSensorsPanel()
 
 void MainWindow::updateDevicesPanel()
 {
-    /*ui->devicesTableWidget->clear();
-    std::vector< std::shared_ptr<Device> > devices = machineTool->getDevicesManager()->getDevices();
-    ui->devicesTableWidget->setColumnCount(1);
+    QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
+    QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
 
-    std::vector<QTableWidgetItem*> items;
-    for(unsigned int i = 0; i < devices.size(); i++)
-    {
-        if(devices[i]->getNeedToDisplay())
-        {
-            QTableWidgetItem* item = new QTableWidgetItem();
-            item->setText(QString::fromStdString(devices[i]->getName()));
-            if(devices[i]->isEnable())
-            {
-                item->setTextColor(QColor(SmlColors::white()));
-                item->setBackgroundColor(QColor(SmlColors::red()));
-            }
-            else
-            {
-                item->setTextColor(QColor(SmlColors::gray()));
-                item->setBackgroundColor(QColor(SmlColors::white()));
-            }
-            items.push_back(item);
-        }
-    }
-    ui->devicesTableWidget->setRowCount(items.size());
+    ui->devicesTableWidget->clear();
+    ui->devicesTableWidget->setRowCount(onScreenDevicesNames.size());
+    ui->devicesTableWidget->setColumnCount(1);
+    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+
     for(int i = 0; i < ui->devicesTableWidget->rowCount(); i++)
     {
-        ui->devicesTableWidget->setItem(i, 0, items[i]);
+        QTableWidgetItem* item = new QTableWidgetItem(onScreenDevicesNames[i]);
+        if(onScreenDevicesStates[i])
+        {
+            item->setTextColor(SmlColors::white());
+            item->setBackgroundColor(SmlColors::red());
+        }
+        else
+        {
+            item->setTextColor(SmlColors::gray());
+            item->setBackgroundColor(SmlColors::white());
+        }
+        ui->devicesTableWidget->setItem(i, 0, item);
     }
-    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);*/
 }
 
 void MainWindow::setupAxisesShortcuts()
