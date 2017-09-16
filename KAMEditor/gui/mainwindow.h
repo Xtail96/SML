@@ -170,16 +170,16 @@ private slots:
     void updateMachineToolStatusPanel();
 
     /// Слот для обновления настроек
-    void updateSettingsFields();
+    void updateSettingsBoards();
 
-    /// Слот для обновления таблицы настроек датчиков
-    void updateSensorsSettingsField();
+    /// Слот для обновления "доски" настроек датчиков
+    void updateSensorsBoard();
 
-    /// Слот для обновления таблицы настроек устройств
-    void updateDevicesSettingsField();
+    /// Слот для обновления "доски" настроек устройств
+    void updateDevicesBoard();
 
-    /// Слот для обновления таблицы настроек осей
-    void updateAxisSettingsField();
+    /// Слот для обновления "доски" настроек осей
+    void updateAxisesBoard();
 
     /// Слот для обновления таблиц редактора точек
     void updatePointsEditorTableWidgets();

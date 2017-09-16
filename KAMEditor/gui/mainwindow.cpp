@@ -44,9 +44,9 @@ void MainWindow::setupMainWindowController()
 
 void MainWindow::setupSettingsWidgets()
 {
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisSettingsField()));
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesSettingsField()));
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsSettingsField()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
 }
 
 void MainWindow::setupWidgets()
@@ -157,14 +157,14 @@ void MainWindow::setupVelocityPanel()
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocity()));
 }
 
-void MainWindow::updateSettingsFields()
+void MainWindow::updateSettingsBoards()
 {
-    updateAxisSettingsField();
-    updateSensorsSettingsField();
-    updateDevicesSettingsField();
+    updateAxisesBoard();
+    updateSensorsBoard();
+    updateDevicesBoard();
 }
 
-void MainWindow::updateAxisSettingsField()
+void MainWindow::updateAxisesBoard()
 {
     QStringList names = mainWindowController->getAxisesNames();
     QStringList axisesParametrsNames = mainWindowController->getAxisesParametrsNames();
@@ -196,7 +196,7 @@ void MainWindow::updateAxisSettingsField()
     }
 }
 
-void MainWindow::updateSensorsSettingsField()
+void MainWindow::updateSensorsBoard()
 {
     QStringList sensorsNames = mainWindowController->getSensorsNames();
     QStringList sensorsParametrsNames = mainWindowController->getSensorsParametrsNames();
@@ -222,7 +222,7 @@ void MainWindow::updateSensorsSettingsField()
     }
 }
 
-void MainWindow::updateDevicesSettingsField()
+void MainWindow::updateDevicesBoard()
 {
     QStringList devicesNames = mainWindowController->getDevicesNames();
     QStringList devicesParametrsNames = mainWindowController->getDevicesParametrsNames();
