@@ -38,7 +38,6 @@ void MainWindow::setupMainWindowController()
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
     connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
 
-    //connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDisplays()));
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
 }
 

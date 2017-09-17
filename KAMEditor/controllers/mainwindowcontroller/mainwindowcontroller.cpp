@@ -16,6 +16,20 @@ MainWindowController::~MainWindowController()
 #endif
 }
 
+void MainWindowController::setupMainBridge()
+{
+    mainBridge = new MainBridge();
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
+}
+
+void MainWindowController::setupTimer()
+{
+    timer = new QTimer(this);
+    timer->setInterval(100);
+    connect(this, SIGNAL(u1IsConnected()), timer, SLOT(start()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateMachineToolState()));
+}
+
 QStringList MainWindowController::getSensorsNames()
 {
     return mainBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
@@ -127,6 +141,9 @@ void MainWindowController::connectWithU1()
         emit u1IsDisconnected();
     }
 #endif
+#ifdef Q_OS_UNIX
+    emit u1IsConnected();
+#endif
 }
 
 void MainWindowController::updateMachineToolState()
@@ -139,8 +156,6 @@ void MainWindowController::updateMachineToolState()
         machineTool->getBuffer().updateBuffer(recieved);
 
         machineTool->getSensorsManager()->updateSensors(machineTool->getBuffer());
-
-        emit u1IsConnected();
     }
     catch(std::runtime_error e)
     {
@@ -151,22 +166,7 @@ void MainWindowController::updateMachineToolState()
 #endif
 #ifdef Q_OS_UNIX
     emit machineToolStateIsChanged();
-    emit u1IsDisconnected();
 #endif
-}
-
-void MainWindowController::setupTimer()
-{
-    timer = new QTimer(this);
-    timer->setInterval(100);
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateMachineToolState()));
-}
-
-void MainWindowController::setupMainBridge()
-{
-    mainBridge = new MainBridge();
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
 }
 
 void MainWindowController::switchDevice(QString qDeviceName)
