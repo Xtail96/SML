@@ -2,6 +2,7 @@
 #define MAINWINDOWCONTROLLER_H
 
 #include <QObject>
+#include <QTimer>
 
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
@@ -65,6 +66,9 @@ protected:
      */
     MainBridge* mainBridge;
 
+    /// Таймер для обновления
+    QTimer *timer;
+
 signals:
     /// Настройки станка загружены
     void machineToolSettingsIsLoaded();
@@ -75,9 +79,23 @@ signals:
     /// Контроллер u1 отключен
     void u1IsDisconnected();
 
+    /// Обновлено состояние станка
+    void updateMachineToolState();
+
 public slots:
+    /// Слот для загрузки насроек станка
     void loadMachineToolSettings();
+
+    /// Слот для подключения к контроллеру U1
     void connectWithU1();
+
+    /// Слот для испускания сигнала об обновлении состояния станка
+    void sendUpdateMachineToolStateSignal();
+
+    /// Слот для настройки таймера обновления дисплеев
+    void setupTimer();
+
+    void setupMainBridge();
 
     void switchDevice(QString qDeviceName);
     void updateVelocity(int value);

@@ -14,8 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // настройка виджетов
     setupWidgets();
 
-    setupTimer();
-
     emit ready();
 }
 
@@ -29,7 +27,6 @@ MainWindow::~MainWindow()
     }
 
     delete hightlighter;
-    delete timer;
     delete mainWindowController;
     delete ui;
 }
@@ -39,6 +36,8 @@ void MainWindow::setupMainWindowController()
     mainWindowController = new MainWindowController();
 
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
+    connect(mainWindowController, SIGNAL(updateMachineToolState()), this, SLOT(updateDisplays()));
+
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
 }
 
@@ -250,15 +249,6 @@ void MainWindow::setupCoordinatesDisplay()
 
     ui->parkCoordinatesListWidget->clear();
     ui->parkCoordinatesListWidget->addItems(axisesLabels);*/
-}
-
-void MainWindow::setupTimer()
-{
-    timer = new QTimer(this);
-    timer->setInterval(100);
-
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateDisplays()));
 }
 
 void MainWindow::updateSensorsDisplay()

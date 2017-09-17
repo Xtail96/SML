@@ -2,12 +2,13 @@
 
 MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
-    mainBridge = new MainBridge();
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
+    setupMainBridge();
+    setupTimer();
 }
 
 MainWindowController::~MainWindowController()
 {
+    delete timer;
     delete mainBridge;
     delete machineTool;
 #ifdef Q_OS_WIN
@@ -126,6 +127,25 @@ void MainWindowController::connectWithU1()
         emit u1IsDisconnected();
     }
 #endif
+}
+
+void MainWindowController::sendUpdateMachineToolStateSignal()
+{
+    emit updateMachineToolState();
+}
+
+void MainWindowController::setupTimer()
+{
+    timer = new QTimer(this);
+    timer->setInterval(100);
+    connect(timer, SIGNAL(timeout()), this, SLOT(sendUpdateMachineToolStateSignal()));
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
+}
+
+void MainWindowController::setupMainBridge()
+{
+    mainBridge = new MainBridge();
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
 }
 
 void MainWindowController::switchDevice(QString qDeviceName)

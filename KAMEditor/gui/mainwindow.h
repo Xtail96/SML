@@ -151,9 +151,6 @@ private slots:
     /// Cлот для настройки панели оборотов шпинделя
     void setupSpindelRotationsPanel();
 
-    /// Слоты для настройки таймера обновления дисплеев
-    void setupTimer();
-
     /// Слоты для обновления дисплеев
     void updateDisplays();
 
