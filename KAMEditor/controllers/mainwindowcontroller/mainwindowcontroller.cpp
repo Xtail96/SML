@@ -129,17 +129,38 @@ void MainWindowController::connectWithU1()
 #endif
 }
 
-void MainWindowController::sendUpdateMachineToolStateSignal()
+void MainWindowController::updateMachineToolState()
 {
-    emit updateMachineToolState();
+
+#ifdef Q_OS_WIN
+    try
+    {
+        byte_array recieved = u1Manager->getU1()->receiveData(16);
+        machineTool->getBuffer().updateBuffer(recieved);
+
+        machineTool->getSensorsManager()->updateSensors(machineTool->getBuffer());
+
+        emit u1IsConnected();
+    }
+    catch(std::runtime_error e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        timer->stop();
+        emit u1IsDisconnected();
+    }
+#endif
+#ifdef Q_OS_UNIX
+    emit machineToolStateIsChanged();
+    emit u1IsDisconnected();
+#endif
 }
 
 void MainWindowController::setupTimer()
 {
     timer = new QTimer(this);
     timer->setInterval(100);
-    connect(timer, SIGNAL(timeout()), this, SLOT(sendUpdateMachineToolStateSignal()));
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), timer, SLOT(start()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateMachineToolState()));
 }
 
 void MainWindowController::setupMainBridge()

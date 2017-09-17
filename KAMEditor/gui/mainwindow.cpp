@@ -36,8 +36,9 @@ void MainWindow::setupMainWindowController()
     mainWindowController = new MainWindowController();
 
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
-    connect(mainWindowController, SIGNAL(updateMachineToolState()), this, SLOT(updateDisplays()));
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
 
+    //connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDisplays()));
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
 }
 
@@ -89,7 +90,7 @@ void MainWindow::setupStatusBar()
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
     // Подключение слотов для обработки сигналов контроллера
-    connect(mainWindowController, SIGNAL(u1Connected()), this, SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(showMachineToolConnected()));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
 }
 

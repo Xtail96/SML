@@ -74,13 +74,13 @@ signals:
     void machineToolSettingsIsLoaded();
 
     /// Контроллер u1 подключен
-    void u1Connected();
+    void u1IsConnected();
 
     /// Контроллер u1 отключен
     void u1IsDisconnected();
 
     /// Обновлено состояние станка
-    void updateMachineToolState();
+    void machineToolStateIsChanged();
 
 public slots:
     /// Слот для загрузки насроек станка
@@ -90,7 +90,7 @@ public slots:
     void connectWithU1();
 
     /// Слот для испускания сигнала об обновлении состояния станка
-    void sendUpdateMachineToolStateSignal();
+    void updateMachineToolState();
 
     /// Слот для настройки таймера обновления дисплеев
     void setupTimer();
