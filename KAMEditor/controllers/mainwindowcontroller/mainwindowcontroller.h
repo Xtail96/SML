@@ -46,6 +46,8 @@ public:
     unsigned int getVelocity();
     unsigned int getSpindelRotations();
 
+    QList<QStringList> getPoints();
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться

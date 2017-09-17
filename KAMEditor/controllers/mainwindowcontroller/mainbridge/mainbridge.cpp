@@ -177,3 +177,33 @@ QList<QStringList> MainBridge::axisesSettings(std::vector<std::shared_ptr<Axis> 
     }
     return axisesSettings;
 }
+
+QList<QStringList> MainBridge::points(PointsManager *pointsManager)
+{
+    QList<QStringList> points;
+    unsigned int pointsCount = pointsManager->pointCount();
+
+    for(unsigned int i = 0; i < pointsCount; i++)
+    {
+        std::shared_ptr<Point> point = pointsManager->operator [](i);
+
+        QStringList coordinates;
+        unsigned int coordinatesCount = point.get()->size();
+        for(unsigned int j = 0; j < coordinatesCount; j++)
+        {
+            QString coordinate;
+            try
+            {
+                coordinate = QString::number(point.get()->operator [](j));
+            }
+            catch(std::out_of_range e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+                break;
+            }
+            coordinates.push_back(coordinate);
+        }
+        points.push_back(coordinates);
+    }
+    return points;
+}

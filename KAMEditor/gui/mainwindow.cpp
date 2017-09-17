@@ -55,10 +55,10 @@ void MainWindow::setupWidgets()
     setupAxisesShortcuts();
     // проводим настройку необходимых виджетов
     setupStatusBar();
-    setupTreeWidget();
+    setupCommandsEditorField();
     setupGCodesSyntaxHighlighter();
     setupEdgesControl();
-    setupPointsTableWidgets();
+    setupPointsEditorFields();
     setupPointsPushButtons();
     setupEditorFileActionsPushButtons();
     setupCoordinatesDisplay();
@@ -68,7 +68,7 @@ void MainWindow::setupWidgets()
     setupSettingsWidgets();
 }
 
-void MainWindow::setupTreeWidget()
+void MainWindow::setupCommandsEditorField()
 {
     QTreeWidget*  editorField = ui->smlEditorTreeWidget;
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
@@ -109,30 +109,8 @@ void MainWindow::setupEdgesControl()
     connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
 }
 
-void MainWindow::setupPointsTableWidgets()
+void MainWindow::setupPointsEditorFields()
 {
-    /*std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
-    int axisesCount = axises.size();
-    QStringList axisesLabels;
-
-    for(auto axis : axises)
-    {
-        axisesLabels.push_back(QString::fromStdString(axis->getName()));
-    }
-
-    ui->pointsTableWidget->setColumnCount(axisesCount);
-    ui->pointsTableWidget_2->setColumnCount(axisesCount);
-
-    ui->pointsTableWidget->setHorizontalHeaderLabels(axisesLabels);
-    ui->pointsTableWidget_2->setHorizontalHeaderLabels(axisesLabels);
-
-    // растянуть таблицу с координатами редактора точек
-    for (int i = 0; i < ui->pointsTableWidget->horizontalHeader()->count(); i++)
-    {
-        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
     // в таблице редактора точек выделяется целиком вся строка
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -140,9 +118,10 @@ void MainWindow::setupPointsTableWidgets()
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
+
     connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-    */
 }
 
 void MainWindow::setupPointsPushButtons()
@@ -433,41 +412,36 @@ void MainWindow::updateCoordinatesDisplay()
     }*/
 }
 
-void MainWindow::updatePointsEditorTableWidgets()
+void MainWindow::updatePointsEditorFields()
 {
-    /*PointsManager pointsManager = *(machineTool->getPointsManager());
-    unsigned int pointsCount = pointsManager.pointCount();
-    std::vector<QTableWidget*> tables = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
-    // проходим по каждой таблице
-    for (auto table = tables.begin(); table != tables.end(); table++)
+    QList<QStringList> points = mainWindowController->getPoints();
+    QList<QTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QStringList axisesLabels = mainWindowController->getAxisesNames();
+    int axisesCount = axisesLabels.size();
+
+    ui->pointsTableWidget->setColumnCount(axisesCount);
+    ui->pointsTableWidget_2->setColumnCount(axisesCount);
+    ui->pointsTableWidget->setHorizontalHeaderLabels(axisesLabels);
+    ui->pointsTableWidget_2->setHorizontalHeaderLabels(axisesLabels);
+
+    for(auto field = fields.begin(); field < fields.end(); field++)
     {
-        // очищаем текущую таблицу
-        (*table)->setRowCount(0);
-
-        // проходим по всем точкам
-        for (unsigned int i = 0; i < pointsCount; i++)
+        (*field)->setRowCount(0);
+        for(int i = 0; i < points.size(); i++)
         {
-            std::shared_ptr<Point> p = pointsManager[i];
-            // добавляем строку в таблицу для текущей точки
-            (*table)->insertRow(i);
-
-            // отображаем координаты текущей точки
-            for (unsigned int coordinate = 0; coordinate < p->size(); coordinate++)
+            for(int j = 0; j < points[i].size(); j++)
             {
-                std::string argument;
-                try
-                {
-                    argument = std::to_string(p.get()->operator [](coordinate));
-                }
-                catch(std::out_of_range e)
-                {
-                    QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-                    break;
-                }
-                (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::fromStdString(argument) ));
+                (*field)->setItem(i, j, new QTableWidgetItem(points[i][j]));
             }
         }
-    }*/
+    }
+
+    // растянуть таблицу с координатами редактора точек
+    for (int i = 0; i < ui->pointsTableWidget->columnCount(); i++)
+    {
+        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
 }
 
 void MainWindow::updateSMLCommandsTreeWidget()

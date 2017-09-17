@@ -85,6 +85,11 @@ unsigned int MainWindowController::getSpindelRotations()
     return machineTool->getSpindelRotations();
 }
 
+QList<QStringList> MainWindowController::getPoints()
+{
+    return mainBridge->points(machineTool->getPointsManager());
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

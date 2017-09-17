@@ -135,14 +135,14 @@ private slots:
     void setupEdgesControl();
 
     /// Слоты для настройки редактора команд
-    void setupTreeWidget();
+    void setupCommandsEditorField();
     void setupGCodesSyntaxHighlighter();
 
     /// Слоты для настройки элементов менеджера файлов
     void setupEditorFileActionsPushButtons();
 
     /// Слоты, для настройки редактора точек
-    void setupPointsTableWidgets();
+    void setupPointsEditorFields();
     void setupPointsPushButtons();
 
     /// Слоты для настройки панели скорости
@@ -185,7 +185,7 @@ private slots:
     void updateAxisesBoard();
 
     /// Слот для обновления таблиц редактора точек
-    void updatePointsEditorTableWidgets();
+    void updatePointsEditorFields();
 
     /// Слот для обновления дерева SML-команд
     void updateSMLCommandsTreeWidget();
