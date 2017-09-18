@@ -229,3 +229,9 @@ void MainWindowController::updateSpindelRotations(int value)
         QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицатльными").exec();
     }
 }
+
+void MainWindowController::addPoint(Point* p)
+{
+    machineTool->getPointsManager()->addPoint(p);
+    emit pointsUpdated();
+}

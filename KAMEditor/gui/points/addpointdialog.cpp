@@ -1,26 +1,17 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, QWidget *parent) :
+AddPointDialog::AddPointDialog(MainWindowController *_controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     isEdit(false),
-    movementsHandler(_movementsHandler),
-    pointsManager(_pointsManager),
-    pointNumber(-1)
+    controller(_controller)
 {
-    initializeFields();
-    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
-    {
-        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
-        {
-            ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
-        }
-    }
+    connect(this, SIGNAL(newPoint(Point*)), controller, SLOT(addPoint(Point*)));
+    setupFields();
 }
 
-AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent) :
+/*AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     isEdit(true),
@@ -41,7 +32,7 @@ AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManage
             ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem(QString::fromStdString(std::to_string(pointForEdit->get(j)))));
         }
     }
-}
+}*/
 
 AddPointDialog::~AddPointDialog()
 {
@@ -80,18 +71,17 @@ void AddPointDialog::on_buttonBox_accepted()
 
     if(!isEdit)
     {
-        pointsManager->addPoint(p);
+        emit newPoint(p);
     }
     else
     {
-        pointsManager->operator [](pointNumber) = std::shared_ptr<Point>(p);
+        //pointsManager->operator [](pointNumber) = std::shared_ptr<Point>(p);
     }
 }
 
-void AddPointDialog::initializeFields()
+void AddPointDialog::setupFields()
 {
     ui->setupUi(this);
-    axises = movementsHandler->getAxises();
     QStringList qColumnsHeaders =
     {
         "Значение"
@@ -99,13 +89,16 @@ void AddPointDialog::initializeFields()
     ui->addPointArgumentsTableWidget->setColumnCount(qColumnsHeaders.size());
     ui->addPointArgumentsTableWidget->setHorizontalHeaderLabels(qColumnsHeaders);
 
-    QStringList qRowHeaders;
-    for(auto axis : axises)
-    {
-        QString header = QString("По оси " + QString::fromStdString(axis->getName()));
-        qRowHeaders.append(header);
-    }
+    QStringList qRowHeaders = controller->getAxisesNames();
     ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
     ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
 
+    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
+    {
+        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+        {
+            ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
+        }
+    }
 }

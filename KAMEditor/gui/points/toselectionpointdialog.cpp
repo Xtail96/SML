@@ -17,7 +17,7 @@ ToSelectionPointDialog::~ToSelectionPointDialog()
 
 void ToSelectionPointDialog::on_buttonBox_accepted()
 {
-    unsigned int pointNumber = ui->toPointNumberLineEdit->text().toUInt() - 1;
+    /*unsigned int pointNumber = ui->toPointNumberLineEdit->text().toUInt() - 1;
     try
     {
         std::shared_ptr<Point> point = pointsManager->operator [](pointNumber);
@@ -26,5 +26,5 @@ void ToSelectionPointDialog::on_buttonBox_accepted()
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }

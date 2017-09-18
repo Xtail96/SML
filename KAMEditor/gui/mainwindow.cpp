@@ -40,6 +40,8 @@ void MainWindow::setupMainWindowController()
 
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
+
+    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorFields()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -407,30 +409,30 @@ void MainWindow::updatePointsEditorFields()
     QList<QStringList> points = mainWindowController->getPoints();
     QList<QTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     QStringList axisesLabels = mainWindowController->getAxisesNames();
-    int axisesCount = axisesLabels.size();
 
-    ui->pointsTableWidget->setColumnCount(axisesCount);
-    ui->pointsTableWidget_2->setColumnCount(axisesCount);
-    ui->pointsTableWidget->setHorizontalHeaderLabels(axisesLabels);
-    ui->pointsTableWidget_2->setHorizontalHeaderLabels(axisesLabels);
-
-    for(auto field = fields.begin(); field < fields.end(); field++)
+    for(auto field : fields)
     {
-        (*field)->setRowCount(0);
+        field->clear();
+        field->setColumnCount(axisesLabels.size());
+        field->setHorizontalHeaderLabels(axisesLabels);
+        field->setRowCount(points.size());
+
         for(int i = 0; i < points.size(); i++)
         {
             for(int j = 0; j < points[i].size(); j++)
             {
-                (*field)->setItem(i, j, new QTableWidgetItem(points[i][j]));
+                field->setItem(i, j, new QTableWidgetItem(points[i][j]));
             }
         }
     }
 
     // растянуть таблицу с координатами редактора точек
-    for (int i = 0; i < ui->pointsTableWidget->columnCount(); i++)
+    for(auto field : fields)
     {
-        ui->pointsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->pointsTableWidget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for (int i = 0; i < field->columnCount(); i++)
+        {
+            field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        }
     }
 }
 
@@ -776,9 +778,8 @@ void MainWindow::on_zeroPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    /*AddPointDialog* addPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this);
+    AddPointDialog* addPoint = new AddPointDialog(mainWindowController, this);
     addPoint->exec();
-    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::on_pointDeletePushButton_clicked()

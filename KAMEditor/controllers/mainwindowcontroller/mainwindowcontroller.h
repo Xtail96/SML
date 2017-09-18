@@ -82,6 +82,9 @@ signals:
     /// Обновлено состояние станка
     void machineToolStateIsChanged();
 
+    /// Точки обновились
+    void pointsUpdated();
+
 public slots:
     /// Слот для загрузки насроек станка
     void loadMachineToolSettings();
@@ -102,6 +105,9 @@ public slots:
     void switchDevice(QString qDeviceName);
     void updateVelocity(int value);
     void updateSpindelRotations(int value);
+
+
+    void addPoint(Point *p);
 };
 
 #endif // MAINWINDOWCONTROLLER_H
