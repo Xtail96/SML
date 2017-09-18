@@ -7,8 +7,8 @@ AddPointDialog::AddPointDialog(MainWindowController *_controller, QWidget *paren
     controller(_controller),
     isEdit(false)
 {
-    connect(this, SIGNAL(newPoint(Point*)), controller, SLOT(addPoint(Point*)));
     setupFields();
+    connect(this, SIGNAL(newPoint(QStringList)), controller, SLOT(addPoint(QStringList)));
 }
 
 AddPointDialog::AddPointDialog(MainWindowController *_controller, unsigned int _pointNumber, QWidget *parent) :
@@ -21,7 +21,7 @@ AddPointDialog::AddPointDialog(MainWindowController *_controller, unsigned int _
     setupFields();
     setWindowTitle("Редактировать точку");
     ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
-    connect(this, SIGNAL(updatePointsCoordinates(Point*,uint)), controller, SLOT(updatePoint(Point*,uint)));
+    connect(this, SIGNAL(updatePointsCoordinates(QStringList,uint)), controller, SLOT(updatePoint(QStringList,uint)));
 }
 
 AddPointDialog::~AddPointDialog()
@@ -46,26 +46,13 @@ void AddPointDialog::on_buttonBox_accepted()
         qArguments.push_back(qArgument);
     }
 
-    Point* p = new Point(qArguments.size());
-    for(int i = 0; i < qArguments.size(); i++)
-    {
-        try
-        {
-           p->get(i) = std::stod(qArguments[i].toStdString());
-        }
-        catch(...)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", "Неверный аргумент").exec();
-        }
-    }
-
     if(!isEdit)
     {
-        emit newPoint(p);
+        emit newPoint(qArguments);
     }
     else
     {
-        emit updatePointsCoordinates(p, pointNumber);
+        emit updatePointsCoordinates(qArguments, pointNumber);
     }
 }
 

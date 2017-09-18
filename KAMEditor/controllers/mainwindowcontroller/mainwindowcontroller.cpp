@@ -235,17 +235,26 @@ void MainWindowController::updateSpindelRotations(int value)
     }
 }
 
-void MainWindowController::addPoint(Point* p)
+void MainWindowController::addPoint(QStringList coordinates)
 {
+    Point* p = mainBridge->makePoint(coordinates);
     machineTool->getPointsManager()->addPoint(p);
     emit pointsUpdated();
 }
 
-void MainWindowController::updatePoint(Point *p, unsigned int number)
+void MainWindowController::updatePoint(QStringList coordinates, unsigned int number)
 {
+    Point* p = mainBridge->makePoint(coordinates);
     try
     {
-        machineTool->getPointsManager()->operator [](number) = std::shared_ptr<Point>(p);
+        std::shared_ptr<Point> originPoint = machineTool->getPointsManager()->operator [](number);
+        unsigned int originPointDimension = originPoint->size();
+        unsigned int newPointDimension = p->size();
+        unsigned int rangeForUpdate = std::min(originPointDimension, newPointDimension);
+        for(unsigned int i = 0; i < rangeForUpdate; i++)
+        {
+            originPoint->get(i) = p->get(i);
+        }
         emit pointsUpdated();
     }
     catch(std::out_of_range e)

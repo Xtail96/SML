@@ -19,8 +19,8 @@ public:
     explicit AddPointDialog(MainWindowController *_controller, unsigned int _pointNumber, QWidget *parent);
     ~AddPointDialog();
 signals:
-    void newPoint(Point* p);
-    void updatePointsCoordinates(Point* p, unsigned int number);
+    void newPoint(QStringList coordinates);
+    void updatePointsCoordinates(QStringList coordinates, unsigned int number);
 
 private slots:
     void on_buttonBox_accepted();

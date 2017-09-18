@@ -30,6 +30,9 @@ public:
 
     QList<QStringList> points(PointsManager* pointsManager);
     QStringList point(PointsManager* pointsManager, unsigned int number);
+
+    Point *makePoint(QStringList arguments);
+
 private:
 };
 

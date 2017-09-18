@@ -228,3 +228,14 @@ QStringList MainBridge::point(PointsManager *pointsManager, unsigned int number)
     }
     return coordinates;
 }
+
+Point* MainBridge::makePoint(QStringList arguments)
+{
+    std::vector<double> pointsCoordinates;
+    for(auto argument : arguments)
+    {
+        pointsCoordinates.push_back(argument.toDouble());
+    }
+    Point* p = new Point(pointsCoordinates);
+    return p;
+}

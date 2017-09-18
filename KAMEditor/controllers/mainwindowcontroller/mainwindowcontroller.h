@@ -108,8 +108,8 @@ public slots:
     void updateSpindelRotations(int value);
 
 
-    void addPoint(Point *p);
-    void updatePoint(Point *p, unsigned int number);
+    void addPoint(QStringList coordinates);
+    void updatePoint(QStringList coordinates, unsigned int number);
     void deletePoint(unsigned int number);
 };
 
