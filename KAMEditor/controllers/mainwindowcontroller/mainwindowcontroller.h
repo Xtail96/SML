@@ -97,6 +97,8 @@ public slots:
 
     void setupMainBridge();
 
+    void setupU1Connection();
+
     void switchDevice(QString qDeviceName);
     void updateVelocity(int value);
     void updateSpindelRotations(int value);

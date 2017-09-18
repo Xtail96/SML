@@ -3,6 +3,7 @@
 MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
     setupMainBridge();
+    setupU1Connection();
     setupTimer();
 }
 
@@ -19,6 +20,10 @@ MainWindowController::~MainWindowController()
 void MainWindowController::setupMainBridge()
 {
     mainBridge = new MainBridge();
+}
+
+void MainWindowController::setupU1Connection()
+{
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
 }
 
