@@ -39,6 +39,7 @@ void MainWindow::setupMainWindowController()
     connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
 
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 }
 
 void MainWindow::setupSettingsWidgets()
