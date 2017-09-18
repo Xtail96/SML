@@ -536,12 +536,17 @@ void MainWindow::showMachineToolConnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Machine Tool is connected");
+
+
+    ui->devicesTableWidget->setEnabled(true);
 }
 
 void MainWindow::showMachineToolDisconnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Machine Tool is disconnected");
+
+    ui->devicesTableWidget->setEnabled(false);
 }
 
 void MainWindow::disableMovementButtonsShortcuts()
