@@ -338,13 +338,11 @@ void MainWindow::updateDisplays()
     updateSensorsDisplay();
     updateDevicesDisplay();
 #ifdef Q_OS_WIN
-    if(u1Manager != nullptr)
+    /*if(u1Manager != nullptr)
     {
         updateMachineToolStatus();
         updateCoordinates();
-        //updateKabriolAvaliability();
-        //updateBaseStatus();
-    }
+    }*/
 #endif
 }
 
@@ -943,22 +941,6 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
 {
     ui->startDegbugCommandLinkButton->setEnabled(true);
     ui->finishDebugCommandLinkButton->setEnabled(false);
-#ifdef Q_OS_WIN
-    byte_array data =
-    {
-        16,
-        0xff
-    };
-    try
-    {
-        u1Manager->getU1()->sendData(data);
-    }
-    catch(std::runtime_error e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        showMachineToolDisconnected();
-    }
-#endif
 }
 
 void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
