@@ -214,7 +214,7 @@ void MainWindow::updateDevicesBoard()
     QStringList devicesParametrsNames = mainWindowController->getDevicesParametrsNames();
     QList<QStringList> devicesSettings = mainWindowController->getDevicesSettings();
 
-    ui->devicesTableWidget->clear();
+    ui->devicesSettingsTableWidget->clear();
     ui->devicesSettingsTableWidget->setRowCount(devicesNames.size());
     ui->devicesSettingsTableWidget->setVerticalHeaderLabels(devicesNames);
     ui->devicesSettingsTableWidget->setColumnCount(devicesParametrsNames.size());
@@ -283,7 +283,8 @@ void MainWindow::updateDevicesDisplay()
 
     for(int i = 0; i < ui->devicesTableWidget->rowCount(); i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem(onScreenDevicesNames[i]);
+        QTableWidgetItem* item = new QTableWidgetItem();
+        item->setText(onScreenDevicesNames[i]);
         if(onScreenDevicesStates[i])
         {
             item->setTextColor(SmlColors::white());
