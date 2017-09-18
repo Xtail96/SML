@@ -59,7 +59,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>SML-qt</string>
+   <string>SML KAMEditor 1.0.0:Acacia</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_10">
