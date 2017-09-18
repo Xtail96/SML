@@ -539,7 +539,7 @@ void MainWindow::showMachineToolConnected()
 void MainWindow::showMachineToolDisconnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage("Machine Tool is disconected");
+    ui->statusBar->showMessage("Machine Tool is disconnected");
 }
 
 void MainWindow::disableMovementButtonsShortcuts()
