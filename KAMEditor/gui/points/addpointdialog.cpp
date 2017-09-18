@@ -4,35 +4,25 @@
 AddPointDialog::AddPointDialog(MainWindowController *_controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
-    isEdit(false),
-    controller(_controller)
+    controller(_controller),
+    isEdit(false)
 {
     connect(this, SIGNAL(newPoint(Point*)), controller, SLOT(addPoint(Point*)));
     setupFields();
 }
 
-/*AddPointDialog::AddPointDialog(MovementsHandler *_movementsHandler, PointsManager *_pointsManager, std::shared_ptr<Point> pointForEdit, unsigned int _pointNumber, QWidget *parent) :
+AddPointDialog::AddPointDialog(MainWindowController *_controller, unsigned int _pointNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
+    controller(_controller),
     isEdit(true),
-    movementsHandler(_movementsHandler),
-    pointsManager(_pointsManager),
     pointNumber(_pointNumber)
 {
-    initializeFields();
+    setupFields();
     setWindowTitle("Редактировать точку");
     ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
-
-    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
-    {
-        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
-        {
-            // j - номер оси
-            ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem(QString::fromStdString(std::to_string(pointForEdit->get(j)))));
-        }
-    }
-}*/
+    connect(this, SIGNAL(updatePointsCoordinates(Point*,uint)), controller, SLOT(updatePoint(Point*,uint)));
+}
 
 AddPointDialog::~AddPointDialog()
 {
@@ -75,7 +65,7 @@ void AddPointDialog::on_buttonBox_accepted()
     }
     else
     {
-        //pointsManager->operator [](pointNumber) = std::shared_ptr<Point>(p);
+        emit updatePointsCoordinates(p, pointNumber);
     }
 }
 
@@ -92,13 +82,28 @@ void AddPointDialog::setupFields()
     QStringList qRowHeaders = controller->getAxisesNames();
     ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
     ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
-
-    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
+    if(!isEdit)
     {
-        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+        for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
         {
-            ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
+            ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+            {
+                ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
+            }
+        }
+    }
+    else
+    {
+        QStringList pointCoordinates = controller->getPoint(pointNumber);
+        for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
+        {
+            ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+            {
+                // j - номер оси
+                ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem(pointCoordinates[j]));
+            }
         }
     }
 }

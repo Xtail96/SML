@@ -29,6 +29,7 @@ public:
     QList<QStringList> axisesSettings(std::vector< std::shared_ptr<Axis> > axises);
 
     QList<QStringList> points(PointsManager* pointsManager);
+    QStringList point(PointsManager* pointsManager, unsigned int number);
 private:
 };
 

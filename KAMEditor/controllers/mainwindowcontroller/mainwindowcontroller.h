@@ -48,6 +48,7 @@ public:
     unsigned int getSpindelRotations();
 
     QList<QStringList> getPoints();
+    QStringList getPoint(unsigned int number);
 
 protected:
     /*!
@@ -108,6 +109,7 @@ public slots:
 
 
     void addPoint(Point *p);
+    void updatePoint(Point *p, unsigned int number);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

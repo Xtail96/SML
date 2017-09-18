@@ -128,10 +128,10 @@ void MainWindow::setupPointsEditorFields()
 
 void MainWindow::setupPointsPushButtons()
 {
-    /*connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
     connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
     connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));*/
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
 }
 
@@ -824,7 +824,7 @@ void MainWindow::on_pointCursorPushButton_clicked()
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->smlEditorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -840,10 +840,8 @@ void MainWindow::on_pointEditPushButton_clicked()
         unsigned int current_row = (unsigned int) select->currentIndex().row();
         try
         {
-            AddPointDialog* editPoint = new AddPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), machineTool->getPointsManager()->operator [](current_row), current_row, this);
+            AddPointDialog* editPoint = new AddPointDialog(mainWindowController, current_row, this);
             editPoint->exec();
-            delete editPoint;
-            updatePointsEditorTableWidgets();
         }
         catch(std::out_of_range e)
         {
@@ -853,7 +851,7 @@ void MainWindow::on_pointEditPushButton_clicked()
     else
     {
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointCopyPushButton_clicked()

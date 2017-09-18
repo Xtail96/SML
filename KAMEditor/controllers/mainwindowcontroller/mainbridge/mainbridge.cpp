@@ -207,3 +207,24 @@ QList<QStringList> MainBridge::points(PointsManager *pointsManager)
     }
     return points;
 }
+
+QStringList MainBridge::point(PointsManager *pointsManager, unsigned int number)
+{
+    QStringList coordinates;
+    try
+    {
+        std::shared_ptr<Point> p = pointsManager->operator [](number);
+        unsigned int coordinatesCount = p.get()->size();
+        for(unsigned int j = 0; j < coordinatesCount; j++)
+        {
+            QString coordinate;
+            coordinate = QString::number(p.get()->operator [](j));
+            coordinates.push_back(coordinate);
+        }
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+    return coordinates;
+}

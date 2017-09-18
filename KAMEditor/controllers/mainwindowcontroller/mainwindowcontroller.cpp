@@ -110,6 +110,11 @@ QList<QStringList> MainWindowController::getPoints()
     return mainBridge->points(machineTool->getPointsManager());
 }
 
+QStringList MainWindowController::getPoint(unsigned int number)
+{
+    return mainBridge->point(machineTool->getPointsManager(), number);
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;
@@ -234,4 +239,17 @@ void MainWindowController::addPoint(Point* p)
 {
     machineTool->getPointsManager()->addPoint(p);
     emit pointsUpdated();
+}
+
+void MainWindowController::updatePoint(Point *p, unsigned int number)
+{
+    try
+    {
+        machineTool->getPointsManager()->operator [](number) = std::shared_ptr<Point>(p);
+        emit pointsUpdated();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what());
+    }
 }
