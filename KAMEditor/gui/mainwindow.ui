@@ -801,7 +801,7 @@
          <widget class="QFrame" name="mainActionsFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>4</horstretch>
+            <horstretch>3</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
@@ -869,7 +869,7 @@
               <property name="bottomMargin">
                <number>5</number>
               </property>
-              <item row="1" column="4" rowspan="2">
+              <item row="1" column="3" rowspan="2">
                <widget class="QGroupBox" name="movementAditionalAxisGroupBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1232,7 +1232,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="4" column="1" colspan="4">
+              <item row="3" column="0" colspan="4">
                <widget class="QGroupBox" name="discreteGroupBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1495,23 +1495,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="1" column="0" rowspan="4">
-               <spacer name="horizontalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Preferred</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>100</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="1" column="1" rowspan="2">
+              <item row="1" column="0" rowspan="2">
                <widget class="QGroupBox" name="movementMainAxisGroupBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1843,22 +1827,6 @@
                  </item>
                 </layout>
                </widget>
-              </item>
-              <item row="1" column="5" rowspan="4">
-               <spacer name="horizontalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Preferred</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>100</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </widget>
@@ -2197,7 +2165,7 @@
          <widget class="QFrame" name="actionsFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>1</horstretch>
+            <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
@@ -2500,7 +2468,7 @@
          <widget class="QFrame" name="dashboardFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>1</horstretch>
+            <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
