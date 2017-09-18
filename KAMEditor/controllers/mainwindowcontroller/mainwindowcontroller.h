@@ -110,6 +110,7 @@ public slots:
 
     void addPoint(Point *p);
     void updatePoint(Point *p, unsigned int number);
+    void deletePoint(unsigned int number);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

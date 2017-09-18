@@ -250,6 +250,20 @@ void MainWindowController::updatePoint(Point *p, unsigned int number)
     }
     catch(std::out_of_range e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what());
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindowController::deletePoint(unsigned int number)
+{
+    try
+    {
+        std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](number);
+        machineTool->getPointsManager()->deletePoint(p);
+        emit pointsUpdated();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }

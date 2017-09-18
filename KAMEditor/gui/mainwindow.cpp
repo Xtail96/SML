@@ -784,7 +784,7 @@ void MainWindow::on_pointAddPushButton_clicked()
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    /*QList<QTableWidgetItem*> selected;
+    QList<QTableWidgetItem*> selected;
     std::set<int> rows;
     if(ui->adjustmentTab->isVisible())
     {
@@ -808,12 +808,10 @@ void MainWindow::on_pointDeletePushButton_clicked()
         }
     }
 
-    for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
+    for (int i = rows.size() - 1; i >= 0; i--)
     {
-        std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](*i);
-        machineTool->getPointsManager()->deletePoint(p);
+        mainWindowController->deletePoint(i);
     }
-    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
