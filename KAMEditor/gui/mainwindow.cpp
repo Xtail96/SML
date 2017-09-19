@@ -785,27 +785,29 @@ void MainWindow::on_pointAddPushButton_clicked()
 void MainWindow::on_pointDeletePushButton_clicked()
 {
     QList<QTableWidgetItem*> selected;
+    QTableWidget* currentPointsTableWidget;
     std::set<int> rows;
     if(ui->adjustmentTab->isVisible())
     {
-        selected = ui->pointsTableWidget->selectedItems();
-        for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
-        {
-            int row = ui->pointsTableWidget->row(*i);
-            rows.insert(row);
-        }
+        currentPointsTableWidget = ui->pointsTableWidget;
     }
     else
     {
         if(ui->editorTab->isVisible())
         {
-            selected = ui->pointsTableWidget_2->selectedItems();
-            for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
-            {
-                int row = ui->pointsTableWidget_2->row(*i);
-                rows.insert(row);
-            }
+            currentPointsTableWidget = ui->pointsTableWidget_2;
         }
+        else
+        {
+            return;
+        }
+    }
+
+    selected = currentPointsTableWidget->selectedItems();
+    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
+    {
+        int row = currentPointsTableWidget->row(*i);
+        rows.insert(row);
     }
 
     for (int i = rows.size() - 1; i >= 0; i--)
