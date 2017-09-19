@@ -835,13 +835,10 @@ void MainWindow::on_pointEditPushButton_clicked()
     }
     if(select->hasSelection())
     {
-        //select->selectedRows();
-
         unsigned int current_row = (unsigned int) select->currentIndex().row();
         try
         {
-            AddPointDialog* editPoint = new AddPointDialog(mainWindowController, current_row, this);
-            editPoint->exec();
+            AddPointDialog(mainWindowController, current_row, this).exec();
         }
         catch(std::out_of_range e)
         {
