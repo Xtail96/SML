@@ -124,6 +124,9 @@ void MainWindow::setupPointsEditorFields()
 
     connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
     connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+
+    connect(ui->pointsTableWidget_2, SIGNAL(editSignal(int)), this, SLOT(on_pointEditPushButton_clicked()));
+    connect(ui->pointsTableWidget_2, SIGNAL(eraseSignal(QList<int>)), this, SLOT(on_pointDeletePushButton_clicked()));
 }
 
 void MainWindow::setupPointsPushButtons()

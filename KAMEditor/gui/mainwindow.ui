@@ -126,7 +126,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0" colspan="2">
-            <widget class="QTableWidget" name="pointsTableWidget_2">
+            <widget class="SMLTableWidget" name="pointsTableWidget_2">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
@@ -5098,6 +5098,11 @@
    <class>SMLTreeWidget</class>
    <extends>QTreeWidget</extends>
    <header>gui/widgets/smltreewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMLTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>gui/widgets/smltablewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>
