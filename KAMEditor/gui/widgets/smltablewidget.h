@@ -28,6 +28,7 @@ private:
     void keyBackspacePressed(QModelIndexList selectedRowsIndexes);
     void keyUpPressed(QModelIndexList selectedRowsIndexes);
     void keyDownPressed(QModelIndexList selectedRowsIndexes);
+    void keysCtrlAPressed();
     void selectFirstRow();
 };
 

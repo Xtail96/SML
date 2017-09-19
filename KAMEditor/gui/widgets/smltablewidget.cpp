@@ -38,6 +38,14 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
             keyDownPressed(selectedRowsIndexes);
             break;
         }
+        case Qt::Key_A:
+        {
+            if(keyEvent->modifiers() == Qt::ControlModifier)
+            {
+                keysCtrlAPressed();
+            }
+            break;
+        }
         default:
         {
             break;
@@ -111,6 +119,11 @@ void SMLTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
             selectFirstRow();
         }
     }
+}
+
+void SMLTableWidget::keysCtrlAPressed()
+{
+    selectAll();
 }
 
 void SMLTableWidget::selectFirstRow()
