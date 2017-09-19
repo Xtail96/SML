@@ -24,6 +24,10 @@ public:
     void keyPressEvent(QKeyEvent *keyEvent);
 private:
     QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
+    void keyReturnPressed(QModelIndexList selectedRowsIndexes);
+    void keyBackspacePressed(QModelIndexList selectedRowsIndexes);
+    void keyUpPressed(QModelIndexList selectedRowsIndexes);
+    void keyDownPressed(QModelIndexList selectedRowsIndexes);
 };
 
 #endif // SMLTABLEWIDGET_H

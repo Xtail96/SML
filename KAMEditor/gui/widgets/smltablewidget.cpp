@@ -9,7 +9,6 @@ SMLTableWidget::SMLTableWidget(QWidget *parent) :
 
 void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
-
     QModelIndexList selectedItemsIndexes = this->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
     {
@@ -17,97 +16,28 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
         qSort(selectedRowsIndexes);
 
         int keyPressed = keyEvent->key();
-        int rowsCount = this->rowCount();
 
         switch (keyPressed) {
         case Qt::Key_Return:
         {
-            if(selectedRowsIndexes.begin()->row() >= 0 && selectedRowsIndexes.begin()->row() < rowsCount)
-            {
-                emit editSignal(*selectedRowsIndexes.begin());
-            }
+            keyReturnPressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Backspace:
         {
-            emit eraseSignal(selectedRowsIndexes);
+            keyBackspacePressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Up:
         {
-            int firstSelectedRow = selectedRowsIndexes.first().row();
-            if(firstSelectedRow > 0)
-            {
-                selectRow(firstSelectedRow - 1);
-            }
-            else
-            {
-                if(firstSelectedRow == 0)
-                {
-                    selectRow(rowsCount - 1);
-                }
-            }
+            keyUpPressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Down:
         {
-            int lastSelectedRow = selectedRowsIndexes.back().row();
-            if(lastSelectedRow >= 0 && lastSelectedRow < (rowsCount - 1))
-            {
-                selectRow(lastSelectedRow + 1);
-            }
-            else
-            {
-                if(lastSelectedRow == (rowsCount - 1))
-                {
-                    selectRow(0);
-                }
-            }
+            keyDownPressed(selectedRowsIndexes);
             break;
         }
-        /*case Qt::Key_A:
-{
-    if(modifiers == Qt::ControlModifier)
-    {
-        this->selectAll();
-    }
-    break;
-}*/
-        /*case Qt::Key_C:
-{
-    if(modifiers == Qt::ControlModifier)
-    {
-        emit copySignal();
-    }
-    break;
-}
-case Qt::Key_X:
-{
-    if(modifiers == Qt::ControlModifier)
-    {
-        emit cutSignal();
-    }
-    break;
-}
-case Qt::Key_V:
-{
-    if(modifiers == Qt::ControlModifier)
-    {
-        emit pasteSignal();
-    }
-    break;
-}
-case Qt::Key_Z:
-{
-    if(modifiers == Qt::ControlModifier)
-    {
-        emit undoSignal();
-    }
-    break;
-}
-case Qt::Key_Escape:
-    this->setSelectionMode(QAbstractItemView::SingleSelection);
-    break;*/
         default:
         {
             break;
@@ -129,4 +59,52 @@ QModelIndexList SMLTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
         }
     }
     return rowsIndexes;
+}
+
+void SMLTableWidget::keyReturnPressed(QModelIndexList selectedRowsIndexes)
+{
+    int rowsCount = this->rowCount();
+    if(selectedRowsIndexes.first().row() >= 0 && selectedRowsIndexes.first().row() < rowsCount)
+    {
+        emit editSignal(*selectedRowsIndexes.begin());
+    }
+}
+
+void SMLTableWidget::keyBackspacePressed(QModelIndexList selectedRowsIndexes)
+{
+    emit eraseSignal(selectedRowsIndexes);
+}
+
+void SMLTableWidget::keyUpPressed(QModelIndexList selectedRowsIndexes)
+{
+    int rowsCount = this->rowCount();
+    int firstSelectedRow = selectedRowsIndexes.first().row();
+    if(firstSelectedRow > 0)
+    {
+        selectRow(firstSelectedRow - 1);
+    }
+    else
+    {
+        if(firstSelectedRow == 0)
+        {
+            selectRow(rowsCount - 1);
+        }
+    }
+}
+
+void SMLTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
+{
+    int rowsCount = this->rowCount();
+    int lastSelectedRow = selectedRowsIndexes.back().row();
+    if(lastSelectedRow >= 0 && lastSelectedRow < (rowsCount - 1))
+    {
+        selectRow(lastSelectedRow + 1);
+    }
+    else
+    {
+        if(lastSelectedRow == (rowsCount - 1))
+        {
+            selectRow(0);
+        }
+    }
 }
