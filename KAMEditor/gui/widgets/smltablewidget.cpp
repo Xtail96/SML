@@ -35,12 +35,34 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
         }
         case Qt::Key_Up:
         {
-            //selectRow(up);
+            int firstSelectedRow = selectedRowsIndexes.first().row();
+            if(firstSelectedRow > 0)
+            {
+                selectRow(firstSelectedRow - 1);
+            }
+            else
+            {
+                if(firstSelectedRow == 0)
+                {
+                    selectRow(rowsCount - 1);
+                }
+            }
             break;
         }
         case Qt::Key_Down:
         {
-
+            int lastSelectedRow = selectedRowsIndexes.back().row();
+            if(lastSelectedRow >= 0 && lastSelectedRow < (rowsCount - 1))
+            {
+                selectRow(lastSelectedRow + 1);
+            }
+            else
+            {
+                if(lastSelectedRow == (rowsCount - 1))
+                {
+                    selectRow(0);
+                }
+            }
             break;
         }
         /*case Qt::Key_A:
