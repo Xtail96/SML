@@ -199,6 +199,10 @@ private slots:
     // to do исправить слот
     void updateEdgesControlStatus();
 
+    void addPoint();
+    void editPoint(int row);
+    void deletePoints(QList<int> rows);
+
 
     /// Слоты для обработки сигналов виджета дерева SML-команд
     void commandsCopySlot();

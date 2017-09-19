@@ -122,11 +122,19 @@ void MainWindow::setupPointsEditorFields()
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-    connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    //connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
+    //connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
 
-    connect(ui->pointsTableWidget_2, SIGNAL(editSignal(int)), this, SLOT(on_pointEditPushButton_clicked()));
-    connect(ui->pointsTableWidget_2, SIGNAL(eraseSignal(QList<int>)), this, SLOT(on_pointDeletePushButton_clicked()));
+    //connect(ui->pointsTableWidget_2, SIGNAL(editSignal(int)), this, SLOT(on_pointEditPushButton_clicked()));
+    //connect(ui->pointsTableWidget_2, SIGNAL(eraseSignal(QList<int>)), this, SLOT(on_pointDeletePushButton_clicked()));
+
+    QList<QTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+
+    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
+    {
+        connect(pointsEditorTableWidget, SIGNAL(editSignal(int)), this, SLOT(editPoint(int)));
+        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QList<int>)), this, SLOT(deletePoints(QList<int>)));
+    }
 }
 
 void MainWindow::setupPointsPushButtons()
@@ -781,8 +789,7 @@ void MainWindow::on_zeroPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    AddPointDialog* addPoint = new AddPointDialog(mainWindowController, this);
-    addPoint->exec();
+    addPoint();
 }
 
 void MainWindow::on_pointDeletePushButton_clicked()
@@ -790,6 +797,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
     QList<QTableWidgetItem*> selected;
     QTableWidget* currentPointsTableWidget;
     std::set<int> rows;
+    QList<int> selectedRowsList;
     if(ui->adjustmentTab->isVisible())
     {
         currentPointsTableWidget = ui->pointsTableWidget;
@@ -813,10 +821,11 @@ void MainWindow::on_pointDeletePushButton_clicked()
         rows.insert(row);
     }
 
-    for (int i = rows.size() - 1; i >= 0; i--)
+    for(auto row : rows)
     {
-        mainWindowController->deletePoint(i);
+        selectedRowsList.push_back(row);
     }
+    deletePoints(selectedRowsList);
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
@@ -839,14 +848,7 @@ void MainWindow::on_pointEditPushButton_clicked()
     if(select->hasSelection())
     {
         unsigned int current_row = (unsigned int) select->currentIndex().row();
-        try
-        {
-            AddPointDialog(mainWindowController, current_row, this).exec();
-        }
-        catch(std::out_of_range e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
+        editPoint(current_row);
     }
     else
     {
@@ -898,6 +900,31 @@ void MainWindow::updateEdgesControlStatus()
         ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
         ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
         ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+    }
+}
+
+void MainWindow::addPoint()
+{
+    AddPointDialog(mainWindowController, this).exec();
+}
+
+void MainWindow::editPoint(int row)
+{
+    try
+    {
+        AddPointDialog(mainWindowController, row, this).exec();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindow::deletePoints(QList<int> rows)
+{
+    for(int i = rows.size() - 1; i >= 0; i--)
+    {
+        mainWindowController->deletePoint(rows[i]);
     }
 }
 

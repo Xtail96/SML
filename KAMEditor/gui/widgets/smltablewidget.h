@@ -14,7 +14,7 @@ class SMLTableWidget : public QTableWidget
 signals:
     void addSignal();
     void editSignal(int row);
-    void eraseSignal(QList<int> row);
+    void eraseSignal(QList<int> rows);
 
     void copySignal();
     void cutSignal();

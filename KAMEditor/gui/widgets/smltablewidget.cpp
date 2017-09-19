@@ -3,16 +3,17 @@
 SMLTableWidget::SMLTableWidget(QWidget *parent) :
     QTableWidget(parent)
 {
-
+    this->setSelectionBehavior(QAbstractItemView::SelectRows);
+    this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     QList<QTableWidgetItem*> selectedItems = this->selectedItems();
-    QList<int> selectedRows;
+    QSet<int> selectedRows;
     for(auto selectedItem : selectedItems)
     {
-        selectedRows.push_back(selectedItem->row());
+        selectedRows.insert(selectedItem->row());
     }
 
     int keyPressed = keyEvent->key();
@@ -21,33 +22,35 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
     switch (keyPressed) {
     case Qt::Key_Return:
     {
-        if(selectedRows[0] >= 0 && selectedRows[0] < rowsCount)
+        if(*selectedRows.begin() >= 0 && *selectedRows.begin() < rowsCount)
         {
-            emit editSignal(selectedRows[0]);
+            emit editSignal(*selectedRows.begin());
         }
         break;
     }
     case Qt::Key_Backspace:
     {
-        emit eraseSignal(selectedRows);
+        QList<int> selectedRowsList;
+        for(auto row : selectedRows)
+        {
+            selectedRowsList.push_back(row);
+        }
+        emit eraseSignal(selectedRowsList);
         break;
     }
-    /*case Qt::Key_Up:
+    case Qt::Key_Up:
     {
-        if(selectedRows[0] > 0)
-        {
-            this->setCurrentIndex(QModelIndex());
-        }
+        //selectRow(up);
         break;
     }
     case Qt::Key_Down:
     {
-        if(currentRow >= 0 && currentRow < rowsCount - 1)
+        /*if(currentRow >= 0 && currentRow < rowsCount - 1)
         {
             this->setCurrentItem(this->itemBelow(selectedItem));
-        }
+        }*/
         break;
-    }*/
+    }
     /*case Qt::Key_A:
     {
         if(modifiers == Qt::ControlModifier)
