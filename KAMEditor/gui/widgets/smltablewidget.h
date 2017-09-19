@@ -13,8 +13,8 @@ class SMLTableWidget : public QTableWidget
     Q_OBJECT
 signals:
     void addSignal();
-    void editSignal(int row);
-    void eraseSignal(QList<int> rows);
+    void editSignal(QModelIndex index);
+    void eraseSignal(QModelIndexList indexes);
 
     void copySignal();
     void cutSignal();
@@ -22,6 +22,8 @@ signals:
 public:
     SMLTableWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
+private:
+    QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
 };
 
 #endif // SMLTABLEWIDGET_H

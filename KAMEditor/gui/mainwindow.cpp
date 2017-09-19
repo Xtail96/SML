@@ -122,18 +122,12 @@ void MainWindow::setupPointsEditorFields()
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    //connect(ui->pointsTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-    //connect(ui->pointsTableWidget_2, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_pointEditPushButton_clicked()));
-
-    //connect(ui->pointsTableWidget_2, SIGNAL(editSignal(int)), this, SLOT(on_pointEditPushButton_clicked()));
-    //connect(ui->pointsTableWidget_2, SIGNAL(eraseSignal(QList<int>)), this, SLOT(on_pointDeletePushButton_clicked()));
-
     QList<QTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
 
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
-        connect(pointsEditorTableWidget, SIGNAL(editSignal(int)), this, SLOT(editPoint(int)));
-        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QList<int>)), this, SLOT(deletePoints(QList<int>)));
+        connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
     }
 }
 
@@ -825,7 +819,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
     {
         selectedRowsList.push_back(row);
     }
-    deletePoints(selectedRowsList);
+    //deletePoints(selectedRowsList);
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
@@ -848,7 +842,7 @@ void MainWindow::on_pointEditPushButton_clicked()
     if(select->hasSelection())
     {
         unsigned int current_row = (unsigned int) select->currentIndex().row();
-        editPoint(current_row);
+        //editPoint(current_row);
     }
     else
     {
@@ -908,11 +902,11 @@ void MainWindow::addPoint()
     AddPointDialog(mainWindowController, this).exec();
 }
 
-void MainWindow::editPoint(int row)
+void MainWindow::editPoint(QModelIndex index)
 {
     try
     {
-        AddPointDialog(mainWindowController, row, this).exec();
+        AddPointDialog(mainWindowController, index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -920,11 +914,11 @@ void MainWindow::editPoint(int row)
     }
 }
 
-void MainWindow::deletePoints(QList<int> rows)
+void MainWindow::deletePoints(QModelIndexList indexes)
 {
-    for(int i = rows.size() - 1; i >= 0; i--)
+    for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        mainWindowController->deletePoint(rows[i]);
+        mainWindowController->deletePoint(indexes[i].row());
     }
 }
 

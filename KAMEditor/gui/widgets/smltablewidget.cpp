@@ -9,94 +9,102 @@ SMLTableWidget::SMLTableWidget(QWidget *parent) :
 
 void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
-    QList<QTableWidgetItem*> selectedItems = this->selectedItems();
-    QSet<int> selectedRows;
-    for(auto selectedItem : selectedItems)
-    {
-        selectedRows.insert(selectedItem->row());
-    }
 
-    int keyPressed = keyEvent->key();
-    int rowsCount = this->rowCount();
+    QModelIndexList selectedItemsIndexes = this->selectedIndexes();
+    if(selectedItemsIndexes.size() > 0)
+    {
+        QModelIndexList selectedRowsIndexes = getRowsIndexes(selectedItemsIndexes);
+        qSort(selectedRowsIndexes);
 
-    switch (keyPressed) {
-    case Qt::Key_Return:
-    {
-        if(*selectedRows.begin() >= 0 && *selectedRows.begin() < rowsCount)
+        int keyPressed = keyEvent->key();
+        int rowsCount = this->rowCount();
+
+        switch (keyPressed) {
+        case Qt::Key_Return:
         {
-            emit editSignal(*selectedRows.begin());
+            if(selectedRowsIndexes.begin()->row() >= 0 && selectedRowsIndexes.begin()->row() < rowsCount)
+            {
+                emit editSignal(*selectedRowsIndexes.begin());
+            }
+            break;
         }
-        break;
-    }
-    case Qt::Key_Backspace:
-    {
-        QList<int> selectedRowsList;
-        for(auto row : selectedRows)
+        case Qt::Key_Backspace:
         {
-            selectedRowsList.push_back(row);
+            emit eraseSignal(selectedRowsIndexes);
+            break;
         }
-        emit eraseSignal(selectedRowsList);
-        break;
-    }
-    case Qt::Key_Up:
-    {
-        //selectRow(up);
-        break;
-    }
-    case Qt::Key_Down:
-    {
-        /*if(currentRow >= 0 && currentRow < rowsCount - 1)
+        case Qt::Key_Up:
         {
-            this->setCurrentItem(this->itemBelow(selectedItem));
-        }*/
-        break;
-    }
-    /*case Qt::Key_A:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            this->selectAll();
+            //selectRow(up);
+            break;
         }
-        break;
-    }*/
-    /*case Qt::Key_C:
-    {
-        if(modifiers == Qt::ControlModifier)
+        case Qt::Key_Down:
         {
-            emit copySignal();
+
+            break;
         }
-        break;
-    }
-    case Qt::Key_X:
+        /*case Qt::Key_A:
+{
+    if(modifiers == Qt::ControlModifier)
     {
-        if(modifiers == Qt::ControlModifier)
+        this->selectAll();
+    }
+    break;
+}*/
+        /*case Qt::Key_C:
+{
+    if(modifiers == Qt::ControlModifier)
+    {
+        emit copySignal();
+    }
+    break;
+}
+case Qt::Key_X:
+{
+    if(modifiers == Qt::ControlModifier)
+    {
+        emit cutSignal();
+    }
+    break;
+}
+case Qt::Key_V:
+{
+    if(modifiers == Qt::ControlModifier)
+    {
+        emit pasteSignal();
+    }
+    break;
+}
+case Qt::Key_Z:
+{
+    if(modifiers == Qt::ControlModifier)
+    {
+        emit undoSignal();
+    }
+    break;
+}
+case Qt::Key_Escape:
+    this->setSelectionMode(QAbstractItemView::SingleSelection);
+    break;*/
+        default:
         {
-            emit cutSignal();
+            break;
         }
-        break;
+        }
     }
-    case Qt::Key_V:
+}
+
+QModelIndexList SMLTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
+{
+    QModelIndexList rowsIndexes = {*itemsIndexes.begin()};
+    int currentItemRow = rowsIndexes.begin()->row();
+    for(int i = 1; i < itemsIndexes.size(); i++)
     {
-        if(modifiers == Qt::ControlModifier)
+        if(itemsIndexes[i].row() != currentItemRow)
         {
-            emit pasteSignal();
+            rowsIndexes.push_back(itemsIndexes[i]);
+            currentItemRow = itemsIndexes[i].row();
         }
-        break;
     }
-    case Qt::Key_Z:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            emit undoSignal();
-        }
-        break;
-    }
-    case Qt::Key_Escape:
-        this->setSelectionMode(QAbstractItemView::SingleSelection);
-        break;*/
-    default:
-    {
-        break;
-    }
-    }
+    return rowsIndexes;
 }

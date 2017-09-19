@@ -200,8 +200,8 @@ private slots:
     void updateEdgesControlStatus();
 
     void addPoint();
-    void editPoint(int row);
-    void deletePoints(QList<int> rows);
+    void editPoint(QModelIndex index);
+    void deletePoints(QModelIndexList indexes);
 
 
     /// Слоты для обработки сигналов виджета дерева SML-команд
