@@ -44,6 +44,10 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
         }
         }
     }
+    else
+    {
+        selectFirstRow();
+    }
 }
 
 QModelIndexList SMLTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
@@ -104,7 +108,16 @@ void SMLTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
     {
         if(lastSelectedRow == (rowsCount - 1))
         {
-            selectRow(0);
+            selectFirstRow();
         }
+    }
+}
+
+void SMLTableWidget::selectFirstRow()
+{
+    int rowsCount = this->rowCount();
+    if(rowsCount > 0)
+    {
+        selectRow(0);
     }
 }
