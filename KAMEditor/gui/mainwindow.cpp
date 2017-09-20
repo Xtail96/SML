@@ -820,7 +820,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
     {
         selectedRowsList.push_back(row);
     }
-    //deletePoints(selectedRowsList);
+    deletePoints(selectedRowsList);
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
@@ -840,10 +840,10 @@ void MainWindow::on_pointEditPushButton_clicked()
     {
         select = ui->pointsTableWidget->selectionModel();
     }
+
     if(select->hasSelection())
     {
-        unsigned int current_row = (unsigned int) select->currentIndex().row();
-        //editPoint(current_row);
+        editPoint(select->currentIndex());
     }
     else
     {
@@ -920,6 +920,14 @@ void MainWindow::deletePoints(QModelIndexList indexes)
     for(int i = indexes.size() - 1; i >= 0; i--)
     {
         mainWindowController->deletePoint(indexes[i].row());
+    }
+}
+
+void MainWindow::deletePoints(QList<int> selectedRows)
+{
+    for(int i = selectedRows.size() - 1; i >= 0; i--)
+    {
+        mainWindowController->deletePoint(selectedRows[i]);
     }
 }
 
