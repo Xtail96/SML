@@ -202,7 +202,6 @@ private slots:
     void addPoint();
     void editPoint(QModelIndex index);
     void deletePoints(QModelIndexList indexes);
-    void deletePoints(QList<int> selectedRows);
 
 
     /// Слоты для обработки сигналов виджета дерева SML-команд

@@ -789,19 +789,16 @@ void MainWindow::on_pointAddPushButton_clicked()
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    QList<QTableWidgetItem*> selected;
-    QTableWidget* currentPointsTableWidget;
-    std::set<int> rows;
-    QList<int> selectedRowsList;
-    if(ui->adjustmentTab->isVisible())
+    QItemSelectionModel *select;
+    if(ui->editorTab->isVisible())
     {
-        currentPointsTableWidget = ui->pointsTableWidget;
+        select = ui->pointsTableWidget_2->selectionModel();
     }
     else
     {
-        if(ui->editorTab->isVisible())
+        if(ui->adjustmentTab->isVisible())
         {
-            currentPointsTableWidget = ui->pointsTableWidget_2;
+            select = ui->pointsTableWidget->selectionModel();
         }
         else
         {
@@ -809,18 +806,11 @@ void MainWindow::on_pointDeletePushButton_clicked()
         }
     }
 
-    selected = currentPointsTableWidget->selectedItems();
-    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
-    {
-        int row = currentPointsTableWidget->row(*i);
-        rows.insert(row);
-    }
+    QModelIndexList selectedItemsIndexes = select->selectedIndexes();
 
-    for(auto row : rows)
-    {
-        selectedRowsList.push_back(row);
-    }
-    deletePoints(selectedRowsList);
+    QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
+
+    deletePoints(selectedRowsIndexes);
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
@@ -832,13 +822,20 @@ void MainWindow::on_pointCursorPushButton_clicked()
 void MainWindow::on_pointEditPushButton_clicked()
 {
     QItemSelectionModel *select;
-    if(ui->smlEditorTab->isVisible())
+    if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
     }
     else
     {
-        select = ui->pointsTableWidget->selectionModel();
+        if(ui->adjustmentTab->isVisible())
+        {
+            select = ui->pointsTableWidget->selectionModel();
+        }
+        else
+        {
+            return;
+        }
     }
 
     if(select->hasSelection())
@@ -920,14 +917,6 @@ void MainWindow::deletePoints(QModelIndexList indexes)
     for(int i = indexes.size() - 1; i >= 0; i--)
     {
         mainWindowController->deletePoint(indexes[i].row());
-    }
-}
-
-void MainWindow::deletePoints(QList<int> selectedRows)
-{
-    for(int i = selectedRows.size() - 1; i >= 0; i--)
-    {
-        mainWindowController->deletePoint(selectedRows[i]);
     }
 }
 

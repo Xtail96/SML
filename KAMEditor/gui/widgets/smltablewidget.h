@@ -22,8 +22,8 @@ signals:
 public:
     SMLTableWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
+    static QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
 private:
-    QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
     void keyReturnPressed(QModelIndexList selectedRowsIndexes);
     void keyBackspacePressed(QModelIndexList selectedRowsIndexes);
     void keyUpPressed(QModelIndexList selectedRowsIndexes);
