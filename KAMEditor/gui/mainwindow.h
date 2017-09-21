@@ -263,12 +263,12 @@ private slots:
     void on_startDegbugCommandLinkButton_clicked();
     void on_finishDebugCommandLinkButton_clicked();
     void on_devicesTableWidget_clicked(const QModelIndex &index);
-    void on_commandsToolsListWidget_itemClicked(QListWidgetItem *item);
     void on_viewPushButton_clicked();
     void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_kabriolWidgetPushButton_clicked();
     void on_toolLengthSensorPushButton_clicked();
     void on_lubricationSystemPushButton_clicked();
+    void on_commandsToolsListWidget_clicked(const QModelIndex &index);
 };
 
 
