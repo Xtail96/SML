@@ -5,8 +5,8 @@
 #include <QMessageBox>
 
 #include "commanddialog.h"
-#include "models/machinetool/machinetool.h"
 #include "models/machinetool/commandsmanager/commands/switchon.h"
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class OnDialog;
@@ -17,19 +17,17 @@ class OnDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OnDialog(DevicesManager* _devicesManager, CommandsManager* _commandsManager, size_t _index, QWidget *parent = 0, bool _edit = false);
+    explicit OnDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
 
     ~OnDialog();
 private slots:
     void on_buttonBox_accepted();
 private:
     Ui::OnDialog *ui;
-    DevicesManager* devicesManager;
-    CommandsManager* commandsManager;
+    MainWindowController *controller;
     size_t index;
 
     bool edit;
-
     void fillFields();
 };
 

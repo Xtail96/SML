@@ -6,6 +6,7 @@
 
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
+#include "models/machinetool/commandsmanager/commands/commands.h"
 
 class MainBridge
 {
@@ -32,6 +33,8 @@ public:
     QStringList point(PointsManager* pointsManager, unsigned int number);
 
     Point *makePoint(QStringList arguments);
+
+    std::shared_ptr<Command> makeCommand(int id, QStringList arguments, MachineTool* machineTool);
 
 private:
 };

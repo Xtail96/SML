@@ -115,6 +115,18 @@ QStringList MainWindowController::getPoint(unsigned int number)
     return mainBridge->point(machineTool->getPointsManager(), number);
 }
 
+size_t MainWindowController::getCommandsCount()
+{
+    return machineTool->getCommandsManager()->commandsCount();
+}
+
+void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
+{
+    std::shared_ptr<Command> cmd = mainBridge->makeCommand(id, arguments, machineTool);
+    machineTool->getCommandsManager()->insertCommand(index, cmd);
+    emit commandsUpdated();
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

@@ -3,6 +3,10 @@
 
 #include "arc.h"
 #include "line.h"
+#include "pause.h"
+#include "switchoff.h"
+#include "switchon.h"
+#include "ttline.h"
 
 
 #endif // COMMANDS_H

@@ -42,6 +42,7 @@ void MainWindow::setupMainWindowController()
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 
     connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
+    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateCommandsEditorWidgets()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -484,8 +485,14 @@ void MainWindow::updatePointsEditorButtons()
     }
 }
 
+void MainWindow::updateCommandsEditorWidgets()
+{
+    updateSMLCommandsTreeWidget();
+}
+
 void MainWindow::updateSMLCommandsTreeWidget()
 {
+    qDebug() << "updatedCommands";
     /*ui->smlEditorTreeWidget->clear();
     unsigned int commandsCount = machineTool->getCommandsManager()->commandsCount();
     QList<QTreeWidgetItem*> qSmlCommands;
@@ -1125,41 +1132,40 @@ void MainWindow::commandsUndoSlot()
 void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 {
     QString commandName = index.data().toString();
-    qDebug() << commandName;
-    /*int commandNumber = CommandsIds.getId(commandName.toStdString());
+    int commandNumber = CommandsIds.getId(commandName.toStdString());
 
-    size_t currentCommandNumber = machineTool->getCommandsManager()->commandsCount();
+    size_t currentCommandNumber = mainWindowController->getCommandsCount();
 
-    QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
+    /*QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
     if(selectedItems.size() > 0)
     {
         currentCommandNumber = selectedItems[0]->text(0).toInt()-1;
     }*/
 
-    /*switch (commandNumber) {
+    switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        OnDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        //OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
-        CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        //CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        //PauseDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_LINE:
-        LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        //LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_ARC:
-        ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_TTLINE:
-        TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this).exec();
+        //TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
-    }*/
+    }
 }

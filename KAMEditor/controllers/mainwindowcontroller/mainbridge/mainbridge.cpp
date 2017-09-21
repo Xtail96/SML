@@ -239,3 +239,23 @@ Point* MainBridge::makePoint(QStringList arguments)
     Point* p = new Point(pointsCoordinates);
     return p;
 }
+
+std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, MachineTool *machineTool)
+{
+    std::shared_ptr<Command> cmd;
+    switch (id)
+    {
+    case CMD_SWITCH_ON:
+    {
+        std::string deviceName = arguments[0].toStdString();
+        std::string parametrs = arguments[1].toStdString();
+        cmd = std::shared_ptr<Command> (new SwitchOn(machineTool->getDevicesManager(), deviceName, parametrs));
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+    return cmd;
+}

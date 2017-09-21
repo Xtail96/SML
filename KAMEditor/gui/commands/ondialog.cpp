@@ -1,11 +1,10 @@
 #include "ondialog.h"
 #include "ui_ondialog.h"
 
-OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
+OnDialog::OnDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::OnDialog),
-    devicesManager(_devicesManager),
-    commandsManager(_commandsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -16,23 +15,15 @@ OnDialog::OnDialog(DevicesManager *_devicesManager, CommandsManager *_commandsMa
 OnDialog::~OnDialog()
 {
     delete ui;
-    //delete machineTool;
 }
 
 void OnDialog::fillFields()
 {
-    std::vector< std::shared_ptr<Device> > devices = devicesManager->getDevices();
-    QStringList devicesNames;
-    for(auto it : devices)
-    {
-        QString deviceName = QString::fromStdString(it->getName());
-        devicesNames.push_back(deviceName);
-    }
+    QStringList devicesNames = controller->getDevicesNames();
     ui->devicesComboBox->addItems(devicesNames);
-
-    if(edit)
+    /*if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
+        std::shared_ptr<Command> currentCommand = controller->getCommand(index);
         QStringList arguments = currentCommand->getArguments();
         QString deviceName = arguments[0];
         ui->devicesComboBox->setCurrentText(deviceName);
@@ -44,20 +35,15 @@ void OnDialog::fillFields()
             parametrs += arguments[i];
         }
         ui->argumentsLineEdit->setText(parametrs);
-    }
+    }*/
 }
 
 void OnDialog::on_buttonBox_accepted()
-{
-    std::string deviceName = ui->devicesComboBox->currentText().toStdString();
-    std::string parametrs = ui->argumentsLineEdit->text().toStdString();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new SwitchOn(devicesManager, deviceName, parametrs));
-    if(edit)
+{    
+    QStringList cmdArguments =
     {
-        commandsManager->operator [](index) = cmd;
-    }
-    else
-    {
-        commandsManager->insertCommand(index, cmd);
-    }
+        ui->devicesComboBox->currentText(),
+        ui->argumentsLineEdit->text()
+    };
+    controller->insertCommand(CMD_SWITCH_ON, cmdArguments, index);
 }

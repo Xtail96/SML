@@ -188,6 +188,7 @@ private slots:
     void updatePointsEditorButtons();
 
     /// Слот для обновления дерева SML-команд
+    void updateCommandsEditorWidgets();
     void updateSMLCommandsTreeWidget();
 
     /// Слот для обновления статуса баировки станка

@@ -50,6 +50,9 @@ public:
     QList<QStringList> getPoints();
     QStringList getPoint(unsigned int number);
 
+    size_t getCommandsCount();
+    void insertCommand(int id, QStringList arguments, size_t index);
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться
@@ -85,6 +88,9 @@ signals:
 
     /// Точки обновились
     void pointsUpdated();
+
+    /// Команды обновились
+    void commandsUpdated();
 
 public slots:
     /// Слот для загрузки насроек станка
