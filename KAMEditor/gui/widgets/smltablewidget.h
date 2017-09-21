@@ -9,7 +9,7 @@
 #include <QDebug>
 
 /*!
- * \brief Класс Виджет SML-Таблицы
+ * \brief Класс Виджет SML-таблица
  * Наследник QTableWidget
  */
 class SMLTableWidget : public QTableWidget

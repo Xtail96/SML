@@ -7,6 +7,10 @@
 #include <QKeyEvent>
 #include <QGroupBox>
 
+/*!
+ * \brief Класс Виджет SML-список
+ * Наследник QListWidget
+ */
 class SMLListWidget : public QListWidget
 {
     Q_OBJECT
@@ -18,19 +22,19 @@ public:
 private:
     /*!
      * \brief Обрабатывает нажатие клавиши Return (ввод) на клавиатуре
-     * \param selectedItemIndex список индексов выбранных рядов в таблице
+     * \param selectedItemIndex индекс выбранного элемента списка
      */
     void keyReturnPressed(QModelIndex selectedItemIndex);
 
     /*!
      * \brief Обрабатывает нажатие клавиши Up (стрелки вверх) на клавиатуре
-     * \param selectedRowsIndexes список индексов выбранных рядов в таблице
+     * \param selectedItemIndex индекс выбранного элемента списка
      */
     void keyUpPressed(QModelIndex selectedItemIndex);
 
     /*!
      * \brief Обрабатывает нажатие клавиши Down (стрелки вниз) на клавиатуре
-     * \param selectedRowsIndexes список индексов выбранных рядов в таблице
+     * \param selectedItemIndex индекс выбранного элемента списка
      */
     void keyDownPressed(QModelIndex selectedItemIndex);
 };
