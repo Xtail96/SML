@@ -815,8 +815,23 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    /*ToSelectionPointDialog(machineTool->getMovementController(), machineTool->getPointsManager(), this).exec();
-    updatePointsEditorTableWidgets();*/
+    QTableWidget* currentTableWidget;
+    if(ui->editorTab->isVisible())
+    {
+        currentTableWidget = ui->pointsTableWidget_2;
+    }
+    else
+    {
+        if(ui->adjustmentTab->isVisible())
+        {
+            currentTableWidget = ui->pointsTableWidget;
+        }
+        else
+        {
+            return;
+        }
+    }
+    ToSelectionPointDialog(currentTableWidget, this).exec();
 }
 
 void MainWindow::on_pointEditPushButton_clicked()

@@ -3,10 +3,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include "models/machinetool/pointsmanager/pointsmanager.h"
-#include "models/machinetool/movementshandler/movementshandler.h"
-
-#include "gui/points/addpointdialog.h"
+#include <QTableWidget>
 
 namespace Ui {
 class ToSelectionPointDialog;
@@ -17,7 +14,7 @@ class ToSelectionPointDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ToSelectionPointDialog(MovementsHandler *_movementsHandler, PointsManager* _pointsManager, QWidget *parent = 0);
+    explicit ToSelectionPointDialog(QTableWidget* _currentTableWidget, QWidget *parent = 0);
     ~ToSelectionPointDialog();
 
 private slots:
@@ -25,8 +22,7 @@ private slots:
 
 private:
     Ui::ToSelectionPointDialog *ui;
-    MovementsHandler* movementsHandler;
-    PointsManager* pointsManager;
+    QTableWidget* currentTableWidget;
 };
 
 #endif // MOUSETOSELECTIONPOINTDIALOG_H
