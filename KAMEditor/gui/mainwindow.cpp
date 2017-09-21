@@ -452,8 +452,6 @@ void MainWindow::updatePointsEditorFields()
             field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         }
     }
-
-    updatePointsEditorButtons();
 }
 
 void MainWindow::updatePointsEditorButtons()
