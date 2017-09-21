@@ -806,11 +806,14 @@ void MainWindow::on_pointDeletePushButton_clicked()
         }
     }
 
+
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
 
-    QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
-
-    deletePoints(selectedRowsIndexes);
+    if(selectedItemsIndexes.size() > 0)
+    {
+        QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
+        deletePoints(selectedRowsIndexes);
+    }
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
@@ -831,7 +834,10 @@ void MainWindow::on_pointCursorPushButton_clicked()
             return;
         }
     }
-    ToSelectionPointDialog(currentTableWidget, this).exec();
+    if(currentTableWidget->rowCount() > 0)
+    {
+        ToSelectionPointDialog(currentTableWidget, this).exec();
+    }
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
@@ -855,7 +861,7 @@ void MainWindow::on_pointEditPushButton_clicked()
 
     if(select->hasSelection())
     {
-        editPoint(select->currentIndex());
+         editPoint(select->currentIndex());
     }
     else
     {
@@ -882,12 +888,20 @@ void MainWindow::on_pointCopyPushButton_clicked()
         }
     }
 
-    QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(select->selectedIndexes());
-
-    for(auto row : selectedRowsIndexes)
+    QModelIndexList selectedItemsIndexes = select->selectedIndexes();
+    if(selectedItemsIndexes.size() > 0)
     {
-        QStringList pointsArguments = mainWindowController->getPoint(row.row());
-        mainWindowController->addPoint(pointsArguments);
+        QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
+
+        for(auto row : selectedRowsIndexes)
+        {
+            QStringList pointsArguments = mainWindowController->getPoint(row.row());
+            mainWindowController->addPoint(pointsArguments);
+        }
+    }
+    else
+    {
+        return;
     }
 }
 
