@@ -865,33 +865,30 @@ void MainWindow::on_pointEditPushButton_clicked()
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    /*int selectedPointNumber = -1;
-    if(ui->adjustmentTab->isVisible())
+    QItemSelectionModel *select;
+    if(ui->editorTab->isVisible())
     {
-        selectedPointNumber = ui->pointsTableWidget->currentRow();
+        select = ui->pointsTableWidget_2->selectionModel();
     }
     else
     {
-        if(ui->editorTab->isVisible())
+        if(ui->adjustmentTab->isVisible())
         {
-            selectedPointNumber = ui->pointsTableWidget_2->currentRow();
+            select = ui->pointsTableWidget->selectionModel();
+        }
+        else
+        {
+            return;
         }
     }
 
-    if(selectedPointNumber >= 0)
+    QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(select->selectedIndexes());
+
+    for(auto row : selectedRowsIndexes)
     {
-        try
-        {
-            std::shared_ptr<Point> currentPoint = machineTool->getPointsManager()->operator [](selectedPointNumber);
-            Point* insertedPoint = new Point(*currentPoint.get());
-            machineTool->getPointsManager()->addPoint(insertedPoint);
-        }
-        catch(std::out_of_range e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }
+        QStringList pointsArguments = mainWindowController->getPoint(row.row());
+        mainWindowController->addPoint(pointsArguments);
     }
-    updatePointsEditorTableWidgets();*/
 }
 
 void MainWindow::updateEdgesControlStatus()
