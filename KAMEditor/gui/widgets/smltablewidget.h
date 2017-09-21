@@ -32,16 +32,6 @@ signals:
      * \param indexes список индексов удаляемых точек в таблице
      */
     void eraseSignal(QModelIndexList indexes);
-
-    /*!
-     * \brief Сигнал копирования точки
-     */
-    void copySignal();
-
-    /*!
-     * \brief Сигнал вставки точки
-     */
-    void pasteSignal();
 public:
     /*!
      * \brief Конструктор класса Виджет SML-Таблицы
