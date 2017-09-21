@@ -41,7 +41,7 @@ void MainWindow::setupMainWindowController()
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 
-    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorFields()));
+    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -60,8 +60,7 @@ void MainWindow::setupWidgets()
     setupCommandsEditorField();
     setupGCodesSyntaxHighlighter();
     setupEdgesControl();
-    setupPointsEditorFields();
-    setupPointsPushButtons();
+    setupPointsEditorWidgets();
     setupEditorFileActionsPushButtons();
     setupCoordinatesDisplay();
     setupVelocityPanel();
@@ -139,6 +138,7 @@ void MainWindow::setupPointsPushButtons()
     connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
+    updatePointsEditorButtons();
 }
 
 void MainWindow::setupVelocityPanel()
@@ -188,6 +188,12 @@ void MainWindow::updateAxisesBoard()
             ui->axisSettingsTableWidget->setItem(j, i, new QTableWidgetItem(axisesSettings[i][j]));
         }
     }
+}
+
+void MainWindow::updatePointsEditorWidgets()
+{
+    updatePointsEditorFields();
+    updatePointsEditorButtons();
 }
 
 void MainWindow::updateSensorsBoard()
@@ -342,6 +348,12 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
 }
 
+void MainWindow::setupPointsEditorWidgets()
+{
+    setupPointsEditorFields();
+    setupPointsPushButtons();
+}
+
 void MainWindow::updateDisplays()
 {
     updateBatteryStatusDisplay();
@@ -438,6 +450,38 @@ void MainWindow::updatePointsEditorFields()
         for (int i = 0; i < field->columnCount(); i++)
         {
             field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        }
+    }
+
+    updatePointsEditorButtons();
+}
+
+void MainWindow::updatePointsEditorButtons()
+{
+    QList<QPushButton*> pointsActionsButtons =
+    {
+        ui->pointDeletePushButton,
+        ui->pointDeletePushButton_2,
+        ui->pointEditPushButton,
+        ui->pointCopyPushButton,
+        ui->pointCopyPushButton_2,
+        ui->pointCursorPushButton,
+        ui->pointCursorPushButton_2,
+        ui->pointTransitionPushButton
+    };
+
+    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
+    {
+        for(auto button : pointsActionsButtons)
+        {
+            button->setEnabled(true);
+        }
+    }
+    else
+    {
+        for(auto button : pointsActionsButtons)
+        {
+            button->setEnabled(false);
         }
     }
 }

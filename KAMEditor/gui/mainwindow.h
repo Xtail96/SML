@@ -142,6 +142,7 @@ private slots:
     void setupEditorFileActionsPushButtons();
 
     /// Слоты, для настройки редактора точек
+    void setupPointsEditorWidgets();
     void setupPointsEditorFields();
     void setupPointsPushButtons();
 
@@ -182,7 +183,9 @@ private slots:
     void updateAxisesBoard();
 
     /// Слот для обновления таблиц редактора точек
+    void updatePointsEditorWidgets();
     void updatePointsEditorFields();
+    void updatePointsEditorButtons();
 
     /// Слот для обновления дерева SML-команд
     void updateSMLCommandsTreeWidget();
