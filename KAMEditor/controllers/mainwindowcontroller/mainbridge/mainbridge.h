@@ -3,6 +3,7 @@
 
 #include <QStringList>
 #include <QTableWidgetItem>
+#include <QTreeWidgetItem>
 
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
@@ -35,6 +36,7 @@ public:
     Point *makePoint(QStringList arguments);
 
     std::shared_ptr<Command> makeCommand(int id, QStringList arguments, MachineTool* machineTool);
+    QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
 
 private:
 };

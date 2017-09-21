@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QTreeWidgetItem>
 
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
@@ -52,6 +53,8 @@ public:
 
     size_t getCommandsCount();
     void insertCommand(int id, QStringList arguments, size_t index);
+
+    QList<QTreeWidgetItem*> getCommands();
 
 protected:
     /*!

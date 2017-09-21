@@ -492,35 +492,14 @@ void MainWindow::updateCommandsEditorWidgets()
 
 void MainWindow::updateSMLCommandsTreeWidget()
 {
-    qDebug() << "updatedCommands";
-    /*ui->smlEditorTreeWidget->clear();
-    unsigned int commandsCount = machineTool->getCommandsManager()->commandsCount();
-    QList<QTreeWidgetItem*> qSmlCommands;
-
-    for(unsigned int i = 0; i < commandsCount; i++)
-    {
-
-        QStringList commandStringList =
-        {
-            QString::number(i+1),
-            QString::fromStdString(machineTool->getCommandsManager()->operator [](i)->getName()),
-            machineTool->getCommandsManager()->operator [](i)->getArgumentsString()
-        };
-
-
-        QTreeWidgetItem* item = new QTreeWidgetItem(commandStringList);
-        for(int j = 1; j < ui->smlEditorTreeWidget->columnCount(); j++)
-        {
-            item->setTextColor(j, machineTool->getCommandsManager()->operator [](i)->getColor());
-        }
-        qSmlCommands.push_back(item);
-    }
-    ui->smlEditorTreeWidget->addTopLevelItems(qSmlCommands);
+    ui->smlEditorTreeWidget->clear();
+    QList<QTreeWidgetItem *> items = mainWindowController->getCommands();
+    ui->smlEditorTreeWidget->addTopLevelItems(items);
 
     for(int i = 0; i < ui->smlEditorTreeWidget->columnCount() - 1; i++)
     {
         ui->smlEditorTreeWidget->resizeColumnToContents(i);
-    }*/
+    }
 }
 
 void MainWindow::updateBatteryStatusDisplay()

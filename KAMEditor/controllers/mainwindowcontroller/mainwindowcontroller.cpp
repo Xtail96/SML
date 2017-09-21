@@ -127,6 +127,11 @@ void MainWindowController::insertCommand(int id, QStringList arguments, size_t i
     emit commandsUpdated();
 }
 
+QList<QTreeWidgetItem *> MainWindowController::getCommands()
+{
+    return mainBridge->commands(machineTool->getCommandsManager());
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;
