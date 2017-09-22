@@ -20,6 +20,8 @@ signals:
 public:
     SMLTreeWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
+
+    static QModelIndexList rowsIndexes(QModelIndexList itemsIndexes);
 private:
     void keyReturnPressed(QModelIndexList itemsIndexes);
     void keyBackspacePressed(QModelIndexList itemsIndexes);

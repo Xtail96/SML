@@ -371,13 +371,11 @@ void MainWindow::updateDisplays()
 
 void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 {
+    QModelIndexList rowsIndexes = SMLTreeWidget::rowsIndexes(indexes);
     std::vector<int> rows;
-    for(auto index : indexes)
+    for(auto index : rowsIndexes)
     {
-        if(index.column() == 0)
-        {
-            rows.push_back(index.row());
-        }
+        rows.push_back(index.row());
     }
 
     std::sort(rows.begin(), rows.begin() + rows.size());

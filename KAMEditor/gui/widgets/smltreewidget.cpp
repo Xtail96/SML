@@ -90,6 +90,19 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
+QModelIndexList SMLTreeWidget::rowsIndexes(QModelIndexList itemsIndexes)
+{
+    QModelIndexList rowsIndexes;
+    for(auto index : itemsIndexes)
+    {
+        if(index.column() == 0)
+        {
+            rowsIndexes.push_back(index);
+        }
+    }
+    return rowsIndexes;
+}
+
 void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
