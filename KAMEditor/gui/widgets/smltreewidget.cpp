@@ -119,7 +119,7 @@ void SMLTreeWidget::selectFirstItem()
 void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
-    if(firstSelectedItemIndex.row() >= 0 && firstSelectedItemIndex.row() < this->topLevelItemCount())
+    if( (firstSelectedItemIndex.row() >= 0) && (firstSelectedItemIndex.row() < this->topLevelItemCount()) )
     {
         emit doubleClicked(firstSelectedItemIndex);
     }
@@ -133,7 +133,7 @@ void SMLTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
 void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
-    if(firstSelectedItemIndex.row() > 0 && firstSelectedItemIndex.row() < this->topLevelItemCount())
+    if( (firstSelectedItemIndex.row() > 0) && (firstSelectedItemIndex.row() < this->topLevelItemCount()) )
     {
         this->setCurrentIndex(this->indexAbove(firstSelectedItemIndex));
     }
@@ -142,7 +142,7 @@ void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
 void SMLTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex lastSelectedItemIndex = itemsIndexes[itemsIndexes.size() - 1];
-    if(lastSelectedItemIndex.row() >= 0 && lastSelectedItemIndex.row() < this->topLevelItemCount() - 1)
+    if( (lastSelectedItemIndex.row() >= 0 && lastSelectedItemIndex.row() < this->topLevelItemCount() - 1) )
     {
         this->setCurrentIndex(this->indexBelow(lastSelectedItemIndex));
     }
