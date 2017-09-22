@@ -55,6 +55,8 @@ public:
     void insertCommand(int id, QStringList arguments, size_t index);
 
     QList<QTreeWidgetItem*> getCommands();
+    QStringList getCommandArguments(size_t index);
+    void replaceCommand(int id, QStringList arguments, size_t index);
 
 protected:
     /*!

@@ -132,6 +132,33 @@ QList<QTreeWidgetItem *> MainWindowController::getCommands()
     return mainBridge->commands(machineTool->getCommandsManager());
 }
 
+QStringList MainWindowController::getCommandArguments(size_t index)
+{
+    try
+    {
+        std::shared_ptr<Command> cmd = machineTool->getCommandsManager()->operator [](index);
+        return cmd->getArguments();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindowController::replaceCommand(int id, QStringList arguments, size_t index)
+{
+    std::shared_ptr<Command> cmd = mainBridge->makeCommand(id, arguments, machineTool);
+    try
+    {
+        machineTool->getCommandsManager()->operator [](index) = cmd;
+        emit commandsUpdated();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

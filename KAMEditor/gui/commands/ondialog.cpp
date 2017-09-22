@@ -21,10 +21,9 @@ void OnDialog::fillFields()
 {
     QStringList devicesNames = controller->getDevicesNames();
     ui->devicesComboBox->addItems(devicesNames);
-    /*if(edit)
+    if(edit)
     {
-        std::shared_ptr<Command> currentCommand = controller->getCommand(index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
         QString deviceName = arguments[0];
         ui->devicesComboBox->setCurrentText(deviceName);
 
@@ -35,8 +34,9 @@ void OnDialog::fillFields()
             parametrs += arguments[i];
         }
         ui->argumentsLineEdit->setText(parametrs);
-    }*/
+    }
 }
+
 
 void OnDialog::on_buttonBox_accepted()
 {    
@@ -45,5 +45,12 @@ void OnDialog::on_buttonBox_accepted()
         ui->devicesComboBox->currentText(),
         ui->argumentsLineEdit->text()
     };
-    controller->insertCommand(CMD_SWITCH_ON, cmdArguments, index);
+    if(!edit)
+    {
+        controller->insertCommand(CMD_SWITCH_ON, cmdArguments, index);
+    }
+    else
+    {
+        controller->replaceCommand(CMD_SWITCH_ON, cmdArguments, index);
+    }
 }
