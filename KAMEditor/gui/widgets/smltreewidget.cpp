@@ -88,6 +88,13 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         }
         }
     }
+    else
+    {
+        if(this->topLevelItemCount() > 0)
+        {
+            selectFirstItem();
+        }
+    }
 }
 
 QModelIndexList SMLTreeWidget::rowsIndexes(QModelIndexList itemsIndexes)
@@ -101,6 +108,12 @@ QModelIndexList SMLTreeWidget::rowsIndexes(QModelIndexList itemsIndexes)
         }
     }
     return rowsIndexes;
+}
+
+void SMLTreeWidget::selectFirstItem()
+{
+    QTreeWidgetItem* firstItem = this->topLevelItem(0);
+    this->setCurrentItem(firstItem);
 }
 
 void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)

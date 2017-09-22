@@ -23,6 +23,7 @@ public:
 
     static QModelIndexList rowsIndexes(QModelIndexList itemsIndexes);
 private:
+    void selectFirstItem();
     void keyReturnPressed(QModelIndexList itemsIndexes);
     void keyBackspacePressed(QModelIndexList itemsIndexes);
     void keyUpPressed(QModelIndexList itemsIndexes);
