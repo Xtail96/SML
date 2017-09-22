@@ -74,14 +74,6 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
             }
             break;
         }
-        case Qt::Key_Z:
-        {
-            if(modifiers == Qt::ControlModifier)
-            {
-                keysCtrlZPressed();
-            }
-            break;
-        }
         default:
         {
             break;
@@ -97,7 +89,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
-QModelIndexList SMLTreeWidget::rowsIndexes(QModelIndexList itemsIndexes)
+QModelIndexList SMLTreeWidget::getRowsIndexes(QModelIndexList itemsIndexes)
 {
     QModelIndexList rowsIndexes;
     for(auto index : itemsIndexes)
@@ -168,11 +160,6 @@ void SMLTreeWidget::keysCtrlVPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     emit pasteSignal(firstSelectedItemIndex);
-}
-
-void SMLTreeWidget::keysCtrlZPressed()
-{
-    emit undoSignal();
 }
 
 void SMLTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)

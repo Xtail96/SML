@@ -14,14 +14,13 @@ class SMLTreeWidget : public QTreeWidget
 signals:
     void copySignal(QModelIndexList itemsIndexes);
     void cutSignal(QModelIndexList itemsIndexes);
-    void pasteSignal(QModelIndex itemIndex);
-    void undoSignal();
     void eraseSignal(QModelIndexList indexes);
+    void pasteSignal(QModelIndex itemIndex);
 public:
     SMLTreeWidget(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent *keyEvent);
 
-    static QModelIndexList rowsIndexes(QModelIndexList itemsIndexes);
+    static QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
 private:
     void selectFirstItem();
     void keyReturnPressed(QModelIndexList itemsIndexes);
@@ -32,7 +31,6 @@ private:
     void keysCtrlCPressed(QModelIndexList itemsIndexes);
     void keysCtrlXPressed(QModelIndexList itemsIndexes);
     void keysCtrlVPressed(QModelIndexList itemsIndexes);
-    void keysCtrlZPressed();
     void keyEscapePressed(QModelIndexList itemsIndexes);
     void updateSelectionMode(Qt::KeyboardModifiers modifiers);
 
