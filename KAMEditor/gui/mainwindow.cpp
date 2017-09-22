@@ -77,11 +77,11 @@ void MainWindow::setupCommandsEditorField()
     editorField->setTreePosition(1);
 
     // устанавливаем слоты, обрабатывающие сигналы дерева
-    connect(editorField, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
-    connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
-    connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
-    connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
-    connect(editorField, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
+    //connect(editorField, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
+    //connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
+    //connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
+    //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+    //connect(editorField, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
 }
 
 void MainWindow::setupStatusBar()

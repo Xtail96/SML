@@ -8,105 +8,169 @@ SMLTreeWidget::SMLTreeWidget(QWidget *parent) :
 
 void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
-    QTreeWidgetItem *selectedItem = this->currentItem();
-    int currentRow = this->currentIndex().row();
-    int rowsCount = this->topLevelItemCount();
+    QModelIndexList selectedItemsIndexes = this->selectionModel()->selectedIndexes();
+    if(selectedItemsIndexes.size() > 0)
+    {
 
-    int keyPressed = keyEvent->key();
-    Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
-    //qDebug() << modifiers;
+        int keyPressed = keyEvent->key();
+        Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
+        updateSelectionMode(modifiers);
 
+        switch (keyPressed) {
+        case Qt::Key_Return:
+        {
+            keyReturnPressed(selectedItemsIndexes);
+            break;
+        }
+        case Qt::Key_Backspace:
+        {
+            keyBackspacePressed(selectedItemsIndexes);
+            break;
+        }
+        case Qt::Key_Escape:
+        {
+            keyEscapePressed();
+            break;
+        }
+        case Qt::Key_Up:
+        {
+            keyUpPressed(selectedItemsIndexes);
+            break;
+        }
+        case Qt::Key_Down:
+        {
+            keyDownPressed(selectedItemsIndexes);
+            break;
+        }
+        case Qt::Key_A:
+        {
+            if(modifiers == Qt::ControlModifier)
+            {
+                keysCtrlAPressed();
+            }
+            break;
+        }
+        case Qt::Key_C:
+        {
+            if(modifiers == Qt::ControlModifier)
+            {
+                keysCtrlCPressed(selectedItemsIndexes);
+            }
+            break;
+        }
+        case Qt::Key_X:
+        {
+            if(modifiers == Qt::ControlModifier)
+            {
+                keysCtrlXPressed(selectedItemsIndexes);
+            }
+            break;
+        }
+        case Qt::Key_V:
+        {
+            if(modifiers == Qt::ControlModifier)
+            {
+                keysCtrlVPressed(selectedItemsIndexes);
+            }
+            break;
+        }
+        case Qt::Key_Z:
+        {
+            if(modifiers == Qt::ControlModifier)
+            {
+                keysCtrlZPressed();
+            }
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
+{
+    QModelIndex firstSelectedItemIndex = itemsIndexes[0];
+    if(firstSelectedItemIndex.row() >= 0 && firstSelectedItemIndex.row() < this->topLevelItemCount())
+    {
+        emit doubleClicked(firstSelectedItemIndex);
+    }
+}
+
+void SMLTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
+{
+    emit eraseSignal(itemsIndexes);
+}
+
+void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
+{
+    QModelIndex firstSelectedItemIndex = itemsIndexes[0];
+    if(firstSelectedItemIndex.row() > 0)
+    {
+        this->setCurrentIndex(this->indexAbove(firstSelectedItemIndex));
+    }
+}
+
+void SMLTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
+{
+    QModelIndex lastSelectedItemIndex = itemsIndexes[itemsIndexes.size() - 1];
+    if(lastSelectedItemIndex.row() >= 0 && lastSelectedItemIndex.row() < this->topLevelItemCount() - 1)
+    {
+        this->setCurrentIndex(this->indexBelow(lastSelectedItemIndex));
+    }
+}
+
+void SMLTreeWidget::keysCtrlAPressed()
+{
+    this->setSelectionMode(QAbstractItemView::MultiSelection);
+    this->selectAll();
+}
+
+void SMLTreeWidget::keysCtrlCPressed(QModelIndexList itemsIndexes)
+{
+    emit copySignal(itemsIndexes);
+}
+
+void SMLTreeWidget::keysCtrlXPressed(QModelIndexList itemsIndexes)
+{
+    emit cutSignal(itemsIndexes);
+}
+
+void SMLTreeWidget::keysCtrlVPressed(QModelIndexList itemsIndexes)
+{
+    QModelIndex firstSelectedItemIndex = itemsIndexes[0];
+    emit pasteSignal(firstSelectedItemIndex);
+}
+
+void SMLTreeWidget::keysCtrlZPressed()
+{
+    emit undoSignal();
+}
+
+void SMLTreeWidget::keyEscapePressed()
+{
+    this->setSelectionMode(QAbstractItemView::SingleSelection);
+}
+
+void SMLTreeWidget::updateSelectionMode(Qt::KeyboardModifiers modifiers)
+{
     switch (modifiers) {
-    case Qt::ControlModifier | Qt::KeypadModifier:
+    case Qt::ShiftModifier:
         this->setSelectionMode(QAbstractItemView::MultiSelection);
         break;
     case Qt::ControlModifier:
         this->setSelectionMode(QAbstractItemView::MultiSelection);
         break;
-    case Qt::ShiftModifier:
+    case Qt::ShiftModifier | Qt::KeypadModifier:
+        this->setSelectionMode(QAbstractItemView::MultiSelection);
+        break;
+    case Qt::ControlModifier | Qt::KeypadModifier:
         this->setSelectionMode(QAbstractItemView::MultiSelection);
         break;
     default:
         this->setSelectionMode(QAbstractItemView::SingleSelection);
         break;
     }
-
-    switch (keyPressed) {
-    case Qt::Key_Return:
-    {
-        if(currentRow >= 0 && currentRow < rowsCount)
-        {
-            emit itemDoubleClicked(selectedItem, 1);
-        }
-        break;
-    }
-    case Qt::Key_Up:
-    {
-        if(currentRow > 0)
-        {
-            this->setCurrentItem(this->itemAbove(selectedItem));
-        }
-        break;
-    }
-    case Qt::Key_Down:
-    {
-        if(currentRow >= 0 && currentRow < rowsCount - 1)
-        {
-            this->setCurrentItem(this->itemBelow(selectedItem));
-        }
-        break;
-    }
-    case Qt::Key_A:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            this->setSelectionMode(QAbstractItemView::MultiSelection);
-            this->selectAll();
-        }
-        break;
-    }
-    case Qt::Key_C:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            emit copySignal();
-        }
-        break;
-    }
-    case Qt::Key_X:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            emit cutSignal();
-        }
-        break;
-    }
-    case Qt::Key_V:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            emit pasteSignal();
-        }
-        break;
-    }
-    case Qt::Key_Z:
-    {
-        if(modifiers == Qt::ControlModifier)
-        {
-            emit undoSignal();
-        }
-        break;
-    }
-    case Qt::Key_Escape:
-        this->setSelectionMode(QAbstractItemView::SingleSelection);
-        break;
-    case Qt::Key_Backspace:
-        emit eraseSignal();
-        break;
-    default:
-    {
-        break;
-    }
-    }
-
 }
