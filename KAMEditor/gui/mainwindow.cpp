@@ -414,7 +414,7 @@ void MainWindow::updateCoordinatesDisplay()
 void MainWindow::updatePointsEditorFields()
 {
     QList<QStringList> points = mainWindowController->getPoints();
-    QList<QTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QList<SMLTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     QStringList axisesLabels = mainWindowController->getAxisesNames();
 
     for(auto field : fields)
@@ -834,7 +834,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    QTableWidget* currentTableWidget;
+    SMLTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
     {
         currentTableWidget = ui->pointsTableWidget_2;
