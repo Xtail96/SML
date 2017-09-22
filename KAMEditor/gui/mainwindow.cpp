@@ -1041,7 +1041,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         column = 1;
     }
     QString commandName = item->text(column);
-    int commandNumber = CommandsIds.getId(commandName.toStdString());
+    int commandNumber = mainWindowController->getCommandId(commandName);
 
     unsigned int currentCommandNumber = item->text(0).toUInt() - 1;
     switch (commandNumber) {
@@ -1110,7 +1110,7 @@ void MainWindow::commandsUndoSlot()
 void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 {
     QString commandName = index.data().toString();
-    int commandNumber = CommandsIds.getId(commandName.toStdString());
+    int commandNumber = mainWindowController->getCommandId(commandName);
 
     size_t currentCommandNumber = mainWindowController->getCommandsCount();
 

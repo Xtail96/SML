@@ -115,6 +115,11 @@ QStringList MainWindowController::getPoint(unsigned int number)
     return mainBridge->point(machineTool->getPointsManager(), number);
 }
 
+int MainWindowController::getCommandId(QString commandName)
+{
+    return CommandsIds.getId(commandName.toStdString());
+}
+
 size_t MainWindowController::getCommandsCount()
 {
     return machineTool->getCommandsManager()->commandsCount();
