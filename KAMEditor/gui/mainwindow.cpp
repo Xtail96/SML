@@ -122,7 +122,7 @@ void MainWindow::setupPointsEditorFields()
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    QList<QTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<SMLTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
 
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
