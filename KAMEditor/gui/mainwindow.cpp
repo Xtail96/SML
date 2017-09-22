@@ -1115,11 +1115,11 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 
     size_t currentCommandNumber = mainWindowController->getCommandsCount();
 
-    /*QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
+    QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
     if(selectedItems.size() > 0)
     {
         currentCommandNumber = selectedItems[0]->text(0).toInt()-1;
-    }*/
+    }
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
