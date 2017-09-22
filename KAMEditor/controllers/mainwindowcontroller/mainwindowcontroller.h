@@ -123,6 +123,8 @@ public slots:
     void addPoint(QStringList coordinates);
     void updatePoint(QStringList coordinates, unsigned int number);
     void deletePoint(unsigned int number);
+
+    void deleteCommand(unsigned int number);
 };
 
 #endif // MAINWINDOWCONTROLLER_H

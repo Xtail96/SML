@@ -213,7 +213,7 @@ private slots:
     void commandsCutSlot();
     void commandsPasteSlot();
     void commandsUndoSlot();
-    void deleteSelectedCommands();
+    void deleteSelectedCommands(QModelIndexList indexes);
 
     /// Слоты для отображения поддержки/отсутсвия связи со станком
     void showMachineToolConnected();

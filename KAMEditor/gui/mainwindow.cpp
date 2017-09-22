@@ -72,7 +72,7 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupCommandsEditorField()
 {
-    QTreeWidget*  editorField = ui->smlEditorTreeWidget;
+    SMLTreeWidget*  editorField = ui->smlEditorTreeWidget;
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
     editorField->setTreePosition(1);
 
@@ -81,7 +81,7 @@ void MainWindow::setupCommandsEditorField()
     //connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
     //connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
     //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
-    //connect(editorField, SIGNAL(eraseSignal()), this, SLOT(deleteSelectedCommands()));
+    connect(editorField, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deleteSelectedCommands(QModelIndexList)));
 }
 
 void MainWindow::setupStatusBar()
@@ -369,34 +369,24 @@ void MainWindow::updateDisplays()
 #endif
 }
 
-void MainWindow::deleteSelectedCommands()
+void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 {
-    /*if(ui->editorTab->isVisible())
+    std::vector<int> rows;
+    for(auto index : indexes)
     {
-        QList<QTreeWidgetItem*> selectedCommandsItems = ui->smlEditorTreeWidget->selectedItems();
-        if(selectedCommandsItems.size() > 0)
+        if(index.column() == 0)
         {
-            std::vector<unsigned int> selectedCommandsIndexes;
-            for(auto item : selectedCommandsItems)
-            {
-                selectedCommandsIndexes.push_back(item->text(0).toUInt() - 1);
-            }
-            std::sort(selectedCommandsIndexes.begin(), selectedCommandsIndexes.begin() + selectedCommandsIndexes.size());
-            std::reverse(selectedCommandsIndexes.begin(), selectedCommandsIndexes.begin() + selectedCommandsIndexes.size());
-            try
-            {
-                for(auto commandIndex : selectedCommandsIndexes)
-                {
-                    machineTool->getCommandsManager()->deleteCommand(commandIndex);
-                }
-                updateSMLCommandsTreeWidget();
-            }
-            catch(std::out_of_range e)
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-            }
+            rows.push_back(index.row());
         }
-    }*/
+    }
+
+    std::sort(rows.begin(), rows.begin() + rows.size());
+    std::reverse(rows.begin(), rows.begin() + rows.size());
+
+    for(auto row : rows)
+    {
+        mainWindowController->deleteCommand(row);
+    }
 }
 
 void MainWindow::updateCoordinatesDisplay()

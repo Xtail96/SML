@@ -325,3 +325,16 @@ void MainWindowController::deletePoint(unsigned int number)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
+
+void MainWindowController::deleteCommand(unsigned int number)
+{
+    try
+    {
+        machineTool->getCommandsManager()->deleteCommand(number);
+        emit commandsUpdated();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
