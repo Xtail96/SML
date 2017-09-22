@@ -33,7 +33,7 @@ private:
     void keysCtrlXPressed(QModelIndexList itemsIndexes);
     void keysCtrlVPressed(QModelIndexList itemsIndexes);
     void keysCtrlZPressed();
-    void keyEscapePressed();
+    void keyEscapePressed(QModelIndexList itemsIndexes);
     void updateSelectionMode(Qt::KeyboardModifiers modifiers);
 
 };

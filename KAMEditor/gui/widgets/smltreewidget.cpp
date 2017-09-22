@@ -29,7 +29,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         }
         case Qt::Key_Escape:
         {
-            keyEscapePressed();
+            keyEscapePressed(selectedItemsIndexes);
             break;
         }
         case Qt::Key_Up:
@@ -133,7 +133,7 @@ void SMLTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
 void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
-    if(firstSelectedItemIndex.row() > 0)
+    if(firstSelectedItemIndex.row() > 0 && firstSelectedItemIndex.row() < this->topLevelItemCount())
     {
         this->setCurrentIndex(this->indexAbove(firstSelectedItemIndex));
     }
@@ -175,9 +175,11 @@ void SMLTreeWidget::keysCtrlZPressed()
     emit undoSignal();
 }
 
-void SMLTreeWidget::keyEscapePressed()
+void SMLTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)
 {
+    QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     this->setSelectionMode(QAbstractItemView::SingleSelection);
+    this->setCurrentIndex(firstSelectedItemIndex);
 }
 
 void SMLTreeWidget::updateSelectionMode(Qt::KeyboardModifiers modifiers)
