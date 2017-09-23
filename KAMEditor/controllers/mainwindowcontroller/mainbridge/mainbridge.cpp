@@ -252,6 +252,12 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
         cmd = std::shared_ptr<Command> (new SwitchOn(machineTool->getDevicesManager(), deviceName, parametrs));
         break;
     }
+    case CMD_SWITCH_OFF:
+    {
+        std::string deviceName = arguments[0].toStdString();
+        cmd = std::shared_ptr<Command> (new SwitchOff(machineTool->getDevicesManager(), deviceName));
+        break;
+    }
     default:
     {
         break;

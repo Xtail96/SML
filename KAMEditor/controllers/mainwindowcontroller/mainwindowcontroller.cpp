@@ -139,15 +139,16 @@ QList<QTreeWidgetItem *> MainWindowController::getCommands()
 
 QStringList MainWindowController::getCommandArguments(size_t index)
 {
+    std::shared_ptr<Command> cmd;
     try
     {
-        std::shared_ptr<Command> cmd = machineTool->getCommandsManager()->operator [](index);
-        return cmd->getArguments();
+        cmd = machineTool->getCommandsManager()->operator [](index);
     }
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
+    return cmd->getArguments();
 }
 
 void MainWindowController::replaceCommand(int id, QStringList arguments, size_t index)

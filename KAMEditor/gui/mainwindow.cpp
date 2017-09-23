@@ -1037,7 +1037,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         OnDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_SWITCH_OFF:
-        //OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        OffDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_COMMENT:
         //CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
@@ -1113,7 +1113,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         OnDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        //OffDialog(machineTool->getDevicesManager(), machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        OffDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
         //CommentDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
