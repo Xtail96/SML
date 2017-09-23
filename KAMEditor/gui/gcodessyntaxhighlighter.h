@@ -14,11 +14,11 @@ public:
     void highlightBlock(const QString &text);
     void setPattern();
 private:
-    std::vector<QString> gPattern;
-    std::vector<QString> mPattern;
-    std::vector<QString> argumentsPattern;
+    QList<QString> gPattern;
+    QList<QString> mPattern;
+    QList<QString> argumentsPattern;
 
-    void setHighlightColor(const QString &text, std::vector<QString> pattern, const QBrush &brush);
+    void setHighlightColor(const QString &text, QList<QString> pattern, const QBrush &brush);
 
 };
 

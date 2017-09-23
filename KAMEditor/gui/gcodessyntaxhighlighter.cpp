@@ -39,6 +39,7 @@ void GCodesSyntaxHighlighter::setPattern()
         "Y",
         "Z",
         "P",
+        "O",
         "F",
         "S",
         "R",
@@ -50,7 +51,7 @@ void GCodesSyntaxHighlighter::setPattern()
     };
 }
 
-void GCodesSyntaxHighlighter::setHighlightColor(const QString &text, std::vector<QString> pattern, const QBrush &brush)
+void GCodesSyntaxHighlighter::setHighlightColor(const QString &text, QList<QString> pattern, const QBrush &brush)
 {
     QTextCharFormat format;
 
