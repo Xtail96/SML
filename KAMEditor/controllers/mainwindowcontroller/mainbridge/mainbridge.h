@@ -36,6 +36,12 @@ public:
     Point *makePoint(QStringList arguments);
 
     std::shared_ptr<Command> makeCommand(int id, QStringList arguments, MachineTool* machineTool);
+    std::shared_ptr<Command> makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager);
+    std::shared_ptr<Command> makeSwitchOffCommand(QStringList arguments, DevicesManager *deviceManager);
+    std::shared_ptr<Command> makeCommentCommand(QStringList arguments);
+    std::shared_ptr<Command> makePauseCommand(QStringList arguments);
+    std::shared_ptr<Command> makeLineCommand(QStringList arguments);
+
     QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
 
 private:

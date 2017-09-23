@@ -247,37 +247,27 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
     {
     case CMD_SWITCH_ON:
     {
-        std::string deviceName = arguments[0].toStdString();
-        std::string parametrs = arguments[1].toStdString();
-        cmd = std::shared_ptr<Command> (new SwitchOn(machineTool->getDevicesManager(), deviceName, parametrs));
+        cmd = makeSwitchOnCommand(arguments, machineTool->getDevicesManager());
         break;
     }
     case CMD_SWITCH_OFF:
     {
-        std::string deviceName = arguments[0].toStdString();
-        cmd = std::shared_ptr<Command> (new SwitchOff(machineTool->getDevicesManager(), deviceName));
+        cmd = makeSwitchOffCommand(arguments, machineTool->getDevicesManager());
         break;
     }
     case CMD_COMMENT:
     {
-        std::string text = arguments[0].toStdString();
-        cmd = std::shared_ptr<Command> (new Comment(text));
+        cmd = makeCommentCommand(arguments);
         break;
     }
     case CMD_PAUSE:
     {
-        size_t pauseLength = arguments[0].toUInt();
-        cmd = std::shared_ptr<Command> (new Pause(pauseLength));
+        cmd = makePauseCommand(arguments);
         break;
     }
     case CMD_LINE:
     {
-        double dx = arguments[0].toDouble();
-        double dy = arguments[1].toDouble();
-        double dz = arguments[2].toDouble();
-        double v = arguments[3].toDouble();
-
-        cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, v));
+        cmd = makeLineCommand(arguments);
         break;
     }
     default:
@@ -287,6 +277,139 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
     }
     return cmd;
 }
+
+std::shared_ptr<Command> MainBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
+{
+    std::shared_ptr<Command> cmd;
+
+    std::string deviceName = "Device";
+    std::string parametrs = "Parametrs";
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i)
+        {
+        case 0:
+            deviceName = arguments[i].toStdString();
+            break;
+        case 1:
+            parametrs = arguments[i].toStdString();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new SwitchOn(deviceManager, deviceName, parametrs));
+
+    return cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makeSwitchOffCommand(QStringList arguments, DevicesManager *deviceManager)
+{
+    std::shared_ptr<Command> cmd;
+
+    std::string deviceName = "Device";
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i)
+        {
+        case 0:
+            deviceName = arguments[i].toStdString();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new SwitchOff(deviceManager, deviceName));
+
+    return  cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makeCommentCommand(QStringList arguments)
+{
+    std::shared_ptr<Command> cmd;
+
+    std::string text = "";
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i)
+        {
+        case 0:
+            text = arguments[i].toStdString();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new Comment(text));
+
+    return cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makePauseCommand(QStringList arguments)
+{
+    std::shared_ptr<Command> cmd;
+
+    size_t pauseLength = 0;
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i)
+        {
+        case 0:
+            pauseLength = arguments[i].toUInt();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new Pause(pauseLength));
+
+    return cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makeLineCommand(QStringList arguments)
+{
+    std::shared_ptr<Command> cmd;
+
+    double dx = 0;
+    double dy = 0;
+    double dz = 0;
+    double v = 0;
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i)
+        {
+        case 0:
+            dx = arguments[i].toDouble();
+            break;
+        case 1:
+            dy = arguments[i].toDouble();
+            break;
+        case 2:
+            dz = arguments[i].toDouble();
+            break;
+        case 3:
+            v = arguments[i].toDouble();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, v));
+
+    return cmd;
+}
+
+
 
 QList<QTreeWidgetItem *> MainBridge::commands(CommandsManager *commandsManager)
 {
