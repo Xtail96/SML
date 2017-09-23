@@ -3,6 +3,7 @@
 
 #include "arc.h"
 #include "line.h"
+#include "comment.h"
 #include "pause.h"
 #include "switchoff.h"
 #include "switchon.h"

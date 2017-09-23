@@ -1,10 +1,10 @@
 #include "commentdialog.h"
 #include "ui_commentdialog.h"
 
-CommentDialog::CommentDialog(CommandsManager* _commandsManager, size_t _index, QWidget *parent, bool _edit) :
+CommentDialog::CommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::CommentDialog),
-    commandsManager(_commandsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -19,16 +19,18 @@ CommentDialog::~CommentDialog()
 
 void CommentDialog::on_buttonBox_accepted()
 {
-    std::string comment = ui->commentTextLineEdit->text().toStdString();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Comment(comment));
-
-    if(edit)
+    QStringList arguments =
     {
-        commandsManager->operator [](index) = cmd;
+        ui->commentTextLineEdit->text()
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_COMMENT, arguments, index);
     }
     else
     {
-        commandsManager->insertCommand(index, cmd);
+        controller->replaceCommand(CMD_COMMENT, arguments, index);
     }
 }
 
@@ -36,8 +38,7 @@ void CommentDialog::fillFields()
 {
     if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
         QString comment = arguments[0];
         ui->commentTextLineEdit->setText(comment);
     }

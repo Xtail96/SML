@@ -5,8 +5,7 @@
 #include <QMessageBox>
 
 #include "commanddialog.h"
-#include "models/machinetool/machinetool.h"
-#include "models/machinetool/commandsmanager/commands/comment.h"
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class CommentDialog;
@@ -17,7 +16,7 @@ class CommentDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CommentDialog(CommandsManager* _commandsManager, size_t _index, QWidget *parent = 0, bool _edit = false);
+    explicit CommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
     ~CommentDialog();
 
 private slots:
@@ -25,7 +24,7 @@ private slots:
 
 private:
     Ui::CommentDialog *ui;
-    CommandsManager* commandsManager;
+    MainWindowController* controller;
     size_t index;
     bool edit;
 
