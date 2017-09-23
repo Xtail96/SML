@@ -18,11 +18,20 @@ void GCodesSyntaxHighlighter::setPattern()
 {
     QString g = "G";
     QString m = "M";
-    for(int i = 0; i <= 99; i++)
+
+    for(int i = 0; i < 10; i++)
     {
-        std::string tmp = std::to_string(i);
-        gPattern.push_back(g + QString::fromStdString(tmp) + ':');
-        mPattern.push_back(m + QString::fromStdString(tmp) + ':');
+        QString tmp = "0";
+        tmp.push_back(QString::number(i));
+        gPattern.push_back(g + tmp);
+        mPattern.push_back(m + tmp);
+    }
+
+    for(int i = 10; i <= 99; i++)
+    {
+        QString tmp = QString::number(i);
+        gPattern.push_back(g + tmp);
+        mPattern.push_back(m + tmp);
     }
     argumentsPattern =
     {

@@ -969,7 +969,7 @@ void MainWindow::on_toBasePushButton_clicked()
 
 void MainWindow::on_open_action_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.7kam");
+    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
     QFile inputFile(path);
     if(!inputFile.open(QIODevice::ReadOnly))
     {
