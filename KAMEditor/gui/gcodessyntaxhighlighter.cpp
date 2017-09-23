@@ -12,6 +12,7 @@ void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
     setHighlightColor(text, gPattern, Qt::darkGreen);
     setHighlightColor(text, mPattern, Qt::darkYellow);
     setHighlightColor(text, argumentsPattern, Qt::darkMagenta);
+    setHighlightColor(text, commentsPattern, Qt::lightGray);
 }
 
 void GCodesSyntaxHighlighter::setPattern()
@@ -48,6 +49,10 @@ void GCodesSyntaxHighlighter::setPattern()
         "I",
         "J",
         "K"
+    };
+    commentsPattern =
+    {
+        "[(]([^{}]*)[)]"
     };
 }
 

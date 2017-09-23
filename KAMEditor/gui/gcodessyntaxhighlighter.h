@@ -17,6 +17,7 @@ private:
     QList<QString> gPattern;
     QList<QString> mPattern;
     QList<QString> argumentsPattern;
+    QList<QString> commentsPattern;
 
     void setHighlightColor(const QString &text, QList<QString> pattern, const QBrush &brush);
 
