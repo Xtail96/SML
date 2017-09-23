@@ -1046,7 +1046,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         PauseDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_LINE:
-        //LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        LineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_ARC:
         //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
@@ -1122,7 +1122,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         PauseDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_LINE:
-        //LineDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        LineDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_ARC:
         //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();

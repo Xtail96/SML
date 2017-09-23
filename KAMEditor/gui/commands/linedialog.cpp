@@ -1,10 +1,10 @@
 #include "linedialog.h"
 #include "ui_linedialog.h"
 
-LineDialog::LineDialog(CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
+LineDialog::LineDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::LineDialog),
-    commandsManager(_commandsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -17,19 +17,21 @@ LineDialog::~LineDialog()
 }
 void LineDialog::on_buttonBox_accepted()
 {
-    double dx = ui->dxLineEdit->text().toDouble();
-    double dy = ui->dyLineEdit->text().toDouble();
-    double dz = ui->dzLineEdit->text().toDouble();
-    double velocity = ui->velocityLineEdit->text().toDouble();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, velocity));
-
-    if(edit)
+    QStringList arguments =
     {
-        commandsManager->operator [](index) = cmd;
+        ui->dxLineEdit->text(),
+        ui->dyLineEdit->text(),
+        ui->dzLineEdit->text(),
+        ui->velocityLineEdit->text()
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_LINE, arguments, index);
     }
     else
     {
-        commandsManager->insertCommand(index, cmd);
+        controller->replaceCommand(CMD_LINE, arguments, index);
     }
 }
 
@@ -37,8 +39,7 @@ void LineDialog::fillFields()
 {
     if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
 
         QString dxString = "";
         QString dyString = "";

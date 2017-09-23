@@ -270,6 +270,16 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
         cmd = std::shared_ptr<Command> (new Pause(pauseLength));
         break;
     }
+    case CMD_LINE:
+    {
+        double dx = arguments[0].toDouble();
+        double dy = arguments[1].toDouble();
+        double dz = arguments[2].toDouble();
+        double v = arguments[3].toDouble();
+
+        cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, v));
+        break;
+    }
     default:
     {
         break;
