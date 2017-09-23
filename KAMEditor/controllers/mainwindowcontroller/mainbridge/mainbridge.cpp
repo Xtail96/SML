@@ -270,6 +270,11 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
         cmd = makeLineCommand(arguments);
         break;
     }
+    case CMD_TTLINE:
+    {
+        cmd = makeTTLineCommand(arguments, machineTool->getPointsManager());
+        break;
+    }
     default:
     {
         break;
@@ -405,6 +410,42 @@ std::shared_ptr<Command> MainBridge::makeLineCommand(QStringList arguments)
     }
 
     cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, v));
+
+    return cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
+{
+    std::shared_ptr<Command> cmd;
+
+    size_t destinationPointNumber = 0;
+    bool airPassageIsNeed = false;
+    int dz = 0;
+    double v = 0;
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch(i)
+        {
+        case 0:
+            destinationPointNumber = arguments[i].toUInt();
+            break;
+        case 1:
+            airPassageIsNeed = arguments[i].toInt();
+            break;
+        case 2:
+            dz = arguments[i].toInt();
+            break;
+        case 3:
+            v = arguments[i].toDouble();
+            break;
+        default:
+            break;
+        }
+    }
+
+
+    cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
 
     return cmd;
 }

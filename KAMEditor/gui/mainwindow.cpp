@@ -1052,7 +1052,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
         break;
     case CMD_TTLINE:
-        //TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this, true).exec();
+        TTLineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
@@ -1128,7 +1128,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
         break;
     case CMD_TTLINE:
-        //TTLineDialog(machineTool->getCommandsManager(), machineTool->getPointsManager(), currentCommandNumber, this).exec();
+        TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();

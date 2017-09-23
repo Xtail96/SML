@@ -41,6 +41,7 @@ public:
     std::shared_ptr<Command> makeCommentCommand(QStringList arguments);
     std::shared_ptr<Command> makePauseCommand(QStringList arguments);
     std::shared_ptr<Command> makeLineCommand(QStringList arguments);
+    std::shared_ptr<Command> makeTTLineCommand(QStringList arguments, PointsManager *pointsManager);
 
     QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
 

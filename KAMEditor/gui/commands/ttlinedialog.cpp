@@ -1,11 +1,10 @@
 #include "ttlinedialog.h"
 #include "ui_ttlinedialog.h"
 
-TTLineDialog::TTLineDialog(CommandsManager *_commandsManager, PointsManager *_pointsManager, size_t _index, QWidget *parent, bool _edit) :
+TTLineDialog::TTLineDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::TTLineDialog),
-    commandsManager(_commandsManager),
-    pointsManager(_pointsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -21,39 +20,29 @@ TTLineDialog::~TTLineDialog()
 
 void TTLineDialog::on_buttonBox_accepted()
 {
-    unsigned int destinationPointNumber = ui->destinationPointLineEdit->text().toUInt();
-
-    //std::shared_ptr<Point> destination = pointsManager->operator [](destinationPointNumber - 1);
-
-    bool airPassageIsNeed = ui->airPassageCheckBox->isChecked();
-    double dz = 0;
-    if(airPassageIsNeed)
+    QStringList arguments =
     {
-        dz = ui->dzLineEdit->text().toDouble();
-    }
-    double velocity = ui->velocityLineEdit->text().toDouble();
+        ui->destinationPointLineEdit->text(),
+        QString::number(ui->airPassageCheckBox->isChecked()),
+        ui->dzLineEdit->text(),
+        ui->velocityLineEdit->text()
+    };
 
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, velocity));
-    if(edit)
+    if(!edit)
     {
-        commandsManager->operator [](index) = cmd;
+        controller->insertCommand(CMD_TTLINE, arguments, index);
     }
     else
     {
-        commandsManager->insertCommand(index, cmd);
+        controller->replaceCommand(CMD_TTLINE, arguments, index);
     }
-    /*catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
 }
 
 void TTLineDialog::fillFields()
 {
     if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
 
         QString destinationPointNumberString = "";
         QString airPassageIsNeed = "";
