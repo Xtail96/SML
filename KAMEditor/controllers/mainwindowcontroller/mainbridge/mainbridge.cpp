@@ -264,6 +264,12 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
         cmd = std::shared_ptr<Command> (new Comment(text));
         break;
     }
+    case CMD_PAUSE:
+    {
+        size_t pauseLength = arguments[0].toUInt();
+        cmd = std::shared_ptr<Command> (new Pause(pauseLength));
+        break;
+    }
     default:
     {
         break;

@@ -1,10 +1,10 @@
 #include "pausedialog.h"
 #include "ui_pausedialog.h"
 
-PauseDialog::PauseDialog(CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
+PauseDialog::PauseDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::PauseDialog),
-    commandsManager(_commandsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -20,15 +20,18 @@ PauseDialog::~PauseDialog()
 void PauseDialog::on_buttonBox_accepted()
 {
     size_t pauseLength = ui->pauseValueLineEdit->text().toUInt();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Pause(pauseLength));
-
-    if(edit)
+    QStringList arguments =
     {
-        commandsManager->operator [](index) = cmd;
+        QString::number(pauseLength),
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_PAUSE, arguments, index);
     }
     else
     {
-        commandsManager->insertCommand(index, cmd);
+        controller->replaceCommand(CMD_PAUSE, arguments, index);
     }
 }
 
@@ -36,8 +39,7 @@ void PauseDialog::fillFields()
 {
     if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
         QString pauseLength = arguments[0];
         ui->pauseValueLineEdit->setText(pauseLength);
     }
