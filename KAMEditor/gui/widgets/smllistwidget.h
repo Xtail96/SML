@@ -8,7 +8,7 @@
 #include <QGroupBox>
 
 /*!
- * \brief Класс Виджет SML-список
+ * \brief Класс Виджет SML-списка
  * Наследник QListWidget
  */
 class SMLListWidget : public QListWidget
@@ -16,8 +16,16 @@ class SMLListWidget : public QListWidget
     Q_OBJECT
 
 public:
+    /*!
+     * \brief Конструктор класса Виджет SML-Списка
+     * \param parent родительский виджет
+     */
     SMLListWidget(QWidget *parent = 0);
 
+    /*!
+     * \brief Обрабатывает нажатие клавиши на клавиатуре
+     * \param keyEvent событие нажатия клавиши на клавиатуре
+     */
     void keyPressEvent(QKeyEvent *keyEvent);
 private:
     /*!
