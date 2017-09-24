@@ -371,9 +371,8 @@ void MainWindow::updateDisplays()
 
 void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 {
-    QModelIndexList rowsIndexes = SMLTreeWidget::getRowsIndexes(indexes);
     std::vector<int> rows;
-    for(auto index : rowsIndexes)
+    for(auto index : indexes)
     {
         rows.push_back(index.row());
     }

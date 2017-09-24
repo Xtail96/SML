@@ -11,6 +11,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     QModelIndexList selectedItemsIndexes = this->selectionModel()->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
     {
+        QModelIndexList selectedRowsIndexes = getRowsIndexes(selectedItemsIndexes);
 
         int keyPressed = keyEvent->key();
         Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
@@ -19,27 +20,27 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         switch (keyPressed) {
         case Qt::Key_Return:
         {
-            keyReturnPressed(selectedItemsIndexes);
+            keyReturnPressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Backspace:
         {
-            keyBackspacePressed(selectedItemsIndexes);
+            keyBackspacePressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Escape:
         {
-            keyEscapePressed(selectedItemsIndexes);
+            keyEscapePressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Up:
         {
-            keyUpPressed(selectedItemsIndexes);
+            keyUpPressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_Down:
         {
-            keyDownPressed(selectedItemsIndexes);
+            keyDownPressed(selectedRowsIndexes);
             break;
         }
         case Qt::Key_A:
@@ -54,7 +55,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         {
             if(modifiers == Qt::ControlModifier)
             {
-                keysCtrlCPressed(selectedItemsIndexes);
+                keysCtrlCPressed(selectedRowsIndexes);
             }
             break;
         }
@@ -62,7 +63,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         {
             if(modifiers == Qt::ControlModifier)
             {
-                keysCtrlXPressed(selectedItemsIndexes);
+                keysCtrlXPressed(selectedRowsIndexes);
             }
             break;
         }
@@ -70,7 +71,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
         {
             if(modifiers == Qt::ControlModifier)
             {
-                keysCtrlVPressed(selectedItemsIndexes);
+                keysCtrlVPressed(selectedRowsIndexes);
             }
             break;
         }
