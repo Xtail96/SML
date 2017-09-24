@@ -61,6 +61,7 @@ public:
     static QModelIndexList getRowsIndexes(QModelIndexList itemsIndexes);
 private:
     void selectFirstItem();
+    void selectLastItem();
     void keyReturnPressed(QModelIndexList itemsIndexes);
     void keyBackspacePressed(QModelIndexList itemsIndexes);
     void keyUpPressed(QModelIndexList itemsIndexes);

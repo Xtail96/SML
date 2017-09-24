@@ -109,6 +109,13 @@ void SMLTreeWidget::selectFirstItem()
     this->setCurrentItem(firstItem);
 }
 
+void SMLTreeWidget::selectLastItem()
+{
+    int itemsCount = this->topLevelItemCount();
+    QTreeWidgetItem* lastItem = this->topLevelItem(itemsCount - 1);
+    this->setCurrentItem(lastItem);
+}
+
 void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
@@ -126,18 +133,34 @@ void SMLTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
 void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
-    if( (firstSelectedItemIndex.row() > 0) && (firstSelectedItemIndex.row() < this->topLevelItemCount()) )
+    int firstSelectedRow = firstSelectedItemIndex.row();
+    if( (firstSelectedRow > 0) && (firstSelectedRow < this->topLevelItemCount()) )
     {
         this->setCurrentIndex(this->indexAbove(firstSelectedItemIndex));
+    }
+    else
+    {
+        if(firstSelectedRow == 0)
+        {
+            selectLastItem();
+        }
     }
 }
 
 void SMLTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex lastSelectedItemIndex = itemsIndexes[itemsIndexes.size() - 1];
-    if( (lastSelectedItemIndex.row() >= 0 && lastSelectedItemIndex.row() < this->topLevelItemCount() - 1) )
+    int lastSelectedRow = lastSelectedItemIndex.row();
+    if( (lastSelectedRow >= 0) && (lastSelectedRow < this->topLevelItemCount() - 1) )
     {
         this->setCurrentIndex(this->indexBelow(lastSelectedItemIndex));
+    }
+    else
+    {
+        if(lastSelectedRow == this->topLevelItemCount() - 1)
+        {
+            selectFirstItem();
+        }
     }
 }
 
