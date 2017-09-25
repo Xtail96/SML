@@ -25,6 +25,8 @@ public:
     PointsManager *getPointsManager() const;
     void setPointsManager(PointsManager *value);
 
+    double getGridMaximalAccuracy() const;
+
 signals:
 
 public slots:
@@ -38,6 +40,7 @@ private:
 
     bool run;
     unsigned int minimalGridSize = 1;
+    double gridMaximalAccuracy;
 
     void setup(MainWindowController *mainController);
 

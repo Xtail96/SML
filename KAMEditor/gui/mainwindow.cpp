@@ -1017,7 +1017,7 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    mainWindowController->updateCommands();
+    mainWindowController->inerpretCommands();
     ProgramVisualizeWindow(mainWindowController, this).exec();
 }
 

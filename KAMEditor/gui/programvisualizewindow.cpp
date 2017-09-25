@@ -13,15 +13,7 @@ ProgramVisualizeWindow::ProgramVisualizeWindow(MainWindowController *_controller
     ui->programOpenGLWidget->setCommandsInterpreter(programVisualizeController->getCommandsInterpreter());
     ui->programOpenGLWidget->setPointsManager(programVisualizeController->getPointsManager());
 
-    SettingsManager settingsManager;
-    try
-    {
-        ui->programOpenGLWidget->setGridMaximalAccuracy(settingsManager.get("Visualisation", "GridMaximalAccuracy").toDouble());
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
 
     showCommands();
 

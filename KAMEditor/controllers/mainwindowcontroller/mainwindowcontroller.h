@@ -130,7 +130,7 @@ public slots:
 
     void deleteCommand(unsigned int number);
 
-    void updateCommands();
+    void inerpretCommands();
 
     friend class ProgramVisualizeWindowController;
 };

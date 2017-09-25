@@ -340,7 +340,7 @@ void MainWindowController::deleteCommand(unsigned int number)
     }
 }
 
-void MainWindowController::updateCommands()
+void MainWindowController::inerpretCommands()
 {
     machineTool->getCommandsInterpreter()->updateProgram();
 }

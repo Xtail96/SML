@@ -30,6 +30,11 @@ void ProgramVisualizeWindowController::setPointsManager(PointsManager *value)
     pointsManager = value;
 }
 
+double ProgramVisualizeWindowController::getGridMaximalAccuracy() const
+{
+    return gridMaximalAccuracy;
+}
+
 void ProgramVisualizeWindowController::setup(MainWindowController* mainController)
 {
     commandsInterpreter = mainController->machineTool->getCommandsInterpreter();
@@ -37,4 +42,14 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainControlle
     pointsManager = mainController->machineTool->getPointsManager();
 
     visualizeBridge = new VisualizeBridge();
+
+    SettingsManager settingsManager;
+    try
+    {
+        gridMaximalAccuracy = settingsManager.get("Visualisation", "GridMaximalAccuracy").toDouble();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
