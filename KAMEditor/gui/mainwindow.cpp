@@ -40,9 +40,6 @@ void MainWindow::setupMainWindowController()
 
     connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
-
-    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
-    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateCommandsEditorWidgets()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -81,6 +78,7 @@ void MainWindow::setupCommandsEditorField()
     //connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
     //connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
     //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateCommandsEditorWidgets()));
     connect(editorField, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deleteSelectedCommands(QModelIndexList)));
 }
 
@@ -353,6 +351,7 @@ void MainWindow::setupPointsEditorWidgets()
 {
     setupPointsEditorFields();
     setupPointsPushButtons();
+    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::updateDisplays()
