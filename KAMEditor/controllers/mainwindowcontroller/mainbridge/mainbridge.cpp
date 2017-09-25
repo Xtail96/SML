@@ -275,6 +275,11 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
         cmd = makeTTLineCommand(arguments, machineTool->getPointsManager());
         break;
     }
+    case CMD_ARC:
+    {
+        cmd = makeArcCommand(arguments);
+        break;
+    }
     default:
     {
         break;
@@ -446,6 +451,41 @@ std::shared_ptr<Command> MainBridge::makeTTLineCommand(QStringList arguments, Po
 
 
     cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
+
+    return cmd;
+}
+
+std::shared_ptr<Command> MainBridge::makeArcCommand(QStringList arguments)
+{
+    std::shared_ptr<Command> cmd;
+
+    double r = 0;
+    double al = 0;
+    double fi = 0;
+    double v = 0;
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch(i)
+        {
+        case 0:
+            r = arguments[i].toDouble();
+            break;
+        case 1:
+            al = arguments[i].toDouble();
+            break;
+        case 2:
+            fi = arguments[i].toDouble();
+            break;
+        case 3:
+            v = arguments[i].toDouble();
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<Command> (new CArc(r, al, fi, v));
 
     return cmd;
 }

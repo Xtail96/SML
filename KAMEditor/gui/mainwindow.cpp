@@ -1048,7 +1048,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         LineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_ARC:
-        //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this, true).exec();
+        ArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_TTLINE:
         TTLineDialog(mainWindowController, currentCommandNumber, this, true).exec();
@@ -1124,7 +1124,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         LineDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_ARC:
-        //ArcDialog(machineTool->getCommandsManager(), currentCommandNumber, this).exec();
+        ArcDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_TTLINE:
         TTLineDialog(mainWindowController, currentCommandNumber, this).exec();

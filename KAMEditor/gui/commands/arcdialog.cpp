@@ -1,10 +1,10 @@
 #include "arcdialog.h"
 #include "ui_arcdialog.h"
 
-ArcDialog::ArcDialog(CommandsManager *_commandsManager, size_t _index, QWidget *parent, bool _edit) :
+ArcDialog::ArcDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
     ui(new Ui::ArcDialog),
-    commandsManager(_commandsManager),
+    controller(_controller),
     index(_index),
     edit(_edit)
 {
@@ -19,19 +19,21 @@ ArcDialog::~ArcDialog()
 
 void ArcDialog::on_buttonBox_accepted()
 {
-    double r = ui->rLineEdit->text().toDouble();
-    double al = ui->alLineEdit->text().toDouble();
-    double fi = ui->fiLneEdit->text().toDouble();
-    double velocity = ui->velocityLineEdit->text().toDouble();
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new CArc(r, al, fi, velocity));
-
-    if(edit)
+    QStringList arguments =
     {
-        commandsManager->operator [](index) = cmd;
+        ui->rLineEdit->text(),
+        ui->alLineEdit->text(),
+        ui->fiLneEdit->text(),
+        ui->velocityLineEdit->text()
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_ARC, arguments, index);
     }
     else
     {
-        commandsManager->insertCommand(index, cmd);
+        controller->replaceCommand(CMD_ARC, arguments, index);
     }
 }
 
@@ -39,8 +41,7 @@ void ArcDialog::fillFields()
 {
     if(edit)
     {
-        std::shared_ptr<Command> currentCommand = commandsManager->operator [](index);
-        QStringList arguments = currentCommand->getArguments();
+        QStringList arguments = controller->getCommandArguments(index);
 
 
         QString rString = "";
