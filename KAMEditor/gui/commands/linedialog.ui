@@ -69,21 +69,21 @@
       <item row="0" column="0">
        <widget class="QLabel" name="dxLabel">
         <property name="text">
-         <string>dx</string>
+         <string>dX</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="dzLabel">
         <property name="text">
-         <string>dz</string>
+         <string>dZ</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="dxLineEdit"/>
       </item>
-      <item row="0" column="3">
+      <item row="0" column="4">
        <widget class="QLineEdit" name="velocityLineEdit"/>
       </item>
       <item row="1" column="1">
@@ -92,14 +92,21 @@
       <item row="1" column="0">
        <widget class="QLabel" name="dyLabel">
         <property name="text">
-         <string>dy</string>
+         <string>dY</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="3">
        <widget class="QLabel" name="velocityLabel">
         <property name="text">
          <string>Скорость</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" rowspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
       </item>
