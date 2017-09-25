@@ -42,7 +42,7 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainControlle
 
     pointsManager = mainController->machineTool->getPointsManager();
 
-    programVisualizeBridge = new VisualizeBridge();
+    programVisualizeBridge = new ProgramVisualizeWindowBridge();
 
     SettingsManager settingsManager;
     try

@@ -1,11 +1,11 @@
-#include "visualizebridge.h"
+#include "programvisualizewindowbridge.h"
 
-VisualizeBridge::VisualizeBridge()
+ProgramVisualizeWindowBridge::ProgramVisualizeWindowBridge()
 {
 
 }
 
-QStringList VisualizeBridge::commandsHeaders()
+QStringList ProgramVisualizeWindowBridge::commandsHeaders()
 {
     QStringList headers =
     {
@@ -15,7 +15,7 @@ QStringList VisualizeBridge::commandsHeaders()
     return headers;
 }
 
-QStringList VisualizeBridge::commandsNumbers(unsigned int commandsCount)
+QStringList ProgramVisualizeWindowBridge::commandsNumbers(unsigned int commandsCount)
 {
     QStringList numbers;
     for(unsigned int i = 0; i < commandsCount; i++)
@@ -25,7 +25,7 @@ QStringList VisualizeBridge::commandsNumbers(unsigned int commandsCount)
     return numbers;
 }
 
-QList<QTableWidgetItem *> VisualizeBridge::commandsNames(CommandsInterpreter *interpreter)
+QList<QTableWidgetItem *> ProgramVisualizeWindowBridge::commandsNames(CommandsInterpreter *interpreter)
 {
     QList<QTableWidgetItem*> commandsNamesItems;
     unsigned int commandsCount = interpreter->commandsCount();
@@ -46,7 +46,7 @@ QList<QTableWidgetItem *> VisualizeBridge::commandsNames(CommandsInterpreter *in
     return commandsNamesItems;
 }
 
-QList<QTableWidgetItem *> VisualizeBridge::commandsArguments(CommandsInterpreter *interpreter)
+QList<QTableWidgetItem *> ProgramVisualizeWindowBridge::commandsArguments(CommandsInterpreter *interpreter)
 {
     QList<QTableWidgetItem*> commandsArgumentsItems;
     unsigned int commandsCount = interpreter->commandsCount();

@@ -8,7 +8,7 @@
 #include "models/structs.h"
 #include "models/machinetool/machinetool.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
-#include "controllers/mainwindowcontroller/mainbridge/mainbridge.h"
+#include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
 
 #include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
 
@@ -78,7 +78,7 @@ protected:
     /*!
      * \brief Указатель на мост для связи с классом Главное окно
      */
-    MainBridge* mainBridge;
+    MainWindowBridge* mainWindowBridge;
 
     /// Таймер для обновления
     QTimer *timer;
@@ -115,7 +115,7 @@ public slots:
     /// Слот для настройки таймера обновления дисплеев
     void setupTimer();
 
-    void setupMainBridge();
+    void setupMainWindowBridge();
 
     void setupU1Connection();
 

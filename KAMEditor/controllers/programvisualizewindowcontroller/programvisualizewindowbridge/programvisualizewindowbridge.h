@@ -1,5 +1,5 @@
-#ifndef VISUALIZEBRIDGE_H
-#define VISUALIZEBRIDGE_H
+#ifndef PROGRAMVISUALIZEWINDOWBRIDGE_H
+#define PROGRAMVISUALIZEWINDOWBRIDGE_H
 
 #include <QTableWidgetItem>
 #include <QMessageBox>
@@ -7,10 +7,10 @@
 #include "models/structs.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
-class VisualizeBridge
+class ProgramVisualizeWindowBridge
 {
 public:
-    VisualizeBridge();
+    ProgramVisualizeWindowBridge();
 
     QStringList commandsHeaders();
     QStringList commandsNumbers(unsigned int commandsCount);
@@ -19,4 +19,4 @@ public:
     QList<QTableWidgetItem*> commandsArguments(CommandsInterpreter* interpreter);
 };
 
-#endif // VISUALIZEBRIDGE_H
+#endif // PROGRAMVISUALIZEWINDOWBRIDGE_H

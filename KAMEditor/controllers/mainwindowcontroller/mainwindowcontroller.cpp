@@ -2,7 +2,7 @@
 
 MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
-    setupMainBridge();
+    setupMainWindowBridge();
     setupU1Connection();
     setupTimer();
 }
@@ -10,16 +10,16 @@ MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 MainWindowController::~MainWindowController()
 {
     delete timer;
-    delete mainBridge;
+    delete mainWindowBridge;
     delete machineTool;
 #ifdef Q_OS_WIN
     delete u1Manager;
 #endif
 }
 
-void MainWindowController::setupMainBridge()
+void MainWindowController::setupMainWindowBridge()
 {
-    mainBridge = new MainBridge();
+    mainWindowBridge = new MainWindowBridge();
 }
 
 void MainWindowController::setupU1Connection()
@@ -37,62 +37,62 @@ void MainWindowController::setupTimer()
 
 QStringList MainWindowController::getSensorsNames()
 {
-    return mainBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
+    return mainWindowBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
 }
 
 QStringList MainWindowController::getSensorsParametrsNames()
 {
-    return mainBridge->sensorsParametrsNames();
+    return mainWindowBridge->sensorsParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getSensorsSettings()
 {
-    return mainBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
+    return mainWindowBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
 }
 
 QList<QColor> MainWindowController::getSensorsLeds()
 {
-    return mainBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
+    return mainWindowBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
 }
 
 QStringList MainWindowController::getDevicesNames()
 {
-    return mainBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
+    return mainWindowBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getDevicesParametrsNames()
 {
-    return mainBridge->devicesParametrsNames();
+    return mainWindowBridge->devicesParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getDevicesSettings()
 {
-    return mainBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
+    return mainWindowBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getOnScreenDevicesNames()
 {
-    return mainBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
+    return mainWindowBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
 }
 
 QList<bool> MainWindowController::getOnScreenDevicesStates()
 {
-    return mainBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
+    return mainWindowBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getAxisesNames()
 {
-    return mainBridge->axisesNames(machineTool->getMovementController()->getAxises());
+    return mainWindowBridge->axisesNames(machineTool->getMovementController()->getAxises());
 }
 
 QStringList MainWindowController::getAxisesParametrsNames()
 {
-    return mainBridge->axisesParametrsNames();
+    return mainWindowBridge->axisesParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getAxisesSettings()
 {
-    return mainBridge->axisesSettings(machineTool->getMovementController()->getAxises());
+    return mainWindowBridge->axisesSettings(machineTool->getMovementController()->getAxises());
 }
 
 unsigned int MainWindowController::getVelocity()
@@ -107,12 +107,12 @@ unsigned int MainWindowController::getSpindelRotations()
 
 QList<QStringList> MainWindowController::getPoints()
 {
-    return mainBridge->points(machineTool->getPointsManager());
+    return mainWindowBridge->points(machineTool->getPointsManager());
 }
 
 QStringList MainWindowController::getPoint(unsigned int number)
 {
-    return mainBridge->point(machineTool->getPointsManager(), number);
+    return mainWindowBridge->point(machineTool->getPointsManager(), number);
 }
 
 int MainWindowController::getCommandId(QString commandName)
@@ -127,14 +127,14 @@ size_t MainWindowController::getCommandsCount()
 
 void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = mainBridge->makeCommand(id, arguments, machineTool);
+    std::shared_ptr<Command> cmd = mainWindowBridge->makeCommand(id, arguments, machineTool);
     machineTool->getCommandsManager()->insertCommand(index, cmd);
     emit commandsUpdated();
 }
 
 QList<QTreeWidgetItem *> MainWindowController::getCommands()
 {
-    return mainBridge->commands(machineTool->getCommandsManager());
+    return mainWindowBridge->commands(machineTool->getCommandsManager());
 }
 
 QStringList MainWindowController::getCommandArguments(size_t index)
@@ -153,7 +153,7 @@ QStringList MainWindowController::getCommandArguments(size_t index)
 
 void MainWindowController::replaceCommand(int id, QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = mainBridge->makeCommand(id, arguments, machineTool);
+    std::shared_ptr<Command> cmd = mainWindowBridge->makeCommand(id, arguments, machineTool);
     try
     {
         machineTool->getCommandsManager()->operator [](index) = cmd;
@@ -287,14 +287,14 @@ void MainWindowController::updateSpindelRotations(int value)
 
 void MainWindowController::addPoint(QStringList coordinates)
 {
-    Point* p = mainBridge->makePoint(coordinates);
+    Point* p = mainWindowBridge->makePoint(coordinates);
     machineTool->getPointsManager()->addPoint(p);
     emit pointsUpdated();
 }
 
 void MainWindowController::updatePoint(QStringList coordinates, unsigned int number)
 {
-    Point* p = mainBridge->makePoint(coordinates);
+    Point* p = mainWindowBridge->makePoint(coordinates);
     try
     {
         std::shared_ptr<Point> originPoint = machineTool->getPointsManager()->operator [](number);

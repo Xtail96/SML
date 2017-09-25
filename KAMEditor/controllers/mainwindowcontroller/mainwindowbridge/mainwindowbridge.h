@@ -1,5 +1,5 @@
-#ifndef MAINBRIDGE_H
-#define MAINBRIDGE_H
+#ifndef MAINWINDOWBRIDGE_H
+#define MAINWINDOWBRIDGE_H
 
 #include <QStringList>
 #include <QTableWidgetItem>
@@ -9,11 +9,11 @@
 #include "models/machinetool/machinetool.h"
 #include "models/machinetool/commandsmanager/commands/commands.h"
 
-class MainBridge
+class MainWindowBridge
 {
 public:
-    MainBridge();
-    ~MainBridge();
+    MainWindowBridge();
+    ~MainWindowBridge();
 
     QStringList sensorsNames(std::vector< std::shared_ptr<Sensor> > sensors);
     QStringList sensorsParametrsNames();
@@ -49,4 +49,4 @@ public:
 private:
 };
 
-#endif // MAINBRIDGE_H
+#endif // MAINBWINDOWRIDGE_H

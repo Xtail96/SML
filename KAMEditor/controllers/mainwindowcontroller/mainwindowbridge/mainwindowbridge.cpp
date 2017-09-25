@@ -1,16 +1,16 @@
-#include "mainbridge.h"
+#include "mainwindowbridge.h"
 
-MainBridge::MainBridge()
+MainWindowBridge::MainWindowBridge()
 {
 
 }
 
-MainBridge::~MainBridge()
+MainWindowBridge::~MainWindowBridge()
 {
 
 }
 
-QStringList MainBridge::sensorsNames(std::vector<std::shared_ptr<Sensor> > sensors)
+QStringList MainWindowBridge::sensorsNames(std::vector<std::shared_ptr<Sensor> > sensors)
 {
     QStringList names;
     for(auto sensor : sensors)
@@ -20,7 +20,7 @@ QStringList MainBridge::sensorsNames(std::vector<std::shared_ptr<Sensor> > senso
     return names;
 }
 
-QStringList MainBridge::sensorsParametrsNames()
+QStringList MainWindowBridge::sensorsParametrsNames()
 {
     QStringList parametrsNames =
     {
@@ -32,7 +32,7 @@ QStringList MainBridge::sensorsParametrsNames()
     return parametrsNames;
 }
 
-QList<QStringList> MainBridge::sensorsSettings(std::vector<std::shared_ptr<Sensor> > sensors)
+QList<QStringList> MainWindowBridge::sensorsSettings(std::vector<std::shared_ptr<Sensor> > sensors)
 {
     QList<QStringList> sensorsSettings;
     for(auto sensor : sensors)
@@ -49,7 +49,7 @@ QList<QStringList> MainBridge::sensorsSettings(std::vector<std::shared_ptr<Senso
     return sensorsSettings;
 }
 
-QList<QColor> MainBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> > sensors)
+QList<QColor> MainWindowBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> > sensors)
 {
     QList<QColor> sensorsLeds;
     for(auto sensor : sensors)
@@ -64,7 +64,7 @@ QList<QColor> MainBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> > sens
     return sensorsLeds;
 }
 
-QStringList MainBridge::devicesNames(std::vector<std::shared_ptr<Device> > devices)
+QStringList MainWindowBridge::devicesNames(std::vector<std::shared_ptr<Device> > devices)
 {
     QStringList names;
     for(auto device : devices)
@@ -74,7 +74,7 @@ QStringList MainBridge::devicesNames(std::vector<std::shared_ptr<Device> > devic
     return names;
 }
 
-QStringList MainBridge::devicesParametrsNames()
+QStringList MainWindowBridge::devicesParametrsNames()
 {
     QStringList parametrsNames =
     {
@@ -87,7 +87,7 @@ QStringList MainBridge::devicesParametrsNames()
     return parametrsNames;
 }
 
-QList<QStringList> MainBridge::devicesSettings(std::vector<std::shared_ptr<Device> > devices)
+QList<QStringList> MainWindowBridge::devicesSettings(std::vector<std::shared_ptr<Device> > devices)
 {
     QList<QStringList> devicesSettings;
     for(auto device : devices)
@@ -105,7 +105,7 @@ QList<QStringList> MainBridge::devicesSettings(std::vector<std::shared_ptr<Devic
     return devicesSettings;
 }
 
-QStringList MainBridge::onScreenDevicesNames(std::vector<std::shared_ptr<Device> > devices)
+QStringList MainWindowBridge::onScreenDevicesNames(std::vector<std::shared_ptr<Device> > devices)
 {
     QStringList names;
     for(auto device : devices)
@@ -118,7 +118,7 @@ QStringList MainBridge::onScreenDevicesNames(std::vector<std::shared_ptr<Device>
     return names;
 }
 
-QList<bool> MainBridge::onScreenDevicesStates(std::vector<std::shared_ptr<Device> > devices)
+QList<bool> MainWindowBridge::onScreenDevicesStates(std::vector<std::shared_ptr<Device> > devices)
 {
     QList<bool> devicesStates;
     for(auto device : devices)
@@ -131,7 +131,7 @@ QList<bool> MainBridge::onScreenDevicesStates(std::vector<std::shared_ptr<Device
     return devicesStates;
 }
 
-QStringList MainBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
+QStringList MainWindowBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
 {
     QStringList names;
     for(auto axis : axises)
@@ -141,7 +141,7 @@ QStringList MainBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
     return names;
 }
 
-QStringList MainBridge::axisesParametrsNames()
+QStringList MainWindowBridge::axisesParametrsNames()
 {
     QStringList parametrsNames =
     {
@@ -157,7 +157,7 @@ QStringList MainBridge::axisesParametrsNames()
     return parametrsNames;
 }
 
-QList<QStringList> MainBridge::axisesSettings(std::vector<std::shared_ptr<Axis> > axises)
+QList<QStringList> MainWindowBridge::axisesSettings(std::vector<std::shared_ptr<Axis> > axises)
 {
     QList<QStringList> axisesSettings;
     for(auto axis : axises)
@@ -178,7 +178,7 @@ QList<QStringList> MainBridge::axisesSettings(std::vector<std::shared_ptr<Axis> 
     return axisesSettings;
 }
 
-QList<QStringList> MainBridge::points(PointsManager *pointsManager)
+QList<QStringList> MainWindowBridge::points(PointsManager *pointsManager)
 {
     QList<QStringList> points;
     unsigned int pointsCount = pointsManager->pointCount();
@@ -208,7 +208,7 @@ QList<QStringList> MainBridge::points(PointsManager *pointsManager)
     return points;
 }
 
-QStringList MainBridge::point(PointsManager *pointsManager, unsigned int number)
+QStringList MainWindowBridge::point(PointsManager *pointsManager, unsigned int number)
 {
     QStringList coordinates;
     try
@@ -229,7 +229,7 @@ QStringList MainBridge::point(PointsManager *pointsManager, unsigned int number)
     return coordinates;
 }
 
-Point* MainBridge::makePoint(QStringList arguments)
+Point* MainWindowBridge::makePoint(QStringList arguments)
 {
     std::vector<double> pointsCoordinates;
     for(auto argument : arguments)
@@ -240,7 +240,7 @@ Point* MainBridge::makePoint(QStringList arguments)
     return p;
 }
 
-std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, MachineTool *machineTool)
+std::shared_ptr<Command> MainWindowBridge::makeCommand(int id, QStringList arguments, MachineTool *machineTool)
 {
     std::shared_ptr<Command> cmd;
     switch (id)
@@ -288,7 +288,7 @@ std::shared_ptr<Command> MainBridge::makeCommand(int id, QStringList arguments, 
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
+std::shared_ptr<Command> MainWindowBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -315,7 +315,7 @@ std::shared_ptr<Command> MainBridge::makeSwitchOnCommand(QStringList arguments, 
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeSwitchOffCommand(QStringList arguments, DevicesManager *deviceManager)
+std::shared_ptr<Command> MainWindowBridge::makeSwitchOffCommand(QStringList arguments, DevicesManager *deviceManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -338,7 +338,7 @@ std::shared_ptr<Command> MainBridge::makeSwitchOffCommand(QStringList arguments,
     return  cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeCommentCommand(QStringList arguments)
+std::shared_ptr<Command> MainWindowBridge::makeCommentCommand(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
@@ -361,7 +361,7 @@ std::shared_ptr<Command> MainBridge::makeCommentCommand(QStringList arguments)
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makePauseCommand(QStringList arguments)
+std::shared_ptr<Command> MainWindowBridge::makePauseCommand(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
@@ -384,7 +384,7 @@ std::shared_ptr<Command> MainBridge::makePauseCommand(QStringList arguments)
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeLineCommand(QStringList arguments)
+std::shared_ptr<Command> MainWindowBridge::makeLineCommand(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
@@ -419,7 +419,7 @@ std::shared_ptr<Command> MainBridge::makeLineCommand(QStringList arguments)
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
+std::shared_ptr<Command> MainWindowBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -455,7 +455,7 @@ std::shared_ptr<Command> MainBridge::makeTTLineCommand(QStringList arguments, Po
     return cmd;
 }
 
-std::shared_ptr<Command> MainBridge::makeArcCommand(QStringList arguments)
+std::shared_ptr<Command> MainWindowBridge::makeArcCommand(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
@@ -492,7 +492,7 @@ std::shared_ptr<Command> MainBridge::makeArcCommand(QStringList arguments)
 
 
 
-QList<QTreeWidgetItem *> MainBridge::commands(CommandsManager *commandsManager)
+QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsManager)
 {
     QList<QTreeWidgetItem*> commands;
 

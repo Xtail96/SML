@@ -5,7 +5,7 @@
 
 #include "models/structs.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
-#include "controllers/programvisualizewindowcontroller/visualizebridge/visualizebridge.h"
+#include "controllers/programvisualizewindowcontroller/programvisualizewindowbridge/programvisualizewindowbridge.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 class MainWindowController;
@@ -40,7 +40,7 @@ signals:
 public slots:
 
 private:
-    VisualizeBridge* programVisualizeBridge;
+    ProgramVisualizeWindowBridge* programVisualizeBridge;
 
     CommandsInterpreter* commandsInterpreter;
 
