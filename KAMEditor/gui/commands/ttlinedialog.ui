@@ -19,6 +19,12 @@
   <property name="whatsThis">
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;T &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;TT ЛИНИЯ [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН, ТК, [^] ∆Z,&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)] &lt;br/&gt;Перемещение фрезы из точки с номером &amp;lt;ТН&amp;gt; в точку с номером по прямой в плоскости XY. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка начальная. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка конечная. &lt;br/&gt;Если &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – перемещение по Z на ∆Z. &lt;br/&gt;Если &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;^∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – воздушный переход с подъемом и опусканием на ∆Z. &lt;br/&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;) Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
     <number>5</number>
