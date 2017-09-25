@@ -10,6 +10,7 @@
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "controllers/mainwindowcontroller/mainbridge/mainbridge.h"
 
+
 /*!
  * \brief Класс Контроллер главного окна
  * Отвечает за всю логику работы с элементами главного окна
@@ -17,6 +18,7 @@
 class MainWindowController : public QObject
 {
     Q_OBJECT
+
 public:
     /*!
      * \brief Конструктор класса Контроллер главного окна
