@@ -7,18 +7,8 @@ ProgramVisualizeWindow::ProgramVisualizeWindow(MainWindowController *_controller
     run(_run)
 {
     ui->setupUi(this);
-
-    programVisualizeController = new ProgramVisualizeWindowController(_controller);
-
-    ui->programOpenGLWidget->setCommandsInterpreter(programVisualizeController->getCommandsInterpreter());
-    ui->programOpenGLWidget->setPointsManager(programVisualizeController->getPointsManager());
-
-    ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
-
-    showCommands();
-
-    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
-    showOffsets();
+    setupProgramVisualizeController(_controller);
+    setupWidgets();
 }
 
 ProgramVisualizeWindow::~ProgramVisualizeWindow()
@@ -201,4 +191,24 @@ void ProgramVisualizeWindow::on_printPushButton_clicked()
     //int side = std::min(rect.height(), rect.width());
     //painter.setViewport(0, 0, side, side);
     //painter.setWindow(-50, -50, 100, 100);
+}
+
+void ProgramVisualizeWindow::setupWidgets()
+{
+    setupOGLWidget();
+    showCommands();
+    showOffsets();
+}
+
+void ProgramVisualizeWindow::setupOGLWidget()
+{
+    ui->programOpenGLWidget->setCommandsInterpreter(programVisualizeController->getCommandsInterpreter());
+    ui->programOpenGLWidget->setPointsManager(programVisualizeController->getPointsManager());
+    ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
+    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
+}
+
+void ProgramVisualizeWindow::setupProgramVisualizeController(MainWindowController* controller)
+{
+    programVisualizeController = new ProgramVisualizeWindowController(controller);
 }

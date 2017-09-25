@@ -46,6 +46,10 @@ private:
 
     ProgramVisualizeWindowController* programVisualizeController;
 
+    void setupWidgets();
+    void setupOGLWidget();
+    void setupProgramVisualizeController(MainWindowController *controller);
+
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
 
