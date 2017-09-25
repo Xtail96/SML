@@ -69,13 +69,20 @@ void ProgramVisualizeWindow::showCommands()
     ui->commandsTableWidget->setVerticalHeaderLabels(rowsHeaders);
 
 
-    QList<QTableWidgetItem*> items = programVisualizeController->getCommands();
+    QList<QTableWidgetItem*> commandsNames = programVisualizeController->getCommandsNames();
+    QList<QTableWidgetItem*> commandsArguments = programVisualizeController->getCommandsArguments();
 
     for (int i = 0; i < ui->commandsTableWidget->rowCount(); i++)
     {
-        //ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->commandsTableWidget->setItem(i, 0, items[i]);
+        ui->commandsTableWidget->setItem(i, 0, commandsNames[i]);
+        ui->commandsTableWidget->setItem(i, 1, commandsArguments[i]);
     }
+
+
+     for (int i = 0; i < ui->commandsTableWidget->columnCount(); i++)
+     {
+         ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+     }
 }
 
 void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()

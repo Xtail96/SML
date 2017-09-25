@@ -25,17 +25,44 @@ QStringList VisualizeBridge::commandsNumbers(unsigned int commandsCount)
     return numbers;
 }
 
-QList<QTableWidgetItem *> VisualizeBridge::commands(CommandsInterpreter *interpreter)
+QList<QTableWidgetItem *> VisualizeBridge::commandsNames(CommandsInterpreter *interpreter)
 {
-    QList<QTableWidgetItem*> commandsItems;
-
+    QList<QTableWidgetItem*> commandsNamesItems;
     unsigned int commandsCount = interpreter->commandsCount();
     for(unsigned int i = 0; i < commandsCount; i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem();
-        std::shared_ptr<Command> currentCommand = interpreter->operator [](i);
-        item->setText(QString::fromStdString(currentCommand->getName()));
-        commandsItems.push_back(item);
+        try
+        {
+            QTableWidgetItem* item = new QTableWidgetItem();
+            std::shared_ptr<Command> currentCommand = interpreter->operator [](i);
+            item->setText(QString::fromStdString(currentCommand->getName()));
+            commandsNamesItems.push_back(item);
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
     }
-    return commandsItems;
+    return commandsNamesItems;
+}
+
+QList<QTableWidgetItem *> VisualizeBridge::commandsArguments(CommandsInterpreter *interpreter)
+{
+    QList<QTableWidgetItem*> commandsArgumentsItems;
+    unsigned int commandsCount = interpreter->commandsCount();
+    for(unsigned int i = 0; i < commandsCount; i++)
+    {
+        try
+        {
+            QTableWidgetItem* item = new QTableWidgetItem();
+            std::shared_ptr<Command> currentCommand = interpreter->operator [](i);
+            item->setText(currentCommand->getArgumentsString());
+            commandsArgumentsItems.push_back(item);
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        }
+    }
+    return commandsArgumentsItems;
 }

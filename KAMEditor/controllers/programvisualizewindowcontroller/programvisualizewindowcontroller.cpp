@@ -8,7 +8,7 @@ ProgramVisualizeWindowController::ProgramVisualizeWindowController(MainWindowCon
 
 ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
 {
-    delete visualizeBridge;
+    delete programVisualizeBridge;
 }
 
 CommandsInterpreter *ProgramVisualizeWindowController::getCommandsInterpreter() const
@@ -42,7 +42,7 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainControlle
 
     pointsManager = mainController->machineTool->getPointsManager();
 
-    visualizeBridge = new VisualizeBridge();
+    programVisualizeBridge = new VisualizeBridge();
 
     SettingsManager settingsManager;
     try
@@ -57,15 +57,20 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainControlle
 
 QStringList ProgramVisualizeWindowController::getCommandsHeaders()
 {
-    return visualizeBridge->commandsHeaders();
+    return programVisualizeBridge->commandsHeaders();
 }
 
 QStringList ProgramVisualizeWindowController::getCommandsNumbers()
 {
-    return visualizeBridge->commandsNumbers(commandsInterpreter->commandsCount());
+    return programVisualizeBridge->commandsNumbers(commandsInterpreter->commandsCount());
 }
 
-QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommands()
+QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsNames()
 {
-    return visualizeBridge->commands(commandsInterpreter);
+    return programVisualizeBridge->commandsNames(commandsInterpreter);
+}
+
+QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsArguments()
+{
+    return programVisualizeBridge->commandsArguments(commandsInterpreter);
 }

@@ -2,6 +2,7 @@
 #define VISUALIZEBRIDGE_H
 
 #include <QTableWidgetItem>
+#include <QMessageBox>
 
 #include "models/structs.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
@@ -14,7 +15,8 @@ public:
     QStringList commandsHeaders();
     QStringList commandsNumbers(unsigned int commandsCount);
 
-    QList<QTableWidgetItem*> commands(CommandsInterpreter* interpreter);
+    QList<QTableWidgetItem*> commandsNames(CommandsInterpreter* interpreter);
+    QList<QTableWidgetItem*> commandsArguments(CommandsInterpreter* interpreter);
 };
 
 #endif // VISUALIZEBRIDGE_H

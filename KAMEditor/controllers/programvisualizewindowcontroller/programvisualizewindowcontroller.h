@@ -31,7 +31,8 @@ public:
 
     QStringList getCommandsNumbers();
 
-    QList<QTableWidgetItem *> getCommands();
+    QList<QTableWidgetItem *> getCommandsNames();
+    QList<QTableWidgetItem *> getCommandsArguments();
 
 signals:
     void ready();
@@ -39,7 +40,7 @@ signals:
 public slots:
 
 private:
-    VisualizeBridge* visualizeBridge;
+    VisualizeBridge* programVisualizeBridge;
 
     CommandsInterpreter* commandsInterpreter;
 
