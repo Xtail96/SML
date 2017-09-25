@@ -1,8 +1,8 @@
 #include "programvisualizewindowcontroller.h"
 
-ProgramVisualizeWindowController::ProgramVisualizeWindowController(MainWindowController *_mainController, QObject *parent) : QObject(parent)
+ProgramVisualizeWindowController::ProgramVisualizeWindowController(MainWindowController *_mainWindowController, QObject *parent) : QObject(parent)
 {
-    setup(_mainController);
+    setup(_mainWindowController);
     emit ready();
 }
 
@@ -63,11 +63,11 @@ double ProgramVisualizeWindowController::getGridMaximalAccuracy() const
     return gridMaximalAccuracy;
 }
 
-void ProgramVisualizeWindowController::setup(MainWindowController* mainController)
+void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowController)
 {
-    commandsInterpreter = mainController->machineTool->getCommandsInterpreter();
+    commandsInterpreter = mainWindowController->machineTool->getCommandsInterpreter();
 
-    pointsManager = mainController->machineTool->getPointsManager();
+    pointsManager = mainWindowController->machineTool->getPointsManager();
 
     programVisualizeBridge = new ProgramVisualizeWindowBridge();
 

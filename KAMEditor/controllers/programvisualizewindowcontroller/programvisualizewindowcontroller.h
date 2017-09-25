@@ -14,10 +14,8 @@ class ProgramVisualizeWindowController : public QObject
 {
     Q_OBJECT
 public:
-    explicit ProgramVisualizeWindowController(MainWindowController* _mainController, QObject *parent = nullptr);
+    explicit ProgramVisualizeWindowController(MainWindowController* _mainWindowController, QObject *parent = nullptr);
     ~ProgramVisualizeWindowController();
-
-
 
     std::vector< std::shared_ptr<Command> > getCommands();
 
@@ -48,7 +46,7 @@ private:
     unsigned int minimalGridSize = 1;
     double gridMaximalAccuracy;
 
-    void setup(MainWindowController *mainController);
+    void setup(MainWindowController *mainWindowController);
 
     friend class MainWindowController;
 };
