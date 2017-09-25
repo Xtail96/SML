@@ -100,7 +100,6 @@ void OGLWidget::drawPoints()
     for(unsigned int i = 0; i < points.size(); i++)
     {
         glColor3f(0, 0, 0);
-        //Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
         drawPoint(*(points[i].get()), QString::number(i+1));
     }
 }
@@ -186,19 +185,9 @@ void OGLWidget::drawGrid()
     updateCurrentPointIsNeed = true;
 }
 
-std::vector<std::shared_ptr<Point3D> > OGLWidget::getPoints() const
-{
-    return points;
-}
-
 void OGLWidget::setPoints(const std::vector<std::shared_ptr<Point3D> > &value)
 {
     points = value;
-}
-
-std::vector<std::shared_ptr<Command> > OGLWidget::getCommands() const
-{
-    return commands;
 }
 
 void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)

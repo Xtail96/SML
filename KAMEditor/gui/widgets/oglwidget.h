@@ -272,10 +272,16 @@ public:
      */
     void setCurrentPoint(const Point3D &value);
 
-    std::vector<std::shared_ptr<Command> > getCommands() const;
+    /*!
+     * \brief Устанавливает значение контейнера команд
+     * \param value контейнер команд
+     */
     void setCommands(const std::vector<std::shared_ptr<Command> > &value);
 
-    std::vector<std::shared_ptr<Point3D> > getPoints() const;
+    /*!
+     * \brief Устанавливает значение контейнера с точками
+     * \param value контейнер точек
+     */
     void setPoints(const std::vector<std::shared_ptr<Point3D> > &value);
 
 protected:
@@ -368,6 +374,9 @@ protected:
      */
     double gridMaximalAccuracy = 0.01;
 
+    /*!
+     * \brief Контейнер умных указателеней на команды
+     */
     std::vector< std::shared_ptr<Command> > commands;
 
     /*!
@@ -375,6 +384,9 @@ protected:
      */
     bool pointsVisible = false;
 
+    /*!
+     * \brief Контейнер умных указателей на трехкоординатные точки
+     */
     std::vector< std::shared_ptr<Point3D> > points;
 
     /*!
