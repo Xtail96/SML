@@ -28,6 +28,7 @@ public:
     double getGridMaximalAccuracy() const;
 
 signals:
+    void ready();
 
 public slots:
 

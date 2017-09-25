@@ -3,6 +3,7 @@
 ProgramVisualizeWindowController::ProgramVisualizeWindowController(MainWindowController *_mainController, QObject *parent) : QObject(parent)
 {
     setup(_mainController);
+    emit ready();
 }
 
 ProgramVisualizeWindowController::~ProgramVisualizeWindowController()

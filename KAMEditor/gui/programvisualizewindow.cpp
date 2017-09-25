@@ -211,4 +211,5 @@ void ProgramVisualizeWindow::setupOGLWidget()
 void ProgramVisualizeWindow::setupProgramVisualizeController(MainWindowController* controller)
 {
     programVisualizeController = new ProgramVisualizeWindowController(controller);
+    //connect(programVisualizeController, SIGNAL(ready()), this, SLOT(setupWidgets()));
 }

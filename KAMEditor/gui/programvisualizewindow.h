@@ -23,6 +23,8 @@ public:
     ~ProgramVisualizeWindow();
 
 private slots:
+    void setupWidgets();
+
     void on_zoomInPushButton_clicked();
 
     void on_zoomOutPushButton_clicked();
@@ -46,7 +48,6 @@ private:
 
     ProgramVisualizeWindowController* programVisualizeController;
 
-    void setupWidgets();
     void setupOGLWidget();
     void setupProgramVisualizeController(MainWindowController *controller);
 
