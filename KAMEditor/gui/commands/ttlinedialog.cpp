@@ -71,14 +71,21 @@ void TTLineDialog::fillFields()
         ui->airPassageCheckBox->setChecked(airPassageIsNeed.toUInt());
         if(ui->airPassageCheckBox->isChecked())
         {
+            ui->dzLabel->setEnabled(true);
             ui->dzLineEdit->setEnabled(true);
             ui->dzLineEdit->setText(dzString);
         }
         else
         {
+            ui->dzLabel->setEnabled(false);
             ui->dzLineEdit->setEnabled(false);
         }
         ui->velocityLineEdit->setText(vString);
+    }
+    else
+    {
+        ui->dzLabel->setEnabled(false);
+        ui->dzLineEdit->setEnabled(false);
     }
 }
 
@@ -86,10 +93,12 @@ void TTLineDialog::on_airPassageCheckBox_clicked()
 {
     if(ui->airPassageCheckBox->isChecked())
     {
+        ui->dzLabel->setEnabled(true);
         ui->dzLineEdit->setEnabled(true);
     }
     else
     {
+        ui->dzLabel->setEnabled(false);
         ui->dzLineEdit->setEnabled(false);
     }
 }
