@@ -8,7 +8,7 @@
 #include <QPainter>
 
 #include "gui/widgets/oglwidget.h"
-#include "models/machinetool/machinetool.h"
+#include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
 
 namespace Ui {
 class ProgramVisualizeWindow;
@@ -19,7 +19,7 @@ class ProgramVisualizeWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProgramVisualizeWindow(CommandsInterpreter* _commandsInterpreter, PointsManager* _pointsManager, QWidget *parent = 0, bool _run = false);
+    explicit ProgramVisualizeWindow(MainWindowController* _controller, QWidget *parent = 0, bool _run = false);
     ~ProgramVisualizeWindow();
 
 private slots:
@@ -44,9 +44,10 @@ private slots:
 private:
     Ui::ProgramVisualizeWindow *ui;
 
+    ProgramVisualizeWindowController* programVisualizeController;
+
     void showCommands();
     QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
-    CommandsInterpreter* commandsInterpreter;
 
     bool run;
     unsigned int minimalGridSize = 1;

@@ -1,11 +1,40 @@
 #include "programvisualizewindowcontroller.h"
 
-ProgramVisualizeWindowController::ProgramVisualizeWindowController(QObject *parent) : MainWindowController(parent)
+ProgramVisualizeWindowController::ProgramVisualizeWindowController(MainWindowController *_mainController, QObject *parent) : QObject(parent)
 {
-    setup();
+    setup(_mainController);
 }
 
-void ProgramVisualizeWindowController::setup()
+ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
 {
-    commandsInterpreter = machineTool->getCommandsInterpreter();
+    delete visualizeBridge;
+}
+
+CommandsInterpreter *ProgramVisualizeWindowController::getCommandsInterpreter() const
+{
+    return commandsInterpreter;
+}
+
+void ProgramVisualizeWindowController::setCommandsInterpreter(CommandsInterpreter *value)
+{
+    commandsInterpreter = value;
+}
+
+PointsManager *ProgramVisualizeWindowController::getPointsManager() const
+{
+    return pointsManager;
+}
+
+void ProgramVisualizeWindowController::setPointsManager(PointsManager *value)
+{
+    pointsManager = value;
+}
+
+void ProgramVisualizeWindowController::setup(MainWindowController* mainController)
+{
+    commandsInterpreter = mainController->machineTool->getCommandsInterpreter();
+
+    pointsManager = mainController->machineTool->getPointsManager();
+
+    visualizeBridge = new VisualizeBridge();
 }

@@ -1,15 +1,17 @@
 #include "programvisualizewindow.h"
 #include "ui_programvisualizewindow.h"
 
-ProgramVisualizeWindow::ProgramVisualizeWindow(CommandsInterpreter *_commandsInterpreter, PointsManager *_pointsManager, QWidget *parent, bool _run) :
+ProgramVisualizeWindow::ProgramVisualizeWindow(MainWindowController *_controller, QWidget *parent, bool _run) :
     QDialog(parent),
     ui(new Ui::ProgramVisualizeWindow),
-    commandsInterpreter(_commandsInterpreter),
     run(_run)
 {
     ui->setupUi(this);
-    ui->programOpenGLWidget->setCommandsInterpreter(commandsInterpreter);
-    ui->programOpenGLWidget->setPointsManager(_pointsManager);
+
+    programVisualizeController = new ProgramVisualizeWindowController(_controller);
+
+    ui->programOpenGLWidget->setCommandsInterpreter(programVisualizeController->getCommandsInterpreter());
+    ui->programOpenGLWidget->setPointsManager(programVisualizeController->getPointsManager());
 
     SettingsManager settingsManager;
     try
@@ -30,6 +32,7 @@ ProgramVisualizeWindow::ProgramVisualizeWindow(CommandsInterpreter *_commandsInt
 ProgramVisualizeWindow::~ProgramVisualizeWindow()
 {
     delete ui;
+    delete programVisualizeController;
 }
 
 void ProgramVisualizeWindow::on_zoomInPushButton_clicked()
@@ -75,7 +78,7 @@ void ProgramVisualizeWindow::on_centerPushButton_clicked()
 
 void ProgramVisualizeWindow::showCommands()
 {
-    QStringList columnsHeaders =
+    /*QStringList columnsHeaders =
     {
         "Команда",
         "Аргументы"
@@ -84,6 +87,9 @@ void ProgramVisualizeWindow::showCommands()
     ui->commandsTableWidget->setHorizontalHeaderLabels(columnsHeaders);
 
     QStringList rowsHeaders;
+
+
+
     for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
     {
         rowsHeaders.push_back(QString::number(i+1));
@@ -99,12 +105,12 @@ void ProgramVisualizeWindow::showCommands()
             QTableWidgetItem *item = fillCommandsTable(j, i);
             ui->commandsTableWidget->setItem(j, i, item);
         }
-    }
+    }*/
 }
 
 QTableWidgetItem *ProgramVisualizeWindow::fillCommandsTable(unsigned int row, unsigned int column)
 {
-    QString text = "Здесь должна быть команда";
+    /*QString text = "Здесь должна быть команда";
     switch (column) {
     case 0:
     {
@@ -127,7 +133,7 @@ QTableWidgetItem *ProgramVisualizeWindow::fillCommandsTable(unsigned int row, un
         break;
     }
     }
-    return new QTableWidgetItem(text);
+    return new QTableWidgetItem(text);*/
 }
 
 void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()

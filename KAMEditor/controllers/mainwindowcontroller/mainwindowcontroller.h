@@ -10,6 +10,8 @@
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "controllers/mainwindowcontroller/mainbridge/mainbridge.h"
 
+#include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
+
 
 /*!
  * \brief Класс Контроллер главного окна
@@ -127,6 +129,10 @@ public slots:
     void deletePoint(unsigned int number);
 
     void deleteCommand(unsigned int number);
+
+    void updateCommands();
+
+    friend class ProgramVisualizeWindowController;
 };
 
 #endif // MAINWINDOWCONTROLLER_H

@@ -339,3 +339,8 @@ void MainWindowController::deleteCommand(unsigned int number)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
+
+void MainWindowController::updateCommands()
+{
+    machineTool->getCommandsInterpreter()->updateProgram();
+}

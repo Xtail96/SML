@@ -1017,8 +1017,8 @@ void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    /*machineTool->getCommandsInterpreter()->updateProgram();
-    ProgramVisualizeWindow(machineTool->getCommandsInterpreter(), machineTool->getPointsManager(), this).exec();*/
+    mainWindowController->updateCommands();
+    ProgramVisualizeWindow(mainWindowController, this).exec();
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
