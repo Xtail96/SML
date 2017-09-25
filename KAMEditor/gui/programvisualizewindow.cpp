@@ -60,62 +60,22 @@ void ProgramVisualizeWindow::on_centerPushButton_clicked()
 
 void ProgramVisualizeWindow::showCommands()
 {
-    /*QStringList columnsHeaders =
-    {
-        "Команда",
-        "Аргументы"
-    };
+    QStringList columnsHeaders = programVisualizeController->getCommandsHeaders();
     ui->commandsTableWidget->setColumnCount(columnsHeaders.size());
     ui->commandsTableWidget->setHorizontalHeaderLabels(columnsHeaders);
 
-    QStringList rowsHeaders;
-
-
-
-    for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
-    {
-        rowsHeaders.push_back(QString::number(i+1));
-    }
+    QStringList rowsHeaders = programVisualizeController->getCommandsNumbers();
     ui->commandsTableWidget->setRowCount(rowsHeaders.size());
     ui->commandsTableWidget->setVerticalHeaderLabels(rowsHeaders);
 
-    for (int i = 0; i < ui->commandsTableWidget->horizontalHeader()->count(); i++)
-    {
-        ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->commandsTableWidget->verticalHeader()->count(); j++)
-        {
-            QTableWidgetItem *item = fillCommandsTable(j, i);
-            ui->commandsTableWidget->setItem(j, i, item);
-        }
-    }*/
-}
 
-QTableWidgetItem *ProgramVisualizeWindow::fillCommandsTable(unsigned int row, unsigned int column)
-{
-    /*QString text = "Здесь должна быть команда";
-    switch (column) {
-    case 0:
+    QList<QTableWidgetItem*> items = programVisualizeController->getCommands();
+
+    for (int i = 0; i < ui->commandsTableWidget->rowCount(); i++)
     {
-        text = QString::fromStdString(commandsInterpreter->operator [](row)->getName());
-        break;
+        //ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->commandsTableWidget->setItem(i, 0, items[i]);
     }
-    case 1:
-    {
-        text = "";
-        QStringList argumentsTmp = commandsInterpreter->operator [](row)->getArguments();
-        for(auto argument : argumentsTmp)
-        {
-            text += argument + ", ";
-        }
-        break;
-    }
-    default:
-    {
-        text = "Unknown parametr";
-        break;
-    }
-    }
-    return new QTableWidgetItem(text);*/
 }
 
 void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()

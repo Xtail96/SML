@@ -27,6 +27,12 @@ public:
 
     double getGridMaximalAccuracy() const;
 
+    QStringList getCommandsHeaders();
+
+    QStringList getCommandsNumbers();
+
+    QList<QTableWidgetItem *> getCommands();
+
 signals:
     void ready();
 

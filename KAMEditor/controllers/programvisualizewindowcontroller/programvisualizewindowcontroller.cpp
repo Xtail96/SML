@@ -54,3 +54,18 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainControlle
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
+
+QStringList ProgramVisualizeWindowController::getCommandsHeaders()
+{
+    return visualizeBridge->commandsHeaders();
+}
+
+QStringList ProgramVisualizeWindowController::getCommandsNumbers()
+{
+    return visualizeBridge->commandsNumbers(commandsInterpreter->commandsCount());
+}
+
+QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommands()
+{
+    return visualizeBridge->commands(commandsInterpreter);
+}

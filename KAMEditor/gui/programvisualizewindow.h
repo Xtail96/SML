@@ -52,7 +52,6 @@ private:
     void setupProgramVisualizeController(MainWindowController *controller);
 
     void showCommands();
-    QTableWidgetItem *fillCommandsTable(unsigned int row, unsigned int column);
 
     bool run;
     unsigned int minimalGridSize = 1;
