@@ -19,7 +19,7 @@
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
-class CommandsInterpreter;
+class Command;
 
 /*!
  * \brief Класс Виджет визуализации
@@ -138,30 +138,6 @@ public:
      * \param value - значение переменной, отвечающей за то, нужно ли отрисовывать точки
      */
     void setPointsVisible(bool value);
-
-    /*!
-     * \brief Возвращает указатель на менеджер точек
-     * \return указатель на менеджер точек
-     */
-    PointsManager* getPointsManager() const;
-
-    /*!
-     * \brief Устанавливает значение указателя на менеджер точек
-     * \param value - указатель на менеджер точек
-     */
-    void setPointsManager(PointsManager *value);
-
-    /*!
-     * \brief Возвращает указатель на интерпретоатор команд
-     * \return указатель на интерпретоатор команд
-     */
-    CommandsInterpreter *getCommandsInterpreter() const;
-
-    /*!
-     * \brief Устанавливает значение указателя на интерпретатор команд
-     * \param value - указатель на интерпретоатор команд
-     */
-    void setCommandsInterpreter(CommandsInterpreter *value);
 
     /*!
      * \brief Возвращает размер сетки
@@ -296,6 +272,12 @@ public:
      */
     void setCurrentPoint(const Point3D &value);
 
+    std::vector<std::shared_ptr<Command> > getCommands() const;
+    void setCommands(const std::vector<std::shared_ptr<Command> > &value);
+
+    std::vector<std::shared_ptr<Point3D> > getPoints() const;
+    void setPoints(const std::vector<std::shared_ptr<Point3D> > &value);
+
 protected:
     /*!
      * \brief Инициализирует виджет
@@ -386,20 +368,14 @@ protected:
      */
     double gridMaximalAccuracy = 0.01;
 
-    /*!
-     * \brief Указатель на интерпретатор команд
-     */
-    CommandsInterpreter* commandsInterpreter;
+    std::vector< std::shared_ptr<Command> > commands;
 
     /*!
      * \brief Нужно ли отрисовывать точки (начальное значение = false)
      */
     bool pointsVisible = false;
 
-    /*!
-     * \brief Указатель на менеджер точек
-     */
-    PointsManager* pointsManager;
+    std::vector< std::shared_ptr<Point3D> > points;
 
     /*!
      * \brief Обрабатывает нажатие клавиш мыши

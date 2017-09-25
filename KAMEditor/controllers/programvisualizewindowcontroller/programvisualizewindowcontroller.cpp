@@ -11,24 +11,51 @@ ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
     delete programVisualizeBridge;
 }
 
-CommandsInterpreter *ProgramVisualizeWindowController::getCommandsInterpreter() const
+std::vector<std::shared_ptr<Command> > ProgramVisualizeWindowController::getCommands()
 {
-    return commandsInterpreter;
+    std::vector< std::shared_ptr<Command> > commands;
+
+    size_t commandsCount = commandsInterpreter->commandsCount();
+
+    for(unsigned int i = 0; i < commandsCount; i++)
+    {
+        try
+        {
+            std::shared_ptr<Command> command = commandsInterpreter->operator [](i);
+            commands.push_back(command);
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            break;
+        }
+    }
+
+    return commands;
 }
 
-void ProgramVisualizeWindowController::setCommandsInterpreter(CommandsInterpreter *value)
+std::vector<std::shared_ptr<Point3D> > ProgramVisualizeWindowController::get3DPoints()
 {
-    commandsInterpreter = value;
-}
+    std::vector< std::shared_ptr<Point3D> > points;
 
-PointsManager *ProgramVisualizeWindowController::getPointsManager() const
-{
-    return pointsManager;
-}
+    size_t pointsCount = pointsManager->pointCount();
 
-void ProgramVisualizeWindowController::setPointsManager(PointsManager *value)
-{
-    pointsManager = value;
+    for(unsigned int i = 0; i < pointsCount; i++)
+    {
+        try
+        {
+            std::shared_ptr<Point> originPoint = pointsManager->operator [](i);
+            Point3D* point = new Point3D(originPoint->get("X"), originPoint->get("Y"), originPoint->get("Z"));
+            points.push_back(std::shared_ptr<Point3D>(point));
+        }
+        catch(std::out_of_range e)
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            break;
+        }
+    }
+
+    return points;
 }
 
 double ProgramVisualizeWindowController::getGridMaximalAccuracy() const

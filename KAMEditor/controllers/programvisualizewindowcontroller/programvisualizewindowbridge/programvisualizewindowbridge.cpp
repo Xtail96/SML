@@ -41,6 +41,7 @@ QList<QTableWidgetItem *> ProgramVisualizeWindowBridge::commandsNames(CommandsIn
         catch(std::out_of_range e)
         {
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            break;
         }
     }
     return commandsNamesItems;
@@ -62,6 +63,7 @@ QList<QTableWidgetItem *> ProgramVisualizeWindowBridge::commandsArguments(Comman
         catch(std::out_of_range e)
         {
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+            break;
         }
     }
     return commandsArgumentsItems;

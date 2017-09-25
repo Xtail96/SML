@@ -19,11 +19,9 @@ public:
 
 
 
-    CommandsInterpreter *getCommandsInterpreter() const;
-    void setCommandsInterpreter(CommandsInterpreter *value);
+    std::vector< std::shared_ptr<Command> > getCommands();
 
-    PointsManager *getPointsManager() const;
-    void setPointsManager(PointsManager *value);
+    std::vector< std::shared_ptr<Point3D> > get3DPoints();
 
     double getGridMaximalAccuracy() const;
 

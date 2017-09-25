@@ -169,8 +169,8 @@ void ProgramVisualizeWindow::setupWidgets()
 
 void ProgramVisualizeWindow::setupOGLWidget()
 {
-    ui->programOpenGLWidget->setCommandsInterpreter(programVisualizeController->getCommandsInterpreter());
-    ui->programOpenGLWidget->setPointsManager(programVisualizeController->getPointsManager());
+    ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
+    ui->programOpenGLWidget->setPoints(programVisualizeController->get3DPoints());
     ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
     connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
 }

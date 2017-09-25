@@ -83,21 +83,10 @@ void OGLWidget::drawCommands()
     updateOffsetsIsNeed = true;
     updateCurrentPointIsNeed = true;
 
-    //Point3D dest(0, 0, 0);
-    for(unsigned int i = 0; i < commandsInterpreter->commandsCount(); i++)
+    for(auto command : commands)
     {    
         qglColor(Qt::darkGray);
-        //dest = commandsInterpreter->operator [](i)->returnDestinationPoint(src);
-        /*if(dest.z > 0)
-        {
-            glEnable(GL_LINE_STIPPLE);
-            glLineStipple(1, 0x1111);
-        }
-        else
-        {
-            glDisable(GL_LINE_STIPPLE);
-        }*/
-        commandsInterpreter->operator [](i)->draw(this);
+        command->draw(this);
     }
 }
 
@@ -108,11 +97,11 @@ void OGLWidget::drawPoints()
 
     updateOffsetsIsNeed = false;
 
-    for(unsigned int i = 0; i < pointsManager->pointCount(); i++)
+    for(unsigned int i = 0; i < points.size(); i++)
     {
         glColor3f(0, 0, 0);
-        Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
-        drawPoint(src, QString::number(i+1));
+        //Point3D src(pointsManager->operator [](i)->get("X"), pointsManager->operator [](i)->get("Y"), pointsManager->operator [](i)->get("Z"));
+        drawPoint(*(points[i].get()), QString::number(i+1));
     }
 }
 
@@ -197,6 +186,26 @@ void OGLWidget::drawGrid()
     updateCurrentPointIsNeed = true;
 }
 
+std::vector<std::shared_ptr<Point3D> > OGLWidget::getPoints() const
+{
+    return points;
+}
+
+void OGLWidget::setPoints(const std::vector<std::shared_ptr<Point3D> > &value)
+{
+    points = value;
+}
+
+std::vector<std::shared_ptr<Command> > OGLWidget::getCommands() const
+{
+    return commands;
+}
+
+void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)
+{
+    commands = value;
+}
+
 double OGLWidget::getGridMaximalAccuracy() const
 {
     return gridMaximalAccuracy;
@@ -245,26 +254,6 @@ unsigned int OGLWidget::getGridSize() const
 void OGLWidget::setGridSize(unsigned int value)
 {
     gridSize = value;
-}
-
-CommandsInterpreter *OGLWidget::getCommandsInterpreter() const
-{
-    return commandsInterpreter;
-}
-
-void OGLWidget::setCommandsInterpreter(CommandsInterpreter *value)
-{
-    commandsInterpreter = value;
-}
-
-PointsManager *OGLWidget::getPointsManager() const
-{
-    return pointsManager;
-}
-
-void OGLWidget::setPointsManager(PointsManager *value)
-{
-    pointsManager = value;
 }
 
 bool OGLWidget::getPointsVisible() const
