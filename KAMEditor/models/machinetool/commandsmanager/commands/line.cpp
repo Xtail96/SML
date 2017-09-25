@@ -48,33 +48,3 @@ QColor Line::getColor() const
 {
     return color;
 }
-
-
-void OGLWidget::drawLine(double dx, double dy, double dz, double v)
-{
-    double newX = currentPoint.x + dx;
-    double newY = currentPoint.y + dy;
-    double newZ = currentPoint.z + dz;
-
-    if(newZ > 0 && updateCurrentPointIsNeed)
-    {
-        glEnable(GL_LINE_STIPPLE);
-        glLineStipple(1, 0x1111);
-    }
-    else
-    {
-        glDisable(GL_LINE_STIPPLE);
-    }
-
-    glBegin(GL_LINES);
-
-    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
-
-    glVertex3f(newX, newY, newZ);
-
-    glEnd();
-
-    Point3D destinaton(newX, newY, newZ);
-    updateOffsets(destinaton);
-    updateCurrentPoint(destinaton);
-}

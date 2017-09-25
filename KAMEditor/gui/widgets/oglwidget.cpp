@@ -518,3 +518,126 @@ void OGLWidget::drawPoint(Point3D src, QString text)
     glEnd();
     renderText(src.x, src.y, src.z, text);
 }
+
+void OGLWidget::drawLine(double dx, double dy, double dz, double v)
+{
+    double newX = currentPoint.x + dx;
+    double newY = currentPoint.y + dy;
+    double newZ = currentPoint.z + dz;
+
+    if(newZ > 0 && updateCurrentPointIsNeed)
+    {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0x1111);
+    }
+    else
+    {
+        glDisable(GL_LINE_STIPPLE);
+    }
+
+    glBegin(GL_LINES);
+
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
+
+    glVertex3f(newX, newY, newZ);
+
+    glEnd();
+
+    Point3D destinaton(newX, newY, newZ);
+    updateOffsets(destinaton);
+    updateCurrentPoint(destinaton);
+}
+
+void OGLWidget::drawTTLine(Point3D dest, double v)
+{
+    if(dest.z > 0 && updateCurrentPointIsNeed)
+    {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0x1111);
+    }
+    else
+    {
+        glDisable(GL_LINE_STIPPLE);
+    }
+
+    glBegin(GL_LINES);
+
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
+
+    glVertex3f(dest.x, dest.y, dest.z);
+
+    glEnd();
+
+    updateOffsets(dest);
+    updateCurrentPoint(dest);
+}
+
+void OGLWidget::drawAirPassage(Point3D dest, double dz, double v)
+{
+
+    double newZ = currentPoint.z + dz;
+    Point3D firstVertex = Point3D(currentPoint.x, currentPoint.y, newZ);
+    Point3D secondVertex = Point3D(dest.x, dest.y, newZ);
+
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(1, 0x1111);
+
+    glBegin(GL_LINES);
+
+    glVertex3f(currentPoint.x, currentPoint.y, currentPoint.z);
+
+    glVertex3f(firstVertex.x, firstVertex.y, firstVertex.z);
+
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex3f(firstVertex.x, firstVertex.y, firstVertex.z);
+
+    glVertex3f(secondVertex.x, secondVertex.y, secondVertex.z);
+
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex3f(secondVertex.x, secondVertex.y, secondVertex.z);
+
+    glVertex3f(dest.x, dest.y, dest.z);
+
+    glEnd();
+
+    updateOffsets(firstVertex);
+
+    updateOffsets(secondVertex);
+
+    updateOffsets(dest);
+
+    updateCurrentPoint(dest);
+}
+
+void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
+{
+    double angleIncrement = 0.01;
+
+    double x, y;
+
+    Point3D center;
+    center.x = currentPoint.x /*+ cos(startAngle)*/;
+    center.y = currentPoint.y /*- sin(startAngle)*/ - radius;
+
+    glBegin(GL_LINE_STRIP);
+
+    for (double theta = 0; theta < arcAngle; theta += angleIncrement)
+    {
+        x = center.x + radius * cos(theta);
+        y = center.y + radius * sin(theta);
+
+        glVertex2f(x, y);
+
+        Point3D newVertex(x, y, currentPoint.z);
+        updateOffsets(newVertex);
+        updateCurrentPoint(newVertex);
+    }
+
+    glEnd();
+}

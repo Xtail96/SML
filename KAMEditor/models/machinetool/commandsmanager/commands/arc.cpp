@@ -47,30 +47,3 @@ QColor CArc::getColor() const
 {
     return color;
 }
-
-void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
-{
-    double angleIncrement = 0.01;
-
-    double x, y;
-
-    Point3D center;
-    center.x = currentPoint.x /*+ cos(startAngle)*/;
-    center.y = currentPoint.y /*- sin(startAngle)*/ - radius;
-
-    glBegin(GL_LINE_STRIP);
-
-    for (double theta = 0; theta < arcAngle; theta += angleIncrement)
-    {
-        x = center.x + radius * cos(theta);
-        y = center.y + radius * sin(theta);
-
-        glVertex2f(x, y);
-
-        Point3D newVertex(x, y, currentPoint.z);
-        updateOffsets(newVertex);
-        updateCurrentPoint(newVertex);
-    }
-
-    glEnd();
-}
