@@ -100,7 +100,8 @@ SOURCES += main.cpp\
     gui/programvisualizewindow.cpp \
     controllers/mainwindowcontroller/mainbridge/mainbridge.cpp \
     controllers/mainwindowcontroller/mainwindowcontroller.cpp \
-    gui/widgets/smltablewidget.cpp
+    gui/widgets/smltablewidget.cpp \
+    controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -171,7 +172,8 @@ HEADERS  += gui/mainwindow.h \
     gui/programvisualizewindow.h \
     controllers/mainwindowcontroller/mainbridge/mainbridge.h \
     controllers/mainwindowcontroller/mainwindowcontroller.h \
-    gui/widgets/smltablewidget.h
+    gui/widgets/smltablewidget.h \
+    controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h
 
 
 FORMS    += gui/mainwindow.ui \
