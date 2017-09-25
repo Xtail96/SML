@@ -30,6 +30,8 @@ private:
     size_t index;
     bool edit;
 
+    void updateDZ();
+
     void fillFields();
 };
 

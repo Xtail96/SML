@@ -69,27 +69,22 @@ void TTLineDialog::fillFields()
         }
         ui->destinationPointLineEdit->setText(destinationPointNumberString);
         ui->airPassageCheckBox->setChecked(airPassageIsNeed.toUInt());
-        if(ui->airPassageCheckBox->isChecked())
-        {
-            ui->dzLabel->setEnabled(true);
-            ui->dzLineEdit->setEnabled(true);
-            ui->dzLineEdit->setText(dzString);
-        }
-        else
-        {
-            ui->dzLabel->setEnabled(false);
-            ui->dzLineEdit->setEnabled(false);
-        }
+        updateDZ();
+        ui->dzLineEdit->setText(dzString);
         ui->velocityLineEdit->setText(vString);
     }
     else
     {
-        ui->dzLabel->setEnabled(false);
-        ui->dzLineEdit->setEnabled(false);
+        updateDZ();
     }
 }
 
 void TTLineDialog::on_airPassageCheckBox_clicked()
+{
+    updateDZ();
+}
+
+void TTLineDialog::updateDZ()
 {
     if(ui->airPassageCheckBox->isChecked())
     {
