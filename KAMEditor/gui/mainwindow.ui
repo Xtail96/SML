@@ -503,7 +503,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Save</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
@@ -547,7 +547,7 @@
               </font>
              </property>
              <property name="text">
-              <string>View</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
@@ -578,7 +578,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Open</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
@@ -609,7 +609,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Save As</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
@@ -640,7 +640,7 @@
               </font>
              </property>
              <property name="text">
-              <string>New</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
@@ -671,7 +671,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Add</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="images.qrc">
