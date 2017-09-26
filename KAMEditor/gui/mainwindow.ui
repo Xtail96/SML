@@ -515,6 +515,9 @@
                <height>50</height>
               </size>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="0" column="6">
@@ -556,6 +559,9 @@
                <height>50</height>
               </size>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -583,6 +589,9 @@
                <width>50</width>
                <height>50</height>
               </size>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -612,6 +621,9 @@
                <height>50</height>
               </size>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="0" column="0">
@@ -640,6 +652,9 @@
                <height>50</height>
               </size>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="0" column="4">
@@ -667,6 +682,9 @@
                <width>50</width>
                <height>50</height>
               </size>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -724,6 +742,9 @@
               <property name="shortcut">
                <string>+</string>
               </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="1" column="1">
@@ -744,6 +765,9 @@
               </property>
               <property name="shortcut">
                <string>Shift+K</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -766,6 +790,9 @@
               <property name="shortcut">
                <string>-</string>
               </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item row="2" column="1">
@@ -786,6 +813,9 @@
               </property>
               <property name="shortcut">
                <string>Shift+Return</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1913,6 +1943,9 @@
                        <property name="shortcut">
                         <string>+</string>
                        </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -1933,6 +1966,9 @@
                        </property>
                        <property name="shortcut">
                         <string>-</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -1955,6 +1991,9 @@
                        <property name="shortcut">
                         <string>=</string>
                        </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -1975,6 +2014,9 @@
                        </property>
                        <property name="shortcut">
                         <string>Shift+K</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -1997,6 +2039,9 @@
                        <property name="shortcut">
                         <string>Shift+Return</string>
                        </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -2018,6 +2063,9 @@
                        <property name="shortcut">
                         <string>Shift+F3</string>
                        </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
@@ -2038,6 +2086,9 @@
                        </property>
                        <property name="shortcut">
                         <string>Shift+M</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
