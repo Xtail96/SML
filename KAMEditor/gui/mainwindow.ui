@@ -2479,8 +2479,11 @@
              <property name="title">
               <string>Координаты</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
               <property name="spacing">
@@ -2530,7 +2533,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Текущие</string>
+                    <string>От точки Ноль</string>
                    </property>
                   </widget>
                  </item>
@@ -2718,7 +2721,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Парка</string>
+                    <string>Точки Парк</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
