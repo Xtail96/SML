@@ -84,6 +84,11 @@
         <height>16777215</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="currentIndex">
        <number>1</number>
       </property>
@@ -104,6 +109,11 @@
             <verstretch>6</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -116,7 +126,7 @@
              <widget class="QGroupBox" name="commandListGroupBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
+                <horstretch>2</horstretch>
                 <verstretch>6</verstretch>
                </sizepolicy>
               </property>
@@ -129,7 +139,7 @@
               <property name="font">
                <font>
                 <family>MS Shell Dlg 2</family>
-                <pointsize>14</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="title">
@@ -161,6 +171,11 @@
                    <horstretch>0</horstretch>
                    <verstretch>3</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
                  </property>
                  <property name="frameShape">
                   <enum>QFrame::NoFrame</enum>
@@ -329,7 +344,7 @@
              <widget class="QGroupBox" name="programEditorGroupBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>4</horstretch>
+                <horstretch>7</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -341,7 +356,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>14</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="title">
@@ -373,7 +388,7 @@
                 <widget class="SMLTreeWidget" name="smlEditorTreeWidget">
                  <property name="font">
                   <font>
-                   <pointsize>14</pointsize>
+                   <pointsize>12</pointsize>
                    <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
@@ -459,7 +474,7 @@
              <widget class="QTextEdit" name="gcodesEditorTextEdit">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="frameShape">
@@ -708,6 +723,11 @@
             <verstretch>6</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -742,7 +762,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -766,7 +786,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -790,7 +810,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -814,7 +834,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1068,8 +1088,19 @@
                   </disabled>
                  </palette>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="title">
                  <string>Дискретность задания перемещений</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
@@ -1879,6 +1910,11 @@
               </property>
               <item>
                <widget class="QTabWidget" name="additionalTabWidget">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="currentIndex">
                  <number>0</number>
                 </property>
@@ -1943,7 +1979,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -1967,7 +2003,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -1991,7 +2027,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2015,7 +2051,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2039,7 +2075,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2063,7 +2099,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2087,7 +2123,7 @@
                        </property>
                        <property name="font">
                         <font>
-                         <pointsize>10</pointsize>
+                         <pointsize>12</pointsize>
                         </font>
                        </property>
                        <property name="text">
@@ -2191,6 +2227,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>F10 - Пуск/Продолжить</string>
              </property>
@@ -2207,6 +2248,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>F7 - в Парк</string>
              </property>
@@ -2222,6 +2268,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>Space - Остановить</string>
@@ -2269,6 +2320,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>F11 - Время выполнения</string>
              </property>
@@ -2284,6 +2340,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>F9 - в Базу</string>
@@ -2307,6 +2368,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>0 - Обнулить</string>
              </property>
@@ -2322,6 +2388,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>R - датчик нуля</string>
@@ -2339,6 +2410,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>F5 - в НОЛЬ</string>
              </property>
@@ -2354,6 +2430,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>F6 - Парк</string>
@@ -2473,7 +2554,7 @@
              </property>
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="title">
@@ -4271,7 +4352,7 @@
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>9</pointsize>
+                  <pointsize>8</pointsize>
                  </font>
                 </property>
                 <property name="layoutDirection">
@@ -4364,6 +4445,11 @@
        <layout class="QGridLayout" name="gridLayout_37">
         <item row="0" column="0" colspan="2">
          <widget class="QTableWidget" name="axisSettingsTableWidget">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
