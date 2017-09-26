@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1507</width>
-    <height>785</height>
+    <height>827</height>
    </rect>
   </property>
   <property name="palette">
@@ -772,7 +772,7 @@
                <string>+</string>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -796,7 +796,7 @@
                <string>Shift+K</string>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -820,7 +820,7 @@
                <string>-</string>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -844,7 +844,7 @@
                <string>Shift+Return</string>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -1989,7 +1989,7 @@
                         <string>+</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2013,7 +2013,7 @@
                         <string>-</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2037,7 +2037,7 @@
                         <string>=</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2061,7 +2061,7 @@
                         <string>Shift+K</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2085,7 +2085,7 @@
                         <string>Shift+Return</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2109,7 +2109,7 @@
                         <string>Shift+F3</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -2133,7 +2133,7 @@
                         <string>Shift+M</string>
                        </property>
                        <property name="flat">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -4690,7 +4690,7 @@
      <x>0</x>
      <y>0</y>
      <width>1507</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
