@@ -133,7 +133,7 @@
                </font>
               </property>
               <property name="title">
-               <string>Список команд</string>
+               <string>Команды</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_19">
                <property name="leftMargin">
@@ -339,7 +339,7 @@
                </font>
               </property>
               <property name="title">
-               <string>Редактор рабочих программ</string>
+               <string>Управляющая программа</string>
               </property>
               <property name="flat">
                <bool>false</bool>
