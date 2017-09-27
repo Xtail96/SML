@@ -10,6 +10,11 @@
     <height>130</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Курсор на точку</string>
   </property>
@@ -37,6 +42,8 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
