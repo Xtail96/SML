@@ -38,7 +38,7 @@ void ProgramVisualizeWindow::on_topPushButton_clicked()
 void ProgramVisualizeWindow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
-    ui->programOpenGLWidget->setXAngle(90);
+    ui->programOpenGLWidget->setXAngle(-90);
     ui->programOpenGLWidget->setZAngle(90);
     ui->programOpenGLWidget->updateField();
 }
@@ -46,7 +46,7 @@ void ProgramVisualizeWindow::on_sidePushButton_clicked()
 void ProgramVisualizeWindow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
-    ui->programOpenGLWidget->setXAngle(90);
+    ui->programOpenGLWidget->setXAngle(-90);
     ui->programOpenGLWidget->setZAngle(0);
     ui->programOpenGLWidget->updateField();
 }
