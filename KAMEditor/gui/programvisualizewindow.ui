@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,11 +26,11 @@
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="5">
+   <item row="0" column="0" colspan="2">
     <widget class="QFrame" name="toolsFrame">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>10</horstretch>
+       <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
@@ -286,19 +286,13 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QFrame" name="controlFrame">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>1</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>300</width>
-       <height>0</height>
-      </size>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -324,8 +318,13 @@
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
-          <verstretch>1</verstretch>
+          <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="currentIndex">
          <number>0</number>
@@ -579,7 +578,7 @@
         </widget>
         <widget class="QWidget" name="runningTab">
          <attribute name="title">
-          <string>Выполнение и отладка</string>
+          <string>Выполнение</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
           <property name="leftMargin">
@@ -677,23 +676,7 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0" colspan="5">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>10</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" colspan="4">
+   <item row="1" column="1">
     <widget class="QFrame" name="visualizeFrame">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -707,7 +690,7 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
       <property name="sizeConstraint">
        <enum>QLayout::SetMinimumSize</enum>
       </property>
@@ -723,7 +706,7 @@
       <property name="bottomMargin">
        <number>5</number>
       </property>
-      <item row="0" column="0">
+      <item>
        <widget class="OGLWidget" name="programOpenGLWidget">
         <property name="enabled">
          <bool>true</bool>
@@ -767,6 +750,22 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>
