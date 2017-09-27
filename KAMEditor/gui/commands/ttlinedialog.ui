@@ -16,6 +16,11 @@
     <height>220</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>ТТ-Линия</string>
   </property>
@@ -133,7 +138,10 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>21</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
       </font>
      </property>
      <property name="text">

@@ -10,6 +10,11 @@
     <height>150</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Включить</string>
   </property>
@@ -43,7 +48,9 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>18</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -55,7 +62,13 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QComboBox" name="devicesComboBox"/>
+    <widget class="QComboBox" name="devicesComboBox">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="3" column="1">
     <widget class="QLineEdit" name="argumentsLineEdit">
@@ -64,6 +77,11 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
     </widget>
    </item>

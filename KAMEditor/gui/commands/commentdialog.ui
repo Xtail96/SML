@@ -7,8 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>200</height>
+    <height>150</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Комментарий</string>
@@ -18,7 +23,9 @@
     <widget class="QLabel" name="commentTitleLabel">
      <property name="font">
       <font>
-       <pointsize>21</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -33,7 +40,7 @@
     <widget class="QLabel" name="commentTextLabel">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="text">
@@ -45,7 +52,7 @@
     <widget class="QLineEdit" name="commentTextLineEdit">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
     </widget>
