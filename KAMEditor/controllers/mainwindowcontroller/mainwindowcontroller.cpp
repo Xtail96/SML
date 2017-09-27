@@ -263,25 +263,25 @@ void MainWindowController::switchDevice(QString qDeviceName)
 
 void MainWindowController::updateVelocity(int value)
 {
-    if(value > 0)
+    if(value >= 0)
     {
         machineTool->setVelocity(value);
     }
     else
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицатльной").exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицательной").exec();
     }
 }
 
 void MainWindowController::updateSpindelRotations(int value)
 {
-    if(value > 0)
+    if(value >= 0)
     {
         machineTool->setSpindelRotations(value);
     }
     else
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицатльными").exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицательными").exec();
     }
 }
 
