@@ -533,7 +533,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QTabWidget" name="offsetsTabWidget">
+       <widget class="QTabWidget" name="controlTabWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -579,22 +579,9 @@
           </item>
          </layout>
         </widget>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTabWidget" name="optionsTabWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>1</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="gridAndPointsTab">
+        <widget class="QWidget" name="visualisationDetailsTab">
          <attribute name="title">
-          <string>Опции</string>
+          <string>Детали визуализации</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="leftMargin">
@@ -783,7 +770,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>84</height>
+              <height>407</height>
              </size>
             </property>
            </spacer>
