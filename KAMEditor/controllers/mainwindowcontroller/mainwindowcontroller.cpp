@@ -202,7 +202,7 @@ void MainWindowController::connectWithU1()
     }
 #endif
 #ifdef Q_OS_UNIX
-    emit u1IsDisconnected();
+    emit u1IsConnected();
 #endif
 }
 

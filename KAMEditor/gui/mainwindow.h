@@ -92,9 +92,6 @@ signals:
     /// Виджеты настроены
     void ready();
 
-    void deviceClicked(QString deviceName);
-
-
 private:
     Ui::MainWindow *ui;
 

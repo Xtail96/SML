@@ -38,7 +38,6 @@ void MainWindow::setupMainWindowController()
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
     connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
 
-    connect(this, SIGNAL(deviceClicked(QString)), mainWindowController, SLOT(switchDevice(QString)));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 }
 
@@ -1011,7 +1010,7 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
 void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
 {
     QString deviceName = index.data().toString();
-    emit deviceClicked(deviceName);
+    mainWindowController->switchDevice(deviceName);
 }
 
 void MainWindow::on_viewPushButton_clicked()
