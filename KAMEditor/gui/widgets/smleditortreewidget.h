@@ -9,7 +9,7 @@
 #include <QDebug>
 
 /*!
- * \brief Класс Виджет SML-Дерева
+ * \brief Класс Виджет Дерева SML-редактора
  * Наследник QTreeWidget
  */
 class SMLEditorTreeWidget : public QTreeWidget

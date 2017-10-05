@@ -8,7 +8,7 @@
 #include <QGroupBox>
 
 /*!
- * \brief Класс Виджет SML-списка
+ * \brief Класс Виджет Списка SML-команд
  * Наследник QListWidget
  */
 class SMLCommandsListWidget : public QListWidget

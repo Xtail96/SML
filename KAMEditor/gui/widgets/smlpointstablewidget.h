@@ -9,7 +9,7 @@
 #include <QDebug>
 
 /*!
- * \brief Класс Виджет SML-таблица
+ * \brief Класс Виджет Таблицы SML-точек
  * Наследник QTableWidget
  */
 class SMLPointsTableWidget : public QTableWidget
