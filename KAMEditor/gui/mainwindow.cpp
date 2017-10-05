@@ -288,14 +288,11 @@ void MainWindow::updateDevicesDisplay()
     QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
     QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
 
-    ui->devicesTableWidget->clear();
-    ui->devicesTableWidget->setRowCount(onScreenDevicesNames.size());
-    ui->devicesTableWidget->setColumnCount(1);
-    ui->devicesTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->devicesListWidget->clear();
 
-    for(int i = 0; i < ui->devicesTableWidget->rowCount(); i++)
+    for(int i = 0; i < onScreenDevicesNames.size(); i++)
     {
-        QTableWidgetItem* item = new QTableWidgetItem();
+        QListWidgetItem* item = new QListWidgetItem();
         item->setText(onScreenDevicesNames[i]);
         if(onScreenDevicesStates[i])
         {
@@ -307,7 +304,7 @@ void MainWindow::updateDevicesDisplay()
             item->setTextColor(SmlColors::gray());
             item->setBackgroundColor(SmlColors::white());
         }
-        ui->devicesTableWidget->setItem(i, 0, item);
+        ui->devicesListWidget->addItem(item);
     }
 }
 
@@ -559,7 +556,7 @@ void MainWindow::showMachineToolConnected()
     ui->statusBar->showMessage("Machine Tool is connected");
 
 
-    ui->devicesTableWidget->setEnabled(true);
+    ui->devicesListWidget->setEnabled(true);
 }
 
 void MainWindow::showMachineToolDisconnected()
@@ -567,7 +564,7 @@ void MainWindow::showMachineToolDisconnected()
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Machine Tool is disconnected");
 
-    ui->devicesTableWidget->setEnabled(false);
+    ui->devicesListWidget->setEnabled(false);
 }
 
 void MainWindow::disableMovementButtonsShortcuts()
@@ -1007,12 +1004,6 @@ void MainWindow::on_finishDebugCommandLinkButton_clicked()
     ui->finishDebugCommandLinkButton->setEnabled(false);
 }
 
-void MainWindow::on_devicesTableWidget_clicked(const QModelIndex &index)
-{
-    QString deviceName = index.data().toString();
-    mainWindowController->switchDevice(deviceName);
-}
-
 void MainWindow::on_viewPushButton_clicked()
 {
     mainWindowController->inerpretCommands();
@@ -1131,4 +1122,10 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
     }
+}
+
+void MainWindow::on_devicesListWidget_doubleClicked(const QModelIndex &index)
+{
+    QString deviceName = index.data().toString();
+    mainWindowController->switchDevice(deviceName);
 }
