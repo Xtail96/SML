@@ -127,6 +127,9 @@ private slots:
     /// Слоты для настройки Status Bar
     void setupStatusBar();
 
+    /// Слоты для настройки дисплеев
+    void setupDisplays();
+
     /// Слоты для настройки дисплея координат
     void setupCoordinatesDisplay();
     void setupEdgesControl();
@@ -143,6 +146,9 @@ private slots:
     void setupPointsEditorFields();
     void setupPointsPushButtons();
 
+    /// Слоты для настройки панели устройств
+    void setupDevicesPanel();
+
     /// Слоты для настройки панели скорости
     void setupVelocityPanel();
 
@@ -157,9 +163,6 @@ private slots:
 
     /// Слот для обновления дисплея датчиков
     void updateSensorsDisplay();
-
-    /// Слот для обновления дисплея устройств
-    void updateDevicesDisplay();
 
     /// Слот для обновления дисплея заряда батареи
     void updateBatteryStatusDisplay();
@@ -190,6 +193,9 @@ private slots:
 
     /// Слот для обновления статуса баировки станка
     void updateBaseStatus();
+
+    /// Слот для обновления панели устройств
+    void updateDevicesPanel();
 
     /// Слот для обновления скорости
     void updateVelocityPanel();
@@ -266,7 +272,7 @@ private slots:
     void on_toolLengthSensorPushButton_clicked();
     void on_lubricationSystemPushButton_clicked();
     void on_commandsToolsListWidget_clicked(const QModelIndex &index);
-    void on_devicesListWidget_doubleClicked(const QModelIndex &index);
+    void on_devicesListWidget_clicked(const QModelIndex &index);
 };
 
 

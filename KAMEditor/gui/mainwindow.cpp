@@ -34,11 +34,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupMainWindowController()
 {
     mainWindowController = new MainWindowController();
-
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
-
-    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 }
 
 void MainWindow::setupSettingsWidgets()
@@ -54,12 +50,14 @@ void MainWindow::setupWidgets()
     setupAxisesShortcuts();
     // проводим настройку необходимых виджетов
     setupStatusBar();
+    setupDisplays();
     setupCommandsEditorField();
     setupGCodesSyntaxHighlighter();
     setupEdgesControl();
     setupPointsEditorWidgets();
     setupEditorFileActionsPushButtons();
     setupCoordinatesDisplay();
+    setupDevicesPanel();
     setupVelocityPanel();
     setupSpindelRotationsPanel();
 
@@ -93,12 +91,24 @@ void MainWindow::setupStatusBar()
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
 }
 
+void MainWindow::setupDisplays()
+{
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
+}
+
 void MainWindow::setupGCodesSyntaxHighlighter()
 {
     // устанвиливаем подсветку текста в виджете отображения G-кодов
     hightlighter = new GCodesSyntaxHighlighter(this);
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
+}
+
+void MainWindow::setupDevicesPanel()
+{
+    connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(updateDevicesPanel()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDevicesPanel()));
 }
 
 void MainWindow::setupEdgesControl()
@@ -283,7 +293,7 @@ void MainWindow::updateSensorsDisplay()
     }
 }
 
-void MainWindow::updateDevicesDisplay()
+void MainWindow::updateDevicesPanel()
 {
     QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
     QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
@@ -354,7 +364,6 @@ void MainWindow::updateDisplays()
 {
     updateBatteryStatusDisplay();
     updateSensorsDisplay();
-    updateDevicesDisplay();
 #ifdef Q_OS_WIN
     /*if(u1Manager != nullptr)
     {
@@ -1124,8 +1133,9 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
     }
 }
 
-void MainWindow::on_devicesListWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
 {
     QString deviceName = index.data().toString();
     mainWindowController->switchDevice(deviceName);
+    updateDevicesPanel();
 }
