@@ -1,12 +1,12 @@
-#include "smllistwidget.h"
+#include "smlcommandslistwidget.h"
 
-SMLListWidget::SMLListWidget(QWidget *parent) :
+SMLCommandsListWidget::SMLCommandsListWidget(QWidget *parent) :
     QListWidget(parent)
 {
 
 }
 
-void SMLListWidget::keyPressEvent(QKeyEvent *keyEvent)
+void SMLCommandsListWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     QModelIndex selectedItemIndex = this->currentIndex();
     int keyPressed = keyEvent->key();
@@ -34,7 +34,7 @@ void SMLListWidget::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
-void SMLListWidget::keyReturnPressed(QModelIndex selectedItemIndex)
+void SMLCommandsListWidget::keyReturnPressed(QModelIndex selectedItemIndex)
 {
     int currentItemRow = selectedItemIndex.row();
     if(currentItemRow >= 0 && currentItemRow < this->count())
@@ -43,7 +43,7 @@ void SMLListWidget::keyReturnPressed(QModelIndex selectedItemIndex)
     }
 }
 
-void SMLListWidget::keyUpPressed(QModelIndex selectedItemIndex)
+void SMLCommandsListWidget::keyUpPressed(QModelIndex selectedItemIndex)
 {
     int currentItemRow = selectedItemIndex.row();
     int rowsCount = this->count();
@@ -64,7 +64,7 @@ void SMLListWidget::keyUpPressed(QModelIndex selectedItemIndex)
     }
 }
 
-void SMLListWidget::keyDownPressed(QModelIndex selectedItemIndex)
+void SMLCommandsListWidget::keyDownPressed(QModelIndex selectedItemIndex)
 {
     int currentItemRow = selectedItemIndex.row();
     int rowsCount = this->count();

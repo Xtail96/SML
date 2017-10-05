@@ -1,5 +1,5 @@
-#ifndef SMLTABLEWIDGET_H
-#define SMLTABLEWIDGET_H
+#ifndef SMLPOINTSTABLEWIDGET_H
+#define SMLPOINTSTABLEWIDGET_H
 
 #include <QWidget>
 #include <QTableWidget>
@@ -12,7 +12,7 @@
  * \brief Класс Виджет SML-таблица
  * Наследник QTableWidget
  */
-class SMLTableWidget : public QTableWidget
+class SMLPointsTableWidget : public QTableWidget
 {
     Q_OBJECT
 signals:
@@ -37,7 +37,7 @@ public:
      * \brief Конструктор класса Виджет SML-Таблицы
      * \param parent
      */
-    SMLTableWidget(QWidget *parent = 0);
+    SMLPointsTableWidget(QWidget *parent = 0);
 
     /*!
      * \brief Обрабатывает нажатие клавиши на клавиатуре внутри виджета
@@ -88,4 +88,4 @@ private:
     void selectFirstRow();
 };
 
-#endif // SMLTABLEWIDGET_H
+#endif // SMLPOINTSTABLEWIDGET_H

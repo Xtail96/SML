@@ -94,15 +94,15 @@ SOURCES += main.cpp\
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
-    gui/widgets/smllistwidget.cpp \
     models/machinetool/commandsmanager/commands/ttline.cpp \
     gui/programvisualizewindow.cpp \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.cpp \
     controllers/mainwindowcontroller/mainwindowcontroller.cpp \
-    gui/widgets/smltablewidget.cpp \
     controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.cpp \
     controllers/programvisualizewindowcontroller/programvisualizewindowbridge/programvisualizewindowbridge.cpp \
-    gui/widgets/smleditortreewidget.cpp
+    gui/widgets/smleditortreewidget.cpp \
+    gui/widgets/smlcommandslistwidget.cpp \
+    gui/widgets/smlpointstablewidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -167,15 +167,15 @@ HEADERS  += gui/mainwindow.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
-    gui/widgets/smllistwidget.h \
     models/machinetool/commandsmanager/commands/ttline.h \
     gui/programvisualizewindow.h \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h \
     controllers/mainwindowcontroller/mainwindowcontroller.h \
-    gui/widgets/smltablewidget.h \
     controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h \
     controllers/programvisualizewindowcontroller/programvisualizewindowbridge/programvisualizewindowbridge.h \
-    gui/widgets/smleditortreewidget.h
+    gui/widgets/smleditortreewidget.h \
+    gui/widgets/smlcommandslistwidget.h \
+    gui/widgets/smlpointstablewidget.h
 
 
 FORMS    += gui/mainwindow.ui \

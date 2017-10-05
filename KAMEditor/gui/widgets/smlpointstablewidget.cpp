@@ -1,13 +1,13 @@
-#include "smltablewidget.h"
+#include "smlpointstablewidget.h"
 
-SMLTableWidget::SMLTableWidget(QWidget *parent) :
+SMLPointsTableWidget::SMLPointsTableWidget(QWidget *parent) :
     QTableWidget(parent)
 {
     this->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
+void SMLPointsTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     QModelIndexList selectedItemsIndexes = this->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
@@ -58,7 +58,7 @@ void SMLTableWidget::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
-QModelIndexList SMLTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
+QModelIndexList SMLPointsTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
 {
     QModelIndexList rowsIndexes = {*itemsIndexes.begin()};
     int currentItemRow = rowsIndexes.begin()->row();
@@ -73,7 +73,7 @@ QModelIndexList SMLTableWidget::getRowsIndexes(QModelIndexList itemsIndexes)
     return rowsIndexes;
 }
 
-void SMLTableWidget::keyReturnPressed(QModelIndexList selectedRowsIndexes)
+void SMLPointsTableWidget::keyReturnPressed(QModelIndexList selectedRowsIndexes)
 {
     int rowsCount = this->rowCount();
     if(selectedRowsIndexes.first().row() >= 0 && selectedRowsIndexes.first().row() < rowsCount)
@@ -82,12 +82,12 @@ void SMLTableWidget::keyReturnPressed(QModelIndexList selectedRowsIndexes)
     }
 }
 
-void SMLTableWidget::keyBackspacePressed(QModelIndexList selectedRowsIndexes)
+void SMLPointsTableWidget::keyBackspacePressed(QModelIndexList selectedRowsIndexes)
 {
     emit eraseSignal(selectedRowsIndexes);
 }
 
-void SMLTableWidget::keyUpPressed(QModelIndexList selectedRowsIndexes)
+void SMLPointsTableWidget::keyUpPressed(QModelIndexList selectedRowsIndexes)
 {
     int rowsCount = this->rowCount();
     int firstSelectedRow = selectedRowsIndexes.first().row();
@@ -104,7 +104,7 @@ void SMLTableWidget::keyUpPressed(QModelIndexList selectedRowsIndexes)
     }
 }
 
-void SMLTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
+void SMLPointsTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
 {
     int rowsCount = this->rowCount();
     int lastSelectedRow = selectedRowsIndexes.back().row();
@@ -121,12 +121,12 @@ void SMLTableWidget::keyDownPressed(QModelIndexList selectedRowsIndexes)
     }
 }
 
-void SMLTableWidget::keysCtrlAPressed()
+void SMLPointsTableWidget::keysCtrlAPressed()
 {
     selectAll();
 }
 
-void SMLTableWidget::selectFirstRow()
+void SMLPointsTableWidget::selectFirstRow()
 {
     int rowsCount = this->rowCount();
     if(rowsCount > 0)

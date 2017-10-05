@@ -1,5 +1,5 @@
-#ifndef SMLLISTWIDGET_H
-#define SMLLISTWIDGET_H
+#ifndef SMLCOMMANDSLISTWIDGET_H
+#define SMLCOMMANDSLISTWIDGET_H
 
 #include <QWidget>
 #include <QListWidget>
@@ -11,7 +11,7 @@
  * \brief Класс Виджет SML-списка
  * Наследник QListWidget
  */
-class SMLListWidget : public QListWidget
+class SMLCommandsListWidget : public QListWidget
 {
     Q_OBJECT
 
@@ -20,7 +20,7 @@ public:
      * \brief Конструктор класса Виджет SML-Списка
      * \param parent родительский виджет
      */
-    SMLListWidget(QWidget *parent = 0);
+    SMLCommandsListWidget(QWidget *parent = 0);
 
     /*!
      * \brief Обрабатывает нажатие клавиши на клавиатуре
@@ -47,4 +47,4 @@ private:
     void keyDownPressed(QModelIndex selectedItemIndex);
 };
 
-#endif // SMLLISTWIDGET_H
+#endif // SMLCOMMANDSLISTWIDGET_H

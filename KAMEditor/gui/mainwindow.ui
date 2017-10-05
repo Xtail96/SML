@@ -165,7 +165,7 @@
                 <number>5</number>
                </property>
                <item>
-                <widget class="SMLListWidget" name="commandsToolsListWidget">
+                <widget class="SMLCommandsListWidget" name="commandsToolsListWidget">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -737,7 +737,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0" colspan="2">
-             <widget class="SMLTableWidget" name="pointsTableWidget_2">
+             <widget class="SMLPointsTableWidget" name="pointsTableWidget_2">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -1924,7 +1924,7 @@
                  </attribute>
                  <layout class="QGridLayout" name="gridLayout_12">
                   <item row="0" column="0">
-                   <widget class="SMLTableWidget" name="pointsTableWidget">
+                   <widget class="SMLPointsTableWidget" name="pointsTableWidget">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                       <horstretch>3</horstretch>
@@ -5040,9 +5040,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>SMLListWidget</class>
+   <class>SMLCommandsListWidget</class>
    <extends>QListWidget</extends>
-   <header>gui/widgets/smllistwidget.h</header>
+   <header>gui/widgets/smlcommandslistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLEditorTreeWidget</class>
@@ -5050,9 +5050,9 @@
    <header>gui/widgets/smleditortreewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>SMLTableWidget</class>
+   <class>SMLPointsTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>gui/widgets/smltablewidget.h</header>
+   <header>gui/widgets/smlpointstablewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

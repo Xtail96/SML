@@ -119,7 +119,7 @@ void MainWindow::setupPointsEditorFields()
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    QList<SMLTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
 
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
@@ -408,7 +408,7 @@ void MainWindow::updateCoordinatesDisplay()
 void MainWindow::updatePointsEditorFields()
 {
     QList<QStringList> points = mainWindowController->getPoints();
-    QList<SMLTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     QStringList axisesLabels = mainWindowController->getAxisesNames();
 
     for(auto field : fields)
@@ -821,14 +821,14 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
     if(selectedItemsIndexes.size() > 0)
     {
-        QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
+        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
         deletePoints(selectedRowsIndexes);
     }
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    SMLTableWidget* currentTableWidget;
+    SMLPointsTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
     {
         currentTableWidget = ui->pointsTableWidget_2;
@@ -901,7 +901,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
     {
-        QModelIndexList selectedRowsIndexes = SMLTableWidget::getRowsIndexes(selectedItemsIndexes);
+        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
 
         for(auto row : selectedRowsIndexes)
         {
