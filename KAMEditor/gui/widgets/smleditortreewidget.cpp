@@ -1,12 +1,12 @@
-#include "smltreewidget.h"
+#include "smleditortreewidget.h"
 
-SMLTreeWidget::SMLTreeWidget(QWidget *parent) :
+SMLEditorTreeWidget::SMLEditorTreeWidget(QWidget *parent) :
     QTreeWidget(parent)
 {
 
 }
 
-void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
+void SMLEditorTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     QModelIndexList selectedItemsIndexes = this->selectionModel()->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
@@ -90,7 +90,7 @@ void SMLTreeWidget::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
-QModelIndexList SMLTreeWidget::getRowsIndexes(QModelIndexList itemsIndexes)
+QModelIndexList SMLEditorTreeWidget::getRowsIndexes(QModelIndexList itemsIndexes)
 {
     QModelIndexList rowsIndexes;
     for(auto index : itemsIndexes)
@@ -103,20 +103,20 @@ QModelIndexList SMLTreeWidget::getRowsIndexes(QModelIndexList itemsIndexes)
     return rowsIndexes;
 }
 
-void SMLTreeWidget::selectFirstItem()
+void SMLEditorTreeWidget::selectFirstItem()
 {
     QTreeWidgetItem* firstItem = this->topLevelItem(0);
     this->setCurrentItem(firstItem);
 }
 
-void SMLTreeWidget::selectLastItem()
+void SMLEditorTreeWidget::selectLastItem()
 {
     int itemsCount = this->topLevelItemCount();
     QTreeWidgetItem* lastItem = this->topLevelItem(itemsCount - 1);
     this->setCurrentItem(lastItem);
 }
 
-void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     if( (firstSelectedItemIndex.row() >= 0) && (firstSelectedItemIndex.row() < this->topLevelItemCount()) )
@@ -125,12 +125,12 @@ void SMLTreeWidget::keyReturnPressed(QModelIndexList itemsIndexes)
     }
 }
 
-void SMLTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keyBackspacePressed(QModelIndexList itemsIndexes)
 {
     emit eraseSignal(itemsIndexes);
 }
 
-void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     int firstSelectedRow = firstSelectedItemIndex.row();
@@ -147,7 +147,7 @@ void SMLTreeWidget::keyUpPressed(QModelIndexList itemsIndexes)
     }
 }
 
-void SMLTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex lastSelectedItemIndex = itemsIndexes[itemsIndexes.size() - 1];
     int lastSelectedRow = lastSelectedItemIndex.row();
@@ -164,36 +164,36 @@ void SMLTreeWidget::keyDownPressed(QModelIndexList itemsIndexes)
     }
 }
 
-void SMLTreeWidget::keysCtrlAPressed()
+void SMLEditorTreeWidget::keysCtrlAPressed()
 {
     this->setSelectionMode(QAbstractItemView::MultiSelection);
     this->selectAll();
 }
 
-void SMLTreeWidget::keysCtrlCPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keysCtrlCPressed(QModelIndexList itemsIndexes)
 {
     emit copySignal(itemsIndexes);
 }
 
-void SMLTreeWidget::keysCtrlXPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keysCtrlXPressed(QModelIndexList itemsIndexes)
 {
     emit cutSignal(itemsIndexes);
 }
 
-void SMLTreeWidget::keysCtrlVPressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keysCtrlVPressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     emit pasteSignal(firstSelectedItemIndex);
 }
 
-void SMLTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)
+void SMLEditorTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)
 {
     QModelIndex firstSelectedItemIndex = itemsIndexes[0];
     this->setSelectionMode(QAbstractItemView::SingleSelection);
     this->setCurrentIndex(firstSelectedItemIndex);
 }
 
-void SMLTreeWidget::updateSelectionMode(Qt::KeyboardModifiers modifiers)
+void SMLEditorTreeWidget::updateSelectionMode(Qt::KeyboardModifiers modifiers)
 {
     switch (modifiers) {
     case Qt::ShiftModifier:

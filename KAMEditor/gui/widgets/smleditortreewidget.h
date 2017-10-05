@@ -1,5 +1,5 @@
-#ifndef SMLTREEWIDGET_H
-#define SMLTREEWIDGET_H
+#ifndef SMLEDITORTREEWIDGET_H
+#define SMLEDITORTREEWIDGET_H
 
 #include <QWidget>
 #include <QTreeWidget>
@@ -12,7 +12,7 @@
  * \brief Класс Виджет SML-Дерева
  * Наследник QTreeWidget
  */
-class SMLTreeWidget : public QTreeWidget
+class SMLEditorTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 signals:
@@ -44,7 +44,7 @@ public:
      * \brief Конструктор класса Виджет SML-Дерева
      * \param parent родительский виджет
      */
-    SMLTreeWidget(QWidget *parent = 0);
+    SMLEditorTreeWidget(QWidget *parent = 0);
 
     /*!
      * \brief Обрабатывает нажатие клавиши на клавиатуре
@@ -131,4 +131,4 @@ private:
 
 };
 
-#endif // SMLTREEWIDGET_H
+#endif // SMLEDITORTREEWIDGET_H

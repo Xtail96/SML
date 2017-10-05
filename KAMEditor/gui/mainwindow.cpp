@@ -68,7 +68,7 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupCommandsEditorField()
 {
-    SMLTreeWidget*  editorField = ui->smlEditorTreeWidget;
+    SMLEditorTreeWidget*  editorField = ui->smlEditorTreeWidget;
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
     editorField->setTreePosition(1);
 

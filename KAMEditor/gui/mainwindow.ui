@@ -385,7 +385,7 @@
                 <number>5</number>
                </property>
                <item>
-                <widget class="SMLTreeWidget" name="smlEditorTreeWidget">
+                <widget class="SMLEditorTreeWidget" name="smlEditorTreeWidget">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
@@ -5045,9 +5045,9 @@
    <header>gui/widgets/smllistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>SMLTreeWidget</class>
+   <class>SMLEditorTreeWidget</class>
    <extends>QTreeWidget</extends>
-   <header>gui/widgets/smltreewidget.h</header>
+   <header>gui/widgets/smleditortreewidget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLTableWidget</class>
