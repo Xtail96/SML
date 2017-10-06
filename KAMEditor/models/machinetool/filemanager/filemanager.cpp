@@ -79,12 +79,7 @@ void FileManager::savePoints(QFile &f)
 void FileManager::readFileInfo(QString path)
 {
     QFile inputFile(path);
-    if(!inputFile.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", inputFile.errorString());
-        filepath = "";
-    }
-    else
+    if(inputFile.open(QIODevice::ReadOnly))
     {
         filepath = path;
         QTextStream in(&inputFile);
@@ -92,13 +87,17 @@ void FileManager::readFileInfo(QString path)
         inputFile.close();
         transferToSML(content);
     }
+    else
+    {
+        filepath = "";
+    }
 }
 
 void FileManager::transferToSML(QString content)
 {
-    QStringList lines = content.split('\n');
-    qDebug() << lines;
-    for(int i = 0; i < lines.size(); i++);
+    QStringList commandsStrings = content.split('\n');
+    qDebug() << commandsStrings << commandsStrings.size();
+    for(int i = 0; i < commandsStrings.size(); i++)
     {
         std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(10, 10, 5));
         cmd_mgr->addCommand(cmd);
