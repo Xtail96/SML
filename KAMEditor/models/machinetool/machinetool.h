@@ -16,6 +16,9 @@
 #include "models/machinetool/commandsmanager/commandsmanager.h"
 #include "models/machinetool/sensorsmanager/sensorsmanager.h"
 #include "models/machinetool/devicesmanager/devicesmanager.h"
+#include "models/machinetool/filemanager/filemanager.h"
+
+class FileManager;
 
 /**
  * \brief Класс "Станок"
@@ -57,6 +60,8 @@ public:
     unsigned int getSpindelRotations() const;
     void setSpindelRotations(unsigned int value);
 
+    FileManager *getFileManager() const;
+
 private:
     uint16_t vendorId;
 
@@ -70,6 +75,7 @@ private:
     DevicesManager *devicesManager;
     CommandsManager *commandsManager;
     CommandsInterpreter *commandsInterpreter;
+    FileManager* fileManager;
 
     StatesBuffer buffer;
 

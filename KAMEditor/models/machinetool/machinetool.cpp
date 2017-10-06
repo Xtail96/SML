@@ -8,6 +8,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
     commandsInterpreter(new CommandsInterpreter(commandsManager)),
+    fileManager(new FileManager(commandsManager, pointsManager)),
     velocity(10),
     spindelRotations(5000)
 {
@@ -21,6 +22,7 @@ MachineTool::~MachineTool()
     delete this->commandsInterpreter;
     delete this->sensorsManager;
     delete this->devicesManager;
+    delete this->fileManager;
 }
 
 MovementsHandler* MachineTool::getMovementController() const
@@ -96,4 +98,9 @@ unsigned int MachineTool::getSpindelRotations() const
 void MachineTool::setSpindelRotations(unsigned int value)
 {
     spindelRotations = value;
+}
+
+FileManager *MachineTool::getFileManager() const
+{
+    return fileManager;
 }

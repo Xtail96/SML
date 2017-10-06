@@ -36,6 +36,12 @@ void FileManager::saveFile()
     f.close();
 }
 
+void FileManager::openFile()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+    readFileInfo(path);
+}
+
 void FileManager::saveCommands(QFile &f)
 {
    /* f.write("[commands]");
@@ -68,4 +74,33 @@ void FileManager::savePoints(QFile &f)
         QString textcmd = point->getName() + " " + cmd->getArgumentsString();
         f.write(textcmd.toUtf8());
     }*/
+}
+
+void FileManager::readFileInfo(QString path)
+{
+    QFile inputFile(path);
+    if(!inputFile.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0, "error", inputFile.errorString());
+        filepath = "";
+    }
+    else
+    {
+        filepath = path;
+        QTextStream in(&inputFile);
+        QString content = in.readAll();
+        inputFile.close();
+        transferToSML(content);
+    }
+}
+
+void FileManager::transferToSML(QString content)
+{
+    QStringList lines = content.split('\n');
+    qDebug() << lines;
+    for(int i = 0; i < lines.size(); i++);
+    {
+        std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(10, 10, 5));
+        cmd_mgr->addCommand(cmd);
+    }
 }

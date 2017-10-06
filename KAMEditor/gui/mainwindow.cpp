@@ -972,17 +972,7 @@ void MainWindow::on_toBasePushButton_clicked()
 
 void MainWindow::on_open_action_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");
-    QFile inputFile(path);
-    if(!inputFile.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", inputFile.errorString());
-    }
-    QTextStream in(&inputFile);
-    QString content = in.readAll();
-    inputFile.close();
-
-    ui->gcodesEditorTextEdit->setPlainText(content);
+    mainWindowController->openSMLFile();
 }
 
 

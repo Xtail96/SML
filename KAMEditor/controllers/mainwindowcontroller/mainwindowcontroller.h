@@ -132,6 +132,8 @@ public slots:
 
     void inerpretCommands();
 
+    void openSMLFile();
+
     friend class ProgramVisualizeWindowController;
 };
 

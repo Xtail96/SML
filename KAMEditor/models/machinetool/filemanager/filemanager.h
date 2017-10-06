@@ -2,8 +2,11 @@
 #define FILEMANAGER_H
 
 #include <QMessageBox>
+#include <QFileDialog>
+
 #include "../commandsmanager/commandsmanager.h"
 #include "../pointsmanager/pointsmanager.h"
+#include "models/machinetool/commandsmanager/commands/commands.h"
 
 class FileManager
 {
@@ -12,6 +15,7 @@ public:
 
     QFile createFile();
     void saveFile();
+    void openFile();
 
 private:
     CommandsManager* cmd_mgr;
@@ -22,6 +26,9 @@ private:
 
     void saveCommands(QFile& f);
     void savePoints(QFile& f);
+
+    void readFileInfo(QString path);
+    void transferToSML(QString content);
 };
 
 #endif // FILEMANAGER_H
