@@ -2416,6 +2416,11 @@
            </item>
            <item row="0" column="0">
             <widget class="QListWidget" name="devicesListWidget">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
