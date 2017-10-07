@@ -10,7 +10,7 @@
 class FileManager
 {
 public:
-    FileManager(CommandsManager* cm, PointsManager* pm);
+    FileManager(CommandsManager* cm, PointsManager* pm, size_t _axisesCount);
 
     QFile createFile();
     void saveFile();
@@ -19,6 +19,7 @@ public:
 private:
     CommandsManager* cmd_mgr;
     PointsManager* pnt_mgr;
+    size_t axisesCount;
 
     QString filepath;
     //bool changed;

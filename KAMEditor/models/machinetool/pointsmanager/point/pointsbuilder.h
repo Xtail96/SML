@@ -8,7 +8,7 @@ class PointsBuilder
 public:
     PointsBuilder();
 
-    static Point* buildPoint(QStringList coordinatesStringList);
+    static Point* buildPoint(QStringList coordinatesStringList, size_t machineToolAxisesCount);
 };
 
 #endif // POINTSBUILDER_H
