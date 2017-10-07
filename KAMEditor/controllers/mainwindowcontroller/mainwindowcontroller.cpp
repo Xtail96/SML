@@ -345,6 +345,13 @@ void MainWindowController::inerpretCommands()
     machineTool->getCommandsInterpreter()->updateProgram();
 }
 
+void MainWindowController::newSMLFile()
+{
+    machineTool->getFileManager()->newFile();
+    emit commandsUpdated();
+    emit pointsUpdated();
+}
+
 void MainWindowController::openSMLFile()
 {
     machineTool->getFileManager()->openFile();

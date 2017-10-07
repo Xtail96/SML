@@ -13,8 +13,10 @@ public:
     FileManager(CommandsManager* cm, PointsManager* pm, size_t _axisesCount);
 
     QFile createFile();
-    void saveFile();
+    void newFile();
     void openFile();
+    void saveFile();
+    void saveFileAs();
     void addFile();
 
 private:

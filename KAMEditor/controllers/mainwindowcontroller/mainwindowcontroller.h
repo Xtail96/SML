@@ -132,6 +132,7 @@ public slots:
 
     void inerpretCommands();
 
+    void newSMLFile();
     void openSMLFile();
     void addSMLFile();
 

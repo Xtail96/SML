@@ -40,6 +40,11 @@ void FileManager::saveFile()
     f.close();
 }
 
+void FileManager::saveFileAs()
+{
+
+}
+
 void FileManager::openFile()
 {
     /*QMessageBox::StandardButton reply;
@@ -65,6 +70,24 @@ void FileManager::addFile()
     {
         transferToSML(content);
     }
+}
+
+void FileManager::newFile()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        if(filepath.length() > 0)
+        {
+            saveFile();
+        }
+        else
+        {
+            saveFileAs();
+        }
+    }
+    resetContainers();
 }
 
 QString FileManager::readFileInfo(QString path)

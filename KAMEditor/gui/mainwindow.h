@@ -274,6 +274,7 @@ private slots:
     void on_commandsToolsListWidget_clicked(const QModelIndex &index);
     void on_devicesListWidget_clicked(const QModelIndex &index);
     void on_add_action_triggered();
+    void on_create_action_triggered();
 };
 
 
