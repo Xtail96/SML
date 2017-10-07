@@ -52,21 +52,18 @@ void FileManager::openFile()
 
 void FileManager::saveCommands(QFile &f)
 {
-   /* f.write("[commands]");
+    f.write("[commands]");
 
-    size_t commandNumber = cmd_mgr->getCommandsCount();
+    size_t commandsCount = cmd_mgr->commandsCount();
 
-    QString textcmd;
-    for (size_t idx = 0; idx < commandNumber; idx++)
+    QString commandsString;
+    for (size_t idx = 0; idx < commandsCount; idx++)
     {
-        std::shared_ptr<Command> cmd = cmd_mgr[idx];
-
-        textcmd += cmd->getName() + " ";
-
-
+        std::shared_ptr<Command> cmd = cmd_mgr->operator [](idx);
+        commandsString = makeCommandsString(cmd);
     }
 
-    f.write(textcmd.toUtf8());*/
+    f.write(commandsString.toUtf8());
 }
 
 void FileManager::savePoints(QFile &f)
@@ -116,8 +113,22 @@ std::shared_ptr<Command> FileManager::makeCommand(QString commandString)
     std::shared_ptr<Command> cmd;
     QStringList splittedCommandString = commandString.split(' ');
     int id = splittedCommandString[0].toInt();
-    QStringList commandsArguments = splittedCommandString[1].split(",");
+    QStringList commandsArguments = splittedCommandString[1].split(',');
     qDebug() << commandsArguments;
     cmd = CommandsBuilder::buildCommand(id, commandsArguments);
     return cmd;
+}
+
+QString FileManager::makeCommandsString(std::shared_ptr<Command> cmd)
+{
+    QString commandsString;
+    commandsString = cmd->getId() + " ";
+
+    QStringList commandsArguments =  cmd->getArguments();
+    for(auto commandsArgument : commandsArguments)
+    {
+        commandsString += commandsArgument + ",";
+    }
+    qDebug() << commandsString;
+    return commandsString;
 }

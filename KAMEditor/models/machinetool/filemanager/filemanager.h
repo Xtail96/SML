@@ -28,6 +28,7 @@ private:
     void readFileInfo(QString path);
     void transferToSML(QString content);
     std::shared_ptr<Command> makeCommand(QString commandString);
+    QString makeCommandsString(std::shared_ptr<Command> cmd);
 };
 
 #endif // FILEMANAGER_H
