@@ -247,12 +247,12 @@ std::shared_ptr<Command> MainWindowBridge::makeCommand(int id, QStringList argum
     {
     case CMD_SWITCH_ON:
     {
-        cmd = makeSwitchOnCommand(arguments, machineTool->getDevicesManager());
+        //cmd = makeSwitchOnCommand(arguments, machineTool->getDevicesManager());
         break;
     }
     case CMD_SWITCH_OFF:
     {
-        cmd = makeSwitchOffCommand(arguments, machineTool->getDevicesManager());
+        //cmd = makeSwitchOffCommand(arguments, machineTool->getDevicesManager());
         break;
     }
     case CMD_COMMENT:
@@ -272,7 +272,7 @@ std::shared_ptr<Command> MainWindowBridge::makeCommand(int id, QStringList argum
     }
     case CMD_TTLINE:
     {
-        cmd = makeTTLineCommand(arguments, machineTool->getPointsManager());
+        //cmd = makeTTLineCommand(arguments, machineTool->getPointsManager());
         break;
     }
     case CMD_ARC:
@@ -288,7 +288,7 @@ std::shared_ptr<Command> MainWindowBridge::makeCommand(int id, QStringList argum
     return cmd;
 }
 
-std::shared_ptr<Command> MainWindowBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
+/*std::shared_ptr<Command> MainWindowBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -336,7 +336,7 @@ std::shared_ptr<Command> MainWindowBridge::makeSwitchOffCommand(QStringList argu
     cmd = std::shared_ptr<Command> (new SwitchOff(deviceManager, deviceName));
 
     return  cmd;
-}
+}*/
 
 std::shared_ptr<Command> MainWindowBridge::makeCommentCommand(QStringList arguments)
 {
@@ -419,7 +419,7 @@ std::shared_ptr<Command> MainWindowBridge::makeLineCommand(QStringList arguments
     return cmd;
 }
 
-std::shared_ptr<Command> MainWindowBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
+/*std::shared_ptr<Command> MainWindowBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -453,7 +453,7 @@ std::shared_ptr<Command> MainWindowBridge::makeTTLineCommand(QStringList argumen
     cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
 
     return cmd;
-}
+}*/
 
 std::shared_ptr<Command> MainWindowBridge::makeArcCommand(QStringList arguments)
 {

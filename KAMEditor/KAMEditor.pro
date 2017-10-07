@@ -43,8 +43,8 @@ SOURCES += main.cpp\
     gui/commands/ttlinedialog.cpp \
 #    gui/commands/arc2dialog.cpp \
 #    gui/commands/cycledialog.cpp \
-    gui/commands/offdialog.cpp \
-    gui/commands/ondialog.cpp \
+#    gui/commands/offdialog.cpp \
+#    gui/commands/ondialog.cpp \
 #    gui/commands/rotatedialog.cpp \
 #    gui/commands/gotodialog.cpp \
 #    gui/commands/procdialog.cpp \
@@ -85,8 +85,8 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
-    models/machinetool/commandsmanager/commands/switchon.cpp \
-    models/machinetool/commandsmanager/commands/switchoff.cpp \
+#    models/machinetool/commandsmanager/commands/switchon.cpp \
+#    models/machinetool/commandsmanager/commands/switchoff.cpp \
     models/machinetool/commandsmanager/commands/comment.cpp \
     models/machinetool/commandsmanager/commands/pause.cpp \
     gui/points/toselectionpointdialog.cpp \
@@ -112,8 +112,8 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/ttlinedialog.h \
 #    gui/commands/arc2dialog.h \
 #    gui/commands/cycledialog.h \
-    gui/commands/offdialog.h \
-    gui/commands/ondialog.h \
+#    gui/commands/offdialog.h \
+#    gui/commands/ondialog.h \
 #    gui/commands/rotatedialog.h \
 #    gui/commands/gotodialog.h \
 #    gui/commands/procdialog.h \
@@ -158,8 +158,8 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    models/machinetool/commandsmanager/commands/switchon.h \
-    models/machinetool/commandsmanager/commands/switchoff.h \
+#    models/machinetool/commandsmanager/commands/switchon.h \
+#    models/machinetool/commandsmanager/commands/switchoff.h \
     models/machinetool/commandsmanager/commands/comment.h \
     models/machinetool/commandsmanager/commands/pause.h \
     gui/points/toselectionpointdialog.h \
@@ -186,8 +186,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/ttlinedialog.ui \
 #    gui/commands/arc2dialog.ui \
 #    gui/commands/cycledialog.ui \
-    gui/commands/offdialog.ui \
-    gui/commands/ondialog.ui \
+#    gui/commands/offdialog.ui \
+#    gui/commands/ondialog.ui \
 #    gui/commands/rotatedialog.ui \
 #    gui/commands/gotodialog.ui \
 #    gui/commands/procdialog.ui \

@@ -20,6 +20,7 @@
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
 class Command;
+class CommandsInterpreter;
 
 /*!
  * \brief Класс Виджет визуализации

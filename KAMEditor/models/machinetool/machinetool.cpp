@@ -8,7 +8,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
     commandsInterpreter(new CommandsInterpreter(commandsManager)),
-    fileManager(new FileManager(commandsManager, pointsManager)),
+    fileManager(new FileManager(commandsManager)),
     velocity(10),
     spindelRotations(5000)
 {

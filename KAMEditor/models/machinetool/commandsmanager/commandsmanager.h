@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <memory>
 
-#include "commands/commands.h"
+#include "commands/command.h"
 
 class Command;
 

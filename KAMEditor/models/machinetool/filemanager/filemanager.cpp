@@ -1,13 +1,13 @@
 #include "filemanager.h"
 
-FileManager::FileManager(CommandsManager *cm, PointsManager *pm) :
-    cmd_mgr(cm), pnt_mgr(pm)
+FileManager::FileManager(CommandsManager *cm) :
+    cmd_mgr(cm)
 {
     if (cmd_mgr == nullptr)
         throw std::invalid_argument("Commands manager is null");
 
-    if (pnt_mgr == nullptr)
-        throw std::invalid_argument("Points manager is null");
+    /*if (pnt_mgr == nullptr)
+        throw std::invalid_argument("Points manager is null");*/
 }
 
 QFile FileManager::createFile()
@@ -99,7 +99,7 @@ void FileManager::transferToSML(QString content)
     qDebug() << commandsStrings << commandsStrings.size();
     for(int i = 0; i < commandsStrings.size(); i++)
     {
-        std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(10, 10, 5));
-        cmd_mgr->addCommand(cmd);
+        //std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(10, 10, 5));
+        //cmd_mgr->addCommand(cmd);
     }
 }

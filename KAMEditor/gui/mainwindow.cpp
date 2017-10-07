@@ -1021,10 +1021,10 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     unsigned int currentCommandNumber = item->text(0).toUInt() - 1;
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        //OnDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        //OffDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_COMMENT:
         CommentDialog(mainWindowController, currentCommandNumber, this, true).exec();
@@ -1039,7 +1039,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         ArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_TTLINE:
-        TTLineDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        //TTLineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
@@ -1097,10 +1097,10 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(mainWindowController, currentCommandNumber, this).exec();
+        //OnDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(mainWindowController, currentCommandNumber, this).exec();
+        //OffDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
         CommentDialog(mainWindowController, currentCommandNumber, this).exec();
@@ -1115,7 +1115,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         ArcDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_TTLINE:
-        TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
+        //TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
