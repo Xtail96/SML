@@ -34,7 +34,7 @@ private:
     size_t id = CMD_LINE;
     std::string name = "ТТ-Линия";
 
-    PointsManager* pointsManager;
+    //PointsManager* pointsManager;
     unsigned int destinationPointNumber;
     bool airPassageIsNeed;
     double dz;

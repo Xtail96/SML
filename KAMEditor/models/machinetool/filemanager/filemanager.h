@@ -6,7 +6,6 @@
 
 #include "../commandsmanager/commandsmanager.h"
 #include "../pointsmanager/pointsmanager.h"
-#include "models/machinetool/commandsmanager/commands/commands.h"
 
 class FileManager
 {

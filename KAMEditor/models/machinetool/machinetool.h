@@ -8,8 +8,6 @@
 
 #include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
-#include "models/machinetool/sensorsmanager/sensor/sensor.h"
-#include "models/machinetool/devicesmanager/device/device.h"
 #include "models/machinetool/movementshandler/movementshandler.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"

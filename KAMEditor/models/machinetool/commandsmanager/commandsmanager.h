@@ -3,7 +3,8 @@
 
 #include <algorithm>
 #include <memory>
-#include "commands/command.h"
+
+#include "commands/commands.h"
 
 class Command;
 

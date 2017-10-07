@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "models/machinetool/devicesmanager/device/device.h"
-#include "models/structs.h"
 
 /*!
  * \brief Класс Менеджер устройств

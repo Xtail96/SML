@@ -2,19 +2,17 @@
 #define SWITCHOFF_H
 
 #include "models/machinetool/commandsmanager/commands/command.h"
-#include "models/machinetool/machinetool.h"
 
 class SwitchOff : public Command
 {
 private:
     size_t id = CMD_SWITCH_OFF;
     const std::string name = "Выключить";
-    DevicesManager* devicesManager;
     std::string deviceName;
     std::string parametrs;
     QColor color = QColor(SmlColors::green());
 public:
-    SwitchOff(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
+    SwitchOff(std::string _deviceName, std::string _parametrs = "");
     ~SwitchOff();
 
     /**

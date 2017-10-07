@@ -1,6 +1,6 @@
 #include "switchon.h"
 
-SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+SwitchOn::SwitchOn(std::string _deviceName, std::string _parametrs) :
     devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 
@@ -16,9 +16,9 @@ byte_array SwitchOn::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = devicesManager->findDevice(deviceName);
+        //Device &device = devicesManager->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
-        data = devicesManager->getSwitchDeviceData(device, true);
+        //data = devicesManager->getSwitchDeviceData(device, true);
     }
     catch(std::invalid_argument e)
     {

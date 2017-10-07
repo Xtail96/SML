@@ -5,8 +5,6 @@
 #include <vector>
 
 #include "models/machinetool/sensorsmanager/sensor/sensor.h"
-#include "models/machinetool/settingsmanager/settingsmanager.h"
-#include "models/structs.h"
 
 /*!
  * \brief Класс "Менеджер датчиков"

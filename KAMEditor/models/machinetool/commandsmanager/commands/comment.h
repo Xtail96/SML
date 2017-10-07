@@ -2,7 +2,6 @@
 #define COMMENT_H
 
 #include "models/machinetool/commandsmanager/commands/command.h"
-#include "models/machinetool/machinetool.h"
 
 class Comment : public Command
 {

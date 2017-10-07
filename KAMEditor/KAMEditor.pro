@@ -94,7 +94,7 @@ SOURCES += main.cpp\
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
-    models/machinetool/commandsmanager/commands/ttline.cpp \
+#    models/machinetool/commandsmanager/commands/ttline.cpp \
     gui/programvisualizewindow.cpp \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.cpp \
     controllers/mainwindowcontroller/mainwindowcontroller.cpp \
@@ -167,7 +167,7 @@ HEADERS  += gui/mainwindow.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
-    models/machinetool/commandsmanager/commands/ttline.h \
+#    models/machinetool/commandsmanager/commands/ttline.h \
     gui/programvisualizewindow.h \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h \
     controllers/mainwindowcontroller/mainwindowcontroller.h \
