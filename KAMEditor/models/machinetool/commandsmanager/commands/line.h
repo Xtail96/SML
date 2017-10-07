@@ -3,6 +3,8 @@
 
 #include "command.h"
 
+class Command;
+
 class Line : public Command
 {
 public:

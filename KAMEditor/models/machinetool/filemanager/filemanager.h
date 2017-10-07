@@ -5,12 +5,14 @@
 #include <QFileDialog>
 
 #include "../commandsmanager/commandsmanager.h"
-//#include "../pointsmanager/pointsmanager.h"
+#include "../pointsmanager/pointsmanager.h"
+
+#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
 
 class FileManager
 {
 public:
-    FileManager(CommandsManager* cm/*, PointsManager* pm*/);
+    FileManager(CommandsManager* cm, PointsManager* pm);
 
     QFile createFile();
     void saveFile();
@@ -18,7 +20,7 @@ public:
 
 private:
     CommandsManager* cmd_mgr;
-    //PointsManager* pnt_mgr;
+    PointsManager* pnt_mgr;
 
     QString filepath;
     bool changed;
@@ -28,6 +30,7 @@ private:
 
     void readFileInfo(QString path);
     void transferToSML(QString content);
+    std::shared_ptr<Command> makeCommand(QString commandString);
 };
 
 #endif // FILEMANAGER_H

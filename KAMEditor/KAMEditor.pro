@@ -102,7 +102,8 @@ SOURCES += main.cpp\
     controllers/programvisualizewindowcontroller/programvisualizewindowbridge/programvisualizewindowbridge.cpp \
     gui/widgets/smleditortreewidget.cpp \
     gui/widgets/smlcommandslistwidget.cpp \
-    gui/widgets/smlpointstablewidget.cpp
+    gui/widgets/smlpointstablewidget.cpp \
+    models/machinetool/commandsmanager/commands/commandsbuilder.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -175,7 +176,8 @@ HEADERS  += gui/mainwindow.h \
     controllers/programvisualizewindowcontroller/programvisualizewindowbridge/programvisualizewindowbridge.h \
     gui/widgets/smleditortreewidget.h \
     gui/widgets/smlcommandslistwidget.h \
-    gui/widgets/smlpointstablewidget.h
+    gui/widgets/smlpointstablewidget.h \
+    models/machinetool/commandsmanager/commands/commandsbuilder.h
 
 
 FORMS    += gui/mainwindow.ui \

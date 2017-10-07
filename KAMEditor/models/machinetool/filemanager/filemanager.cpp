@@ -1,13 +1,13 @@
 #include "filemanager.h"
 
-FileManager::FileManager(CommandsManager *cm) :
-    cmd_mgr(cm)
+FileManager::FileManager(CommandsManager *cm, PointsManager *pm) :
+    cmd_mgr(cm), pnt_mgr(pm)
 {
     if (cmd_mgr == nullptr)
         throw std::invalid_argument("Commands manager is null");
 
-    /*if (pnt_mgr == nullptr)
-        throw std::invalid_argument("Points manager is null");*/
+    if (pnt_mgr == nullptr)
+        throw std::invalid_argument("Points manager is null");
 }
 
 QFile FileManager::createFile()
@@ -96,10 +96,20 @@ void FileManager::readFileInfo(QString path)
 void FileManager::transferToSML(QString content)
 {
     QStringList commandsStrings = content.split('\n');
-    qDebug() << commandsStrings << commandsStrings.size();
-    for(int i = 0; i < commandsStrings.size(); i++)
+    for(auto commandString : commandsStrings)
     {
-        //std::shared_ptr<Command> cmd = std::shared_ptr<Command> (new Line(10, 10, 5));
-        //cmd_mgr->addCommand(cmd);
+        std::shared_ptr<Command> cmd = makeCommand(commandString);
+        cmd_mgr->addCommand(cmd);
     }
+}
+
+std::shared_ptr<Command> FileManager::makeCommand(QString commandString)
+{
+    std::shared_ptr<Command> cmd;
+    QStringList splittedCommandString = commandString.split(':');
+    int id = splittedCommandString[0].toInt();
+    QStringList commandsArguments = splittedCommandString[1].split(", ");
+    qDebug() << commandsArguments;
+    cmd = CommandsBuilder::buildCommand(id, commandsArguments);
+    return cmd;
 }

@@ -9,6 +9,7 @@
 #include "models/machinetool/machinetool.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
+#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
 
 #include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
 
