@@ -19,7 +19,9 @@ QFile FileManager::createFile()
                                       QMessageBox::Yes|QMessageBox::No);
 
         if (reply == QMessageBox::Yes)
+        {
             saveFile();
+        }
     }*/
 
 
@@ -38,6 +40,12 @@ void FileManager::saveFile()
 
 void FileManager::openFile()
 {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        saveFile();
+    }
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     readFileInfo(path);
 }
