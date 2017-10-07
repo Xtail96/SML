@@ -349,4 +349,5 @@ void MainWindowController::openSMLFile()
 {
     machineTool->getFileManager()->openFile();
     emit commandsUpdated();
+    emit pointsUpdated();
 }

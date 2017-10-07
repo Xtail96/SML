@@ -40,12 +40,12 @@ void FileManager::saveFile()
 
 void FileManager::openFile()
 {
-    QMessageBox::StandardButton reply;
+    /*QMessageBox::StandardButton reply;
     reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
         saveFile();
-    }
+    }*/
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     readFileInfo(path);
 }
@@ -100,11 +100,26 @@ void FileManager::readFileInfo(QString path)
 
 void FileManager::transferToSML(QString content)
 {
-    QStringList commandsStrings = content.split('\n');
-    for(auto commandString : commandsStrings)
+    QStringList splittedContent = content.split("[commands]")[1].split("[points]");
+
+    for(int i = 0; i < splittedContent.size(); i++)
     {
-        std::shared_ptr<Command> cmd = makeCommand(commandString);
-        cmd_mgr->addCommand(cmd);
+        switch (i) {
+        case 0:
+        {
+            QStringList commandsStrings = splittedContent[i].split('\n');
+            transferToSMLCommands(commandsStrings);
+            break;
+        }
+        case 1:
+        {
+            QStringList pointsStrings = splittedContent[1].split('\n');
+            transferToSMLPoints(pointsStrings);
+            break;
+        }
+        default:
+            break;
+        }
     }
 }
 
@@ -114,21 +129,51 @@ std::shared_ptr<Command> FileManager::makeCommand(QString commandString)
     QStringList splittedCommandString = commandString.split(' ');
     int id = splittedCommandString[0].toInt();
     QStringList commandsArguments = splittedCommandString[1].split(',');
-    qDebug() << commandsArguments;
     cmd = CommandsBuilder::buildCommand(id, commandsArguments);
     return cmd;
+}
+
+Point* FileManager::makePoint(QString pointString)
+{
+    Point* point;
+    QStringList pointCoordinates = pointString.split(',');
+    point = PointsBuilder::buildPoint(pointCoordinates);
+    return point;
+}
+
+void FileManager::transferToSMLCommands(QStringList commandsStrings)
+{
+    for(auto commandString : commandsStrings)
+    {
+        if(commandString.size() > 0)
+        {
+            std::shared_ptr<Command> cmd = makeCommand(commandString);
+            cmd_mgr->addCommand(cmd);
+        }
+    }
+}
+
+void FileManager::transferToSMLPoints(QStringList pointsStrings)
+{
+    for(auto pointString : pointsStrings)
+    {
+        if(pointString.size() > 0)
+        {
+            Point* point = makePoint(pointString);
+            pnt_mgr->addPoint(point);
+        }
+    }
 }
 
 QString FileManager::makeCommandsString(std::shared_ptr<Command> cmd)
 {
     QString commandsString;
-    commandsString = cmd->getId() + " ";
+    commandsString = QString::number(cmd->getId()) + QString(" ");
 
     QStringList commandsArguments =  cmd->getArguments();
     for(auto commandsArgument : commandsArguments)
     {
         commandsString += commandsArgument + ",";
     }
-    qDebug() << commandsString;
     return commandsString;
 }
