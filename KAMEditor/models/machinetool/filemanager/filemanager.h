@@ -4,9 +4,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 
-#include "../commandsmanager/commandsmanager.h"
-#include "../pointsmanager/pointsmanager.h"
-
 #include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
 
 class FileManager
