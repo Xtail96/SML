@@ -350,7 +350,8 @@ void MainWindow::setupAxisesShortcuts()
 
 void MainWindow::setupEditorFileActionsPushButtons()
 {
-    connect(ui->openFilePushButton, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
+    connect(ui->openFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
+    connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
 }
 
 void MainWindow::setupPointsEditorWidgets()
@@ -1128,4 +1129,9 @@ void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
     QString deviceName = index.data().toString();
     mainWindowController->switchDevice(deviceName);
     updateDevicesPanel();
+}
+
+void MainWindow::on_add_action_triggered()
+{
+    mainWindowController->addSMLFile();
 }

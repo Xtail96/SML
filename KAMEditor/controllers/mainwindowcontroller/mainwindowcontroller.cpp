@@ -351,3 +351,10 @@ void MainWindowController::openSMLFile()
     emit commandsUpdated();
     emit pointsUpdated();
 }
+
+void MainWindowController::addSMLFile()
+{
+    machineTool->getFileManager()->addFile();
+    emit commandsUpdated();
+    emit pointsUpdated();
+}

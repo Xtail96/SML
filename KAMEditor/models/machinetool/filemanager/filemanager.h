@@ -15,6 +15,7 @@ public:
     QFile createFile();
     void saveFile();
     void openFile();
+    void addFile();
 
 private:
     CommandsManager* cmd_mgr;

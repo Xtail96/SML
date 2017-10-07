@@ -273,6 +273,7 @@ private slots:
     void on_lubricationSystemPushButton_clicked();
     void on_commandsToolsListWidget_clicked(const QModelIndex &index);
     void on_devicesListWidget_clicked(const QModelIndex &index);
+    void on_add_action_triggered();
 };
 
 

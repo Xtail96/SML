@@ -53,6 +53,12 @@ void FileManager::openFile()
     readFileInfo(path);
 }
 
+void FileManager::addFile()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
+    readFileInfo(path);
+}
+
 void FileManager::readFileInfo(QString path)
 {
     QFile inputFile(path);
