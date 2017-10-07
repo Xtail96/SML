@@ -1,5 +1,6 @@
 #ifndef MOVEMENTSHANDLER_H
 #define MOVEMENTSHANDLER_H
+
 #include "models/structs.h"
 #include "models/machinetool/movementshandler/axis/axis.h"
 #include "models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h"

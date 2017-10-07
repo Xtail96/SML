@@ -1,7 +1,6 @@
 #ifndef COMMANDSBUILDER_H
 #define COMMANDSBUILDER_H
 
-#include "models/structs.h"
 #include "models/machinetool/commandsmanager/commands/commands.h"
 
 class CommandsBuilder

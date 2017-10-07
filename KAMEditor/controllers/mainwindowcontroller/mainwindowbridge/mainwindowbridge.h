@@ -5,9 +5,7 @@
 #include <QTableWidgetItem>
 #include <QTreeWidgetItem>
 
-#include "models/structs.h"
 #include "models/machinetool/machinetool.h"
-#include "models/machinetool/commandsmanager/commands/commands.h"
 
 class MainWindowBridge
 {

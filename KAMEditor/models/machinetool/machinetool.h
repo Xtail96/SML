@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-#include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
 #include "models/machinetool/movementshandler/movementshandler.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"

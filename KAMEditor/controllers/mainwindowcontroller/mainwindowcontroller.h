@@ -5,12 +5,11 @@
 #include <QTimer>
 #include <QTreeWidgetItem>
 
-#include "models/structs.h"
 #include "models/machinetool/machinetool.h"
-#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
-#include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
 #include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
+#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 
+#include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
 #include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
 
 
