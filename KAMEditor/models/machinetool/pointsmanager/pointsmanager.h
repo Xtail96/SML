@@ -60,6 +60,19 @@ public:
     void deletePoint(const std::shared_ptr<Point> &p);
 
     /**
+     * @brief Удаляет точку из списка точек
+     * @param idx номер точки
+     */
+    void deletePoint(size_t idx);
+
+    /**
+     * @brief Удаляет точки из списка точек
+     * @param beginIndex номер начальной точки
+     * @param endIndex номер конечной точки
+     */
+    void deletePoints(size_t beginIndex, size_t endIndex);
+
+    /**
      * @return текущее количество точек
      */
     size_t pointCount() const;

@@ -74,6 +74,13 @@ public:
     void deleteCommand(size_t idx);
 
     /**
+     * @brief Удаляет команды из списка команд
+     * @param beginIdx номер начальной команды
+     * @param endIdx номер конечной команды
+     */
+    void deleteCommands(size_t beginIdx, size_t endIdx);
+
+    /**
      * @brief Вставляет команду в список команд по заданному индексу
      * @param pos индекс, по которому вставится команда
      * @param cmd команда

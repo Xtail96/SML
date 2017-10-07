@@ -27,6 +27,10 @@ private:
     void saveCommands(QFile& f);
     void savePoints(QFile& f);
 
+    void resetContainers();
+    void resetCommands();
+    void resetPoints();
+
     void readFileInfo(QString path);
 
     void transferToSML(QString content);

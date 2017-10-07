@@ -71,6 +71,15 @@ void CommandsManager::deleteCommand(size_t idx)
     }
 }
 
+void CommandsManager::deleteCommands(size_t beginIdx, size_t endIdx)
+{
+    size_t commandsSize = commandsCount();
+    if((beginIdx <= commandsSize) && (endIdx <= commandsSize))
+    {
+        m_commands.erase(m_commands.begin() + beginIdx, m_commands.begin() + endIdx);
+    }
+}
+
 void CommandsManager::insertCommand(size_t pos, std::shared_ptr<Command> cmd)
 {
     if (pos < m_commands.size())

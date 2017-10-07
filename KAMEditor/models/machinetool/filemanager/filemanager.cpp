@@ -48,6 +48,7 @@ void FileManager::openFile()
     {
         saveFile();
     }*/
+    resetContainers();
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     readFileInfo(path);
 }
@@ -165,6 +166,24 @@ void FileManager::savePoints(QFile &f)
         QString textcmd = point->getName() + " " + cmd->getArgumentsString();
         f.write(textcmd.toUtf8());
     }*/
+}
+
+void FileManager::resetContainers()
+{
+    resetCommands();
+    resetPoints();
+}
+
+void FileManager::resetCommands()
+{
+    size_t commandsCount = cmd_mgr->commandsCount();
+    cmd_mgr->deleteCommands(0, commandsCount);
+}
+
+void FileManager::resetPoints()
+{
+    size_t pointsCount = pnt_mgr->pointCount();
+    pnt_mgr->deletePoints(0, pointsCount);
 }
 
 QString FileManager::makeCommandsString(std::shared_ptr<Command> cmd)

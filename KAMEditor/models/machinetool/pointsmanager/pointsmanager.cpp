@@ -33,6 +33,21 @@ void PointsManager::deletePoint(const std::shared_ptr<Point>& p)
     m_points.erase( std::remove(m_points.begin(), m_points.end(), p), m_points.end() );
 }
 
+void PointsManager::deletePoint(size_t idx)
+{
+    std::shared_ptr<Point> point = operator [](idx);
+    deletePoint(point);
+}
+
+void PointsManager::deletePoints(size_t beginIndex, size_t endIndex)
+{
+    size_t pointsSize = pointCount();
+    if((beginIndex <=  pointsSize) && (endIndex <= pointsSize))
+    {
+        m_points.erase(m_points.begin() + beginIndex, m_points.begin() + endIndex);
+    }
+}
+
 size_t PointsManager::pointCount() const
 {
     return m_points.size();
