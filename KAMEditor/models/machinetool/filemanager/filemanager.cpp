@@ -38,7 +38,7 @@ void FileManager::saveFile()
 
 void FileManager::openFile()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     readFileInfo(path);
 }
 
@@ -106,9 +106,9 @@ void FileManager::transferToSML(QString content)
 std::shared_ptr<Command> FileManager::makeCommand(QString commandString)
 {
     std::shared_ptr<Command> cmd;
-    QStringList splittedCommandString = commandString.split(':');
+    QStringList splittedCommandString = commandString.split(' ');
     int id = splittedCommandString[0].toInt();
-    QStringList commandsArguments = splittedCommandString[1].split(", ");
+    QStringList commandsArguments = splittedCommandString[1].split(",");
     qDebug() << commandsArguments;
     cmd = CommandsBuilder::buildCommand(id, commandsArguments);
     return cmd;
