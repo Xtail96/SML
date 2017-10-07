@@ -32,7 +32,7 @@ private:
     void resetCommands();
     void resetPoints();
 
-    void readFileInfo(QString path);
+    QString readFileInfo(QString path);
 
     void transferToSML(QString content);
     void transferToSMLCommands(QStringList commandsStrings);

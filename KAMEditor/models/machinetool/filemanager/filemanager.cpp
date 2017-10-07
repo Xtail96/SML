@@ -48,32 +48,37 @@ void FileManager::openFile()
     {
         saveFile();
     }*/
-    resetContainers();
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
-    readFileInfo(path);
+    QString content = readFileInfo(path);
+    if(content.size() > 0)
+    {
+        resetContainers();
+        transferToSML(content);
+    }
 }
 
 void FileManager::addFile()
 {
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
-    readFileInfo(path);
+    QString content = readFileInfo(path);
+    if(content.size() > 0)
+    {
+        transferToSML(content);
+    }
 }
 
-void FileManager::readFileInfo(QString path)
+QString FileManager::readFileInfo(QString path)
 {
+    QString content = "";
     QFile inputFile(path);
     if(inputFile.open(QIODevice::ReadOnly))
     {
         filepath = path;
         QTextStream in(&inputFile);
-        QString content = in.readAll();
+        content = in.readAll();
         inputFile.close();
-        transferToSML(content);
     }
-    else
-    {
-        filepath = "";
-    }
+    return content;
 }
 
 void FileManager::transferToSML(QString content)
