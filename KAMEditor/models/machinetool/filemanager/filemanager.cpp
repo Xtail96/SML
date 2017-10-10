@@ -12,19 +12,19 @@ FileManager::FileManager(CommandsManager *cm, PointsManager *pm, size_t _axisesC
         throw std::invalid_argument("Points manager is null");
 }
 
-QString FileManager::createFile(QString name, const QString directory)
+QString FileManager::createFile(const QString path)
 {
-    QString path = directory + "/" + name;
-    QFile file(path);
+    QString filename = path + ".7kam";
+    QFile file(filename);
     if(!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл по адресу " + path + "не удалось открыть при создании").exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл по адресу " + filename + "не удалось открыть при создании").exec();
     }
     else
     {
         file.close();
     }
-    return path;
+    return filename;
 }
 
 void FileManager::saveFile()
@@ -52,9 +52,8 @@ void FileManager::saveFile()
 
 void FileManager::saveFileAs()
 {
-    QString path = QFileDialog::getExistingDirectory(0, "Выберите папку для сохранения прогрммы");
-    QString name = "SMLProgram.7kam";
-    filepath = createFile(name, path);
+    QString filename = QFileDialog::getSaveFileName(0, "Выберите место сохранения прогрммы");
+    filepath = createFile(filename);
     if(QFileInfo::exists(filepath))
     {
         saveFile();
