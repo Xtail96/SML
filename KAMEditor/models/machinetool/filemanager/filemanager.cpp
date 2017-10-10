@@ -6,10 +6,14 @@ FileManager::FileManager(CommandsManager *cm, PointsManager *pm, size_t _axisesC
     axisesCount(_axisesCount)
 {
     if (cmd_mgr == nullptr)
+    {
         throw std::invalid_argument("Commands manager is null");
+    }
 
     if (pnt_mgr == nullptr)
+    {
         throw std::invalid_argument("Points manager is null");
+    }
 }
 
 void FileManager::createFile(const QString path)
@@ -27,7 +31,6 @@ void FileManager::createFile(const QString path)
 
 void FileManager::saveFile()
 {
-    qDebug() << filepath;
     if(QFileInfo::exists(filepath))
     {
         QFile f(filepath);
