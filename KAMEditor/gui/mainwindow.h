@@ -276,6 +276,7 @@ private slots:
     void on_add_action_triggered();
     void on_create_action_triggered();
     void on_save_action_triggered();
+    void on_saveas_action_triggered();
 };
 
 

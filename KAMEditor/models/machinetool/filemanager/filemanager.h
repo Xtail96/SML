@@ -12,9 +12,10 @@ class FileManager
 public:
     FileManager(CommandsManager* cm, PointsManager* pm, size_t _axisesCount);
 
-    QFile createFile();
+    static QString createFile(QString name, const QString path);
     void newFile();
     void openFile();
+    void openFile(QString path);
     void saveFile();
     void saveFileAs();
     void addFile();

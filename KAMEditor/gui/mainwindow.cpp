@@ -353,6 +353,7 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->newFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     connect(ui->openFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
     connect(ui->saveFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
+    connect(ui->saveFileAsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
 }
 
@@ -1146,4 +1147,9 @@ void MainWindow::on_create_action_triggered()
 void MainWindow::on_save_action_triggered()
 {
     mainWindowController->saveSMLFile();
+}
+
+void MainWindow::on_saveas_action_triggered()
+{
+    mainWindowController->saveSMLFileAs();
 }

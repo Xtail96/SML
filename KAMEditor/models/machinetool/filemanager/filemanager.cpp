@@ -12,26 +12,25 @@ FileManager::FileManager(CommandsManager *cm, PointsManager *pm, size_t _axisesC
         throw std::invalid_argument("Points manager is null");
 }
 
-QFile FileManager::createFile()
+QString FileManager::createFile(QString name, const QString path)
 {
-    /*if (changed)
+    QString filePath = path + "/" + name;
+    qDebug() << filePath;
+    QFile file(filePath);
+    if(!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "Сохранение изменений", "Файл был изменен. Сохранить файл?",
-                                      QMessageBox::Yes|QMessageBox::No);
-
-        if (reply == QMessageBox::Yes)
-        {
-            saveFile();
-        }
-    }*/
-
-
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось открыть при создании").exec();
+    }
+    else
+    {
+        file.close();
+    }
+    return filePath;
 }
 
 void FileManager::saveFile()
 {
-    qDebug() << filepath;
+    //qDebug() << filepath;
     if(QFileInfo::exists(filepath))
     {
 
@@ -56,7 +55,20 @@ void FileManager::saveFile()
 
 void FileManager::saveFileAs()
 {
-    QMessageBox(QMessageBox::Information, "Файл не создан", "необходимо создать файл").exec();
+    QString path = QFileDialog::getExistingDirectory(0, "Выберите папку для сохранения прогрммы");
+    qDebug() << path;
+    QString name = "SMLProgram.7kam";
+    filepath = createFile(name, path);
+    if(QFileInfo::exists(filepath))
+    {
+        saveFile();
+        openFile(filepath);
+    }
+    else
+    {
+        filepath = "";
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось создать").exec();
+    }
 }
 
 void FileManager::openFile()
@@ -68,6 +80,11 @@ void FileManager::openFile()
         saveFile();
     }*/
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
+    openFile(path);
+}
+
+void FileManager::openFile(QString path)
+{
     QString content = readFileInfo(path);
     if(content.size() > 0)
     {

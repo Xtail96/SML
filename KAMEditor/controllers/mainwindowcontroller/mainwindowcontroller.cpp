@@ -364,6 +364,11 @@ void MainWindowController::saveSMLFile()
     machineTool->getFileManager()->saveFile();
 }
 
+void MainWindowController::saveSMLFileAs()
+{
+    machineTool->getFileManager()->saveFileAs();
+}
+
 void MainWindowController::addSMLFile()
 {
     machineTool->getFileManager()->addFile();
