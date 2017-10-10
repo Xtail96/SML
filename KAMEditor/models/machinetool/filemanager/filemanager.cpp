@@ -12,23 +12,22 @@ FileManager::FileManager(CommandsManager *cm, PointsManager *pm, size_t _axisesC
         throw std::invalid_argument("Points manager is null");
 }
 
-QString FileManager::createFile(const QString path)
+void FileManager::createFile(const QString path)
 {
-    QString filename = path + ".7kam";
-    QFile file(filename);
+    QFile file(path);
     if(!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл по адресу " + filename + "не удалось открыть при создании").exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл по адресу " + path + "не удалось открыть при создании").exec();
     }
     else
     {
         file.close();
     }
-    return filename;
 }
 
 void FileManager::saveFile()
 {
+    qDebug() << filepath;
     if(QFileInfo::exists(filepath))
     {
         QFile f(filepath);
@@ -52,17 +51,21 @@ void FileManager::saveFile()
 
 void FileManager::saveFileAs()
 {
-    QString filename = QFileDialog::getSaveFileName(0, "Выберите место сохранения прогрммы");
-    filepath = createFile(filename);
-    if(QFileInfo::exists(filepath))
+    QString filename = QFileDialog::getSaveFileName(0, "Выберите место сохранения прогрммы", "", "*.7kam");
+    if(filename.length() > 0)
     {
-        saveFile();
-        openFile(filepath);
-    }
-    else
-    {
-        filepath = "";
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось создать").exec();
+        createFile(filename);
+        if(QFileInfo::exists(filename))
+        {
+            filepath = filename;
+            saveFile();
+            openFile(filepath);
+        }
+        else
+        {
+            filepath = "";
+            QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось создать").exec();
+        }
     }
 }
 
