@@ -96,12 +96,15 @@ void FileManager::openFile(QString path)
 
 void FileManager::addFile()
 {
+    QString originPath = filepath;
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     QString content = readFileInfo(path);
     if(content.size() > 0)
     {
         transferToSML(content);
     }
+
+    filepath = originPath;
 }
 
 void FileManager::newFile()
