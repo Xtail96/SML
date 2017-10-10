@@ -32,23 +32,31 @@ QFile FileManager::createFile()
 void FileManager::saveFile()
 {
     qDebug() << filepath;
-    QFile f(filepath);
-
-    if(!f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+    if(QFileInfo::exists(filepath))
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не открыт").exec();
+
+        QFile f(filepath);
+
+        if(!f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не открыт").exec();
+        }
+        else
+        {
+            saveCommands(f);
+            savePoints(f);
+            f.close();
+        }
     }
     else
     {
-        saveCommands(f);
-        savePoints(f);
-        f.close();
+        saveFileAs();
     }
 }
 
 void FileManager::saveFileAs()
 {
-
+    QMessageBox(QMessageBox::Information, "Файл не создан", "необходимо создать файл").exec();
 }
 
 void FileManager::openFile()
@@ -84,14 +92,7 @@ void FileManager::newFile()
     reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
-        if(filepath.length() > 0)
-        {
-            saveFile();
-        }
-        else
-        {
-            saveFileAs();
-        }
+        saveFile();
     }
     resetContainers();
 }
