@@ -43,7 +43,8 @@ private:
     std::shared_ptr<Command> makeCommand(QString commandString);
     Point *makePoint(QString pointString);
 
-    QString makeCommandsString(std::shared_ptr<Command> cmd);
+    QString makeCommandString(std::shared_ptr<Command> commmand);
+    QString makePointString(std::shared_ptr<Point> point);
 
 };
 

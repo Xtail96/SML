@@ -182,30 +182,27 @@ void FileManager::saveCommands(QFile &f)
     QString commandSHeader = QString(QString("[commands]") + QString('\n'));
     f.write(commandSHeader.toUtf8());
     size_t commandsCount = cmd_mgr->commandsCount();
-    QString commandsString;
-    qDebug() << commandsCount;
     for (size_t idx = 0; idx < commandsCount; idx++)
     {
-        std::shared_ptr<Command> cmd = cmd_mgr->operator [](idx);
-        commandsString = makeCommandsString(cmd);
-        qDebug() << commandsString;
-        f.write(commandsString.toUtf8());
+        std::shared_ptr<Command> command = cmd_mgr->operator [](idx);
+        QString commandString = makeCommandString(command);
+        f.write(commandString.toUtf8());
     }
 }
 
 void FileManager::savePoints(QFile &f)
 {
-    /*f.write("[points]");
+    QString pointsHeader = QString(QString("[points]") + QString('\n'));
+    f.write(pointsHeader.toUtf8());
 
-    size_t pointNumber = pnt_mgr->
+    size_t pointsCount = pnt_mgr->pointCount();
 
-    for (size_t idx = 0; idx < pointNumber; idx++)
+    for (size_t idx = 0; idx < pointsCount; idx++)
     {
-        std::shared_ptr<Command> point = pnt_mgr[idx];
-
-        QString textcmd = point->getName() + " " + cmd->getArgumentsString();
-        f.write(textcmd.toUtf8());
-    }*/
+        std::shared_ptr<Point> point = pnt_mgr->operator [](idx);
+        QString pointText = makePointString(point);
+        f.write(pointText.toUtf8());
+    }
 }
 
 void FileManager::resetContainers()
@@ -226,17 +223,30 @@ void FileManager::resetPoints()
     pnt_mgr->deletePoints(0, pointsCount);
 }
 
-QString FileManager::makeCommandsString(std::shared_ptr<Command> cmd)
+QString FileManager::makeCommandString(std::shared_ptr<Command> commmand)
 {
-    QString commandString = QString::number(cmd->getId()) + QString(" ");
-    QStringList commandsArguments =  cmd->getArguments();
+    QString commandString = QString::number(commmand->getId()) + QString(" ");
+    QStringList commandsArguments =  commmand->getArguments();
     size_t lastArgumentNumber = commandsArguments.size() - 1;
 
-    for(int i = 0; i < commandsArguments.size() - 1; i++)
+    for(size_t i = 0; i < lastArgumentNumber; i++)
     {
         commandString += commandsArguments[i] + ",";
     }
-    commandString += QString(commandsArguments[lastArgumentNumber] + '\n');
+    commandString += QString(commandsArguments[lastArgumentNumber] + QString('\n'));
 
     return commandString;
+}
+
+QString FileManager::makePointString(std::shared_ptr<Point> point)
+{
+    QString pointString;
+    size_t pointDimension = point->size();
+    size_t lastArgumentNumber = pointDimension - 1;
+    for(size_t i = 0; i < lastArgumentNumber; i++)
+    {
+        pointString += QString(QString::number(point->get(i)) + QString(","));
+    }
+    pointString += QString(QString::number(point->get(lastArgumentNumber)) + QString('\n'));
+    return pointString;
 }
