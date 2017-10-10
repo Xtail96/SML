@@ -1,0 +1,51 @@
+#ifndef SMLFILESMANAGER_H
+#define SMLFILESMANAGER_H
+
+#include <QMessageBox>
+#include <QFileDialog>
+
+#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
+#include "models/machinetool/pointsmanager/point/pointsbuilder.h"
+
+class SMLFilesManager
+{
+public:
+    SMLFilesManager(CommandsManager* _commandsManager, PointsManager* _pointsManager, size_t _axisesCount);
+
+    static void createFile(const QString path);
+    void new7KamFile();
+    void open7KamFile();
+    void open7KamFile(QString path);
+    void save7KamFile();
+    void save7KamFileAs();
+    void add7KamFile();
+
+private:
+    CommandsManager* commandsManager;
+    PointsManager* pointsManager;
+    size_t axisesCount;
+    QString filePath;
+    //bool changed;
+
+    void saveCommands(QFile& file);
+    void savePoints(QFile& file);
+
+    void resetContainers();
+    void resetCommands();
+    void resetPoints();
+
+    QString readFileInfo(QString path);
+
+    void transferToSML(QString content);
+    void transferToSMLCommands(QStringList commandsStrings);
+    void transferToSMLPoints(QStringList pointsStrings);
+
+    std::shared_ptr<Command> makeCommand(QString commandString);
+    Point *makePoint(QString pointString);
+
+    QString makeCommandString(std::shared_ptr<Command> commmand);
+    QString makePointString(std::shared_ptr<Point> point);
+
+};
+
+#endif // SMLFILESMANAGER_H

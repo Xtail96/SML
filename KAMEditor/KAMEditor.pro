@@ -90,7 +90,7 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/comment.cpp \
     models/machinetool/commandsmanager/commands/pause.cpp \
     gui/points/toselectionpointdialog.cpp \
-    models/machinetool/filemanager/filemanager.cpp \
+    models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.cpp \
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
@@ -165,7 +165,7 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/comment.h \
     models/machinetool/commandsmanager/commands/pause.h \
     gui/points/toselectionpointdialog.h \
-    models/machinetool/filemanager/filemanager.h \
+    models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
