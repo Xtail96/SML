@@ -134,6 +134,7 @@ public slots:
 
     void newSMLFile();
     void openSMLFile();
+    void saveSMLFile();
     void addSMLFile();
 
     friend class ProgramVisualizeWindowController;

@@ -31,13 +31,19 @@ QFile FileManager::createFile()
 
 void FileManager::saveFile()
 {
+    qDebug() << filepath;
     QFile f(filepath);
-    f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
 
-    saveCommands(f);
-    savePoints(f);
-
-    f.close();
+    if(!f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не открыт").exec();
+    }
+    else
+    {
+        saveCommands(f);
+        savePoints(f);
+        f.close();
+    }
 }
 
 void FileManager::saveFileAs()
@@ -173,18 +179,18 @@ void FileManager::transferToSMLPoints(QStringList pointsStrings)
 
 void FileManager::saveCommands(QFile &f)
 {
-    f.write("[commands]");
-
+    QString commandSHeader = QString(QString("[commands]") + QString('\n'));
+    f.write(commandSHeader.toUtf8());
     size_t commandsCount = cmd_mgr->commandsCount();
-
     QString commandsString;
+    qDebug() << commandsCount;
     for (size_t idx = 0; idx < commandsCount; idx++)
     {
         std::shared_ptr<Command> cmd = cmd_mgr->operator [](idx);
         commandsString = makeCommandsString(cmd);
+        qDebug() << commandsString;
+        f.write(commandsString.toUtf8());
     }
-
-    f.write(commandsString.toUtf8());
 }
 
 void FileManager::savePoints(QFile &f)
@@ -222,13 +228,15 @@ void FileManager::resetPoints()
 
 QString FileManager::makeCommandsString(std::shared_ptr<Command> cmd)
 {
-    QString commandsString;
-    commandsString = QString::number(cmd->getId()) + QString(" ");
-
+    QString commandString = QString::number(cmd->getId()) + QString(" ");
     QStringList commandsArguments =  cmd->getArguments();
-    for(auto commandsArgument : commandsArguments)
+    size_t lastArgumentNumber = commandsArguments.size() - 1;
+
+    for(int i = 0; i < commandsArguments.size() - 1; i++)
     {
-        commandsString += commandsArgument + ",";
+        commandString += commandsArguments[i] + ",";
     }
-    return commandsString;
+    commandString += QString(commandsArguments[lastArgumentNumber] + '\n');
+
+    return commandString;
 }

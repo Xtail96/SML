@@ -359,6 +359,11 @@ void MainWindowController::openSMLFile()
     emit pointsUpdated();
 }
 
+void MainWindowController::saveSMLFile()
+{
+    machineTool->getFileManager()->saveFile();
+}
+
 void MainWindowController::addSMLFile()
 {
     machineTool->getFileManager()->addFile();
