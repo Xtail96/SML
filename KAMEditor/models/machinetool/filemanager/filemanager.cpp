@@ -1,16 +1,16 @@
 #include "filemanager.h"
 
-FileManager::FileManager(CommandsManager *cm, PointsManager *pm, size_t _axisesCount) :
-    cmd_mgr(cm),
-    pnt_mgr(pm),
+FileManager::FileManager(CommandsManager *_commandsManager, PointsManager *_pointsManager, size_t _axisesCount) :
+    commandsManager(_commandsManager),
+    pointsManager(_pointsManager),
     axisesCount(_axisesCount)
 {
-    if (cmd_mgr == nullptr)
+    if (commandsManager == nullptr)
     {
         throw std::invalid_argument("Commands manager is null");
     }
 
-    if (pnt_mgr == nullptr)
+    if (pointsManager == nullptr)
     {
         throw std::invalid_argument("Points manager is null");
     }
@@ -31,9 +31,9 @@ void FileManager::createFile(const QString path)
 
 void FileManager::saveFile()
 {
-    if(QFileInfo::exists(filepath))
+    if(QFileInfo::exists(filePath))
     {
-        QFile f(filepath);
+        QFile f(filePath);
 
         if(!f.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
         {
@@ -60,13 +60,13 @@ void FileManager::saveFileAs()
         createFile(filename);
         if(QFileInfo::exists(filename))
         {
-            filepath = filename;
+            filePath = filename;
             saveFile();
-            openFile(filepath);
+            openFile(filePath);
         }
         else
         {
-            filepath = "";
+            filePath = "";
             QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось создать").exec();
         }
     }
@@ -96,7 +96,7 @@ void FileManager::openFile(QString path)
 
 void FileManager::addFile()
 {
-    QString originPath = filepath;
+    QString originPath = filePath;
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
     QString content = readFileInfo(path);
     if(content.size() > 0)
@@ -104,7 +104,7 @@ void FileManager::addFile()
         transferToSML(content);
     }
 
-    filepath = originPath;
+    filePath = originPath;
 }
 
 void FileManager::newFile()
@@ -124,7 +124,7 @@ QString FileManager::readFileInfo(QString path)
     QFile inputFile(path);
     if(inputFile.open(QIODevice::ReadOnly))
     {
-        filepath = path;
+        filePath = path;
         QTextStream in(&inputFile);
         content = in.readAll();
         inputFile.close();
@@ -182,7 +182,7 @@ void FileManager::transferToSMLCommands(QStringList commandsStrings)
         if(commandString.size() > 0)
         {
             std::shared_ptr<Command> cmd = makeCommand(commandString);
-            cmd_mgr->addCommand(cmd);
+            commandsManager->addCommand(cmd);
         }
     }
 }
@@ -194,36 +194,36 @@ void FileManager::transferToSMLPoints(QStringList pointsStrings)
         if(pointString.size() > 0)
         {
             Point* point = makePoint(pointString);
-            pnt_mgr->addPoint(point);
+            pointsManager->addPoint(point);
         }
     }
 }
 
-void FileManager::saveCommands(QFile &f)
+void FileManager::saveCommands(QFile &file)
 {
     QString commandSHeader = QString(QString("[commands]") + QString('\n'));
-    f.write(commandSHeader.toUtf8());
-    size_t commandsCount = cmd_mgr->commandsCount();
+    file.write(commandSHeader.toUtf8());
+    size_t commandsCount = commandsManager->commandsCount();
     for (size_t idx = 0; idx < commandsCount; idx++)
     {
-        std::shared_ptr<Command> command = cmd_mgr->operator [](idx);
+        std::shared_ptr<Command> command = commandsManager->operator [](idx);
         QString commandString = makeCommandString(command);
-        f.write(commandString.toUtf8());
+        file.write(commandString.toUtf8());
     }
 }
 
-void FileManager::savePoints(QFile &f)
+void FileManager::savePoints(QFile &file)
 {
     QString pointsHeader = QString(QString("[points]") + QString('\n'));
-    f.write(pointsHeader.toUtf8());
+    file.write(pointsHeader.toUtf8());
 
-    size_t pointsCount = pnt_mgr->pointCount();
+    size_t pointsCount = pointsManager->pointCount();
 
     for (size_t idx = 0; idx < pointsCount; idx++)
     {
-        std::shared_ptr<Point> point = pnt_mgr->operator [](idx);
+        std::shared_ptr<Point> point = pointsManager->operator [](idx);
         QString pointText = makePointString(point);
-        f.write(pointText.toUtf8());
+        file.write(pointText.toUtf8());
     }
 }
 
@@ -235,14 +235,14 @@ void FileManager::resetContainers()
 
 void FileManager::resetCommands()
 {
-    size_t commandsCount = cmd_mgr->commandsCount();
-    cmd_mgr->deleteCommands(0, commandsCount);
+    size_t commandsCount = commandsManager->commandsCount();
+    commandsManager->deleteCommands(0, commandsCount);
 }
 
 void FileManager::resetPoints()
 {
-    size_t pointsCount = pnt_mgr->pointCount();
-    pnt_mgr->deletePoints(0, pointsCount);
+    size_t pointsCount = pointsManager->pointCount();
+    pointsManager->deletePoints(0, pointsCount);
 }
 
 QString FileManager::makeCommandString(std::shared_ptr<Command> commmand)
