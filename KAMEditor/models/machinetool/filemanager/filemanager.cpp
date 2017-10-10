@@ -29,7 +29,7 @@ void FileManager::createFile(const QString path)
     }
 }
 
-void FileManager::saveFile()
+void FileManager::save7KamFile()
 {
     if(QFileInfo::exists(filePath))
     {
@@ -48,11 +48,11 @@ void FileManager::saveFile()
     }
     else
     {
-        saveFileAs();
+        save7KamFileAs();
     }
 }
 
-void FileManager::saveFileAs()
+void FileManager::save7KamFileAs()
 {
     QString filename = QFileDialog::getSaveFileName(0, "Выберите место сохранения прогрммы", "", "*.7kam");
     if(filename.length() > 0)
@@ -61,8 +61,8 @@ void FileManager::saveFileAs()
         if(QFileInfo::exists(filename))
         {
             filePath = filename;
-            saveFile();
-            openFile(filePath);
+            save7KamFile();
+            open7KamFile(filePath);
         }
         else
         {
@@ -72,7 +72,7 @@ void FileManager::saveFileAs()
     }
 }
 
-void FileManager::openFile()
+void FileManager::open7KamFile()
 {
     /*QMessageBox::StandardButton reply;
     reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
@@ -81,10 +81,10 @@ void FileManager::openFile()
         saveFile();
     }*/
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
-    openFile(path);
+    open7KamFile(path);
 }
 
-void FileManager::openFile(QString path)
+void FileManager::open7KamFile(QString path)
 {
     QString content = readFileInfo(path);
     if(content.size() > 0)
@@ -94,7 +94,7 @@ void FileManager::openFile(QString path)
     }
 }
 
-void FileManager::addFile()
+void FileManager::add7KamFile()
 {
     QString originPath = filePath;
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
@@ -107,13 +107,13 @@ void FileManager::addFile()
     filePath = originPath;
 }
 
-void FileManager::newFile()
+void FileManager::new7KamFile()
 {
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(nullptr, "Сохранение управляющей программы", "Сохранить открытый файл?", QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
-        saveFile();
+        save7KamFile();
     }
     resetContainers();
 }

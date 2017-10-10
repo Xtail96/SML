@@ -13,12 +13,12 @@ public:
     FileManager(CommandsManager* _commandsManager, PointsManager* _pointsManager, size_t _axisesCount);
 
     static void createFile(const QString path);
-    void newFile();
-    void openFile();
-    void openFile(QString path);
-    void saveFile();
-    void saveFileAs();
-    void addFile();
+    void new7KamFile();
+    void open7KamFile();
+    void open7KamFile(QString path);
+    void save7KamFile();
+    void save7KamFileAs();
+    void add7KamFile();
 
 private:
     CommandsManager* commandsManager;

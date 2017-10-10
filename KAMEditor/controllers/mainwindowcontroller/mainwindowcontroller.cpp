@@ -347,31 +347,31 @@ void MainWindowController::inerpretCommands()
 
 void MainWindowController::newSMLFile()
 {
-    machineTool->getFileManager()->newFile();
+    machineTool->getFileManager()->new7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
 }
 
 void MainWindowController::openSMLFile()
 {
-    machineTool->getFileManager()->openFile();
+    machineTool->getFileManager()->open7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
 }
 
 void MainWindowController::saveSMLFile()
 {
-    machineTool->getFileManager()->saveFile();
+    machineTool->getFileManager()->save7KamFile();
 }
 
 void MainWindowController::saveSMLFileAs()
 {
-    machineTool->getFileManager()->saveFileAs();
+    machineTool->getFileManager()->save7KamFileAs();
 }
 
 void MainWindowController::addSMLFile()
 {
-    machineTool->getFileManager()->addFile();
+    machineTool->getFileManager()->add7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
 }
