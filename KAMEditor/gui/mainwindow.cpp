@@ -1101,10 +1101,10 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        //OnDialog(mainWindowController, currentCommandNumber, this).exec();
+        OnDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        //OffDialog(mainWindowController, currentCommandNumber, this).exec();
+        OffDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
         CommentDialog(mainWindowController, currentCommandNumber, this).exec();
@@ -1119,7 +1119,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         ArcDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_TTLINE:
-        //TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
+        TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();

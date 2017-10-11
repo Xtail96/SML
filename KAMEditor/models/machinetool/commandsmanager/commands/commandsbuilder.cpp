@@ -5,19 +5,19 @@ CommandsBuilder::CommandsBuilder()
 
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList arguments)
+std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList arguments, PointsManager *pointsManager, DevicesManager *devicesManager)
 {
     std::shared_ptr<Command> cmd;
     switch (id)
     {
     case CMD_SWITCH_ON:
     {
-        //cmd = makeSwitchOnCommand(arguments, machineTool->getDevicesManager());
+        cmd = buildSwitchOnCommand(arguments, devicesManager);
         break;
     }
     case CMD_SWITCH_OFF:
     {
-        //cmd = makeSwitchOffCommand(arguments, machineTool->getDevicesManager());
+        cmd = buildSwitchOffCommand(arguments, devicesManager);
         break;
     }
     case CMD_COMMENT:
@@ -37,7 +37,7 @@ std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList argum
     }
     case CMD_TTLINE:
     {
-        //cmd = makeTTLineCommand(arguments, machineTool->getPointsManager());
+        cmd = buildTTLineCommand(arguments, pointsManager);
         break;
     }
     case CMD_ARC:
@@ -169,7 +169,7 @@ std::shared_ptr<Command> CommandsBuilder::buildPauseCommand(QStringList argument
     return cmd;
 }
 
-/*std::shared_ptr<Command> MainWindowBridge::makeSwitchOnCommand(QStringList arguments, DevicesManager *deviceManager)
+std::shared_ptr<Command> CommandsBuilder::buildSwitchOnCommand(QStringList arguments, DevicesManager *devicesManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -191,12 +191,12 @@ std::shared_ptr<Command> CommandsBuilder::buildPauseCommand(QStringList argument
         }
     }
 
-    cmd = std::shared_ptr<Command> (new SwitchOn(deviceManager, deviceName, parametrs));
+    cmd = std::shared_ptr<Command> (new SwitchOn(devicesManager, deviceName, parametrs));
 
     return cmd;
 }
 
-std::shared_ptr<Command> MainWindowBridge::makeSwitchOffCommand(QStringList arguments, DevicesManager *deviceManager)
+std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList arguments, DevicesManager *devicesManager)
 {
     std::shared_ptr<Command> cmd;
 
@@ -214,22 +214,18 @@ std::shared_ptr<Command> MainWindowBridge::makeSwitchOffCommand(QStringList argu
         }
     }
 
-    cmd = std::shared_ptr<Command> (new SwitchOff(deviceManager, deviceName));
+    cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName));
 
     return  cmd;
-}*/
+}
 
-
-
-/*std::shared_ptr<Command> MainWindowBridge::makeTTLineCommand(QStringList arguments, PointsManager* pointsManager)
+std::shared_ptr<Command> CommandsBuilder::buildTTLineCommand(QStringList arguments, PointsManager* pointsManager)
 {
     std::shared_ptr<Command> cmd;
-
     size_t destinationPointNumber = 0;
     bool airPassageIsNeed = false;
     int dz = 0;
     double v = 0;
-
     for(int i = 0; i < arguments.size(); i++)
     {
         switch(i)
@@ -250,9 +246,6 @@ std::shared_ptr<Command> MainWindowBridge::makeSwitchOffCommand(QStringList argu
             break;
         }
     }
-
-
     cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
-
     return cmd;
-}*/
+}

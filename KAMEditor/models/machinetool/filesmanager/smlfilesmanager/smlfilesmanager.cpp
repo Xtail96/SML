@@ -1,8 +1,9 @@
 #include "smlfilesmanager.h"
 
-SMLFilesManager::SMLFilesManager(CommandsManager *_commandsManager, PointsManager *_pointsManager, size_t _axisesCount) :
+SMLFilesManager::SMLFilesManager(CommandsManager *_commandsManager, PointsManager *_pointsManager, DevicesManager *_devicesManager, size_t _axisesCount) :
     commandsManager(_commandsManager),
     pointsManager(_pointsManager),
+    devicesManager(_devicesManager),
     axisesCount(_axisesCount)
 {
     if (commandsManager == nullptr)
@@ -13,6 +14,11 @@ SMLFilesManager::SMLFilesManager(CommandsManager *_commandsManager, PointsManage
     if (pointsManager == nullptr)
     {
         throw std::invalid_argument("Points manager is null");
+    }
+
+    if(devicesManager == nullptr)
+    {
+        throw std::invalid_argument("Devices manager is null");
     }
 }
 
@@ -163,7 +169,7 @@ std::shared_ptr<Command> SMLFilesManager::makeCommand(QString commandString)
     QStringList splittedCommandString = commandString.split(' ');
     int id = splittedCommandString[0].toInt();
     QStringList commandsArguments = splittedCommandString[1].split(',');
-    cmd = CommandsBuilder::buildCommand(id, commandsArguments);
+    cmd = CommandsBuilder::buildCommand(id, commandsArguments, pointsManager, devicesManager);
     return cmd;
 }
 

@@ -8,7 +8,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
     commandsInterpreter(new CommandsInterpreter(commandsManager)),
-    smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, movementController->getAxises().size())),
+    smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
     velocity(10),
     spindelRotations(5000)
 {

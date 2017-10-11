@@ -31,10 +31,10 @@ public:
     QColor getColor() const override;
 
 private:
-    size_t id = CMD_LINE;
+    size_t id = CMD_TTLINE;
     std::string name = "ТТ-Линия";
 
-    //PointsManager* pointsManager;
+    PointsManager* pointsManager;
     unsigned int destinationPointNumber;
     bool airPassageIsNeed;
     double dz;

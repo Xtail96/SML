@@ -8,11 +8,13 @@ class SwitchOff : public Command
 private:
     size_t id = CMD_SWITCH_OFF;
     const std::string name = "Выключить";
+
+    DevicesManager* devicesManager;
     std::string deviceName;
     std::string parametrs;
     QColor color = QColor(SmlColors::green());
 public:
-    SwitchOff(std::string _deviceName, std::string _parametrs = "");
+    SwitchOff(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
     ~SwitchOff();
 
     /**

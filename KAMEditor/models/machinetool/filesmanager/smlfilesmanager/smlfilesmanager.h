@@ -19,7 +19,7 @@ public:
      * \param _pointsManager указатель на менеджер точек
      * \param _axisesCount число осей станка
      */
-    SMLFilesManager(CommandsManager* _commandsManager, PointsManager* _pointsManager, size_t _axisesCount);
+    SMLFilesManager(CommandsManager* _commandsManager, PointsManager* _pointsManager, DevicesManager* _devicesManager, size_t _axisesCount);
 
     /*!
      * \brief Создает файл по указанному пути
@@ -71,6 +71,8 @@ private:
      * \brief Указатель на менеджер точек
      */
     PointsManager* pointsManager;
+
+    DevicesManager* devicesManager;
 
     /*!
      * \brief Число осей станка

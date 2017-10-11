@@ -127,7 +127,7 @@ size_t MainWindowController::getCommandsCount()
 
 void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments);
+    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
     machineTool->getCommandsManager()->insertCommand(index, cmd);
     emit commandsUpdated();
 }
@@ -153,7 +153,7 @@ QStringList MainWindowController::getCommandArguments(size_t index)
 
 void MainWindowController::replaceCommand(int id, QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments);
+    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
     try
     {
         machineTool->getCommandsManager()->operator [](index) = cmd;

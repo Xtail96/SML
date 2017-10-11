@@ -1,6 +1,6 @@
 #include "switchon.h"
 
-SwitchOn::SwitchOn(std::string _deviceName, std::string _parametrs) :
+SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
     devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 

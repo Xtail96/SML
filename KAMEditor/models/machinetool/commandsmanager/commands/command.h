@@ -4,6 +4,7 @@
 #include <QString>
 
 #include "../../../../gui/widgets/oglwidget.h"
+#include "models/machinetool/devicesmanager/devicesmanager.h"
 
 class OGLWidget;
 

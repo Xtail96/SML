@@ -7,11 +7,14 @@ class SwitchOn : public Command
 {
     size_t id = CMD_SWITCH_ON;
     const std::string name = "Включить";
+
+    DevicesManager* devicesManager;
+
     std::string deviceName;
     std::string parametrs;
     QColor color = QColor(SmlColors::red());
 public:
-    SwitchOn(std::string _deviceName, std::string _parametrs = "");
+    SwitchOn(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
     ~SwitchOn();
 
     /**
