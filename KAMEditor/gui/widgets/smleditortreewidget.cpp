@@ -188,9 +188,16 @@ void SMLEditorTreeWidget::keysCtrlVPressed(QModelIndexList itemsIndexes)
 
 void SMLEditorTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)
 {
-    QModelIndex firstSelectedItemIndex = itemsIndexes[0];
-    this->setSelectionMode(QAbstractItemView::SingleSelection);
-    this->setCurrentIndex(firstSelectedItemIndex);
+    if(itemsIndexes.size() <= 1)
+    {
+        this->setCurrentIndex(QModelIndex());
+    }
+    else
+    {
+        QModelIndex firstSelectedItemIndex = itemsIndexes[0];
+        this->setSelectionMode(QAbstractItemView::SingleSelection);
+        this->setCurrentIndex(firstSelectedItemIndex);
+    }
 }
 
 void SMLEditorTreeWidget::updateSelectionMode(Qt::KeyboardModifiers modifiers)
