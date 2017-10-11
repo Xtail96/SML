@@ -190,7 +190,7 @@ void SMLEditorTreeWidget::keyEscapePressed(QModelIndexList itemsIndexes)
 {
     if(itemsIndexes.size() <= 1)
     {
-        this->setCurrentIndex(QModelIndex());
+        this->setCurrentItem(nullptr);
     }
     else
     {
