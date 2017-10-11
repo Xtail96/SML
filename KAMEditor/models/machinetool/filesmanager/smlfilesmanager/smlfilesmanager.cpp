@@ -166,7 +166,7 @@ void SMLFilesManager::transferToSML(QString content)
 std::shared_ptr<Command> SMLFilesManager::makeCommand(QString commandString)
 {
     std::shared_ptr<Command> cmd;
-    QStringList splittedCommandString = commandString.split(' ');
+    QStringList splittedCommandString = commandString.split(':');
     int id = splittedCommandString[0].toInt();
     QStringList commandsArguments = splittedCommandString[1].split(',');
     cmd = CommandsBuilder::buildCommand(id, commandsArguments, pointsManager, devicesManager);
@@ -253,7 +253,7 @@ void SMLFilesManager::resetPoints()
 
 QString SMLFilesManager::makeCommandString(std::shared_ptr<Command> commmand)
 {
-    QString commandString = QString::number(commmand->getId()) + QString(" ");
+    QString commandString = QString::number(commmand->getId()) + QString(":");
     QStringList commandsArguments =  commmand->getArguments();
     size_t lastArgumentNumber = commandsArguments.size() - 1;
 
