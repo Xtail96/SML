@@ -62,12 +62,6 @@ public:
 
 private:
 
-#ifdef Q_OS_WIN
-    QString separator = QString("\r\n");
-#else
-    QString separator = QString("\n");
-#endif
-
     /*!
      * \brief Указатель на менеджер команд
      */

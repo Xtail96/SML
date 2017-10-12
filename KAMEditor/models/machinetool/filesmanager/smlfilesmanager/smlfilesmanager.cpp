@@ -147,13 +147,13 @@ void SMLFilesManager::transferToSML(QString content)
         switch (i) {
         case 0:
         {
-            QStringList commandsStrings = splittedContent[i].split(separator);
+            QStringList commandsStrings = splittedContent[i].split("\n");
             transferToSMLCommands(commandsStrings);
             break;
         }
         case 1:
         {
-            QStringList pointsStrings = splittedContent[1].split(separator);
+            QStringList pointsStrings = splittedContent[1].split("\n");
             transferToSMLPoints(pointsStrings);
             break;
         }
@@ -207,7 +207,7 @@ void SMLFilesManager::transferToSMLPoints(QStringList pointsStrings)
 
 void SMLFilesManager::saveCommands(QFile &file)
 {
-    QString commandSHeader = QString(QString("[commands]") + QString(separator));
+    QString commandSHeader = QString(QString("[commands]") + QString("\n"));
     file.write(commandSHeader.toUtf8());
     size_t commandsCount = commandsManager->commandsCount();
     for (size_t idx = 0; idx < commandsCount; idx++)
@@ -220,7 +220,7 @@ void SMLFilesManager::saveCommands(QFile &file)
 
 void SMLFilesManager::savePoints(QFile &file)
 {
-    QString pointsHeader = QString(QString("[points]") + QString(separator));
+    QString pointsHeader = QString(QString("[points]") + QString("\n"));
     file.write(pointsHeader.toUtf8());
 
     size_t pointsCount = pointsManager->pointCount();
@@ -261,7 +261,7 @@ QString SMLFilesManager::makeCommandString(std::shared_ptr<Command> commmand)
     {
         commandString += commandsArguments[i] + ",";
     }
-    commandString += QString(commandsArguments[lastArgumentNumber] + QString(separator));
+    commandString += QString(commandsArguments[lastArgumentNumber] + QString("\n"));
 
     return commandString;
 }
@@ -275,6 +275,6 @@ QString SMLFilesManager::makePointString(std::shared_ptr<Point> point)
     {
         pointString += QString(QString::number(point->get(i)) + QString(","));
     }
-    pointString += QString(QString::number(point->get(lastArgumentNumber)) + QString(separator));
+    pointString += QString(QString::number(point->get(lastArgumentNumber)) + QString("\n"));
     return pointString;
 }
