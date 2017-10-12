@@ -142,14 +142,6 @@ void SMLFilesManager::transferToSML(QString content)
 {
     QStringList splittedContent = content.split("[commands]")[1].split("[points]");
 
-    QString separator;
-#ifdef Q_OS_UNIX
-    separator = QString('\n');
-#endif
-#ifdef Q_OS_WIN
-    separator = "\r\n";
-#endif
-
     for(int i = 0; i < splittedContent.size(); i++)
     {
         switch (i) {
@@ -215,7 +207,7 @@ void SMLFilesManager::transferToSMLPoints(QStringList pointsStrings)
 
 void SMLFilesManager::saveCommands(QFile &file)
 {
-    QString commandSHeader = QString(QString("[commands]") + QString('\n'));
+    QString commandSHeader = QString(QString("[commands]") + QString(separator));
     file.write(commandSHeader.toUtf8());
     size_t commandsCount = commandsManager->commandsCount();
     for (size_t idx = 0; idx < commandsCount; idx++)
@@ -228,7 +220,7 @@ void SMLFilesManager::saveCommands(QFile &file)
 
 void SMLFilesManager::savePoints(QFile &file)
 {
-    QString pointsHeader = QString(QString("[points]") + QString('\n'));
+    QString pointsHeader = QString(QString("[points]") + QString(separator));
     file.write(pointsHeader.toUtf8());
 
     size_t pointsCount = pointsManager->pointCount();
@@ -269,7 +261,7 @@ QString SMLFilesManager::makeCommandString(std::shared_ptr<Command> commmand)
     {
         commandString += commandsArguments[i] + ",";
     }
-    commandString += QString(commandsArguments[lastArgumentNumber] + QString('\n'));
+    commandString += QString(commandsArguments[lastArgumentNumber] + QString(separator));
 
     return commandString;
 }
@@ -283,6 +275,6 @@ QString SMLFilesManager::makePointString(std::shared_ptr<Point> point)
     {
         pointString += QString(QString::number(point->get(i)) + QString(","));
     }
-    pointString += QString(QString::number(point->get(lastArgumentNumber)) + QString('\n'));
+    pointString += QString(QString::number(point->get(lastArgumentNumber)) + QString(separator));
     return pointString;
 }
