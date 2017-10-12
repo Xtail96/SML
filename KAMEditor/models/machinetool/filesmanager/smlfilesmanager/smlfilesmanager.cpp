@@ -142,18 +142,26 @@ void SMLFilesManager::transferToSML(QString content)
 {
     QStringList splittedContent = content.split("[commands]")[1].split("[points]");
 
+    QString separator;
+#ifdef Q_OS_UNIX
+    separator = QString('\n');
+#endif
+#ifdef Q_OS_WIN
+    separator = "\r\n";
+#endif
+
     for(int i = 0; i < splittedContent.size(); i++)
     {
         switch (i) {
         case 0:
         {
-            QStringList commandsStrings = splittedContent[i].split('\n');
+            QStringList commandsStrings = splittedContent[i].split(separator);
             transferToSMLCommands(commandsStrings);
             break;
         }
         case 1:
         {
-            QStringList pointsStrings = splittedContent[1].split('\n');
+            QStringList pointsStrings = splittedContent[1].split(separator);
             transferToSMLPoints(pointsStrings);
             break;
         }
