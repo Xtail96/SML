@@ -85,7 +85,7 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("MachineToolInformation");
         settings->setValue("VendorId", 0x10c4);
         settings->setValue("ProductId", 0xea61);
-        settings->setValue("Name", "semir");
+        settings->setValue("Name", "semil");
         settings->setValue("AxisCount", 5);
     settings->endGroup();
 
@@ -302,7 +302,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensors");
         settings->setValue("count", 8);
-        settings->setValue("0", "X Axis Sensor");
+        settings->setValue("0", "Датчик X");
         settings->setValue("1", "Y Axis Sensor");
         settings->setValue("2", "Z Axis Sensor");
         settings->setValue("3", "A Axis Sensor");
@@ -312,7 +312,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("7", "Zero Sensor");
     settings->endGroup();
 
-    settings->beginGroup("X Axis Sensor");
+    settings->beginGroup("Датчик X");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 0);
         settings->setValue("boardName", "portal");
