@@ -128,7 +128,7 @@ QString SMLFilesManager::readFileInfo(QString path)
 {
     QString content = "";
     QFile inputFile(path);
-    if(inputFile.open(QIODevice::ReadOnly))
+    if(inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         filePath = path;
         QTextStream in(&inputFile);
