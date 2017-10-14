@@ -218,4 +218,5 @@ RESOURCES += \
     gui/images.qrc
 
 DISTFILES += \
-    machinetool/components/movementController/about.txt
+    machinetool/components/movementController/about.txt \
+    applicationOSX.icns
