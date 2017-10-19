@@ -302,17 +302,17 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensors");
         settings->setValue("count", 8);
-        settings->setValue("0", "Датчик X");
-        settings->setValue("1", "Y Axis Sensor");
-        settings->setValue("2", "Z Axis Sensor");
-        settings->setValue("3", "A Axis Sensor");
-        settings->setValue("4", "B Axis Sensor");
-        settings->setValue("5", "C Axis Sensor");
-        settings->setValue("6", "D Axis Sensor");
-        settings->setValue("7", "Zero Sensor");
+        settings->setValue("0", "Датчик оси X");
+        settings->setValue("1", "Датчик оси Y");
+        settings->setValue("2", "Датчик оси Z");
+        settings->setValue("3", "Датчик оси A");
+        settings->setValue("4", "Датчик оси B");
+        settings->setValue("5", "Датчик оси C");
+        settings->setValue("6", "Датчик оси D");
+        settings->setValue("7", "Датчик НОЛЯ");
     settings->endGroup();
 
-    settings->beginGroup("Датчик X");
+    settings->beginGroup("Датчик оси X");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 0);
         settings->setValue("boardName", "portal");
@@ -320,7 +320,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("Y Axis Sensor");
+    settings->beginGroup("Датчик оси Y");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 1);
         settings->setValue("boardName", "portal");
@@ -328,7 +328,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("Z Axis Sensor");
+    settings->beginGroup("Датчик оси Z");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 2);
         settings->setValue("boardName", "portal");
@@ -336,7 +336,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("A Axis Sensor");
+    settings->beginGroup("Датчик оси A");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 7);
         settings->setValue("boardName", "portal");
@@ -344,7 +344,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("B Axis Sensor");
+    settings->beginGroup("Датчик оси B");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 4);
         settings->setValue("boardName", "portal");
@@ -352,7 +352,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("C Axis Sensor");
+    settings->beginGroup("Датчик оси C");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 5);
         settings->setValue("boardName", "portal");
@@ -360,7 +360,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("D Axis Sensor");
+    settings->beginGroup("Датчик оси D");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 6);
         settings->setValue("boardName", "portal");
@@ -368,7 +368,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("Zero Sensor");
+    settings->beginGroup("Датчик НОЛЯ");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 3);
         settings->setValue("boardName", "portal");
