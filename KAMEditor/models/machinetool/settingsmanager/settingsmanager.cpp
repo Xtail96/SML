@@ -309,7 +309,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("4", "Датчик оси B");
         settings->setValue("5", "Датчик оси C");
         settings->setValue("6", "Датчик оси D");
-        settings->setValue("7", "Датчик НОЛЯ");
+        settings->setValue("7", "Датчик Ноля");
     settings->endGroup();
 
     settings->beginGroup("Датчик оси X");
@@ -368,7 +368,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("color", "#55bb55");
     settings->endGroup();
 
-    settings->beginGroup("Датчик НОЛЯ");
+    settings->beginGroup("Датчик Ноля");
         settings->setValue("portNumber", 1);
         settings->setValue("inputNumber", 3);
         settings->setValue("boardName", "portal");
