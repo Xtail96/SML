@@ -2161,38 +2161,14 @@
                  </attribute>
                  <layout class="QVBoxLayout" name="verticalLayout_17">
                   <item>
-                   <widget class="QPushButton" name="toolLengthSensorPushButton">
-                    <property name="text">
-                     <string>ДВИ</string>
+                   <widget class="QListWidget" name="optionsListWidget">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="uniformItemSizes">
+                     <bool>false</bool>
                     </property>
                    </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="kabriolWidgetPushButton">
-                    <property name="text">
-                     <string>Кабриоль</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="lubricationSystemPushButton">
-                    <property name="text">
-                     <string>САС</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>148</height>
-                     </size>
-                    </property>
-                   </spacer>
                   </item>
                  </layout>
                 </widget>

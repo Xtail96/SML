@@ -1051,21 +1051,6 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     }
 }
 
-void MainWindow::on_kabriolWidgetPushButton_clicked()
-{
-    //KabriolWindow(this).exec();
-}
-
-void MainWindow::on_toolLengthSensorPushButton_clicked()
-{
-    //ToolLengthSensorWindow(this).exec();
-}
-
-void MainWindow::on_lubricationSystemPushButton_clicked()
-{
-    //LubricationSystemWindow(machineTool->getDevicesManager(), this).exec();
-}
-
 void MainWindow::commandsCopySlot()
 {
     qDebug() << "Copy signal received";
