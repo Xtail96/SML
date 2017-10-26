@@ -48,6 +48,8 @@ public:
     QStringList getAxisesParametrsNames();
     QList<QStringList> getAxisesSettings();
 
+    QStringList getOptionsNames();
+
 
     unsigned int getVelocity();
     unsigned int getSpindelRotations();

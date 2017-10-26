@@ -60,6 +60,7 @@ void MainWindow::setupWidgets()
     setupDevicesPanel();
     setupVelocityPanel();
     setupSpindelRotationsPanel();
+    setupOptionsPanel();
 
     setupSettingsWidgets();
 }
@@ -156,7 +157,12 @@ void MainWindow::setupVelocityPanel()
 
 void MainWindow::setupSpindelRotationsPanel()
 {
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotations()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
+}
+
+void MainWindow::setupOptionsPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
 }
 
 void MainWindow::updateSettingsBoards()
@@ -525,11 +531,17 @@ void MainWindow::updateVelocityPanel()
     ui->feedrateScrollBar->setValue(velocity);
 }
 
-void MainWindow::updateSpindelRotations()
+void MainWindow::updateSpindelRotationsPanel()
 {
     int rotations = mainWindowController->getSpindelRotations();
     ui->rotationsLcdNumber->display(QString::number(rotations));
     ui->rotationsScrollBar->setValue(rotations);
+}
+
+void MainWindow::updateOptionsPanel()
+{
+    QStringList optionsNames = mainWindowController->getOptionsNames();
+    ui->optionsListWidget->addItems(optionsNames);
 }
 
 void MainWindow::updateMachineToolStatusDisplay()
@@ -782,7 +794,7 @@ void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
     mainWindowController->updateSpindelRotations(value);
-    updateSpindelRotations();
+    updateSpindelRotationsPanel();
 }
 
 void MainWindow::on_exit_action_triggered()

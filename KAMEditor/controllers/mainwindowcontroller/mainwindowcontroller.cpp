@@ -95,6 +95,18 @@ QList<QStringList> MainWindowController::getAxisesSettings()
     return mainWindowBridge->axisesSettings(machineTool->getMovementController()->getAxises());
 }
 
+QStringList MainWindowController::getOptionsNames()
+{
+    //todo: переписсать метод через модель
+    QStringList optionsNames =
+    {
+        "Кабриоль",
+        "Датчик вылета инструмента",
+        "Станция автоматической смазки"
+    };
+    return optionsNames;
+}
+
 unsigned int MainWindowController::getVelocity()
 {
     return machineTool->getVelocity();

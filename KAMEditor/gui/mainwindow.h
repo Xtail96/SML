@@ -155,6 +155,9 @@ private slots:
     /// Cлот для настройки панели оборотов шпинделя
     void setupSpindelRotationsPanel();
 
+    /// Слот для настройки панели опций
+    void setupOptionsPanel();
+
     /// Слоты для обновления дисплеев
     void updateDisplays();
 
@@ -201,7 +204,10 @@ private slots:
     void updateVelocityPanel();
 
     /// Слот для обновления оборотов шпинделя
-    void updateSpindelRotations();
+    void updateSpindelRotationsPanel();
+
+    /// Слот для обновления панели опций
+    void updateOptionsPanel();
 
     // to do исправить слот
     void updateEdgesControlStatus();

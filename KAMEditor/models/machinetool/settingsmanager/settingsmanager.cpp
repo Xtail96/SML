@@ -434,6 +434,13 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Visualisation");
         settings->setValue("GridMaximalAccuracy", 0.01);
     settings->endGroup();
+
+    settings->beginGroup("Options");
+        settings->setValue("1", "Кабриоль");
+        settings->setValue("2", "Датчик вылета инструмента");
+        settings->setValue("3", "Станция автоматической смазки");
+    settings->endGroup();
+
     // применяем изменения
     saveSettings();
 }
