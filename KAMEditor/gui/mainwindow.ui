@@ -2219,29 +2219,23 @@
            <enum>QFrame::Plain</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_15">
-           <item row="6" column="0">
-            <widget class="QPushButton" name="toParkPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+           <item row="0" column="0">
+            <widget class="QListWidget" name="devicesListWidget">
              <property name="font">
               <font>
-               <pointsize>12</pointsize>
+               <pointsize>14</pointsize>
               </font>
              </property>
-             <property name="text">
-              <string>F7 - в Парк</string>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
              </property>
-             <property name="shortcut">
-              <string>F7</string>
+             <property name="editTriggers">
+              <set>QAbstractItemView::DoubleClicked</set>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
-            <widget class="QPushButton" name="parkPushButton">
+           <item row="4" column="0">
+            <widget class="QPushButton" name="zeroSensorPushButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -2254,73 +2248,10 @@
               </font>
              </property>
              <property name="text">
-              <string>F6 - Парк</string>
+              <string>R - датчик нуля</string>
              </property>
              <property name="shortcut">
-              <string>F6</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="toZeroPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>F5 - в НОЛЬ</string>
-             </property>
-             <property name="shortcut">
-              <string>F5</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="zeroPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>0 - Обнулить</string>
-             </property>
-             <property name="shortcut">
-              <string>0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QPushButton" name="timerPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>F11 - Время выполнения</string>
-             </property>
-             <property name="shortcut">
-              <string>F11</string>
+              <string>R</string>
              </property>
             </widget>
            </item>
@@ -2351,8 +2282,8 @@
              </property>
             </widget>
            </item>
-           <item row="8" column="0">
-            <widget class="QPushButton" name="startPushButton">
+           <item row="7" column="0">
+            <widget class="QPushButton" name="timerPushButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -2365,67 +2296,123 @@
               </font>
              </property>
              <property name="text">
-              <string>F10 - Пуск/Продолжить</string>
+              <string>F11 - Время выполнения</string>
+             </property>
+             <property name="shortcut">
+              <string>F11</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="zeroPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>0 - Обнулить</string>
+             </property>
+             <property name="shortcut">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="toZeroPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>F5 - в НОЛЬ</string>
+             </property>
+             <property name="shortcut">
+              <string>F5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QPushButton" name="parkPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>F6 - Парк</string>
+             </property>
+             <property name="shortcut">
+              <string>F6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QPushButton" name="toParkPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>F7 - в Парк</string>
+             </property>
+             <property name="shortcut">
+              <string>F7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QCommandLinkButton" name="runCommandLinkButton">
+             <property name="text">
+              <string>Пуск/Продолжить</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
              </property>
              <property name="shortcut">
               <string>F10</string>
              </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="zeroSensorPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>R - датчик нуля</string>
-             </property>
-             <property name="shortcut">
-              <string>R</string>
+             <property name="checkable">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
            <item row="9" column="0">
-            <widget class="QPushButton" name="stopPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
+            <widget class="QCommandLinkButton" name="stopCommandLinkButton">
              <property name="text">
-              <string>Space - Остановить</string>
+              <string>Остановить</string>
              </property>
              <property name="shortcut">
               <string>Space</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QListWidget" name="devicesListWidget">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::DoubleClicked</set>
              </property>
             </widget>
            </item>
