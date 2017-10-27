@@ -2,6 +2,7 @@
 
 KFlopManager::KFlopManager()
 {
+#ifdef Q_OS_WIN
     try
     {
         int* kmotionHandle = nullptr;
@@ -12,4 +13,5 @@ KFlopManager::KFlopManager()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", "Не удалось инициализировать KFlop").exec();
     }
+#endif
 }
