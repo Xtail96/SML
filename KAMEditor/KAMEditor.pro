@@ -104,7 +104,8 @@ SOURCES += main.cpp\
     gui/widgets/smlcommandslistwidget.cpp \
     gui/widgets/smlpointstablewidget.cpp \
     models/machinetool/commandsmanager/commands/commandsbuilder.cpp \
-    models/machinetool/pointsmanager/point/pointsbuilder.cpp
+    models/machinetool/pointsmanager/point/pointsbuilder.cpp \
+    models/controllerconnector/kflopmanager/kflopmanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -179,7 +180,8 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smlcommandslistwidget.h \
     gui/widgets/smlpointstablewidget.h \
     models/machinetool/commandsmanager/commands/commandsbuilder.h \
-    models/machinetool/pointsmanager/point/pointsbuilder.h
+    models/machinetool/pointsmanager/point/pointsbuilder.h \
+    models/controllerconnector/kflopmanager/kflopmanager.h
 
 
 FORMS    += gui/mainwindow.ui \

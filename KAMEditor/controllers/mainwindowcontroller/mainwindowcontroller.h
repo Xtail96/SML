@@ -8,6 +8,7 @@
 #include "models/machinetool/machinetool.h"
 #include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
+#include "models/controllerconnector/kflopmanager/kflopmanager.h"
 
 #include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
 #include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
@@ -76,6 +77,7 @@ protected:
      * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
      */
     UsbXpressDeviceManager* u1Manager;
+    KFlopManager* kflopManager;
 #endif
     /*!
      * \brief Указатель на мост для связи с классом Главное окно
@@ -95,6 +97,10 @@ signals:
     /// Контроллер u1 отключен
     void u1IsDisconnected();
 
+    void kflopIsConnected();
+
+    void kflopIsDisconnected();
+
     /// Обновлено состояние станка
     void machineToolStateIsChanged();
 
@@ -111,6 +117,8 @@ public slots:
     /// Слот для подключения к контроллеру U1
     void connectWithU1();
 
+    void connectWithKFlop();
+
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateMachineToolState();
 
@@ -120,6 +128,8 @@ public slots:
     void setupMainWindowBridge();
 
     void setupU1Connection();
+
+    void setupKFlopConnection();
 
     void switchDevice(QString qDeviceName);
     void updateVelocity(int value);

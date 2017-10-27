@@ -4,6 +4,7 @@ MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
     setupMainWindowBridge();
     setupU1Connection();
+    setupKFlopConnection();
     setupTimer();
 }
 
@@ -14,6 +15,7 @@ MainWindowController::~MainWindowController()
     delete machineTool;
 #ifdef Q_OS_WIN
     delete u1Manager;
+    delete kflopManager;
 #endif
 }
 
@@ -25,6 +27,12 @@ void MainWindowController::setupMainWindowBridge()
 void MainWindowController::setupU1Connection()
 {
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
+}
+
+void MainWindowController::setupKFlopConnection()
+{
+    //connect(this, SIGNAL(u1IsConnected()), this, SLOT(connectWithKFlop()));
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithKFlop()));
 }
 
 void MainWindowController::setupTimer()
@@ -215,6 +223,26 @@ void MainWindowController::connectWithU1()
 #endif
 #ifdef Q_OS_UNIX
     emit u1IsDisconnected();
+#endif
+}
+
+void MainWindowController::connectWithKFlop()
+{
+#ifdef Q_OS_WIN
+    try
+    {
+        kflopManager = new KFlopManager();
+        emit kflopIsConnected();
+    }
+    catch(std::runtime_error e)
+    {
+        kflopManager = nullptr;
+        QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
+        emit kflopIsDisconnected();
+    }
+#endif
+#ifdef Q_OS_UNIX
+    emit kflopIsDisconnected();
 #endif
 }
 
