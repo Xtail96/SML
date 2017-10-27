@@ -20,6 +20,7 @@ win32 {
   LIBS += -L"$$PWD/libusb/libs"
   LIBS += -llibusb-1.0.dll
   LIBS += -L$$PWD/usbxpress/libs/ -lSiUSBXp
+  LIBS += -L$$PWD/kmotion/kmotion_dotnet_interop/lib/ -lKMotion_dotNet_Interop
 }
 macx {
   LIBS += -framework OpenGl
@@ -32,6 +33,9 @@ unix {
 
 INCLUDEPATH += $$PWD/usbxpress/include
 DEPENDPATH += $$PWD/usbxpress/include
+
+INCLUDEPATH += $$PWD/kmotion/kmotion_dotnet_interop/include
+DEPENDPATH += $$PWD/kmotion/kmotion_dotnet_interop/include
 
 
 SOURCES += main.cpp\

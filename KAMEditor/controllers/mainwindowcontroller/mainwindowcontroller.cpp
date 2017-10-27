@@ -31,9 +31,9 @@ void MainWindowController::setupU1Connection()
 
 void MainWindowController::setupKFlopConnection()
 {
-    connect(this, SIGNAL(u1IsConnected()), this, SLOT(connectWithKFlop()));
+    //connect(this, SIGNAL(u1IsConnected()), this, SLOT(connectWithKFlop()));
     // for debug kflop manager
-    //connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithKFlop()));
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithKFlop()));
 }
 
 void MainWindowController::setupTimer()
