@@ -77,6 +77,11 @@ protected:
      * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
      */
     UsbXpressDeviceManager* u1Manager;
+
+    /*!
+     * \brief Указатель на класс для взаимодействия с контроллером KFlop по usb
+     * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
+     */
     KFlopManager* kflopManager;
 #endif
     /*!
@@ -97,8 +102,10 @@ signals:
     /// Контроллер u1 отключен
     void u1IsDisconnected();
 
+    /// Контроллер KFlop подключен
     void kflopIsConnected();
 
+    /// Контроллер KFlop отключен
     void kflopIsDisconnected();
 
     /// Обновлено состояние станка
@@ -117,6 +124,7 @@ public slots:
     /// Слот для подключения к контроллеру U1
     void connectWithU1();
 
+    /// Слот для подключения к контроллеру KFlop
     void connectWithKFlop();
 
     /// Слот для испускания сигнала об обновлении состояния станка
@@ -127,8 +135,10 @@ public slots:
 
     void setupMainWindowBridge();
 
+    /// Слот для настройки подключения к контроллеру U1
     void setupU1Connection();
 
+    /// Слот для настройки подключения к контроллеру KFlop
     void setupKFlopConnection();
 
     void switchDevice(QString qDeviceName);

@@ -87,9 +87,11 @@ void MainWindow::setupStatusBar()
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
-    // Подключение слотов для обработки сигналов контроллера
-    connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(showMachineToolConnected()));
+    // Подключение слотов для обработки сигналов контроллеров
+    connect(mainWindowController, SIGNAL(kflopIsConnected()), this, SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(kflopIsDisconnected()), this, SLOT(showMachineToolDisconnected()));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(showMachineToolConnected()));
 }
 
 void MainWindow::setupDisplays()
