@@ -109,7 +109,8 @@ SOURCES += main.cpp\
     gui/widgets/smlpointstablewidget.cpp \
     models/machinetool/commandsmanager/commands/commandsbuilder.cpp \
     models/machinetool/pointsmanager/point/pointsbuilder.cpp \
-    models/controllerconnector/kflopmanager/kflopmanager.cpp
+    models/controllerconnector/kflopmanager/kflopmanager.cpp \
+    gui/logdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -185,7 +186,8 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smlpointstablewidget.h \
     models/machinetool/commandsmanager/commands/commandsbuilder.h \
     models/machinetool/pointsmanager/point/pointsbuilder.h \
-    models/controllerconnector/kflopmanager/kflopmanager.h
+    models/controllerconnector/kflopmanager/kflopmanager.h \
+    gui/logdialog.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -211,7 +213,8 @@ FORMS    += gui/mainwindow.ui \
     gui/options/kabriolwindow.ui \
     gui/options/toollengthsensorwindow.ui \
     gui/options/lubricationsystemwindow.ui \
-    gui/programvisualizewindow.ui
+    gui/programvisualizewindow.ui \
+    gui/logdialog.ui
 #    gui/commands/ttzarcdialog.ui \
 #    gui/commands/tttarcdialog.ui \
 #    gui/commands/splinedialog.ui \

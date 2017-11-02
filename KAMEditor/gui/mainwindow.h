@@ -57,6 +57,9 @@
 /// Подключение окна визуализации УП
 #include "programvisualizewindow.h"
 
+/// Подключение журнала
+#include "logdialog.h"
+
 /// Подключение подсветки синтаксиса G-кодов
 #include "gcodessyntaxhighlighter.h"
 
@@ -280,6 +283,7 @@ private slots:
     void on_create_action_triggered();
     void on_save_action_triggered();
     void on_saveas_action_triggered();
+    void on_connectCommandLinkButton_clicked();
 };
 
 

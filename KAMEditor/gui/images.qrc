@@ -57,5 +57,7 @@
         <file>images/Front.png</file>
         <file>images/Side.png</file>
         <file>images/Top.png</file>
+        <file>images/Ok.png</file>
+        <file>images/Remove.png</file>
     </qresource>
 </RCC>

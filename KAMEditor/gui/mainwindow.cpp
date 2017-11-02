@@ -1152,3 +1152,8 @@ void MainWindow::on_saveas_action_triggered()
 {
     mainWindowController->saveSMLFileAs();
 }
+
+void MainWindow::on_connectCommandLinkButton_clicked()
+{
+    LogDialog(this).exec();
+}
