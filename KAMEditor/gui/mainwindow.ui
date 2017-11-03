@@ -62,7 +62,7 @@
    <string>SML KAMEditor 1.0.0:Acacia</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_10">
+   <layout class="QGridLayout" name="gridLayout_5">
     <item row="0" column="0">
      <widget class="QTabWidget" name="mainTabMenu">
       <property name="font">
@@ -844,7 +844,7 @@
         <string>Наладка</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="3" rowspan="2">
+        <item row="0" column="2" rowspan="2">
          <widget class="QFrame" name="mainAdjustmentFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -2203,7 +2203,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="4" rowspan="2">
+        <item row="0" column="3" rowspan="2">
          <widget class="QFrame" name="actionsFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -2218,6 +2218,18 @@
            <enum>QFrame::Plain</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_15">
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
            <item row="0" column="0">
             <widget class="QListWidget" name="devicesListWidget">
              <property name="font">
@@ -2478,7 +2490,153 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0" rowspan="2">
+       </layout>
+      </widget>
+      <widget class="QWidget" name="settingsTab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Настройки</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_37">
+        <item row="3" column="1">
+         <widget class="QTableWidget" name="devicesSettingsTableWidget">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QTableWidget" name="sensorsSettingsTableWidget">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QTableWidget" name="axisSettingsTableWidget">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="showDropIndicator" stdset="0">
+           <bool>false</bool>
+          </property>
+          <property name="dragDropOverwriteMode">
+           <bool>false</bool>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="gridStyle">
+           <enum>Qt::SolidLine</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QFrame" name="settingsActionFrame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="importSettingsPushButton">
+             <property name="text">
+              <string>Импортировать настройки станка</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="exportSettingsPushButton">
+             <property name="text">
+              <string>Экспортировать настройки станка</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>100</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCommandLinkButton" name="connectCommandLinkButton">
+             <property name="text">
+              <string>Подключить силовой блок</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCommandLinkButton" name="disconnectCommandLinkButton">
+             <property name="text">
+              <string>Отключить силовой блок</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="debugTab">
+       <attribute name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Проверка системы</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="0" column="0">
          <widget class="QFrame" name="dashboardFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -4458,151 +4616,6 @@
          </widget>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="settingsTab">
-       <attribute name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Настройки</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_37">
-        <item row="3" column="1">
-         <widget class="QTableWidget" name="devicesSettingsTableWidget">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QTableWidget" name="sensorsSettingsTableWidget">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="QTableWidget" name="axisSettingsTableWidget">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="showDropIndicator" stdset="0">
-           <bool>false</bool>
-          </property>
-          <property name="dragDropOverwriteMode">
-           <bool>false</bool>
-          </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="gridStyle">
-           <enum>Qt::SolidLine</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QFrame" name="settingsActionFrame">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <property name="leftMargin">
-            <number>5</number>
-           </property>
-           <property name="topMargin">
-            <number>5</number>
-           </property>
-           <property name="rightMargin">
-            <number>5</number>
-           </property>
-           <property name="bottomMargin">
-            <number>5</number>
-           </property>
-           <item>
-            <widget class="QPushButton" name="importSettingsPushButton">
-             <property name="text">
-              <string>Импортировать настройки станка</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="exportSettingsPushButton">
-             <property name="text">
-              <string>Экспортировать настройки станка</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>100</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QCommandLinkButton" name="connectCommandLinkButton">
-             <property name="text">
-              <string>Подключить силовой блок</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCommandLinkButton" name="disconnectCommandLinkButton">
-             <property name="text">
-              <string>Отключить силовой блок</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="debugTab">
-       <attribute name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Проверка системы</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_11"/>
       </widget>
      </widget>
     </item>
