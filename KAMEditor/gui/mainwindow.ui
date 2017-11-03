@@ -1041,9 +1041,9 @@
                     <bool>false</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1065,8 +1065,8 @@
                   <widget class="QPushButton" name="movementBPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1102,8 +1102,8 @@
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1136,8 +1136,8 @@
                   <widget class="QPushButton" name="movementBNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1172,9 +1172,9 @@
                     <bool>false</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1199,8 +1199,8 @@
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1233,8 +1233,8 @@
                   <widget class="QPushButton" name="movementAPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1273,8 +1273,8 @@
                   <widget class="QPushButton" name="movementANegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
