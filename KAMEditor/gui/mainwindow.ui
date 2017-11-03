@@ -845,7 +845,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="3" rowspan="2">
-         <widget class="QFrame" name="mainActionsFrame">
+         <widget class="QFrame" name="mainAdjustmentFrame">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>4</horstretch>
@@ -898,6 +898,104 @@
               <number>0</number>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="1">
+               <widget class="QFrame" name="zAxisFrame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
+                 <item>
+                  <widget class="QPushButton" name="movementZPositivePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Z +</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="movementZNegativePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Z -</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="images.qrc">
+                     <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>64</width>
+                     <height>64</height>
+                    </size>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
               <item row="0" column="2">
                <widget class="QFrame" name="aditionalAxisesFrame">
                 <property name="sizePolicy">
@@ -1529,104 +1627,6 @@
                 </layout>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QFrame" name="zAxisFrame">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>1</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <property name="leftMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>5</number>
-                 </property>
-                 <item>
-                  <widget class="QPushButton" name="movementZPositivePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Z +</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="movementZNegativePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Z -</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>64</width>
-                     <height>64</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
              </layout>
             </widget>
            </item>
@@ -1952,23 +1952,7 @@
                   <string>Редактор точек</string>
                  </attribute>
                  <layout class="QGridLayout" name="gridLayout_12">
-                  <item row="0" column="0">
-                   <widget class="SMLPointsTableWidget" name="pointsTableWidget">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>3</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="alternatingRowColors">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
+                  <item row="1" column="1">
                    <widget class="QFrame" name="pointsActionsButtonsFrame">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -2180,6 +2164,22 @@
                       </spacer>
                      </item>
                     </layout>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="SMLPointsTableWidget" name="pointsTableWidget">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>3</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="alternatingRowColors">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                  </layout>
