@@ -125,12 +125,14 @@ void MainWindow::setupPointsEditorFields()
 {
     // в таблице редактора точек выделяется целиком вся строка
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget};
+    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
 
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
@@ -142,6 +144,11 @@ void MainWindow::setupPointsEditorFields()
 
 void MainWindow::setupPointsPushButtons()
 {
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+
     updatePointsEditorButtons();
 }
 
@@ -422,7 +429,7 @@ void MainWindow::updateCoordinatesDisplay()
 void MainWindow::updatePointsEditorFields()
 {
     QList<QStringList> points = mainWindowController->getPoints();
-    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget };
+    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     QStringList axisesLabels = mainWindowController->getAxisesNames();
 
     for(auto field : fields)
@@ -456,11 +463,16 @@ void MainWindow::updatePointsEditorButtons()
     QList<QPushButton*> pointsActionsButtons =
     {
         ui->pointDeletePushButton,
+        ui->pointDeletePushButton_2,
+        ui->pointEditPushButton,
         ui->pointCopyPushButton,
-        ui->pointCursorPushButton
+        ui->pointCopyPushButton_2,
+        ui->pointCursorPushButton,
+        ui->pointCursorPushButton_2,
+        ui->pointTransitionPushButton
     };
 
-    if((ui->pointsTableWidget->rowCount() > 0))
+    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
     {
         for(auto button : pointsActionsButtons)
         {
@@ -814,7 +826,7 @@ void MainWindow::on_pointAddPushButton_clicked()
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -838,12 +850,12 @@ void MainWindow::on_pointDeletePushButton_clicked()
     {
         QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
         deletePoints(selectedRowsIndexes);
-    }*/
+    }
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    /*SMLPointsTableWidget* currentTableWidget;
+    SMLPointsTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
     {
         currentTableWidget = ui->pointsTableWidget_2;
@@ -862,12 +874,12 @@ void MainWindow::on_pointCursorPushButton_clicked()
     if(currentTableWidget->rowCount() > 0)
     {
         ToSelectionPointDialog(currentTableWidget, this).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -891,12 +903,12 @@ void MainWindow::on_pointEditPushButton_clicked()
     else
     {
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -927,7 +939,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
     else
     {
         return;
-    }*/
+    }
 }
 
 void MainWindow::updateEdgesControlStatus()
