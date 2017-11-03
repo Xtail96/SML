@@ -1009,18 +1009,6 @@ void MainWindow::on_savesettings_action_triggered()
 
 }
 
-void MainWindow::on_startDegbugCommandLinkButton_clicked()
-{
-    //KM_New(NULL, 1);
-    //KM_Free(NULL);
-}
-
-void MainWindow::on_finishDebugCommandLinkButton_clicked()
-{
-    ui->startDegbugCommandLinkButton->setEnabled(true);
-    ui->finishDebugCommandLinkButton->setEnabled(false);
-}
-
 void MainWindow::on_viewPushButton_clicked()
 {
     mainWindowController->inerpretCommands();
