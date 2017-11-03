@@ -119,7 +119,7 @@
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>7</horstretch>
-            <verstretch>6</verstretch>
+            <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="font">
@@ -733,7 +733,7 @@
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>3</horstretch>
-            <verstretch>6</verstretch>
+            <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="font">
@@ -914,7 +914,7 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>350</height>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -2445,7 +2445,7 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>170</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
@@ -4253,7 +4253,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QFrame" name="frame">
+            <widget class="QFrame" name="sensorsFrame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
