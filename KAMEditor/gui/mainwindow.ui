@@ -908,19 +908,13 @@
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
+               <verstretch>1</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
                <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>350</height>
               </size>
              </property>
              <property name="frameShape">
@@ -952,7 +946,7 @@
                <widget class="QGroupBox" name="discreteGroupBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
+                  <horstretch>2</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
@@ -1224,6 +1218,12 @@
               </item>
               <item row="1" column="0">
                <widget class="QFrame" name="mainAxisesFrame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
@@ -1247,8 +1247,8 @@
                   <widget class="QPushButton" name="movementXNegativeYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1278,8 +1278,8 @@
                   <widget class="QPushButton" name="movementYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1312,8 +1312,8 @@
                   <widget class="QPushButton" name="movementXPositiveYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1349,8 +1349,8 @@
                   <widget class="QPushButton" name="movementXNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1399,8 +1399,8 @@
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1454,8 +1454,8 @@
                   <widget class="QPushButton" name="movementXNegativeYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1485,8 +1485,8 @@
                   <widget class="QPushButton" name="movementYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1519,8 +1519,8 @@
                   <widget class="QPushButton" name="movementXPositiveYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>3</horstretch>
-                     <verstretch>3</verstretch>
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1551,6 +1551,12 @@
               </item>
               <item row="1" column="1" colspan="2">
                <widget class="QFrame" name="aditionalAxisesFrame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
@@ -1902,6 +1908,12 @@
            </item>
            <item>
             <widget class="QFrame" name="additionalFrame">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
@@ -1923,6 +1935,12 @@
               </property>
               <item>
                <widget class="QTabWidget" name="additionalTabWidget">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>12</pointsize>
@@ -4292,12 +4310,6 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>95</width>
-                  <height>0</height>
-                 </size>
                 </property>
                 <property name="maximumSize">
                  <size>
