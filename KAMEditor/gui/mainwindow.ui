@@ -2274,7 +2274,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>F9 - в Базу</string>
+                 <string>В Базу</string>
                 </property>
                 <property name="shortcut">
                  <string>F9</string>
@@ -2301,7 +2301,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>0 - Обнулить</string>
+                 <string>Обнулить</string>
                 </property>
                 <property name="shortcut">
                  <string>0</string>
@@ -2322,7 +2322,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>F5 - в НОЛЬ</string>
+                 <string>В НОЛЬ</string>
                 </property>
                 <property name="shortcut">
                  <string>F5</string>
@@ -2343,7 +2343,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>R - датчик нуля</string>
+                 <string>Датчик нуля</string>
                 </property>
                 <property name="shortcut">
                  <string>R</string>
@@ -2364,7 +2364,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>F6 - Парк</string>
+                 <string>Парк</string>
                 </property>
                 <property name="shortcut">
                  <string>F6</string>
@@ -2385,7 +2385,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>F7 - в Парк</string>
+                 <string>В Парк</string>
                 </property>
                 <property name="shortcut">
                  <string>F7</string>
@@ -2436,7 +2436,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>F11 - Время выполнения</string>
+                 <string>Время выполнения</string>
                 </property>
                 <property name="shortcut">
                  <string>F11</string>
