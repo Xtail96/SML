@@ -1982,8 +1982,8 @@
                   <item>
                    <widget class="QPushButton" name="pointAddPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
@@ -2006,8 +2006,8 @@
                   <item>
                    <widget class="QPushButton" name="pointDeletePushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
@@ -2030,8 +2030,8 @@
                   <item>
                    <widget class="QPushButton" name="pointEditPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
@@ -2054,9 +2054,9 @@
                   <item>
                    <widget class="QPushButton" name="pointCursorPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>1</verstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
+                      <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="font">
@@ -2078,9 +2078,9 @@
                   <item>
                    <widget class="QPushButton" name="pointCopyPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>1</verstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
+                      <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="font">
@@ -2102,9 +2102,9 @@
                   <item>
                    <widget class="QPushButton" name="pointTransitionPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>1</verstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
+                      <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="font">
@@ -2126,9 +2126,9 @@
                   <item>
                    <widget class="QPushButton" name="pointsAmountPushButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>1</verstretch>
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>1</horstretch>
+                      <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="font">
@@ -2155,7 +2155,7 @@
                     <property name="sizeHint" stdset="0">
                      <size>
                       <width>20</width>
-                      <height>100</height>
+                      <height>10</height>
                      </size>
                     </property>
                    </spacer>
