@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1507</width>
-    <height>827</height>
+    <width>1366</width>
+    <height>795</height>
    </rect>
   </property>
   <property name="palette">
@@ -4717,8 +4717,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1507</width>
-     <height>22</height>
+     <width>1366</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
