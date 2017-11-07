@@ -20,12 +20,31 @@ TTLineDialog::~TTLineDialog()
 
 void TTLineDialog::on_buttonBox_accepted()
 {
+    QString destinationPointNumber = ui->destinationPointLineEdit->text();
+    QString dz = ui->dzLineEdit->text();
+    QString v = ui->velocityLineEdit->text();
+
+    if(destinationPointNumber.length() == 0)
+    {
+        destinationPointNumber = QString::number(0);
+    }
+
+    if(dz.length() == 0)
+    {
+        dz = QString::number(0);
+    }
+
+    if(v.length() == 0)
+    {
+        v = QString::number(0);
+    }
+
     QStringList arguments =
     {
-        ui->destinationPointLineEdit->text(),
+        destinationPointNumber,
         QString::number(ui->airPassageCheckBox->isChecked()),
-        ui->dzLineEdit->text(),
-        ui->velocityLineEdit->text()
+        dz,
+        v
     };
 
     if(!edit)

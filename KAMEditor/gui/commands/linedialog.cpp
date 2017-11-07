@@ -17,12 +17,37 @@ LineDialog::~LineDialog()
 }
 void LineDialog::on_buttonBox_accepted()
 {
+    QString dx = ui->dxLineEdit->text();
+    QString dy = ui->dyLineEdit->text();
+    QString dz = ui->dzLineEdit->text();
+    QString v = ui->velocityLineEdit->text();
+
+    if(dx.length() == 0)
+    {
+        dx = QString::number(0);
+    }
+
+    if(dy.length() == 0)
+    {
+        dy = QString::number(0);
+    }
+
+    if(dz.length() == 0)
+    {
+        dz = QString::number(0);
+    }
+
+    if(v.length() == 0)
+    {
+        v = QString::number(0);
+    }
+
     QStringList arguments =
     {
-        ui->dxLineEdit->text(),
-        ui->dyLineEdit->text(),
-        ui->dzLineEdit->text(),
-        ui->velocityLineEdit->text()
+        dx,
+        dy,
+        dz,
+        v
     };
 
     if(!edit)
