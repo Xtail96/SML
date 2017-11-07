@@ -24,7 +24,12 @@ void TTLine::draw(OGLWidget *w) const
     }
     else
     {
-        w->drawAirPassage(destinationPoint(w), dz.toDouble(), 1);
+        bool ok = true;
+        double dzValue = dz.toDouble(&ok);
+        if(ok)
+        {
+            w->drawAirPassage(destinationPoint(w), dzValue, 1);
+        }
     }
 }
 
@@ -33,11 +38,19 @@ Point3D TTLine::destinationPoint(OGLWidget *w) const
     Point3D destination;
     try
     {
-        unsigned int destinationPointNumberValue = destinationPointNumber.toUInt();
-        std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumberValue-1);
-        destination.x = destinationPoint->get("X");
-        destination.y = destinationPoint->get("Y");
-        destination.z = destinationPoint->get("Z");
+        bool ok = true;
+        unsigned int destinationPointNumberValue = destinationPointNumber.toUInt(&ok);
+        if(ok)
+        {
+            std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumberValue-1);
+            destination.x = destinationPoint->get("X");
+            destination.y = destinationPoint->get("Y");
+            destination.z = destinationPoint->get("Z");
+        }
+        else
+        {
+            destination = w->getCurrentPoint();
+        }
     }
     catch(...)
     {
