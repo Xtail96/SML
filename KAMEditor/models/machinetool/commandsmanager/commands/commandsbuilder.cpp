@@ -57,26 +57,26 @@ std::shared_ptr<Command> CommandsBuilder::buildArcCommand(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
-    double r = 0;
-    double al = 0;
-    double fi = 0;
-    double v = 0;
+    QString r = QString::number(0);
+    QString al = QString::number(0);
+    QString fi = QString::number(0);
+    QString v = QString::number(0);
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch(i)
         {
         case 0:
-            r = arguments[i].toDouble();
+            r = arguments[i];
             break;
         case 1:
-            al = arguments[i].toDouble();
+            al = arguments[i];
             break;
         case 2:
-            fi = arguments[i].toDouble();
+            fi = arguments[i];
             break;
         case 3:
-            v = arguments[i].toDouble();
+            v = arguments[i];
             break;
         default:
             break;
@@ -115,26 +115,26 @@ std::shared_ptr<Command> CommandsBuilder::buildLine(QStringList arguments)
 {
     std::shared_ptr<Command> cmd;
 
-    double dx = 0;
-    double dy = 0;
-    double dz = 0;
-    double v = 0;
+    QString dx = QString::number(0);
+    QString dy = QString::number(0);
+    QString dz = QString::number(0);
+    QString v = QString::number(0);
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch (i)
         {
         case 0:
-            dx = arguments[i].toDouble();
+            dx = arguments[i];
             break;
         case 1:
-            dy = arguments[i].toDouble();
+            dy = arguments[i];
             break;
         case 2:
-            dz = arguments[i].toDouble();
+            dz = arguments[i];
             break;
         case 3:
-            v = arguments[i].toDouble();
+            v = arguments[i];
             break;
         default:
             break;
@@ -150,14 +150,14 @@ std::shared_ptr<Command> CommandsBuilder::buildPauseCommand(QStringList argument
 {
     std::shared_ptr<Command> cmd;
 
-    size_t pauseLength = 0;
+    QString pauseLength = 0;
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch (i)
         {
         case 0:
-            pauseLength = arguments[i].toUInt();
+            pauseLength = arguments[i];
             break;
         default:
             break;
@@ -222,25 +222,25 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList argu
 std::shared_ptr<Command> CommandsBuilder::buildTTLineCommand(QStringList arguments, PointsManager* pointsManager)
 {
     std::shared_ptr<Command> cmd;
-    size_t destinationPointNumber = 0;
+    QString destinationPointNumber = QString::number(0);
     bool airPassageIsNeed = false;
-    int dz = 0;
-    double v = 0;
+    QString dz = QString::number(0);
+    QString v = QString::number(0);
     for(int i = 0; i < arguments.size(); i++)
     {
         switch(i)
         {
         case 0:
-            destinationPointNumber = arguments[i].toUInt();
+            destinationPointNumber = arguments[i];
             break;
         case 1:
             airPassageIsNeed = arguments[i].toInt();
             break;
         case 2:
-            dz = arguments[i].toInt();
+            dz = arguments[i];
             break;
         case 3:
-            v = arguments[i].toDouble();
+            v = arguments[i];
             break;
         default:
             break;

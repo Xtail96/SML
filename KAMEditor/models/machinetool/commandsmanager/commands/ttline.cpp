@@ -1,6 +1,6 @@
 #include "ttline.h"
 
-TTLine::TTLine(PointsManager *_pointsManager, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v) :
+TTLine::TTLine(PointsManager *_pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v) :
     pointsManager(_pointsManager), destinationPointNumber(_destinationPointNumber), airPassageIsNeed(_airPassageIsNeed), dz(_dz), v(_v)
 {
 
@@ -24,7 +24,7 @@ void TTLine::draw(OGLWidget *w) const
     }
     else
     {
-        w->drawAirPassage(destinationPoint(w), dz, 1);
+        w->drawAirPassage(destinationPoint(w), dz.toDouble(), 1);
     }
 }
 
@@ -33,7 +33,8 @@ Point3D TTLine::destinationPoint(OGLWidget *w) const
     Point3D destination;
     try
     {
-        std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumber-1);
+        unsigned int destinationPointNumberValue = destinationPointNumber.toUInt();
+        std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumberValue-1);
         destination.x = destinationPoint->get("X");
         destination.y = destinationPoint->get("Y");
         destination.z = destinationPoint->get("Z");
@@ -59,18 +60,18 @@ QStringList TTLine::getArguments() const
 {
     QStringList arguments =
     {
-        QString::number(destinationPointNumber),
+        destinationPointNumber,
         QString::number(airPassageIsNeed),
-        QString::number(dz),
-        QString::number(v)
+        dz,
+        v
     };
     return arguments;
 }
 
 QString TTLine::getArgumentsString() const
 {
-    QString qArgumentsString = "Точка назначения = " + QString::number(destinationPointNumber) +
-            ",  Воздушный переход = " + QString::number(airPassageIsNeed) + ", dz = " + QString::number(dz) + ", v = " + QString::number(v);
+    QString qArgumentsString = "Точка назначения = " + destinationPointNumber +
+            ",  Воздушный переход = " + QString::number(airPassageIsNeed) + ", dz = " + dz + ", v = " + v;
     return qArgumentsString;
 }
 

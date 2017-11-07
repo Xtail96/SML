@@ -1,7 +1,7 @@
 #include "arc.h"
 
-CArc::CArc(double R, double Al, double Fi, double v) :
-    R(R), Al((M_PI/180)*Al), Fi((M_PI/180)*Fi), v(v)
+CArc::CArc(QString R, QString Al, QString Fi, QString v) :
+    R(R), Al(Al), Fi(Fi), v(v)
 {
 }
 
@@ -12,7 +12,7 @@ byte_array CArc::getDataForMachineTool() const
 
 void CArc::draw(OGLWidget *w) const
 {
-    w->drawArc(R, Al, Fi, v);
+    w->drawArc(R.toDouble(), Al.toDouble(), Fi.toDouble(), v.toDouble());
 }
 
 size_t CArc::getId() const
@@ -22,24 +22,24 @@ size_t CArc::getId() const
 
 std::string CArc::getName() const
 {
-    return "Дуга";
+    return name;
 }
 
 QStringList CArc::getArguments() const
 {
     QStringList arguments =
     {
-        QString::number(R),
-        QString::number(Al),
-        QString::number(Fi),
-        QString::number(v)
+        R,
+        Al,
+        Fi,
+        v
     };
     return arguments;
 }
 
 QString CArc::getArgumentsString() const
 {
-    QString qArgumentsString = "R = " + QString::number(R) + ", Al = " + QString::number(Al) + ", Fi = " + QString::number(Fi) + ", v = " + QString::number(v);
+    QString qArgumentsString = "R = " + R + ", Al = " + Al + ", Fi = " + Fi + ", v = " + v;
     return qArgumentsString;
 }
 

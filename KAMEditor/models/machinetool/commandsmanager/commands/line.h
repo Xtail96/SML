@@ -8,7 +8,7 @@ class Command;
 class Line : public Command
 {
 public:
-    Line(double dx, double dy, double dz, double v = 1);
+    Line(QString dx, QString dy, QString dz, QString v = QString::number(1));
 
     byte_array getDataForMachineTool() const override;
     void draw(OGLWidget* w) const override;
@@ -31,8 +31,8 @@ public:
 private:
     size_t id = CMD_LINE;
     std::string name = "Линия";
-    double dx, dy, dz;
-    double v;
+    QString dx, dy, dz;
+    QString v;
     QColor color = SmlColors::gray();
 };
 

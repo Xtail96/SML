@@ -8,10 +8,10 @@ class Pause : public Command
 private:
     size_t id = CMD_PAUSE;
     const std::string name = "Пауза";
-    size_t length;
+    QString length;
     QColor color = QColor(SmlColors::red());
 public:
-    Pause(size_t _length);
+    Pause(QString _length);
     ~Pause();
 
     /**

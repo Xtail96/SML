@@ -1,9 +1,24 @@
 #include "pause.h"
 
-Pause::Pause(size_t _length) :
-    length(_length)
+Pause::Pause(QString _length)
 {
-
+    try
+    {
+        int _lengthValue = _length.toInt();
+        if(_lengthValue >= 0)
+        {
+            length = _length;
+        }
+        else
+        {
+            length = QString::number(0);
+        }
+    }
+    catch(...)
+    {
+        length = QString::number(0);
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестный тип аршумента").exec();
+    }
 }
 
 Pause::~Pause()
@@ -38,14 +53,14 @@ QStringList Pause::getArguments() const
 {
     QStringList arguments =
     {
-        QString::number(length)
+        length
     };
     return arguments;
 }
 
 QString Pause::getArgumentsString() const
 {
-    return QString::number(length) + " секунд";
+    return length + " секунд";
 }
 
 QColor Pause::getColor() const

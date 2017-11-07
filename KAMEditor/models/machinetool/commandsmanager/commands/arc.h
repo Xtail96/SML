@@ -8,7 +8,7 @@
 class CArc : public Command
 {
 public:
-    CArc(double R, double Al, double Fi, double v = 1);
+    CArc(QString R, QString Al, QString Fi, QString v = QString::number(1));
 
     byte_array getDataForMachineTool() const override;
     void draw(OGLWidget* w) const override;
@@ -34,16 +34,16 @@ private:
     std::string name = "Дуга";
 
     // радиус дуги
-    double R;
+    QString R;
 
     // начальный угол
-    double Al;
+    QString Al;
 
     // величина поворота
-    double Fi;
+    QString Fi;
 
     // скорость
-    double v;
+    QString v;
 
     QColor color = SmlColors::gray();
 };

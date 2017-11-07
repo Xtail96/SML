@@ -6,7 +6,7 @@
 class TTLine : public Command
 {
 public:
-    TTLine(PointsManager* _pointsManager, unsigned int _destinationPointNumber, bool _airPassageIsNeed, double _dz, double _v = 1);
+    TTLine(PointsManager* _pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v = QString::number(1));
     ~TTLine();
 
     byte_array getDataForMachineTool() const override;
@@ -35,10 +35,10 @@ private:
     std::string name = "ТТ-Линия";
 
     PointsManager* pointsManager;
-    unsigned int destinationPointNumber;
+    QString destinationPointNumber;
     bool airPassageIsNeed;
-    double dz;
-    double v;
+    QString dz;
+    QString v;
     QColor color = SmlColors::gray();
 };
 
