@@ -1,6 +1,6 @@
 #include "comment.h"
 
-Comment::Comment(std::string _comment) :
+Comment::Comment(QString _comment) :
     comment(_comment)
 {
 
@@ -36,14 +36,14 @@ QStringList Comment::getArguments() const
 {
     QStringList arguments =
     {
-        QString::fromStdString(comment)
+        comment
     };
     return arguments;
 }
 
 QString Comment::getArgumentsString() const
 {
-    return QString::fromStdString(comment);
+    return comment;
 }
 
 QColor Comment::getColor() const

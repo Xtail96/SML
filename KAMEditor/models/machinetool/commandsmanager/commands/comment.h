@@ -8,12 +8,12 @@ class Comment : public Command
 private:
     size_t id = CMD_COMMENT;
     const std::string name = "Комментарий";
-    std::string comment;
+    QString comment;
     QColor color = QColor(SmlColors::lightGray());
 
     bool isArgumentsCorrect() const;
 public:
-    Comment(std::string _comment = "");
+    Comment(QString _comment = "");
     ~Comment();
 
     /**

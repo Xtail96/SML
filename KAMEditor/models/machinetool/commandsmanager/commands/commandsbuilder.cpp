@@ -92,14 +92,14 @@ std::shared_ptr<Command> CommandsBuilder::buildCommentCommand(QStringList argume
 {
     std::shared_ptr<Command> cmd;
 
-    std::string text = "";
+    QString text = "";
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch (i)
         {
         case 0:
-            text = arguments[i].toStdString();
+            text = arguments[i];
             break;
         default:
             break;
