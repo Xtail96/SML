@@ -19,12 +19,37 @@ ArcDialog::~ArcDialog()
 
 void ArcDialog::on_buttonBox_accepted()
 {
+    QString r = ui->rLineEdit->text();
+    QString al = ui->alLineEdit->text();
+    QString fi = ui->fiLneEdit->text();
+    QString velocity = ui->velocityLineEdit->text();
+
+    if(r.length() == 0)
+    {
+        r = QString::number(0);
+    }
+
+    if(al.length() == 0)
+    {
+        al = QString::number(0);
+    }
+
+    if(fi.length() == 0)
+    {
+        fi = QString::number(0);
+    }
+
+    if(velocity.length() == 0)
+    {
+        velocity = QString::number(0);
+    }
+
     QStringList arguments =
     {
-        ui->rLineEdit->text(),
-        ui->alLineEdit->text(),
-        ui->fiLneEdit->text(),
-        ui->velocityLineEdit->text()
+        r,
+        al,
+        fi,
+        velocity
     };
 
     if(!edit)

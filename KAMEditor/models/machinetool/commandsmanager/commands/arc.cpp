@@ -12,7 +12,10 @@ byte_array CArc::getDataForMachineTool() const
 
 void CArc::draw(OGLWidget *w) const
 {
-    w->drawArc(R.toDouble(), Al.toDouble(), Fi.toDouble(), v.toDouble());
+    if(isArgumentsCorrect())
+    {
+        w->drawArc(R.toDouble(), Al.toDouble(), Fi.toDouble(), v.toDouble());
+    }
 }
 
 size_t CArc::getId() const
@@ -41,6 +44,36 @@ QString CArc::getArgumentsString() const
 {
     QString qArgumentsString = "R = " + R + ", Al = " + Al + ", Fi = " + Fi + ", v = " + v;
     return qArgumentsString;
+}
+
+bool CArc::isArgumentsCorrect() const
+{
+    bool isCorrect = true;
+
+    QList<bool> isNumberFlags =
+    {
+        true,
+        true,
+        true,
+        true
+    };
+
+    double tmp;
+    tmp = R.toDouble(&isNumberFlags[0]);
+    tmp = Al.toDouble(&isNumberFlags[1]);
+    tmp = Fi.toDouble(&isNumberFlags[2]);
+    tmp = v.toDouble(&isNumberFlags[3]);
+
+    for(auto flag : isNumberFlags)
+    {
+        if(flag == false)
+        {
+            isCorrect = false;
+            break;
+        }
+    }
+
+    return isCorrect;
 }
 
 QColor CArc::getColor() const

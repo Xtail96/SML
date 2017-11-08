@@ -46,6 +46,8 @@ private:
     QString v;
 
     QColor color = SmlColors::gray();
+
+    bool isArgumentsCorrect() const;
 };
 
 #endif // ARC_H
