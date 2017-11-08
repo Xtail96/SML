@@ -12,7 +12,6 @@ public:
     byte_array getDataForMachineTool() const override;
 
     void draw(OGLWidget* w) const override;
-    Point3D destinationPoint(OGLWidget *w) const;
 
     size_t getId() const override;
 
@@ -40,6 +39,9 @@ private:
     QString dz;
     QString v;
     QColor color = SmlColors::gray();
+
+    Point3D destinationPoint(OGLWidget *w) const;
+    bool isArgumentsCorrect() const;
 };
 
 #endif // TTLINE_H

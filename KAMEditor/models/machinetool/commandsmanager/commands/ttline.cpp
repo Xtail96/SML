@@ -18,17 +18,15 @@ byte_array TTLine::getDataForMachineTool() const
 
 void TTLine::draw(OGLWidget *w) const
 {
-    if(!airPassageIsNeed)
+    if(isArgumentsCorrect())
     {
-        w->drawTTLine(destinationPoint(w));
-    }
-    else
-    {
-        bool isNumber = true;
-        double dzValue = dz.toDouble(&isNumber);
-        if(isNumber)
+        if(!airPassageIsNeed)
         {
-            w->drawAirPassage(destinationPoint(w), dzValue, 1);
+            w->drawTTLine(destinationPoint(w), v.toDouble());
+        }
+        else
+        {
+            w->drawAirPassage(destinationPoint(w), dz.toDouble(), v.toDouble());
         }
     }
 }
@@ -39,7 +37,7 @@ Point3D TTLine::destinationPoint(OGLWidget *w) const
     try
     {
         bool isNumber = true;
-        unsigned int destinationPointNumberValue = destinationPointNumber.toUInt(&isNumber);
+        size_t destinationPointNumberValue = destinationPointNumber.toUInt(&isNumber);
         if(isNumber)
         {
             std::shared_ptr<Point> destinationPoint = pointsManager->operator [](destinationPointNumberValue-1);
@@ -57,6 +55,34 @@ Point3D TTLine::destinationPoint(OGLWidget *w) const
         destination = w->getCurrentPoint();
     }
     return destination;
+}
+
+bool TTLine::isArgumentsCorrect() const
+{
+    bool isCorrect = true;
+
+    QList<bool> isNumberFlags =
+    {
+        true,
+        true,
+        true
+    };
+
+    double tmp;
+    tmp = (double) destinationPointNumber.toUInt(&isNumberFlags[0]);
+    tmp = dz.toDouble(&isNumberFlags[1]);
+    tmp = v.toDouble(&isNumberFlags[2]);
+
+    for(auto flag : isNumberFlags)
+    {
+        if(flag == false)
+        {
+            isCorrect = false;
+            break;
+        }
+    }
+
+    return isCorrect;
 }
 
 size_t TTLine::getId() const

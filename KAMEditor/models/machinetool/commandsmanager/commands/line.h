@@ -34,6 +34,8 @@ private:
     QString dx, dy, dz;
     QString v;
     QColor color = SmlColors::gray();
+
+    bool isArgumentsCorrect() const;
 };
 
 #endif // LINE_H
