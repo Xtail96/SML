@@ -1,6 +1,6 @@
 #include "switchon.h"
 
-SwitchOn::SwitchOn(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+SwitchOn::SwitchOn(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
     devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 
@@ -29,9 +29,12 @@ byte_array SwitchOn::getDataForMachineTool() const
 
 void SwitchOn::draw(OGLWidget *w) const
 {
-    glPointSize(5.0f);
-    w->qglColor(Qt::red);
-    w->drawPoint(w->getCurrentPoint());
+    if(isArgumentsCorrect())
+    {
+        glPointSize(5.0f);
+        w->qglColor(Qt::red);
+        w->drawPoint(w->getCurrentPoint());
+    }
 }
 
 std::string SwitchOn::getName() const
@@ -48,19 +51,29 @@ QStringList SwitchOn::getArguments() const
 {
     QStringList arguments =
     {
-        QString::fromStdString(deviceName),
-        QString::fromStdString(parametrs)
+        deviceName,
+        parametrs
     };
     return arguments;
 }
 
 QString SwitchOn::getArgumentsString() const
 {
-    QString qArgumentsString = QString::fromStdString(deviceName) + ", " + QString::fromStdString(parametrs);
+    QString qArgumentsString = deviceName + ", " + parametrs;
     return qArgumentsString;
 }
 
 QColor SwitchOn::getColor() const
 {
     return color;
+}
+
+bool SwitchOn::isArgumentsCorrect() const
+{
+    bool isCorrect = true;
+
+    size_t tmp;
+    tmp = parametrs.toUInt(&isCorrect);
+
+    return isCorrect;
 }

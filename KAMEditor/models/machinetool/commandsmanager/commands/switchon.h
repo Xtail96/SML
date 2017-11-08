@@ -10,11 +10,13 @@ class SwitchOn : public Command
 
     DevicesManager* devicesManager;
 
-    std::string deviceName;
-    std::string parametrs;
+    QString deviceName;
+    QString parametrs;
     QColor color = QColor(SmlColors::red());
+
+    bool isArgumentsCorrect() const;
 public:
-    SwitchOn(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
+    SwitchOn(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
     ~SwitchOn();
 
     /**

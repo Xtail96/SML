@@ -173,18 +173,18 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOnCommand(QStringList argum
 {
     std::shared_ptr<Command> cmd;
 
-    std::string deviceName = "Device";
-    std::string parametrs = "Parametrs";
+    QString deviceName = "Device";
+    QString parametrs = "Parametrs";
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch (i)
         {
         case 0:
-            deviceName = arguments[i].toStdString();
+            deviceName = arguments[i];
             break;
         case 1:
-            parametrs = arguments[i].toStdString();
+            parametrs = arguments[i];
             break;
         default:
             break;

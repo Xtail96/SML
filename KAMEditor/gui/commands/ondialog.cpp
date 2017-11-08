@@ -39,11 +39,18 @@ void OnDialog::fillFields()
 
 
 void OnDialog::on_buttonBox_accepted()
-{    
+{
+    QString parametrs = ui->argumentsLineEdit->text();
+
+    if(parametrs.length() == 0)
+    {
+        parametrs = QString::number(0);
+    }
+
     QStringList cmdArguments =
     {
         ui->devicesComboBox->currentText(),
-        ui->argumentsLineEdit->text()
+        parametrs
     };
     if(!edit)
     {
