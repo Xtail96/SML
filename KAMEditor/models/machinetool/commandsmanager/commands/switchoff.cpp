@@ -1,6 +1,6 @@
 #include "switchoff.h"
 
-SwitchOff::SwitchOff(DevicesManager *_devicesManager, std::string _deviceName, std::string _parametrs) :
+SwitchOff::SwitchOff(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
     devicesManager(_devicesManager),
     deviceName(_deviceName),
     parametrs(_parametrs)
@@ -18,7 +18,7 @@ byte_array SwitchOff::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = devicesManager->findDevice(deviceName);
+        Device &device = devicesManager->findDevice(deviceName.toStdString());
         //toDo Преобразования строки в 2 байта
         data = devicesManager->getSwitchDeviceData(device, false);
     }
@@ -31,9 +31,12 @@ byte_array SwitchOff::getDataForMachineTool() const
 
 void SwitchOff::draw(OGLWidget *w) const
 {
-    glPointSize(5.0f);
-    w->qglColor(Qt::green);
-    w->drawPoint(w->getCurrentPoint());
+    if(isArgumentsCorrect())
+    {
+        glPointSize(5.0f);
+        w->qglColor(Qt::green);
+        w->drawPoint(w->getCurrentPoint());
+    }
 }
 
 std::string SwitchOff::getName() const
@@ -50,19 +53,24 @@ QStringList SwitchOff::getArguments() const
 {
     QStringList arguments =
     {
-        QString::fromStdString(deviceName),
-        QString::fromStdString(parametrs)
+        deviceName,
+        parametrs
     };
     return arguments;
 }
 
 QString SwitchOff::getArgumentsString() const
 {
-    QString qArgumentsString = QString::fromStdString(deviceName) + ", " + QString::fromStdString(parametrs);
+    QString qArgumentsString = deviceName + ", " + parametrs;
     return qArgumentsString;
 }
 
 QColor SwitchOff::getColor() const
 {
     return color;
+}
+
+bool SwitchOff::isArgumentsCorrect() const
+{
+    return true;
 }

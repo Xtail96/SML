@@ -200,14 +200,14 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList argu
 {
     std::shared_ptr<Command> cmd;
 
-    std::string deviceName = "Device";
+    QString deviceName = "Device";
 
     for(int i = 0; i < arguments.size(); i++)
     {
         switch (i)
         {
         case 0:
-            deviceName = arguments[i].toStdString();
+            deviceName = arguments[i];
             break;
         default:
             break;

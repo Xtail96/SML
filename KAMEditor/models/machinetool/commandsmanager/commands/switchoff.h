@@ -10,11 +10,13 @@ private:
     const std::string name = "Выключить";
 
     DevicesManager* devicesManager;
-    std::string deviceName;
-    std::string parametrs;
+    QString deviceName;
+    QString parametrs;
     QColor color = QColor(SmlColors::green());
+
+    bool isArgumentsCorrect() const;
 public:
-    SwitchOff(DevicesManager* _devicesManager, std::string _deviceName, std::string _parametrs = "");
+    SwitchOff(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
     ~SwitchOff();
 
     /**
