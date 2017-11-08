@@ -13,7 +13,32 @@ byte_array Line::getDataForMachineTool() const
 
 void Line::draw(OGLWidget *w) const
 {
-    w->drawLine(dx.toDouble(), dy.toDouble(), dz.toDouble(), v.toDouble());
+    QList<bool> isNumberFlags=
+    {
+        true,
+        true,
+        true,
+        true
+    };
+    double dxValue = dx.toDouble(&isNumberFlags[0]);
+    double dyValue = dy.toDouble(&isNumberFlags[1]);
+    double dzValue = dz.toDouble(&isNumberFlags[2]);
+    double velocityValue = v.toDouble(&isNumberFlags[3]);
+
+    bool isCorrect = true;
+    for(auto flag : isNumberFlags)
+    {
+        if(flag == false)
+        {
+            isCorrect = false;
+            break;
+        }
+    }
+
+    if(isCorrect)
+    {
+        w->drawLine(dxValue, dyValue, dzValue, velocityValue);
+    }
 }
 
 size_t Line::getId() const
