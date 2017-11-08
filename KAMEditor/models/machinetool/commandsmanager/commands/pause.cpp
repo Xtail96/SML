@@ -34,9 +34,12 @@ byte_array Pause::getDataForMachineTool() const
 
 void Pause::draw(OGLWidget *w) const
 {
-    QString text = "Пауза";
-    w->qglColor(Qt::red);
-    w->renderText(w->getCurrentPoint().x, w->getCurrentPoint().y, w->getCurrentPoint().z, text);
+    if(isArgumentsCorrect())
+    {
+        QString text = "Пауза";
+        w->qglColor(Qt::red);
+        w->renderText(w->getCurrentPoint().x, w->getCurrentPoint().y, w->getCurrentPoint().z, text);
+    }
 }
 
 std::string Pause::getName() const
@@ -67,3 +70,12 @@ QColor Pause::getColor() const
 {
     return color;
 }
+
+bool Pause::isArgumentsCorrect() const
+{
+    bool isCorrect = true;
+    size_t tmp;
+    tmp = length.toUInt(&isCorrect);
+    return isCorrect;
+}
+

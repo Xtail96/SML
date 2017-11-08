@@ -19,10 +19,16 @@ PauseDialog::~PauseDialog()
 
 void PauseDialog::on_buttonBox_accepted()
 {
-    size_t pauseLength = ui->pauseValueLineEdit->text().toUInt();
+    QString pauseLength = ui->pauseValueLineEdit->text();
+
+    if(pauseLength.length() == 0)
+    {
+        pauseLength = QString::number(0);
+    }
+
     QStringList arguments =
     {
-        QString::number(pauseLength),
+        pauseLength,
     };
 
     if(!edit)

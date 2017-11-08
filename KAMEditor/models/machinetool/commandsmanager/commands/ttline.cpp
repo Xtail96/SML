@@ -68,10 +68,12 @@ bool TTLine::isArgumentsCorrect() const
         true
     };
 
-    double tmp;
-    tmp = (double) destinationPointNumber.toUInt(&isNumberFlags[0]);
-    tmp = dz.toDouble(&isNumberFlags[1]);
-    tmp = v.toDouble(&isNumberFlags[2]);
+    size_t tmp1;
+    tmp1 = destinationPointNumber.toUInt(&isNumberFlags[0]);
+
+    double tmp2;
+    tmp2 = dz.toDouble(&isNumberFlags[1]);
+    tmp2 = v.toDouble(&isNumberFlags[2]);
 
     for(auto flag : isNumberFlags)
     {

@@ -10,6 +10,8 @@ private:
     const std::string name = "Пауза";
     QString length;
     QColor color = QColor(SmlColors::red());
+
+    bool isArgumentsCorrect() const;
 public:
     Pause(QString _length);
     ~Pause();
@@ -44,7 +46,6 @@ public:
      * @return подробное строковое представление аргументов текущей команды
      */
     QString getArgumentsString() const override;
-
 
     QColor getColor() const override;
 };
