@@ -50,3 +50,8 @@ QColor Comment::getColor() const
 {
     return color;
 }
+
+bool Comment::isArgumentsCorrect() const
+{
+    return true;
+}

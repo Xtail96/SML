@@ -10,6 +10,8 @@ private:
     const std::string name = "Комментарий";
     std::string comment;
     QColor color = QColor(SmlColors::lightGray());
+
+    bool isArgumentsCorrect() const;
 public:
     Comment(std::string _comment = "");
     ~Comment();
