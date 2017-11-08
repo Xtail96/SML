@@ -23,7 +23,7 @@ size_t CArc::getId() const
     return id;
 }
 
-std::string CArc::getName() const
+QString CArc::getName() const
 {
     return name;
 }

@@ -15,7 +15,7 @@ public:
 
     size_t getId() const override;
 
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return строковое представление каждого из аргументов текущей команды
@@ -29,9 +29,10 @@ public:
 
     QColor getColor() const override;
 
+    bool isArgumentsCorrect() const override;
 private:
     size_t id = CMD_TTLINE;
-    std::string name = "ТТ-Линия";
+    const QString name = "ТТ-Линия";
 
     PointsManager* pointsManager;
     QString destinationPointNumber;
@@ -41,7 +42,6 @@ private:
     QColor color = SmlColors::gray();
 
     Point3D destinationPoint(OGLWidget *w) const;
-    bool isArgumentsCorrect() const;
 };
 
 #endif // TTLINE_H

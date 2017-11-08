@@ -35,7 +35,7 @@ QList<QTableWidgetItem *> ProgramVisualizeWindowBridge::commandsNames(CommandsIn
         {
             QTableWidgetItem* item = new QTableWidgetItem();
             std::shared_ptr<Command> currentCommand = interpreter->operator [](i);
-            item->setText(QString::fromStdString(currentCommand->getName()));
+            item->setText(currentCommand->getName());
             commandsNamesItems.push_back(item);
         }
         catch(std::out_of_range e)

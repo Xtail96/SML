@@ -14,7 +14,7 @@ public:
     void draw(OGLWidget* w) const override;
 
     size_t getId() const override;
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return строковое представление каждого из аргументов текущей команды
@@ -28,10 +28,11 @@ public:
      */
     QString getArgumentsString() const override;
 
+    bool isArgumentsCorrect() const override;
 private:
     size_t id = CMD_ARC;
 
-    std::string name = "Дуга";
+    const QString name = "Дуга";
 
     // радиус дуги
     QString R;
@@ -46,8 +47,6 @@ private:
     QString v;
 
     QColor color = SmlColors::gray();
-
-    bool isArgumentsCorrect() const;
 };
 
 #endif // ARC_H

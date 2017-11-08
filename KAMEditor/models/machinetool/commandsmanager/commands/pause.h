@@ -7,11 +7,9 @@ class Pause : public Command
 {
 private:
     size_t id = CMD_PAUSE;
-    const std::string name = "Пауза";
+    const QString name = "Пауза";
     QString length;
     QColor color = QColor(SmlColors::red());
-
-    bool isArgumentsCorrect() const;
 public:
     Pause(QString _length);
     ~Pause();
@@ -30,7 +28,7 @@ public:
     /**
      * @return имя текущей команды
      */
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return ID команды
@@ -48,6 +46,8 @@ public:
     QString getArgumentsString() const override;
 
     QColor getColor() const override;
+
+    bool isArgumentsCorrect() const override;
 };
 
 #endif // PAUSE_H

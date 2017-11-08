@@ -30,7 +30,7 @@ public:
     /**
      * @return имя текущей команды
      */
-    virtual std::string getName() const = 0;
+    virtual QString getName() const = 0;
 
     /**
      * @return Id команды
@@ -51,6 +51,12 @@ public:
      * @return цвет текущей команды
      */
     virtual QColor getColor() const = 0;
+
+    /**
+     * @brief Проверяет корректность аргументов
+     * @return true, если все аргументы корректны, false - иначе
+     */
+    virtual bool isArgumentsCorrect() const = 0;
 };
 
 #endif // COMMAND_H

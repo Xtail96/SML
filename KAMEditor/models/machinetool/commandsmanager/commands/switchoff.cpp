@@ -39,7 +39,7 @@ void SwitchOff::draw(OGLWidget *w) const
     }
 }
 
-std::string SwitchOff::getName() const
+QString SwitchOff::getName() const
 {
     return name;
 }

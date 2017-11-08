@@ -22,7 +22,7 @@ void Comment::draw(OGLWidget *w) const
 
 }
 
-std::string Comment::getName() const
+QString Comment::getName() const
 {
     return "***";
 }

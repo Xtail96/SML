@@ -24,7 +24,7 @@ size_t Line::getId() const
     return id;
 }
 
-std::string Line::getName() const
+QString Line::getName() const
 {
     return name;
 }

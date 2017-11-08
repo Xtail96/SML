@@ -42,7 +42,7 @@ void Pause::draw(OGLWidget *w) const
     }
 }
 
-std::string Pause::getName() const
+QString Pause::getName() const
 {
     return name;
 }

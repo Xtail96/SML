@@ -7,14 +7,12 @@ class SwitchOff : public Command
 {
 private:
     size_t id = CMD_SWITCH_OFF;
-    const std::string name = "Выключить";
+    const QString name = "Выключить";
 
     DevicesManager* devicesManager;
     QString deviceName;
     QString parametrs;
     QColor color = QColor(SmlColors::green());
-
-    bool isArgumentsCorrect() const;
 public:
     SwitchOff(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
     ~SwitchOff();
@@ -33,7 +31,7 @@ public:
     /**
      * @return имя текущей команды
      */
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return ID команды
@@ -51,6 +49,8 @@ public:
     QString getArgumentsString() const override;
 
     QColor getColor() const override;
+
+    bool isArgumentsCorrect() const override;
 };
 
 #endif // SWITCHOFF_H

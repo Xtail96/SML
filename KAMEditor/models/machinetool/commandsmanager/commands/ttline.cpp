@@ -92,7 +92,7 @@ size_t TTLine::getId() const
     return id;
 }
 
-std::string TTLine::getName() const
+QString TTLine::getName() const
 {
     return name;
 }

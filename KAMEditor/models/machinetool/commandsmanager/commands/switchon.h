@@ -6,15 +6,13 @@
 class SwitchOn : public Command
 {
     size_t id = CMD_SWITCH_ON;
-    const std::string name = "Включить";
+    const QString name = "Включить";
 
     DevicesManager* devicesManager;
 
     QString deviceName;
     QString parametrs;
     QColor color = QColor(SmlColors::red());
-
-    bool isArgumentsCorrect() const;
 public:
     SwitchOn(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
     ~SwitchOn();
@@ -33,7 +31,7 @@ public:
     /**
      * @return имя текущей команды
      */
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return ID команды
@@ -51,6 +49,8 @@ public:
     QString getArgumentsString() const override;
 
     QColor getColor() const override;
+
+    bool isArgumentsCorrect() const override;
 };
 
 #endif // SWITCHON_H

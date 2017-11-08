@@ -7,11 +7,9 @@ class Comment : public Command
 {
 private:
     size_t id = CMD_COMMENT;
-    const std::string name = "Комментарий";
+    const QString name = "Комментарий";
     QString comment;
     QColor color = QColor(SmlColors::lightGray());
-
-    bool isArgumentsCorrect() const;
 public:
     Comment(QString _comment = "");
     ~Comment();
@@ -30,7 +28,7 @@ public:
     /**
      * @return имя текущей команды
      */
-    std::string getName() const override;
+    QString getName() const override;
 
     /**
      * @return ID команды
@@ -48,6 +46,8 @@ public:
     QString getArgumentsString() const override;
 
     QColor getColor() const override;
+
+    bool isArgumentsCorrect() const override;
 };
 
 #endif // COMMENT_H

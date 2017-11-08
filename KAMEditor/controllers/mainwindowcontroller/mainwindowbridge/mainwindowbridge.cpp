@@ -253,7 +253,7 @@ QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsMan
             std::shared_ptr<Command> command = commandsManager->operator [](i);
             QTreeWidgetItem* item = new QTreeWidgetItem();
             item->setText(0, QString::number(i+1));
-            item->setText(1, QString::fromStdString(command->getName()));
+            item->setText(1, command->getName());
             item->setText(2, command->getArgumentsString());
             QColor commandColor = command->getColor();
             item->setTextColor(1, commandColor);
