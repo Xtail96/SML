@@ -40,6 +40,15 @@ QStringList SMLVariable::getArguments() const
     return arguments;
 }
 
+void SMLVariable::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 2)
+    {
+        key = arguments[0];
+        value = arguments[1];
+    }
+}
+
 QString SMLVariable::getArgumentsString() const
 {
     QString argumentsString = key + " = " + value;

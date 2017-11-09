@@ -56,7 +56,7 @@ void LineDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_LINE, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }
 

@@ -41,6 +41,14 @@ QStringList Comment::getArguments() const
     return arguments;
 }
 
+void Comment::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 1)
+    {
+        comment = arguments[0];
+    }
+}
+
 QString Comment::getArgumentsString() const
 {
     return comment;

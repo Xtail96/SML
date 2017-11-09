@@ -40,6 +40,17 @@ QStringList CArc::getArguments() const
     return arguments;
 }
 
+void CArc::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 4)
+    {
+        R = arguments[0];
+        Al = arguments[1];
+        Fi = arguments[2];
+        v = arguments[3];
+    }
+}
+
 QString CArc::getArgumentsString() const
 {
     QString qArgumentsString = "R = " + R + ", Al = " + Al + ", Fi = " + Fi + ", v = " + v;

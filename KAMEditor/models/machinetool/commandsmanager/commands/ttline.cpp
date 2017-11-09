@@ -109,6 +109,17 @@ QStringList TTLine::getArguments() const
     return arguments;
 }
 
+void TTLine::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 4)
+    {
+       destinationPointNumber = arguments[0];
+       airPassageIsNeed = arguments[1].toInt();
+       dz = arguments[2];
+       v = arguments[3];
+    }
+}
+
 QString TTLine::getArgumentsString() const
 {
     QString qArgumentsString = "Точка назначения = " + destinationPointNumber +

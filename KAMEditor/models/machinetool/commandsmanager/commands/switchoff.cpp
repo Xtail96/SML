@@ -59,6 +59,15 @@ QStringList SwitchOff::getArguments() const
     return arguments;
 }
 
+void SwitchOff::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 2)
+    {
+        deviceName = arguments[0];
+        parametrs = arguments[1];
+    }
+}
+
 QString SwitchOff::getArgumentsString() const
 {
     QString qArgumentsString = deviceName + ", " + parametrs;

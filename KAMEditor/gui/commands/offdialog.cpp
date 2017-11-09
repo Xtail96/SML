@@ -29,7 +29,7 @@ void OffDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_SWITCH_OFF, cmdArguments, index);
+        controller->updateCommand(cmdArguments, index);
     }
 }
 

@@ -32,11 +32,16 @@ public:
     unsigned int commandsCount();
 
     void updateProgram();
-private:
-    std::vector< std::shared_ptr<Command> > m_commands;
-    CommandsManager *commandsManager;
 
     void makeProgram();
+
+    static std::vector< std::shared_ptr<Command> > inlineVariables(std::vector< std::shared_ptr<Command> > commands);
+    static std::vector< std::shared_ptr<Command> > inlineVariable(QString key, QString value, std::vector<std::shared_ptr<Command> > commands);
+
+private:
+    std::vector< std::shared_ptr<Command> > m_commands;
+
+    CommandsManager *commandsManager;
 };
 
 #endif // COMMANDINTERPRETER_H

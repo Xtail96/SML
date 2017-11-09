@@ -30,7 +30,7 @@ void CommentDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_COMMENT, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }
 

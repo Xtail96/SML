@@ -61,6 +61,14 @@ QStringList Pause::getArguments() const
     return arguments;
 }
 
+void Pause::setArguments(const QStringList arguments)
+{
+    if(arguments.length() >= 1)
+    {
+        length = arguments[0];
+    }
+}
+
 QString Pause::getArgumentsString() const
 {
     return length + " секунд";

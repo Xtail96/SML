@@ -6,7 +6,7 @@
 class SMLVariable : public Command
 {
 private:
-    size_t id = CMD_TTLINE;
+    size_t id = CMD_VARIABLE;
     const QString name = "Переменная";
     QString key;
     QString value;
@@ -41,6 +41,8 @@ public:
      * @return строковое представление каждого из аргументов текущей команды
      */
     QStringList getArguments() const override;
+
+    void setArguments(const QStringList arguments) override;
 
     /**
      * @return подробное строковое представление аргументов текущей команды

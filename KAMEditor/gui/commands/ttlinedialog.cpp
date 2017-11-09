@@ -53,7 +53,7 @@ void TTLineDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_TTLINE, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }
 

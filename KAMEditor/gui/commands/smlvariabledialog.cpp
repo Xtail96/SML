@@ -71,6 +71,6 @@ void SMLVariableDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_VARIABLE, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }

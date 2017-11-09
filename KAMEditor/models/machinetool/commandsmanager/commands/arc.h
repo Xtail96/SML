@@ -21,6 +21,8 @@ public:
      */
     QStringList getArguments() const override;
 
+    void setArguments(const QStringList arguments) override;
+
     QColor getColor() const override;
 
     /**

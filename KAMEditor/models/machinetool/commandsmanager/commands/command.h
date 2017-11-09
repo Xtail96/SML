@@ -42,6 +42,8 @@ public:
      */
     virtual QStringList getArguments() const = 0;
 
+    virtual void setArguments(const QStringList arguments) = 0;
+
     /**
      * @return подробное строковое представление аргументов текущей команды
      */

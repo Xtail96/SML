@@ -172,18 +172,10 @@ QStringList MainWindowController::getCommandArguments(size_t index)
     return cmd->getArguments();
 }
 
-void MainWindowController::replaceCommand(int id, QStringList arguments, size_t index)
+void MainWindowController::updateCommand(QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
-    try
-    {
-        machineTool->getCommandsManager()->operator [](index) = cmd;
-        emit commandsUpdated();
-    }
-    catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    machineTool->getCommandsManager()->operator [](index)->setArguments(arguments);
+    emit commandsUpdated();
 }
 
 void MainWindowController::loadMachineToolSettings()

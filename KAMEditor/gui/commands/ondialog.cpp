@@ -58,6 +58,6 @@ void OnDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_SWITCH_ON, cmdArguments, index);
+        controller->updateCommand(cmdArguments, index);
     }
 }

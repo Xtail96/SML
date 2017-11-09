@@ -41,6 +41,17 @@ QStringList Line::getArguments() const
     return arguments;
 }
 
+void Line::setArguments(const QStringList arguments)
+{
+    if(arguments.size() >= 4)
+    {
+        dx = arguments[0];
+        dy = arguments[1];
+        dz = arguments[2];
+        v = arguments[3];
+    }
+}
+
 QString Line::getArgumentsString() const
 {
     QString qArgumentsString = "dx = " + dx + ", dy = " + dy + ", dz = " + dz + ", v = " + v;

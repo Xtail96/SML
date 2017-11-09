@@ -37,7 +37,7 @@ void PauseDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_PAUSE, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }
 

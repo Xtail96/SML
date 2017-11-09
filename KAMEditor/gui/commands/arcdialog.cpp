@@ -58,7 +58,7 @@ void ArcDialog::on_buttonBox_accepted()
     }
     else
     {
-        controller->replaceCommand(CMD_ARC, arguments, index);
+        controller->updateCommand(arguments, index);
     }
 }
 

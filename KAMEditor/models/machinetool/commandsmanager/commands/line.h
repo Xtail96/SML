@@ -21,6 +21,8 @@ public:
      */
     QStringList getArguments() const override;
 
+    void setArguments(const QStringList arguments) override;
+
     /**
      * @return подробное строковое представление аргументов текущей команды
      */
