@@ -4,7 +4,6 @@
 #include <QDialog>
 #include <QTextStream>
 
-#include "commanddialog.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {

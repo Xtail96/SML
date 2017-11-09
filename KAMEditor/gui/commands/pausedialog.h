@@ -4,14 +4,13 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class PauseDialog;
 }
 
-class PauseDialog : public QDialog//, private CommandDialog
+class PauseDialog : public QDialog
 {
     Q_OBJECT
 

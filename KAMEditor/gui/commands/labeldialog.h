@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class LabelDialog;
 }
 
-class LabelDialog : public QDialog, private CommandDialog
+class LabelDialog : public QDialog
 {
     Q_OBJECT
 

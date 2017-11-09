@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class Arc2Dialog;
 }
 
-class Arc2Dialog : public QDialog, private CommandDialog
+class Arc2Dialog : public QDialog
 {
     Q_OBJECT
 

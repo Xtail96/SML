@@ -4,7 +4,6 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
 #include "models/machinetool/commandsmanager/commands/switchon.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 

@@ -4,14 +4,12 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 
 namespace Ui {
 class CycleDialog;
 }
 
-class CycleDialog : public QDialog, private CommandDialog
+class CycleDialog : public QDialog
 {
     Q_OBJECT
 

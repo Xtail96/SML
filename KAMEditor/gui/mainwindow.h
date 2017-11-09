@@ -31,7 +31,6 @@
 #include "points/toselectionpointdialog.h"
 
 /// Подключение диалогов команд
-#include "commands/commanddialog.h"
 #include "commands/linedialog.h"
 #include "commands/ttlinedialog.h"
 #include "commands/arcdialog.h"
@@ -53,6 +52,7 @@
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
+#include "commands/smlvariabledialog.h"
 
 /// Подключение окна визуализации УП
 #include "programvisualizewindow.h"

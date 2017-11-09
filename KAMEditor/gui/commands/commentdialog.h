@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
+
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {

@@ -19,6 +19,7 @@ public:
     static std::shared_ptr<Command> buildTTLineCommand(QStringList arguments, PointsManager* pointsManager);
     static std::shared_ptr<Command> buildSwitchOnCommand(QStringList arguments, DevicesManager* devicesManager);
     static std::shared_ptr<Command> buildSwitchOffCommand(QStringList arguments, DevicesManager* devicesManager);
+    static std::shared_ptr<Command> buildSMLVariableCommand(QStringList arguments);
 };
 
 #endif // COMMANDSBUILDER_H

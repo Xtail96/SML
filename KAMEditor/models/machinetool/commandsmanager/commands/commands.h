@@ -8,5 +8,6 @@
 #include "switchoff.h"
 #include "switchon.h"
 #include "ttline.h"
+#include "smlvariable.h"
 
 #endif // COMMANDS_H

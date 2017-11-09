@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class VelocityDialog;
 }
 
-class VelocityDialog : public QDialog, private CommandDialog
+class VelocityDialog : public QDialog
 {
     Q_OBJECT
 

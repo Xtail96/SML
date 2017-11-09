@@ -45,6 +45,11 @@ std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList argum
         cmd = buildArcCommand(arguments);
         break;
     }
+    case CMD_VARIABLE:
+    {
+        cmd = buildSMLVariableCommand(arguments);
+        break;
+    }
     default:
     {
         break;
@@ -217,6 +222,28 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList argu
     cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName));
 
     return  cmd;
+}
+
+std::shared_ptr<Command> CommandsBuilder::buildSMLVariableCommand(QStringList arguments)
+{
+    std::shared_ptr<Command> cmd;
+    QString key = "key";
+    QString value = QString::number(0);
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch (i) {
+        case 0:
+            key = arguments[i];
+            break;
+        case 1:
+            value = arguments[i];
+            break;
+        default:
+            break;
+        }
+    }
+    cmd = std::shared_ptr<Command> (new SMLVariable(key, value));
+    return cmd;
 }
 
 std::shared_ptr<Command> CommandsBuilder::buildTTLineCommand(QStringList arguments, PointsManager* pointsManager)

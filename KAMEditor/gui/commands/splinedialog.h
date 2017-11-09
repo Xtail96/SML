@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class SplineDialog;
 }
 
-class SplineDialog : public QDialog, private CommandDialog
+class SplineDialog : public QDialog
 {
     Q_OBJECT
 

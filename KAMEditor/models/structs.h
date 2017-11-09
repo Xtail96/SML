@@ -445,7 +445,10 @@ enum COMMANDS_IDS
     CMD_TTTTSPLINE,
 
     /// Ноль
-    CMD_ZERO
+    CMD_ZERO,
+
+    /// Переменная
+    CMD_VARIABLE
 };
 
 /*!
@@ -488,6 +491,7 @@ struct
         {"Пауза", CMD_PAUSE},
         {"Стоп", CMD_STOP},
         {"В Ноль", CMD_TO_ZERO},
+        {"Переменная", CMD_VARIABLE}
     };
 
     /*!

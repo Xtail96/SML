@@ -4,14 +4,13 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class LineDialog;
 }
 
-class LineDialog : public QDialog//, private CommandDialog
+class LineDialog : public QDialog
 {
     Q_OBJECT
 

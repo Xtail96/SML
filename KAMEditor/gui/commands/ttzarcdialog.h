@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class TTZArcDialog;
 }
 
-class TTZArcDialog : public QDialog, private CommandDialog
+class TTZArcDialog : public QDialog
 {
     Q_OBJECT
 
