@@ -13,7 +13,7 @@ ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
 
 std::vector<std::shared_ptr<Command> > ProgramVisualizeWindowController::getCommands()
 {
-    return m_commands;
+    return interpretedCommands;
 }
 
 std::vector<std::shared_ptr<Point3D> > ProgramVisualizeWindowController::get3DPoints()
@@ -47,11 +47,11 @@ double ProgramVisualizeWindowController::getGridMaximalAccuracy() const
 
 void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowController)
 {
-    m_commands = mainWindowController->interpretCommands();
+    programVisualizeBridge = new ProgramVisualizeWindowBridge();
+
+    interpretedCommands = mainWindowController->interpretCommands();
 
     pointsManager = mainWindowController->machineTool->getPointsManager();
-
-    programVisualizeBridge = new ProgramVisualizeWindowBridge();
 
     SettingsManager settingsManager;
     try
@@ -71,15 +71,15 @@ QStringList ProgramVisualizeWindowController::getCommandsHeaders()
 
 QStringList ProgramVisualizeWindowController::getCommandsNumbers()
 {
-    return programVisualizeBridge->commandsNumbers(m_commands.size());
+    return programVisualizeBridge->commandsNumbers(interpretedCommands.size());
 }
 
 QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsNames()
 {
-    return programVisualizeBridge->commandsNames(m_commands);
+    return programVisualizeBridge->commandsNames(interpretedCommands);
 }
 
 QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsArguments()
 {
-    return programVisualizeBridge->commandsArguments(m_commands);
+    return programVisualizeBridge->commandsArguments(interpretedCommands);
 }

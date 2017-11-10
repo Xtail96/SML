@@ -35,6 +35,8 @@ public:
 
     QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
 
+    std::vector< std::shared_ptr<Command> > getAllCommandsInVector(CommandsManager* commandsManager);
+
 private:
 };
 

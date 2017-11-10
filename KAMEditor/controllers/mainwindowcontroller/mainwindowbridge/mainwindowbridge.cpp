@@ -268,3 +268,21 @@ QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsMan
     }
     return commands;
 }
+
+std::vector<std::shared_ptr<Command> > MainWindowBridge::getAllCommandsInVector(CommandsManager *commandsManager)
+{
+    std::vector< std::shared_ptr<Command> > commandsVector;
+    size_t commandsCount = commandsManager->commandsCount();
+    try
+    {
+        for(size_t i = 0; i < commandsCount; i++)
+        {
+            commandsVector.push_back(commandsManager->operator [](i));
+        }
+        return commandsVector;
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}

@@ -20,6 +20,7 @@
 
 class Command;
 
+
 /*!
  * \brief Класс Виджет визуализации
  * Визуализирует управляющую программу трехкоординатного станка в трехмерном пространстве
@@ -376,7 +377,7 @@ protected:
     /*!
      * \brief Контейнер умных указателеней на команды
      */
-    std::vector< std::shared_ptr<Command> > commands;
+    std::vector< std::shared_ptr<Command> > m_commands;
 
     /*!
      * \brief Нужно ли отрисовывать точки (начальное значение = false)

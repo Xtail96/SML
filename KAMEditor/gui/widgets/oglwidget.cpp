@@ -83,7 +83,7 @@ void OGLWidget::drawCommands()
     updateOffsetsIsNeed = true;
     updateCurrentPointIsNeed = true;
 
-    for(auto command : commands)
+    for(auto command : m_commands)
     {    
         qglColor(Qt::darkGray);
         command->draw(this);
@@ -192,7 +192,7 @@ void OGLWidget::setPoints(const std::vector<std::shared_ptr<Point3D> > &value)
 
 void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)
 {
-    commands = value;
+    m_commands = value;
 }
 
 double OGLWidget::getGridMaximalAccuracy() const
