@@ -7,7 +7,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
-    commandsInterpreter(new CommandsInterpreter(commandsManager)),
+    commandsInterpreter(new CommandsInterpreter()),
     smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
     velocity(10),
     spindelRotations(5000)

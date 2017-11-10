@@ -1,9 +1,8 @@
 #include "commandsinterpreter.h"
 
-CommandsInterpreter::CommandsInterpreter(CommandsManager *_commandsManager) :
-    commandsManager(_commandsManager)
+CommandsInterpreter::CommandsInterpreter()
 {
-    makeProgram();
+
 }
 
 CommandsInterpreter::~CommandsInterpreter()
@@ -29,18 +28,20 @@ unsigned int CommandsInterpreter::commandsCount()
     return m_commands.size();
 }
 
-void CommandsInterpreter::updateProgram()
+void CommandsInterpreter::updateProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager)
 {
-    makeProgram();
+    makeProgram(commandsManager, pointsManager, devicesManager);
 }
 
-void CommandsInterpreter::makeProgram()
+void CommandsInterpreter::makeProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager)
 {
+
     m_commands.clear();
 
     for(unsigned int i = 0; i < commandsManager->commandsCount(); i++)
     {
-        m_commands.push_back(std::shared_ptr<Command>(commandsManager->operator [](i)));
+        std::shared_ptr<Command> cmd = commandsManager->operator [](i);
+        m_commands.push_back(cmd);
     }
 
      m_commands = inlineVariables(m_commands);

@@ -375,7 +375,7 @@ void MainWindowController::deleteCommand(unsigned int number)
 
 void MainWindowController::inerpretCommands()
 {
-    machineTool->getCommandsInterpreter()->updateProgram();
+    machineTool->getCommandsInterpreter()->updateProgram(machineTool->getCommandsManager(), machineTool->getPointsManager(), machineTool->getDevicesManager());
 }
 
 void MainWindowController::newSMLFile()

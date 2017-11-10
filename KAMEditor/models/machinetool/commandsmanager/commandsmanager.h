@@ -5,6 +5,8 @@
 #include <memory>
 
 #include "commands/command.h"
+#include "models/machinetool/pointsmanager/pointsmanager.h"
+#include "models/machinetool/devicesmanager/devicesmanager.h"
 
 class Command;
 

@@ -10,11 +10,13 @@
 
 class CommandsManager;
 class Command;
+class PointsManager;
+class DevicesManager;
 
 class CommandsInterpreter
 {
 public:
-    CommandsInterpreter(CommandsManager *_commandsManager);
+    CommandsInterpreter();
     ~CommandsInterpreter();
 
     /**
@@ -31,17 +33,15 @@ public:
      */
     unsigned int commandsCount();
 
-    void updateProgram();
+    void updateProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager);
 
-    void makeProgram();
+    void makeProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager);
 
     static std::vector< std::shared_ptr<Command> > inlineVariables(std::vector< std::shared_ptr<Command> > commands);
     static std::vector< std::shared_ptr<Command> > inlineVariable(QString key, QString value, std::vector<std::shared_ptr<Command> > commands);
 
 private:
     std::vector< std::shared_ptr<Command> > m_commands;
-
-    CommandsManager *commandsManager;
 };
 
 #endif // COMMANDINTERPRETER_H
