@@ -1011,7 +1011,6 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_viewPushButton_clicked()
 {
-    mainWindowController->inerpretCommands();
     ProgramVisualizeWindow(mainWindowController, this).exec();
 }
 

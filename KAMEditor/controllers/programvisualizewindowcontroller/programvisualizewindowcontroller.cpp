@@ -13,25 +13,7 @@ ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
 
 std::vector<std::shared_ptr<Command> > ProgramVisualizeWindowController::getCommands()
 {
-    std::vector< std::shared_ptr<Command> > commands;
-
-    size_t commandsCount = commandsInterpreter->commandsCount();
-
-    for(unsigned int i = 0; i < commandsCount; i++)
-    {
-        try
-        {
-            std::shared_ptr<Command> command = commandsInterpreter->operator [](i);
-            commands.push_back(command);
-        }
-        catch(std::out_of_range e)
-        {
-            QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-            break;
-        }
-    }
-
-    return commands;
+    return m_commands;
 }
 
 std::vector<std::shared_ptr<Point3D> > ProgramVisualizeWindowController::get3DPoints()
@@ -65,7 +47,7 @@ double ProgramVisualizeWindowController::getGridMaximalAccuracy() const
 
 void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowController)
 {
-    commandsInterpreter = mainWindowController->machineTool->getCommandsInterpreter();
+    m_commands = mainWindowController->interpretCommands();
 
     pointsManager = mainWindowController->machineTool->getPointsManager();
 
@@ -89,15 +71,15 @@ QStringList ProgramVisualizeWindowController::getCommandsHeaders()
 
 QStringList ProgramVisualizeWindowController::getCommandsNumbers()
 {
-    return programVisualizeBridge->commandsNumbers(commandsInterpreter->commandsCount());
+    return programVisualizeBridge->commandsNumbers(m_commands.size());
 }
 
 QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsNames()
 {
-    return programVisualizeBridge->commandsNames(commandsInterpreter);
+    return programVisualizeBridge->commandsNames(m_commands);
 }
 
 QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsArguments()
 {
-    return programVisualizeBridge->commandsArguments(commandsInterpreter);
+    return programVisualizeBridge->commandsArguments(m_commands);
 }

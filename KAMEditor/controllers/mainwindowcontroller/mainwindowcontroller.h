@@ -152,7 +152,7 @@ public slots:
 
     void deleteCommand(unsigned int number);
 
-    void inerpretCommands();
+    std::vector<std::shared_ptr<Command> > interpretCommands();
 
     void newSMLFile();
     void openSMLFile();

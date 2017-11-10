@@ -38,7 +38,7 @@ public slots:
 private:
     ProgramVisualizeWindowBridge* programVisualizeBridge;
 
-    CommandsInterpreter* commandsInterpreter;
+    std::vector< std::shared_ptr<Command> > m_commands;
 
     PointsManager* pointsManager;
 

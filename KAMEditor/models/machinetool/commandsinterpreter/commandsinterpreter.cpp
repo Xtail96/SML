@@ -9,7 +9,8 @@ CommandsInterpreter::~CommandsInterpreter()
 {
 }
 
-std::shared_ptr<Command> &CommandsInterpreter::operator[](size_t idx)
+
+/*std::shared_ptr<Command> &CommandsInterpreter::operator[](size_t idx)
 {
     if (idx < m_commands.size())
     {
@@ -26,25 +27,31 @@ std::shared_ptr<Command> &CommandsInterpreter::operator[](size_t idx)
 unsigned int CommandsInterpreter::commandsCount()
 {
     return m_commands.size();
+}*/
+
+std::vector< std::shared_ptr<Command> > CommandsInterpreter::updateProgram(
+        std::vector< std::shared_ptr<Command> > commands,
+        PointsManager* pointsManager,
+        DevicesManager* devicesManager)
+{
+    return makeProgram(commands, pointsManager, devicesManager);
 }
 
-void CommandsInterpreter::updateProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager)
+std::vector< std::shared_ptr<Command> > CommandsInterpreter::makeProgram(
+        std::vector< std::shared_ptr<Command> > commands,
+        PointsManager* pointsManager,
+        DevicesManager* devicesManager)
 {
-    makeProgram(commandsManager, pointsManager, devicesManager);
-}
+    std::vector< std::shared_ptr<Command> > m_commands;
 
-void CommandsInterpreter::makeProgram(CommandsManager *commandsManager, PointsManager *pointsManager, DevicesManager *devicesManager)
-{
-
-    m_commands.clear();
-
-    for(unsigned int i = 0; i < commandsManager->commandsCount(); i++)
+    for(unsigned int i = 0; i < commands.size(); i++)
     {
-        std::shared_ptr<Command> cmd = commandsManager->operator [](i);
-        m_commands.push_back(cmd);
+        std::shared_ptr<Command> cmd = commands[i];
+        m_commands.push_back(CommandsBuilder::buildCommand(cmd->getId(), cmd->getArguments(), pointsManager, devicesManager));
     }
 
-     m_commands = inlineVariables(m_commands);
+    m_commands = inlineVariables(m_commands);
+    return m_commands;
 }
 
 std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariables(std::vector<std::shared_ptr<Command> > commands)

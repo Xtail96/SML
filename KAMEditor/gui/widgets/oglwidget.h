@@ -16,11 +16,9 @@
 #endif
 
 #include "models/structs.h"
-#include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
 class Command;
-class CommandsInterpreter;
 
 /*!
  * \brief Класс Виджет визуализации

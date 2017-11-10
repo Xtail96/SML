@@ -6,6 +6,7 @@
 
 #include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
 #include "models/machinetool/pointsmanager/point/pointsbuilder.h"
+#include "models/machinetool/commandsmanager/commandsmanager.h"
 
 /*!
  * \brief Класс Менеджер SML-Файлов

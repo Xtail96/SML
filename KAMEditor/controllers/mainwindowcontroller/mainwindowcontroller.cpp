@@ -373,9 +373,15 @@ void MainWindowController::deleteCommand(unsigned int number)
     }
 }
 
-void MainWindowController::inerpretCommands()
+std::vector< std::shared_ptr<Command> > MainWindowController::interpretCommands()
 {
-    machineTool->getCommandsInterpreter()->updateProgram(machineTool->getCommandsManager(), machineTool->getPointsManager(), machineTool->getDevicesManager());
+    std::vector< std::shared_ptr<Command> > m_commands;
+    for(int i = 0; i < machineTool->getCommandsManager()->commandsCount(); i++)
+    {
+        m_commands.push_back(machineTool->getCommandsManager()->operator [](i));
+    }
+
+    return CommandsInterpreter::updateProgram(m_commands, machineTool->getPointsManager(), machineTool->getDevicesManager());
 }
 
 void MainWindowController::newSMLFile()
