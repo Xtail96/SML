@@ -36,14 +36,17 @@ std::vector< std::shared_ptr<Command> > CommandsInterpreter::makeProgram(
 std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariables(std::vector<std::shared_ptr<Command> > commands)
 {
     std::vector<std::shared_ptr<Command> > tmpCommands = commands;
-    for(auto command : tmpCommands)
+    QList<size_t> variablesIndexes;
+    for(size_t i = 0; i < tmpCommands.size(); i++)
     {
-        if(command->getId() == CMD_VARIABLE)
+        if(tmpCommands[i]->getId() == CMD_VARIABLE)
         {
-            QStringList variableArguments = command->getArguments();
+            variablesIndexes.push_back(i);
+            QStringList variableArguments = tmpCommands[i]->getArguments();
             commands = inlineVariable(variableArguments[0], variableArguments[1], commands);
         }
     }
+    commands = eraseVariables(variablesIndexes, commands);
     return commands;
 }
 
@@ -67,6 +70,16 @@ std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariable(QStri
             }
             command->setArguments(arguments);
         }
+    }
+    return commands;
+}
+
+std::vector<std::shared_ptr<Command> > CommandsInterpreter::eraseVariables(QList<size_t> indexes, std::vector<std::shared_ptr<Command> > commands)
+{
+    std::sort(indexes.begin(), indexes.begin() + indexes.size());
+    for(int i = indexes.size() - 1; i >= 0; i--)
+    {
+        commands.erase(commands.begin() + indexes[i]);
     }
     return commands;
 }
