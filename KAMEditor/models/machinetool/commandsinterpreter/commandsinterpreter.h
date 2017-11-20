@@ -28,7 +28,9 @@ public:
 private:
     static std::vector< std::shared_ptr<Command> > inlineVariables(std::vector< std::shared_ptr<Command> > commands);
     static std::vector< std::shared_ptr<Command> > inlineVariable(QString key, QString value, std::vector<std::shared_ptr<Command> > commands);
-    static std::vector< std::shared_ptr<Command> > eraseVariables(QList<size_t> indexes, std::vector<std::shared_ptr<Command> > commands);
+    static std::vector< std::shared_ptr<Command> > eraseComments(std::vector<std::shared_ptr<Command> > commands);
+
+    static std::vector< std::shared_ptr<Command> > eraseCommands(QList<size_t> indexes, std::vector<std::shared_ptr<Command> > commands);
 };
 
 #endif // COMMANDINTERPRETER_H

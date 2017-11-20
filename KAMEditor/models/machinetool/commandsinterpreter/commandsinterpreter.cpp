@@ -29,8 +29,20 @@ std::vector< std::shared_ptr<Command> > CommandsInterpreter::makeProgram(
         m_commands.push_back(CommandsBuilder::buildCommand(cmd->getId(), cmd->getArguments(), pointsManager, devicesManager));
     }
 
+
+    m_commands = eraseComments(m_commands);
     m_commands = inlineVariables(m_commands);
     return m_commands;
+}
+
+std::vector<std::shared_ptr<Command> > CommandsInterpreter::eraseCommands(QList<size_t> indexes, std::vector<std::shared_ptr<Command> > commands)
+{
+    std::sort(indexes.begin(), indexes.begin() + indexes.size());
+    for(int i = indexes.size() - 1; i >= 0; i--)
+    {
+        commands.erase(commands.begin() + indexes[i]);
+    }
+    return commands;
 }
 
 std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariables(std::vector<std::shared_ptr<Command> > commands)
@@ -46,7 +58,7 @@ std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariables(std:
             commands = inlineVariable(variableArguments[0], variableArguments[1], commands);
         }
     }
-    commands = eraseVariables(variablesIndexes, commands);
+    commands = eraseCommands(variablesIndexes, commands);
     return commands;
 }
 
@@ -74,13 +86,17 @@ std::vector<std::shared_ptr<Command> > CommandsInterpreter::inlineVariable(QStri
     return commands;
 }
 
-std::vector<std::shared_ptr<Command> > CommandsInterpreter::eraseVariables(QList<size_t> indexes, std::vector<std::shared_ptr<Command> > commands)
+std::vector<std::shared_ptr<Command> > CommandsInterpreter::eraseComments(std::vector<std::shared_ptr<Command> > commands)
 {
-    std::sort(indexes.begin(), indexes.begin() + indexes.size());
-    for(int i = indexes.size() - 1; i >= 0; i--)
+    QList<size_t> indexes;
+    for(size_t i = 0; i < commands.size(); i++)
     {
-        commands.erase(commands.begin() + indexes[i]);
+        if(commands[i]->getId() == CMD_COMMENT)
+        {
+            indexes.push_back(i);
+        }
     }
+    commands = eraseCommands(indexes, commands);
     return commands;
 }
 
