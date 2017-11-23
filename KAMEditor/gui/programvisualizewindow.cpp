@@ -77,12 +77,7 @@ void ProgramVisualizeWindow::showCommands()
         ui->commandsTableWidget->setItem(i, 0, commandsNames[i]);
         ui->commandsTableWidget->setItem(i, 1, commandsArguments[i]);
     }
-
-
-     for (int i = 0; i < ui->commandsTableWidget->columnCount(); i++)
-     {
-         ui->commandsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-     }
+    ui->commandsTableWidget->resizeColumnsToContents();
 }
 
 void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()
