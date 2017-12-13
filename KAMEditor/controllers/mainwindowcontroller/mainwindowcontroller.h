@@ -6,7 +6,7 @@
 #include <QTreeWidgetItem>
 
 #include "models/machinetool/machinetool.h"
-#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
+#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "models/controllerconnector/kflopmanager/kflopmanager.h"
 
@@ -152,7 +152,7 @@ public slots:
 
     void deleteCommand(unsigned int number);
 
-    std::vector<std::shared_ptr<Command> > interpretCommands();
+    std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
 
     void newSMLFile();
     void openSMLFile();

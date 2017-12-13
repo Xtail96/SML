@@ -1,17 +1,17 @@
-#include "switchon.h"
+#include "smlswitchon.h"
 
-SwitchOn::SwitchOn(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
+SMLSwitchOn::SMLSwitchOn(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
     devicesManager(_devicesManager), deviceName(_deviceName), parametrs(_parametrs)
 {
 
 }
 
-SwitchOn::~SwitchOn()
+SMLSwitchOn::~SMLSwitchOn()
 {
 
 }
 
-byte_array SwitchOn::getDataForMachineTool() const
+byte_array SMLSwitchOn::getDataForMachineTool() const
 {
     byte_array data;
     try
@@ -27,7 +27,7 @@ byte_array SwitchOn::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOn::draw(OGLWidget *w) const
+void SMLSwitchOn::draw(OGLWidget *w) const
 {
     if(isArgumentsCorrect())
     {
@@ -37,17 +37,17 @@ void SwitchOn::draw(OGLWidget *w) const
     }
 }
 
-QString SwitchOn::getName() const
+QString SMLSwitchOn::getName() const
 {
     return name;
 }
 
-size_t SwitchOn::getId() const
+size_t SMLSwitchOn::getId() const
 {
     return id;
 }
 
-QStringList SwitchOn::getArguments() const
+QStringList SMLSwitchOn::getArguments() const
 {
     QStringList arguments =
     {
@@ -57,7 +57,7 @@ QStringList SwitchOn::getArguments() const
     return arguments;
 }
 
-void SwitchOn::setArguments(const QStringList arguments)
+void SMLSwitchOn::setArguments(const QStringList arguments)
 {
     if(arguments.size() >= 2)
     {
@@ -66,18 +66,18 @@ void SwitchOn::setArguments(const QStringList arguments)
     }
 }
 
-QString SwitchOn::getArgumentsString() const
+QString SMLSwitchOn::getArgumentsString() const
 {
     QString qArgumentsString = deviceName + ", " + parametrs;
     return qArgumentsString;
 }
 
-QColor SwitchOn::getColor() const
+QColor SMLSwitchOn::getColor() const
 {
     return color;
 }
 
-bool SwitchOn::isArgumentsCorrect() const
+bool SMLSwitchOn::isArgumentsCorrect() const
 {
     bool isCorrect = true;
 

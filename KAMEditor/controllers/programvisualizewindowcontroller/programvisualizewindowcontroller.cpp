@@ -11,7 +11,7 @@ ProgramVisualizeWindowController::~ProgramVisualizeWindowController()
     delete programVisualizeBridge;
 }
 
-std::vector<std::shared_ptr<Command> > ProgramVisualizeWindowController::getCommands()
+std::vector<std::shared_ptr<SMLCommand> > ProgramVisualizeWindowController::getCommands()
 {
     return interpretedCommands;
 }

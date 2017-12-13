@@ -1,22 +1,22 @@
-#include "ttline.h"
+#include "smlttline.h"
 
-TTLine::TTLine(PointsManager *_pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v) :
+SMLTTLine::SMLTTLine(PointsManager *_pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v) :
     pointsManager(_pointsManager), destinationPointNumber(_destinationPointNumber), airPassageIsNeed(_airPassageIsNeed), dz(_dz), v(_v)
 {
 
 }
 
-TTLine::~TTLine()
+SMLTTLine::~SMLTTLine()
 {
 
 }
 
-byte_array TTLine::getDataForMachineTool() const
+byte_array SMLTTLine::getDataForMachineTool() const
 {
 
 }
 
-void TTLine::draw(OGLWidget *w) const
+void SMLTTLine::draw(OGLWidget *w) const
 {
     if(isArgumentsCorrect())
     {
@@ -31,7 +31,7 @@ void TTLine::draw(OGLWidget *w) const
     }
 }
 
-Point3D TTLine::destinationPoint(OGLWidget *w) const
+Point3D SMLTTLine::destinationPoint(OGLWidget *w) const
 {
     Point3D destination;
     try
@@ -57,7 +57,7 @@ Point3D TTLine::destinationPoint(OGLWidget *w) const
     return destination;
 }
 
-bool TTLine::isArgumentsCorrect() const
+bool SMLTTLine::isArgumentsCorrect() const
 {
     bool isCorrect = true;
 
@@ -87,17 +87,17 @@ bool TTLine::isArgumentsCorrect() const
     return isCorrect;
 }
 
-size_t TTLine::getId() const
+size_t SMLTTLine::getId() const
 {
     return id;
 }
 
-QString TTLine::getName() const
+QString SMLTTLine::getName() const
 {
     return name;
 }
 
-QStringList TTLine::getArguments() const
+QStringList SMLTTLine::getArguments() const
 {
     QStringList arguments =
     {
@@ -109,7 +109,7 @@ QStringList TTLine::getArguments() const
     return arguments;
 }
 
-void TTLine::setArguments(const QStringList arguments)
+void SMLTTLine::setArguments(const QStringList arguments)
 {
     if(arguments.size() >= 4)
     {
@@ -120,14 +120,14 @@ void TTLine::setArguments(const QStringList arguments)
     }
 }
 
-QString TTLine::getArgumentsString() const
+QString SMLTTLine::getArgumentsString() const
 {
     QString qArgumentsString = "Точка назначения = " + destinationPointNumber +
             ",  Воздушный переход = " + QString::number(airPassageIsNeed) + ", dz = " + dz + ", v = " + v;
     return qArgumentsString;
 }
 
-QColor TTLine::getColor() const
+QColor SMLTTLine::getColor() const
 {
     return color;
 }

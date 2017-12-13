@@ -148,7 +148,7 @@ size_t MainWindowController::getCommandsCount()
 
 void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
 {
-    std::shared_ptr<Command> cmd = CommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
+    std::shared_ptr<SMLCommand> cmd = SMLCommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
     machineTool->getCommandsManager()->insertCommand(index, cmd);
     emit commandsUpdated();
 }
@@ -160,7 +160,7 @@ QList<QTreeWidgetItem *> MainWindowController::getCommands()
 
 QStringList MainWindowController::getCommandArguments(size_t index)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
     try
     {
         cmd = machineTool->getCommandsManager()->operator [](index);
@@ -373,7 +373,7 @@ void MainWindowController::deleteCommand(unsigned int number)
     }
 }
 
-std::vector< std::shared_ptr<Command> > MainWindowController::interpretCommands()
+std::vector< std::shared_ptr<SMLCommand> > MainWindowController::interpretCommands()
 {
     return CommandsInterpreter::updateProgram(
                 mainWindowBridge->getAllCommandsInVector(machineTool->getCommandsManager()),

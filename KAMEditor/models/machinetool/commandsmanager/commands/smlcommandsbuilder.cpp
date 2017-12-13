@@ -1,13 +1,13 @@
-#include "commandsbuilder.h"
+#include "smlcommandsbuilder.h"
 
-CommandsBuilder::CommandsBuilder()
+SMLCommandsBuilder::SMLCommandsBuilder()
 {
 
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList arguments, PointsManager *pointsManager, DevicesManager *devicesManager)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildCommand(int id, QStringList arguments, PointsManager *pointsManager, DevicesManager *devicesManager)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
     switch (id)
     {
     case CMD_SWITCH_ON:
@@ -58,9 +58,9 @@ std::shared_ptr<Command> CommandsBuilder::buildCommand(int id, QStringList argum
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildArcCommand(QStringList arguments)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildArcCommand(QStringList arguments)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString r = QString::number(0);
     QString al = QString::number(0);
@@ -88,14 +88,14 @@ std::shared_ptr<Command> CommandsBuilder::buildArcCommand(QStringList arguments)
         }
     }
 
-    cmd = std::shared_ptr<Command> (new CArc(r, al, fi, v));
+    cmd = std::shared_ptr<SMLCommand> (new CArc(r, al, fi, v));
 
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildCommentCommand(QStringList arguments)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildCommentCommand(QStringList arguments)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString text = "";
 
@@ -111,14 +111,14 @@ std::shared_ptr<Command> CommandsBuilder::buildCommentCommand(QStringList argume
         }
     }
 
-    cmd = std::shared_ptr<Command> (new Comment(text));
+    cmd = std::shared_ptr<SMLCommand> (new SMLComment(text));
 
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildLine(QStringList arguments)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildLine(QStringList arguments)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString dx = QString::number(0);
     QString dy = QString::number(0);
@@ -146,14 +146,14 @@ std::shared_ptr<Command> CommandsBuilder::buildLine(QStringList arguments)
         }
     }
 
-    cmd = std::shared_ptr<Command> (new Line(dx, dy, dz, v));
+    cmd = std::shared_ptr<SMLCommand> (new Line(dx, dy, dz, v));
 
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildPauseCommand(QStringList arguments)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildPauseCommand(QStringList arguments)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString pauseLength = 0;
 
@@ -169,14 +169,14 @@ std::shared_ptr<Command> CommandsBuilder::buildPauseCommand(QStringList argument
         }
     }
 
-    cmd = std::shared_ptr<Command> (new Pause(pauseLength));
+    cmd = std::shared_ptr<SMLCommand> (new SMLPause(pauseLength));
 
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildSwitchOnCommand(QStringList arguments, DevicesManager *devicesManager)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildSwitchOnCommand(QStringList arguments, DevicesManager *devicesManager)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString deviceName = "Device";
     QString parametrs = "Parametrs";
@@ -196,14 +196,14 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOnCommand(QStringList argum
         }
     }
 
-    cmd = std::shared_ptr<Command> (new SwitchOn(devicesManager, deviceName, parametrs));
+    cmd = std::shared_ptr<SMLCommand> (new SMLSwitchOn(devicesManager, deviceName, parametrs));
 
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList arguments, DevicesManager *devicesManager)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildSwitchOffCommand(QStringList arguments, DevicesManager *devicesManager)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
 
     QString deviceName = "Device";
 
@@ -219,14 +219,14 @@ std::shared_ptr<Command> CommandsBuilder::buildSwitchOffCommand(QStringList argu
         }
     }
 
-    cmd = std::shared_ptr<Command> (new SwitchOff(devicesManager, deviceName));
+    cmd = std::shared_ptr<SMLCommand> (new SMLSwitchOff(devicesManager, deviceName));
 
     return  cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildSMLVariableCommand(QStringList arguments)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildSMLVariableCommand(QStringList arguments)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
     QString key = "key";
     QString value = QString::number(0);
     for(int i = 0; i < arguments.size(); i++)
@@ -242,13 +242,13 @@ std::shared_ptr<Command> CommandsBuilder::buildSMLVariableCommand(QStringList ar
             break;
         }
     }
-    cmd = std::shared_ptr<Command> (new SMLVariable(key, value));
+    cmd = std::shared_ptr<SMLCommand> (new SMLVariable(key, value));
     return cmd;
 }
 
-std::shared_ptr<Command> CommandsBuilder::buildTTLineCommand(QStringList arguments, PointsManager* pointsManager)
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildTTLineCommand(QStringList arguments, PointsManager* pointsManager)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
     QString destinationPointNumber = QString::number(0);
     bool airPassageIsNeed = false;
     QString dz = QString::number(0);
@@ -273,6 +273,6 @@ std::shared_ptr<Command> CommandsBuilder::buildTTLineCommand(QStringList argumen
             break;
         }
     }
-    cmd = std::shared_ptr<Command> (new TTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
+    cmd = std::shared_ptr<SMLCommand> (new SMLTTLine(pointsManager, destinationPointNumber, airPassageIsNeed, dz, v));
     return cmd;
 }

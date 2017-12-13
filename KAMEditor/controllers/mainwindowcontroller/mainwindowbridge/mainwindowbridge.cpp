@@ -250,7 +250,7 @@ QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsMan
     {
         try
         {
-            std::shared_ptr<Command> command = commandsManager->operator [](i);
+            std::shared_ptr<SMLCommand> command = commandsManager->operator [](i);
             QTreeWidgetItem* item = new QTreeWidgetItem();
             item->setText(0, QString::number(i+1));
             item->setText(1, command->getName());
@@ -269,9 +269,9 @@ QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsMan
     return commands;
 }
 
-std::vector<std::shared_ptr<Command> > MainWindowBridge::getAllCommandsInVector(CommandsManager *commandsManager)
+std::vector<std::shared_ptr<SMLCommand> > MainWindowBridge::getAllCommandsInVector(CommandsManager *commandsManager)
 {
-    std::vector< std::shared_ptr<Command> > commandsVector;
+    std::vector< std::shared_ptr<SMLCommand> > commandsVector;
     size_t commandsCount = commandsManager->commandsCount();
     try
     {

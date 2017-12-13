@@ -15,8 +15,8 @@ public:
     QStringList commandsHeaders();
     QStringList commandsNumbers(unsigned int commandsCount);
 
-    QList<QTableWidgetItem*> commandsNames(std::vector<std::shared_ptr<Command> > commands);
-    QList<QTableWidgetItem*> commandsArguments(std::vector<std::shared_ptr<Command> > commands);
+    QList<QTableWidgetItem*> commandsNames(std::vector<std::shared_ptr<SMLCommand> > commands);
+    QList<QTableWidgetItem*> commandsArguments(std::vector<std::shared_ptr<SMLCommand> > commands);
 };
 
 #endif // PROGRAMVISUALIZEWINDOWBRIDGE_H

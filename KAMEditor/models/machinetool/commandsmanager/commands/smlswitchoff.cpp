@@ -1,6 +1,6 @@
-#include "switchoff.h"
+#include "smlswitchoff.h"
 
-SwitchOff::SwitchOff(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
+SMLSwitchOff::SMLSwitchOff(DevicesManager *_devicesManager, QString _deviceName, QString _parametrs) :
     devicesManager(_devicesManager),
     deviceName(_deviceName),
     parametrs(_parametrs)
@@ -8,12 +8,12 @@ SwitchOff::SwitchOff(DevicesManager *_devicesManager, QString _deviceName, QStri
 
 }
 
-SwitchOff::~SwitchOff()
+SMLSwitchOff::~SMLSwitchOff()
 {
 
 }
 
-byte_array SwitchOff::getDataForMachineTool() const
+byte_array SMLSwitchOff::getDataForMachineTool() const
 {
     byte_array data;
     try
@@ -29,7 +29,7 @@ byte_array SwitchOff::getDataForMachineTool() const
     return data;
 }
 
-void SwitchOff::draw(OGLWidget *w) const
+void SMLSwitchOff::draw(OGLWidget *w) const
 {
     if(isArgumentsCorrect())
     {
@@ -39,17 +39,17 @@ void SwitchOff::draw(OGLWidget *w) const
     }
 }
 
-QString SwitchOff::getName() const
+QString SMLSwitchOff::getName() const
 {
     return name;
 }
 
-size_t SwitchOff::getId() const
+size_t SMLSwitchOff::getId() const
 {
     return id;
 }
 
-QStringList SwitchOff::getArguments() const
+QStringList SMLSwitchOff::getArguments() const
 {
     QStringList arguments =
     {
@@ -59,7 +59,7 @@ QStringList SwitchOff::getArguments() const
     return arguments;
 }
 
-void SwitchOff::setArguments(const QStringList arguments)
+void SMLSwitchOff::setArguments(const QStringList arguments)
 {
     if(arguments.size() >= 2)
     {
@@ -68,18 +68,18 @@ void SwitchOff::setArguments(const QStringList arguments)
     }
 }
 
-QString SwitchOff::getArgumentsString() const
+QString SMLSwitchOff::getArgumentsString() const
 {
     QString qArgumentsString = deviceName + ", " + parametrs;
     return qArgumentsString;
 }
 
-QColor SwitchOff::getColor() const
+QColor SMLSwitchOff::getColor() const
 {
     return color;
 }
 
-bool SwitchOff::isArgumentsCorrect() const
+bool SMLSwitchOff::isArgumentsCorrect() const
 {
     return true;
 }

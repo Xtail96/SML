@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "models/machinetool/commandsmanager/commands/switchon.h"
+#include "models/machinetool/commandsmanager/commands/smlswitchon.h"
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {

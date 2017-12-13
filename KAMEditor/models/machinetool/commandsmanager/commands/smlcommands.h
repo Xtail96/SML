@@ -3,11 +3,11 @@
 
 #include "arc.h"
 #include "line.h"
-#include "comment.h"
-#include "pause.h"
-#include "switchoff.h"
-#include "switchon.h"
-#include "ttline.h"
+#include "smlcomment.h"
+#include "smlpause.h"
+#include "smlswitchoff.h"
+#include "smlswitchon.h"
+#include "smlttline.h"
 #include "smlvariable.h"
 
 #endif // COMMANDS_H

@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <memory>
 
-#include "commands/command.h"
+#include "commands/smlcommand.h"
 
-class Command;
+class SMLCommand;
 
 /**
  * @brief Класс Менеджер команд
@@ -19,8 +19,8 @@ public:
      * @brief Создает менеджер команд
      * @param cmds вектор добавляемых команд (необязательный параметр)
      */
-    CommandsManager(std::vector< std::shared_ptr<Command> > cmds =
-            std::vector< std::shared_ptr<Command> >());
+    CommandsManager(std::vector< std::shared_ptr<SMLCommand> > cmds =
+            std::vector< std::shared_ptr<SMLCommand> >());
 
     /**
      * @brief Конструктор копирования для класса Менеджер команд
@@ -34,7 +34,7 @@ public:
      * @return ссылку на команду (на указатель на команду)
      * \warning Если idx превышает число команд, бросает исключение out_of_range
      */
-    std::shared_ptr<Command>& operator[](size_t idx);
+    std::shared_ptr<SMLCommand>& operator[](size_t idx);
 
     /**
      * @brief Возвращает число команд
@@ -46,25 +46,25 @@ public:
      * @brief Добавляет команду в список команд
      * @param cmd указатель на добавляемую команду
      */
-    void addCommand(Command* cmd);
+    void addCommand(SMLCommand* cmd);
 
     /**
      * @brief Добавляет команду в список команд
      * @param cmd умный указатель на добавляемую команду
      */
-    void addCommand(std::shared_ptr<Command> cmd);
+    void addCommand(std::shared_ptr<SMLCommand> cmd);
 
     /**
      * @brief Удаляет команду из списка команд
      * @param cmd указатель на удаляемую команду
      */
-    void deleteCommand(Command* cmd);
+    void deleteCommand(SMLCommand* cmd);
 
     /**
      * @brief Удаляет команду из списка команд
      * @param cmd умный указатель на удаляемую команду
      */
-    void deleteCommand(std::shared_ptr<Command> cmd);
+    void deleteCommand(std::shared_ptr<SMLCommand> cmd);
 
     /**
      * @brief Удаляет команду из списка команд
@@ -87,12 +87,12 @@ public:
      *
      * Если pos превышает размер списка, вставка происходит в конец списка
      */
-    void insertCommand(size_t pos, std::shared_ptr<Command> cmd);
+    void insertCommand(size_t pos, std::shared_ptr<SMLCommand> cmd);
 
 
 private:
     /// Список всех команд
-    std::vector< std::shared_ptr<Command> > m_commands;
+    std::vector< std::shared_ptr<SMLCommand> > m_commands;
 };
 
 #endif // COMMANDSMANAGER_H

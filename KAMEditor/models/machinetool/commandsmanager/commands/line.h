@@ -1,11 +1,11 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "command.h"
+#include "smlcommand.h"
 
-class Command;
+class SMLCommand;
 
-class Line : public Command
+class Line : public SMLCommand
 {
 public:
     Line(QString dx, QString dy, QString dz, QString v = QString::number(1));

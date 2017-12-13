@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 
-#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
+#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
 #include "models/machinetool/pointsmanager/point/pointsbuilder.h"
 #include "models/machinetool/commandsmanager/commandsmanager.h"
 
@@ -143,7 +143,7 @@ private:
      * \param commandString строка, описывающая SML-Команду
      * \return умный указатель на SML-Команду
      */
-    std::shared_ptr<Command> makeCommand(QString commandString);
+    std::shared_ptr<SMLCommand> makeCommand(QString commandString);
 
     /*!
      * \brief Создает SML-Точку по строке
@@ -157,7 +157,7 @@ private:
      * \param commmand умный указатель на SML-команду
      * \return строка, описывающая SML-Команду в формате *.7Kam
      */
-    QString makeCommandString(std::shared_ptr<Command> commmand);
+    QString makeCommandString(std::shared_ptr<SMLCommand> commmand);
 
     /*!
      * \brief Создает строку, описывающую SML-Точку в формате *.7Kam

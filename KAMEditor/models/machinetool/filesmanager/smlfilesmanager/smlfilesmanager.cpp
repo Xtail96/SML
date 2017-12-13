@@ -163,13 +163,13 @@ void SMLFilesManager::transferToSML(QString content)
     }
 }
 
-std::shared_ptr<Command> SMLFilesManager::makeCommand(QString commandString)
+std::shared_ptr<SMLCommand> SMLFilesManager::makeCommand(QString commandString)
 {
-    std::shared_ptr<Command> cmd;
+    std::shared_ptr<SMLCommand> cmd;
     QStringList splittedCommandString = commandString.split(":");
     int id = splittedCommandString[0].toInt();
     QStringList commandsArguments = splittedCommandString[1].split(",");
-    cmd = CommandsBuilder::buildCommand(id, commandsArguments, pointsManager, devicesManager);
+    cmd = SMLCommandsBuilder::buildCommand(id, commandsArguments, pointsManager, devicesManager);
     return cmd;
 }
 
@@ -187,7 +187,7 @@ void SMLFilesManager::transferToSMLCommands(QStringList commandsStrings)
     {
         if(commandString.size() > 0)
         {
-            std::shared_ptr<Command> cmd = makeCommand(commandString);
+            std::shared_ptr<SMLCommand> cmd = makeCommand(commandString);
             commandsManager->addCommand(cmd);
         }
     }
@@ -212,7 +212,7 @@ void SMLFilesManager::saveCommands(QFile &file)
     size_t commandsCount = commandsManager->commandsCount();
     for (size_t idx = 0; idx < commandsCount; idx++)
     {
-        std::shared_ptr<Command> command = commandsManager->operator [](idx);
+        std::shared_ptr<SMLCommand> command = commandsManager->operator [](idx);
         QString commandString = makeCommandString(command);
         file.write(commandString.toUtf8());
     }
@@ -251,7 +251,7 @@ void SMLFilesManager::resetPoints()
     pointsManager->deletePoints(0, pointsCount);
 }
 
-QString SMLFilesManager::makeCommandString(std::shared_ptr<Command> commmand)
+QString SMLFilesManager::makeCommandString(std::shared_ptr<SMLCommand> commmand)
 {
     QString commandString = QString::number(commmand->getId()) + QString(":");
     QStringList commandsArguments =  commmand->getArguments();

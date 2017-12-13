@@ -11,10 +11,10 @@ class OGLWidget;
 /**
  * @brief Абстрактный класс "Команда"
  */
-class Command
+class SMLCommand
 {
 public:
-    virtual ~Command() {}
+    virtual ~SMLCommand() {}
 
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду

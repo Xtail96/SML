@@ -17,7 +17,7 @@ public:
     explicit ProgramVisualizeWindowController(MainWindowController* _mainWindowController, QObject *parent = nullptr);
     ~ProgramVisualizeWindowController();
 
-    std::vector< std::shared_ptr<Command> > getCommands();
+    std::vector< std::shared_ptr<SMLCommand> > getCommands();
 
     std::vector< std::shared_ptr<Point3D> > get3DPoints();
 
@@ -38,7 +38,7 @@ public slots:
 private:
     ProgramVisualizeWindowBridge* programVisualizeBridge;
 
-    std::vector< std::shared_ptr<Command> > interpretedCommands;
+    std::vector< std::shared_ptr<SMLCommand> > interpretedCommands;
 
     PointsManager* pointsManager;
 

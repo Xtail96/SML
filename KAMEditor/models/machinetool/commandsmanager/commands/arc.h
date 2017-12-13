@@ -3,9 +3,9 @@
 
 #include <cmath>
 
-#include "command.h"
+#include "smlcommand.h"
 
-class CArc : public Command
+class CArc : public SMLCommand
 {
 public:
     CArc(QString R, QString Al, QString Fi, QString v = QString::number(1));

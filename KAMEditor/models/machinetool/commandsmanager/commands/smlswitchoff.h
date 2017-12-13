@@ -1,18 +1,21 @@
-#ifndef COMMENT_H
-#define COMMENT_H
+#ifndef SWITCHOFF_H
+#define SWITCHOFF_H
 
-#include "models/machinetool/commandsmanager/commands/command.h"
+#include "models/machinetool/commandsmanager/commands/smlcommand.h"
 
-class Comment : public Command
+class SMLSwitchOff : public SMLCommand
 {
 private:
-    size_t id = CMD_COMMENT;
-    const QString name = "Комментарий";
-    QString comment;
-    QColor color = QColor(SmlColors::lightGray());
+    size_t id = CMD_SWITCH_OFF;
+    const QString name = "Выключить";
+
+    DevicesManager* devicesManager;
+    QString deviceName;
+    QString parametrs;
+    QColor color = QColor(SmlColors::green());
 public:
-    Comment(QString _comment = "");
-    ~Comment();
+    SMLSwitchOff(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
+    ~SMLSwitchOff();
 
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
@@ -52,4 +55,4 @@ public:
     bool isArgumentsCorrect() const override;
 };
 
-#endif // COMMENT_H
+#endif // SWITCHOFF_H

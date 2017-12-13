@@ -88,16 +88,11 @@ SOURCES += main.cpp\
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
-    models/machinetool/commandsmanager/commands/switchon.cpp \
-    models/machinetool/commandsmanager/commands/switchoff.cpp \
-    models/machinetool/commandsmanager/commands/comment.cpp \
-    models/machinetool/commandsmanager/commands/pause.cpp \
     gui/points/toselectionpointdialog.cpp \
     models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.cpp \
     gui/options/kabriolwindow.cpp \
     gui/options/toollengthsensorwindow.cpp \
     gui/options/lubricationsystemwindow.cpp \
-    models/machinetool/commandsmanager/commands/ttline.cpp \
     gui/programvisualizewindow.cpp \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.cpp \
     controllers/mainwindowcontroller/mainwindowcontroller.cpp \
@@ -106,12 +101,17 @@ SOURCES += main.cpp\
     gui/widgets/smleditortreewidget.cpp \
     gui/widgets/smlcommandslistwidget.cpp \
     gui/widgets/smlpointstablewidget.cpp \
-    models/machinetool/commandsmanager/commands/commandsbuilder.cpp \
     models/machinetool/pointsmanager/point/pointsbuilder.cpp \
     models/controllerconnector/kflopmanager/kflopmanager.cpp \
     gui/logdialog.cpp \
     models/machinetool/commandsmanager/commands/smlvariable.cpp \
-    gui/commands/smlvariabledialog.cpp
+    gui/commands/smlvariabledialog.cpp \
+    models/machinetool/commandsmanager/commands/smlcommandsbuilder.cpp \
+    models/machinetool/commandsmanager/commands/smlcomment.cpp \
+    models/machinetool/commandsmanager/commands/smlpause.cpp \
+    models/machinetool/commandsmanager/commands/smlttline.cpp \
+    models/machinetool/commandsmanager/commands/smlswitchoff.cpp \
+    models/machinetool/commandsmanager/commands/smlswitchon.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -150,8 +150,6 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commandsmanager.h \
     models/machinetool/commandsmanager/commands/arc.h \
     models/machinetool/commandsmanager/commands/line.h \
-    models/machinetool/commandsmanager/commands/commands.h \
-    models/machinetool/commandsmanager/commands/command.h \
     models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h \
     models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h \
     models/machinetool/pointsmanager/point/point.h \
@@ -166,16 +164,11 @@ HEADERS  += gui/mainwindow.h \
     models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
-    models/machinetool/commandsmanager/commands/switchon.h \
-    models/machinetool/commandsmanager/commands/switchoff.h \
-    models/machinetool/commandsmanager/commands/comment.h \
-    models/machinetool/commandsmanager/commands/pause.h \
     gui/points/toselectionpointdialog.h \
     models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h \
     gui/options/kabriolwindow.h \
     gui/options/toollengthsensorwindow.h \
     gui/options/lubricationsystemwindow.h \
-    models/machinetool/commandsmanager/commands/ttline.h \
     gui/programvisualizewindow.h \
     controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h \
     controllers/mainwindowcontroller/mainwindowcontroller.h \
@@ -184,12 +177,19 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smleditortreewidget.h \
     gui/widgets/smlcommandslistwidget.h \
     gui/widgets/smlpointstablewidget.h \
-    models/machinetool/commandsmanager/commands/commandsbuilder.h \
     models/machinetool/pointsmanager/point/pointsbuilder.h \
     models/controllerconnector/kflopmanager/kflopmanager.h \
     gui/logdialog.h \
     models/machinetool/commandsmanager/commands/smlvariable.h \
-    gui/commands/smlvariabledialog.h
+    gui/commands/smlvariabledialog.h \
+    models/machinetool/commandsmanager/commands/smlcommand.h \
+    models/machinetool/commandsmanager/commands/smlttline.h \
+    models/machinetool/commandsmanager/commands/smlcommandsbuilder.h \
+    models/machinetool/commandsmanager/commands/smlswitchoff.h \
+    models/machinetool/commandsmanager/commands/smlswitchon.h \
+    models/machinetool/commandsmanager/commands/smlpause.h \
+    models/machinetool/commandsmanager/commands/smlcomment.h \
+    models/machinetool/commandsmanager/commands/smlcommands.h
 
 
 FORMS    += gui/mainwindow.ui \

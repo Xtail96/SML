@@ -1,9 +1,9 @@
 #ifndef SMLVARIABLE_H
 #define SMLVARIABLE_H
 
-#include "command.h"
+#include "smlcommand.h"
 
-class SMLVariable : public Command
+class SMLVariable : public SMLCommand
 {
 private:
     size_t id = CMD_VARIABLE;

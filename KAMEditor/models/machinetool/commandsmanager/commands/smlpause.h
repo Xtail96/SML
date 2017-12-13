@@ -1,21 +1,18 @@
-#ifndef SWITCHON_H
-#define SWITCHON_H
+#ifndef PAUSE_H
+#define PAUSE_H
 
-#include "models/machinetool/commandsmanager/commands/command.h"
+#include "models/machinetool/commandsmanager/commands/smlcommand.h"
 
-class SwitchOn : public Command
+class SMLPause : public SMLCommand
 {
-    size_t id = CMD_SWITCH_ON;
-    const QString name = "Включить";
-
-    DevicesManager* devicesManager;
-
-    QString deviceName;
-    QString parametrs;
+private:
+    size_t id = CMD_PAUSE;
+    const QString name = "Пауза";
+    QString length;
     QColor color = QColor(SmlColors::red());
 public:
-    SwitchOn(DevicesManager* _devicesManager, QString _deviceName, QString _parametrs = "");
-    ~SwitchOn();
+    SMLPause(QString _length);
+    ~SMLPause();
 
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
@@ -55,4 +52,4 @@ public:
     bool isArgumentsCorrect() const override;
 };
 
-#endif // SWITCHON_H
+#endif // PAUSE_H

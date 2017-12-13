@@ -1,6 +1,6 @@
-#include "pause.h"
+#include "smlpause.h"
 
-Pause::Pause(QString _length)
+SMLPause::SMLPause(QString _length)
 {
     try
     {
@@ -21,18 +21,18 @@ Pause::Pause(QString _length)
     }
 }
 
-Pause::~Pause()
+SMLPause::~SMLPause()
 {
 
 }
 
-byte_array Pause::getDataForMachineTool() const
+byte_array SMLPause::getDataForMachineTool() const
 {
     byte_array data;
     return data;
 }
 
-void Pause::draw(OGLWidget *w) const
+void SMLPause::draw(OGLWidget *w) const
 {
     if(isArgumentsCorrect())
     {
@@ -42,17 +42,17 @@ void Pause::draw(OGLWidget *w) const
     }
 }
 
-QString Pause::getName() const
+QString SMLPause::getName() const
 {
     return name;
 }
 
-size_t Pause::getId() const
+size_t SMLPause::getId() const
 {
     return id;
 }
 
-QStringList Pause::getArguments() const
+QStringList SMLPause::getArguments() const
 {
     QStringList arguments =
     {
@@ -61,7 +61,7 @@ QStringList Pause::getArguments() const
     return arguments;
 }
 
-void Pause::setArguments(const QStringList arguments)
+void SMLPause::setArguments(const QStringList arguments)
 {
     if(arguments.length() >= 1)
     {
@@ -69,17 +69,17 @@ void Pause::setArguments(const QStringList arguments)
     }
 }
 
-QString Pause::getArgumentsString() const
+QString SMLPause::getArgumentsString() const
 {
     return length + " секунд";
 }
 
-QColor Pause::getColor() const
+QColor SMLPause::getColor() const
 {
     return color;
 }
 
-bool Pause::isArgumentsCorrect() const
+bool SMLPause::isArgumentsCorrect() const
 {
     bool isCorrect = true;
     size_t tmp;

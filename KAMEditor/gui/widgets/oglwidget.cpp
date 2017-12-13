@@ -1,6 +1,6 @@
 #include "oglwidget.h"
 
-#include "models/machinetool/commandsmanager/commands/commands.h"
+#include "models/machinetool/commandsmanager/commands/smlcommands.h"
 #include "models/machinetool/commandsinterpreter/commandsinterpreter.h"
 
 OGLWidget::OGLWidget(QWidget *parent) :
@@ -190,7 +190,7 @@ void OGLWidget::setPoints(const std::vector<std::shared_ptr<Point3D> > &value)
     points = value;
 }
 
-void OGLWidget::setCommands(const std::vector<std::shared_ptr<Command> > &value)
+void OGLWidget::setCommands(const std::vector<std::shared_ptr<SMLCommand> > &value)
 {
     m_commands = value;
 }

@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 
-#include "models/machinetool/commandsmanager/commands/commandsbuilder.h"
+#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
 
 class PointsManager;
 class DevicesManager;
@@ -35,8 +35,8 @@ public:
      * \param devicesManager менеджер устройств
      * \return Обновленный список команд
      */
-    static std::vector< std::shared_ptr<Command> > updateProgram(
-            std::vector< std::shared_ptr<Command> > commands,
+    static std::vector< std::shared_ptr<SMLCommand> > updateProgram(
+            std::vector< std::shared_ptr<SMLCommand> > commands,
             PointsManager* pointsmanager,
             DevicesManager* devicesManager);
 
@@ -48,8 +48,8 @@ public:
      * \param devicesManager менеджер устройств
      * \return Обновленный список команд
      */
-    static std::vector< std::shared_ptr<Command> > makeProgram(
-            std::vector< std::shared_ptr<Command> > commands,
+    static std::vector< std::shared_ptr<SMLCommand> > makeProgram(
+            std::vector< std::shared_ptr<SMLCommand> > commands,
             PointsManager* pointsManager,
             DevicesManager* devicesManager);
 private:
@@ -58,8 +58,8 @@ private:
      * \brief Подставляет значения переменных по их именам
      * \param commands список команд
      */
-    static std::vector< std::shared_ptr<Command> > inlineVariables(
-            std::vector< std::shared_ptr<Command> > commands);
+    static std::vector< std::shared_ptr<SMLCommand> > inlineVariables(
+            std::vector< std::shared_ptr<SMLCommand> > commands);
 
     /*!
      * \brief Подставляет значение одной переменной по ее имени во все места, где это нужно
@@ -68,16 +68,16 @@ private:
      * \param commands список команд
      * \return Обновленный список команд
      */
-    static std::vector< std::shared_ptr<Command> > inlineVariable(
-            QString key, QString value, std::vector<std::shared_ptr<Command> > commands);
+    static std::vector< std::shared_ptr<SMLCommand> > inlineVariable(
+            QString key, QString value, std::vector<std::shared_ptr<SMLCommand> > commands);
 
     /*!
      * \brief Удаляет из УП коментарии
      * \param commands список команд
      * \return Обновленный список команд
      */
-    static std::vector< std::shared_ptr<Command> > eraseComments(
-            std::vector<std::shared_ptr<Command> > commands);
+    static std::vector< std::shared_ptr<SMLCommand> > eraseComments(
+            std::vector<std::shared_ptr<SMLCommand> > commands);
 
     /*!
      * \brief Удаляет одну или несколько команд из списка команд
@@ -85,9 +85,9 @@ private:
      * \param commands список команд, из которых необходимо произвести уаление
      * \return Обновленный список команд
      */
-    static std::vector< std::shared_ptr<Command> > eraseCommands(
+    static std::vector< std::shared_ptr<SMLCommand> > eraseCommands(
             QList<size_t> indexes,
-            std::vector<std::shared_ptr<Command> > commands);
+            std::vector<std::shared_ptr<SMLCommand> > commands);
 };
 
 #endif // COMMANDINTERPRETER_H

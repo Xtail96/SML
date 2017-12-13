@@ -1,13 +1,13 @@
 #ifndef TTLINE_H
 #define TTLINE_H
 
-#include "command.h"
+#include "smlcommand.h"
 
-class TTLine : public Command
+class SMLTTLine : public SMLCommand
 {
 public:
-    TTLine(PointsManager* _pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v = QString::number(1));
-    ~TTLine();
+    SMLTTLine(PointsManager* _pointsManager, QString _destinationPointNumber, bool _airPassageIsNeed, QString _dz, QString _v = QString::number(1));
+    ~SMLTTLine();
 
     byte_array getDataForMachineTool() const override;
 

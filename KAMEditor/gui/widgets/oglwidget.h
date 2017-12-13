@@ -18,7 +18,7 @@
 #include "models/structs.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
 
-class Command;
+class SMLCommand;
 
 
 /*!
@@ -276,7 +276,7 @@ public:
      * \brief Устанавливает значение контейнера команд
      * \param value контейнер команд
      */
-    void setCommands(const std::vector<std::shared_ptr<Command> > &value);
+    void setCommands(const std::vector<std::shared_ptr<SMLCommand> > &value);
 
     /*!
      * \brief Устанавливает значение контейнера с точками
@@ -377,7 +377,7 @@ protected:
     /*!
      * \brief Контейнер умных указателеней на команды
      */
-    std::vector< std::shared_ptr<Command> > m_commands;
+    std::vector< std::shared_ptr<SMLCommand> > m_commands;
 
     /*!
      * \brief Нужно ли отрисовывать точки (начальное значение = false)
