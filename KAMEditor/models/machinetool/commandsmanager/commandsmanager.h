@@ -91,7 +91,7 @@ public:
 
 
 private:
-    /// Список всех команд
+    /// Список всех выбранных команд
     std::vector< std::shared_ptr<SMLCommand> > m_commands;
 };
 
