@@ -499,6 +499,10 @@ void OGLWidget::drawPoint(Point3D src, QString text)
 
 void OGLWidget::drawLine(double dx, double dy, double dz, double v)
 {
+    if(v < 0) {
+        return;
+    }
+
     double newX = currentPoint.x + dx;
     double newY = currentPoint.y + dy;
     double newZ = currentPoint.z + dz;
@@ -528,6 +532,10 @@ void OGLWidget::drawLine(double dx, double dy, double dz, double v)
 
 void OGLWidget::drawTTLine(Point3D dest, double v)
 {
+    if(v < 0) {
+        return;
+    }
+
     if(dest.z > 0 && updateCurrentPointIsNeed)
     {
         glEnable(GL_LINE_STIPPLE);
@@ -552,6 +560,9 @@ void OGLWidget::drawTTLine(Point3D dest, double v)
 
 void OGLWidget::drawAirPassage(Point3D dest, double dz, double v)
 {
+    if(v < 0) {
+        return;
+    }
 
     double newZ = currentPoint.z + dz;
     Point3D firstVertex = Point3D(currentPoint.x, currentPoint.y, newZ);
@@ -595,6 +606,10 @@ void OGLWidget::drawAirPassage(Point3D dest, double dz, double v)
 
 void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, double v)
 {
+    if(v < 0) {
+        return;
+    }
+
     double angleIncrement = 0.01;
 
     double x, y;
