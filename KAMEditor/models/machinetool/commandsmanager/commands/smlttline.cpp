@@ -13,7 +13,8 @@ SMLTTLine::~SMLTTLine()
 
 byte_array SMLTTLine::getDataForMachineTool() const
 {
-
+    byte_array data;
+    return data;
 }
 
 void SMLTTLine::draw(OGLWidget *w) const

@@ -279,10 +279,10 @@ std::vector<std::shared_ptr<SMLCommand> > MainWindowBridge::getAllCommandsInVect
         {
             commandsVector.push_back(commandsManager->operator [](i));
         }
-        return commandsVector;
     }
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
+    return commandsVector;
 }

@@ -7,7 +7,8 @@ CArc::CArc(QString R, QString Al, QString Fi, QString v) :
 
 byte_array CArc::getDataForMachineTool() const
 {
-
+    byte_array data;
+    return data;
 }
 
 void CArc::draw(OGLWidget *w) const

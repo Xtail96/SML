@@ -8,7 +8,8 @@ Line::Line(QString dx, QString dy, QString dz, QString v) :
 
 byte_array Line::getDataForMachineTool() const
 {
-
+    byte_array data;
+    return data;
 }
 
 void Line::draw(OGLWidget *w) const

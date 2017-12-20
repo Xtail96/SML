@@ -11,17 +11,6 @@ SMLComment::~SMLComment()
 
 }
 
-byte_array SMLComment::getDataForMachineTool() const
-{
-    byte_array data;
-    return data;
-}
-
-void SMLComment::draw(OGLWidget *w) const
-{
-
-}
-
 QString SMLComment::getName() const
 {
     return "***";

@@ -15,11 +15,6 @@ SMLVariable::~SMLVariable()
 
 }
 
-void SMLVariable::draw(OGLWidget *w) const
-{
-
-}
-
 QString SMLVariable::getName() const
 {
     return name;
@@ -66,10 +61,4 @@ bool SMLVariable::isArgumentsCorrect() const
     double tmp;
     tmp = value.toDouble(&isCorrect);
     return isCorrect;
-}
-
-byte_array SMLVariable::getDataForMachineTool() const
-{
-    byte_array ignored;
-    return ignored;
 }

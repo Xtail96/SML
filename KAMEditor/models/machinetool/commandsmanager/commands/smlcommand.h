@@ -9,7 +9,7 @@
 class OGLWidget;
 
 /**
- * @brief Абстрактный класс "Команда"
+ * @brief Виртуальный базовый класс "SML-Команда"
  */
 class SMLCommand
 {
@@ -19,13 +19,21 @@ public:
     /**
      * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
      */
-    virtual byte_array getDataForMachineTool() const = 0;
+    virtual byte_array getDataForMachineTool() const
+    {
+        byte_array data;
+        data.push_back(0);
+        return data;
+    }
 
     /**
      * @brief Отвечает за графическое отображение команды
      * @param w виджет, куда происходит отрисовка
      */
-    virtual void draw(OGLWidget* w) const = 0;
+    virtual void draw(OGLWidget* w) const
+    {
+        w->update();
+    }
 
     /**
      * @return имя текущей команды

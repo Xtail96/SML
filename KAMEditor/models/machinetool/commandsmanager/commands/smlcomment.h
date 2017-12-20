@@ -15,17 +15,6 @@ public:
     ~SMLComment();
 
     /**
-     * @brief Получает данные, которые нужно отправить на станок, чтобы выполнить команду
-     */
-    byte_array getDataForMachineTool() const override;
-
-    /**
-     * @brief Отвечает за графическое отображение команды
-     * @param w виджет, куда происходит отрисовка
-     */
-    void draw(OGLWidget* w) const override;
-
-    /**
      * @return имя текущей команды
      */
     QString getName() const override;
