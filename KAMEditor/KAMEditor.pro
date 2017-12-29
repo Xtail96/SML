@@ -114,13 +114,6 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/smlswitchon.cpp
 
 HEADERS  += gui/mainwindow.h \
-<<<<<<< HEAD
-    machinetool.h \
-    command.h \
-    vector.h \
-    point.h \
-=======
->>>>>>> mvc
     gui/points/addpointdialog.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
@@ -143,10 +136,6 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/tttarcdialog.h \
     gui/commands/splinedialog.h \
     gui/commands/ttttsplinedialog.h \
-<<<<<<< HEAD
-    gui/commands/adddevicedialog.h \
-    settingsmanager.h
-=======
     gui/gcodessyntaxhighlighter.h \
     gui/widgets/oglwidget.h \
     models/structs.h \
@@ -202,7 +191,6 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/smlcomment.h \
     models/machinetool/commandsmanager/commands/smlcommands.h
 
->>>>>>> mvc
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

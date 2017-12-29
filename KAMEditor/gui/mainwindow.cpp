@@ -208,15 +208,8 @@ void MainWindow::updateAxisesBoard()
 
 void MainWindow::updatePointsEditorWidgets()
 {
-<<<<<<< HEAD
-    SettingsManager settings;
-    settings.setupToMachineTool();
-    dimensionsFromMachineTool();
-    electricialSettingsFromMachineTool();
-=======
     updatePointsEditorFields();
     updatePointsEditorButtons();
->>>>>>> mvc
 }
 
 void MainWindow::updateSensorsBoard()
@@ -413,21 +406,14 @@ void MainWindow::updateCoordinatesDisplay()
 {
     /*MachineTool &i = MachineTool::Instance();
 
-    Vector current = i.getCurrentCoordinates();
-    Vector base = i.getBaseCoordinates();
-    Vector park = i.getParkCoordinates();
+    VectorDouble current = i.getCurrentCoordinates();
+    VectorDouble base = i.getBaseCoordinates();
+    VectorDouble park = i.getParkCoordinates();
 
-<<<<<<< HEAD
-    std::vector<std::pair<QListWidget*, Vector>> widgets = {
-        { ui->listWidget_currentCoordinates, current },
-        { ui->listWidget_baseCoordinates, base },
-        { ui->listWidget_parkCoordinates, park }
-=======
     std::vector<std::pair<QListWidget*, VectorDouble>> widgets = {
         { ui->currentCoordinatesListWidget, current },
         { ui->baseCoordinatesListWidget, base },
         { ui->parkCoordinatesListWidget, park }
->>>>>>> mvc
     };
 
     for (auto i = widgets.begin(); i != widgets.end(); i++)
@@ -690,13 +676,8 @@ void MainWindow::on_discreteRadioButton_5_clicked()
 
 void MainWindow::on_movementXPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble();
->>>>>>> mvc
     v.x = 1;
 
     i.stepMove(v);*/
@@ -704,13 +685,8 @@ void MainWindow::on_movementXPositivePushButton_clicked()
 
 void MainWindow::on_movementXNegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble();
->>>>>>> mvc
     v.x = -1;
 
     i.stepMove(v);*/
@@ -718,13 +694,8 @@ void MainWindow::on_movementXNegativePushButton_clicked()
 
 void MainWindow::on_movementYPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.y = 1;
 
     i.stepMove(v);*/
@@ -732,13 +703,8 @@ void MainWindow::on_movementYPositivePushButton_clicked()
 
 void MainWindow::on_movementYNegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.y = -1;
 
     i.stepMove(v);*/
@@ -746,13 +712,8 @@ void MainWindow::on_movementYNegativePushButton_clicked()
 
 void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.x = -1;
     v.y = 1;
 
@@ -761,13 +722,8 @@ void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 
 void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.x = 1;
     v.y = 1;
 
@@ -776,13 +732,8 @@ void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 
 void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.x = -1;
     v.y = -1;
 
@@ -791,13 +742,8 @@ void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 
 void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.x = 1;
     v.y = -1;
 
@@ -806,13 +752,8 @@ void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 
 void MainWindow::on_movementZPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.z = 1;
 
     i.stepMove(v);*/
@@ -820,13 +761,8 @@ void MainWindow::on_movementZPositivePushButton_clicked()
 
 void MainWindow::on_movementZNegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.z = -1;
 
     i.stepMove(v);*/
@@ -835,13 +771,8 @@ void MainWindow::on_movementZNegativePushButton_clicked()
 
 void MainWindow::on_movementAPositivePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
->>>>>>> mvc
     v.a = 1;
 
     i.stepMove(v);*/
@@ -849,37 +780,11 @@ void MainWindow::on_movementAPositivePushButton_clicked()
 
 void MainWindow::on_movementANegativePushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-    v.a = -1;
-
-    i.stepMove(v);
-}
-
-void MainWindow::on_movement_b_positive_button_clicked()
-{
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-    v.b = 1;
-
-    i.stepMove(v);
-}
-
-void MainWindow::on_movement_b_negative_button_clicked()
-{
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-    v.b = -1;
-
-    i.stepMove(v);
-=======
     /*MachineTool &i = MachineTool::Instance();
     VectorDouble v = VectorDouble() ;
     v.a = -1;
 
     i.stepMove(v);*/
->>>>>>> mvc
 }
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
@@ -906,27 +811,11 @@ void MainWindow::on_pointsAmountPushButton_clicked()
 
 void MainWindow::on_parkPushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-    v = i.getBaseCoordinates();
-    i.setParkCoordinates(v);
-}
-=======
->>>>>>> mvc
 
 }
 
 void MainWindow::on_zeroPushButton_clicked()
 {
-<<<<<<< HEAD
-    MachineTool &i = MachineTool::Instance();
-    Vector v = Vector();
-    v = i.getBaseCoordinates();
-    i.setNewZeroCoordinates(v);
-}
-=======
->>>>>>> mvc
 
 }
 
@@ -1183,39 +1072,7 @@ void MainWindow::commandsPasteSlot()
 
 void MainWindow::commandsUndoSlot()
 {
-<<<<<<< HEAD
-    MachineTool &instance = MachineTool::Instance();
-    Vector v =
-    {
-        ui->x_axis_step_lineEdit->text().toDouble(),
-        ui->y_axis_step_lineEdit->text().toDouble(),
-        ui->z_axis_step_lineEdit->text().toDouble(),
-        ui->a_axis_step_lineEdit->text().toDouble(),
-        ui->b_axis_step_lineEdit->text().toDouble(),
-    };
-    instance.setDistanceByOneStep(v);
-
-    v.x = ui->x_axis_mm_lineEdit->text().toDouble();
-    v.y = ui->y_axis_mm_lineEdit->text().toDouble();
-    v.z = ui->z_axis_mm_lineEdit->text().toDouble();
-    v.a = ui->a_axis_mm_lineEdit->text().toDouble();
-    v.b = ui->b_axis_mm_lineEdit->text().toDouble();
-    instance.setStepQuantityByOneMm(v);
-
-    std::map<std::string, bool> m =
-    {
-        {"mill", ui->mill_checkBox->isChecked()},
-        {"kabriol", ui->kabriol_checkBox->isChecked()},
-        {"lubrication_system", ui->lubrication_system_checkBox->isChecked()},
-        {"tool_change", ui->tool_change_checkBox->isChecked()},
-        {"laser", ui->laser_checkBox->isChecked()},
-        {"wacuum_table", ui->wacuum_table_checkBox->isChecked()},
-        {"tool_length_sensor", ui->tool_length_sensor_checkBox->isChecked()}
-    };
-    instance.setExternalDevices(m);
-=======
     qDebug() << "Undo signal received";
->>>>>>> mvc
 }
 
 void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
@@ -1223,75 +1080,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
     QString commandName = index.data().toString();
     int commandNumber = mainWindowController->getCommandId(commandName);
 
-<<<<<<< HEAD
-    setUpElectricalSettings();
-    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
-    for (auto i : electricalSettings)
-    {
-        applySettingsField(i);
-    }
-    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
-    for(auto i : externalDevices)
-    {
-        i->setEnabled(false);
-    }
-}
-void MainWindow::electricialSettingsFromMachineTool()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v = instance.getDistanceByOneStep();
-    ui->x_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-    ui->y_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-    ui->z_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-    ui->a_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-    ui->b_axis_step_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
-
-    v = instance.getStepQuantityByOneMm();
-    ui->x_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-    ui->y_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-    ui->z_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-    ui->a_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-    ui->b_axis_mm_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
-
-    std::map<std::string, bool> m = instance.getExternalDevices();
-    if(m["mill"])
-    {
-        ui->mill_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->mill_checkBox->setChecked(false);
-    }
-
-    if(m["kabriol"])
-    {
-        ui->kabriol_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->kabriol_checkBox->setChecked(false);
-    }
-
-    if(m["lubrication_system"])
-    {
-        ui->lubrication_system_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->lubrication_system_checkBox->setChecked(false);
-    }
-
-    if(m["tool_change"])
-    {
-        ui->tool_change_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->tool_change_checkBox->setChecked(false);
-    }
-=======
     size_t currentCommandNumber = mainWindowController->getCommandsCount();
->>>>>>> mvc
 
     QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
     if(selectedItems.size() > 0)
@@ -1332,139 +1121,14 @@ void MainWindow::electricialSettingsFromMachineTool()
 
 void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
 {
-<<<<<<< HEAD
-    electricialSettingsFromMachineTool();
-
-    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
-    for (auto i : electricalSettings)
-    {
-        applySettingsField(i);
-    }
-    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
-    for(auto i : externalDevices)
-    {
-        i->setEnabled(false);
-    }
-}
-
-void MainWindow::setupDimensions()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v;
-    v.x = ui->x_dimension_lineEdit->text().toDouble();
-    v.y = ui->y_dimension_lineEdit->text().toDouble();
-    v.z = ui->z_dimension_lineEdit->text().toDouble();
-    v.a = ui->a_dimension_lineEdit->text().toDouble();
-    v.b = ui->b_dimension_lineEdit->text().toDouble();
-    instance.setDimensions(v);
-}
-
-void MainWindow::setupDirections()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v;
-    v.x = ui->x_axis_invert_checkBox->isChecked();
-    v.y = ui->y_axis_invert_checkBox->isChecked();
-    v.z = ui->z_axis_invert_checkBox->isChecked();
-    v.a = ui->a_axis_invert_checkBox->isChecked();
-    v.b = ui->b_axis_invert_checkBox->isChecked();
-    instance.setDirections(v);
-}
-
-void MainWindow::setupKinematicsSettings()
-{
-    MachineTool &instance = MachineTool::Instance();
-    AxisKFlopSettings axis;
-    axis.jerk = ui->x_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->x_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->x_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->x_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    std::vector<AxisKFlopSettings> tmp;
-    tmp.push_back(axis);
-    axis.jerk = ui->y_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->y_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->y_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->y_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->z_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->z_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->z_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->z_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->x_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->a_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->a_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->a_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->a_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->a_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    axis.jerk = ui->b_axis_jerk_lineEdit->text().toDouble();
-    axis.acceleration = ui->b_axis_acceleration_lineEdit->text().toDouble();
-    axis.velocity = ui->b_axis_velocity_lineEdit->text().toDouble();
-    axis.channel = ui->b_axis_channel_lineEdit->text().toDouble();
-    axis.basingVelocity = ui->b_axis_basing_velocity_lineEdit->text().toDouble();
-    tmp.push_back(axis);
-    instance.setAxisKFlopSettings(tmp);
-}
-
-void MainWindow::dimensionsFromMachineTool()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v = instance.getDimensions();
-    ui->x_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.x)));
-    ui->y_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.y)));
-    ui->z_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.z)));
-    ui->a_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.a)));
-    ui->b_dimension_lineEdit->setText(QString::fromStdString(std::to_string(v.b)));
-}
-void MainWindow::directionsFromMachineTool()
-{
-    MachineTool &instance = MachineTool::Instance();
-    Vector v = instance.getDirections();
-
-    std::vector<QCheckBox*> mechanicalCheckBoxes = makeQCheckBoxVector(1);
-    for(auto i : mechanicalCheckBoxes)
-    {
-        i->setChecked(false);
-    }
-
-    if(v.x == 1)
-    {
-        ui->x_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.y == 1)
-    {
-        ui->y_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.z == 1)
-    {
-        ui->z_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.a == 1)
-    {
-        ui->a_axis_invert_checkBox->setChecked(true);
-    }
-    if(v.b == 1)
-    {
-        ui->b_axis_invert_checkBox->setChecked(true);
-    }
-=======
     QString deviceName = index.data().toString();
     mainWindowController->switchDevice(deviceName);
     updateDevicesPanel();
->>>>>>> mvc
 }
 
 void MainWindow::on_add_action_triggered()
 {
-<<<<<<< HEAD
-    MachineTool &instance = MachineTool::Instance();
-    std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
-=======
     mainWindowController->addSMLFile();
->>>>>>> mvc
 }
 
 void MainWindow::on_create_action_triggered()
