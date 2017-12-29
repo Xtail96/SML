@@ -1,11 +1,27 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(QWidget *parent) :
+AddPointDialog::AddPointDialog(MainWindowController *_controller, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddPointDialog)
+    ui(new Ui::AddPointDialog),
+    controller(_controller),
+    isEdit(false)
 {
-    ui->setupUi(this);
+    setupFields();
+    connect(this, SIGNAL(newPoint(QStringList)), controller, SLOT(addPoint(QStringList)));
+}
+
+AddPointDialog::AddPointDialog(MainWindowController *_controller, unsigned int _pointNumber, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::AddPointDialog),
+    controller(_controller),
+    isEdit(true),
+    pointNumber(_pointNumber)
+{
+    setupFields();
+    setWindowTitle("Редактировать точку");
+    ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
+    connect(this, SIGNAL(updatePointsCoordinates(QStringList,uint)), controller, SLOT(updatePoint(QStringList,uint)));
 }
 
 AddPointDialog::~AddPointDialog()
@@ -15,20 +31,65 @@ AddPointDialog::~AddPointDialog()
 
 void AddPointDialog::on_buttonBox_accepted()
 {
-    QString x_str = ui->add_point_lineEdit_axis_x->text();
-    double x = x_str.toDouble();
+    QStringList qArguments;
+    for(int i = 0; i < ui->addPointArgumentsTableWidget->rowCount(); i++)
+    {
+        QString qArgument;
+        for(int j = 0; j < ui->addPointArgumentsTableWidget->columnCount(); j++)
+        {
+            qArgument = ui->addPointArgumentsTableWidget->item(i, j)->text();
+            if(qArgument == "")
+            {
+                qArgument = "0";
+            }
+        }
+        qArguments.push_back(qArgument);
+    }
 
-    QString y_str = ui->add_point_lineEdit_axis_y->text();
-    double y = y_str.toDouble();
+    if(!isEdit)
+    {
+        emit newPoint(qArguments);
+    }
+    else
+    {
+        emit updatePointsCoordinates(qArguments, pointNumber);
+    }
+}
 
-    QString z_str = ui->add_point_lineEdit_axis_z->text();
-    double z = z_str.toDouble();
+void AddPointDialog::setupFields()
+{
+    ui->setupUi(this);
+    QStringList qColumnsHeaders =
+    {
+        "Значение"
+    };
+    ui->addPointArgumentsTableWidget->setColumnCount(qColumnsHeaders.size());
+    ui->addPointArgumentsTableWidget->setHorizontalHeaderLabels(qColumnsHeaders);
 
-    QString a_str = ui->add_point_lineEdit_axis_a->text();
-    double a = a_str.toDouble();
+    QStringList qRowHeaders = controller->getAxisesNames();
+    ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
+    ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
 
-    QString b_str = ui->add_point_lineEdit_axis_b->text();
-    double b = b_str.toDouble();
+    QStringList pointCoordinates;
+    if(isEdit)
+    {
+        pointCoordinates = controller->getPoint(pointNumber);
+    }
 
-    PointsManager::Instance().addPoint(Point(x, y, z, a, b));
+    for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)
+    {
+        ui->addPointArgumentsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->addPointArgumentsTableWidget->rowCount(); j++)
+        {
+            if(!isEdit)
+            {
+                ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem("0"));
+            }
+            else
+            {
+                // j - номер оси
+                ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem(pointCoordinates[j]));
+            }
+        }
+    }
 }

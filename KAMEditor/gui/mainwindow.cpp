@@ -1,4 +1,4 @@
-﻿ #include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -6,103 +6,348 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    // считываем настройки станка из файла и сохраняем их в структуру данных и интерфейс
-    setupSettings();
-
-    // задаем горячие клавиши
-    setupShortcuts();
-
-    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
-    editorField->setTreePosition(1);
-
-    setupEditorShortcuts();
-
-    hightlighter = new GCodesSyntaxHighlighter(this);
-    hightlighter->setDocument(ui->gcodes_editor_textEdit->document());
-    hightlighter->setPattern();
-
-
-    update_edges_control_status();
-
-    ui->statusBar->setStyleSheet("background-color: #000; color: #33bb33");
-    ui->statusBar->setFont(QFont("Consolas", 14));
-    ui->statusBar->showMessage(tr("State: ready 0123456789"));
-
     // окно на весь экран
     QMainWindow::showMaximized();
 
-    // таймер обновления окна координат
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->setInterval(100);
-    timer->start();
+    setupMainWindowController();
 
-    // растянуть таблицу с координатами
-    for (int i = 0; i < ui->points_table_widget->horizontalHeader()->count(); i++)
-    {
-        ui->points_table_widget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        ui->points_table_widget_2->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
+    // настройка виджетов
+    setupWidgets();
 
-    // в таблице выделяется целиком вся строка
-    ui->points_table_widget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->points_table_widget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    ui->points_table_widget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->points_table_widget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-
-    ui->spindle_enable_pushButton->setEnabled(false);
-    ui->spindle_enable_pushButton->setStyleSheet("margin: 1px");
-
-    ui->length_sensor_button->setEnabled(false);
+    emit ready();
 }
 
 MainWindow::~MainWindow()
 {
-    delete timer;
-    delete ui;
-
     // удаляем горячие клавиши
-    while (shortcuts.size() > 0)
+    while (axisesShortcuts.size() > 0)
     {
-        delete shortcuts.back();
-        shortcuts.pop_back();
+        delete axisesShortcuts.back();
+        axisesShortcuts.pop_back();
     }
 
-    while(editorShortcuts.size() > 0)
+    delete hightlighter;
+    delete mainWindowController;
+    delete ui;
+}
+
+void MainWindow::setupMainWindowController()
+{
+    mainWindowController = new MainWindowController();
+    connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
+}
+
+void MainWindow::setupSettingsWidgets()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
+}
+
+void MainWindow::setupWidgets()
+{
+    // задаем горячие клавиши
+    setupAxisesShortcuts();
+    // проводим настройку необходимых виджетов
+    setupStatusBar();
+    setupDisplays();
+    setupCommandsEditorField();
+    setupGCodesSyntaxHighlighter();
+    setupEdgesControl();
+    setupPointsEditorWidgets();
+    setupEditorFileActionsPushButtons();
+    setupCoordinatesDisplay();
+    setupDevicesPanel();
+    setupVelocityPanel();
+    setupSpindelRotationsPanel();
+    setupOptionsPanel();
+
+    setupSettingsWidgets();
+}
+
+void MainWindow::setupCommandsEditorField()
+{
+    SMLEditorTreeWidget*  editorField = ui->smlEditorTreeWidget;
+    // установка древесной структуры в 1 столбец виджета отображения sml-команд
+    editorField->setTreePosition(1);
+
+    // устанавливаем слоты, обрабатывающие сигналы дерева
+    //connect(editorField, SIGNAL(copySignal()), this, SLOT(commandsCopySlot()));
+    //connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
+    //connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
+    //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
+    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateCommandsEditorWidgets()));
+    connect(editorField, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deleteSelectedCommands(QModelIndexList)));
+}
+
+void MainWindow::setupStatusBar()
+{
+    // установка оформления statusBar
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+    ui->statusBar->setFont(QFont("Consolas", 14));
+    ui->statusBar->showMessage(tr("State: ready 0123456789"));
+
+    // Подключение слотов для обработки сигналов контроллеров
+    connect(mainWindowController, SIGNAL(kflopIsConnected()), this, SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(kflopIsDisconnected()), this, SLOT(showMachineToolDisconnected()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(showMachineToolConnected()));
+}
+
+void MainWindow::setupDisplays()
+{
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
+}
+
+void MainWindow::setupGCodesSyntaxHighlighter()
+{
+    // устанвиливаем подсветку текста в виджете отображения G-кодов
+    hightlighter = new GCodesSyntaxHighlighter(this);
+    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
+    hightlighter->setPattern();
+}
+
+void MainWindow::setupDevicesPanel()
+{
+    connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(updateDevicesPanel()));
+    connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDevicesPanel()));
+}
+
+void MainWindow::setupEdgesControl()
+{
+    // синхронизаци контроля габаритов и соответствующих элементов интерфейса
+    updateEdgesControlStatus();
+    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+}
+
+void MainWindow::setupPointsEditorFields()
+{
+    // в таблице редактора точек выделяется целиком вся строка
+    ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
+
+    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+
+    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
-        delete editorShortcuts.back();
-        editorShortcuts.pop_back();
+        connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
+        connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
     }
 }
 
-void MainWindow::setupSettings()
+void MainWindow::setupPointsPushButtons()
 {
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+
+    updatePointsEditorButtons();
+}
+
+void MainWindow::setupVelocityPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
+}
+
+void MainWindow::setupSpindelRotationsPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
+}
+
+void MainWindow::setupOptionsPanel()
+{
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
+}
+
+void MainWindow::updateSettingsBoards()
+{
+    updateAxisesBoard();
+    updateSensorsBoard();
+    updateDevicesBoard();
+}
+
+void MainWindow::updateAxisesBoard()
+{
+    QStringList names = mainWindowController->getAxisesNames();
+    QStringList axisesParametrsNames = mainWindowController->getAxisesParametrsNames();
+    QList<QStringList> axisesSettings = mainWindowController->getAxisesSettings();
+
+    ui->axisSettingsTableWidget->clear();
+    ui->axisSettingsTableWidget->setColumnCount(names.size());
+    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(names);
+    ui->axisSettingsTableWidget->setRowCount(axisesParametrsNames.size());
+    ui->axisSettingsTableWidget->setVerticalHeaderLabels(axisesParametrsNames);
+
+    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
+    {
+        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    for(int i = 0; i < ui->axisSettingsTableWidget->rowCount(); i++)
+    {
+        ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
+    {
+        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        for(int j = 0; j < ui->axisSettingsTableWidget->rowCount(); j++)
+        {
+            ui->axisSettingsTableWidget->setItem(j, i, new QTableWidgetItem(axisesSettings[i][j]));
+        }
+    }
+}
+
+void MainWindow::updatePointsEditorWidgets()
+{
+<<<<<<< HEAD
     SettingsManager settings;
     settings.setupToMachineTool();
     dimensionsFromMachineTool();
     electricialSettingsFromMachineTool();
+=======
+    updatePointsEditorFields();
+    updatePointsEditorButtons();
+>>>>>>> mvc
 }
 
-void MainWindow::setupShortcuts()
+void MainWindow::updateSensorsBoard()
+{
+    QStringList sensorsNames = mainWindowController->getSensorsNames();
+    QStringList sensorsParametrsNames = mainWindowController->getSensorsParametrsNames();
+    QList<QStringList> sensorsSettings = mainWindowController->getSensorsSettings();
+
+    ui->sensorsSettingsTableWidget->clear();
+    ui->sensorsSettingsTableWidget->setRowCount(sensorsNames.size());
+    ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsNames);
+    ui->sensorsSettingsTableWidget->setColumnCount(sensorsParametrsNames.size());
+    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(sensorsParametrsNames);
+
+    for(int i = 0; i < ui->sensorsSettingsTableWidget->columnCount(); i++)
+    {
+        ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    for (int i = 0; i < ui->sensorsSettingsTableWidget->rowCount(); i++)
+    {
+        for(int j = 0; j < ui->sensorsSettingsTableWidget->columnCount(); j++)
+        {
+            ui->sensorsSettingsTableWidget->setItem(i, j, new QTableWidgetItem(sensorsSettings[i][j]));
+        }
+    }
+}
+
+void MainWindow::updateDevicesBoard()
+{
+    QStringList devicesNames = mainWindowController->getDevicesNames();
+    QStringList devicesParametrsNames = mainWindowController->getDevicesParametrsNames();
+    QList<QStringList> devicesSettings = mainWindowController->getDevicesSettings();
+
+    ui->devicesSettingsTableWidget->clear();
+    ui->devicesSettingsTableWidget->setRowCount(devicesNames.size());
+    ui->devicesSettingsTableWidget->setVerticalHeaderLabels(devicesNames);
+    ui->devicesSettingsTableWidget->setColumnCount(devicesParametrsNames.size());
+    ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(devicesParametrsNames);
+
+    for(int i = 0; i < ui->devicesSettingsTableWidget->columnCount(); i++)
+    {
+        ui->devicesSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    for (int i = 0; i < ui->devicesSettingsTableWidget->rowCount(); i++)
+    {
+        for(int j = 0; j < ui->devicesSettingsTableWidget->columnCount(); j++)
+        {
+            ui->devicesSettingsTableWidget->setItem(i, j, new QTableWidgetItem(devicesSettings[i][j]));
+        }
+    }
+}
+
+void MainWindow::setupCoordinatesDisplay()
+{
+    /*QStringList axisesLabels;
+    std::vector< std::shared_ptr<Axis> > axises = machineTool->getMovementController()->getAxises();
+    for(auto axis : axises)
+    {
+        axisesLabels.push_back(QString(QString::fromStdString(axis->getName()) + ": "));
+    }
+    ui->currentCoordinatesListWidget->clear();
+    ui->currentCoordinatesListWidget->addItems(axisesLabels);
+
+    ui->baseCoordinatesListWidget->clear();
+    ui->baseCoordinatesListWidget->addItems(axisesLabels);
+
+    ui->parkCoordinatesListWidget->clear();
+    ui->parkCoordinatesListWidget->addItems(axisesLabels);*/
+}
+
+void MainWindow::updateSensorsDisplay()
+{
+    QStringList sensorsNames = mainWindowController->getSensorsNames();
+    QList<QColor> sensorsLeds = mainWindowController->getSensorsLeds();
+
+    ui->sensorsTableWidget->clear();
+    ui->sensorsTableWidget->setRowCount(sensorsNames.size());
+    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsNames);
+    ui->sensorsTableWidget->setColumnCount(1);
+
+    for(int i = 0; i < ui->sensorsTableWidget->rowCount(); i++)
+    {
+        ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
+        QTableWidgetItem *item = new QTableWidgetItem();
+        item->setBackground(sensorsLeds[i]);
+        ui->sensorsTableWidget->setItem(i, 0, item);
+    }
+}
+
+void MainWindow::updateDevicesPanel()
+{
+    QStringList onScreenDevicesNames = mainWindowController->getOnScreenDevicesNames();
+    QList<bool> onScreenDevicesStates = mainWindowController->getOnScreenDevicesStates();
+
+    ui->devicesListWidget->clear();
+
+    for(int i = 0; i < onScreenDevicesNames.size(); i++)
+    {
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setText(onScreenDevicesNames[i]);
+        if(onScreenDevicesStates[i])
+        {
+            item->setTextColor(SmlColors::white());
+            item->setBackgroundColor(SmlColors::red());
+        }
+        else
+        {
+            item->setTextColor(SmlColors::gray());
+            item->setBackgroundColor(SmlColors::white());
+        }
+        ui->devicesListWidget->addItem(item);
+    }
+}
+
+void MainWindow::setupAxisesShortcuts()
 {
     std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
-        std::make_tuple("A", ui->movement_x_negative_button, SLOT(on_movement_x_negative_button_clicked())),
-        std::make_tuple("D", ui->movement_x_positive_button, SLOT(on_movement_x_positive_button_clicked())),
-        std::make_tuple("S", ui->movement_y_negative_button, SLOT(on_movement_y_negative_button_clicked())),
-        std::make_tuple("W", ui->movement_y_positive_button, SLOT(on_movement_y_positive_button_clicked())),
-        std::make_tuple("Z", ui->movement_x_negative_y_negative_button, SLOT(on_movement_x_negative_y_negative_button_clicked())),
-        std::make_tuple("Q", ui->movement_x_negative_y_positive_button, SLOT(on_movement_x_negative_y_positive_button_clicked())),
-        std::make_tuple("X", ui->movement_x_positive_y_negative_button, SLOT(on_movement_x_positive_y_negative_button_clicked())),
-        std::make_tuple("E", ui->movement_x_positive_y_positive_button, SLOT(on_movement_x_positive_y_positive_button_clicked())),
-        std::make_tuple("B", ui->movement_z_negative_button, SLOT(on_movement_z_negative_button_clicked())),
-        std::make_tuple("T", ui->movement_z_positive_button, SLOT(on_movement_z_positive_button_clicked())),
-        std::make_tuple("N", ui->movement_a_negative_button, SLOT(on_movement_a_negative_button_clicked())),
-        std::make_tuple("Y", ui->movement_a_positive_button, SLOT(on_movement_a_positive_button_clicked())),
-        std::make_tuple("M", ui->movement_b_negative_button, SLOT(on_movement_b_negative_button_clicked())),
-        std::make_tuple("U", ui->movement_b_positive_button, SLOT(on_movement_b_positive_button_clicked())),
+        std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())),
+        std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())),
+        std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())),
+        std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())),
+        std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())),
+        std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())),
+        std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())),
+        std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())),
+        std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())),
+        std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
+        std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
+        std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
     };
 
     for (auto i = shortcutsMap.begin(); i != shortcutsMap.end(); i++)
@@ -114,98 +359,75 @@ void MainWindow::setupShortcuts()
         QShortcut* shortcut = new QShortcut(QKeySequence(shortcutKey), shortcutButton);
         connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
 
-        shortcuts.push_back(shortcut);
+        axisesShortcuts.push_back(shortcut);
     }
 }
 
-void MainWindow::setupEditorShortcuts()
+void MainWindow::setupEditorFileActionsPushButtons()
 {
-    std::vector<std::pair<const char*, const char*> > editorShortcutsMap = {
-        std::make_pair("Ctrl+W", SLOT(addLineCommand())),
-        std::make_pair("Backspace", SLOT(deleteSelectedCommands())),
-    };
+    connect(ui->newFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    connect(ui->openFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
+    connect(ui->saveFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
+    connect(ui->saveFileAsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
+    connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
+}
 
-    for (unsigned int i = 0; i < editorShortcutsMap.size(); i++)
+void MainWindow::setupPointsEditorWidgets()
+{
+    setupPointsEditorFields();
+    setupPointsPushButtons();
+    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
+}
+
+void MainWindow::updateDisplays()
+{
+    updateBatteryStatusDisplay();
+    updateSensorsDisplay();
+#ifdef Q_OS_WIN
+    /*if(u1Manager != nullptr)
     {
-        const char* shortcutKey = editorShortcutsMap[i].first;
-        const char* shortcutSlot = editorShortcutsMap[i].second;
-
-        QShortcut* shortcut = new QShortcut(this);
-        shortcut->setKey(QKeySequence(shortcutKey));
-        connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
-
-        editorShortcuts.push_back(shortcut);
-    }
-
-    connect(ui->open_button, SIGNAL(clicked()), this, SLOT(on_open_action_triggered()));
-    connect(ui->numofdots_button, SIGNAL(clicked()), this, SLOT(on_point_amount_button_clicked()));
+        updateMachineToolStatus();
+        updateCoordinates();
+    }*/
+#endif
 }
 
-
-void MainWindow::update()
+void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 {
-    update_coordinates();
-    update_battery_status();
-    update_kabriol_avaliability();
-    update_base_status();
-}
-
-
-void MainWindow::deleteSelectedCommands()
-{
-    if(ui->editor_tab->isVisible())
+    std::vector<int> rows;
+    for(auto index : indexes)
     {
-        QTreeWidget* smlEditorField = ui->sml_editor_treeWidget;
-        if(smlEditorField->isVisible())
-        {
-            CommandInterpreter &commands = CommandInterpreter::Instance();
-            QItemSelectionModel *select = smlEditorField->selectionModel();
-            if(select->hasSelection())
-            {
-                QList<QTreeWidgetItem *> selected_items = smlEditorField->selectedItems();
-                std::vector<int> vector_numbers;
-                vector_numbers.reserve(selected_items.size());
-                for(int i = 0; i < selected_items.size(); i++)
-                {
-                    int current_vector_number = std::stoi(selected_items[i]->text(0).toStdString()) - 1;
-                    vector_numbers.push_back(current_vector_number);
-                }
-                std::sort(vector_numbers.begin(), vector_numbers.end());
-                unsigned int start = vector_numbers[0];
-                unsigned int finish = vector_numbers[vector_numbers.size() - 1];
-                commands.deleteCommands(start, finish);
-            }
-            update_commands();
-            commands.setSelectedCommand(0);
-        }
+        rows.push_back(index.row());
     }
-}
 
-void MainWindow::addLineCommand()
-{
-    if(ui->editor_tab->isVisible())
+    std::sort(rows.begin(), rows.begin() + rows.size());
+    std::reverse(rows.begin(), rows.begin() + rows.size());
+
+    for(auto row : rows)
     {
-        if(ui->sml_editor_tab->isVisible())
-        {
-            LineDialog(this).exec();
-        }
+        mainWindowController->deleteCommand(row);
     }
-    update_commands();
 }
 
-
-void MainWindow::update_coordinates()
+void MainWindow::updateCoordinatesDisplay()
 {
-    MachineTool &i = MachineTool::Instance();
+    /*MachineTool &i = MachineTool::Instance();
 
     Vector current = i.getCurrentCoordinates();
     Vector base = i.getBaseCoordinates();
     Vector park = i.getParkCoordinates();
 
+<<<<<<< HEAD
     std::vector<std::pair<QListWidget*, Vector>> widgets = {
         { ui->listWidget_currentCoordinates, current },
         { ui->listWidget_baseCoordinates, base },
         { ui->listWidget_parkCoordinates, park }
+=======
+    std::vector<std::pair<QListWidget*, VectorDouble>> widgets = {
+        { ui->currentCoordinatesListWidget, current },
+        { ui->baseCoordinatesListWidget, base },
+        { ui->parkCoordinatesListWidget, park }
+>>>>>>> mvc
     };
 
     for (auto i = widgets.begin(); i != widgets.end(); i++)
@@ -215,123 +437,89 @@ void MainWindow::update_coordinates()
         i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3) + " мм");
         i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3) + " град");
         i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3) + " град");
-    }
+    }*/
 }
 
-void MainWindow::update_points()
+void MainWindow::updatePointsEditorFields()
 {
-    std::vector<Point> points = PointsManager::Instance().getPoints();
+    QList<QStringList> points = mainWindowController->getPoints();
+    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QStringList axisesLabels = mainWindowController->getAxisesNames();
 
-    std::vector<QTableWidget*> tables = { ui->points_table_widget, ui->points_table_widget_2 };
-
-    // проходим по каждой таблице
-    for (auto table = tables.begin(); table != tables.end(); table++)
+    for(auto field : fields)
     {
-        // очищаем текущую таблицу
-        (*table)->setRowCount(0);
+        field->clear();
+        field->setColumnCount(axisesLabels.size());
+        field->setHorizontalHeaderLabels(axisesLabels);
+        field->setRowCount(points.size());
 
-        // проходим по всем точкам
-        for (unsigned int i = 0; i < points.size(); i++)
+        for(int i = 0; i < points.size(); i++)
         {
-            // координаты текущей точки
-            std::vector<double> pointCoordinates = { points[i].x, points[i].y, points[i].z, points[i].a, points[i].b };
+            for(int j = 0; j < points[i].size(); j++)
+            {
+                field->setItem(i, j, new QTableWidgetItem(points[i][j]));
+            }
+        }
+    }
 
-            // добавляем строку в таблицу для текущей точки
-            (*table)->insertRow(i);
-
-            // отображаем координаты текущей точки
-            for (unsigned int coordinate = 0; coordinate < pointCoordinates.size(); coordinate++)
-                (*table)->setItem(i, coordinate, new QTableWidgetItem( QString::number(pointCoordinates[coordinate])) );
+    // растянуть таблицу с координатами редактора точек
+    for(auto field : fields)
+    {
+        for (int i = 0; i < field->columnCount(); i++)
+        {
+            field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         }
     }
 }
 
-
-void MainWindow::update_commands()
+void MainWindow::updatePointsEditorButtons()
 {
-    std::vector<Command> commands = CommandInterpreter::Instance().getCommands();
-
-    QTreeWidget*  editorField = ui->sml_editor_treeWidget;
-
-    // очищаем поле
-    editorField->clear();
-
-    editorField->setColumnCount(3);
-
-    QList<QTreeWidgetItem *> items;
-
-    QTreeWidgetItem* previousParent = nullptr;
-
-    // проходим по всем командам
-    for (unsigned int i = 0; i < commands.size(); i++)
+    QList<QPushButton*> pointsActionsButtons =
     {
+        ui->pointDeletePushButton,
+        ui->pointDeletePushButton_2,
+        ui->pointEditPushButton,
+        ui->pointCopyPushButton,
+        ui->pointCopyPushButton_2,
+        ui->pointCursorPushButton,
+        ui->pointCursorPushButton_2,
+        ui->pointTransitionPushButton
+    };
 
-        // добавляем строку для текущей команды
-        QTreeWidgetItem* item;
-        switch(commands[i].id)
+    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
+    {
+        for(auto button : pointsActionsButtons)
         {
-            case CMD_FOR:
-            {
-                item = new QTreeWidgetItem(previousParent);
-                previousParent = item;
-                break;
-            }
-            case CMD_ENDFOR:
-            {
-                if(previousParent)
-                {
-                    previousParent = previousParent->parent();
-                }
-                item = new QTreeWidgetItem(previousParent);
-                break;
-            }
-            case CMD_PROC:
-            {
-                item = new QTreeWidgetItem(previousParent);
-                previousParent = item;
-                break;
-            }
-            case CMD_RETURN:
-            {
-                if(previousParent)
-                {
-                    previousParent = previousParent->parent();
-                }
-                item = new QTreeWidgetItem(previousParent);
-                break;
-            }
-            default:
-            {
-                item = new QTreeWidgetItem(previousParent);
-                break;
-            }
+            button->setEnabled(true);
         }
-
-
-
-        item->setText(0, QString::number(i+1));
-        QString commandColor = QString::fromStdString(commands[i].commandColor);
-        item->setTextColor(1, QColor(commandColor));
-        item->setTextColor(2, QColor(commandColor));
-
-        item->setText(1, QString::fromStdString(getNameByCommand(commands[i].id)));
-        std::string s;
-        for(unsigned int j = 0; j<commands[i].args.size();j++)
-        {
-            s+=commands[i].args[j]+"; ";
-        }
-        item->setText(2, QString::fromStdString(s));
-        items.append(item);
     }
-    editorField->insertTopLevelItems(0, items);
-    editorField->expandAll();
-    for(int i=0; i<2; i++)
+    else
     {
-        editorField->resizeColumnToContents(i);
+        for(auto button : pointsActionsButtons)
+        {
+            button->setEnabled(false);
+        }
     }
 }
 
-void MainWindow::update_battery_status()
+void MainWindow::updateCommandsEditorWidgets()
+{
+    updateSMLCommandsTreeWidget();
+}
+
+void MainWindow::updateSMLCommandsTreeWidget()
+{
+    ui->smlEditorTreeWidget->clear();
+    QList<QTreeWidgetItem *> items = mainWindowController->getCommands();
+    ui->smlEditorTreeWidget->addTopLevelItems(items);
+
+    for(int i = 0; i < ui->smlEditorTreeWidget->columnCount() - 1; i++)
+    {
+        ui->smlEditorTreeWidget->resizeColumnToContents(i);
+    }
+}
+
+void MainWindow::updateBatteryStatusDisplay()
 {
     #ifdef Q_OS_WIN
         SYSTEM_POWER_STATUS status;
@@ -340,41 +528,84 @@ void MainWindow::update_battery_status()
         if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
         status.BatteryLifePercent = 100;
 
-        ui->battery_progress_bar->setValue(status.BatteryLifePercent);
+        ui->batteryProgressBar->setValue(status.BatteryLifePercent);
     #endif
     #ifdef Q_OS_OSX
-        ui->battery_progress_bar->setValue(100);
+        ui->batteryProgressBar->setValue(100);
     #endif
 }
 
-void MainWindow::update_base_status()
+void MainWindow::updateBaseStatus()
 {
-    MachineTool &instance = MachineTool::Instance();
-    if(instance.getBaseStatus())
-    {
-       ui->edges_contol_check_box->setEnabled(true);
-       ui->length_sensor_button->setEnabled(true);
-    }
-    else
-    {
-        ui->edges_contol_check_box->setEnabled(false); 
-        ui->length_sensor_button->setEnabled(false);
-    }
+
 }
 
-
-void MainWindow::update_kabriol_avaliability()
+void MainWindow::updateVelocityPanel()
 {
-    if(ui->kabriol_off_radio_button->isChecked())
+    int velocity = mainWindowController->getVelocity();
+    ui->feedrateLcdNumber->display(QString::number(velocity));
+    ui->feedrateScrollBar->setValue(velocity);
+}
+
+void MainWindow::updateSpindelRotationsPanel()
+{
+    int rotations = mainWindowController->getSpindelRotations();
+    ui->rotationsLcdNumber->display(QString::number(rotations));
+    ui->rotationsScrollBar->setValue(rotations);
+}
+
+void MainWindow::updateOptionsPanel()
+{
+    QStringList optionsNames = mainWindowController->getOptionsNames();
+    ui->optionsListWidget->addItems(optionsNames);
+}
+
+void MainWindow::updateMachineToolStatusDisplay()
+{
+/*
+#ifdef Q_OS_WIN
+    ui->recievedDataTextEdit->clear();
+    try
     {
-        ui->movement_b_negative_button->setEnabled(false);
-        ui->movement_b_positive_button->setEnabled(false);
+        byte_array recieved = u1Manager->getU1()->receiveData(16);
+        machineTool->getBuffer().updateBuffer(recieved);
+
+        machineTool->getSensorsManager()->updateSensors(machineTool->getBuffer());
+        updateSensorsField();
+
+        QString recievedData;
+        for(auto it : recieved)
+        {
+            recievedData = QString::number(it, 2);
+            ui->recievedDataTextEdit->append(recievedData);
+        }
+        showMachineToolConnected();
     }
-    if(ui->kabriol_servo_radio_button->isChecked() || ui->kabriol_on_radio_button->isChecked())
+    catch(std::runtime_error e)
     {
-        ui->movement_b_negative_button->setEnabled(true);
-        ui->movement_b_positive_button->setEnabled(true);
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        timer->stop();
+        showMachineToolDisconnected();
     }
+#endif
+*/
+}
+
+void MainWindow::showMachineToolConnected()
+{
+    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+    ui->statusBar->showMessage("Machine Tool is connected");
+
+
+    ui->devicesListWidget->setEnabled(true);
+}
+
+void MainWindow::showMachineToolDisconnected()
+{
+    ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+    ui->statusBar->showMessage("Machine Tool is disconnected");
+
+    ui->devicesListWidget->setEnabled(false);
 }
 
 void MainWindow::disableMovementButtonsShortcuts()
@@ -389,191 +620,236 @@ void MainWindow::enableMovementButtonsShortcuts()
 
 void MainWindow::setMovementButtonsShortcutsState(bool state)
 {
-    for (auto i = shortcuts.begin(); i != shortcuts.end(); i++)
+    for (auto i = axisesShortcuts.begin(); i != axisesShortcuts.end(); i++)
         (*i)->setAutoRepeat(state);
 }
 
 void MainWindow::setMovementButtonsRepeatState(bool state)
 {
     std::vector<QPushButton*> movementButtons = {
-        ui->movement_x_positive_button,
-        ui->movement_x_negative_button,
-        ui->movement_y_positive_button,
-        ui->movement_y_negative_button,
+        ui->movementXPositivePushButton,
+        ui->movementXNegativePushButton,
+        ui->movementYPositivePushButton,
+        ui->movementYNegativePushButton,
 
-        ui->movement_x_positive_y_positive_button,
-        ui->movement_x_positive_y_negative_button,
-        ui->movement_x_negative_y_positive_button,
-        ui->movement_x_negative_y_negative_button,
+        ui->movementXPositiveYPositivePushButton,
+        ui->movementXPositiveYNegativePushButton,
+        ui->movementXNegativeYPositivePushButton,
+        ui->movementXNegativeYNegativePushButton,
 
-        ui->movement_z_positive_button,
-        ui->movement_z_negative_button,
+        ui->movementZPositivePushButton,
+        ui->movementZNegativePushButton,
 
-        ui->movement_a_positive_button,
-        ui->movement_a_negative_button,
-
-        ui->movement_b_positive_button,
-        ui->movement_b_negative_button
+        ui->movementAPositivePushButton,
+        ui->movementANegativePushButton
     };
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
         (*i)->setAutoRepeat(state);
 }
 
-
-void MainWindow::on_discrete_radio_button_1_clicked()
+void MainWindow::on_discreteRadioButton_1_clicked()
 {
-    MachineTool::Instance().setMovementStep(0.01);
+    //MachineTool::Instance().setMovementStep(0.01);
 
     disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_2_clicked()
+void MainWindow::on_discreteRadioButton_2_clicked()
 {
-    MachineTool::Instance().setMovementStep(0.1);
+    //MachineTool::Instance().setMovementStep(0.1);
 
     disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_3_clicked()
+void MainWindow::on_discreteRadioButton_3_clicked()
 {
-    MachineTool::Instance().setMovementStep(1);
+    //MachineTool::Instance().setMovementStep(1);
 
     disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_4_clicked()
+void MainWindow::on_discreteRadioButton_4_clicked()
 {
-    MachineTool::Instance().setMovementStep(10);
+    //MachineTool::Instance().setMovementStep(10);
 
     disableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(false);
 }
 
-
-void MainWindow::on_discrete_radio_button_5_clicked()
+void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    MachineTool::Instance().setMovementStep(0);
+    //MachineTool::Instance().setMovementStep(0);
 
     enableMovementButtonsShortcuts();
     setMovementButtonsRepeatState(true);
 }
 
-
-void MainWindow::on_movement_x_positive_button_clicked()
+void MainWindow::on_movementXPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble();
+>>>>>>> mvc
     v.x = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-
-void MainWindow::on_movement_x_negative_button_clicked()
+void MainWindow::on_movementXNegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble();
+>>>>>>> mvc
     v.x = -1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-
-void MainWindow::on_movement_y_positive_button_clicked()
+void MainWindow::on_movementYPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.y = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_y_negative_button_clicked()
+void MainWindow::on_movementYNegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.y = -1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_x_negative_y_positive_button_clicked()
+void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.x = -1;
     v.y = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_x_positive_y_positive_button_clicked()
+void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.x = 1;
     v.y = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_x_negative_y_negative_button_clicked()
+void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.x = -1;
     v.y = -1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_x_positive_y_negative_button_clicked()
+void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.x = 1;
     v.y = -1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_z_positive_button_clicked()
+void MainWindow::on_movementZPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.z = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-void MainWindow::on_movement_z_negative_button_clicked()
+void MainWindow::on_movementZNegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.z = -1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
+
 }
 
-void MainWindow::on_movement_a_positive_button_clicked()
+void MainWindow::on_movementAPositivePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+>>>>>>> mvc
     v.a = 1;
 
-    i.stepMove(v);
+    i.stepMove(v);*/
 }
 
-
-void MainWindow::on_movement_a_negative_button_clicked()
+void MainWindow::on_movementANegativePushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v.a = -1;
@@ -597,20 +873,25 @@ void MainWindow::on_movement_b_negative_button_clicked()
     v.b = -1;
 
     i.stepMove(v);
+=======
+    /*MachineTool &i = MachineTool::Instance();
+    VectorDouble v = VectorDouble() ;
+    v.a = -1;
+
+    i.stepMove(v);*/
+>>>>>>> mvc
 }
 
-void MainWindow::on_feedrate_scroll_bar_valueChanged(int value)
+void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    MachineTool::Instance().setVelocity(value);
-
-    ui->feedrate_lcd_number->display(value);
+    mainWindowController->updateVelocity(value);
+    updateVelocityPanel();
 }
 
-void MainWindow::on_rotations_scroll_bar_valueChanged(int value)
+void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
-    MachineTool::Instance().setRotation(value);
-
-    ui->rotation_lcd_number->display(value);
+    mainWindowController->updateSpindelRotations(value);
+    updateSpindelRotationsPanel();
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -618,1063 +899,291 @@ void MainWindow::on_exit_action_triggered()
     exit(0);
 }
 
-void MainWindow::on_point_amount_button_clicked()
+void MainWindow::on_pointsAmountPushButton_clicked()
 {
-    QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->points_table_widget->rowCount())).exec();
+    QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->pointsTableWidget->rowCount())).exec();
 }
 
-void MainWindow::on_park_button_clicked()
+void MainWindow::on_parkPushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v = i.getBaseCoordinates();
     i.setParkCoordinates(v);
 }
+=======
+>>>>>>> mvc
 
+}
 
-void MainWindow::on_zero_button_clicked()
+void MainWindow::on_zeroPushButton_clicked()
 {
+<<<<<<< HEAD
     MachineTool &i = MachineTool::Instance();
     Vector v = Vector();
     v = i.getBaseCoordinates();
     i.setNewZeroCoordinates(v);
 }
+=======
+>>>>>>> mvc
 
-
-void MainWindow::on_point_add_button_clicked()
-{
-    AddPointDialog* addPoint = new AddPointDialog(this);
-    addPoint->exec();
-    delete addPoint;
-    //Point tmp = Point(rand(), rand(), rand(), rand(), rand());
-    //CommandInterpreter::Instance().addPoint(tmp);
-    update_points();
 }
 
-void MainWindow::on_point_delete_button_clicked()
+void MainWindow::on_pointAddPushButton_clicked()
 {
-    PointsManager& instance = PointsManager::Instance();
-    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
-    std::set<int> rows;
-
-    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
-    {
-        int row = ui->points_table_widget->row(*i);
-        rows.insert(row);
-    }
-
-    for (std::set<int>::reverse_iterator i = rows.rbegin(); i != rows.rend(); i++)
-    {
-        instance.removePoint(*i);
-    }
-
-    update_points();
+    addPoint();
 }
 
-void MainWindow::on_point_cursor_button_clicked()
+void MainWindow::on_pointDeletePushButton_clicked()
 {
-    MouseToSelectionPointDialog* toPoint = new MouseToSelectionPointDialog(this);
-    toPoint->exec();
-    delete toPoint;
-
-    PointsManager& point_table = PointsManager::Instance();
-
-    unsigned int point_to_select = point_table.getSelectedPoint();
-    ui->points_table_widget->selectRow(point_to_select);
-}
-
-void MainWindow::on_point_edit_button_clicked()
-{
-    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
-    if(select->hasSelection())
+    QItemSelectionModel *select;
+    if(ui->editorTab->isVisible())
     {
-        //select->selectedRows();
-
-        int current_row = select->currentIndex().row();
-
-        PointsManager& point_table = PointsManager::Instance();
-        point_table.setSelectedPoint(current_row);
-
-        EditPointDialog* editPoint = new EditPointDialog(this);
-        editPoint->exec();
-        delete editPoint;
-        update_points();
+        select = ui->pointsTableWidget_2->selectionModel();
     }
     else
     {
-         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }
-}
-
-void MainWindow::on_points_table_widget_doubleClicked(const QModelIndex &index)
-{
-    QItemSelectionModel *select = ui->points_table_widget->selectionModel();
-    if(select->hasSelection())
-    {
-        int current_row = index.row();
-
-        PointsManager& point_table = PointsManager::Instance();
-        point_table.setSelectedPoint(current_row);
-
-        EditPointDialog* editPoint = new EditPointDialog(this);
-        editPoint->exec();
-        delete editPoint;
-        update_points();
-    }
-    else
-    {
-         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }
-}
-
-
-void MainWindow::on_point_copy_button_clicked()
-{
-    PointsManager& instance = PointsManager::Instance();
-    std::vector<Point> points = instance.getPoints();
-
-    QList<QTableWidgetItem*> selected = ui->points_table_widget->selectedItems();
-    std::set<int> rows;
-
-    for (QList<QTableWidgetItem*>::iterator i = selected.begin(); i != selected.end(); i++)
-    {
-        int row = ui->points_table_widget->row(*i);
-        rows.insert(row);
-    }
-
-    for (std::set<int>::iterator i = rows.begin(); i != rows.end(); i++)
-    {
-        instance.addPoint(points[*i]);
-    }
-
-    update_points();
-
-}
-
-
-
-void MainWindow::on_commands_tools_listWidget_doubleClicked(const QModelIndex &index)
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
-
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
-
-    QItemSelectionModel *select = editorField->selectionModel();
-    if(!select->hasSelection())
-    {
-        unsigned int current_row = commands.size();
-        instance.setSelectedCommand(current_row);
-    }
-
-
-    int row = index.row();
-
-    QString name = ui->commands_tools_listWidget->item(row)->text();
-
-    COMMAND cmd = getCommandByName(name.toStdString());
-
-    switch (cmd)
-    {
-        case CMD_LINE:
+        if(ui->adjustmentTab->isVisible())
         {
-            LineDialog(this).exec();
-            break;
-        }
-
-        case CMD_TTLINE:
-        {
-            TTLineDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC:
-        {
-            ArcDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC2:
-        {
-            Arc2Dialog(this).exec();
-            break;
-        }
-
-        case CMD_TTZARC:
-        {
-            TTZArcDialog(this).exec();
-            break;
-        }
-
-
-        case CMD_TTTARC:
-        {
-            TTTArcDialog(this).exec();
-            break;
-        }
-
-        case CMD_SPLINE:
-        {
-            SplineDialog(this).exec();
-            break;
-        }
-
-        case CMD_TTTTSPLINE:
-        {
-            TTTTSplineDialog(this).exec();
-            break;
-        }
-
-        case CMD_ROTATE:
-        {
-            RotateDialog(this).exec();
-            break;
-        }
-
-        case CMD_FOR:
-        {
-            CycleDialog(this).exec();
-            break;
-        }
-
-        case CMD_ENDFOR:
-        {
-            Command command;
-            command.id = CMD_ENDFOR;
-            command.commandColor = COMMANDCOLORS[cycleColor];
-
-            std::string endfor = "";
-            command.args = {
-                endfor
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-
-        case CMD_LABEL:
-        {
-            LabelDialog(this).exec();
-            break;
-        }
-
-        case CMD_GOTO:
-        {
-            GoToDialog(this).exec();
-            break;
-        }
-        case CMD_PROC:
-        {
-            ProcDialog(this).exec();
-            break;
-        }
-        case CMD_RETURN:
-        {
-            Command command;
-            command.id = CMD_RETURN;
-            command.commandColor = COMMANDCOLORS[functionColor];
-
-            std::string endProc = "";
-            command.args = {
-                endProc
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_CALL:
-        {
-            CallProcDialog(this).exec();
-            break;
-        }
-        case CMD_SCALEX:
-        {
-            ScaleDialog(this).exec();
-            break;
-        }
-        case CMD_COMMENT:
-        {
-            CommentDialog(this).exec();
-            break;
-        }
-        case CMD_ZERO:
-        {
-            Command command;
-            command.id = CMD_ZERO;
-
-            command.commandColor = COMMANDCOLORS[zeroColor];
-
-            std::string setZero = "";
-            command.args = {
-                setZero
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_END:
-        {
-            Command command;
-            command.id = CMD_END;
-
-            command.commandColor = COMMANDCOLORS[finishColor];
-
-            std::string endProgramm = "";
-            command.args = {
-                endProgramm
-            };
-
-            CommandInterpreter& instance = CommandInterpreter::Instance();
-            unsigned int selected_command = instance.getSelectedCommand();
-            instance.addCommand(command, selected_command);
-            break;
-        }
-        case CMD_ON:
-        {
-            OnDialog(this).exec();
-            break;
-        }
-
-        case CMD_OFF:
-        {
-            OffDialog(this).exec();
-            break;
-        }
-        case CMD_SPEED:
-        {
-            VelocityDialog(this).exec();
-            break;
-        }
-        case CMD_PAUSE:
-        {
-            PauseDialog(this).exec();
-            break;
-        }
-        case CMD_STOP:
-        {
-            StopDialog(this).exec();
-            break;
-        }
-        default:
-        {
-            QMessageBox().critical(this, "Undefined command", "Error: find undefined command");
-            break;
-        }
-    }
-    update_commands();
-}
-
-void MainWindow::on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index)
-{
-    CommandInterpreter& commandInterpreter = CommandInterpreter::Instance();
-    commandInterpreter.setSelectedCommandEditSignal(true);
-    QString name = ui->sml_editor_treeWidget->currentItem()->text(1);
-    COMMAND cmd = getCommandByName(name.toStdString());
-    switch (cmd)
-    {
-        case CMD_LINE:
-        {
-            LineDialog(this).exec();
-            break;
-        }
-
-        case CMD_TTLINE:
-        {
-            TTLineDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC:
-        {
-            ArcDialog(this).exec();
-            break;
-        }
-
-        case CMD_ARC2:
-        {
-            Arc2Dialog(this).exec();
-            break;
-        }
-
-        case CMD_ROTATE:
-        {
-            RotateDialog(this).exec();
-            break;
-        }
-
-        case CMD_FOR:
-        {
-            CycleDialog(this).exec();
-            break;
-        }
-
-        case CMD_ENDFOR:
-        {
-            commandInterpreter.setSelectedCommandEditSignal(false);
-            break;
-        }
-
-        case CMD_LABEL:
-        {
-            LabelDialog(this).exec();
-            break;
-        }
-        case CMD_GOTO:
-        {
-            GoToDialog(this).exec();
-            break;
-        }
-        case CMD_PROC:
-        {
-            ProcDialog(this).exec();
-            break;
-        }
-        case CMD_RETURN:
-        {
-            commandInterpreter.setSelectedCommandEditSignal(false);
-            break;
-        }
-        case CMD_CALL:
-        {
-            CallProcDialog(this).exec();
-            break;
-        }
-        case CMD_ZERO:
-        {
-            commandInterpreter.setSelectedCommandEditSignal(false);
-            break;
-        }
-        case CMD_END:
-        {
-            commandInterpreter.setSelectedCommandEditSignal(false);
-            break;
-        }
-        case CMD_ON:
-        {
-            OnDialog(this).exec();
-            break;
-        }
-        case CMD_OFF:
-        {
-            OffDialog(this).exec();
-            break;
-        }
-        case CMD_SCALEX:
-        {
-            ScaleDialog(this).exec();
-            break;
-        }
-        case CMD_SPEED:
-        {
-            VelocityDialog(this).exec();
-            break;
-        }
-        case CMD_PAUSE:
-        {
-            PauseDialog(this).exec();
-            break;
-        }
-        case CMD_STOP:
-        {
-            StopDialog(this).exec();
-            break;
-        }
-        case CMD_COMMENT:
-        {
-            CommentDialog(this).exec();
-            break;
-        }
-        case CMD_TTZARC:
-        {
-            TTZArcDialog(this).exec();
-            break;
-        }
-        case CMD_TTTARC:
-        {
-            TTTArcDialog(this).exec();
-            break;
-        }
-        case CMD_SPLINE:
-        {
-            SplineDialog(this).exec();
-            break;
-        }
-        case CMD_TTTTSPLINE:
-        {
-            TTTTSplineDialog(this).exec();
-            break;
-        }
-        default:
-        {
-            QMessageBox().critical(this, "Undefined command", "Error: find undefined command");
-            break;
-        }
-    }
-    update_commands();
-}
-
-void MainWindow::on_sml_editor_treeWidget_clicked(const QModelIndex &index)
-{
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    unsigned int current_row;
-    setSelectedCommandVectorNumber(current_row);
-    instance.setSelectedCommand(current_row);
-}
-
-
-void MainWindow::setSelectedCommandVectorNumber(unsigned int& current_row)
-{
-    //получаем значение из нулевого столбца выделнного элемента
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
-    QList<QTreeWidgetItem *> selected_items = editorField->selectedItems();
-    QTreeWidgetItem* item = selected_items[0];
-    std::string s  = item->text(0).toStdString();
-    current_row = std::stoi(s) - 1;
-}
-
-void MainWindow::update_edges_control_status()
-{
-    MachineTool& instance = MachineTool::Instance();
-    if(instance.getBaseStatus())
-    {
-        if(instance.getEdgesControlEnable())
-        {
-            ui->edges_contol_check_box->setChecked(true);
-            ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-            ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-            ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+            select = ui->pointsTableWidget->selectionModel();
         }
         else
         {
-            ui->edges_contol_check_box->setChecked(false);
-            ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-            ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-            ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+            return;
+        }
+    }
+
+
+    QModelIndexList selectedItemsIndexes = select->selectedIndexes();
+
+    if(selectedItemsIndexes.size() > 0)
+    {
+        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
+        deletePoints(selectedRowsIndexes);
+    }
+}
+
+void MainWindow::on_pointCursorPushButton_clicked()
+{
+    SMLPointsTableWidget* currentTableWidget;
+    if(ui->editorTab->isVisible())
+    {
+        currentTableWidget = ui->pointsTableWidget_2;
+    }
+    else
+    {
+        if(ui->adjustmentTab->isVisible())
+        {
+            currentTableWidget = ui->pointsTableWidget;
+        }
+        else
+        {
+            return;
+        }
+    }
+    if(currentTableWidget->rowCount() > 0)
+    {
+        ToSelectionPointDialog(currentTableWidget, this).exec();
+    }
+}
+
+void MainWindow::on_pointEditPushButton_clicked()
+{
+    QItemSelectionModel *select;
+    if(ui->editorTab->isVisible())
+    {
+        select = ui->pointsTableWidget_2->selectionModel();
+    }
+    else
+    {
+        if(ui->adjustmentTab->isVisible())
+        {
+            select = ui->pointsTableWidget->selectionModel();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    if(select->hasSelection())
+    {
+         editPoint(select->currentIndex());
+    }
+    else
+    {
+         QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
+    }
+}
+
+void MainWindow::on_pointCopyPushButton_clicked()
+{
+    QItemSelectionModel *select;
+    if(ui->editorTab->isVisible())
+    {
+        select = ui->pointsTableWidget_2->selectionModel();
+    }
+    else
+    {
+        if(ui->adjustmentTab->isVisible())
+        {
+            select = ui->pointsTableWidget->selectionModel();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    QModelIndexList selectedItemsIndexes = select->selectedIndexes();
+    if(selectedItemsIndexes.size() > 0)
+    {
+        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
+
+        for(auto row : selectedRowsIndexes)
+        {
+            QStringList pointsArguments = mainWindowController->getPoint(row.row());
+            mainWindowController->addPoint(pointsArguments);
         }
     }
     else
     {
-        ui->edges_contol_check_box->setEnabled(false);
-        ui->edges_contol_check_box->setChecked(false);
-        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-        ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+        return;
     }
 }
 
-void MainWindow::on_to_base_button_clicked()
+void MainWindow::updateEdgesControlStatus()
 {
-    MachineTool& instance = MachineTool::Instance();
-    instance.setBaseStatus(true);
-    instance.setEdgesControlEnable(true);
-    update_base_status();
-    update_edges_control_status();
-}
-
-void MainWindow::on_edges_contol_check_box_clicked()
-{
-    MachineTool &instance = MachineTool::Instance();
-    if(instance.getEdgesControlEnable())
+    if(ui->edgesControlCheckBox->isChecked())
     {
-       instance.setEdgesControlEnable(false);
-       ui->edges_contol_check_box->setChecked(false);
-       ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #B22222");
-       ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #B22222");
-       ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #B22222");
+        ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+        ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
+        ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
     }
     else
     {
-        instance.setEdgesControlEnable(true);
-        ui->edges_contol_check_box->setChecked(true);
-
-        ui->listWidget_currentCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-        ui->listWidget_baseCoordinates->setStyleSheet("border: 2px solid #2E8B57");
-        ui->listWidget_parkCoordinates->setStyleSheet("border: 2px solid #2E8B57");
+        ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+        ui->baseCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
+        ui->parkCoordinatesListWidget->setStyleSheet("border: 2px solid #B22222");
     }
 }
 
-void MainWindow::on_spindle_enable_pushButton_clicked()
+void MainWindow::addPoint()
 {
-    MachineTool &instance = MachineTool::Instance();
-    if(instance.getSpindleEnable())
+    AddPointDialog(mainWindowController, this).exec();
+}
+
+void MainWindow::editPoint(QModelIndex index)
+{
+    try
     {
-        //ui->spindle_enable_pushButton->setStyleSheet("");
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_pushButton->setText("F1 - Включить шпиндель");
-        instance.setSpindleEnable(false);
+        AddPointDialog(mainWindowController, index.row(), this).exec();
     }
-    else
+    catch(std::out_of_range e)
     {
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #B22222; color: #fff; border: 1px solid #000");
-        ui->spindle_enable_pushButton->setText("F1 - Выключить шпиндель");
-        instance.setSpindleEnable(true);
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
 
-void MainWindow::on_mill_warming_pushButton_clicked()
+void MainWindow::deletePoints(QModelIndexList indexes)
 {
-    MachineTool &instance = MachineTool::Instance();
-    if(!instance.getSpindleWarmUp())
+    for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        instance.setSpindleWarmUp(true);
-        ui->spindle_enable_pushButton->setEnabled(true);
-        ui->spindle_enable_pushButton->setStyleSheet("background-color: #2E8B57; color: #fff; border: 1px solid #000");
+        mainWindowController->deletePoint(indexes[i].row());
     }
-    else
-    {
+}
 
-    }
+void MainWindow::on_toBasePushButton_clicked()
+{
+
 }
 
 void MainWindow::on_open_action_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt, *.7kam");
-    QFile inputFile(path);
-    if(!inputFile.open(QIODevice::ReadOnly))
-    {
-        QMessageBox::information(0, "error", inputFile.errorString());
-    }
-    QTextStream in(&inputFile);
-    QString content = in.readAll();
-    inputFile.close();
-
-    parse7kamToSml(content);
-    ui->gcodes_editor_textEdit->setPlainText(content);
+    mainWindowController->openSMLFile();
 }
 
-void MainWindow::parse7kamToSml(QString &tmp)
+
+void MainWindow::on_gcodesEditorTextEdit_textChanged()
 {
-    CommandInterpreter &commands = CommandInterpreter::Instance();
-    int limit = commands.getCommands().size() - 1;
-    if(limit >= 0)
-    {
-        commands.deleteCommands(0, limit);
-        update_commands();
-    }
-    std::string commandsList = tmp.toStdString();
-    while(commandsList.length() != 0)
-    {
-        parse7kamToSmlStep(commandsList);
-    }
+    QString text = ui->gcodesEditorTextEdit->toPlainText();
 }
 
-void MainWindow::parse7kamToSmlStep(std::string &tmp)
+void MainWindow::on_importsettings_action_triggered()
 {
-    CommandInterpreter &commands = CommandInterpreter::Instance();
-    Command newCommand;
-    int position = 0;
 
-    // получаем id команды
-    int commandId = std::stoi(tmp);
-    switch(commandId)
+}
+
+void MainWindow::on_savesettings_action_triggered()
+{
+
+}
+
+void MainWindow::on_viewPushButton_clicked()
+{
+    ProgramVisualizeWindow(mainWindowController, this).exec();
+}
+
+void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if(column != 1)
     {
-    case 0:
-    {
-        newCommand.id = CMD_TTLINE;
-        newCommand.commandColor = COMMANDCOLORS[defaultColor];
-        break;
+        column = 1;
     }
-    case 1:
-    {
-        newCommand.id = CMD_TTARC;
-        newCommand.commandColor = COMMANDCOLORS[defaultColor];
+    QString commandName = item->text(column);
+    int commandNumber = mainWindowController->getCommandId(commandName);
+
+    unsigned int currentCommandNumber = item->text(0).toUInt() - 1;
+    switch (commandNumber) {
+    case CMD_SWITCH_ON:
+        OnDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 4:
-    {
-        newCommand.id = CMD_LINE;
-        newCommand.commandColor = COMMANDCOLORS[defaultColor];
+    case CMD_SWITCH_OFF:
+        OffDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 10:
-    {
-        newCommand.id = CMD_ZERO;
-        newCommand.commandColor = COMMANDCOLORS[zeroColor];
+    case CMD_COMMENT:
+        CommentDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 14:
-    {
-        newCommand.id = CMD_SPEED;
-        newCommand.commandColor = COMMANDCOLORS[warningColor];
+    case CMD_PAUSE:
+        PauseDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 19:
-    {
-        newCommand.id = CMD_LABEL;
-        newCommand.commandColor = COMMANDCOLORS[labelColor];
+    case CMD_LINE:
+        LineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 20:
-    {
-        newCommand.id = CMD_CALL;
-        newCommand.commandColor = COMMANDCOLORS[functionColor];
+    case CMD_ARC:
+        ArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 21:
-    {
-        newCommand.id = CMD_RETURN;
-        newCommand.commandColor = COMMANDCOLORS[functionColor];
+    case CMD_TTLINE:
+        TTLineDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 22:
-    {
-        newCommand.id = CMD_GOTO;
-        newCommand.commandColor = COMMANDCOLORS[labelColor];
+    case CMD_VARIABLE:
+        SMLVariableDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
-    }
-    case 23:
-    {
-        newCommand.id = CMD_FOR;
-        newCommand.commandColor = COMMANDCOLORS[cycleColor];
-        break;
-    }
-    case 24:
-    {
-        newCommand.id = CMD_ENDFOR;
-        newCommand.commandColor = COMMANDCOLORS[cycleColor];
-        break;
-    }
-    case 25:
-    {
-        newCommand.id = CMD_STOP;
-        newCommand.commandColor = COMMANDCOLORS[warningColor];
-        break;
-    }
-    case 26:
-    {
-        newCommand.id = CMD_END;
-        newCommand.commandColor = COMMANDCOLORS[finishColor];
-        break;
-    }
-    case 27:
-    {
-        newCommand.id = CMD_COMMENT;
-        newCommand.commandColor = COMMANDCOLORS[commentColor];
-        break;
-    }
-    case 28:
-    {
-        newCommand.id = CMD_PAUSE;
-        newCommand.commandColor = COMMANDCOLORS[warningColor];
-        break;
-    }
-    case 31:
-    {
-        newCommand.id = CMD_PROC;
-        newCommand.commandColor = COMMANDCOLORS[functionColor];
-        break;
-    }
     default:
-        newCommand.id = CMD_UNDEFINED;
-        position = tmp.length();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;
     }
-
-    // получаем аргументы команды
-    std::string commandArguments;
-    bool space = false;
-    for(auto i : tmp)
-    {
-        position++;
-        // откидываем id
-        if(i == ' ' && !space)
-        {
-            space = true;
-        }
-        else
-        {
-
-            // если id уже откинут
-            if(space)
-            {
-                // если не символ переноса строки
-                if(i != '\n' && i != '\r')
-                {
-                    commandArguments += i;
-                }
-                else
-                {
-                    // если текущий символ - символ переноса строки, выделены все аргументы
-                    break;
-                }
-            }
-        }
-    }
-    tmp.erase(tmp.begin(), tmp.begin() + position);
-    setCommandArguments(commandArguments, newCommand);
-    unsigned int selectedCommand = commands.getSelectedCommand();
-    commands.addCommand(newCommand, selectedCommand);
-    commands.setSelectedCommand(selectedCommand + 1);
-    update_commands();
 }
- void MainWindow::setCommandArguments(std::string s, Command &command)
- {
-     eraseSpecialSymbols(s);
-     std::string argument;
-     for(unsigned int i = 0; i < s.length(); i++)
-     {
-         //выделить числа и слова, состоящие из латинских букв из строки
-         if(i < s.length() - 1)
-         {
-             if(s[i] != ',')
-             {
-                 argument += s[i];
-             }
-             else
-             {
-                 command.args.push_back(argument);
-                 argument = "";
-             }
-         }
-         else
-         {
-            argument += s[i];
-            command.args.push_back(argument);
-            argument = "";
-         }
-     }
- }
 
-
-void MainWindow::eraseSpecialSymbols(std::string &s)
+void MainWindow::commandsCopySlot()
 {
-    std::string tmp = "";
-    bool skip = false;
-    for(auto it : s)
-    {
-        if(it == '^')
-        {
-            skip = true;
-        }
-        else
-        {
-            if(!skip)
-            {
-                tmp += it;
-            }
-            else
-            {
-                skip = false;
-            }
-        }
-    }
-    s = tmp;
+    qDebug() << "Copy signal received";
 }
 
-
-void MainWindow::editSettingsField(QLineEdit *qle)
+void MainWindow::commandsCutSlot()
 {
-    qle->setReadOnly(false);
-    qle->setStyleSheet("border: 1px solid #4682B4; font-size: 14pt");
+    qDebug() << "Cut signal received";
 }
-void MainWindow::applySettingsField(QLineEdit *qle)
+
+void MainWindow::commandsPasteSlot()
 {
-    qle->setReadOnly(true);
-    qle->setStyleSheet("font-size: 14pt");
+    qDebug() << "Paste signal received";
 }
 
-std::vector<QLineEdit *> MainWindow::makeQLineEditVector(int tmp)
+void MainWindow::commandsUndoSlot()
 {
-    switch (tmp)
-    {
-        case 1:
-        {
-            std::vector<QLineEdit*> mechanicalSettingsVector =
-            {
-                ui->x_dimension_lineEdit,
-                ui->y_dimension_lineEdit,
-                ui->z_dimension_lineEdit,
-                ui->a_dimension_lineEdit,
-                ui->b_dimension_lineEdit,
-
-                ui->x_axis_jerk_lineEdit,
-                ui->x_axis_acceleration_lineEdit,
-                ui->x_axis_velocity_lineEdit,
-                ui->x_axis_channel_lineEdit,
-                ui->x_axis_basing_velocity_lineEdit,
-
-                ui->y_axis_jerk_lineEdit,
-                ui->y_axis_acceleration_lineEdit,
-                ui->y_axis_velocity_lineEdit,
-                ui->y_axis_channel_lineEdit,
-                ui->y_axis_basing_velocity_lineEdit,
-
-                ui->z_axis_jerk_lineEdit,
-                ui->z_axis_acceleration_lineEdit,
-                ui->z_axis_velocity_lineEdit,
-                ui->z_axis_channel_lineEdit,
-                ui->z_axis_basing_velocity_lineEdit,
-
-                ui->a_axis_jerk_lineEdit,
-                ui->a_axis_acceleration_lineEdit,
-                ui->a_axis_velocity_lineEdit,
-                ui->a_axis_channel_lineEdit,
-                ui->a_axis_basing_velocity_lineEdit,
-
-                ui->b_axis_jerk_lineEdit,
-                ui->b_axis_acceleration_lineEdit,
-                ui->b_axis_velocity_lineEdit,
-                ui->b_axis_channel_lineEdit,
-                ui->b_axis_basing_velocity_lineEdit,
-
-                ui->critical_axis_lineEdit,
-                ui->buffer_size_lineEdit,
-                ui->collinearity_tolerance_lineEdit,
-                ui->maximum_devation_lineEdit,
-                ui->smoothing_angle_lineEdit,
-
-                ui->zero_level_sensor_lineEdit,
-                ui->tool_length_sensor_lineEdit,
-                ui->velocity_from_sensor_lineEdit,
-                ui->minimum_sensor_finding_velocity_lineEdit
-            };
-            return mechanicalSettingsVector;
-            break;
-        }
-        case 2:
-        {
-            std::vector<QLineEdit*> electricalSettingsFieldVector =
-            {
-                ui->x_axis_step_lineEdit,
-                ui->y_axis_step_lineEdit,
-                ui->z_axis_step_lineEdit,
-                ui->a_axis_step_lineEdit,
-                ui->b_axis_step_lineEdit,
-
-                ui->x_axis_mm_lineEdit,
-                ui->y_axis_mm_lineEdit,
-                ui->z_axis_mm_lineEdit,
-                ui->a_axis_mm_lineEdit,
-                ui->b_axis_mm_lineEdit
-            };
-            return electricalSettingsFieldVector;
-            break;
-        }
-        default:
-        {
-            std::vector<QLineEdit*> _vector;
-            return _vector;
-            break;
-        }
-    }
-}
-
-std::vector<QCheckBox*> MainWindow::makeQCheckBoxVector(int tmp)
-{
-    switch(tmp)
-    {
-        case 1:
-        {
-            std::vector<QCheckBox*> invertAxisVector =
-            {
-                ui->x_axis_invert_checkBox,
-                ui->y_axis_invert_checkBox,
-                ui->z_axis_invert_checkBox,
-                ui->a_axis_invert_checkBox,
-                ui->b_axis_invert_checkBox
-            };
-            return invertAxisVector;
-            break;
-        }
-        case 2:
-        {
-            std::vector<QCheckBox*> externalDevicesVector =
-            {
-                ui->mill_checkBox,
-                ui->kabriol_checkBox,
-                ui->lubrication_system_checkBox,
-                ui->tool_change_checkBox,
-                ui->laser_checkBox,
-                ui->wacuum_table_checkBox,
-                ui->tool_length_sensor_checkBox
-            };
-            return externalDevicesVector;
-            break;
-        }
-        default:
-        {
-           std::vector<QCheckBox*> _vector;
-           return _vector;
-           break;
-        }
-    }
-}
-
-void MainWindow::on_change_mechanics_settings_pushButton_clicked()
-{
-    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
-    for (auto i : mechanicalSettings)
-    {
-        editSettingsField(i);
-    }
-
-    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
-    for(auto i : invertAxis)
-    {
-        i->setEnabled(true);
-        i->setCheckable(true);
-    }
-}
-
-
-void MainWindow::on_cancel_mechanical_settings_pushButton_clicked()
-{
-    dimensionsFromMachineTool();
-    directionsFromMachineTool();
-    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
-    for (auto i : mechanicalSettings)
-    {
-        applySettingsField(i);
-    } 
-    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
-    for(auto i : invertAxis)
-    {
-        i->setEnabled(false);
-    }
-}
-
-void MainWindow::on_apply_mechanics_settings_pushButton_clicked()
-{
-    setupDimensions();
-    setupDirections();
-    setupKinematicsSettings();
-
-    std::vector<QLineEdit*> mechanicalSettings = makeQLineEditVector(1);
-    for (auto i : mechanicalSettings)
-    {
-        applySettingsField(i);
-    }
-    std::vector<QCheckBox*> invertAxis = makeQCheckBoxVector(1);
-    for(auto i : invertAxis)
-    {
-        i->setEnabled(false);
-    }
-}
-
-void MainWindow::on_change_elecrical_settings_pushButton_clicked()
-{    
-    std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
-    for (auto i : electricalSettings)
-    {
-        editSettingsField(i);
-    }
-
-    std::vector<QCheckBox*> externalDevices = makeQCheckBoxVector(2);
-    for(auto i : externalDevices)
-    {
-        i->setEnabled(true);
-        i->setCheckable(true);
-    }
-}
-
-void MainWindow::setUpElectricalSettings()
-{
+<<<<<<< HEAD
     MachineTool &instance = MachineTool::Instance();
     Vector v =
     {
@@ -1704,11 +1213,17 @@ void MainWindow::setUpElectricalSettings()
         {"tool_length_sensor", ui->tool_length_sensor_checkBox->isChecked()}
     };
     instance.setExternalDevices(m);
+=======
+    qDebug() << "Undo signal received";
+>>>>>>> mvc
 }
 
-void MainWindow::on_apply_electrical_settings_pushButton_clicked()
+void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 {
+    QString commandName = index.data().toString();
+    int commandNumber = mainWindowController->getCommandId(commandName);
 
+<<<<<<< HEAD
     setUpElectricalSettings();
     std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
     for (auto i : electricalSettings)
@@ -1774,36 +1289,50 @@ void MainWindow::electricialSettingsFromMachineTool()
     {
         ui->tool_change_checkBox->setChecked(false);
     }
+=======
+    size_t currentCommandNumber = mainWindowController->getCommandsCount();
+>>>>>>> mvc
 
-    if(m["laser"])
+    QList<QTreeWidgetItem*> selectedItems = ui->smlEditorTreeWidget->selectedItems();
+    if(selectedItems.size() > 0)
     {
-        ui->laser_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->laser_checkBox->setChecked(false);
+        currentCommandNumber = selectedItems[0]->text(0).toInt()-1;
     }
 
-    if(m["wacuum_table"])
-    {
-        ui->wacuum_table_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->wacuum_table_checkBox->setChecked(false);
-    }
-    if(m["tool_length_sensor"])
-    {
-        ui->tool_length_sensor_checkBox->setChecked(true);
-    }
-    else
-    {
-        ui->tool_length_sensor_checkBox->setChecked(false);
+    switch (commandNumber) {
+    case CMD_SWITCH_ON:
+        OnDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_SWITCH_OFF:
+        OffDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_COMMENT:
+        CommentDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_PAUSE:
+        PauseDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_LINE:
+        LineDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_ARC:
+        ArcDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_TTLINE:
+        TTLineDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_VARIABLE:
+        SMLVariableDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    default:
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
+        break;
     }
 }
 
-void MainWindow::on_cancel_electrical_settings_pushButton_clicked()
+void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
 {
+<<<<<<< HEAD
     electricialSettingsFromMachineTool();
 
     std::vector<QLineEdit*> electricalSettings = makeQLineEditVector(2);
@@ -1921,53 +1450,39 @@ void MainWindow::directionsFromMachineTool()
     {
         ui->b_axis_invert_checkBox->setChecked(true);
     }
+=======
+    QString deviceName = index.data().toString();
+    mainWindowController->switchDevice(deviceName);
+    updateDevicesPanel();
+>>>>>>> mvc
 }
 
-void MainWindow::kinematicsSettingsFromMachineTool()
+void MainWindow::on_add_action_triggered()
 {
+<<<<<<< HEAD
     MachineTool &instance = MachineTool::Instance();
     std::vector<AxisKFlopSettings> tmp = instance.getAxisKFlopSettings();
+=======
+    mainWindowController->addSMLFile();
+>>>>>>> mvc
 }
 
-
-void MainWindow::on_gcodes_editor_textEdit_textChanged()
+void MainWindow::on_create_action_triggered()
 {
-    QString text = ui->gcodes_editor_textEdit->toPlainText();
+    mainWindowController->newSMLFile();
 }
 
-void MainWindow::on_user_tools_listWidget_doubleClicked(const QModelIndex &index)
+void MainWindow::on_save_action_triggered()
 {
-    CommandInterpreter& instance = CommandInterpreter::Instance();
-    std::vector<Command> commands = instance.getCommands();
-
-    QTreeWidget* editorField = ui->sml_editor_treeWidget;
-
-    QItemSelectionModel *select = editorField->selectionModel();
-    if(!select->hasSelection())
-    {
-        unsigned int current_row = commands.size();
-        instance.setSelectedCommand(current_row);
-    }
-
-    int row = index.row();
-
-    QString name = ui->user_tools_listWidget->item(row)->text();
-
-    if(name == "Добавить устройство")
-    {
-        AddDeviceDialog(this).exec();
-    }
-    update_commands();
+    mainWindowController->saveSMLFile();
 }
 
-void MainWindow::on_importsettings_action_triggered()
+void MainWindow::on_saveas_action_triggered()
 {
-    SettingsManager settingsManager;
-    settingsManager.importSettings();
+    mainWindowController->saveSMLFileAs();
 }
 
-void MainWindow::on_savesettings_action_triggered()
+void MainWindow::on_connectCommandLinkButton_clicked()
 {
-    SettingsManager settingsManager;
-    settingsManager.exportSettings();
+    LogDialog(this).exec();
 }

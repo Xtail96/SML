@@ -6,12 +6,6 @@ CallProcDialog::CallProcDialog(QWidget *parent) :
     ui(new Ui::CallProcDialog)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->call_name_lineEdit
-    };
-    fillFields(fields);
 }
 
 CallProcDialog::~CallProcDialog()
@@ -22,15 +16,4 @@ CallProcDialog::~CallProcDialog()
 void CallProcDialog::on_buttonBox_accepted()
 {
 
-    Command cmd;
-    cmd.id = CMD_CALL;
-    cmd.commandColor = COMMANDCOLORS[functionColor];
-
-
-    std::string name = ui->call_name_lineEdit->text().toStdString();
-
-    cmd.args = {
-     name,
-    };
-    setCommandArguments(cmd);
 }

@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>300</height>
+    <width>350</width>
+    <height>250</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
@@ -24,10 +29,12 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="line_title_label">
+    <widget class="QLabel" name="lineTitleLabel">
      <property name="font">
       <font>
-       <pointsize>21</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -52,76 +59,68 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QGroupBox" name="line_arguments_groupBox">
+    <widget class="QGroupBox" name="argumentsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="dzLineEdit"/>
+      </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="line_label_axis_x">
+       <widget class="QLabel" name="dxLabel">
         <property name="text">
-         <string>Ось X</string>
+         <string>dX</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="dzLabel">
+        <property name="text">
+         <string>dZ</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_x"/>
+       <widget class="QLineEdit" name="dxLineEdit"/>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="line_label_velocity">
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="velocityLineEdit"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="dyLineEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="dyLabel">
+        <property name="text">
+         <string>dY</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="velocityLabel">
         <property name="text">
          <string>Скорость</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="line_lineEdit_velocity"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="line_label_axis_y">
-        <property name="text">
-         <string>Ось Y</string>
+      <item row="0" column="2" rowspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_y"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="line_label_axis_z">
-        <property name="text">
-         <string>Ось Z</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_z"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="line_label_axis_a">
-        <property name="text">
-         <string>Ось A</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_a"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="line_label_axis_b">
-        <property name="text">
-         <string>Ось B</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="line_lineEdit_axis_b"/>
       </item>
      </layout>
     </widget>

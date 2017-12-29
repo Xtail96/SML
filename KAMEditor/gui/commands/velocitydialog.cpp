@@ -7,12 +7,6 @@ VelocityDialog::VelocityDialog(QWidget *parent) :
     ui(new Ui::VelocityDialog)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-        ui->velocity_value_lineEdit
-    };
-    fillFields(fields);
 }
 
 VelocityDialog::~VelocityDialog()
@@ -22,12 +16,5 @@ VelocityDialog::~VelocityDialog()
 
 void VelocityDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_SPEED;
 
-    cmd.commandColor = COMMANDCOLORS[warningColor];
-
-    std::string velocity  = ui->velocity_value_lineEdit->text().toStdString();
-    cmd.args.push_back(velocity);
-    setCommandArguments(cmd);
 }

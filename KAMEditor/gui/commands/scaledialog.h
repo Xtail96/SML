@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class ScaleDialog;
 }
 
-class ScaleDialog : public QDialog, private CommandDialog
+class ScaleDialog : public QDialog
 {
     Q_OBJECT
 

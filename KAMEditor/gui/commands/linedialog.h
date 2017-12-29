@@ -4,18 +4,18 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class LineDialog;
 }
 
-class LineDialog : public QDialog, private CommandDialog
+class LineDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit LineDialog(QWidget *parent = 0);
+    explicit LineDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
     ~LineDialog();
 
 private slots:
@@ -23,6 +23,11 @@ private slots:
 
 private:
     Ui::LineDialog *ui;
+    MainWindowController* controller;
+    size_t index;
+    bool edit;
+
+    void fillFields();
 };
 
 #endif // LINEDIALOG_H

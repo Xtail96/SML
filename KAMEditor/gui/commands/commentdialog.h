@@ -4,18 +4,19 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
+
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class CommentDialog;
 }
 
-class CommentDialog : public QDialog, private CommandDialog
+class CommentDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit CommentDialog(QWidget *parent = 0);
+    explicit CommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
     ~CommentDialog();
 
 private slots:
@@ -23,6 +24,11 @@ private slots:
 
 private:
     Ui::CommentDialog *ui;
+    MainWindowController* controller;
+    size_t index;
+    bool edit;
+
+    void fillFields();
 };
 
 #endif // COMMENTDIALOG_H

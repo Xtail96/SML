@@ -4,13 +4,11 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 namespace Ui {
 class RotateDialog;
 }
 
-class RotateDialog : public QDialog, private CommandDialog
+class RotateDialog : public QDialog
 {
     Q_OBJECT
 

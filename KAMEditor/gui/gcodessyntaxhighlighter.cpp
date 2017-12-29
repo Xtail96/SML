@@ -12,17 +12,27 @@ void GCodesSyntaxHighlighter::highlightBlock(const QString &text)
     setHighlightColor(text, gPattern, Qt::darkGreen);
     setHighlightColor(text, mPattern, Qt::darkYellow);
     setHighlightColor(text, argumentsPattern, Qt::darkMagenta);
+    setHighlightColor(text, commentsPattern, Qt::lightGray);
 }
 
 void GCodesSyntaxHighlighter::setPattern()
 {
     QString g = "G";
     QString m = "M";
-    for(int i = 0; i <= 99; i++)
+
+    for(int i = 0; i < 10; i++)
     {
-        std::string tmp = std::to_string(i);
-        gPattern.push_back(g + QString::fromStdString(tmp) + ':');
-        mPattern.push_back(m + QString::fromStdString(tmp) + ':');
+        QString tmp = "0";
+        tmp.push_back(QString::number(i));
+        gPattern.push_back(g + tmp);
+        mPattern.push_back(m + tmp);
+    }
+
+    for(int i = 10; i <= 99; i++)
+    {
+        QString tmp = QString::number(i);
+        gPattern.push_back(g + tmp);
+        mPattern.push_back(m + tmp);
     }
     argumentsPattern =
     {
@@ -30,6 +40,7 @@ void GCodesSyntaxHighlighter::setPattern()
         "Y",
         "Z",
         "P",
+        "O",
         "F",
         "S",
         "R",
@@ -39,9 +50,13 @@ void GCodesSyntaxHighlighter::setPattern()
         "J",
         "K"
     };
+    commentsPattern =
+    {
+        "[(]([^{}]*)[)]"
+    };
 }
 
-void GCodesSyntaxHighlighter::setHighlightColor(const QString &text, std::vector<QString> pattern, const QBrush &brush)
+void GCodesSyntaxHighlighter::setHighlightColor(const QString &text, QList<QString> pattern, const QBrush &brush)
 {
     QTextCharFormat format;
 

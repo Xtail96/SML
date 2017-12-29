@@ -6,12 +6,6 @@ LabelDialog::LabelDialog(QWidget *parent) :
     ui(new Ui::LabelDialog)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->label_lineEdit_name
-    };
-    fillFields(fields);
 }
 
 LabelDialog::~LabelDialog()
@@ -21,15 +15,5 @@ LabelDialog::~LabelDialog()
 
 void LabelDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_LABEL;
 
-    cmd.commandColor = COMMANDCOLORS[labelColor];
-
-    std::string name = ui->label_lineEdit_name->text().toStdString();
-
-    cmd.args = {
-     name,
-    };
-    setCommandArguments(cmd);
 }

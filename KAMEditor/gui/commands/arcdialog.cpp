@@ -1,20 +1,15 @@
 #include "arcdialog.h"
 #include "ui_arcdialog.h"
 
-ArcDialog::ArcDialog(QWidget *parent) :
+ArcDialog::ArcDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::ArcDialog)
+    ui(new Ui::ArcDialog),
+    controller(_controller),
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->arc_lineEdit_r,
-         ui->arc_lineEdit_al,
-         ui->arc_lineEdit_fi,
-         ui->arc_lineEdit_velocity
-    };
-    fillFields(fields);
+    fillFields();
 }
 
 ArcDialog::~ArcDialog()
@@ -24,21 +19,83 @@ ArcDialog::~ArcDialog()
 
 void ArcDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_ARC;
+    QString r = ui->rLineEdit->text();
+    QString al = ui->alLineEdit->text();
+    QString fi = ui->fiLneEdit->text();
+    QString velocity = ui->velocityLineEdit->text();
 
-    cmd.commandColor = COMMANDCOLORS[defaultColor];
+    if(r.length() == 0)
+    {
+        r = QString::number(0);
+    }
 
-    std::string r = ui->arc_lineEdit_r->text().toStdString();
-    std::string al = ui->arc_lineEdit_al->text().toStdString();
-    std::string fi = ui->arc_lineEdit_fi->text().toStdString();
-    std::string velocity = ui->arc_lineEdit_velocity->text().toStdString();
+    if(al.length() == 0)
+    {
+        al = QString::number(0);
+    }
 
-    cmd.args = {
-     r,
-     al,
-     fi,
-     velocity,
+    if(fi.length() == 0)
+    {
+        fi = QString::number(0);
+    }
+
+    if(velocity.length() == 0)
+    {
+        velocity = QString::number(0);
+    }
+
+    QStringList arguments =
+    {
+        r,
+        al,
+        fi,
+        velocity
     };
-    setCommandArguments(cmd);
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_ARC, arguments, index);
+    }
+    else
+    {
+        controller->updateCommand(arguments, index);
+    }
+}
+
+void ArcDialog::fillFields()
+{
+    if(edit)
+    {
+        QStringList arguments = controller->getCommandArguments(index);
+
+
+        QString rString = "";
+        QString alString = "";
+        QString fiString = "";
+        QString vString = "";
+        for(int i = 0; i < arguments.size(); i++)
+        {
+            switch (i) {
+            case 0:
+                rString = arguments[i];
+                break;
+            case 1:
+                alString = arguments[i];
+                break;
+            case 2:
+                fiString = arguments[i];
+                break;
+            case 3:
+                vString = arguments[i];
+                break;
+            default:
+                break;
+            }
+        }
+
+        ui->rLineEdit->setText(rString);
+        ui->alLineEdit->setText(alString);
+        ui->fiLneEdit->setText(fiString);
+        ui->velocityLineEdit->setText(vString);
+    }
 }

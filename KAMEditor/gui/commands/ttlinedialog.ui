@@ -6,9 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>245</height>
+    <width>400</width>
+    <height>220</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>220</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>ТТ-Линия</string>
@@ -18,6 +29,12 @@
   </property>
   <property name="whatsThis">
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Быстрая клавиша &lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#3300ff;&quot;&gt;T &lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;TT ЛИНИЯ [&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН, ТК, [^] ∆Z,&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;)] &lt;br/&gt;Перемещение фрезы из точки с номером &amp;lt;ТН&amp;gt; в точку с номером по прямой в плоскости XY. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ТН&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка начальная. &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;TK&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – точка конечная. &lt;br/&gt;Если &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – перемещение по Z на ∆Z. &lt;br/&gt;Если &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;^∆Z&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; – воздушный переход с подъемом и опусканием на ∆Z. &lt;br/&gt;(&lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;СКОРОСТЬ&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;) Скорость выполнения оператора (необязательный параметр). &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
@@ -43,7 +60,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QGroupBox" name="ttline_arguments_groupBox">
+    <widget class="QGroupBox" name="ttlineArgumentsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>5</horstretch>
@@ -54,61 +71,65 @@
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="ttline_start_point_lineEdit"/>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="ttline_start_point_label">
+      <item row="1" column="0">
+       <widget class="QLabel" name="destinationPointLabel">
         <property name="text">
-         <string>№ Точки Начала</string>
+         <string>№ Точки назанчения</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="ttline_velocity_label">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="destinationPointLineEdit"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="velocityLabel">
         <property name="text">
          <string>Скорость</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="ttline_finish_point_lineEdit"/>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="ttline_velocity_lineEdit"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="ttline_finish_point_label">
-        <property name="text">
-         <string>№ Точки окончания</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="ttline_dz_label">
-        <property name="text">
-         <string>dz</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="ttline_dz_lineEdit"/>
-      </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="ttline_a_coordinate_label">
+       <widget class="QLabel" name="dzLabel">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
         <property name="text">
-         <string>A</string>
+         <string>Подъем по оси Z</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="ttline_a_coordinate_lineEdit"/>
+       <widget class="QLineEdit" name="dzLineEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="velocityLineEdit"/>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="airPassageCheckBox">
+        <property name="text">
+         <string>Воздушный переход</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" rowspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
-    <widget class="QLabel" name="ttline_title_label">
+    <widget class="QLabel" name="ttlineTitleLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -117,7 +138,10 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>21</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
       </font>
      </property>
      <property name="text">
@@ -132,6 +156,9 @@
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

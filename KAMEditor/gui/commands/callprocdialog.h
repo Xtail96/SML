@@ -4,14 +4,12 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "commanddialog.h"
-
 
 namespace Ui {
 class CallProcDialog;
 }
 
-class CallProcDialog : public QDialog, private CommandDialog
+class CallProcDialog : public QDialog
 {
     Q_OBJECT
 

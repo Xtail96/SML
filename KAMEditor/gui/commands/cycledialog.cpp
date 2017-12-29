@@ -6,12 +6,6 @@ CycleDialog::CycleDialog(QWidget *parent) :
     ui(new Ui::CycleDialog)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->cycle_amount_lineEdit
-    };
-    fillFields(fields);
 }
 
 CycleDialog::~CycleDialog()
@@ -21,14 +15,5 @@ CycleDialog::~CycleDialog()
 
 void CycleDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_FOR;
 
-    cmd.commandColor = COMMANDCOLORS[cycleColor];
-
-    std::string amount = ui->cycle_amount_lineEdit->text().toStdString();
-    cmd.args = {
-     amount
-    };
-    setCommandArguments(cmd);
 }

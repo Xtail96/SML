@@ -1,23 +1,15 @@
 #include "linedialog.h"
 #include "ui_linedialog.h"
 
-LineDialog::LineDialog(QWidget *parent) :
+LineDialog::LineDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::LineDialog)
+    ui(new Ui::LineDialog),
+    controller(_controller),
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
-
-   std::vector<QLineEdit*> fields =
-   {
-        ui->line_lineEdit_axis_x,
-        ui->line_lineEdit_axis_y,
-        ui->line_lineEdit_axis_z,
-        ui->line_lineEdit_axis_a,
-        ui->line_lineEdit_axis_b,
-        ui->line_lineEdit_velocity
-   };
-   fillFields(fields);
-
+    fillFields();
 }
 LineDialog::~LineDialog()
 {
@@ -25,22 +17,81 @@ LineDialog::~LineDialog()
 }
 void LineDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_LINE;
+    QString dx = ui->dxLineEdit->text();
+    QString dy = ui->dyLineEdit->text();
+    QString dz = ui->dzLineEdit->text();
+    QString v = ui->velocityLineEdit->text();
 
-    cmd.commandColor = COMMANDCOLORS[defaultColor];
-    std::vector<std::string> v =
+    if(dx.length() == 0)
     {
-        ui->line_lineEdit_axis_x->text().toStdString(),
-        ui->line_lineEdit_axis_y->text().toStdString(),
-        ui->line_lineEdit_axis_z->text().toStdString(),
-        ui->line_lineEdit_axis_a->text().toStdString(),
-        ui->line_lineEdit_axis_b->text().toStdString(),
-        ui->line_lineEdit_velocity->text().toStdString()
-    };
-    for(auto it : v)
-    {
-        cmd.args.push_back(it);
+        dx = QString::number(0);
     }
-    setCommandArguments(cmd);
+
+    if(dy.length() == 0)
+    {
+        dy = QString::number(0);
+    }
+
+    if(dz.length() == 0)
+    {
+        dz = QString::number(0);
+    }
+
+    if(v.length() == 0)
+    {
+        v = QString::number(0);
+    }
+
+    QStringList arguments =
+    {
+        dx,
+        dy,
+        dz,
+        v
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_LINE, arguments, index);
+    }
+    else
+    {
+        controller->updateCommand(arguments, index);
+    }
+}
+
+void LineDialog::fillFields()
+{
+    if(edit)
+    {
+        QStringList arguments = controller->getCommandArguments(index);
+
+        QString dxString = "";
+        QString dyString = "";
+        QString dzString = "";
+        QString vString = "";
+        for(int i = 0; i < arguments.size(); i++)
+        {
+            switch (i) {
+            case 0:
+                dxString = arguments[i];
+                break;
+            case 1:
+                dyString = arguments[i];
+                break;
+            case 2:
+                dzString = arguments[i];
+                break;
+            case 3:
+                vString = arguments[i];
+                break;
+            default:
+                break;
+            }
+        }
+        ui->dxLineEdit->setText(dxString);
+        ui->dyLineEdit->setText(dyString);
+        ui->dzLineEdit->setText(dzString);
+        ui->velocityLineEdit->setText(vString);
+    }
 }

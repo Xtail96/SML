@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QDebug>
-
 #include <set>
 #include <tuple>
 #include <vector>
@@ -17,19 +15,22 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QString>
+#include <QTableWidgetItem>
+#include <QListWidget>
+#include <QDebug>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
 
-#include "machinetool.h"
-#include "pointsmanager.h"
-#include "points/addpointdialog.h"
-#include "points/mousetoselectionpointdialog.h"
-#include "points/editpointdialog.h"
-#include "commandinterpreter.h"
-#include "commands/commanddialog.h"
+/// Подключение станка
+#include "models/machinetool/machinetool.h"
 
+/// Подключение диалогов редактора точек
+#include "points/addpointdialog.h"
+#include "points/toselectionpointdialog.h"
+
+/// Подключение диалогов команд
 #include "commands/linedialog.h"
 #include "commands/ttlinedialog.h"
 #include "commands/arcdialog.h"
@@ -51,11 +52,33 @@
 #include "commands/commentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
-#include "commands/adddevicedialog.h"
+#include "commands/smlvariabledialog.h"
 
+/// Подключение окна визуализации УП
+#include "programvisualizewindow.h"
+
+/// Подключение журнала
+#include "logdialog.h"
+
+/// Подключение подсветки синтаксиса G-кодов
 #include "gcodessyntaxhighlighter.h"
-#include "settingsmanager.h"
 
+/// Подключение менеджера настроек
+#include "models/machinetool/settingsmanager/settingsmanager.h"
+
+/// Подключение классов для работы с устройствами по usb
+#include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
+#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
+
+/// Подключение диалогов опций
+#include "gui/options/kabriolwindow.h"
+#include "gui/options/toollengthsensorwindow.h"
+#include "gui/options/lubricationsystemwindow.h"
+
+/// Подключение файла с библиотечными зависимостями
+#include "dependencies.h"
+
+#include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
 class MainWindow;
@@ -68,131 +91,197 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+signals:
+    /// Виджеты настроены
+    void ready();
 
 private:
     Ui::MainWindow *ui;
+
+    /// Контроллер главного окна
+    MainWindowController* mainWindowController;
+    void setupMainWindowController();
+
+    /// Таймер для обновления панелей
     QTimer *timer;
 
-    std::vector<QShortcut*> shortcuts;
-    std::vector<QShortcut*> editorShortcuts;
+    /// Горячие клавиши кнопок для перемещения по осям станка
+    std::vector<QShortcut*> axisesShortcuts;
 
+    /// Подсветки синтаксиса в редакторе G-кодов
     GCodesSyntaxHighlighter* hightlighter;
 
+    /// Метод для настройки таблиц настроек
+    void setupSettingsWidgets();
 
-    void setupSettings();
-
-
-    void setupDimensions();
-    void setupDirections();
-    void setupKinematicsSettings();
-
-    void setUpElectricalSettings();
-
-    void dimensionsFromMachineTool();
-    void directionsFromMachineTool();
-    void kinematicsSettingsFromMachineTool();
-    void electricialSettingsFromMachineTool();
-
-
-    void editSettingsField(QLineEdit *qle);
-    void applySettingsField(QLineEdit *qle);
-
-    void setupShortcuts(); 
-    void setupEditorShortcuts();
-
+    /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcuts();
     void enableMovementButtonsShortcuts();
-
     void setMovementButtonsShortcutsState(bool state);
     void setMovementButtonsRepeatState(bool state);
 
-    void update_coordinates();
-    void update_battery_status();
-    void update_kabriol_avaliability();
-
-    void update_edges_control_status();
-
-    void setSelectedCommandVectorNumber(unsigned int& current_row);
-
-    std::vector<QLineEdit*> makeQLineEditVector(int tmp);
-    std::vector<QCheckBox*> makeQCheckBoxVector(int tmp);
-
-    void parse7kamToSml(QString &tmp);
-    void parse7kamToSmlStep(std::string &tmp);
-    void setCommandArguments(std::string s, Command &command);
-    void eraseSpecialSymbols(std::string &s);
-
-protected:
-    void update_points();
-    void update_commands();
-    void update_base_status();
-
 private slots:
+    /// Слоты для настройки виджетов
+    void setupWidgets();
 
-    void addLineCommand();
-    void deleteSelectedCommands();
+    /// Слоты для настройки горячих клавиш
+    void setupAxisesShortcuts();
 
-    void update();
-    void on_discrete_radio_button_1_clicked();
-    void on_discrete_radio_button_2_clicked();
-    void on_discrete_radio_button_3_clicked();
-    void on_discrete_radio_button_4_clicked();
-    void on_discrete_radio_button_5_clicked();
+    /// Слоты для настройки Status Bar
+    void setupStatusBar();
 
-    void on_movement_x_positive_button_clicked();
-    void on_movement_x_negative_button_clicked();
-    void on_movement_y_positive_button_clicked();
-    void on_movement_y_negative_button_clicked();
+    /// Слоты для настройки дисплеев
+    void setupDisplays();
 
-    void on_movement_x_positive_y_positive_button_clicked();
-    void on_movement_x_positive_y_negative_button_clicked();
-    void on_movement_x_negative_y_positive_button_clicked();
-    void on_movement_x_negative_y_negative_button_clicked();
+    /// Слоты для настройки дисплея координат
+    void setupCoordinatesDisplay();
+    void setupEdgesControl();
 
-    void on_movement_z_negative_button_clicked();
-    void on_movement_z_positive_button_clicked();
+    /// Слоты для настройки редактора команд
+    void setupCommandsEditorField();
+    void setupGCodesSyntaxHighlighter();
 
-    void on_movement_a_positive_button_clicked();
-    void on_movement_a_negative_button_clicked();
+    /// Слоты для настройки элементов менеджера файлов
+    void setupEditorFileActionsPushButtons();
+
+    /// Слоты, для настройки редактора точек
+    void setupPointsEditorWidgets();
+    void setupPointsEditorFields();
+    void setupPointsPushButtons();
+
+    /// Слоты для настройки панели устройств
+    void setupDevicesPanel();
+
+    /// Слоты для настройки панели скорости
+    void setupVelocityPanel();
+
+    /// Cлот для настройки панели оборотов шпинделя
+    void setupSpindelRotationsPanel();
+
+    /// Слот для настройки панели опций
+    void setupOptionsPanel();
+
+    /// Слоты для обновления дисплеев
+    void updateDisplays();
+
+    /// Слот для обновления дисплея координат
+    void updateCoordinatesDisplay();
+
+    /// Слот для обновления дисплея датчиков
+    void updateSensorsDisplay();
+
+    /// Слот для обновления дисплея заряда батареи
+    void updateBatteryStatusDisplay();
+
+    /// Слот для обновления дисплея посылки со станка
+    void updateMachineToolStatusDisplay();
+
+    /// Слот для обновления настроек
+    void updateSettingsBoards();
+
+    /// Слот для обновления "доски" настроек датчиков
+    void updateSensorsBoard();
+
+    /// Слот для обновления "доски" настроек устройств
+    void updateDevicesBoard();
+
+    /// Слот для обновления "доски" настроек осей
+    void updateAxisesBoard();
+
+    /// Слот для обновления таблиц редактора точек
+    void updatePointsEditorWidgets();
+    void updatePointsEditorFields();
+    void updatePointsEditorButtons();
+
+    /// Слот для обновления дерева SML-команд
+    void updateCommandsEditorWidgets();
+    void updateSMLCommandsTreeWidget();
+
+    /// Слот для обновления статуса баировки станка
+    void updateBaseStatus();
+
+    /// Слот для обновления панели устройств
+    void updateDevicesPanel();
+
+    /// Слот для обновления скорости
+    void updateVelocityPanel();
+
+    /// Слот для обновления оборотов шпинделя
+    void updateSpindelRotationsPanel();
+
+    /// Слот для обновления панели опций
+    void updateOptionsPanel();
+
+    // to do исправить слот
+    void updateEdgesControlStatus();
+
+    void addPoint();
+    void editPoint(QModelIndex index);
+    void deletePoints(QModelIndexList indexes);
 
 
-    void on_movement_b_positive_button_clicked();
-    void on_movement_b_negative_button_clicked();
+    /// Слоты для обработки сигналов виджета дерева SML-команд
+    void commandsCopySlot();
+    void commandsCutSlot();
+    void commandsPasteSlot();
+    void commandsUndoSlot();
+    void deleteSelectedCommands(QModelIndexList indexes);
 
-    void on_feedrate_scroll_bar_valueChanged(int value);
+    /// Слоты для отображения поддержки/отсутсвия связи со станком
+    void showMachineToolConnected();
+    void showMachineToolDisconnected();
 
-    void on_rotations_scroll_bar_valueChanged(int value);
+    /// Слоты для прямого взаимодействия с элеменами интерфейса
+    void on_discreteRadioButton_1_clicked();
+    void on_discreteRadioButton_2_clicked();
+    void on_discreteRadioButton_3_clicked();
+    void on_discreteRadioButton_4_clicked();
+    void on_discreteRadioButton_5_clicked();
+
+    void on_movementXPositivePushButton_clicked();
+    void on_movementXNegativePushButton_clicked();
+    void on_movementYPositivePushButton_clicked();
+    void on_movementYNegativePushButton_clicked();
+
+    void on_movementXPositiveYPositivePushButton_clicked();
+    void on_movementXPositiveYNegativePushButton_clicked();
+    void on_movementXNegativeYPositivePushButton_clicked();
+    void on_movementXNegativeYNegativePushButton_clicked();
+
+    void on_movementZNegativePushButton_clicked();
+    void on_movementZPositivePushButton_clicked();
+
+    void on_movementAPositivePushButton_clicked();
+    void on_movementANegativePushButton_clicked();
+
+    void on_feedrateScrollBar_valueChanged(int value);
+
+    void on_rotationsScrollBar_valueChanged(int value);
 
     void on_exit_action_triggered();
 
-    void on_point_amount_button_clicked();
-    void on_park_button_clicked();
-    void on_point_add_button_clicked();
-    void on_point_delete_button_clicked();
-    void on_zero_button_clicked();
-    void on_point_cursor_button_clicked();
-    void on_point_edit_button_clicked();
-    void on_point_copy_button_clicked();
-    void on_commands_tools_listWidget_doubleClicked(const QModelIndex &index);
-    void on_to_base_button_clicked();
-    void on_edges_contol_check_box_clicked();
-    void on_spindle_enable_pushButton_clicked();
-    void on_mill_warming_pushButton_clicked();
-    void on_points_table_widget_doubleClicked(const QModelIndex &index);
-    void on_sml_editor_treeWidget_doubleClicked(const QModelIndex &index);
-    void on_sml_editor_treeWidget_clicked(const QModelIndex &index);
+    void on_pointsAmountPushButton_clicked();
+    void on_parkPushButton_clicked();
+    void on_pointAddPushButton_clicked();
+    void on_pointDeletePushButton_clicked();
+    void on_zeroPushButton_clicked();
+    void on_pointCursorPushButton_clicked();
+    void on_pointEditPushButton_clicked();
+    void on_pointCopyPushButton_clicked();
+    void on_toBasePushButton_clicked();
     void on_open_action_triggered();
-    void on_change_mechanics_settings_pushButton_clicked();
-    void on_apply_mechanics_settings_pushButton_clicked();
-    void on_cancel_mechanical_settings_pushButton_clicked();
-    void on_change_elecrical_settings_pushButton_clicked();
-    void on_apply_electrical_settings_pushButton_clicked();
-    void on_cancel_electrical_settings_pushButton_clicked();
-    void on_gcodes_editor_textEdit_textChanged();
-    void on_user_tools_listWidget_doubleClicked(const QModelIndex &index);
+    void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
+    void on_viewPushButton_clicked();
+    void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    void on_commandsToolsListWidget_clicked(const QModelIndex &index);
+    void on_devicesListWidget_clicked(const QModelIndex &index);
+    void on_add_action_triggered();
+    void on_create_action_triggered();
+    void on_save_action_triggered();
+    void on_saveas_action_triggered();
+    void on_connectCommandLinkButton_clicked();
 };
 
 

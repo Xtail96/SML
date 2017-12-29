@@ -1,17 +1,15 @@
 #include "commentdialog.h"
 #include "ui_commentdialog.h"
 
-CommentDialog::CommentDialog(QWidget *parent) :
+CommentDialog::CommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::CommentDialog)
+    ui(new Ui::CommentDialog),
+    controller(_controller),
+    index(_index),
+    edit(_edit)
 {
     ui->setupUi(this);
-
-    std::vector<QLineEdit*> fields =
-    {
-         ui->comment_text_lineEdit
-    };
-    fillFields(fields);
+    fillFields();
 }
 
 CommentDialog::~CommentDialog()
@@ -21,12 +19,27 @@ CommentDialog::~CommentDialog()
 
 void CommentDialog::on_buttonBox_accepted()
 {
-    Command cmd;
-    cmd.id = CMD_COMMENT;
+    QStringList arguments =
+    {
+        ui->commentTextLineEdit->text()
+    };
 
+    if(!edit)
+    {
+        controller->insertCommand(CMD_COMMENT, arguments, index);
+    }
+    else
+    {
+        controller->updateCommand(arguments, index);
+    }
+}
 
-    cmd.commandColor = COMMANDCOLORS[commentColor];
-    std::string commentText = ui->comment_text_lineEdit->text().toStdString();
-    cmd.args.push_back(commentText);
-    setCommandArguments(cmd);
+void CommentDialog::fillFields()
+{
+    if(edit)
+    {
+        QStringList arguments = controller->getCommandArguments(index);
+        QString comment = arguments[0];
+        ui->commentTextLineEdit->setText(comment);
+    }
 }

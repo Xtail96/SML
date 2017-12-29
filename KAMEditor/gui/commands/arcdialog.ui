@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>213</height>
+    <width>350</width>
+    <height>250</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Дуга</string>
@@ -21,56 +26,68 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="0" rowspan="2" colspan="2">
-    <widget class="QGroupBox" name="arc_arguments_groupBox">
+    <widget class="QGroupBox" name="argumentsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>Аргументы:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="rLineEdit"/>
+      </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="arc_label_r">
+       <widget class="QLabel" name="rLabel">
         <property name="text">
          <string>R</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="arc_lineEdit_r"/>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="arc_label_velocity">
-        <property name="text">
-         <string>Скорость</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="arc_lineEdit_velocity"/>
-      </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="arc_label_al">
+       <widget class="QLabel" name="alLabel">
         <property name="text">
          <string>Al</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="arc_lineEdit_al"/>
+      <item row="0" column="3">
+       <widget class="QLabel" name="velocityLabel">
+        <property name="text">
+         <string>Скорость</string>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="arc_label_fi">
+       <widget class="QLabel" name="fiLabel">
         <property name="text">
          <string>Fi</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="arc_lineEdit_fi"/>
+       <widget class="QLineEdit" name="fiLneEdit"/>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="velocityLineEdit"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="alLineEdit"/>
+      </item>
+      <item row="0" column="2" rowspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -86,10 +103,12 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="arc_label_title">
+    <widget class="QLabel" name="arcTitleLabel">
      <property name="font">
       <font>
-       <pointsize>21</pointsize>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -100,7 +119,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="3" column="0" colspan="2">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
