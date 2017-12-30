@@ -653,7 +653,34 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     }
 
     Point3D start = currentPoint;
-    double angleIncrement = 0.01;
+    double increment = 0.01;
+
+    // менять значение sign в зависимости от четверти относительно текущей точки
+    int sign;
+    if(middle.x >= start.x)
+    {
+        if(middle.y >= start.y)
+        {
+            // 1 четверть
+            sign = -1;
+        }
+        else
+        {
+            // 4 четверть
+            sign = 1;
+        }
+    }
+    else
+    {
+        if(middle.y < start.y)
+        {
+            // 3 четверть
+        }
+        else
+        {
+            // 2 четверть
+        }
+    }
 
     /*
         A := x2 - x1;
@@ -684,28 +711,30 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     center.y = (a * f - c * e) / g;
     this->points.push_back(std::shared_ptr<Point3D>(new Point3D(center.x, center.y, center.z)));
 
-    double radius = start.x - center.x;
+    //double radius = start.x - center.x;
+    double radius = std::fabs(start.x - center.x);
 
     glBegin(GL_LINE_STRIP);
 
-    double lim = 6.28;
+    double lim = 3.14;
     double x, y, z;
-    z = start.x;
-    double zStep = (end.z - start.z) * angleIncrement / lim;
-    for (double theta = 0; theta < lim; theta += angleIncrement)
+    x = start.x;
+    y = start.y;
+    z = start.z;
+    double zStep = (end.z - start.z) * increment / lim;
+    for (double theta = 0; theta < lim; theta += increment)
     {
-        x = center.x + radius * cos(theta);
-        y = center.y + radius * sin(theta);
+        x = center.x + radius * cos(sign * (theta + M_PI));
+        y = center.y + radius * sin(sign * (theta + M_PI));
         z += zStep;
 
         //glVertex2f(x, y);
         glVertex3f(x, y, z);
 
-        Point3D newVertex(x, y, currentPoint.z);
+        Point3D newVertex(x, y, z);
         updateOffsets(newVertex);
         updateCurrentPoint(newVertex);
     }
-    qDebug() << z;
 
     glEnd();
 
