@@ -682,23 +682,30 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     }
     center.x = (d * e - b * f) / g;
     center.y = (a * f - c * e) / g;
+    this->points.push_back(std::shared_ptr<Point3D>(new Point3D(center.x, center.y, center.z)));
 
-    double radius = 10;
+    double radius = start.x - center.x;
 
     glBegin(GL_LINE_STRIP);
 
-    double x, y;
-    for (double theta = 0; theta < 1; theta += angleIncrement)
+    double lim = 6.28;
+    double x, y, z;
+    z = start.x;
+    double zStep = (end.z - start.z) * angleIncrement / lim;
+    for (double theta = 0; theta < lim; theta += angleIncrement)
     {
         x = center.x + radius * cos(theta);
         y = center.y + radius * sin(theta);
+        z += zStep;
 
-        glVertex2f(x, y);
+        //glVertex2f(x, y);
+        glVertex3f(x, y, z);
 
         Point3D newVertex(x, y, currentPoint.z);
         updateOffsets(newVertex);
         updateCurrentPoint(newVertex);
     }
+    qDebug() << z;
 
     glEnd();
 
