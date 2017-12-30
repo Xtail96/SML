@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <QMessageBox>
 #include "models/machinetool/pointsmanager/point/point.h"
 
 /**
@@ -91,7 +92,7 @@ public:
      */
     std::shared_ptr<Point>& operator[](size_t idx);
 
-    Point3D getPoint3D(QString idx) const;
+    Point3D getPoint3D(QString idx);
     static Point3D toPoint3D(std::shared_ptr<Point> origin);
 
 private:

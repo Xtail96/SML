@@ -76,7 +76,7 @@ std::shared_ptr<Point>& PointsManager::operator[](size_t idx)
     }
 }
 
-Point3D PointsManager::getPoint3D(QString idx) const
+Point3D PointsManager::getPoint3D(QString idx)
 {
     Point3D point3d;
     try
@@ -85,19 +85,31 @@ Point3D PointsManager::getPoint3D(QString idx) const
         size_t pointNumberValue = idx.toUInt(&isNumber);
         if(isNumber)
         {
-            std::shared_ptr<Point> pointOriginal = m_points[pointNumberValue-1];
+            std::shared_ptr<Point> pointOriginal = this->operator [](pointNumberValue-1);
             point3d = PointsManager::toPoint3D(pointOriginal);
         }
     }
     catch(...)
     {
         point3d = Point3D(-1, -1, -1);
+        throw;
     }
     return point3d;
 }
 
 Point3D PointsManager::toPoint3D(std::shared_ptr<Point> origin)
 {
-    return Point3D(origin->get("X"), origin->get("Y"), origin->get("Z"));
+    Point3D point3d;
+    try
+    {
+        point3d.x = origin->get("X");
+        point3d.y = origin->get("Y");
+        point3d.z = origin->get("Z");
+    }
+    catch(...)
+    {
+        point3d = Point3D(-1, -1, -1);
+    }
+    return point3d;
 }
 

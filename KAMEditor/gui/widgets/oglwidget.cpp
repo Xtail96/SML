@@ -20,35 +20,43 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //Задаем режим матрицы
-    glMatrixMode(GL_PROJECTION);
-
-    //Загружаем матрицу
-    glLoadIdentity();
-
-    move();
-    rotate();
-
-    glScalef(scale, scale, scale);
-    drawCoordinatesVectors();
-
-    drawCommands();
-
-    if(pointsVisible)
+    try
     {
-        drawPoints();
-    }
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(gridVisible)
-    {
-        drawGrid();
-    }
+        //Задаем режим матрицы
+        glMatrixMode(GL_PROJECTION);
 
+        //Загружаем матрицу
+        glLoadIdentity();
+
+        move();
+        rotate();
+
+        glScalef(scale, scale, scale);
+        drawCoordinatesVectors();
+
+        drawCommands();
+
+        if(pointsVisible)
+        {
+            drawPoints();
+        }
+
+        if(gridVisible)
+        {
+            drawGrid();
+        }
 #ifdef Q_OS_MACOS
     swapBuffers();
 #endif
+    }
+    catch(...)
+    {
+        this->setUpdatesEnabled(false);
+        this->close();
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Невозможно отобразить траекторию движения").exec();
+    }
 }
 
 void OGLWidget::drawCoordinatesVectors()
@@ -84,7 +92,7 @@ void OGLWidget::drawCommands()
     updateCurrentPointIsNeed = true;
 
     for(auto command : m_commands)
-    {    
+    {
         qglColor(Qt::darkGray);
         command->draw(this);
     }
