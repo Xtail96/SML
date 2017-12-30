@@ -7,21 +7,21 @@
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
-class OffDialog;
+class SMLSwitchOffDialog;
 }
 
-class OffDialog : public QDialog
+class SMLSwitchOffDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit OffDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
-    ~OffDialog();
+    explicit SMLSwitchOffDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
+    ~SMLSwitchOffDialog();
 
 private slots:
     void on_buttonBox_accepted();
 private:
-    Ui::OffDialog *ui;
+    Ui::SMLSwitchOffDialog *ui;
     MainWindowController* controller;
     size_t index;
     bool edit;

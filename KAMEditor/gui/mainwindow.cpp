@@ -1026,16 +1026,16 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     unsigned int currentCommandNumber = item->text(0).toUInt() - 1;
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        SMLSwitchOnDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        SMLSwitchOffDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_COMMENT:
         SMLCommentDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        SMLPauseDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_LINE:
         LineDialog(mainWindowController, currentCommandNumber, this, true).exec();
@@ -1050,7 +1050,7 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         SMLVariableDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     case CMD_TTTARC:
-        TTTArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        SMLTTTArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
@@ -1093,16 +1093,16 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 
     switch (commandNumber) {
     case CMD_SWITCH_ON:
-        OnDialog(mainWindowController, currentCommandNumber, this).exec();
+        SMLSwitchOnDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_SWITCH_OFF:
-        OffDialog(mainWindowController, currentCommandNumber, this).exec();
+        SMLSwitchOffDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_COMMENT:
         SMLCommentDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_PAUSE:
-        PauseDialog(mainWindowController, currentCommandNumber, this).exec();
+        SMLPauseDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_LINE:
         LineDialog(mainWindowController, currentCommandNumber, this).exec();
@@ -1117,7 +1117,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         SMLVariableDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     case CMD_TTTARC:
-        TTTArcDialog(mainWindowController, currentCommandNumber, this).exec();
+        SMLTTTArcDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();

@@ -1,5 +1,5 @@
-#ifndef TTTARCDIALOG_H
-#define TTTARCDIALOG_H
+#ifndef PAUSEDIALOG_H
+#define PAUSEDIALOG_H
 
 #include <QDialog>
 #include <QMessageBox>
@@ -7,22 +7,22 @@
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 namespace Ui {
-class TTTArcDialog;
+class SMLPauseDialog;
 }
 
-class TTTArcDialog : public QDialog
+class SMLPauseDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit TTTArcDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
-    ~TTTArcDialog();
+    explicit SMLPauseDialog(MainWindowController* _controller, size_t _index, QWidget *parent = 0, bool _edit = false);
+    ~SMLPauseDialog();
 
 private slots:
     void on_buttonBox_accepted();
 
 private:
-    Ui::TTTArcDialog *ui;
+    Ui::SMLPauseDialog *ui;
     MainWindowController* controller;
     size_t index;
     bool edit;
@@ -30,4 +30,4 @@ private:
     void fillFields();
 };
 
-#endif // TTTARCDIALOG_H
+#endif // PAUSEDIALOG_H

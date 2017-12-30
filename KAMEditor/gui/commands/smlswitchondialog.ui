@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OnDialog</class>
- <widget class="QDialog" name="OnDialog">
+ <class>SMLSwitchOnDialog</class>
+ <widget class="QDialog" name="SMLSwitchOnDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -102,7 +102,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>OnDialog</receiver>
+   <receiver>SMLSwitchOnDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -118,7 +118,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>OnDialog</receiver>
+   <receiver>SMLSwitchOnDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -46,19 +46,15 @@ SOURCES += main.cpp\
     gui/commands/labeldialog.cpp \
     gui/commands/arc2dialog.cpp \
     gui/commands/cycledialog.cpp \
-    gui/commands/offdialog.cpp \
-    gui/commands/ondialog.cpp \
     gui/commands/rotatedialog.cpp \
     gui/commands/gotodialog.cpp \
     gui/commands/procdialog.cpp \
     gui/commands/callprocdialog.cpp \
     gui/commands/scaledialog.cpp \
     gui/commands/velocitydialog.cpp \
-    gui/commands/pausedialog.cpp \
     gui/commands/stopdialog.cpp \
     gui/commands/commentdialog.cpp \
     gui/commands/ttzarcdialog.cpp \
-    gui/commands/tttarcdialog.cpp \
     gui/commands/splinedialog.cpp \
     gui/commands/ttttsplinedialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
@@ -112,7 +108,11 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/smlswitchoff.cpp \
     models/machinetool/commandsmanager/commands/smlswitchon.cpp \
     models/machinetool/commandsmanager/commands/smltttarc.cpp \
-    gui/commands/smlttlinedialog.cpp
+    gui/commands/smlttlinedialog.cpp \
+    gui/commands/smlpausedialog.cpp \
+    gui/commands/smlswitchondialog.cpp \
+    gui/commands/smlswitchoffdialog.cpp \
+    gui/commands/smltttarcdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -121,18 +121,14 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/labeldialog.h \
     gui/commands/arc2dialog.h \
     gui/commands/cycledialog.h \
-    gui/commands/offdialog.h \
-    gui/commands/ondialog.h \
     gui/commands/rotatedialog.h \
     gui/commands/gotodialog.h \
     gui/commands/procdialog.h \
     gui/commands/callprocdialog.h \
     gui/commands/scaledialog.h \
     gui/commands/velocitydialog.h \
-    gui/commands/pausedialog.h \
     gui/commands/stopdialog.h \
     gui/commands/ttzarcdialog.h \
-    gui/commands/tttarcdialog.h \
     gui/commands/splinedialog.h \
     gui/commands/ttttsplinedialog.h \
     gui/gcodessyntaxhighlighter.h \
@@ -191,7 +187,11 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/smlcommands.h \
     models/machinetool/commandsmanager/commands/smltttarc.h \
     gui/commands/smlttlinedialog.h \
-    gui/commands/smlcommentdialog.h
+    gui/commands/smlcommentdialog.h \
+    gui/commands/smlpausedialog.h \
+    gui/commands/smlswitchondialog.h \
+    gui/commands/smlswitchoffdialog.h \
+    gui/commands/smltttarcdialog.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -201,15 +201,12 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/labeldialog.ui \
     gui/commands/arc2dialog.ui \
     gui/commands/cycledialog.ui \
-    gui/commands/offdialog.ui \
-    gui/commands/ondialog.ui \
     gui/commands/rotatedialog.ui \
     gui/commands/gotodialog.ui \
     gui/commands/procdialog.ui \
     gui/commands/callprocdialog.ui \
     gui/commands/scaledialog.ui \
     gui/commands/velocitydialog.ui \
-    gui/commands/pausedialog.ui \
     gui/commands/stopdialog.ui \
     gui/points/toselectionpointdialog.ui \
     gui/options/kabriolwindow.ui \
@@ -219,11 +216,14 @@ FORMS    += gui/mainwindow.ui \
     gui/logdialog.ui \
     gui/commands/smlvariabledialog.ui \
     gui/commands/ttzarcdialog.ui \
-    gui/commands/tttarcdialog.ui \
     gui/commands/splinedialog.ui \
     gui/commands/ttttsplinedialog.ui \
     gui/commands/smlttlinedialog.ui \
-    gui/commands/smlcommentdialog.ui
+    gui/commands/smlcommentdialog.ui \
+    gui/commands/smlpausedialog.ui \
+    gui/commands/smlswitchondialog.ui \
+    gui/commands/smlswitchoffdialog.ui \
+    gui/commands/smltttarcdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns

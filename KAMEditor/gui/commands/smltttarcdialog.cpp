@@ -1,9 +1,9 @@
-#include "tttarcdialog.h"
-#include "ui_tttarcdialog.h"
+#include "smltttarcdialog.h"
+#include "ui_smltttarcdialog.h"
 
-TTTArcDialog::TTTArcDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
+SMLTTTArcDialog::SMLTTTArcDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::TTTArcDialog),
+    ui(new Ui::SMLTTTArcDialog),
     controller(_controller),
     index(_index),
     edit(_edit)
@@ -12,12 +12,12 @@ TTTArcDialog::TTTArcDialog(MainWindowController *_controller, size_t _index, QWi
     fillFields();
 }
 
-TTTArcDialog::~TTTArcDialog()
+SMLTTTArcDialog::~SMLTTTArcDialog()
 {
     delete ui;
 }
 
-void TTTArcDialog::on_buttonBox_accepted()
+void SMLTTTArcDialog::on_buttonBox_accepted()
 {
     QString middlePointNumber = QString::number(ui->middlePointLineEdit->text().toUInt());
     QString endPointNumber = QString::number(ui->finishPointLineEdit->text().toUInt());
@@ -40,7 +40,7 @@ void TTTArcDialog::on_buttonBox_accepted()
     }
 }
 
-void TTTArcDialog::fillFields()
+void SMLTTTArcDialog::fillFields()
 {
     if(edit)
     {

@@ -1,9 +1,9 @@
-#include "ondialog.h"
-#include "ui_ondialog.h"
+#include "smlswitchondialog.h"
+#include "ui_smlswitchondialog.h"
 
-OnDialog::OnDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
+SMLSwitchOnDialog::SMLSwitchOnDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::OnDialog),
+    ui(new Ui::SMLSwitchOnDialog),
     controller(_controller),
     index(_index),
     edit(_edit)
@@ -12,12 +12,12 @@ OnDialog::OnDialog(MainWindowController *_controller, size_t _index, QWidget *pa
     fillFields();
 }
 
-OnDialog::~OnDialog()
+SMLSwitchOnDialog::~SMLSwitchOnDialog()
 {
     delete ui;
 }
 
-void OnDialog::fillFields()
+void SMLSwitchOnDialog::fillFields()
 {
     QStringList devicesNames = controller->getDevicesNames();
     ui->devicesComboBox->addItems(devicesNames);
@@ -38,14 +38,9 @@ void OnDialog::fillFields()
 }
 
 
-void OnDialog::on_buttonBox_accepted()
+void SMLSwitchOnDialog::on_buttonBox_accepted()
 {
-    QString parametrs = ui->argumentsLineEdit->text();
-
-    if(parametrs.length() == 0)
-    {
-        parametrs = QString::number(0);
-    }
+    QString parametrs = QString::number(ui->argumentsLineEdit->text().toUInt());
 
     QStringList cmdArguments =
     {

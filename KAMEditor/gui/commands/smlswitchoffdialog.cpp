@@ -1,9 +1,9 @@
-#include "offdialog.h"
-#include "ui_offdialog.h"
+#include "smlswitchoffdialog.h"
+#include "ui_smlswitchoffdialog.h"
 
-OffDialog::OffDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
+SMLSwitchOffDialog::SMLSwitchOffDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::OffDialog),
+    ui(new Ui::SMLSwitchOffDialog),
     controller(_controller),
     index(_index),
     edit(_edit)
@@ -12,12 +12,12 @@ OffDialog::OffDialog(MainWindowController *_controller, size_t _index, QWidget *
     fillFields();
 }
 
-OffDialog::~OffDialog()
+SMLSwitchOffDialog::~SMLSwitchOffDialog()
 {
     delete ui;
 }
 
-void OffDialog::on_buttonBox_accepted()
+void SMLSwitchOffDialog::on_buttonBox_accepted()
 {
     QStringList cmdArguments =
     {
@@ -33,7 +33,7 @@ void OffDialog::on_buttonBox_accepted()
     }
 }
 
-void OffDialog::fillFields()
+void SMLSwitchOffDialog::fillFields()
 {
     QStringList devicesNames = controller->getDevicesNames();
     ui->devicesComboBox->addItems(devicesNames);
