@@ -86,9 +86,7 @@ Point3D PointsManager::getPoint3D(QString idx) const
         if(isNumber)
         {
             std::shared_ptr<Point> pointOriginal = m_points[pointNumberValue-1];
-            point3d.x = pointOriginal->get("X");
-            point3d.y = pointOriginal->get("Y");
-            point3d.z = pointOriginal->get("Z");
+            point3d = PointsManager::toPoint3D(pointOriginal);
         }
     }
     catch(...)
@@ -96,5 +94,10 @@ Point3D PointsManager::getPoint3D(QString idx) const
         point3d = Point3D(-1, -1, -1);
     }
     return point3d;
+}
+
+Point3D PointsManager::toPoint3D(std::shared_ptr<Point> origin)
+{
+    return Point3D(origin->get("X"), origin->get("Y"), origin->get("Z"));
 }
 

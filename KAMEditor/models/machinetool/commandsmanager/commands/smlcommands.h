@@ -9,5 +9,6 @@
 #include "smlswitchon.h"
 #include "smlttline.h"
 #include "smlvariable.h"
+#include "smltttarc.h"
 
 #endif // COMMANDS_H

@@ -19,7 +19,40 @@ TTTArcDialog::~TTTArcDialog()
 
 void TTTArcDialog::on_buttonBox_accepted()
 {
+    QString middlePointNumber = QString::number(ui->middlePointLineEdit->text().toUInt());
+    QString endPointNumber = QString::number(ui->finishPointLineEdit->text().toUInt());
+    QString v = QString::number(ui->velocityLineEdit->text().toDouble());
 
+    if(middlePointNumber.length() == 0)
+    {
+        middlePointNumber = QString::number(0);
+    }
+
+    if(endPointNumber.length() == 0)
+    {
+        endPointNumber = QString::number(0);
+    }
+
+    if(v.length() == 0)
+    {
+        v = QString::number(0);
+    }
+
+    QStringList arguments =
+    {
+        middlePointNumber,
+        endPointNumber,
+        v
+    };
+
+    if(!edit)
+    {
+        controller->insertCommand(CMD_TTTARC, arguments, index);
+    }
+    else
+    {
+        controller->updateCommand(arguments, index);
+    }
 }
 
 void TTTArcDialog::fillFields()

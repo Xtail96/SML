@@ -1049,6 +1049,9 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
     case CMD_VARIABLE:
         SMLVariableDialog(mainWindowController, currentCommandNumber, this, true).exec();
         break;
+    case CMD_TTTARC:
+        TTTArcDialog(mainWindowController, currentCommandNumber, this, true).exec();
+        break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;
@@ -1112,6 +1115,9 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         break;
     case CMD_VARIABLE:
         SMLVariableDialog(mainWindowController, currentCommandNumber, this).exec();
+        break;
+    case CMD_TTTARC:
+        TTTArcDialog(mainWindowController, currentCommandNumber, this).exec();
         break;
     default:
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
