@@ -610,13 +610,16 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
         return;
     }
 
+    startAngle = startAngle * M_PI / 180;
+    arcAngle = arcAngle * M_PI / 180;
+
     double angleIncrement = 0.01;
 
     double x, y;
 
     Point3D center;
-    center.x = currentPoint.x /*+ cos(startAngle)*/;
-    center.y = currentPoint.y /*- sin(startAngle)*/ - radius;
+    center.x = currentPoint.x - radius;
+    center.y = currentPoint.y;
 
     glBegin(GL_LINE_STRIP);
 
@@ -633,4 +636,63 @@ void OGLWidget::drawArc(double radius, double startAngle, double arcAngle, doubl
     }
 
     glEnd();
+}
+
+void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
+{
+    if(v < 0) {
+        return;
+    }
+
+    Point3D start = currentPoint;
+    double angleIncrement = 0.01;
+
+    /*
+        A := x2 - x1;
+        B := y2 - y1;
+        C := x3 - x1;
+        D := y3 - y1;
+        E := A * (x1 + x2) + B * (y1 + y2);
+        F := C * (x1 + x3) + D * (y1 + y3);
+        G := 2 * (A * (y3 - y2) - B * (x3 - x2));
+        if G = 0 then Exit;
+        Cx := (D * E - B * F) / G;
+        Cy := (A * F - C * E) / G;
+     */
+
+    Point3D center;
+    double a = middle.x - start.x;
+    double b = middle.y - start.y;
+    double c = end.x - start.x;
+    double d = end.y - start.y;
+    double e = a * (start.x + middle.x) + b * (start.y + middle.y);
+    double f = c * (start.x + end.x) + d * (start.y + end.y);
+    double g = 2 * (a * (end.y - middle.y) - b * (end.x - middle.x));
+    if(g == 0)
+    {
+        return;
+    }
+    center.x = (d * e - b * f) / g;
+    center.y = (a * f - c * e) / g;
+
+    double radius = 10;
+
+    glBegin(GL_LINE_STRIP);
+
+    double x, y;
+    for (double theta = 0; theta < 1; theta += angleIncrement)
+    {
+        x = center.x + radius * cos(theta);
+        y = center.y + radius * sin(theta);
+
+        glVertex2f(x, y);
+
+        Point3D newVertex(x, y, currentPoint.z);
+        updateOffsets(newVertex);
+        updateCurrentPoint(newVertex);
+    }
+
+    glEnd();
+
+
 }

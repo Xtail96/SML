@@ -91,6 +91,8 @@ public:
      */
     std::shared_ptr<Point>& operator[](size_t idx);
 
+    Point3D getPoint3D(QString idx) const;
+
 private:
     /// Список всех точек
     std::vector< std::shared_ptr<Point> > m_points;

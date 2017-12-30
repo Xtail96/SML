@@ -51,6 +51,8 @@ public:
      */
     void drawArc(double radius, double startAngle, double arcAngle, double v = 1);
 
+    void drawTTTArc(Point3D middle, Point3D end, double v = 1);
+
     /*!
      * \brief Рисует линию в трехмерном пространстве
      * \param dx - смещение по координате X

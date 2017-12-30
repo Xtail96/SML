@@ -23,11 +23,13 @@ void SMLTTLine::draw(OGLWidget *w) const
     {
         if(!airPassageIsNeed)
         {
-            w->drawTTLine(destinationPoint(w), v.toDouble());
+            //w->drawTTLine(destinationPoint(w), v.toDouble());
+            w->drawTTLine(pointsManager->getPoint3D(destinationPointNumber), v.toDouble());
         }
         else
         {
-            w->drawAirPassage(destinationPoint(w), dz.toDouble(), v.toDouble());
+            //w->drawAirPassage(destinationPoint(w), dz.toDouble(), v.toDouble());
+            w->drawAirPassage(pointsManager->getPoint3D(destinationPointNumber), dz.toDouble(), v.toDouble());
         }
     }
 }

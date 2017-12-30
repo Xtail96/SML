@@ -111,7 +111,8 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/smlpause.cpp \
     models/machinetool/commandsmanager/commands/smlttline.cpp \
     models/machinetool/commandsmanager/commands/smlswitchoff.cpp \
-    models/machinetool/commandsmanager/commands/smlswitchon.cpp
+    models/machinetool/commandsmanager/commands/smlswitchon.cpp \
+    models/machinetool/commandsmanager/commands/smltttarc.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -189,7 +190,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/smlswitchon.h \
     models/machinetool/commandsmanager/commands/smlpause.h \
     models/machinetool/commandsmanager/commands/smlcomment.h \
-    models/machinetool/commandsmanager/commands/smlcommands.h
+    models/machinetool/commandsmanager/commands/smlcommands.h \
+    models/machinetool/commandsmanager/commands/smltttarc.h
 
 
 FORMS    += gui/mainwindow.ui \
