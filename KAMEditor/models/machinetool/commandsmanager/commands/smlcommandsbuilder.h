@@ -20,6 +20,7 @@ public:
     static std::shared_ptr<SMLCommand> buildSwitchOnCommand(QStringList arguments, DevicesManager* devicesManager);
     static std::shared_ptr<SMLCommand> buildSwitchOffCommand(QStringList arguments, DevicesManager* devicesManager);
     static std::shared_ptr<SMLCommand> buildSMLVariableCommand(QStringList arguments);
+    static std::shared_ptr<SMLCommand> buildSMLTTTArcCommand(QStringList arguments, PointsManager *pointsManager);
 };
 
 #endif // COMMANDSBUILDER_H

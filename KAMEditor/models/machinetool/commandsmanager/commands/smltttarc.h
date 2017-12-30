@@ -35,7 +35,7 @@ public:
 
 private:
     size_t id = CMD_TTTARC;
-    const QString name = "ТТT-Дуга";
+    const QString name = "ТТТ-Дуга";
     PointsManager* pointsManager;
 
     QString middlePointNumber;

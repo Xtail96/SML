@@ -50,6 +50,11 @@ std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildCommand(int id, QStringList
         cmd = buildSMLVariableCommand(arguments);
         break;
     }
+    case CMD_TTTARC:
+    {
+        cmd = buildSMLTTTArcCommand(arguments, pointsManager);
+        break;
+    }
     default:
     {
         break;
@@ -243,6 +248,36 @@ std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildSMLVariableCommand(QStringL
         }
     }
     cmd = std::shared_ptr<SMLCommand> (new SMLVariable(key, value));
+    return cmd;
+}
+
+std::shared_ptr<SMLCommand> SMLCommandsBuilder::buildSMLTTTArcCommand(QStringList arguments, PointsManager* pointsManager)
+{
+    std::shared_ptr<SMLCommand> cmd;
+
+    QString middlePointNumber = QString::number(0);
+    QString endPointNumber = QString::number(0);
+    QString v = QString::number(0);
+
+    for(int i = 0; i < arguments.size(); i++)
+    {
+        switch(i)
+        {
+        case 0:
+            middlePointNumber = arguments[i];
+            break;
+        case 1:
+            endPointNumber = arguments[i];
+            break;
+        case 2:
+            v = arguments[i];
+            break;
+        default:
+            break;
+        }
+    }
+
+    cmd = std::shared_ptr<SMLCommand> (new SMLTTTArc(pointsManager, middlePointNumber, endPointNumber, v));
     return cmd;
 }
 
