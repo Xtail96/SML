@@ -1,9 +1,9 @@
-#include "ttlinedialog.h"
-#include "ui_ttlinedialog.h"
+#include "smlttlinedialog.h"
+#include "ui_smlttlinedialog.h"
 
-TTLineDialog::TTLineDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
+SMLTTLineDialog::SMLTTLineDialog(MainWindowController *_controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::TTLineDialog),
+    ui(new Ui::SMLTTLineDialog),
     controller(_controller),
     index(_index),
     edit(_edit)
@@ -13,31 +13,16 @@ TTLineDialog::TTLineDialog(MainWindowController *_controller, size_t _index, QWi
     fillFields();
 }
 
-TTLineDialog::~TTLineDialog()
+SMLTTLineDialog::~SMLTTLineDialog()
 {
     delete ui;
 }
 
-void TTLineDialog::on_buttonBox_accepted()
+void SMLTTLineDialog::on_buttonBox_accepted()
 {
-    QString destinationPointNumber = ui->destinationPointLineEdit->text();
-    QString dz = ui->dzLineEdit->text();
-    QString v = ui->velocityLineEdit->text();
-
-    if(destinationPointNumber.length() == 0)
-    {
-        destinationPointNumber = QString::number(0);
-    }
-
-    if(dz.length() == 0)
-    {
-        dz = QString::number(0);
-    }
-
-    if(v.length() == 0)
-    {
-        v = QString::number(0);
-    }
+    QString destinationPointNumber = QString::number(ui->destinationPointLineEdit->text().toUInt());
+    QString dz = QString::number(ui->dzLineEdit->text().toDouble());
+    QString v = QString::number(ui->velocityLineEdit->text().toDouble());
 
     QStringList arguments =
     {
@@ -57,7 +42,7 @@ void TTLineDialog::on_buttonBox_accepted()
     }
 }
 
-void TTLineDialog::fillFields()
+void SMLTTLineDialog::fillFields()
 {
     if(edit)
     {
@@ -98,12 +83,12 @@ void TTLineDialog::fillFields()
     }
 }
 
-void TTLineDialog::on_airPassageCheckBox_clicked()
+void SMLTTLineDialog::on_airPassageCheckBox_clicked()
 {
     updateDZ();
 }
 
-void TTLineDialog::updateDZ()
+void SMLTTLineDialog::updateDZ()
 {
     if(ui->airPassageCheckBox->isChecked())
     {

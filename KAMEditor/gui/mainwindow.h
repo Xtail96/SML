@@ -32,7 +32,7 @@
 
 /// Подключение диалогов команд
 #include "commands/linedialog.h"
-#include "commands/ttlinedialog.h"
+#include "commands/smlttlinedialog.h"
 #include "commands/arcdialog.h"
 #include "commands/arc2dialog.h"
 #include "commands/ttzarcdialog.h"

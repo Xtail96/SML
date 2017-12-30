@@ -44,7 +44,6 @@ SOURCES += main.cpp\
     gui/commands/linedialog.cpp \
     gui/commands/arcdialog.cpp \
     gui/commands/labeldialog.cpp \
-    gui/commands/ttlinedialog.cpp \
     gui/commands/arc2dialog.cpp \
     gui/commands/cycledialog.cpp \
     gui/commands/offdialog.cpp \
@@ -112,14 +111,14 @@ SOURCES += main.cpp\
     models/machinetool/commandsmanager/commands/smlttline.cpp \
     models/machinetool/commandsmanager/commands/smlswitchoff.cpp \
     models/machinetool/commandsmanager/commands/smlswitchon.cpp \
-    models/machinetool/commandsmanager/commands/smltttarc.cpp
+    models/machinetool/commandsmanager/commands/smltttarc.cpp \
+    gui/commands/smlttlinedialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
     gui/commands/linedialog.h \
     gui/commands/arcdialog.h \
     gui/commands/labeldialog.h \
-    gui/commands/ttlinedialog.h \
     gui/commands/arc2dialog.h \
     gui/commands/cycledialog.h \
     gui/commands/offdialog.h \
@@ -191,7 +190,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/smlpause.h \
     models/machinetool/commandsmanager/commands/smlcomment.h \
     models/machinetool/commandsmanager/commands/smlcommands.h \
-    models/machinetool/commandsmanager/commands/smltttarc.h
+    models/machinetool/commandsmanager/commands/smltttarc.h \
+    gui/commands/smlttlinedialog.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -199,7 +199,6 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/linedialog.ui \
     gui/commands/arcdialog.ui \
     gui/commands/labeldialog.ui \
-    gui/commands/ttlinedialog.ui \
     gui/commands/arc2dialog.ui \
     gui/commands/cycledialog.ui \
     gui/commands/offdialog.ui \
@@ -223,7 +222,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/ttzarcdialog.ui \
     gui/commands/tttarcdialog.ui \
     gui/commands/splinedialog.ui \
-    gui/commands/ttttsplinedialog.ui
+    gui/commands/ttttsplinedialog.ui \
+    gui/commands/smlttlinedialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
