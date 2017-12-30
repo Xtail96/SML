@@ -655,19 +655,22 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     Point3D start = currentPoint;
     double increment = 0.01;
 
-    // менять значение sign в зависимости от четверти относительно текущей точки
+    // менять значение sign и начальную фазу в зависимости от четверти относительно текущей точки
     int sign;
+    double phase;
     if(middle.x >= start.x)
     {
         if(middle.y >= start.y)
         {
             // 1 четверть
             sign = -1;
+            phase = M_PI;
         }
         else
         {
             // 4 четверть
             sign = 1;
+            phase = M_PI;
         }
     }
     else
@@ -675,10 +678,14 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
         if(middle.y < start.y)
         {
             // 3 четверть
+            phase = 0;
+            sign = -1;
         }
         else
         {
             // 2 четверть
+            phase = 0;
+            sign = 1;
         }
     }
 
@@ -724,8 +731,8 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     double zStep = (end.z - start.z) * increment / lim;
     for (double theta = 0; theta < lim; theta += increment)
     {
-        x = center.x + radius * cos(sign * (theta + M_PI));
-        y = center.y + radius * sin(sign * (theta + M_PI));
+        x = center.x + radius * cos(sign * (theta + phase));
+        y = center.y + radius * sin(sign * (theta + phase));
         z += zStep;
 
         //glVertex2f(x, y);
