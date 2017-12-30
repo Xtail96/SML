@@ -49,7 +49,7 @@
 #include "commands/velocitydialog.h"
 #include "commands/pausedialog.h"
 #include "commands/stopdialog.h"
-#include "commands/commentdialog.h"
+#include "commands/smlcommentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
 #include "commands/smlvariabledialog.h"

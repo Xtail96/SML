@@ -1,9 +1,9 @@
-#include "commentdialog.h"
-#include "ui_commentdialog.h"
+#include "smlcommentdialog.h"
+#include "ui_smlcommentdialog.h"
 
-CommentDialog::CommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
+SMLCommentDialog::SMLCommentDialog(MainWindowController* _controller, size_t _index, QWidget *parent, bool _edit) :
     QDialog(parent),
-    ui(new Ui::CommentDialog),
+    ui(new Ui::SMLCommentDialog),
     controller(_controller),
     index(_index),
     edit(_edit)
@@ -12,12 +12,12 @@ CommentDialog::CommentDialog(MainWindowController* _controller, size_t _index, Q
     fillFields();
 }
 
-CommentDialog::~CommentDialog()
+SMLCommentDialog::~SMLCommentDialog()
 {
     delete ui;
 }
 
-void CommentDialog::on_buttonBox_accepted()
+void SMLCommentDialog::on_buttonBox_accepted()
 {
     QStringList arguments =
     {
@@ -34,7 +34,7 @@ void CommentDialog::on_buttonBox_accepted()
     }
 }
 
-void CommentDialog::fillFields()
+void SMLCommentDialog::fillFields()
 {
     if(edit)
     {

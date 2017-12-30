@@ -131,7 +131,6 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/velocitydialog.h \
     gui/commands/pausedialog.h \
     gui/commands/stopdialog.h \
-    gui/commands/commentdialog.h \
     gui/commands/ttzarcdialog.h \
     gui/commands/tttarcdialog.h \
     gui/commands/splinedialog.h \
@@ -191,7 +190,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/commandsmanager/commands/smlcomment.h \
     models/machinetool/commandsmanager/commands/smlcommands.h \
     models/machinetool/commandsmanager/commands/smltttarc.h \
-    gui/commands/smlttlinedialog.h
+    gui/commands/smlttlinedialog.h \
+    gui/commands/smlcommentdialog.h
 
 
 FORMS    += gui/mainwindow.ui \
@@ -211,7 +211,6 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/velocitydialog.ui \
     gui/commands/pausedialog.ui \
     gui/commands/stopdialog.ui \
-    gui/commands/commentdialog.ui \
     gui/points/toselectionpointdialog.ui \
     gui/options/kabriolwindow.ui \
     gui/options/toollengthsensorwindow.ui \
@@ -223,7 +222,8 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/tttarcdialog.ui \
     gui/commands/splinedialog.ui \
     gui/commands/ttttsplinedialog.ui \
-    gui/commands/smlttlinedialog.ui
+    gui/commands/smlttlinedialog.ui \
+    gui/commands/smlcommentdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns

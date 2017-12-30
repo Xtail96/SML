@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CommentDialog</class>
- <widget class="QDialog" name="CommentDialog">
+ <class>SMLCommentDialog</class>
+ <widget class="QDialog" name="SMLCommentDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -87,7 +87,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>CommentDialog</receiver>
+   <receiver>SMLCommentDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -103,7 +103,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>CommentDialog</receiver>
+   <receiver>SMLCommentDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
