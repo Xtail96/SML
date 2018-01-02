@@ -20,9 +20,11 @@ SMLTTLineDialog::~SMLTTLineDialog()
 
 void SMLTTLineDialog::on_buttonBox_accepted()
 {
-    QString destinationPointNumber = QString::number(ui->destinationPointLineEdit->text().toUInt());
-    QString dz = QString::number(ui->dzLineEdit->text().toDouble());
-    QString v = QString::number(ui->velocityLineEdit->text().toDouble());
+    QString destinationPointNumber = ui->destinationPointLineEdit->text();
+    QString dz = ui->dzLineEdit->text();
+    QString v = ui->velocityLineEdit->text();
+
+
 
     QStringList arguments =
     {
