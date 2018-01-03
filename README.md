@@ -1,29 +1,13 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Описание ###
 
-### What is this repository for? ###
+* SMLKAMEditor представляет собой централизованную систему управления для станков с ЧПУ. Запуск и тестирование системы производится на станках с ЧПУ "КАМЕЯ" и "РОБОР" производства [НПФ "СЕМИЛ"](https://semil.ru/)
+* SML KAMEditor 1.0.0:Acacia
+* [Сайт проекта](https://appsforgeinc.bitbucket.io/)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Контакты ###
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* EMail: xtails1996@yandex.ru*;
+* Skype: xtail1996;
+* Phone number/Telegram: +7(911)209-75-27;
