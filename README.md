@@ -8,6 +8,6 @@
 
 ### Контакты ###
 
-* EMail: xtails1996@yandex.ru*;
+* EMail: xtails1996@yandex.ru;
 * Skype: xtail1996;
 * Phone number/Telegram: +7(911)209-75-27;
