@@ -717,8 +717,6 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     center.x = (d * e - b * f) / g;
     center.y = (a * f - c * e) / g;
     this->points.push_back(std::shared_ptr<Point3D>(new Point3D(center.x, center.y, center.z)));
-
-    //double radius = start.x - center.x;
     double radius = std::fabs(start.x - center.x);
 
     double lim = 2 * M_PI;
@@ -726,7 +724,10 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     x = start.x;
     y = start.y;
     z = start.z;
-    QList<Point3D> arcPlanarPoints;
+
+
+    // вектор проекций точек дуги на плоскость X0Y
+    QList<Point3D> arcProectionX0YPoints;
     for (double theta = 0; theta < lim; theta += increment)
     {
         x = center.x + radius * cos(sign * (theta + phase));
@@ -738,54 +739,31 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
         }
         else
         {
-            arcPlanarPoints.push_back(newVertex);
+            arcProectionX0YPoints.push_back(newVertex);
         }
     }
 
-    double zStep = (end.z - start.z) / arcPlanarPoints.size();
+    // вычисляем шаг по оси Z
+    double zStep = (end.z - start.z) / (arcProectionX0YPoints.size() - 1);
 
+    // формируем новый вектор для корректного отображения дуги
     QList<Point3D> arcPoints;
-    for(auto point : arcPlanarPoints)
+    for(auto point : arcProectionX0YPoints)
     {
         Point3D arcPoint(point.x, point.y, z);
         arcPoints.push_back(arcPoint);
         z += zStep;
-        //qDebug() << z << " " << point.z;
     }
 
-    /*for(auto point : arcPoints)
-    {
-        qDebug() << point.x << " " << point.y << " " << point.z;
-    }*/
-
+    // отрисовка предпосчитанных точек
     glBegin(GL_LINE_STRIP);
-
     for(auto point : arcPoints)
     {
-        //qDebug() << point.x << " " << point.y << " " << point.z;
         glVertex3f(point.x, point.y, point.z);
         updateOffsets(point);
         updateCurrentPoint(point);
 
     }
-    /*for (double theta = 0; theta < lim; theta += increment)
-    {
-        x = center.x + radius * cos(sign * (theta + phase));
-        y = center.y + radius * sin(sign * (theta + phase));
-        z += zStep;
-
-        glVertex3f(x, y, z);
-
-        Point3D newVertex(x, y, z);
-        updateOffsets(newVertex);
-        updateCurrentPoint(newVertex);
-
-        if(isPointsMatch(newVertex, end))
-        {
-            break;
-        }
-    }*/
-
     glEnd();
 }
 
