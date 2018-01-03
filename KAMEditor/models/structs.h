@@ -36,9 +36,6 @@ struct Point3D
     /// Координата точки по оси Z
     double z;
 
-
-
-
     /*!
      * \brief Конструктор 3D-Точки
      * \param _x - координата точки по оси X
@@ -46,22 +43,6 @@ struct Point3D
      * \param _z - координата точки по оси Z
      */
     Point3D(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
-
-public:
-    void setX(double value)
-    {
-        x = value;
-    }
-
-    void setY(double value)
-    {
-        y = value;
-    }
-
-    void setZ(double value)
-    {
-        z = value;
-    }
 };
 
 /*!

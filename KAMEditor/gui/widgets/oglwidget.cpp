@@ -726,32 +726,30 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     z = start.z;
 
 
-    // вектор проекций точек дуги на плоскость X0Y
-    QList<Point3D> arcProectionX0YPoints;
+    // список точек дуги
+    QList<Point3D*> arcPoints;
     for (double theta = 0; theta < lim; theta += increment)
     {
         x = center.x + radius * cos(sign * (theta + phase));
         y = center.y + radius * sin(sign * (theta + phase));
-        Point3D newVertex(x, y, z);
-        if(isPointsProectionsX0YMatch(newVertex, end))
+        Point3D* newVertex = new Point3D(x, y, z);
+        if(isPointsProectionsX0YMatch(*newVertex, end))
         {
             break;
         }
         else
         {
-            arcProectionX0YPoints.push_back(newVertex);
+            arcPoints.push_back(newVertex);
         }
     }
 
     // вычисляем шаг по оси Z
-    double zStep = (end.z - start.z) / (arcProectionX0YPoints.size() - 1);
+    double zStep = (end.z - start.z) / (arcPoints.size() - 1);
 
-    // формируем новый вектор для корректного отображения дуги
-    QList<Point3D> arcPoints;
-    for(auto point : arcProectionX0YPoints)
+    // заполняем координату Z в списке координат точек дуги
+    for(auto point : arcPoints)
     {
-        Point3D arcPoint(point.x, point.y, z);
-        arcPoints.push_back(arcPoint);
+        point->z = z;
         z += zStep;
     }
 
@@ -759,9 +757,9 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     glBegin(GL_LINE_STRIP);
     for(auto point : arcPoints)
     {
-        glVertex3f(point.x, point.y, point.z);
-        updateOffsets(point);
-        updateCurrentPoint(point);
+        glVertex3f(point->x, point->y, point->z);
+        updateOffsets(*point);
+        updateCurrentPoint(*point);
 
     }
     glEnd();
