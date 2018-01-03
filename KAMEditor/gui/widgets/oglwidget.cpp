@@ -721,29 +721,109 @@ void OGLWidget::drawTTTArc(Point3D middle, Point3D end, double v)
     //double radius = start.x - center.x;
     double radius = std::fabs(start.x - center.x);
 
-    glBegin(GL_LINE_STRIP);
-
-    double lim = 3.14;
+    double lim = 2 * M_PI;
     double x, y, z;
     x = start.x;
     y = start.y;
     z = start.z;
-    double zStep = (end.z - start.z) * increment / lim;
+    QList<Point3D> arcPlanarPoints;
     for (double theta = 0; theta < lim; theta += increment)
+    {
+        x = center.x + radius * cos(sign * (theta + phase));
+        y = center.y + radius * sin(sign * (theta + phase));
+        Point3D newVertex(x, y, z);
+        if(isPointsProectionsX0YMatch(newVertex, end))
+        {
+            break;
+        }
+        else
+        {
+            arcPlanarPoints.push_back(newVertex);
+        }
+    }
+
+    double zStep = (end.z - start.z) / arcPlanarPoints.size();
+
+    QList<Point3D> arcPoints;
+    for(auto point : arcPlanarPoints)
+    {
+        Point3D arcPoint(point.x, point.y, z);
+        arcPoints.push_back(arcPoint);
+        z += zStep;
+        //qDebug() << z << " " << point.z;
+    }
+
+    /*for(auto point : arcPoints)
+    {
+        qDebug() << point.x << " " << point.y << " " << point.z;
+    }*/
+
+    glBegin(GL_LINE_STRIP);
+
+    for(auto point : arcPoints)
+    {
+        //qDebug() << point.x << " " << point.y << " " << point.z;
+        glVertex3f(point.x, point.y, point.z);
+        updateOffsets(point);
+        updateCurrentPoint(point);
+
+    }
+    /*for (double theta = 0; theta < lim; theta += increment)
     {
         x = center.x + radius * cos(sign * (theta + phase));
         y = center.y + radius * sin(sign * (theta + phase));
         z += zStep;
 
-        //glVertex2f(x, y);
         glVertex3f(x, y, z);
 
         Point3D newVertex(x, y, z);
         updateOffsets(newVertex);
         updateCurrentPoint(newVertex);
-    }
+
+        if(isPointsMatch(newVertex, end))
+        {
+            break;
+        }
+    }*/
 
     glEnd();
+}
 
+bool OGLWidget::isPointsMatch(Point3D first, Point3D second, double accuracy)
+{
+    bool isMatch = false;
 
+    Point3D lowerBound(first.x - accuracy, first.y - accuracy, first.z - accuracy);
+    Point3D upperBound(first.x + accuracy, first.y + accuracy, first.z + accuracy);
+
+    if(second.x >= lowerBound.x && second.x <= upperBound.x)
+    {
+        if(second.y >= lowerBound.y && second.y <= upperBound.y)
+        {
+            if(second.z >= lowerBound.z && second.z <= upperBound.z)
+            {
+                isMatch = true;
+            }
+        }
+    }
+
+    return isMatch;
+}
+
+bool OGLWidget::isPointsProectionsX0YMatch(Point3D first, Point3D second, double accuracy)
+{
+    bool isMatch = false;
+
+    Point3D lowerBound(first.x - accuracy, first.y - accuracy, first.z - accuracy);
+    Point3D upperBound(first.x + accuracy, first.y + accuracy, first.z + accuracy);
+
+    if(second.x >= lowerBound.x && second.x <= upperBound.x)
+    {
+        if(second.y >= lowerBound.y && second.y <= upperBound.y)
+        {
+            isMatch = true;
+        }
+    }
+
+    return isMatch;
 }

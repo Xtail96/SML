@@ -53,6 +53,9 @@ public:
 
     void drawTTTArc(Point3D middle, Point3D end, double v = 1);
 
+    bool isPointsMatch(Point3D first, Point3D second, double accuracy = 0.01);
+    bool isPointsProectionsX0YMatch(Point3D first, Point3D second, double accuracy = 0.01);
+
     /*!
      * \brief Рисует линию в трехмерном пространстве
      * \param dx - смещение по координате X
