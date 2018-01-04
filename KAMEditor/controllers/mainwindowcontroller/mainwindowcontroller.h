@@ -122,6 +122,8 @@ signals:
     /// Команды обновились
     void commandsUpdated();
 
+    void gcodesUpdated();
+
 public slots:
     /// Слот для загрузки насроек станка
     void loadMachineToolSettings();
@@ -164,6 +166,9 @@ public slots:
     void saveSMLFile();
     void saveSMLFileAs();
     void addSMLFile();
+
+    void openGCodesFile();
+    QString getGCodesFileContent();
 
     friend class ProgramVisualizeWindowController;
 };

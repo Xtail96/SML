@@ -1,22 +1,23 @@
 #include "gcodesfilesmanager.h"
 
-GCodesFilesManager::GCodesFilesManager() :
-    filePath(""),
-    content("")
+GCodesFilesManager::GCodesFilesManager()
 {
 
 }
 
-void GCodesFilesManager::openFile()
+void GCodesFilesManager::openGCodesFile()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.7kam");
-    openFile(path);
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+    if(path.length() > 0)
+    {
+        openGCodesFile(path);
+    }
 }
 
-void GCodesFilesManager::openFile(QString path)
+void GCodesFilesManager::openGCodesFile(QString path)
 {
     filePath = path;
-    content = readFileInfo(path);
+    fileContent = readFileInfo(path);
 }
 
 QString GCodesFilesManager::readFileInfo(QString path)
@@ -25,7 +26,6 @@ QString GCodesFilesManager::readFileInfo(QString path)
     QFile inputFile(path);
     if(inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        filePath = path;
         QTextStream in(&inputFile);
         content = in.readAll();
         inputFile.close();
@@ -35,7 +35,7 @@ QString GCodesFilesManager::readFileInfo(QString path)
 
 QString GCodesFilesManager::getContent() const
 {
-    return content;
+    return fileContent;
 }
 
 QString GCodesFilesManager::getFilePath() const

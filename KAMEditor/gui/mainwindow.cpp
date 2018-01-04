@@ -52,6 +52,7 @@ void MainWindow::setupWidgets()
     setupStatusBar();
     setupDisplays();
     setupCommandsEditorField();
+    setupGCodesEditorField();
     setupGCodesSyntaxHighlighter();
     setupEdgesControl();
     setupPointsEditorWidgets();
@@ -76,7 +77,7 @@ void MainWindow::setupCommandsEditorField()
     //connect(editorField, SIGNAL(cutSignal()), this, SLOT(commandsCutSlot()));
     //connect(editorField, SIGNAL(pasteSignal()), this, SLOT(commandsPasteSlot()));
     //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
-    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateCommandsEditorWidgets()));
+    connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateSMLCommandsTreeWidget()));
     connect(editorField, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deleteSelectedCommands(QModelIndexList)));
 }
 
@@ -106,6 +107,11 @@ void MainWindow::setupGCodesSyntaxHighlighter()
     hightlighter = new GCodesSyntaxHighlighter(this);
     hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
     hightlighter->setPattern();
+}
+
+void MainWindow::setupGCodesEditorField()
+{
+    connect(mainWindowController, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
 }
 
 void MainWindow::setupDevicesPanel()
@@ -491,6 +497,7 @@ void MainWindow::updatePointsEditorButtons()
 void MainWindow::updateCommandsEditorWidgets()
 {
     updateSMLCommandsTreeWidget();
+    updateGCodesEditorWidget();
 }
 
 void MainWindow::updateSMLCommandsTreeWidget()
@@ -503,6 +510,12 @@ void MainWindow::updateSMLCommandsTreeWidget()
     {
         ui->smlEditorTreeWidget->resizeColumnToContents(i);
     }
+}
+
+void MainWindow::updateGCodesEditorWidget()
+{
+    QString content = mainWindowController->getGCodesFileContent();
+    ui->gcodesEditorTextEdit->setText(content);
 }
 
 void MainWindow::updateBatteryStatusDisplay()
@@ -990,7 +1003,17 @@ void MainWindow::on_toBasePushButton_clicked()
 
 void MainWindow::on_open_action_triggered()
 {
-    mainWindowController->openSMLFile();
+    if(ui->smlEditorTab->isVisible())
+    {
+        mainWindowController->openSMLFile();
+    }
+    else
+    {
+        if(ui->gcodesEditorTab->isVisible())
+        {
+            mainWindowController->openGCodesFile();
+        }
+    }
 }
 
 

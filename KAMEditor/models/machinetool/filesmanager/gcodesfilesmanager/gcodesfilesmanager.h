@@ -5,16 +5,17 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QString>
+#include <QDebug>
 
 class GCodesFilesManager
 {
 protected:
     QString filePath;
-    QString content;
+    QString fileContent;
 public:
     GCodesFilesManager();
-    void openFile();
-    void openFile(QString path);
+    void openGCodesFile();
+    void openGCodesFile(QString path);
     QString readFileInfo(QString path);
 
     QString getContent() const;

@@ -429,3 +429,14 @@ void MainWindowController::addSMLFile()
     emit commandsUpdated();
     emit pointsUpdated();
 }
+
+void MainWindowController::openGCodesFile()
+{
+    machineTool->getGcodesFilesManager()->openGCodesFile();
+    emit gcodesUpdated();
+}
+
+QString MainWindowController::getGCodesFileContent()
+{
+    return machineTool->getGcodesFilesManager()->getContent();
+}

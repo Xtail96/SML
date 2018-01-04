@@ -9,7 +9,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     commandsManager(new CommandsManager()),
     gcodesManager(new GCodesManager()),
     smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
-    gcodesFilesManager(),
+    gcodesFilesManager(new GCodesFilesManager()),
     velocity(10),
     spindelRotations(5000)
 {
@@ -105,4 +105,14 @@ SMLFilesManager *MachineTool::getSMLFilesManager() const
 GCodesManager *MachineTool::getGcodesManager() const
 {
     return gcodesManager;
+}
+
+GCodesFilesManager *MachineTool::getGcodesFilesManager() const
+{
+    return gcodesFilesManager;
+}
+
+void MachineTool::setGcodesFilesManager(GCodesFilesManager *value)
+{
+    gcodesFilesManager = value;
 }

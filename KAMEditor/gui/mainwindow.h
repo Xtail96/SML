@@ -140,6 +140,7 @@ private slots:
     /// Слоты для настройки редактора команд
     void setupCommandsEditorField();
     void setupGCodesSyntaxHighlighter();
+    void setupGCodesEditorField();
 
     /// Слоты для настройки элементов менеджера файлов
     void setupEditorFileActionsPushButtons();
@@ -196,6 +197,7 @@ private slots:
     /// Слот для обновления дерева SML-команд
     void updateCommandsEditorWidgets();
     void updateSMLCommandsTreeWidget();
+    void updateGCodesEditorWidget();
 
     /// Слот для обновления статуса баировки станка
     void updateBaseStatus();

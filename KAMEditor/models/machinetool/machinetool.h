@@ -59,6 +59,9 @@ public:
 
     GCodesManager *getGcodesManager() const;
 
+    GCodesFilesManager *getGcodesFilesManager() const;
+    void setGcodesFilesManager(GCodesFilesManager *value);
+
 private:
     uint16_t vendorId;
 
