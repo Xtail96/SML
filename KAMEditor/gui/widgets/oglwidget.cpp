@@ -793,6 +793,12 @@ bool OGLWidget::isPointsProectionsX0YMatch(Point3D first, Point3D second, double
     Point3D lowerBound(first.x - accuracy, first.y - accuracy, first.z - accuracy);
     Point3D upperBound(first.x + accuracy, first.y + accuracy, first.z + accuracy);
 
+    /*qDebug() << "";
+    qDebug() << lowerBound.x << " " << lowerBound.y;
+    qDebug() << second.x << " " << second.y;
+    qDebug() << upperBound.x << " " << upperBound.y;
+    qDebug() << "";*/
+
     if(second.x >= lowerBound.x && second.x <= upperBound.x)
     {
         if(second.y >= lowerBound.y && second.y <= upperBound.y)
