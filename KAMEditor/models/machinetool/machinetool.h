@@ -13,6 +13,7 @@
 #include "models/machinetool/devicesmanager/devicesmanager.h"
 #include "models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h"
 #include "models/machinetool/gcodesmanager/gcodesmanager.h"
+#include "models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h"
 
 class SMLFilesManager;
 
@@ -72,6 +73,7 @@ private:
     CommandsManager *commandsManager;
     GCodesManager *gcodesManager;
     SMLFilesManager* smlFilesManager;
+    GCodesFilesManager *gcodesFilesManager;
 
     StatesBuffer buffer;
 
