@@ -9,13 +9,15 @@
 class GCodesManager
 {
 protected:
+    QString m_gcodes;
 public:
     GCodesManager();
     ~GCodesManager();
 
-    void updateGCodesProgram(const std::string &data);
+    void updateGCodesProgram();
 
-    //gpr::gcode_program gcodes() const;
+    QString gcodes() const;
+    void setGcodes(const QString &gcodes);
 };
 
 #endif // GCODESMANAGER_H

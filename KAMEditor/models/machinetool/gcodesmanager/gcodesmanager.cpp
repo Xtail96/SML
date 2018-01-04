@@ -1,23 +1,33 @@
 #include "gcodesmanager.h"
-
 GCodesManager::GCodesManager()
 {
-    updateGCodesProgram("");
+    m_gcodes = "";
 }
 
 GCodesManager::~GCodesManager()
 {
-    //delete m_gcodes;
+
 }
 
-void GCodesManager::updateGCodesProgram(const std::string &data)
+void GCodesManager::updateGCodesProgram()
 {
-    gpr::gcode_program m_gcodes = gpr::parse_gcode(data);
-    qDebug() << m_gcodes.num_blocks();
-    //qDebug() << QString::fromStdString(m_gcodes.get_block(7).to_string());
+    const std::string data = m_gcodes.toStdString();
+    gpr::gcode_program program = gpr::parse_gcode(data);
+    size_t programLength = program.num_blocks();
+    for(size_t i = 0; i < programLength; i++)
+    {
+        qDebug() << QString::fromStdString(program.get_block(i).to_string());
+    }
+
 }
 
-/*gpr::gcode_program GCodesManager::gcodes() const
+QString GCodesManager::gcodes() const
 {
     return m_gcodes;
-}*/
+}
+
+void GCodesManager::setGcodes(const QString &gcodes)
+{
+    m_gcodes = gcodes;
+}
+
