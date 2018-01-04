@@ -21,7 +21,11 @@ void SMLTTTArcDialog::on_buttonBox_accepted()
 {
     QString middlePointNumber = ui->middlePointLineEdit->text();
     QString endPointNumber = ui->finishPointLineEdit->text();
-    QString v = ui->velocityLineEdit->text();
+    QString v = QString::number(0);
+    if(ui->velocityLineEdit->text().length() > 0)
+    {
+        v = ui->velocityLineEdit->text();
+    }
 
     QStringList arguments =
     {
