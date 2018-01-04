@@ -54,6 +54,12 @@ public:
     void exportSettings(QString path);
 
     /**
+     * @brief Импортирует настройки из заданного файла и сохраняет их в файл по умолчанию
+     * @param settingsPath путь к файлу с настройками
+     */
+    void importSettings(QString settingsPath);
+
+    /**
      * @brief Позволяет получить значение по заданным группе и ключу
      * @param group имя группы
      * @param key ключ

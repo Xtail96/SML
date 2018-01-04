@@ -26,7 +26,27 @@ SettingsManager::SettingsManager(QString settingsPath)
         // используем кодировку юникод
         settings->setIniCodec("UTF-8");
     }
+}
 
+void SettingsManager::importSettings(QString settingsPath)
+{
+    // проверка на существование файла с настройками
+    if (QFileInfo::exists(settingsPath))
+    {
+        // получение настроек из файла по указанному пути
+        QSettings importSettings(settingsPath, QSettings::IniFormat);
+
+        // перезапись основных настроек
+        for (QString key : importSettings.allKeys())
+        {
+            settings->setValue(key, importSettings.value(key));
+        }
+
+        // сохранение основных настроек
+        saveSettings();
+
+        QMessageBox(QMessageBox::Information, "Информация", "Настройки импортированы. Перезапустите приложение для их применения.").exec();
+    }
 }
 
 SettingsManager::~SettingsManager()

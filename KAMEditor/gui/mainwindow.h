@@ -282,6 +282,8 @@ private slots:
     void on_save_action_triggered();
     void on_saveas_action_triggered();
     void on_connectCommandLinkButton_clicked();
+    void on_exportSettingsPushButton_clicked();
+    void on_importSettingsPushButton_clicked();
 };
 
 

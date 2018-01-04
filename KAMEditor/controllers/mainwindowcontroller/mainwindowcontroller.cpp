@@ -178,6 +178,18 @@ void MainWindowController::updateCommand(QStringList arguments, size_t index)
     emit commandsUpdated();
 }
 
+void MainWindowController::exportSettings(QString path)
+{
+    SettingsManager settingsManager;
+    settingsManager.exportSettings(path);
+}
+
+void MainWindowController::importSettings(QString path)
+{
+    SettingsManager settingsManager;
+    settingsManager.importSettings(path);
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

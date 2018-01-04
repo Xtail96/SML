@@ -1156,3 +1156,15 @@ void MainWindow::on_connectCommandLinkButton_clicked()
 {
     LogDialog(this).exec();
 }
+
+void MainWindow::on_exportSettingsPushButton_clicked()
+{
+    QString path = QFileDialog::getSaveFileName(this, "Выберите путь до файла");
+    mainWindowController->exportSettings(path);
+}
+
+void MainWindow::on_importSettingsPushButton_clicked()
+{
+    QString path = QFileDialog::getOpenFileName(this, "Выберите файл с настройками", "", "*.ini");
+    mainWindowController->importSettings(path);
+}
