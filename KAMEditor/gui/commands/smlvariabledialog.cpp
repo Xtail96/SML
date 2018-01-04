@@ -46,13 +46,12 @@ void SMLVariableDialog::fillFields()
 
 void SMLVariableDialog::on_buttonBox_accepted()
 {
-    QString key = ui->smlVariableKeyLineEdit->text();
-    QString value = QString::number(ui->smlVariableValueLineEdit->text().toLongLong());
-
-    if(key.length() == 0)
+    QString key = "variable";
+    if(ui->smlVariableKeyLineEdit->text().length() > 0)
     {
-        key = "key";
+        key = ui->smlVariableKeyLineEdit->text();
     }
+    QString value = QString::number(ui->smlVariableValueLineEdit->text().toLongLong());
 
     QStringList arguments =
     {
