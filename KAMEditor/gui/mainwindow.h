@@ -284,6 +284,7 @@ private slots:
     void on_connectCommandLinkButton_clicked();
     void on_exportSettingsPushButton_clicked();
     void on_importSettingsPushButton_clicked();
+    void on_runCommandLinkButton_clicked();
 };
 
 

@@ -12,6 +12,7 @@
 #include "models/machinetool/sensorsmanager/sensorsmanager.h"
 #include "models/machinetool/devicesmanager/devicesmanager.h"
 #include "models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h"
+#include "models/machinetool/gcodesmanager/gcodesmanager.h"
 
 class SMLFilesManager;
 
@@ -55,6 +56,8 @@ public:
 
     SMLFilesManager *getSMLFilesManager() const;
 
+    GCodesManager *getGcodesManager() const;
+
 private:
     uint16_t vendorId;
 
@@ -67,6 +70,7 @@ private:
     SensorsManager *sensorsManager;
     DevicesManager *devicesManager;
     CommandsManager *commandsManager;
+    GCodesManager *gcodesManager;
     SMLFilesManager* smlFilesManager;
 
     StatesBuffer buffer;

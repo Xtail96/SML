@@ -69,6 +69,8 @@ public:
     void exportSettings(QString path);
     void importSettings(QString path);
 
+    void parseGCodes(QString data);
+
 protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться

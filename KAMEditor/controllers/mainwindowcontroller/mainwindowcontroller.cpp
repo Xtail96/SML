@@ -190,6 +190,11 @@ void MainWindowController::importSettings(QString path)
     settingsManager.importSettings(path);
 }
 
+void MainWindowController::parseGCodes(QString data)
+{
+    machineTool->getGcodesManager()->updateGCodesProgram(data.toStdString());
+}
+
 void MainWindowController::loadMachineToolSettings()
 {
     SettingsManager settingsManager;

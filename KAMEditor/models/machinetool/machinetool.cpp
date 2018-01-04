@@ -7,6 +7,7 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
     commandsManager(new CommandsManager()),
+    gcodesManager(new GCodesManager()),
     smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
     velocity(10),
     spindelRotations(5000)
@@ -18,6 +19,7 @@ MachineTool::~MachineTool()
     delete this->movementController;
     delete this->pointsManager;
     delete this->commandsManager;
+    delete this->gcodesManager;
     delete this->sensorsManager;
     delete this->devicesManager;
     delete this->smlFilesManager;
@@ -96,4 +98,9 @@ void MachineTool::setSpindelRotations(unsigned int value)
 SMLFilesManager *MachineTool::getSMLFilesManager() const
 {
     return smlFilesManager;
+}
+
+GCodesManager *MachineTool::getGcodesManager() const
+{
+    return gcodesManager;
 }

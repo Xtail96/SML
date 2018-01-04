@@ -1168,3 +1168,9 @@ void MainWindow::on_importSettingsPushButton_clicked()
     QString path = QFileDialog::getOpenFileName(this, "Выберите файл с настройками", "", "*.ini");
     mainWindowController->importSettings(path);
 }
+
+void MainWindow::on_runCommandLinkButton_clicked()
+{
+    QString content = ui->gcodesEditorTextEdit->toPlainText();
+    mainWindowController->parseGCodes(content);
+}

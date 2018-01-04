@@ -112,7 +112,10 @@ SOURCES += main.cpp\
     gui/commands/smlpausedialog.cpp \
     gui/commands/smlswitchondialog.cpp \
     gui/commands/smlswitchoffdialog.cpp \
-    gui/commands/smltttarcdialog.cpp
+    gui/commands/smltttarcdialog.cpp \
+    models/machinetool/gcodesmanager/gcodesmanager.cpp \
+    gpr/gcode_program.cpp \
+    gpr/parser.cpp \
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -191,8 +194,12 @@ HEADERS  += gui/mainwindow.h \
     gui/commands/smlpausedialog.h \
     gui/commands/smlswitchondialog.h \
     gui/commands/smlswitchoffdialog.h \
-    gui/commands/smltttarcdialog.h
-
+    gui/commands/smltttarcdialog.h \
+    models/machinetool/gcodesmanager/gcodesmanager.h \
+    gpr/gcode_program.h \
+    gpr/parser.h \
+    kmotion/kmotion_dotnet_interop/include/KMotion_dotNet_Interop.h \
+    libusb/include/libusb.h \
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
