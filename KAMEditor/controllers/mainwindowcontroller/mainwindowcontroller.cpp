@@ -180,7 +180,7 @@ void MainWindowController::updateCommand(QStringList arguments, size_t index)
 
 void MainWindowController::exportSettings()
 {
-    QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла");
+    QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
     SettingsManager settingsManager;
     settingsManager.exportSettings(path);
 }

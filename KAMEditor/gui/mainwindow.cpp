@@ -6,9 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     // окно на весь экран
     QMainWindow::showMaximized();
 
+    // настройка контроллера
     setupMainWindowController();
 
     // настройка виджетов
@@ -42,6 +44,8 @@ void MainWindow::setupSettingsWidgets()
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
+    connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
+    connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 }
 
 void MainWindow::setupWidgets()
@@ -1024,12 +1028,12 @@ void MainWindow::on_gcodesEditorTextEdit_textChanged()
 
 void MainWindow::on_importsettings_action_triggered()
 {
-
+    mainWindowController->importSettings();
 }
 
 void MainWindow::on_savesettings_action_triggered()
 {
-
+    mainWindowController->exportSettings();
 }
 
 void MainWindow::on_viewPushButton_clicked()
@@ -1218,16 +1222,6 @@ void MainWindow::on_saveas_action_triggered()
 void MainWindow::on_connectCommandLinkButton_clicked()
 {
     LogDialog(this).exec();
-}
-
-void MainWindow::on_exportSettingsPushButton_clicked()
-{
-    mainWindowController->exportSettings();
-}
-
-void MainWindow::on_importSettingsPushButton_clicked()
-{
-    mainWindowController->importSettings();
 }
 
 void MainWindow::on_runCommandLinkButton_clicked()
