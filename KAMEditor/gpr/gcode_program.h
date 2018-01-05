@@ -381,7 +381,7 @@ namespace gpr {
     int num_blocks() const { return blocks.size(); }
 
     block get_block(const int i) {
-      assert(i < blocks.size());
+      assert((size_t) i < blocks.size());
       return blocks[i];
     }
 
