@@ -1,6 +1,8 @@
 #include "gcodesfilesmanager.h"
 
-GCodesFilesManager::GCodesFilesManager()
+GCodesFilesManager::GCodesFilesManager() :
+    filePath(""),
+    fileContent("")
 {
 
 }
