@@ -1165,8 +1165,7 @@ void MainWindow::on_add_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            QString content = mainWindowController->addGCodesFile();
-            ui->gcodesEditorTextEdit->setText(content);
+            mainWindowController->addGCodesFile(ui->gcodesEditorTextEdit->toPlainText());
         }
     }
 }
@@ -1181,8 +1180,7 @@ void MainWindow::on_create_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            QString content = mainWindowController->newGCodesFile();
-            ui->gcodesEditorTextEdit->setText(content);
+            mainWindowController->newGCodesFile();
         }
     }
 }

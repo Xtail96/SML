@@ -122,6 +122,7 @@ signals:
     /// Команды обновились
     void commandsUpdated();
 
+    /// Обновились G-коды
     void gcodesUpdated();
 
 public slots:
@@ -171,8 +172,8 @@ public slots:
     QString getGCodesFileContent();
     void saveGCodesFile(const QString data);
     void saveGCodesFileAs(const QString data);
-    QString newGCodesFile();
-    QString addGCodesFile();
+    void newGCodesFile();
+    void addGCodesFile(const QString data);
 
     friend class ProgramVisualizeWindowController;
 };
