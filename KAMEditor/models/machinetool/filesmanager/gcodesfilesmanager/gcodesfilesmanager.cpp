@@ -89,6 +89,12 @@ void GCodesFilesManager::createGCodesFile(const QString path)
     }
 }
 
+void GCodesFilesManager::newGCodesFile()
+{
+    setFilePath("");
+    setFileContent("");
+}
+
 QString GCodesFilesManager::getContent() const
 {
     return fileContent;

@@ -20,6 +20,7 @@ public:
     void saveGCodesFile();
     void saveGCodesFileAs();
     static void createGCodesFile(const QString path);
+    void newGCodesFile();
 
     QString getContent() const;
     QString getFilePath() const;

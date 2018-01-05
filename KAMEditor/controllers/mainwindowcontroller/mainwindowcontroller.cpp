@@ -452,3 +452,10 @@ void MainWindowController::saveGCodesFileAs(const QString data)
     machineTool->getGcodesFilesManager()->setFileContent(data);
     machineTool->getGcodesFilesManager()->saveGCodesFileAs();
 }
+
+QString MainWindowController::newGCodesFile()
+{
+    machineTool->getGcodesFilesManager()->saveGCodesFile();
+    machineTool->getGcodesFilesManager()->newGCodesFile();
+    return machineTool->getGcodesFilesManager()->getContent();
+}

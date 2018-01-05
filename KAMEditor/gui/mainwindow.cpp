@@ -1162,7 +1162,18 @@ void MainWindow::on_add_action_triggered()
 
 void MainWindow::on_create_action_triggered()
 {
-    mainWindowController->newSMLFile();
+    if(ui->smlEditorTab->isVisible())
+    {
+        mainWindowController->newSMLFile();
+    }
+    else
+    {
+        if(ui->gcodesEditorTab->isVisible())
+        {
+            QString content = mainWindowController->newGCodesFile();
+            ui->gcodesEditorTextEdit->setText(content);
+        }
+    }
 }
 
 void MainWindow::on_save_action_triggered()
