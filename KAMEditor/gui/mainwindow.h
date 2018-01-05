@@ -167,6 +167,7 @@ private slots:
 
     /// Слот для обновления дисплея координат
     void updateCoordinatesDisplays();
+    void showCoordinates(QListWidget* display, Point coordinates);
 
     /// Слот для обновления дисплея датчиков
     void updateSensorsDisplay();

@@ -416,48 +416,25 @@ void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 void MainWindow::updateCoordinatesDisplays()
 {
     QStringList axisesNames = mainWindowController->getAxisesNames();
-    QList<QListWidget*> axisesDisplays = {
-        ui->currentCoordinatesListWidget,
-        ui->baseCoordinatesListWidget,
-        ui->parkCoordinatesListWidget
-    };
 
-    /*Point currentCoordinates(axisesNames.size());
+    Point currentCoordinates(axisesNames.size());
     Point currentCoordinatesFromBase(axisesNames.size());
-    Point parkCoordinates(axisesNames.size());*/
+    Point parkCoordinates(axisesNames.size());
 
+    showCoordinates(ui->currentCoordinatesListWidget, currentCoordinates);
+    showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
+    showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
+}
 
-    //ui->currentCoordinatesListWidget->addItem(QString::);
-
-    for (auto axisesDisplay : axisesDisplays)
+void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
+{
+    display->clear();
+    for(size_t i = 0; i < coordinates.size(); i++)
     {
-        for(int j  = 0; j < axisesNames.size(); j++)
-        {
-            QString axisLabel = axisesNames[j] + QString(": ");
-            axisesDisplay->addItem(axisLabel);
-        }
+        QString axisKey = QString::fromStdString(axisesNames.getNameByKey(i));
+        QString axisLabel = axisKey + QString(": ") + QString::number(coordinates[i], 'f', 3);
+        display->addItem(axisLabel);
     }
-
-    /*MachineTool &i = MachineTool::Instance();
-
-    VectorDouble current = i.getCurrentCoordinates();
-    VectorDouble base = i.getBaseCoordinates();
-    VectorDouble park = i.getParkCoordinates();
-
-    std::vector<std::pair<QListWidget*, VectorDouble>> widgets = {
-        { ui->currentCoordinatesListWidget, current },
-        { ui->baseCoordinatesListWidget, base },
-        { ui->parkCoordinatesListWidget, park }
-    };
-
-    for (auto i = widgets.begin(); i != widgets.end(); i++)
-    {
-        i->first->item(0)->setText("X: " + QString::number(i->second.x, 'f', 3) + " мм");
-        i->first->item(1)->setText("Y: " + QString::number(i->second.y, 'f', 3) + " мм");
-        i->first->item(2)->setText("Z: " + QString::number(i->second.z, 'f', 3) + " мм");
-        i->first->item(3)->setText("A: " + QString::number(i->second.a, 'f', 3) + " град");
-        i->first->item(4)->setText("B: " + QString::number(i->second.b, 'f', 3) + " град");
-    }*/
 }
 
 void MainWindow::updatePointsEditorFields()
