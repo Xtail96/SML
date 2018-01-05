@@ -22,8 +22,7 @@ void GCodesSyntaxHighlighter::setPattern()
 
     for(int i = 0; i < 10; i++)
     {
-        QString tmp = "0";
-        tmp.push_back(QString::number(i));
+        QString tmp = QString::number(i);
         gPattern.push_back(g + tmp);
         mPattern.push_back(m + tmp);
     }
