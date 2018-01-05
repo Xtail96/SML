@@ -66,8 +66,8 @@ public:
     QStringList getCommandArguments(size_t index);
     void updateCommand(QStringList arguments, size_t index);
 
-    void exportSettings(QString path);
-    void importSettings(QString path);
+    void exportSettings();
+    void importSettings();
 
     void parseGCodes(QString data);
 

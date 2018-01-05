@@ -1222,14 +1222,12 @@ void MainWindow::on_connectCommandLinkButton_clicked()
 
 void MainWindow::on_exportSettingsPushButton_clicked()
 {
-    QString path = QFileDialog::getSaveFileName(this, "Выберите путь до файла");
-    mainWindowController->exportSettings(path);
+    mainWindowController->exportSettings();
 }
 
 void MainWindow::on_importSettingsPushButton_clicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Выберите файл с настройками", "", "*.ini");
-    mainWindowController->importSettings(path);
+    mainWindowController->importSettings();
 }
 
 void MainWindow::on_runCommandLinkButton_clicked()
