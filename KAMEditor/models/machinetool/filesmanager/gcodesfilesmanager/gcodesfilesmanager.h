@@ -17,10 +17,14 @@ public:
     void openGCodesFile();
     void openGCodesFile(QString path);
     QString readFileInfo(QString path);
+    void saveGCodesFile();
+    void saveGCodesFileAs();
+    static void createGCodesFile(const QString path);
 
     QString getContent() const;
     QString getFilePath() const;
     void setFilePath(const QString &value);
+    void setFileContent(const QString &value);
 };
 
 #endif // GCODESFILESMANAGER_H

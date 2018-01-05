@@ -440,3 +440,15 @@ QString MainWindowController::getGCodesFileContent()
 {
     return machineTool->getGcodesFilesManager()->getContent();
 }
+
+void MainWindowController::saveGCodesFile(const QString data)
+{
+    machineTool->getGcodesFilesManager()->setFileContent(data);
+    machineTool->getGcodesFilesManager()->saveGCodesFile();
+}
+
+void MainWindowController::saveGCodesFileAs(const QString data)
+{
+    machineTool->getGcodesFilesManager()->setFileContent(data);
+    machineTool->getGcodesFilesManager()->saveGCodesFileAs();
+}

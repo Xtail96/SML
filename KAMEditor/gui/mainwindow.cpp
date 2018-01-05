@@ -1167,12 +1167,32 @@ void MainWindow::on_create_action_triggered()
 
 void MainWindow::on_save_action_triggered()
 {
-    mainWindowController->saveSMLFile();
+    if(ui->smlEditorTab->isVisible())
+    {
+        mainWindowController->saveSMLFile();
+    }
+    else
+    {
+        if(ui->gcodesEditorTab->isVisible())
+        {
+            mainWindowController->saveGCodesFile(ui->gcodesEditorTextEdit->toPlainText());
+        }
+    }
 }
 
 void MainWindow::on_saveas_action_triggered()
 {
-    mainWindowController->saveSMLFileAs();
+    if(ui->smlEditorTab->isVisible())
+    {
+        mainWindowController->saveSMLFileAs();
+    }
+    else
+    {
+        if(ui->gcodesEditorTab->isVisible())
+        {
+            mainWindowController->saveGCodesFileAs(ui->gcodesEditorTextEdit->toPlainText());
+        }
+    }
 }
 
 void MainWindow::on_connectCommandLinkButton_clicked()
