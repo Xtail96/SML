@@ -166,7 +166,7 @@ private slots:
     void updateDisplays();
 
     /// Слот для обновления дисплея координат
-    void updateCoordinatesDisplay();
+    void updateCoordinatesDisplays();
 
     /// Слот для обновления дисплея датчиков
     void updateSensorsDisplay();

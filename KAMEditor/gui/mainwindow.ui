@@ -2709,31 +2709,6 @@
                    <property name="sortingEnabled">
                     <bool>false</bool>
                    </property>
-                   <item>
-                    <property name="text">
-                     <string>X:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Y:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Z:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>A:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>B:</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                 </layout>
@@ -2800,31 +2775,6 @@
                    <property name="selectionMode">
                     <enum>QAbstractItemView::NoSelection</enum>
                    </property>
-                   <item>
-                    <property name="text">
-                     <string>X:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Y:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Z:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>A:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>B:</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                 </layout>
@@ -2891,31 +2841,6 @@
                    <property name="selectionMode">
                     <enum>QAbstractItemView::NoSelection</enum>
                    </property>
-                   <item>
-                    <property name="text">
-                     <string>X:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Y:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Z:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>A:</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>B:</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                 </layout>

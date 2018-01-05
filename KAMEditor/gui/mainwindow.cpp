@@ -384,6 +384,7 @@ void MainWindow::setupPointsEditorWidgets()
 
 void MainWindow::updateDisplays()
 {
+    updateCoordinatesDisplays();
     updateBatteryStatusDisplay();
     updateSensorsDisplay();
 #ifdef Q_OS_WIN
@@ -412,8 +413,31 @@ void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
     }
 }
 
-void MainWindow::updateCoordinatesDisplay()
+void MainWindow::updateCoordinatesDisplays()
 {
+    QStringList axisesNames = mainWindowController->getAxisesNames();
+    QList<QListWidget*> axisesDisplays = {
+        ui->currentCoordinatesListWidget,
+        ui->baseCoordinatesListWidget,
+        ui->parkCoordinatesListWidget
+    };
+
+    /*Point currentCoordinates(axisesNames.size());
+    Point currentCoordinatesFromBase(axisesNames.size());
+    Point parkCoordinates(axisesNames.size());*/
+
+
+    //ui->currentCoordinatesListWidget->addItem(QString::);
+
+    for (auto axisesDisplay : axisesDisplays)
+    {
+        for(int j  = 0; j < axisesNames.size(); j++)
+        {
+            QString axisLabel = axisesNames[j] + QString(": ");
+            axisesDisplay->addItem(axisLabel);
+        }
+    }
+
     /*MachineTool &i = MachineTool::Instance();
 
     VectorDouble current = i.getCurrentCoordinates();
