@@ -21,6 +21,7 @@ public:
     void saveGCodesFileAs();
     static void createGCodesFile(const QString path);
     void newGCodesFile();
+    void addGCodesFile();
 
     QString getContent() const;
     QString getFilePath() const;

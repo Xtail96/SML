@@ -172,6 +172,7 @@ public slots:
     void saveGCodesFile(const QString data);
     void saveGCodesFileAs(const QString data);
     QString newGCodesFile();
+    QString addGCodesFile();
 
     friend class ProgramVisualizeWindowController;
 };

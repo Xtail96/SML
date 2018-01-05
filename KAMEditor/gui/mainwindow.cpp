@@ -1157,7 +1157,18 @@ void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
 
 void MainWindow::on_add_action_triggered()
 {
-    mainWindowController->addSMLFile();
+    if(ui->smlEditorTab->isVisible())
+    {
+        mainWindowController->addSMLFile();
+    }
+    else
+    {
+        if(ui->gcodesEditorTab->isVisible())
+        {
+            QString content = mainWindowController->addGCodesFile();
+            ui->gcodesEditorTextEdit->setText(content);
+        }
+    }
 }
 
 void MainWindow::on_create_action_triggered()

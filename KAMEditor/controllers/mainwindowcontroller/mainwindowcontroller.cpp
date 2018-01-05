@@ -459,3 +459,9 @@ QString MainWindowController::newGCodesFile()
     machineTool->getGcodesFilesManager()->newGCodesFile();
     return machineTool->getGcodesFilesManager()->getContent();
 }
+
+QString MainWindowController::addGCodesFile()
+{
+    machineTool->getGcodesFilesManager()->addGCodesFile();
+    return machineTool->getGcodesFilesManager()->getContent();
+}

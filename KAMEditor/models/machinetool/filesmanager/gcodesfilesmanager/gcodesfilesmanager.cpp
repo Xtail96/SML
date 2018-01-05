@@ -95,6 +95,18 @@ void GCodesFilesManager::newGCodesFile()
     setFileContent("");
 }
 
+void GCodesFilesManager::addGCodesFile()
+{
+    QString originPath = filePath;
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+    QString content = readFileInfo(path);
+    if(content.size() > 0)
+    {
+        fileContent += content;
+    }
+    filePath = originPath;
+}
+
 QString GCodesFilesManager::getContent() const
 {
     return fileContent;
