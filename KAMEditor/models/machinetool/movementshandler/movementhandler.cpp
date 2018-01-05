@@ -1,17 +1,12 @@
 #include "movementshandler.h"
 
-std::vector<std::shared_ptr<Axis> > MovementsHandler::getAxises() const
-{
-    return axises;
-}
-
-void MovementsHandler::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
-{
-    axises = value;
-}
-
 MovementsHandler::MovementsHandler(unsigned int _axisesCount, double _step, double _velocity) :
-    step(_step), velocity(_velocity), dimensionsManager(_axisesCount)
+    currentCoordinates(_axisesCount),
+    currentCoordinatesFromBase(_axisesCount),
+    parkCoordinates(_axisesCount),
+    step(_step),
+    velocity(_velocity),
+    dimensionsManager(_axisesCount)
 {
     addAxises(_axisesCount);
     axisesLength = getAxisesLength();
@@ -81,3 +76,29 @@ bool MovementsHandler::checkCurrentCoordinates(Point &newCoordinates)
     }
     return isMovementCorrect;
 }
+
+Point MovementsHandler::getCurrentCoordinatesFromBase() const
+{
+    return currentCoordinatesFromBase;
+}
+
+Point MovementsHandler::getParkCoordinates() const
+{
+return parkCoordinates;
+}
+
+Point MovementsHandler::getCurrentCoordinates() const
+{
+    return currentCoordinates;
+}
+
+std::vector<std::shared_ptr<Axis> > MovementsHandler::getAxises() const
+{
+    return axises;
+}
+
+void MovementsHandler::setAxises(const std::vector<std::shared_ptr<Axis> > &value)
+{
+    axises = value;
+}
+

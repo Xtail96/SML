@@ -7,7 +7,7 @@
 
 class MovementsHandler
 {
-private:
+protected:
     /// Оси станка
     std::vector< std::shared_ptr<Axis> > axises;
 
@@ -29,6 +29,9 @@ public:
     void move(const Point &offset);
     bool checkCurrentCoordinates(Point &newCoordinates);
     Point getAxisesLength();
+    Point getCurrentCoordinates() const;
+    Point getCurrentCoordinatesFromBase() const;
+    Point getParkCoordinates() const;
 };
 
 #endif // MOVEMENTSHANDLER_H

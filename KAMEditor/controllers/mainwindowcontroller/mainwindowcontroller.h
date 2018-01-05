@@ -175,6 +175,8 @@ public slots:
     void newGCodesFile();
     void addGCodesFile(const QString data);
 
+    QList<Point> getMachineToolCoordinates();
+
     friend class ProgramVisualizeWindowController;
 };
 

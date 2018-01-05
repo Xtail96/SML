@@ -467,3 +467,12 @@ void MainWindowController::addGCodesFile(const QString data)
     machineTool->getGcodesFilesManager()->addGCodesFile();
     emit gcodesUpdated();
 }
+
+QList<Point> MainWindowController::getMachineToolCoordinates()
+{
+    QList<Point> machineToolCoordinates;
+    machineToolCoordinates.push_back(machineTool->getMovementController()->getCurrentCoordinates());
+    machineToolCoordinates.push_back(machineTool->getMovementController()->getCurrentCoordinatesFromBase());
+    machineToolCoordinates.push_back(machineTool->getMovementController()->getParkCoordinates());
+    return machineToolCoordinates;
+}

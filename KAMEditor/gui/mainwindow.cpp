@@ -415,15 +415,18 @@ void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 
 void MainWindow::updateCoordinatesDisplays()
 {
-    QStringList axisesNames = mainWindowController->getAxisesNames();
+    QList<Point> machineToolCoordinates = mainWindowController->getMachineToolCoordinates();
 
-    Point currentCoordinates(axisesNames.size());
-    Point currentCoordinatesFromBase(axisesNames.size());
-    Point parkCoordinates(axisesNames.size());
+    if(machineToolCoordinates.length() >= 3)
+    {
+        Point currentCoordinates(machineToolCoordinates[0]);
+        Point currentCoordinatesFromBase(machineToolCoordinates[1]);
+        Point parkCoordinates(machineToolCoordinates[2]);
 
-    showCoordinates(ui->currentCoordinatesListWidget, currentCoordinates);
-    showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
-    showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
+        showCoordinates(ui->currentCoordinatesListWidget, currentCoordinates);
+        showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
+        showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
+    }
 }
 
 void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
