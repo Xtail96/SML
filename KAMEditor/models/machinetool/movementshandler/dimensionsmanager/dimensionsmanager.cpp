@@ -36,6 +36,13 @@ bool DimensionsManager::checkAxisesCoordinates(Point &axisesLength, Point &newCo
         {
             isCoordinatesCorrect = false;
         }
+        else
+        {
+            if(newCoordinates[i] < 0)
+            {
+                isCoordinatesCorrect = true;
+            }
+        }
     }
     return isCoordinatesCorrect;
 }

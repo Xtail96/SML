@@ -25,7 +25,7 @@ public:
     void setupAxises();
     std::vector<std::shared_ptr<Axis> > getAxises() const;
     void setAxises(const std::vector<std::shared_ptr<Axis> > &value);
-    void stepMove(Point &to);
+    void moveTo(Point &to, bool mode = 0);
     void move(const Point &offset);
     bool checkCurrentCoordinates(Point &newCoordinates);
     Point getAxisesLength();

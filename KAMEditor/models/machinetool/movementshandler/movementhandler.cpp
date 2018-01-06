@@ -48,13 +48,18 @@ Point MovementsHandler::getAxisesLength()
     return _axisesLength;
 }
 
-void MovementsHandler::stepMove(Point &to)
+void MovementsHandler::moveTo(Point &to, bool mode)
 {
-    //double current_step = (step > 0) ? step : 0.01;
-    if(checkCurrentCoordinates(to))
+    if(mode)
     {
-        //currentCoordinatesFromBase += offset*current_step;
+        // точка задана относительно базы
+        if(checkCurrentCoordinates(to))
+        {
+
+            //currentCoordinatesFromBase += offset*current_step;
+        }
     }
+    //double current_step = (step > 0) ? step : 0.01;
 }
 
 void MovementsHandler::move(const Point& offset)

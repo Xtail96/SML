@@ -235,7 +235,7 @@ void MainWindowController::connectWithU1()
     }
 #endif
 #ifdef Q_OS_UNIX
-    emit u1IsDisconnected();
+    emit u1IsConnected();
 #endif
 }
 
@@ -261,6 +261,7 @@ void MainWindowController::connectWithKFlop()
 
 void MainWindowController::updateMachineToolState()
 {
+   // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
 
 #ifdef Q_OS_WIN
     try
