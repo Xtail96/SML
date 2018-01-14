@@ -165,6 +165,9 @@ void ProgramVisualizeWindow::setupWidgets()
 void ProgramVisualizeWindow::setupOGLWidget()
 {
     ui->programOpenGLWidget->setGCodesProgram(programVisualizeController->getGCodesData());
+    ui->programOpenGLWidget->setMachineToolTableSize(programVisualizeController->getTableSize());
+    ui->programOpenGLWidget->setZeroCoordinates(programVisualizeController->getZeroCoordinates());
+    //ui->programOpenGLWidget->setZeroCoordinates(Point3D(500, 100, -30));
     //ui->programOpenGLWidget->setGCodesProgram();
     /*ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
     ui->programOpenGLWidget->setPoints(programVisualizeController->get3DPoints());

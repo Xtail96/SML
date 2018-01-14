@@ -32,6 +32,10 @@ public:
 
     QString getGCodesData() const;
 
+    Point3D getTableSize() const;
+
+    Point3D getZeroCoordinates() const;
+
 signals:
     void ready();
 
@@ -49,6 +53,8 @@ private:
     double gridMaximalAccuracy;
 
     QString gCodesData;
+    Point3D tableSize;
+    Point3D zeroCoordinates;
 
     void setup(MainWindowController *mainWindowController);
 

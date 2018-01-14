@@ -5,6 +5,7 @@
 #include <QGLWidget>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <cmath>
 
 #ifdef Q_OS_WIN
     #include <GL/glu.h>
@@ -71,6 +72,11 @@ public:
 
     void setGCodesProgram(const QString &value);
 
+    Point3D getMachineToolTableSize() const;
+    void setMachineToolTableSize(const Point3D &value);
+
+    void setZeroCoordinates(const Point3D &value);
+
 protected:
     gpr::gcode_program gCodes;
 
@@ -121,6 +127,10 @@ protected:
      */
     bool absolutePositioning = false;
 
+    Point3D machineToolTableSize;
+    Point3D zeroCoordinates;
+    Point3D parkCoordinates;
+
     /*!
      * \brief Инициализирует виджет
      */
@@ -160,6 +170,8 @@ protected:
      * \brief Рисует векторы координат
      */
     void drawCoordinatesVectors();
+    void drawTable();
+
     void drawGCodes();
     void drawG0(size_t index);
     void drawG1(size_t index);

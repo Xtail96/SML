@@ -54,11 +54,18 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowCon
     pointsManager = mainWindowController->machineTool->getPointsManager();
 
     gCodesData = mainWindowController->getGCodesProgram();
+    zeroCoordinates.x = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](0);
+    zeroCoordinates.y = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](1);
+    zeroCoordinates.z = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](2);
 
     SettingsManager settingsManager;
     try
     {
         gridMaximalAccuracy = settingsManager.get("Visualisation", "GridMaximalAccuracy").toDouble();
+        double xSize = settingsManager.get("Table_Size", "SizeX").toDouble();
+        double ySize = settingsManager.get("Table_Size", "SizeY").toDouble();
+        double zSize = settingsManager.get("Table_Size", "SizeZ").toDouble();
+        tableSize = Point3D(xSize, ySize, zSize);
     }
     catch(std::invalid_argument e)
     {
@@ -89,4 +96,14 @@ QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsArguments
 QString ProgramVisualizeWindowController::getGCodesData() const
 {
     return gCodesData;
+}
+
+Point3D ProgramVisualizeWindowController::getTableSize() const
+{
+    return tableSize;
+}
+
+Point3D ProgramVisualizeWindowController::getZeroCoordinates() const
+{
+    return zeroCoordinates;
 }

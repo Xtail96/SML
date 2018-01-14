@@ -38,6 +38,8 @@ void GCodesViewWidget::paintGL()
         glScalef(scale, scale, scale);
         drawCoordinatesVectors();
 
+        //drawTable();
+
         drawGCodes();
 
         /*if(pointsVisible)
@@ -83,6 +85,42 @@ void GCodesViewWidget::drawCoordinatesVectors()
     glColor3f(0, 0, 1);
     drawLine(0, 0, 10);
     drawPoint(Point3D(0, 0, 10), "Z");
+
+    absolutePositioning = tmp;
+    currentPoint = Point3D(0, 0, 0);
+}
+
+void GCodesViewWidget::drawTable()
+{
+    glLineWidth(2.0f);
+    glDisable(GL_LINE_STIPPLE);
+    qglColor(Qt::darkGreen);
+
+    Point3D negativeOffsets;
+    Point3D positiveOffsets;
+
+    positiveOffsets.x = std::fabs(std::fabs(machineToolTableSize.x) - zeroCoordinates.x);
+    positiveOffsets.y = std::fabs(std::fabs(machineToolTableSize.y) - zeroCoordinates.y);
+    positiveOffsets.z = -zeroCoordinates.z;
+
+    negativeOffsets.x = -zeroCoordinates.x;
+    negativeOffsets.y = -zeroCoordinates.y;
+    negativeOffsets.z = -std::fabs(std::fabs(machineToolTableSize.z) - zeroCoordinates.z);
+    currentPoint = negativeOffsets;
+    bool tmp = absolutePositioning;
+    absolutePositioning = false;
+
+    drawLine(machineToolTableSize.x, 0, 0);
+    drawLine(0, machineToolTableSize.y, 0);
+    drawLine(-machineToolTableSize.x, 0, 0);
+    drawLine(0, -machineToolTableSize.y, 0);
+
+    currentPoint = Point3D(negativeOffsets.x, negativeOffsets.y, positiveOffsets.z);
+
+    drawLine(machineToolTableSize.x, 0, 0);
+    drawLine(0, machineToolTableSize.y, 0);
+    drawLine(-machineToolTableSize.x, 0, 0);
+    drawLine(0, -machineToolTableSize.y, 0);
 
     absolutePositioning = tmp;
     currentPoint = Point3D(0, 0, 0);
@@ -378,6 +416,15 @@ void GCodesViewWidget::setGCodesProgram(const QString &value)
     {
         qDebug() << QString::fromStdString(gCodes.get_block(i).to_string());
     }*/
+}
+void GCodesViewWidget::setMachineToolTableSize(const Point3D &value)
+{
+    machineToolTableSize = value;
+}
+
+void GCodesViewWidget::setZeroCoordinates(const Point3D &value)
+{
+    zeroCoordinates = value;
 }
 
 double GCodesViewWidget::getAngleX() const
