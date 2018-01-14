@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGLWidget>
 #include <QMouseEvent>
+#include <QMessageBox>
 
 #ifdef Q_OS_WIN
     #include <GL/glu.h>
@@ -16,7 +17,7 @@
 #endif
 
 #include "models/structs.h"
-#include "models/machinetool/pointsmanager/pointsmanager.h"
+#include "./gpr/parser.h"
 
 class GCodesViewWidget : public QGLWidget
 {
@@ -68,7 +69,11 @@ public:
     double getScale() const;
     void setScale(double value);
 
+    void setGCodesProgram(const QString &value);
+
 protected:
+    gpr::gcode_program gCodesProgram;
+
     /*!
      * \brief Коэффициент приближения/отдаления сцены (начальное значение = 0.005)
      */

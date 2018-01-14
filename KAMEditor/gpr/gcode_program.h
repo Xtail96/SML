@@ -375,6 +375,7 @@ namespace gpr {
     std::vector<block> blocks;
 
   public:
+    gcode_program() {}
     gcode_program(const std::vector<block>& p_blocks) :
       blocks(p_blocks) {}
 

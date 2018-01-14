@@ -3,7 +3,7 @@
 GCodesViewWidget::GCodesViewWidget(QWidget *parent) :
     QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-
+    //gCodesProgram = gpr::parse_gcode("");
 }
 
 GCodesViewWidget::~GCodesViewWidget()
@@ -206,6 +206,18 @@ double GCodesViewWidget::getScale() const
 void GCodesViewWidget::setScale(double value)
 {
     scale = value;
+}
+
+void GCodesViewWidget::setGCodesProgram(const QString &value)
+{
+    std::string gCodes = value.toStdString();
+    gpr::gcode_program program = gpr::parse_gcode(gCodes);
+    gCodesProgram = program;
+    size_t programLength = gCodesProgram.num_blocks();
+    for(size_t i = 0; i < programLength; i++)
+    {
+        qDebug() << QString::fromStdString(gCodesProgram.get_block(i).to_string());
+    }
 }
 
 double GCodesViewWidget::getAngleX() const
