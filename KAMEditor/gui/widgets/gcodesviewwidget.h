@@ -119,7 +119,7 @@ protected:
     /*!
      * \brief Нужно ли обновлять текущую точку траектории (начальное значение = false)
      */
-    bool updateCurrentPointIsNeed = false;
+    bool absolutePositioning = false;
 
     /*!
      * \brief Инициализирует виджет
@@ -171,7 +171,7 @@ protected:
      * \brief Обновляет теущую точку
      * \param destination - точка, которую нужно сделать текущей
      */
-    //void updateCurrentPoint(Point3D destination);
+    void updateCurrentPoint(Point3D destination);
 };
 
 #endif // GCODESVIEWWIDGET_H

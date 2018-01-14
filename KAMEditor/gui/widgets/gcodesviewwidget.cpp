@@ -66,7 +66,8 @@ void GCodesViewWidget::drawCoordinatesVectors()
     glLineWidth(2.0f);
     glDisable(GL_LINE_STIPPLE);
 
-    //updateOffsetsIsNeed = false;
+    bool tmp = absolutePositioning;
+    absolutePositioning = true;
     //updateCurrentPointIsNeed = false;
 
     currentPoint.x = 0;
@@ -84,6 +85,8 @@ void GCodesViewWidget::drawCoordinatesVectors()
     glColor3f(0, 0, 1);
     drawLine(0, 0, 10);
     drawPoint(Point3D(0, 0, 10), "Z");
+
+    absolutePositioning = tmp;
 }
 
 void GCodesViewWidget::drawGCodes()
@@ -112,6 +115,12 @@ void GCodesViewWidget::drawGCodes()
                     case 1:
                         // G1
                         drawG1(i);
+                        break;
+                    case 90:
+                        absolutePositioning = true;
+                        break;
+                    case 91:
+                        absolutePositioning = false;
                         break;
                     default:
                         break;
@@ -257,13 +266,32 @@ void GCodesViewWidget::drawPoint(Point3D src, QString text)
     renderText(src.x, src.y, src.z, text);
 }
 
+void GCodesViewWidget::updateCurrentPoint(Point3D destination)
+{
+    currentPoint = destination;
+}
+
 void GCodesViewWidget::drawLine(double dx, double dy, double dz)
 {
-    double newX = currentPoint.x + dx;
-    double newY = currentPoint.y + dy;
-    double newZ = currentPoint.z + dz;
+    double newX;
+    double newY;
+    double newZ;
 
-    if(newZ > 0 && updateCurrentPointIsNeed)
+    if(absolutePositioning)
+    {
+        newX = dx;
+        newY = dy;
+        newZ = dz;
+        currentPoint = Point3D(0, 0, 0);
+    }
+    else
+    {
+        newX = currentPoint.x + dx;
+        newY = currentPoint.y + dy;
+        newZ = currentPoint.z + dz;
+    }
+
+    if(newZ > 0 && !absolutePositioning)
     {
         glEnable(GL_LINE_STIPPLE);
         glLineStipple(1, 0x1111);
@@ -281,9 +309,9 @@ void GCodesViewWidget::drawLine(double dx, double dy, double dz)
 
     glEnd();
 
-    //Point3D destinaton(newX, newY, newZ);
+    Point3D destinaton(newX, newY, newZ);
     //updateOffsets(destinaton);
-    //updateCurrentPoint(destinaton);
+    updateCurrentPoint(destinaton);
 }
 
 double GCodesViewWidget::getScale() const
