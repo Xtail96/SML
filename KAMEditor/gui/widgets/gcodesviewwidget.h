@@ -21,6 +21,8 @@
 class GCodesViewWidget : public QGLWidget
 {
      Q_OBJECT
+signals:
+
 public:
     GCodesViewWidget(QWidget* parent = 0);
     ~GCodesViewWidget();
@@ -68,28 +70,6 @@ public:
 
 protected:
     /*!
-     * \brief Инициализирует виджет
-     */
-    void initializeGL();
-
-    /*!
-     * \brief Изменияет размер виджета
-     * \param w - новая ширина виджета
-     * \param h - новая высота виджета
-     */
-    void resizeGL(int w, int h);
-
-    /*!
-     * \brief Осуществляет рисование на виджете
-     */
-    void paintGL();
-
-    /*!
-     * \brief Рисует векторы координат
-     */
-    void drawCoordinatesVectors();
-
-    /*!
      * \brief Коэффициент приближения/отдаления сцены (начальное значение = 0.005)
      */
     double scale = 0.005;
@@ -117,12 +97,6 @@ protected:
     int mousePositionY = 0;
 
     /*!
-     * \brief Обрабатывает нажатие клавиш мыши
-     * \param mouseEvent - событие мыши
-     */
-    void mousePressEvent(QMouseEvent *mouseEvent);
-
-    /*!
      * \brief Позиция сцены по оси X (начальное значение = 0)
      */
     double positionX = 0;
@@ -131,18 +105,6 @@ protected:
      * \brief Позиция сцены по оси Y (начальное значение = 0)
      */
     double positionY = 0;
-
-    /*!
-     * \brief Обрабатывает перемещение мыши
-     * \param mouseEvent - событие мыши
-     */
-    void mouseMoveEvent(QMouseEvent *mouseEvent);
-
-    /*!
-     * \brief Обрабатывает вращение колесика мыши
-     * \param wheelEvent - событие колесика мыши
-     */
-    void wheelEvent(QWheelEvent *wheelEvent);
 
     /*!
      * \brief Текущая точка траектории (начальное значение Point(X = 0; Y = 0; Z = 0))
@@ -155,13 +117,53 @@ protected:
     bool updateCurrentPointIsNeed = false;
 
     /*!
-     * \brief Обновляет теущую точку
-     * \param destination - точка, которую нужно сделать текущей
+     * \brief Инициализирует виджет
      */
-    void updateCurrentPoint(Point3D destination);
+    void initializeGL();
+
+    /*!
+     * \brief Изменияет размер виджета
+     * \param w - новая ширина виджета
+     * \param h - новая высота виджета
+     */
+    void resizeGL(int w, int h);
+
+    /*!
+     * \brief Осуществляет рисование на виджете
+     */
+    void paintGL();
+
+    /*!
+     * \brief Обрабатывает перемещение мыши
+     * \param mouseEvent - событие мыши
+     */
+    void mouseMoveEvent(QMouseEvent *mouseEvent);
+
+    /*!
+     * \brief Обрабатывает нажатие клавиш мыши
+     * \param mouseEvent - событие мыши
+     */
+    void mousePressEvent(QMouseEvent *mouseEvent);
+
+    /*!
+     * \brief Обрабатывает вращение колесика мыши
+     * \param wheelEvent - событие колесика мыши
+     */
+    void wheelEvent(QWheelEvent *wheelEvent);
+
+    /*!
+     * \brief Рисует векторы координат
+     */
+    void drawCoordinatesVectors();
 
     void drawLine(double dx, double dy, double dz);
     void drawPoint(Point3D src, QString text);
+
+    /*!
+     * \brief Обновляет теущую точку
+     * \param destination - точка, которую нужно сделать текущей
+     */
+    //void updateCurrentPoint(Point3D destination);
 };
 
 #endif // GCODESVIEWWIDGET_H

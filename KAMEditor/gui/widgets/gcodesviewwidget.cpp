@@ -75,79 +75,15 @@ void GCodesViewWidget::drawCoordinatesVectors()
 
     glColor3f(1, 0, 0);
     drawLine(10, 0, 0);
-    renderText(10, 0, 0, "X");
+    drawPoint(Point3D(10, 0, 0), "X");
 
     glColor3f(0, 1, 0);
     drawLine(0, 10, 0);
-    renderText(0, 10, 0, "Y");
+    drawPoint(Point3D(0, 10, 0), "Y");
 
     glColor3f(0, 0, 1);
     drawLine(0, 0, 10);
-    renderText(0, 0, 10, "Z");
-}
-
-double GCodesViewWidget::getScale() const
-{
-    return scale;
-}
-
-void GCodesViewWidget::setScale(double value)
-{
-    scale = value;
-}
-
-double GCodesViewWidget::getAngleX() const
-{
-    return angleX;
-}
-
-void GCodesViewWidget::setAngleX(double value)
-{
-    if(value >= 180)
-    {
-        angleX = 0;
-    }
-    else
-    {
-        angleX = value;
-    }
-}
-
-double GCodesViewWidget::getAngleZ() const
-{
-    return angleZ;
-}
-
-void GCodesViewWidget::setAngleZ(double value)
-{
-    if(value >= 180)
-    {
-        angleZ = 0;
-    }
-    else
-    {
-        angleZ = value;
-    }
-}
-
-int GCodesViewWidget::getMousePositionX() const
-{
-    return mousePositionX;
-}
-
-void GCodesViewWidget::setMousePositionX(int value)
-{
-    mousePositionX = value;
-}
-
-int GCodesViewWidget::getMousePositionY() const
-{
-    return mousePositionY;
-}
-
-void GCodesViewWidget::setMousePositionY(int value)
-{
-    mousePositionY = value;
+    drawPoint(Point3D(0, 0, 10), "Z");
 }
 
 void GCodesViewWidget::updateField()
@@ -161,26 +97,6 @@ void GCodesViewWidget::mousePressEvent(QMouseEvent *mouseEvent)
     mousePositionY = mouseEvent->y();
 }
 
-double GCodesViewWidget::getPositionY() const
-{
-    return positionY;
-}
-
-void GCodesViewWidget::setPositionY(double value)
-{
-    positionY = value;
-}
-
-double GCodesViewWidget::getPositionX() const
-{
-    return positionX;
-}
-
-void GCodesViewWidget::setPositionX(double value)
-{
-    positionX = value;
-}
-
 void GCodesViewWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
 
@@ -189,8 +105,6 @@ void GCodesViewWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 
     if (mouseEvent->buttons() == Qt::LeftButton)
     {
-        //setXAngle(angleX - 1 * dy);
-        //setYAngle(angleY - 1 * dx);
         setPositionX(positionX + dx/1000);
         setPositionY(positionY + dy/1000);
     }
@@ -245,18 +159,14 @@ void GCodesViewWidget::resizeGL(int w, int h)
     glViewport(0,0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    /*
-    gluPerspective(45, (float)w/h, 0.01, 100.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();*/
 }
 
 void GCodesViewWidget::drawPoint(Point3D src, QString text)
 {
-    /*glBegin(GL_POINTS);
+    glBegin(GL_POINTS);
     glVertex3f(src.x, src.y, src.z);
     glEnd();
-    renderText(src.x, src.y, src.z, text);*/
+    renderText(src.x, src.y, src.z, text);
 }
 
 void GCodesViewWidget::drawLine(double dx, double dy, double dz)
@@ -286,4 +196,88 @@ void GCodesViewWidget::drawLine(double dx, double dy, double dz)
     //Point3D destinaton(newX, newY, newZ);
     //updateOffsets(destinaton);
     //updateCurrentPoint(destinaton);
+}
+
+double GCodesViewWidget::getScale() const
+{
+    return scale;
+}
+
+void GCodesViewWidget::setScale(double value)
+{
+    scale = value;
+}
+
+double GCodesViewWidget::getAngleX() const
+{
+    return angleX;
+}
+
+void GCodesViewWidget::setAngleX(double value)
+{
+    if(value >= 180)
+    {
+        angleX = 0;
+    }
+    else
+    {
+        angleX = value;
+    }
+}
+
+double GCodesViewWidget::getAngleZ() const
+{
+    return angleZ;
+}
+
+void GCodesViewWidget::setAngleZ(double value)
+{
+    if(value >= 180)
+    {
+        angleZ = 0;
+    }
+    else
+    {
+        angleZ = value;
+    }
+}
+
+double GCodesViewWidget::getPositionY() const
+{
+    return positionY;
+}
+
+void GCodesViewWidget::setPositionY(double value)
+{
+    positionY = value;
+}
+
+double GCodesViewWidget::getPositionX() const
+{
+    return positionX;
+}
+
+void GCodesViewWidget::setPositionX(double value)
+{
+    positionX = value;
+}
+
+int GCodesViewWidget::getMousePositionX() const
+{
+    return mousePositionX;
+}
+
+void GCodesViewWidget::setMousePositionX(int value)
+{
+    mousePositionX = value;
+}
+
+int GCodesViewWidget::getMousePositionY() const
+{
+    return mousePositionY;
+}
+
+void GCodesViewWidget::setMousePositionY(int value)
+{
+    mousePositionY = value;
 }
