@@ -54,9 +54,6 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowCon
     pointsManager = mainWindowController->machineTool->getPointsManager();
 
     gCodesData = mainWindowController->getGCodesProgram();
-    zeroCoordinates.x = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](0);
-    zeroCoordinates.y = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](1);
-    zeroCoordinates.z = mainWindowController->machineTool->getMovementController()->getCurrentCoordinates().operator [](2);
 
     SettingsManager settingsManager;
     try
