@@ -95,7 +95,9 @@ void GCodesViewWidget::drawGCodes()
     {
         gpr::block currentBlock = gCodes.get_block(i);
         gpr::chunk currentChunk = currentBlock.get_chunk(0);
-        if(currentChunk.tp() == gpr::CHUNK_TYPE_WORD_ADDRESS)
+        switch (currentChunk.tp())
+        {
+        case gpr::CHUNK_TYPE_WORD_ADDRESS:
         {
             if(currentChunk.get_word() == 'G')
             {
@@ -104,10 +106,11 @@ void GCodesViewWidget::drawGCodes()
                     switch (currentChunk.get_address().int_value())
                     {
                     case 0:
-                        //G0
+                        // G0
                         drawG0(i);
                         break;
                     case 1:
+                        // G1
                         drawG1(i);
                         break;
                     default:
@@ -115,6 +118,12 @@ void GCodesViewWidget::drawGCodes()
                     }
                 }
             }
+            break;
+        }
+        default:
+        {
+            break;
+        }
         }
     }
 }
