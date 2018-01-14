@@ -30,32 +30,32 @@ void ProgramVisualizeWindow::on_zoomOutPushButton_clicked()
 void ProgramVisualizeWindow::on_topPushButton_clicked()
 {
     // поворот в плоскость X0Y
-    /*ui->programOpenGLWidget->setXAngle(0);
-    ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->updateField();*/
+    ui->programOpenGLWidget->setAngleX(0);
+    ui->programOpenGLWidget->setAngleZ(0);
+    ui->programOpenGLWidget->updateField();
 }
 
 void ProgramVisualizeWindow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
-    /*ui->programOpenGLWidget->setXAngle(-90);
-    ui->programOpenGLWidget->setZAngle(90);
-    ui->programOpenGLWidget->updateField();*/
+    ui->programOpenGLWidget->setAngleX(-90);
+    ui->programOpenGLWidget->setAngleZ(90);
+    ui->programOpenGLWidget->updateField();
 }
 
 void ProgramVisualizeWindow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
-   /* ui->programOpenGLWidget->setXAngle(-90);
-    ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->updateField();*/
+    ui->programOpenGLWidget->setAngleX(-90);
+    ui->programOpenGLWidget->setAngleZ(0);
+    ui->programOpenGLWidget->updateField();
 }
 
 void ProgramVisualizeWindow::on_centerPushButton_clicked()
 {
-    /*ui->programOpenGLWidget->setPositionX(0);
+    ui->programOpenGLWidget->setPositionX(0);
     ui->programOpenGLWidget->setPositionY(0);
-    ui->programOpenGLWidget->updateField();*/
+    ui->programOpenGLWidget->updateField();
 }
 
 void ProgramVisualizeWindow::showCommands()
