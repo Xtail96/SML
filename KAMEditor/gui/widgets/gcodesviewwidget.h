@@ -72,7 +72,7 @@ public:
     void setGCodesProgram(const QString &value);
 
 protected:
-    gpr::gcode_program gCodesProgram;
+    gpr::gcode_program gCodes;
 
     /*!
      * \brief Коэффициент приближения/отдаления сцены (начальное значение = 0.005)
@@ -160,6 +160,7 @@ protected:
      * \brief Рисует векторы координат
      */
     void drawCoordinatesVectors();
+    void drawGCodes();
 
     void drawLine(double dx, double dy, double dz);
     void drawPoint(Point3D src, QString text);

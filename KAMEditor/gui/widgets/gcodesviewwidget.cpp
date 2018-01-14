@@ -38,9 +38,9 @@ void GCodesViewWidget::paintGL()
         glScalef(scale, scale, scale);
         drawCoordinatesVectors();
 
-        /*drawCommands();
+        drawGCodes();
 
-        if(pointsVisible)
+        /*if(pointsVisible)
         {
             drawPoints();
         }
@@ -84,6 +84,11 @@ void GCodesViewWidget::drawCoordinatesVectors()
     glColor3f(0, 0, 1);
     drawLine(0, 0, 10);
     drawPoint(Point3D(0, 0, 10), "Z");
+}
+
+void GCodesViewWidget::drawGCodes()
+{
+
 }
 
 void GCodesViewWidget::updateField()
@@ -210,14 +215,59 @@ void GCodesViewWidget::setScale(double value)
 
 void GCodesViewWidget::setGCodesProgram(const QString &value)
 {
-    std::string gCodes = value.toStdString();
-    gpr::gcode_program program = gpr::parse_gcode(gCodes);
-    gCodesProgram = program;
-    size_t programLength = gCodesProgram.num_blocks();
+    std::string data = value.toStdString();
+    gpr::gcode_program program = gpr::parse_gcode(data);
+    gCodes = program;
+
+    // вывод в консоль
+    size_t programLength = gCodes.num_blocks();
     for(size_t i = 0; i < programLength; i++)
     {
-        qDebug() << QString::fromStdString(gCodesProgram.get_block(i).to_string());
+        try
+        {
+            qDebug() << "";
+            qDebug() << "New Block " << i;
+            for(size_t j = 0; j < gCodes.get_block(i).size(); j++)
+            {
+                if(gCodes.get_block(i).get_chunk(j).tp() == gpr::CHUNK_TYPE_COMMENT)
+                {
+                    qDebug() << "chunk #" << j << "(comment)  = " << QString::fromStdString(gCodes.get_block(i).get_chunk(j).get_comment_text());
+                }
+                else
+                {
+                    if(gCodes.get_block(i).get_chunk(j).tp() == gpr::CHUNK_TYPE_WORD_ADDRESS)
+                    {
+                        qDebug() << "chunk #" << j << "(word)  = " << gCodes.get_block(i).get_chunk(j).get_word();
+                    }
+                    //qDebug() << "chunk #" << j << "(single word)  = " << gCodes.get_block(i).get_chunk(i).get_single_word();
+
+                    //qDebug() << "chunk #" << j << "(left delim)  = " << gCodes.get_block(i).get_chunk(i).get_left_delim();
+                    //qDebug() << "chunk #" << j << "(right delim)  = " << gCodes.get_block(i).get_chunk(i).get_right_delim();
+
+                    if(gCodes.get_block(i).get_chunk(j).get_address().tp() == gpr::ADDRESS_TYPE_INTEGER)
+                    {
+                        qDebug() << "chunk #" << j << "(address int value)  = " << gCodes.get_block(i).get_chunk(j).get_address().int_value();
+                    }
+                    else
+                    {
+                        if(gCodes.get_block(i).get_chunk(j).get_address().tp() == gpr::ADDRESS_TYPE_DOUBLE)
+                        {
+                            qDebug() << "chunk #" << j << "(address double value)  = " << gCodes.get_block(i).get_chunk(j).get_address().double_value();
+                        }
+                    }
+                }
+
+            }
+            qDebug() << "";
+        }
+        catch(...) {}
+        //qDebug() << QString::fromStdString(gCodesProgram.get_block(i).to_string());
     }
+    /*size_t programLength = gCodes.num_blocks();
+    for(size_t i = 0; i < programLength; i++)
+    {
+        qDebug() << QString::fromStdString(gCodes.get_block(i).to_string());
+    }*/
 }
 
 double GCodesViewWidget::getAngleX() const
