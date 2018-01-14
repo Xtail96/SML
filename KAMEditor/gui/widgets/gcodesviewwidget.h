@@ -24,7 +24,7 @@ class GCodesViewWidget : public QGLWidget
 {
      Q_OBJECT
 signals:
-
+    void offsetsChanged();
 public:
     GCodesViewWidget(QWidget* parent = 0);
     ~GCodesViewWidget();
@@ -77,6 +77,16 @@ public:
 
     void setZeroCoordinates(const Point3D &value);
 
+    Point3D getGeneralOffset() const;
+
+    Point3D getPositiveOffset() const;
+
+    Point3D getNegativeOffset() const;
+
+    Point3D getMaxPositiveOffset() const;
+
+    Point3D getMaxNegativeOffset() const;
+
 protected:
     gpr::gcode_program gCodes;
 
@@ -127,6 +137,11 @@ protected:
      */
     bool absolutePositioning = false;
 
+    Point3D generalOffset;
+    Point3D maxPositiveOffset;
+    Point3D maxNegativeOffset;
+
+    bool updateOffsetsIsNeed = false;
     Point3D machineToolTableSize;
     Point3D zeroCoordinates;
     Point3D parkCoordinates;
@@ -184,6 +199,8 @@ protected:
      * \param destination - точка, которую нужно сделать текущей
      */
     void updateCurrentPoint(Point3D destination);
+
+    void updateOffsets(Point3D newVertex);
 };
 
 #endif // GCODESVIEWWIDGET_H

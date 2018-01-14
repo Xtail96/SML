@@ -120,7 +120,7 @@ void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()
 
 void ProgramVisualizeWindow::showOffsets()
 {
-    /*Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
+    Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
     Point3D positiveOffset = ui->programOpenGLWidget->getMaxPositiveOffset();
     Point3D negativeOffset = ui->programOpenGLWidget->getMaxNegativeOffset();
 
@@ -140,7 +140,7 @@ void ProgramVisualizeWindow::showOffsets()
             qPositiveYOffsetString + qNegativeYOffsetString + qGeneralYOffsetString + '\n' +
             qPositiveZOffsetString + qNegativeZOffsetString + qGeneralZOffsetString;
 
-    ui->dimensionsTextEdit->setText(qDimensionsString);*/
+    ui->dimensionsTextEdit->setText(qDimensionsString);
 }
 
 void ProgramVisualizeWindow::on_printPushButton_clicked()
@@ -171,8 +171,8 @@ void ProgramVisualizeWindow::setupOGLWidget()
     //ui->programOpenGLWidget->setGCodesProgram();
     /*ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
     ui->programOpenGLWidget->setPoints(programVisualizeController->get3DPoints());
-    ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
-    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));*/
+    ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());*/
+    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
 }
 
 void ProgramVisualizeWindow::setupProgramVisualizeController(MainWindowController* controller)

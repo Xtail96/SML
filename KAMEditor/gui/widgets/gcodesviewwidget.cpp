@@ -70,7 +70,7 @@ void GCodesViewWidget::drawCoordinatesVectors()
 
     bool tmp = absolutePositioning;
     absolutePositioning = true;
-    //updateCurrentPointIsNeed = false;
+    updateOffsetsIsNeed = false;
 
     currentPoint = Point3D(0, 0, 0);
 
@@ -95,6 +95,7 @@ void GCodesViewWidget::drawTable()
     glLineWidth(2.0f);
     glDisable(GL_LINE_STIPPLE);
     qglColor(Qt::darkGreen);
+    updateOffsetsIsNeed = false;
 
     Point3D negativeOffsets;
     Point3D positiveOffsets;
@@ -129,6 +130,7 @@ void GCodesViewWidget::drawTable()
 void GCodesViewWidget::drawGCodes()
 {
     glLineWidth(3.0f);
+    updateOffsetsIsNeed = true;
 
     size_t programLength = gCodes.num_blocks();
     for(size_t i = 0; i < programLength; i++)
@@ -308,6 +310,55 @@ void GCodesViewWidget::updateCurrentPoint(Point3D destination)
     currentPoint = destination;
 }
 
+void GCodesViewWidget::updateOffsets(Point3D newVertex)
+{
+    if(updateOffsetsIsNeed)
+    {
+        bool emitSignalIsNeed = false;
+        if(newVertex.x > maxPositiveOffset.x)
+        {
+            maxPositiveOffset.x = newVertex.x;
+            generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+            emitSignalIsNeed = true;
+        }
+        if(newVertex.y > maxPositiveOffset.y)
+        {
+            maxPositiveOffset.y = newVertex.y;
+            generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+            emitSignalIsNeed = true;
+        }
+        if(newVertex.z > maxPositiveOffset.z)
+        {
+            maxPositiveOffset.z = newVertex.z;
+            generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+            emitSignalIsNeed = true;
+        }
+
+        if(newVertex.x < maxNegativeOffset.x)
+        {
+            maxNegativeOffset.x = newVertex.x;
+            generalOffset.x = std::fabs(maxPositiveOffset.x) + std::fabs(maxNegativeOffset.x);
+            emitSignalIsNeed = true;
+        }
+        if(newVertex.y < maxNegativeOffset.y)
+        {
+            maxNegativeOffset.y = newVertex.y;
+            generalOffset.y = std::fabs(maxPositiveOffset.y) + std::fabs(maxNegativeOffset.y);
+            emitSignalIsNeed = true;
+        }
+        if(newVertex.z < maxNegativeOffset.z)
+        {
+            maxNegativeOffset.z = newVertex.z;
+            generalOffset.z = std::fabs(maxPositiveOffset.z) + std::fabs(maxNegativeOffset.z);
+            emitSignalIsNeed = true;
+        }
+        if(emitSignalIsNeed)
+        {
+            emit offsetsChanged();
+        }
+    }
+}
+
 void GCodesViewWidget::drawLine(double dx, double dy, double dz)
 {
     double newX;
@@ -347,7 +398,7 @@ void GCodesViewWidget::drawLine(double dx, double dy, double dz)
     glEnd();
 
     Point3D destinaton(newX, newY, newZ);
-    //updateOffsets(destinaton);
+    updateOffsets(destinaton);
     updateCurrentPoint(destinaton);
 }
 
@@ -425,6 +476,21 @@ void GCodesViewWidget::setMachineToolTableSize(const Point3D &value)
 void GCodesViewWidget::setZeroCoordinates(const Point3D &value)
 {
     zeroCoordinates = value;
+}
+
+Point3D GCodesViewWidget::getGeneralOffset() const
+{
+    return generalOffset;
+}
+
+Point3D GCodesViewWidget::getMaxPositiveOffset() const
+{
+    return maxPositiveOffset;
+}
+
+Point3D GCodesViewWidget::getMaxNegativeOffset() const
+{
+    return maxNegativeOffset;
 }
 
 double GCodesViewWidget::getAngleX() const
