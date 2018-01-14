@@ -88,7 +88,81 @@ void GCodesViewWidget::drawCoordinatesVectors()
 
 void GCodesViewWidget::drawGCodes()
 {
+    glLineWidth(3.0f);
 
+    size_t programLength = gCodes.num_blocks();
+    for(size_t i = 0; i < programLength; i++)
+    {
+        gpr::block currentBlock = gCodes.get_block(i);
+        gpr::chunk currentChunk = currentBlock.get_chunk(0);
+        if(currentChunk.tp() == gpr::CHUNK_TYPE_WORD_ADDRESS)
+        {
+            if(currentChunk.get_word() == 'G')
+            {
+                if(currentChunk.get_address().tp() == gpr::ADDRESS_TYPE_INTEGER)
+                {
+                    switch (currentChunk.get_address().int_value())
+                    {
+                    case 0:
+                        //G0
+                        drawG0(i);
+                        break;
+                    case 1:
+                        drawG1(i);
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void GCodesViewWidget::drawG0(size_t index)
+{
+    Point3D arguments;
+
+    gpr::block currentBlock = gCodes.get_block(index);
+    size_t blockLength = currentBlock.size();
+    for(size_t i = 0; i < blockLength; i++)
+    {
+        gpr::chunk currentChunk = currentBlock.get_chunk(i);
+        if(currentChunk.tp() == gpr::CHUNK_TYPE_WORD_ADDRESS)
+        {
+            if(currentChunk.get_word() == 'X')
+            {
+                if(currentChunk.get_address().tp() == gpr::ADDRESS_TYPE_DOUBLE)
+                {
+                    arguments.x = currentChunk.get_address().double_value();
+                }
+            }
+
+            if(currentChunk.get_word() == 'Y')
+            {
+                if(currentChunk.get_address().tp() == gpr::ADDRESS_TYPE_DOUBLE)
+                {
+                    arguments.y = currentChunk.get_address().double_value();
+                }
+            }
+
+            if(currentChunk.get_word() == 'Z')
+            {
+                if(currentChunk.get_address().tp() == gpr::ADDRESS_TYPE_DOUBLE)
+                {
+                    arguments.z = currentChunk.get_address().double_value();
+                }
+            }
+        }
+    }
+
+    qglColor(Qt::darkGray);
+    drawLine(arguments.x, arguments.y, arguments.z);
+}
+
+void GCodesViewWidget::drawG1(size_t index)
+{
+    drawG0(index);
 }
 
 void GCodesViewWidget::updateField()

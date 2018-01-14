@@ -161,6 +161,8 @@ protected:
      */
     void drawCoordinatesVectors();
     void drawGCodes();
+    void drawG0(size_t index);
+    void drawG1(size_t index);
 
     void drawLine(double dx, double dy, double dz);
     void drawPoint(Point3D src, QString text);
