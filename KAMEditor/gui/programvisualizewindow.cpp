@@ -30,32 +30,32 @@ void ProgramVisualizeWindow::on_zoomOutPushButton_clicked()
 void ProgramVisualizeWindow::on_topPushButton_clicked()
 {
     // поворот в плоскость X0Y
-    ui->programOpenGLWidget->setXAngle(0);
+    /*ui->programOpenGLWidget->setXAngle(0);
     ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->updateField();
+    ui->programOpenGLWidget->updateField();*/
 }
 
 void ProgramVisualizeWindow::on_sidePushButton_clicked()
 {
     // поворот в плоскость Y0Z
-    ui->programOpenGLWidget->setXAngle(-90);
+    /*ui->programOpenGLWidget->setXAngle(-90);
     ui->programOpenGLWidget->setZAngle(90);
-    ui->programOpenGLWidget->updateField();
+    ui->programOpenGLWidget->updateField();*/
 }
 
 void ProgramVisualizeWindow::on_frontPushButton_clicked()
 {
     // поворот в плоскость X0Z
-    ui->programOpenGLWidget->setXAngle(-90);
+   /* ui->programOpenGLWidget->setXAngle(-90);
     ui->programOpenGLWidget->setZAngle(0);
-    ui->programOpenGLWidget->updateField();
+    ui->programOpenGLWidget->updateField();*/
 }
 
 void ProgramVisualizeWindow::on_centerPushButton_clicked()
 {
-    ui->programOpenGLWidget->setPositionX(0);
+    /*ui->programOpenGLWidget->setPositionX(0);
     ui->programOpenGLWidget->setPositionY(0);
-    ui->programOpenGLWidget->updateField();
+    ui->programOpenGLWidget->updateField();*/
 }
 
 void ProgramVisualizeWindow::showCommands()
@@ -93,34 +93,34 @@ void ProgramVisualizeWindow::on_acceptOptionsPushButton_clicked()
             ui->gridSizeLineEdit->setText(QString::number(gridSize));
         }
 
-        double gridCellSize = std::max(ui->gridCellSizeLineEdit->text().toDouble(), ui->programOpenGLWidget->getGridMaximalAccuracy());
+        /*double gridCellSize = std::max(ui->gridCellSizeLineEdit->text().toDouble(), ui->programOpenGLWidget->getGridMaximalAccuracy());
         ui->gridCellSizeLineEdit->setText(QString::number(gridCellSize));
 
         ui->programOpenGLWidget->setGridPlane(gridPlane);
         ui->programOpenGLWidget->setGridSize((unsigned int) (gridSize));
         ui->programOpenGLWidget->setGridCellSize(gridCellSize);
-        ui->programOpenGLWidget->setGridVisible(true);
+        ui->programOpenGLWidget->setGridVisible(true);*/
     }
     else
     {
-        ui->programOpenGLWidget->setGridVisible(false);
+        //ui->programOpenGLWidget->setGridVisible(false);
     }
 
-    if(ui->pointsCheckBox->isChecked())
+    /*if(ui->pointsCheckBox->isChecked())
     {
         ui->programOpenGLWidget->setPointsVisible(true);
     }
     else
     {
         ui->programOpenGLWidget->setPointsVisible(false);
-    }
+    }*/
 
     ui->programOpenGLWidget->repaint();
 }
 
 void ProgramVisualizeWindow::showOffsets()
 {
-    Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
+    /*Point3D generalOffset = ui->programOpenGLWidget->getGeneralOffset();
     Point3D positiveOffset = ui->programOpenGLWidget->getMaxPositiveOffset();
     Point3D negativeOffset = ui->programOpenGLWidget->getMaxNegativeOffset();
 
@@ -140,7 +140,7 @@ void ProgramVisualizeWindow::showOffsets()
             qPositiveYOffsetString + qNegativeYOffsetString + qGeneralYOffsetString + '\n' +
             qPositiveZOffsetString + qNegativeZOffsetString + qGeneralZOffsetString;
 
-    ui->dimensionsTextEdit->setText(qDimensionsString);
+    ui->dimensionsTextEdit->setText(qDimensionsString);*/
 }
 
 void ProgramVisualizeWindow::on_printPushButton_clicked()
@@ -164,10 +164,10 @@ void ProgramVisualizeWindow::setupWidgets()
 
 void ProgramVisualizeWindow::setupOGLWidget()
 {
-    ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
+    /*ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
     ui->programOpenGLWidget->setPoints(programVisualizeController->get3DPoints());
     ui->programOpenGLWidget->setGridMaximalAccuracy(programVisualizeController->getGridMaximalAccuracy());
-    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));
+    connect(ui->programOpenGLWidget, SIGNAL(offsetsChanged()), this, SLOT(showOffsets()));*/
 }
 
 void ProgramVisualizeWindow::setupProgramVisualizeController(MainWindowController* controller)

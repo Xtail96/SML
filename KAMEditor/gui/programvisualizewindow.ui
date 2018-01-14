@@ -791,7 +791,7 @@
        <number>5</number>
       </property>
       <item>
-       <widget class="OGLWidget" name="programOpenGLWidget">
+       <widget class="GCodesViewWidget" name="programOpenGLWidget">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -856,9 +856,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>OGLWidget</class>
+   <class>GCodesViewWidget</class>
    <extends>QOpenGLWidget</extends>
-   <header>gui/widgets/oglwidget.h</header>
+   <header>gui/widgets/gcodesviewwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

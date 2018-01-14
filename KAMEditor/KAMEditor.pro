@@ -116,7 +116,8 @@ SOURCES += main.cpp\
     models/machinetool/gcodesmanager/gcodesmanager.cpp \
     gpr/gcode_program.cpp \
     gpr/parser.cpp \
-    models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp
+    models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp \
+    gui/widgets/gcodesviewwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -201,7 +202,8 @@ HEADERS  += gui/mainwindow.h \
     gpr/parser.h \
     kmotion/kmotion_dotnet_interop/include/KMotion_dotNet_Interop.h \
     libusb/include/libusb.h \
-    models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h
+    models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h \
+    gui/widgets/gcodesviewwidget.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
