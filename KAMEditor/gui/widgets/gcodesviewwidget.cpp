@@ -70,9 +70,7 @@ void GCodesViewWidget::drawCoordinatesVectors()
     absolutePositioning = true;
     //updateCurrentPointIsNeed = false;
 
-    currentPoint.x = 0;
-    currentPoint.y = 0;
-    currentPoint.z = 0;
+    currentPoint = Point3D(0, 0, 0);
 
     glColor3f(1, 0, 0);
     drawLine(10, 0, 0);
@@ -87,6 +85,7 @@ void GCodesViewWidget::drawCoordinatesVectors()
     drawPoint(Point3D(0, 0, 10), "Z");
 
     absolutePositioning = tmp;
+    currentPoint = Point3D(0, 0, 0);
 }
 
 void GCodesViewWidget::drawGCodes()
@@ -331,7 +330,7 @@ void GCodesViewWidget::setGCodesProgram(const QString &value)
     gCodes = program;
 
     // вывод в консоль
-    size_t programLength = gCodes.num_blocks();
+    /*size_t programLength = gCodes.num_blocks();
     for(size_t i = 0; i < programLength; i++)
     {
         try
@@ -373,7 +372,7 @@ void GCodesViewWidget::setGCodesProgram(const QString &value)
         }
         catch(...) {}
         //qDebug() << QString::fromStdString(gCodesProgram.get_block(i).to_string());
-    }
+    }*/
     /*size_t programLength = gCodes.num_blocks();
     for(size_t i = 0; i < programLength; i++)
     {
