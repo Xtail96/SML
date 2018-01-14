@@ -1042,6 +1042,7 @@ void MainWindow::on_savesettings_action_triggered()
 
 void MainWindow::on_viewPushButton_clicked()
 {
+    mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
     ProgramVisualizeWindow(mainWindowController, this).exec();
 }
 

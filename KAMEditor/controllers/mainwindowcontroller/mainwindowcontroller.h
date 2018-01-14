@@ -174,6 +174,9 @@ public slots:
     void saveGCodesFileAs(const QString data);
     void newGCodesFile();
     void addGCodesFile(const QString data);
+    void updateGCodes(const QString &data);
+    QString getGCodesProgram();
+
 
     QList<Point> getMachineToolCoordinates();
 

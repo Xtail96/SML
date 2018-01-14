@@ -164,7 +164,7 @@ void ProgramVisualizeWindow::setupWidgets()
 
 void ProgramVisualizeWindow::setupOGLWidget()
 {
-    ui->programOpenGLWidget->setGCodesProgram("G0 X100 Y100 Z0");
+    ui->programOpenGLWidget->setGCodesProgram(programVisualizeController->getGCodesData());
     //ui->programOpenGLWidget->setGCodesProgram();
     /*ui->programOpenGLWidget->setCommands(programVisualizeController->getCommands());
     ui->programOpenGLWidget->setPoints(programVisualizeController->get3DPoints());

@@ -53,6 +53,8 @@ void ProgramVisualizeWindowController::setup(MainWindowController* mainWindowCon
 
     pointsManager = mainWindowController->machineTool->getPointsManager();
 
+    gCodesData = mainWindowController->getGCodesProgram();
+
     SettingsManager settingsManager;
     try
     {
@@ -82,4 +84,9 @@ QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsNames()
 QList<QTableWidgetItem *> ProgramVisualizeWindowController::getCommandsArguments()
 {
     return programVisualizeBridge->commandsArguments(interpretedCommands);
+}
+
+QString ProgramVisualizeWindowController::getGCodesData() const
+{
+    return gCodesData;
 }

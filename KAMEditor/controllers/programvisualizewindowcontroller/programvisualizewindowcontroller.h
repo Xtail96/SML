@@ -30,13 +30,15 @@ public:
     QList<QTableWidgetItem *> getCommandsNames();
     QList<QTableWidgetItem *> getCommandsArguments();
 
+    QString getGCodesData() const;
+
 signals:
     void ready();
 
 public slots:
 
 private:
-    ProgramVisualizeWindowBridge* programVisualizeBridge;
+    ProgramVisualizeWindowBridge* programVisualizeBridge;    
 
     std::vector< std::shared_ptr<SMLCommand> > interpretedCommands;
 
@@ -45,6 +47,8 @@ private:
     bool run;
     unsigned int minimalGridSize = 1;
     double gridMaximalAccuracy;
+
+    QString gCodesData;
 
     void setup(MainWindowController *mainWindowController);
 

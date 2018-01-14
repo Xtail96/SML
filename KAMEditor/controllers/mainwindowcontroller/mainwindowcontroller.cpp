@@ -469,6 +469,16 @@ void MainWindowController::addGCodesFile(const QString data)
     emit gcodesUpdated();
 }
 
+void MainWindowController::updateGCodes(const QString &data)
+{
+    machineTool->getGcodesManager()->setGcodes(data);
+}
+
+QString MainWindowController::getGCodesProgram()
+{
+    return machineTool->getGcodesManager()->gcodes();
+}
+
 QList<Point> MainWindowController::getMachineToolCoordinates()
 {
     QList<Point> machineToolCoordinates;
