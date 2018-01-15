@@ -1044,20 +1044,7 @@ void MainWindow::on_viewPushButton_clicked()
 {
     mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
     //ProgramVisualizeWindow(mainWindowController, this).exec();
-    QWebEngineView *engine_view = new QWebEngineView();
-    //engine_view->load(QUrl("http://jherrm.com/gcode-viewer/"));
-    //engine_view->load(QUrl("file:///Users/Xtail/Projects/SML-Qt/KAMEditor/gui/web/index.html"));
-    engine_view->load(QUrl("file:///Users/Xtail/Projects/GCodesViewer/gcode-viewer-master_/web/index.html"));
-    //engine_view->load(QUrl("qrc:///web/index.html"));
-    connect(engine_view, SIGNAL(loadFinished(bool)), engine_view, SLOT(showMaximized()));
-
-    connect(engine_view, SIGNAL(loadStarted()), this, SLOT(showMachineToolDisconnected()));
-    connect(engine_view, SIGNAL(loadFinished(bool)), this, SLOT(showMachineToolConnected()));
-
-    //
-    //engine_view->show();
-    //connect(engine_view, SIGNAL(loadStarted()), this, SLOT(showDownloadProgress()));
-    //connect(engine_view, SIGNAL(loadFinished(bool)), this, SLOT(stopDownload()));
+   GCodesWebViewDialog(this).exec();
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
