@@ -1045,8 +1045,8 @@ void MainWindow::on_viewPushButton_clicked()
     mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     QWebEngineView *engine_view = new QWebEngineView();
-    //engine_view->load(QUrl("http://google.com"));
-    engine_view->load(QUrl("file:///Users/Xtail/Projects/GCodesViewer/gcode-viewer-master/web/index.html"));
+    engine_view->load(QUrl("http://jherrm.com/gcode-viewer/"));
+    //engine_view->load(QUrl("file:///Users/Xtail/Projects/GCodesViewer/gcode-viewer-master 2/web/index.html"));
     //engine_view->load(QUrl("qrc:///web/index.html"));
     connect(engine_view, SIGNAL(loadFinished(bool)), engine_view, SLOT(showMaximized()));
 
