@@ -19,6 +19,8 @@
 #include <QListWidget>
 #include <QDebug>
 
+#include <QWebEngineView>
+
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif

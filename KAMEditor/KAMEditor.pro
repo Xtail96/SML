@@ -6,7 +6,9 @@
 
 QT       += core gui opengl\
             sensors\
-            serialport
+            serialport\
+            webview\
+            webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -117,7 +119,8 @@ SOURCES += main.cpp\
     gpr/gcode_program.cpp \
     gpr/parser.cpp \
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    gui/widgets/gcodesviewwidget.cpp
+    gui/widgets/gcodesviewwidget.cpp \
+    gui/gcodeswebviewdialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -203,7 +206,8 @@ HEADERS  += gui/mainwindow.h \
     kmotion/kmotion_dotnet_interop/include/KMotion_dotNet_Interop.h \
     libusb/include/libusb.h \
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h \
-    gui/widgets/gcodesviewwidget.h
+    gui/widgets/gcodesviewwidget.h \
+    gui/gcodeswebviewdialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -234,13 +238,15 @@ FORMS    += gui/mainwindow.ui \
     gui/commands/smlpausedialog.ui \
     gui/commands/smlswitchondialog.ui \
     gui/commands/smlswitchoffdialog.ui \
-    gui/commands/smltttarcdialog.ui
+    gui/commands/smltttarcdialog.ui \
+    gui/gcodeswebviewdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
 
 RESOURCES += \
-    gui/images.qrc
+    gui/images.qrc \
+    gui/pages.qrc
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
