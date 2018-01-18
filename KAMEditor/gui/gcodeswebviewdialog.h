@@ -16,6 +16,7 @@ class GCodesWebViewDialog : public QDialog
 public:
     explicit GCodesWebViewDialog(QWidget *parent = 0);
     ~GCodesWebViewDialog();
+private slots:
 
 private:
     Ui::GCodesWebViewDialog *ui;

@@ -12,13 +12,12 @@ GCodesWebViewDialog::GCodesWebViewDialog(QWidget *parent) :
     //engine_view->page()->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     //engine_view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
     //engine_view->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+    //engine_view->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
+    connect(engine_view, SIGNAL(loadStarted()), ui->loadProgressBar, SLOT(reset()));
+    connect(engine_view, SIGNAL(loadProgress(int)), ui->loadProgressBar, SLOT(setValue(int)));
     connect(engine_view, SIGNAL(loadFinished(bool)), engine_view, SLOT(show()));
-    engine_view->load(QUrl("qrc:///web/index.html"));
 
-    //
-    //engine_view->show();
-    //connect(engine_view, SIGNAL(loadStarted()), this, SLOT(showDownloadProgress()));
-    //connect(engine_view, SIGNAL(loadFinished(bool)), this, SLOT(stopDownload()));
+    engine_view->load(QUrl("qrc:///web/index.html"));
 }
 
 GCodesWebViewDialog::~GCodesWebViewDialog()
