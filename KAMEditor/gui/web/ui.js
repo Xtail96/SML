@@ -69,7 +69,6 @@ function onGCodeLoaded(gcode) {
       gr = new GCodeRenderer();
 
       var gcodeObj = gr.render(gm);
-      console.log("test" + gr);
       guiControllers.gcodeIndex.max(gr.viewModels.length - 1);
       guiControllers.gcodeIndex.setValue(0);
       guiControllers.animate.setValue(true);
