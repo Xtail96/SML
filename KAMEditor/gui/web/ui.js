@@ -69,6 +69,7 @@ function onGCodeLoaded(gcode) {
       gr = new GCodeRenderer();
 
       var gcodeObj = gr.render(gm);
+      console.log("test" + gr);
       guiControllers.gcodeIndex.max(gr.viewModels.length - 1);
       guiControllers.gcodeIndex.setValue(0);
       guiControllers.animate.setValue(true);
@@ -123,6 +124,7 @@ $(function() {
   }
 
   $('.gcode_examples a').on('click', function(event) {
+    alert($(this).attr('href'));
     GCodeImporter.importPath($(this).attr('href'), onGCodeLoaded);
     return false;
   })

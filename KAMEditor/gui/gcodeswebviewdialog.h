@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QWebEngineView>
+#include <QWebEngineSettings>
 
 namespace Ui {
 class GCodesWebViewDialog;

@@ -31,6 +31,7 @@ FileIO.load = function(files, callback) {
 function GCodeImporter() { }
 
 GCodeImporter.importPath = function(path, callback) {
+  /*path = "/Users/Xtail/Projects/SML-Qt/KAMEditor/gui/web/examples";*/
   FileIO.loadPath(path, function(gcode) {
     GCodeImporter.importText(gcode, callback);
   });

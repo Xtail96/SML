@@ -7,7 +7,6 @@
 QT       += core gui opengl\
             sensors\
             serialport\
-            webview\
             webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

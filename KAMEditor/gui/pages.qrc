@@ -29,5 +29,6 @@
         <file>web/examples/nist_hello_world.ngc</file>
         <file>web/examples/octocat.gcode</file>
         <file>web/examples/part.gcode</file>
+        <file>web/interpreter.html</file>
     </qresource>
 </RCC>
