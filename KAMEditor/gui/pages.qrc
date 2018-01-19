@@ -31,5 +31,6 @@
         <file>web/examples/part.gcode</file>
         <file>web/interpreter.html</file>
         <file>web/kameditor_functions.js</file>
+        <file>web/css/styles.css</file>
     </qresource>
 </RCC>

@@ -9,17 +9,19 @@
     <meta charset="utf-8">
     <title>GCode Viewer</title>
     <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <style>
       #renderArea {
         position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
-        top: 40px;
+        top: 50px;
         background-color: #000000;
       }
       .dg.main {
-        margin-top:40px;
+        margin-top: 50px;
+        float: center;
       }
     </style>
     <!-- 3rd party libs -->
@@ -57,8 +59,8 @@
       <div class="navbar-inner">
         <div class="container">
           <!--<span class="brand" href="#">GCode Viewer</span>-->
-          <ul class="nav">
-            <li><input type="file" name="file" id="file" /></li>
+          <ul class="nav navigation">
+            <li><input type="file" name="file" id="file" class="fileButton" /></li>
             <script type="text/javascript">
               document.getElementById('file').addEventListener('change', handleFileSelect, false);
             </script>
@@ -76,7 +78,7 @@
     <!-- WebGL rendering area -->
     <div id="renderArea"></div>
 
-    <div class="modal" id="openModal" style="display: none">
+    <!--<div class="modal" id="openModal" style="display: none">
       <div class="modal-header">
         <a class="close" data-dismiss="modal">&times;</a>
         <h3>Open GCode</h3>
@@ -93,10 +95,10 @@
       <div class="modal-footer">
         <a class="btn" data-dismiss="modal">Cancel</a>
       </div>
-    </div>
+    </div>-->
 
     <!-- 'About' dialog'-->
-    <div class="modal fade" id="aboutModal" style="display: none">
+    <!--<div class="modal fade" id="aboutModal" style="display: none">
       <div class="modal-header">
         <a class="close" data-dismiss="modal">&times;</a>
         <h3>About GCode Viewer</h3>
@@ -120,7 +122,7 @@
       <div class="modal-footer">
         <a class="btn btn-primary" data-dismiss="modal">OK</a>
       </div>
-    </div>
+    </div>-->
 
   </body>
 </html>
