@@ -123,7 +123,7 @@ $(function() {
   }
 
   $('.gcode_examples a').on('click', function(event) {
-    alert($(this).attr('href'));
+    //alert($(this).attr('href'));
     GCodeImporter.importPath($(this).attr('href'), onGCodeLoaded);
     return false;
   })
@@ -148,12 +148,12 @@ $(function() {
 
   scene = createScene($('#renderArea')[0]);
 
-  var lastImported = localStorage.getItem(config.lastImportedKey);
+  /*var lastImported = localStorage.getItem(config.lastImportedKey);
   if (lastImported) {
     GCodeImporter.importText(lastImported, onGCodeLoaded);
   } else {
     GCodeImporter.importPath(config.defaultFilePath, onGCodeLoaded);
-  }
+  }*/
 
   setupGui();
 });
@@ -192,4 +192,12 @@ function setupGui() {
     }
   });
 };
+
+function handleFileSelect(evt) {
+  var files = evt.target.files; // FileList object
+
+  FileIO.load(files[0], function(gcode) {
+      GCodeImporter.importText(gcode, onGCodeLoaded);
+    });
+}
 

@@ -59,6 +59,7 @@
           <ul class="nav">
             <li><a href="javascript:openDialog()">Load Model</a></li>
             <li><a href="javascript:about()">About</a></li>
+            <li><input type="file" name="file" id="file"></li>
           </ul>
           <ul class="nav pull-right">
             <li><a href="https://github.com/jherrm/gcode-viewer" target="_blank">Code on GitHub</a></li>
@@ -67,6 +68,10 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      document.getElementById('file').addEventListener('change', handleFileSelect, false);
+    </script>
 
     <!-- WebGL rendering area -->
     <div id="renderArea"></div>
