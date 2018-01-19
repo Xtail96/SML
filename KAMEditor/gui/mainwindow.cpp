@@ -1044,7 +1044,7 @@ void MainWindow::on_viewPushButton_clicked()
 {
     mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
     //ProgramVisualizeWindow(mainWindowController, this).exec();
-   GCodesWebViewDialog(this).exec();
+    GCodesWebViewDialog(this).exec();
 }
 
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
