@@ -30,5 +30,6 @@
         <file>web/examples/octocat.gcode</file>
         <file>web/examples/part.gcode</file>
         <file>web/interpreter.html</file>
+        <file>web/kameditor_functions.js</file>
     </qresource>
 </RCC>

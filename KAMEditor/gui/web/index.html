@@ -47,6 +47,7 @@
     <script type="text/javascript" src="gcode_renderer.js"></script>
     <script src="renderer.js"></script>
     <script src="ui.js"></script>
+    <script type="text/javascript" src="kameditor_functions.js"></script>
 
   </head>
   <body>
@@ -55,23 +56,22 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <span class="brand" href="#">GCode Viewer</span>
+          <!--<span class="brand" href="#">GCode Viewer</span>-->
           <ul class="nav">
-            <li><a href="javascript:openDialog()">Load Model</a></li>
-            <li><a href="javascript:about()">About</a></li>
-            <li><input type="file" name="file" id="file"></li>
+            <li><input type="file" name="file" id="file" /></li>
+            <script type="text/javascript">
+              document.getElementById('file').addEventListener('change', handleFileSelect, false);
+            </script>
+            <!--<li><a href="javascript:openDialog()">Load Model</a></li>
+            <li><a href="javascript:about()">About</a></li>-->
           </ul>
-          <ul class="nav pull-right">
+          <!--<ul class="nav pull-right">
             <li><a href="https://github.com/jherrm/gcode-viewer" target="_blank">Code on GitHub</a></li>
             <li><a href="http://twitter.com/jherrm" target="_blank">@jherrm</a></li>
-          </ul>
+          </ul>-->
         </div>
       </div>
     </div>
-
-    <script type="text/javascript">
-      document.getElementById('file').addEventListener('change', handleFileSelect, false);
-    </script>
 
     <!-- WebGL rendering area -->
     <div id="renderArea"></div>
