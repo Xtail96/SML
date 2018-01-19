@@ -278,7 +278,6 @@ private slots:
     void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
-    void on_viewPushButton_clicked();
     void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_commandsToolsListWidget_clicked(const QModelIndex &index);
     void on_devicesListWidget_clicked(const QModelIndex &index);
@@ -288,6 +287,7 @@ private slots:
     void on_saveas_action_triggered();
     void on_connectCommandLinkButton_clicked();
     void on_runCommandLinkButton_clicked();
+    void on_view_action_triggered();
 };
 
 

@@ -373,6 +373,7 @@ void MainWindow::setupEditorFileActionsPushButtons()
     connect(ui->saveFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
     connect(ui->saveFileAsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
+    connect(ui->viewPushButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
 }
 
 void MainWindow::setupPointsEditorWidgets()
@@ -1040,13 +1041,6 @@ void MainWindow::on_savesettings_action_triggered()
     mainWindowController->exportSettings();
 }
 
-void MainWindow::on_viewPushButton_clicked()
-{
-    mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
-    //ProgramVisualizeWindow(mainWindowController, this).exec();
-    GCodesWebViewDialog(this).exec();
-}
-
 void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     if(column != 1)
@@ -1234,4 +1228,11 @@ void MainWindow::on_runCommandLinkButton_clicked()
 {
     QString content = ui->gcodesEditorTextEdit->toPlainText();
     mainWindowController->parseGCodes(content);
+}
+
+void MainWindow::on_view_action_triggered()
+{
+    mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
+    //ProgramVisualizeWindow(mainWindowController, this).exec();
+    GCodesWebViewDialog(this).exec();
 }

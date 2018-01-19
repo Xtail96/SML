@@ -4,7 +4,6 @@
 #include <QDialog>
 #include <QWebEngineView>
 #include <QWebEngineSettings>
-#include <QThread>
 
 namespace Ui {
 class GCodesWebViewDialog;
@@ -21,8 +20,6 @@ private slots:
 
 private:
     Ui::GCodesWebViewDialog *ui;
-
-    QThread* visualizeThread;
     QWebEngineView *engine_view;
 };
 
