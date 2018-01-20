@@ -267,8 +267,7 @@ void MainWindowController::updateMachineToolState()
     try
     {
         byte_array recieved = u1Manager->getU1()->receiveData(16);
-        machineTool->getBuffer().updateBuffer(recieved);
-        machineTool->getSensorsManager()->updateSensors(machineTool->getBuffer());
+        machineTool->updateCurrentState(recieved);
         emit machineToolStateIsChanged();
     }
     catch(std::runtime_error e)

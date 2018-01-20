@@ -30,6 +30,8 @@ public:
     MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _name, const unsigned int _axisesCount = 3);
     ~MachineTool();
 
+    void updateCurrentState(byte_array value);
+
     MovementsHandler *getMovementController() const;
 
     uint16_t getVendorId() const;

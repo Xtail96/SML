@@ -27,6 +27,12 @@ MachineTool::~MachineTool()
     delete this->gcodesFilesManager;
 }
 
+void MachineTool::updateCurrentState(byte_array value)
+{
+    buffer.updateBuffer(value);
+    sensorsManager->updateSensors(buffer);
+}
+
 MovementsHandler* MachineTool::getMovementController() const
 {
     return movementController;
