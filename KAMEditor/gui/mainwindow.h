@@ -217,6 +217,8 @@ private slots:
     /// Слот для обновления панели опций
     void updateOptionsPanel();
 
+    void hideWidgets();
+
     // to do исправить слот
     void updateEdgesControlStatus();
 

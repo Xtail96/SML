@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // настройка виджетов
     setupWidgets();
 
+    hideWidgets();
+
     emit ready();
 }
 
@@ -566,6 +568,11 @@ void MainWindow::updateOptionsPanel()
 {
     QStringList optionsNames = mainWindowController->getOptionsNames();
     ui->optionsListWidget->addItems(optionsNames);
+}
+
+void MainWindow::hideWidgets()
+{
+
 }
 
 void MainWindow::updateMachineToolStatusDisplay()
