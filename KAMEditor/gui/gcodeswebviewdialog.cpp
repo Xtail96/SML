@@ -6,10 +6,7 @@ GCodesWebViewDialog::GCodesWebViewDialog(QWidget *parent) :
     ui(new Ui::GCodesWebViewDialog)
 {
     ui->setupUi(this);
-    engine_view = new QWebEngineView(ui->frame);
-
-    // enable XMLHttpRequest
-    //engine_view->settings()->setAttribute(QWebEngineSettings::XSSAuditingEnabled, false);
+    engine_view = new QWebEngineView(ui->webEngineFrame);
 
     connect(engine_view, SIGNAL(loadStarted()), ui->loadProgressBar, SLOT(reset()));
     connect(engine_view, SIGNAL(loadProgress(int)), ui->loadProgressBar, SLOT(setValue(int)));
