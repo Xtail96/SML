@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QTreeWidgetItem>
+#include <QtWebSockets>
 
 #include "models/machinetool/machinetool.h"
 #include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
