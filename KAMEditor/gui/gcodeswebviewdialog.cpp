@@ -11,7 +11,7 @@ GCodesWebViewDialog::GCodesWebViewDialog(QWidget *parent) :
     connect(engine_view, SIGNAL(loadStarted()), ui->loadProgressBar, SLOT(reset()));
     connect(engine_view, SIGNAL(loadProgress(int)), ui->loadProgressBar, SLOT(setValue(int)));
     connect(engine_view, SIGNAL(loadFinished(bool)), engine_view, SLOT(show()));
-    engine_view->load(QUrl("qrc:///web/index.html?path=123"));
+    engine_view->load(QUrl("qrc:///web/index.html"));
 }
 
 GCodesWebViewDialog::~GCodesWebViewDialog()
