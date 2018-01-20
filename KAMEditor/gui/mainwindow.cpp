@@ -572,7 +572,8 @@ void MainWindow::updateOptionsPanel()
 
 void MainWindow::hideWidgets()
 {
-
+    ui->smlEditorTreeWidget->setEnabled(false);
+    ui->commandsToolsListWidget->setEnabled(false);
 }
 
 void MainWindow::updateMachineToolStatusDisplay()
