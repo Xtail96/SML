@@ -1241,6 +1241,7 @@ void MainWindow::on_runCommandLinkButton_clicked()
 void MainWindow::on_view_action_triggered()
 {
     mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
+    on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     GCodesWebViewDialog(this).exec();
 }
