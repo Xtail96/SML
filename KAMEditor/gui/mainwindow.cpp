@@ -57,7 +57,7 @@ void MainWindow::setupWidgets()
     // проводим настройку необходимых виджетов
     setupStatusBar();
     setupDisplays();
-    setupCommandsEditorField();
+    //setupCommandsEditorField();
     setupGCodesEditorField();
     setupGCodesSyntaxHighlighter();
     setupEdgesControl();
@@ -72,7 +72,7 @@ void MainWindow::setupWidgets()
     setupSettingsWidgets();
 }
 
-void MainWindow::setupCommandsEditorField()
+/*void MainWindow::setupCommandsEditorField()
 {
     SMLEditorTreeWidget*  editorField = ui->smlEditorTreeWidget;
     // установка древесной структуры в 1 столбец виджета отображения sml-команд
@@ -85,7 +85,7 @@ void MainWindow::setupCommandsEditorField()
     //connect(editorField, SIGNAL(undoSignal()), this, SLOT(commandsUndoSlot()));
     connect(mainWindowController, SIGNAL(commandsUpdated()), this, SLOT(updateSMLCommandsTreeWidget()));
     connect(editorField, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deleteSelectedCommands(QModelIndexList)));
-}
+}*/
 
 void MainWindow::setupStatusBar()
 {
@@ -400,7 +400,7 @@ void MainWindow::updateDisplays()
 #endif
 }
 
-void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
+/*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
 {
     std::vector<int> rows;
     for(auto index : indexes)
@@ -415,7 +415,7 @@ void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
     {
         mainWindowController->deleteCommand(row);
     }
-}
+}*/
 
 void MainWindow::updateCoordinatesDisplays()
 {
@@ -506,13 +506,13 @@ void MainWindow::updatePointsEditorButtons()
     }
 }
 
-void MainWindow::updateCommandsEditorWidgets()
+/*void MainWindow::updateCommandsEditorWidgets()
 {
     updateSMLCommandsTreeWidget();
     updateGCodesEditorWidget();
-}
+}*/
 
-void MainWindow::updateSMLCommandsTreeWidget()
+/*void MainWindow::updateSMLCommandsTreeWidget()
 {
     ui->smlEditorTreeWidget->clear();
     QList<QTreeWidgetItem *> items = mainWindowController->getCommands();
@@ -522,7 +522,7 @@ void MainWindow::updateSMLCommandsTreeWidget()
     {
         ui->smlEditorTreeWidget->resizeColumnToContents(i);
     }
-}
+}*/
 
 void MainWindow::updateGCodesEditorWidget()
 {
@@ -1023,7 +1023,7 @@ void MainWindow::on_open_action_triggered()
 {
     if(ui->smlEditorTab->isVisible())
     {
-        mainWindowController->openSMLFile();
+        //mainWindowController->openSMLFile();
     }
     else
     {
@@ -1050,7 +1050,7 @@ void MainWindow::on_savesettings_action_triggered()
     mainWindowController->exportSettings();
 }
 
-void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+/*void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     if(column != 1)
     {
@@ -1092,29 +1092,29 @@ void MainWindow::on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item,
         QMessageBox(QMessageBox::Warning, "Ошибка", "Выбранная команда не может быть отредактирована").exec();
         break;
     }
-}
+}*/
 
-void MainWindow::commandsCopySlot()
+/*void MainWindow::commandsCopySlot()
 {
     qDebug() << "Copy signal received";
-}
+}*/
 
-void MainWindow::commandsCutSlot()
+/*void MainWindow::commandsCutSlot()
 {
     qDebug() << "Cut signal received";
-}
+}*/
 
-void MainWindow::commandsPasteSlot()
+/*void MainWindow::commandsPasteSlot()
 {
     qDebug() << "Paste signal received";
-}
+}*/
 
-void MainWindow::commandsUndoSlot()
+/*void MainWindow::commandsUndoSlot()
 {
     qDebug() << "Undo signal received";
-}
+}*/
 
-void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
+/*void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
 {
     QString commandName = index.data().toString();
     int commandNumber = mainWindowController->getCommandId(commandName);
@@ -1159,7 +1159,7 @@ void MainWindow::on_commandsToolsListWidget_clicked(const QModelIndex &index)
         QMessageBox(QMessageBox::Warning, "Ошибка", "Неизвестная команда").exec();
         break;
     }
-}
+}*/
 
 void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
 {
@@ -1172,7 +1172,7 @@ void MainWindow::on_add_action_triggered()
 {
     if(ui->smlEditorTab->isVisible())
     {
-        mainWindowController->addSMLFile();
+        //mainWindowController->addSMLFile();
     }
     else
     {
@@ -1187,7 +1187,7 @@ void MainWindow::on_create_action_triggered()
 {
     if(ui->smlEditorTab->isVisible())
     {
-        mainWindowController->newSMLFile();
+        //mainWindowController->newSMLFile();
     }
     else
     {
@@ -1202,7 +1202,7 @@ void MainWindow::on_save_action_triggered()
 {
     if(ui->smlEditorTab->isVisible())
     {
-        mainWindowController->saveSMLFile();
+        //mainWindowController->saveSMLFile();
     }
     else
     {
@@ -1217,7 +1217,7 @@ void MainWindow::on_saveas_action_triggered()
 {
     if(ui->smlEditorTab->isVisible())
     {
-        mainWindowController->saveSMLFileAs();
+        //mainWindowController->saveSMLFileAs();
     }
     else
     {

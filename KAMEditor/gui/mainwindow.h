@@ -31,7 +31,7 @@
 #include "points/toselectionpointdialog.h"
 
 /// Подключение диалогов команд
-#include "commands/linedialog.h"
+/*#include "commands/linedialog.h"
 #include "commands/smlttlinedialog.h"
 #include "commands/arcdialog.h"
 #include "commands/arc2dialog.h"
@@ -55,7 +55,7 @@
 #include "commands/smlvariabledialog.h"
 
 /// Подключение окна визуализации УП
-#include "programvisualizewindow.h"
+#include "programvisualizewindow.h"*/
 
 /// Подключение журнала
 #include "logdialog.h"
@@ -67,16 +67,16 @@
 #include "models/machinetool/settingsmanager/settingsmanager.h"
 
 /// Подключение классов для работы с устройствами по usb
-#include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
-#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
+/*#include "models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h"
+#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"*/
 
 /// Подключение диалогов опций
-#include "gui/options/kabriolwindow.h"
+/*#include "gui/options/kabriolwindow.h"
 #include "gui/options/toollengthsensorwindow.h"
-#include "gui/options/lubricationsystemwindow.h"
+#include "gui/options/lubricationsystemwindow.h"*/
 
 /// Подключение файла с библиотечными зависимостями
-#include "dependencies.h"
+//#include "dependencies.h"
 
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
@@ -103,9 +103,6 @@ private:
     /// Контроллер главного окна
     MainWindowController* mainWindowController;
     void setupMainWindowController();
-
-    /// Таймер для обновления панелей
-    QTimer *timer;
 
     /// Горячие клавиши кнопок для перемещения по осям станка
     std::vector<QShortcut*> axisesShortcuts;
@@ -140,7 +137,7 @@ private slots:
     void setupEdgesControl();
 
     /// Слоты для настройки редактора команд
-    void setupCommandsEditorField();
+    //void setupCommandsEditorField();
     void setupGCodesSyntaxHighlighter();
     void setupGCodesEditorField();
 
@@ -198,8 +195,8 @@ private slots:
     void updatePointsEditorButtons();
 
     /// Слот для обновления дерева SML-команд
-    void updateCommandsEditorWidgets();
-    void updateSMLCommandsTreeWidget();
+    //void updateCommandsEditorWidgets();
+    //void updateSMLCommandsTreeWidget();
     void updateGCodesEditorWidget();
 
     /// Слот для обновления статуса баировки станка
@@ -228,11 +225,11 @@ private slots:
 
 
     /// Слоты для обработки сигналов виджета дерева SML-команд
-    void commandsCopySlot();
-    void commandsCutSlot();
-    void commandsPasteSlot();
-    void commandsUndoSlot();
-    void deleteSelectedCommands(QModelIndexList indexes);
+    //void commandsCopySlot();
+    //void commandsCutSlot();
+    //void commandsPasteSlot();
+    //void commandsUndoSlot();
+    //void deleteSelectedCommands(QModelIndexList indexes);
 
     /// Слоты для отображения поддержки/отсутсвия связи со станком
     void showMachineToolConnected();
@@ -280,8 +277,8 @@ private slots:
     void on_gcodesEditorTextEdit_textChanged();
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
-    void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    void on_commandsToolsListWidget_clicked(const QModelIndex &index);
+    //void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    //void on_commandsToolsListWidget_clicked(const QModelIndex &index);
     void on_devicesListWidget_clicked(const QModelIndex &index);
     void on_add_action_triggered();
     void on_create_action_triggered();

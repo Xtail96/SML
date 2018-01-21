@@ -240,7 +240,7 @@ Point* MainWindowBridge::makePoint(QStringList arguments)
     return p;
 }
 
-QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsManager)
+/*QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsManager)
 {
     QList<QTreeWidgetItem*> commands;
 
@@ -267,9 +267,9 @@ QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsMan
         }
     }
     return commands;
-}
+}*/
 
-std::vector<std::shared_ptr<SMLCommand> > MainWindowBridge::getAllCommandsInVector(CommandsManager *commandsManager)
+/*std::vector<std::shared_ptr<SMLCommand> > MainWindowBridge::getAllCommandsInVector(CommandsManager *commandsManager)
 {
     std::vector< std::shared_ptr<SMLCommand> > commandsVector;
     size_t commandsCount = commandsManager->commandsCount();
@@ -285,4 +285,4 @@ std::vector<std::shared_ptr<SMLCommand> > MainWindowBridge::getAllCommandsInVect
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
     return commandsVector;
-}
+}*/

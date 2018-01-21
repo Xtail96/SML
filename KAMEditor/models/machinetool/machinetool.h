@@ -8,14 +8,14 @@
 
 #include "models/machinetool/movementshandler/movementshandler.h"
 #include "models/machinetool/pointsmanager/pointsmanager.h"
-#include "models/machinetool/commandsmanager/commandsmanager.h"
+//#include "models/machinetool/commandsmanager/commandsmanager.h"
 #include "models/machinetool/sensorsmanager/sensorsmanager.h"
 #include "models/machinetool/devicesmanager/devicesmanager.h"
-#include "models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h"
+//#include "models/machinetool/filesmanager/smlfilesmanager/smlfilesmanager.h"
 #include "models/machinetool/gcodesmanager/gcodesmanager.h"
 #include "models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h"
 
-class SMLFilesManager;
+//class SMLFilesManager;
 
 /**
  * \brief Класс "Станок"
@@ -52,7 +52,7 @@ public:
 
     DevicesManager *getDevicesManager() const;
 
-    CommandsManager *getCommandsManager() const;
+    //CommandsManager *getCommandsManager() const;
 
     unsigned int getVelocity() const;
     void setVelocity(unsigned int value);
@@ -60,7 +60,7 @@ public:
     unsigned int getSpindelRotations() const;
     void setSpindelRotations(unsigned int value);
 
-    SMLFilesManager *getSMLFilesManager() const;
+    //SMLFilesManager *getSMLFilesManager() const;
 
     GCodesManager *getGcodesManager() const;
 
@@ -78,9 +78,9 @@ private:
     PointsManager *pointsManager;
     SensorsManager *sensorsManager;
     DevicesManager *devicesManager;
-    CommandsManager *commandsManager;
+    //CommandsManager *commandsManager;
     GCodesManager *gcodesManager;
-    SMLFilesManager* smlFilesManager;
+    //SMLFilesManager* smlFilesManager;
     GCodesFilesManager *gcodesFilesManager;
 
     StatesBuffer buffer;

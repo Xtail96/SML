@@ -4,7 +4,7 @@
 #include <QString>
 #include <QDebug>
 
-#include "./gpr/parser.h"
+//#include "./gpr/parser.h"
 
 class GCodesManager
 {

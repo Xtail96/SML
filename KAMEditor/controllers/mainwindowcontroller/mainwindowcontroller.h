@@ -8,12 +8,12 @@
 #include "models/machinetool/machinetool.h"
 #include "models/serverconnector/serverconnectionmanager.h"
 
-#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
-#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
-#include "models/controllerconnector/kflopmanager/kflopmanager.h"
+//#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
+//#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
+//#include "models/controllerconnector/kflopmanager/kflopmanager.h"
 
 #include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
-#include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
+//#include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
 
 
 /*!
@@ -60,13 +60,12 @@ public:
     QList<QStringList> getPoints();
     QStringList getPoint(unsigned int number);
 
-    int getCommandId(QString commandName);
-    size_t getCommandsCount();
-    void insertCommand(int id, QStringList arguments, size_t index);
-
-    QList<QTreeWidgetItem*> getCommands();
-    QStringList getCommandArguments(size_t index);
-    void updateCommand(QStringList arguments, size_t index);
+    //int getCommandId(QString commandName);
+    //size_t getCommandsCount();
+    //void insertCommand(int id, QStringList arguments, size_t index);
+    //QList<QTreeWidgetItem*> getCommands();
+    //QStringList getCommandArguments(size_t index);
+    //void updateCommand(QStringList arguments, size_t index);
 
     void exportSettings();
     void importSettings();
@@ -84,13 +83,13 @@ protected:
      * \brief Указатель на класс для взаимодействия с контроллером u1 по usb
      * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
      */
-    UsbXpressDeviceManager* u1Manager;
+    //UsbXpressDeviceManager* u1Manager;
 
     /*!
      * \brief Указатель на класс для взаимодействия с контроллером KFlop по usb
      * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
      */
-    KFlopManager* kflopManager;
+    //KFlopManager* kflopManager;
 #endif
     /*!
      * \brief Указатель на мост для связи с классом Главное окно
@@ -98,7 +97,7 @@ protected:
     MainWindowBridge* mainWindowBridge;
 
     /// Таймер для обновления
-    QTimer *timer;
+    //QTimer *timer;
 
 signals:
     /// Настройки станка загружены
@@ -123,7 +122,7 @@ signals:
     void pointsUpdated();
 
     /// Команды обновились
-    void commandsUpdated();
+    //void commandsUpdated();
 
     /// Обновились G-коды
     void gcodesUpdated();
@@ -133,26 +132,26 @@ public slots:
     void loadMachineToolSettings();
 
     /// Слот для подключения к контроллеру U1
-    void connectWithU1();
+    //void connectWithU1();
 
     /// Слот для подключения к контроллеру KFlop
-    void connectWithKFlop();
+    //void connectWithKFlop();
 
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateMachineToolState();
 
     /// Слот для настройки таймера обновления дисплеев
-    void setupTimer();
+    //void setupTimer();
 
     void setupMainWindowBridge();
 
     void setupServerConnection();
 
     /// Слот для настройки подключения к контроллеру U1
-    void setupU1Connection();
+    //void setupU1Connection();
 
     /// Слот для настройки подключения к контроллеру KFlop
-    void setupKFlopConnection();
+    //void setupKFlopConnection();
 
     void switchDevice(QString deviceName);
     void updateVelocity(int value);
@@ -163,15 +162,14 @@ public slots:
     void updatePoint(QStringList coordinates, unsigned int number);
     void deletePoint(unsigned int number);
 
-    void deleteCommand(unsigned int number);
+    //void deleteCommand(unsigned int number);
+    //std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
 
-    std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
-
-    void newSMLFile();
+    /*void newSMLFile();
     void openSMLFile();
     void saveSMLFile();
     void saveSMLFileAs();
-    void addSMLFile();
+    void addSMLFile();*/
 
     void openGCodesFile();
     QString getGCodesFileContent();
@@ -187,7 +185,7 @@ public slots:
 
     void testServer(bool on = true);
 
-    friend class ProgramVisualizeWindowController;
+    //friend class ProgramVisualizeWindowController;
 };
 
 #endif // MAINWINDOWCONTROLLER_H

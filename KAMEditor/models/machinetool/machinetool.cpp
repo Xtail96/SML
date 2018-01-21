@@ -6,9 +6,9 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     pointsManager(new PointsManager()),
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
-    commandsManager(new CommandsManager()),
+    //commandsManager(new CommandsManager()),
     gcodesManager(new GCodesManager()),
-    smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
+    //smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
     gcodesFilesManager(new GCodesFilesManager()),
     velocity(10),
     spindelRotations(5000)
@@ -19,11 +19,11 @@ MachineTool::~MachineTool()
 {
     delete this->movementController;
     delete this->pointsManager;
-    delete this->commandsManager;
+    //delete this->commandsManager;
     delete this->gcodesManager;
     delete this->sensorsManager;
     delete this->devicesManager;
-    delete this->smlFilesManager;
+    //delete this->smlFilesManager;
     delete this->gcodesFilesManager;
 }
 
@@ -78,10 +78,10 @@ DevicesManager *MachineTool::getDevicesManager() const
     return devicesManager;
 }
 
-CommandsManager *MachineTool::getCommandsManager() const
+/*CommandsManager *MachineTool::getCommandsManager() const
 {
     return commandsManager;
-}
+}*/
 
 unsigned int MachineTool::getVelocity() const
 {
@@ -103,10 +103,10 @@ void MachineTool::setSpindelRotations(unsigned int value)
     spindelRotations = value;
 }
 
-SMLFilesManager *MachineTool::getSMLFilesManager() const
+/*SMLFilesManager *MachineTool::getSMLFilesManager() const
 {
     return smlFilesManager;
-}
+}*/
 
 GCodesManager *MachineTool::getGcodesManager() const
 {

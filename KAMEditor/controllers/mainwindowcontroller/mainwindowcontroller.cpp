@@ -33,25 +33,25 @@ void MainWindowController::setupServerConnection()
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 }
 
-void MainWindowController::setupU1Connection()
+/*void MainWindowController::setupU1Connection()
 {
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
-}
+}*/
 
-void MainWindowController::setupKFlopConnection()
+/*void MainWindowController::setupKFlopConnection()
 {
     //connect(this, SIGNAL(u1IsConnected()), this, SLOT(connectWithKFlop()));
     // for debug kflop manager
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithKFlop()));
-}
+}*/
 
-void MainWindowController::setupTimer()
+/*void MainWindowController::setupTimer()
 {
     timer = new QTimer(this);
     timer->setInterval(100);
     connect(this, SIGNAL(u1IsConnected()), timer, SLOT(start()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateMachineToolState()));
-}
+}*/
 
 QStringList MainWindowController::getSensorsNames()
 {
@@ -145,29 +145,29 @@ QStringList MainWindowController::getPoint(unsigned int number)
     return mainWindowBridge->point(machineTool->getPointsManager(), number);
 }
 
-int MainWindowController::getCommandId(QString commandName)
+/*int MainWindowController::getCommandId(QString commandName)
 {
     return CommandsIds.getId(commandName.toStdString());
-}
+}*/
 
-size_t MainWindowController::getCommandsCount()
+/*size_t MainWindowController::getCommandsCount()
 {
     return machineTool->getCommandsManager()->commandsCount();
-}
+}*/
 
-void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
+/*void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
 {
     std::shared_ptr<SMLCommand> cmd = SMLCommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
     machineTool->getCommandsManager()->insertCommand(index, cmd);
     emit commandsUpdated();
-}
+}*/
 
-QList<QTreeWidgetItem *> MainWindowController::getCommands()
+/*QList<QTreeWidgetItem *> MainWindowController::getCommands()
 {
     return mainWindowBridge->commands(machineTool->getCommandsManager());
-}
+}*/
 
-QStringList MainWindowController::getCommandArguments(size_t index)
+/*QStringList MainWindowController::getCommandArguments(size_t index)
 {
     std::shared_ptr<SMLCommand> cmd;
     try
@@ -179,13 +179,13 @@ QStringList MainWindowController::getCommandArguments(size_t index)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
     return cmd->getArguments();
-}
+}*/
 
-void MainWindowController::updateCommand(QStringList arguments, size_t index)
+/*void MainWindowController::updateCommand(QStringList arguments, size_t index)
 {
     machineTool->getCommandsManager()->operator [](index)->setArguments(arguments);
     emit commandsUpdated();
-}
+}*/
 
 void MainWindowController::exportSettings()
 {
@@ -228,7 +228,7 @@ void MainWindowController::loadMachineToolSettings()
     }
 }
 
-void MainWindowController::connectWithU1()
+/*void MainWindowController::connectWithU1()
 {
 #ifdef Q_OS_WIN
     try
@@ -246,9 +246,9 @@ void MainWindowController::connectWithU1()
 #ifdef Q_OS_UNIX
     //emit u1IsConnected();
 #endif
-}
+}*/
 
-void MainWindowController::connectWithKFlop()
+/*void MainWindowController::connectWithKFlop()
 {
 #ifdef Q_OS_WIN
     try
@@ -266,7 +266,7 @@ void MainWindowController::connectWithKFlop()
 #ifdef Q_OS_UNIX
     //emit kflopIsDisconnected();
 #endif
-}
+}*/
 
 void MainWindowController::updateMachineToolState()
 {
@@ -301,7 +301,7 @@ void MainWindowController::switchDevice(QString deviceName)
     {
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
         byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
-#ifdef Q_OS_WIN
+/*#ifdef Q_OS_WIN
         if(u1Manager != nullptr)
         {
             try
@@ -317,7 +317,7 @@ void MainWindowController::switchDevice(QString deviceName)
         {
             QMessageBox(QMessageBox::Warning, "Ошибка инициализации", "Не могу связаться со станком").exec();
         }
-#endif
+#endif*/
         device.setCurrentState(!device.getCurrentState());
     }
     catch(std::invalid_argument e)
@@ -392,7 +392,7 @@ void MainWindowController::deletePoint(unsigned int number)
     }
 }
 
-void MainWindowController::deleteCommand(unsigned int number)
+/*void MainWindowController::deleteCommand(unsigned int number)
 {
     try
     {
@@ -403,46 +403,46 @@ void MainWindowController::deleteCommand(unsigned int number)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
-}
+}*/
 
-std::vector< std::shared_ptr<SMLCommand> > MainWindowController::interpretCommands()
+/*std::vector< std::shared_ptr<SMLCommand> > MainWindowController::interpretCommands()
 {
     return CommandsInterpreter::updateProgram(
                 mainWindowBridge->getAllCommandsInVector(machineTool->getCommandsManager()),
                 machineTool->getPointsManager(),
                 machineTool->getDevicesManager());
-}
+}*/
 
-void MainWindowController::newSMLFile()
+/*void MainWindowController::newSMLFile()
 {
     machineTool->getSMLFilesManager()->new7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
-}
+}*/
 
-void MainWindowController::openSMLFile()
+/*void MainWindowController::openSMLFile()
 {
     machineTool->getSMLFilesManager()->open7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
-}
+}*/
 
-void MainWindowController::saveSMLFile()
+/*void MainWindowController::saveSMLFile()
 {
     machineTool->getSMLFilesManager()->save7KamFile();
-}
+}*/
 
-void MainWindowController::saveSMLFileAs()
+/*void MainWindowController::saveSMLFileAs()
 {
     machineTool->getSMLFilesManager()->save7KamFileAs();
-}
+}*/
 
-void MainWindowController::addSMLFile()
+/*void MainWindowController::addSMLFile()
 {
     machineTool->getSMLFilesManager()->add7KamFile();
     emit commandsUpdated();
     emit pointsUpdated();
-}
+}*/
 
 void MainWindowController::openGCodesFile()
 {

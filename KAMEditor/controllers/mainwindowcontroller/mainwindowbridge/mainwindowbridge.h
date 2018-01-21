@@ -33,9 +33,9 @@ public:
 
     Point *makePoint(QStringList arguments);
 
-    QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
+    //QList<QTreeWidgetItem *> commands(CommandsManager* commandsManager);
 
-    std::vector< std::shared_ptr<SMLCommand> > getAllCommandsInVector(CommandsManager* commandsManager);
+    //std::vector< std::shared_ptr<SMLCommand> > getAllCommandsInVector(CommandsManager* commandsManager);
 
 private:
 };
