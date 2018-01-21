@@ -28,7 +28,7 @@ private:
 public:
     SensorsStateList(size_t count = 16)
     {
-        sensorsState = byte_array(count, 7);
+        sensorsState = byte_array(count, 0);
     }
 
     byte_array getSensorsState()

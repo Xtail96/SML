@@ -14,6 +14,7 @@ MainWindowController::~MainWindowController()
     delete timer;
     delete mainWindowBridge;
     delete machineTool;
+    delete serverManager;
 #ifdef Q_OS_WIN
     delete u1Manager;
     delete kflopManager;
