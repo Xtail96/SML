@@ -105,16 +105,16 @@ signals:
     void machineToolSettingsIsLoaded();
 
     /// Контроллер u1 подключен
-    void u1IsConnected();
+    //void u1IsConnected();
 
     /// Контроллер u1 отключен
-    void u1IsDisconnected();
+    //void u1IsDisconnected();
 
     /// Контроллер KFlop подключен
-    void kflopIsConnected();
+    //void kflopIsConnected();
 
     /// Контроллер KFlop отключен
-    void kflopIsDisconnected();
+    //void kflopIsDisconnected();
 
     /// Обновлено состояние станка
     void machineToolStateIsChanged();

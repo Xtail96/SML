@@ -32,7 +32,6 @@ void DevicesManager::initialize()
         for(auto code : devicesCodes)
         {
             Device* device = new Device(code);
-            qDebug() << device->getName() << device->getCode();
             devices.push_back(std::shared_ptr<Device>(device));
         }
     }

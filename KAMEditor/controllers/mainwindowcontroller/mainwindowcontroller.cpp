@@ -234,17 +234,17 @@ void MainWindowController::connectWithU1()
     try
     {
         u1Manager = new UsbXpressDeviceManager(machineTool->getName());
-        emit u1IsConnected();
+        //emit u1IsConnected();
     }
     catch(std::runtime_error e)
     {
         u1Manager = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        emit u1IsDisconnected();
+        //emit u1IsDisconnected();
     }
 #endif
 #ifdef Q_OS_UNIX
-    emit u1IsConnected();
+    //emit u1IsConnected();
 #endif
 }
 
@@ -254,17 +254,17 @@ void MainWindowController::connectWithKFlop()
     try
     {
         kflopManager = new KFlopManager();
-        emit kflopIsConnected();
+        //emit kflopIsConnected();
     }
     catch(std::runtime_error e)
     {
         kflopManager = nullptr;
         QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        emit kflopIsDisconnected();
+        //emit kflopIsDisconnected();
     }
 #endif
 #ifdef Q_OS_UNIX
-    emit kflopIsDisconnected();
+    //emit kflopIsDisconnected();
 #endif
 }
 
@@ -287,11 +287,11 @@ void MainWindowController::updateMachineToolState()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
         timer->stop();
-        emit u1IsDisconnected();
+        //emit u1IsDisconnected();
     }
 #endif
 #ifdef Q_OS_UNIX
-    emit machineToolStateIsChanged();
+    //emit machineToolStateIsChanged();
 #endif*/
 }
 

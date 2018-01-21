@@ -41,7 +41,6 @@ void SensorsManager::initilize()
         for(auto code : sensorsCodes)
         {
             Sensor* sensor = new Sensor(code);
-            qDebug() << sensor->getName() << " " << sensor->getCode();
             sensors.push_back(std::shared_ptr<Sensor>(sensor));
         }
     }
