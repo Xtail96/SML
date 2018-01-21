@@ -11,13 +11,13 @@ MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 
 MainWindowController::~MainWindowController()
 {
-    delete timer;
+    //delete timer;
     delete mainWindowBridge;
     delete machineTool;
     delete serverManager;
 #ifdef Q_OS_WIN
-    delete u1Manager;
-    delete kflopManager;
+    //delete u1Manager;
+    //delete kflopManager;
 #endif
 }
 
@@ -498,4 +498,18 @@ QList<Point> MainWindowController::getMachineToolCoordinates()
     machineToolCoordinates.push_back(machineTool->getMovementController()->getCurrentCoordinatesFromBase());
     machineToolCoordinates.push_back(machineTool->getMovementController()->getParkCoordinates());
     return machineToolCoordinates;
+}
+
+void MainWindowController::testServer(bool on)
+{
+    byte_array data(16, 0);
+    if(on)
+    {
+        data[2] = byte(238);
+    }
+    else
+    {
+        data[2] = byte(0);
+    }
+    serverManager->setSensorsState(data);
 }

@@ -185,6 +185,8 @@ public slots:
 
     QList<Point> getMachineToolCoordinates();
 
+    void testServer(bool on = true);
+
     friend class ProgramVisualizeWindowController;
 };
 

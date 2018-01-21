@@ -1245,3 +1245,15 @@ void MainWindow::on_view_action_triggered()
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     GCodesWebViewDialog(this).exec();
 }
+
+void MainWindow::on_edgesControlCheckBox_clicked()
+{
+    if(ui->edgesControlCheckBox->isChecked())
+    {
+        mainWindowController->testServer(true);
+    }
+    else
+    {
+        mainWindowController->testServer(false);
+    }
+}
