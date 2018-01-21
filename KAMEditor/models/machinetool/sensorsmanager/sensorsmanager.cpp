@@ -42,7 +42,7 @@ void SensorsManager::initilize()
         for(unsigned int i = 0; i < sensorsNames.size(); i++)
         {
             Sensor* tmp = new Sensor(sensorsNames[i]);
-            tmp->setup(settingsManager);
+            tmp->setup();
             sensors.push_back(std::shared_ptr<Sensor>(tmp));
         }
     }

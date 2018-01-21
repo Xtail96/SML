@@ -100,10 +100,9 @@ public:
     QColor getColor() const;
 
     /*!
-     * \brief Устанавливает параметры датчика по менеджеру настроек
-     * \param settingsManager - менеджер настроек
+     * \brief Устанавливает параметры датчика
      */
-    void setup(SettingsManager settingsManager);
+    void setup();
 
     /*!
      * \brief Сработал ли датчик

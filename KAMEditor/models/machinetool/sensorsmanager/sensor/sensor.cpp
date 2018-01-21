@@ -55,8 +55,9 @@ Sensor::Sensor(std::string _name) :
 
 }
 
-void Sensor::setup(SettingsManager settingsManager)
+void Sensor::setup()
 {
+    SettingsManager settingsManager;
     portNumber = QVariant(settingsManager.get(QString::fromStdString(name), "portNumber")).toUInt();
     inputNumber = QVariant(settingsManager.get(QString::fromStdString(name), "inputNumber")).toUInt();
     boardName = QVariant(settingsManager.get(QString::fromStdString(name), "boardName")).toString().toStdString();
