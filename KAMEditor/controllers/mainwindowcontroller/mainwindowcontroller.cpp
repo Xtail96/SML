@@ -3,9 +3,10 @@
 MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
     setupMainWindowBridge();
-    setupU1Connection();
-    setupKFlopConnection();
-    setupTimer();
+    //setupU1Connection();
+    //setupKFlopConnection();
+    //setupTimer();
+    setupServerConnection();
 }
 
 MainWindowController::~MainWindowController()
@@ -22,6 +23,13 @@ MainWindowController::~MainWindowController()
 void MainWindowController::setupMainWindowBridge()
 {
     mainWindowBridge = new MainWindowBridge();
+}
+
+void MainWindowController::setupServerConnection()
+{
+    serverManager = new ServerConnectionManager();
+    connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
+    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 }
 
 void MainWindowController::setupU1Connection()
@@ -262,8 +270,12 @@ void MainWindowController::connectWithKFlop()
 void MainWindowController::updateMachineToolState()
 {
    // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
+    byte_array recieved = serverManager->getSensorsState();
+    qDebug() << recieved;
+    machineTool->updateCurrentState(recieved);
+    emit machineToolStateIsChanged();
 
-#ifdef Q_OS_WIN
+/*#ifdef Q_OS_WIN
     try
     {
         byte_array recieved = u1Manager->getU1()->receiveData(16);
@@ -279,7 +291,7 @@ void MainWindowController::updateMachineToolState()
 #endif
 #ifdef Q_OS_UNIX
     emit machineToolStateIsChanged();
-#endif
+#endif*/
 }
 
 void MainWindowController::switchDevice(QString qDeviceName)

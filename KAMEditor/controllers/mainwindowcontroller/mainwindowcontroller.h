@@ -4,9 +4,10 @@
 #include <QObject>
 #include <QTimer>
 #include <QTreeWidgetItem>
-#include <QtWebSockets>
 
 #include "models/machinetool/machinetool.h"
+#include "models/serverconnector/serverconnectionmanager.h"
+
 #include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
 #include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
 #include "models/controllerconnector/kflopmanager/kflopmanager.h"
@@ -77,6 +78,7 @@ protected:
      * \brief Указатель на станок, к которому требуется подключиться
      */
     MachineTool* machineTool;
+    ServerConnectionManager* serverManager;
 #ifdef Q_OS_WIN
     /*!
      * \brief Указатель на класс для взаимодействия с контроллером u1 по usb
@@ -143,6 +145,8 @@ public slots:
     void setupTimer();
 
     void setupMainWindowBridge();
+
+    void setupServerConnection();
 
     /// Слот для настройки подключения к контроллеру U1
     void setupU1Connection();
