@@ -122,6 +122,7 @@ void MainWindow::setupGCodesEditorField()
 
 void MainWindow::setupDevicesPanel()
 {
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDevicesPanel()));
     connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(updateDevicesPanel()));
     connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDevicesPanel()));
 }

@@ -113,6 +113,7 @@ Device::Device(QString _code,
 void Device::setup()
 {
     SettingsManager settingsManager;
+    name = QVariant(settingsManager.get(code, "Label")).toString();
     boardName = QVariant(settingsManager.get(code, "BoardName")).toString();
     portNumber = QVariant(settingsManager.get(code, "PortNumber")).toUInt();
     outputNumber = QVariant(settingsManager.get(code, "OutputNumber")).toUInt();
