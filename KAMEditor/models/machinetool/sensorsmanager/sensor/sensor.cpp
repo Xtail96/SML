@@ -1,4 +1,37 @@
 #include "sensor.h"
+
+Sensor::Sensor(QString _code,
+               QString _name,
+               QString _boardName,
+               unsigned int _portNumber,
+               unsigned int _inputNumber,
+               bool _activeState,
+               bool _currentState,
+               QColor _color) :
+    code(_code),
+    name(_name),
+    boardName(_boardName),
+    portNumber(_portNumber),
+    inputNumber(_inputNumber),
+    activeState(_activeState),
+    currentState(_currentState),
+    color(_color)
+{
+    setup();
+}
+
+void Sensor::setup()
+{
+    SettingsManager settingsManager;
+    name = QVariant(settingsManager.get(code, "Label")).toString();
+    portNumber = QVariant(settingsManager.get(code, "PortNumber")).toUInt();
+    inputNumber = QVariant(settingsManager.get(code, "InputNumber")).toUInt();
+    boardName = QVariant(settingsManager.get(code, "BoardName")).toString();
+    activeState = QVariant(settingsManager.get(code, "ActiveState")).toBool();
+    color = QColor(QVariant(settingsManager.get(code, "Color")).toString());
+    currentState = !activeState;
+}
+
 bool Sensor::getCurrentState() const
 {
     return currentState;
@@ -22,12 +55,12 @@ unsigned int Sensor::getInputNumber() const
     return inputNumber;
 }
 
-std::string Sensor::getName() const
+QString Sensor::getName() const
 {
     return name;
 }
 
-std::string Sensor::getBoardName() const
+QString Sensor::getBoardName() const
 {
     return boardName;
 }
@@ -38,32 +71,14 @@ bool Sensor::getActiveState() const
 }
 
 
-Sensor::Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState, bool _currentState, QColor _color) :
-    name(_name), boardName(_boardName), portNumber(_portNumber), inputNumber(_inputNumber), activeState(_activeState), currentState(_currentState), color(_color)
+QString Sensor::getCode() const
 {
-
+    return code;
 }
 
 QColor Sensor::getColor() const
 {
     return color;
-}
-
-Sensor::Sensor(std::string _name) :
-    name(_name), boardName("undefined"),portNumber(0), inputNumber(0), activeState(false), currentState(true), color(QColor(0, 125, 0))
-{
-
-}
-
-void Sensor::setup()
-{
-    SettingsManager settingsManager;
-    portNumber = QVariant(settingsManager.get(QString::fromStdString(name), "portNumber")).toUInt();
-    inputNumber = QVariant(settingsManager.get(QString::fromStdString(name), "inputNumber")).toUInt();
-    boardName = QVariant(settingsManager.get(QString::fromStdString(name), "boardName")).toString().toStdString();
-    activeState = QVariant(settingsManager.get(QString::fromStdString(name), "activeState")).toBool();
-    color = QColor(QVariant(settingsManager.get(QString::fromStdString(name), "color")).toString());
-    currentState = !activeState;
 }
 
 bool Sensor::isActive()

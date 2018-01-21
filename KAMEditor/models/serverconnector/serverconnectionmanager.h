@@ -9,8 +9,9 @@
 
 struct AxisesStateList
 {
+private:
     std::map<std::string, double> axisesState;
-
+public:
     AxisesStateList(size_t count = 3)
     {
         for(size_t i = 0; i < count; i++)
@@ -18,6 +19,11 @@ struct AxisesStateList
             std::string name = axisesNames.getNameByKey(i);
             axisesState.insert(std::make_pair(name, 0));
         }
+    }
+
+    std::map<std::string, double> getAxisesCoordinates()
+    {
+        return axisesState;
     }
 };
 
@@ -68,6 +74,8 @@ public:
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);
+
+    std::map<std::string, double> getMachineToolCoordinates();
 signals:
     void machineToolStateIsChanged();
 private:

@@ -30,7 +30,7 @@ private:
     * \param outputNumber - имя выхода, к которому подключено устройство
     * \return маска устройства
     */
-    byte getDeviceMask(std::string boardName, unsigned int portNumber, unsigned int outputNumber);
+    byte getDeviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber);
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
@@ -82,7 +82,7 @@ public:
      * \return ссылка на найденное устройство
      * \warning Если устройство не найдено, бросает исключение std::invalid_argument с параметром device not found
      */
-    Device& findDevice(std::string deviceName);
+    Device& findDevice(QString deviceName);
 };
 
 #endif // DEVICESMANAGER_H

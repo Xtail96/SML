@@ -15,7 +15,7 @@ QStringList MainWindowBridge::sensorsNames(std::vector<std::shared_ptr<Sensor> >
     QStringList names;
     for(auto sensor : sensors)
     {
-        names.push_back(QString::fromStdString(sensor->getName()));
+        names.push_back(sensor->getName());
     }
     return names;
 }
@@ -39,7 +39,7 @@ QList<QStringList> MainWindowBridge::sensorsSettings(std::vector<std::shared_ptr
     {
         QStringList sensorSettings =
         {
-            QString::fromStdString(sensor->getBoardName()),
+            sensor->getBoardName(),
             QString::number(sensor->getPortNumber()),
             QString::number(sensor->getInputNumber()),
             QString::number(sensor->getActiveState())
@@ -69,7 +69,7 @@ QStringList MainWindowBridge::devicesNames(std::vector<std::shared_ptr<Device> >
     QStringList names;
     for(auto device : devices)
     {
-        names.push_back(QString::fromStdString(device->getName()));
+        names.push_back(device->getName());
     }
     return names;
 }
@@ -94,7 +94,7 @@ QList<QStringList> MainWindowBridge::devicesSettings(std::vector<std::shared_ptr
     {
         QStringList deviceSettings =
         {
-            QString::fromStdString(device->getBoardName()),
+            device->getBoardName(),
             QString::number(device->getPortNumber()),
             QString::number(device->getOutputNumber()),
             QString::number(device->getActiveState()),
@@ -112,7 +112,7 @@ QStringList MainWindowBridge::onScreenDevicesNames(std::vector<std::shared_ptr<D
     {
         if(device->getNeedToDisplay())
         {
-            names.push_back(QString::fromStdString(device->getName()));
+            names.push_back(device->getName());
         }
     }
     return names;

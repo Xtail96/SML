@@ -65,7 +65,7 @@ void LubricationSystemWindow::updateProgressBar()
 
 void LubricationSystemWindow::switchLubricationSystem()
 {
-    std::string deviceName = "САС";
+    QString deviceName = "САС";
     try
     {
         Device &device = devicesManager->findDevice(deviceName);

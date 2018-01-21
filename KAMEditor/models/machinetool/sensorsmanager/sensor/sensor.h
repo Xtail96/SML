@@ -12,11 +12,13 @@
 class Sensor
 {
 private:
+    QString code;
+
     /// имя датчика
-    std::string name;
+    QString name;
 
     /// имя платы, к которой подключен датчик
-    std::string boardName;
+    QString boardName;
 
     /// номер порта, ко входу которого подключен датчик
     unsigned int portNumber;
@@ -43,13 +45,14 @@ public:
      * \param _isEnable - текущее состояние датчика
      * \param _color - цвет инидкатора при срабатывании датчика
      */
-    Sensor(std::string _name, std::string _boardName, unsigned int _portNumber, unsigned int _inputNumber, bool _activeState = false, bool _currentState = false, QColor _color = QColor(0, 125, 0));
-
-    /*!
-     * \brief Конструктор класса "Датчик"
-     * \param _name -  имя датчика
-     */
-    Sensor(std::string _name);
+    Sensor(QString _code,
+           QString _name = "undefined",
+           QString _boardName = "undefined",
+           unsigned int _portNumber = 0,
+           unsigned int _inputNumber = 0,
+           bool _activeState = false,
+           bool _currentState = false,
+           QColor _color = QColor(0, 125, 0));
 
     /*!
      * \brief Получает текущее состояние датчика
@@ -79,13 +82,13 @@ public:
      * \brief Возвращает имя датчика
      * \return имя датчика
      */
-    std::string getName() const;
+    QString getName() const;
 
     /*!
      * \brief Возвращает имя платы, к которой подключается датчик
      * \return имя платы, к которой подключается датчик
      */
-    std::string getBoardName() const;
+    QString getBoardName() const;
 
     /*!
      * \brief Возвращает значение активного состояния датчика
@@ -109,6 +112,8 @@ public:
      * \return true, если датчик сработал, false - иначе
      */
     bool isActive();
+
+    QString getCode() const;
 };
 
 #endif // SENSOR_H

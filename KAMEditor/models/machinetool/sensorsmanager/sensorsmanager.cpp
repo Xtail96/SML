@@ -29,21 +29,20 @@ void SensorsManager::initilize()
     SettingsManager settingsManager;
     try
     {
-        unsigned int sensorsCount = QVariant(settingsManager.get("Sensors", "count")).toUInt();
+        unsigned int sensorsCount = QVariant(settingsManager.get("MachineToolInformation", "SensorsCount")).toUInt();
 
-        std::vector<std::string> sensorsNames;
+        std::vector<QString> sensorsCodes;
         for(unsigned int i = 0; i < sensorsCount; i++)
         {
-            std::string sensorNumberString = std::to_string(i);
-            QVariant tmp = settingsManager.get("Sensors", QString::fromStdString(sensorNumberString));
-            sensorsNames.push_back(tmp.toString().toStdString());
+            QString sensorString = QString("Sensor") + QString::number(i);
+            sensorsCodes.push_back(sensorString);
         }
 
-        for(unsigned int i = 0; i < sensorsNames.size(); i++)
+        for(auto code : sensorsCodes)
         {
-            Sensor* tmp = new Sensor(sensorsNames[i]);
-            tmp->setup();
-            sensors.push_back(std::shared_ptr<Sensor>(tmp));
+            Sensor* sensor = new Sensor(code);
+            qDebug() << sensor->getName() << " " << sensor->getCode();
+            sensors.push_back(std::shared_ptr<Sensor>(sensor));
         }
     }
     catch(std::invalid_argument e)

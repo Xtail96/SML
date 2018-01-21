@@ -20,21 +20,20 @@ void DevicesManager::initialize()
     SettingsManager settingsManager;
     try
     {
-        unsigned int devicesCount = QVariant(settingsManager.get("Devices", "count")).toUInt();
+        unsigned int devicesCount = QVariant(settingsManager.get("MachineToolInformation", "DevicesCount")).toUInt();
 
-        std::vector<std::string> devicesNames;
+        std::vector<QString> devicesCodes;
         for(unsigned int i = 0; i < devicesCount; i++)
         {
-            std::string deviceNumberString = std::to_string(i);
-            QVariant tmp = settingsManager.get("Devices", QString::fromStdString(deviceNumberString));
-            devicesNames.push_back(tmp.toString().toStdString());
+            QString deviceString = QString("Device") + QString::number(i);
+            devicesCodes.push_back(deviceString);
         }
 
-        for(unsigned int i = 0; i < devicesNames.size(); i++)
+        for(auto code : devicesCodes)
         {
-            Device* tmp = new Device(devicesNames[i]);
-            tmp->setup(settingsManager);
-            devices.push_back(std::shared_ptr<Device>(tmp));
+            Device* device = new Device(code);
+            qDebug() << device->getName() << device->getCode();
+            devices.push_back(std::shared_ptr<Device>(device));
         }
     }
     catch(std::invalid_argument e)
@@ -56,7 +55,7 @@ DevicesManager::DevicesManager(const DevicesManager &object) :
 }
 
 
-Device &DevicesManager::findDevice(std::string deviceName)
+Device &DevicesManager::findDevice(QString deviceName)
 {
     for(auto it : devices)
     {
@@ -84,7 +83,7 @@ byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool onOff,
     return data;
 }
 
-byte DevicesManager::getDeviceMask(std::string boardName, unsigned int portNumber, unsigned int outputNumber)
+byte DevicesManager::getDeviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber)
 {
     byte deviceMask = 0xff;
     if(boardName == "u1")

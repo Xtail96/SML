@@ -31,10 +31,9 @@ void MovementsHandler::addAxises(const unsigned int &count)
 
 void MovementsHandler::setupAxises()
 {
-    SettingsManager settingsManager;
     for(auto axis : axises)
     {
-        axis->setup(settingsManager);
+        axis->setup();
     }
 }
 
@@ -89,7 +88,13 @@ Point MovementsHandler::getCurrentCoordinatesFromBase() const
 
 Point MovementsHandler::getParkCoordinates() const
 {
-return parkCoordinates;
+    return parkCoordinates;
+}
+
+void MovementsHandler::updateAllCoordinates(Point currentCoordinatesAbsolute)
+{
+    currentCoordinatesFromBase = currentCoordinatesAbsolute;
+
 }
 
 Point MovementsHandler::getCurrentCoordinates() const

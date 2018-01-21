@@ -32,6 +32,8 @@ public:
     Point getCurrentCoordinates() const;
     Point getCurrentCoordinatesFromBase() const;
     Point getParkCoordinates() const;
+
+    void updateAllCoordinates(Point currentCoordinatesAbsolute);
 };
 
 #endif // MOVEMENTSHANDLER_H

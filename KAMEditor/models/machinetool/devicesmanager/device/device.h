@@ -12,11 +12,13 @@
  */
 class Device
 {
+    QString code;
+
     /// Имя устройства
-    std::string name;
+    QString name;
 
     /// Имя платы, к которой подключено устройство
-    std::string boardName;
+    QString boardName;
 
     /// Номер порта, к которому подключено устройство
     unsigned int portNumber;
@@ -47,13 +49,21 @@ public:
      * \param _needToDisplay - нужно ли отображать устройство для пользователя на панели устройств (по умолчанию true)
      * \param _mask - маска, включающая устройство (по умолчанию 0xff)
      */
-    Device(std::string _name, std::string _boardName = "undefined", unsigned int _portNumber = 0, unsigned int _outputNumber = 0, bool _activeState = false, bool _currentState = true, bool _needToDisplay = true, byte _mask = 0xff);
+    Device(QString _code,
+           QString _name = "undefined",
+           QString _boardName = "undefined",
+           unsigned int _portNumber = 0,
+           unsigned int _outputNumber = 0,
+           bool _activeState = false,
+           bool _currentState = true,
+           bool _needToDisplay = true,
+           byte _mask = 0xff);
 
     /*!
      * \brief Настраивает устройство по менеджеру настроек
      * \param settingsManager - константная ссылка на менеджер настроек
      */
-    void setup(const SettingsManager &settingsManager);
+    void setup();
 
     /*!
      * \brief Проверяет включено ли устройство
@@ -65,13 +75,13 @@ public:
      * \brief Возвращает имя платы, к которой подкллючено устройство
      * \return имя платы, к которой подключено устройство
      */
-    std::string getBoardName() const;
+    QString getBoardName() const;
 
     /*!
      * \brief Устанавливает новое значение имени платы, к которой подключено устройство
      * \param value - имя платы, к которой подключено устройство
      */
-    void setBoardName(const std::string &value);
+    void setBoardName(const QString &value);
 
     /*!
      * \brief Возвращает имя порта, к которому подкллючено устройство
@@ -101,13 +111,13 @@ public:
      * \brief Возвращает имя устройства
      * \return имя устройства
      */
-    std::string getName() const;
+    QString getName() const;
 
     /*!
      * \brief Устанавливает новое значение имени устройства
      * \param value - имя устройства
      */
-    void setName(const std::string &value);
+    void setName(const QString &value);
 
     /*!
      * \brief Возвращает активное состояние устройства
@@ -156,6 +166,8 @@ public:
      * \param value - маска, включающая устройство
      */
     void setMask(const byte &value);
+
+    QString getCode() const;
 };
 
 #endif // DEVICE_H

@@ -116,10 +116,8 @@ public:
 
     /*!
      * \brief Метод комплексной настройки параметров текущей оси;
-     * \param settings ссылка на менеджер настроек, который будет производить настройку
-
      */
-    void setup(const SettingsManager &settings);
+    void setup();
 };
 
 #endif // AXIS_H

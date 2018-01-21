@@ -5,7 +5,7 @@ ServerConnectionManager::ServerConnectionManager()
     SettingsManager settingsManager;
     try
     {
-        size_t axisesCount = settingsManager.get("MachineToolInformation", "AxisCount").toUInt();
+        size_t axisesCount = settingsManager.get("MachineToolInformation", "AxisesCount").toUInt();
         currentState = new MachineToolState(axisesCount, 16);
     }
     catch(std::invalid_argument e)
@@ -28,4 +28,9 @@ void ServerConnectionManager::setSensorsState(byte_array value)
 {
     currentState->sensorsState.setSensorsState(value);
     emit machineToolStateIsChanged();
+}
+
+std::map<std::string, double> ServerConnectionManager::getMachineToolCoordinates()
+{
+    return currentState->axisesState.getAxisesCoordinates();
 }

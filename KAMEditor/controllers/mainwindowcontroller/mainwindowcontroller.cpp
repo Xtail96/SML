@@ -217,7 +217,7 @@ void MainWindowController::loadMachineToolSettings()
                     settingsManager.get(machineToolInformationGroupName, "VendorId").toUInt(),
                     settingsManager.get(machineToolInformationGroupName, "ProductId").toUInt(),
                     settingsManager.get(machineToolInformationGroupName, "Name").toString().toStdString(),
-                    settingsManager.get(machineToolInformationGroupName, "AxisCount").toUInt()
+                    settingsManager.get(machineToolInformationGroupName, "AxisesCount").toUInt()
                     );
         emit machineToolSettingsIsLoaded();
     }
@@ -295,9 +295,8 @@ void MainWindowController::updateMachineToolState()
 #endif*/
 }
 
-void MainWindowController::switchDevice(QString qDeviceName)
+void MainWindowController::switchDevice(QString deviceName)
 {
-    std::string deviceName = qDeviceName.toStdString();
     try
     {
         Device &device = machineTool->getDevicesManager()->findDevice(deviceName);

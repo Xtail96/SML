@@ -18,7 +18,7 @@ byte_array SMLSwitchOff::getDataForMachineTool() const
     byte_array data;
     try
     {
-        Device &device = devicesManager->findDevice(deviceName.toStdString());
+        Device &device = devicesManager->findDevice(deviceName);
         //toDo Преобразования строки в 2 байта
         data = devicesManager->getSwitchDeviceData(device, false);
     }

@@ -102,31 +102,32 @@ void Axis::setName(const std::string &value)
     name = value;
 }
 
-void Axis::setup(const SettingsManager &settings)
+void Axis::setup()
 {
-    QString qAxisName = QString(QString::fromStdString(name) + " Axis");
+    SettingsManager settings;
+    QString qAxisName = QString("Axis") + QString::fromStdString(name);
 
-    QVariant qAcceleration = settings.get(qAxisName, "acceleration");
+    QVariant qAcceleration = settings.get(qAxisName, "Acceleration");
     acceleration = qAcceleration.toDouble();
 
-    QVariant qBazaSearchSpeed = settings.get(qAxisName, "bazaSearchSpeed");
+    QVariant qBazaSearchSpeed = settings.get(qAxisName, "BazaSearchSpeed");
     basingVelocity = qBazaSearchSpeed.toDouble();
 
-    QVariant qChannel = settings.get(qAxisName, "channel");
+    QVariant qChannel = settings.get(qAxisName, "Channel");
     channel = qChannel.toInt();
 
-    QVariant qJerk = settings.get(qAxisName, "jerk");
+    QVariant qJerk = settings.get(qAxisName, "Jerk");
     jerk = qJerk.toDouble();
 
-    QVariant qVelocity = settings.get(qAxisName, "speed");
+    QVariant qVelocity = settings.get(qAxisName, "Speed");
     velocity = qVelocity.toDouble();
 
-    QVariant qLength = settings.get("Table_Size", QString("Size" + QString::fromStdString(name)));
+    QVariant qLength = settings.get("TableSize", QString("Size" + QString::fromStdString(name)));
     length = qLength.toDouble();
 
-    QVariant qStep = settings.get("Mashin_Info", QString("AltSteps" + QString::fromStdString(name)));
+    QVariant qStep = settings.get(qAxisName, "Step");
     step = qStep.toDouble();
 
-    QVariant qInvertDirection = settings.get("Mashin_Info", QString("Invert" + QString::fromStdString(name)));
+    QVariant qInvertDirection = settings.get(qAxisName, "Invert");
     invertDirection = qInvertDirection.toBool();
 }

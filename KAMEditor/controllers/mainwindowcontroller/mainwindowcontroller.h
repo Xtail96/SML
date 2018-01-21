@@ -154,7 +154,7 @@ public slots:
     /// Слот для настройки подключения к контроллеру KFlop
     void setupKFlopConnection();
 
-    void switchDevice(QString qDeviceName);
+    void switchDevice(QString deviceName);
     void updateVelocity(int value);
     void updateSpindelRotations(int value);
 
