@@ -68,18 +68,21 @@ struct MachineToolState
 class ServerConnectionManager : public QObject
 {
     Q_OBJECT
+protected:
+    MachineToolState* currentState;
+
+    void setup(SettingsManager *sm);
+signals:
+    void machineToolStateIsChanged();
+
 public:
-    ServerConnectionManager();
+    ServerConnectionManager(SettingsManager *sm = nullptr);
     ~ServerConnectionManager();
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);
 
     std::map<std::string, double> getMachineToolCoordinates();
-signals:
-    void machineToolStateIsChanged();
-private:
-    MachineToolState* currentState;
 
 };
 

@@ -22,8 +22,7 @@ protected:
 public:
     MovementsHandler(SettingsManager* sm);
     ~MovementsHandler();
-    void addAxises(const unsigned int &count);
-    void setupAxises();
+    void addAxises(const unsigned int &count, SettingsManager *sm);
     std::vector<std::shared_ptr<Axis> > getAxises() const;
     void setAxises(const std::vector<std::shared_ptr<Axis> > &value);
     void moveTo(Point &to, bool mode = 0);

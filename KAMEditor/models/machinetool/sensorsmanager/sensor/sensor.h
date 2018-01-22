@@ -11,7 +11,7 @@
  */
 class Sensor
 {
-private:
+protected:
     QString code;
 
     /// имя датчика
@@ -34,6 +34,11 @@ private:
 
     /// цвет индикатора при срабатывании датчика
     QColor color;
+
+    /*!
+     * \brief Устанавливает параметры датчика
+     */
+    void setup(SettingsManager *sm);
 public:
     /*!
      * \brief Конструктор класса "Датчик"
@@ -46,13 +51,15 @@ public:
      * \param _color - цвет инидкатора при срабатывании датчика
      */
     Sensor(QString _code,
-           QString _name = "undefined",
-           QString _boardName = "undefined",
-           unsigned int _portNumber = 0,
-           unsigned int _inputNumber = 0,
+           QString _name,
+           QString _boardName,
+           unsigned int _portNumber,
+           unsigned int _inputNumber,
            bool _activeState = false,
-           bool _currentState = false,
            QColor _color = QColor(0, 125, 0));
+
+    Sensor(QString _code,
+           SettingsManager *sm = nullptr);
 
     /*!
      * \brief Получает текущее состояние датчика
@@ -101,11 +108,6 @@ public:
      * \return цвет индикатора при срабатывании датчика
      */
     QColor getColor() const;
-
-    /*!
-     * \brief Устанавливает параметры датчика
-     */
-    void setup();
 
     /*!
      * \brief Сработал ли датчик

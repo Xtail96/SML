@@ -1,5 +1,60 @@
 #include "device.h"
 
+Device::Device(QString _code,
+               QString _name,
+               QString _boardName,
+               unsigned int _portNumber,
+               unsigned int _outputNumber,
+               bool _activeState,
+               bool _needToDisplay,
+               byte _mask) :
+    code(_code),
+    name(_name),
+    boardName(_boardName),
+    portNumber(_portNumber),
+    outputNumber(_outputNumber),
+    activeState(_activeState),
+    currentState(!activeState),
+    needToDisplay(_needToDisplay),
+    mask(_mask)
+{
+}
+
+Device::Device(QString _code, SettingsManager *sm) :
+    code(_code)
+{
+    if(sm == nullptr)
+    {
+        qDebug() << "new SettingsManager instance in device #" + code;
+        sm = new SettingsManager();
+        setup(sm);
+        delete sm;
+    }
+    else
+    {
+        setup(sm);
+    }
+}
+
+void Device::setup(SettingsManager *sm)
+{
+    try
+    {
+        name = QVariant(sm->get(code, "Label")).toString();
+        boardName = QVariant(sm->get(code, "BoardName")).toString();
+        portNumber = QVariant(sm->get(code, "PortNumber")).toUInt();
+        outputNumber = QVariant(sm->get(code, "OutputNumber")).toUInt();
+        activeState = QVariant(sm->get(code, "ActiveState")).toBool();
+        needToDisplay = QVariant(sm->get(code, "NeedToDisplay")).toBool();
+        mask = QVariant(sm->get(code, "Mask")).toUInt();
+        currentState = !activeState;
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + code, e.what()).exec();
+    }
+}
+
 QString Device::getBoardName() const
 {
     return boardName;
@@ -86,41 +141,6 @@ void Device::setMask(const byte &value)
 QString Device::getCode() const
 {
     return code;
-}
-
-Device::Device(QString _code,
-               QString _name,
-               QString _boardName,
-               unsigned int _portNumber,
-               unsigned int _outputNumber,
-               bool _activeState,
-               bool _currentState,
-               bool _needToDisplay,
-               byte _mask) :
-    code(_code),
-    name(_name),
-    boardName(_boardName),
-    portNumber(_portNumber),
-    outputNumber(_outputNumber),
-    activeState(_activeState),
-    currentState(_currentState),
-    needToDisplay(_needToDisplay),
-    mask(_mask)
-{
-    setup();
-}
-
-void Device::setup()
-{
-    SettingsManager settingsManager;
-    name = QVariant(settingsManager.get(code, "Label")).toString();
-    boardName = QVariant(settingsManager.get(code, "BoardName")).toString();
-    portNumber = QVariant(settingsManager.get(code, "PortNumber")).toUInt();
-    outputNumber = QVariant(settingsManager.get(code, "OutputNumber")).toUInt();
-    activeState = QVariant(settingsManager.get(code, "ActiveState")).toBool();
-    needToDisplay = QVariant(settingsManager.get(code, "NeedToDisplay")).toBool();
-    mask = QVariant(settingsManager.get(code, "Mask")).toUInt();
-    currentState = !activeState;
 }
 
 bool Device::isEnable() const

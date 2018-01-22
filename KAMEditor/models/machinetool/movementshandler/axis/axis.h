@@ -3,7 +3,9 @@
 #include <string>
 #include <map>
 
-#include "../../settingsmanager/settingsmanager.h"
+#include <QDebug>
+
+#include "models/machinetool/settingsmanager/settingsmanager.h"
 
 /*!
  * \brief Класс "Ось"
@@ -57,7 +59,18 @@ public:
      * \param _channel канал оси
      * \param _basingVelocity максимальная скорость базирования по оси
      */
-    Axis(std::string _name, double _step = 0, double _length = 1, bool _invertDirection = 0, double _jerk = 0, double _acceleration = 0, double _velocity = 0, int _channel = 0, double _basingVelocity = 0);
+    Axis(std::string _name,
+         double _step,
+         double _length,
+         bool _invertDirection,
+         double _jerk,
+         double _acceleration,
+         double _velocity,
+         int _channel,
+         double _basingVelocity);
+
+    Axis(std::string _name,
+         SettingsManager *sm = nullptr);
 
     ///! Методы получения и установки значений:
     /// \details Возвращает имя текущей Оси;
@@ -117,7 +130,7 @@ public:
     /*!
      * \brief Метод комплексной настройки параметров текущей оси;
      */
-    void setup();
+    void setup(SettingsManager *sm);
 };
 
 #endif // AXIS_H

@@ -114,27 +114,28 @@ private:
  */
 class SensorsManager
 {
-private:
+protected:
     /*!
      * \brief Вектор умных указателей на датчики станка
      */
     std::vector< std::shared_ptr<Sensor> > sensors;
+
+    /*!
+     * \brief Инициализирует датчики по файлу настроек
+     */
+    void initilize(SettingsManager *sm);
+
 public:
     /*!
      * \brief Конструктор класса "Менеджер датчиков"
      */
-    SensorsManager();
+    SensorsManager(SettingsManager *sm = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер датчиков
      * \param object ссылка на объект класса Менеджер датчиков
      */
     SensorsManager(const SensorsManager &object);
-
-    /*!
-     * \brief Инициализирует датчики по файлу настроек
-     */
-    void initilize();
 
     /*!
      * \brief Возвращает ссылку на датчики станка

@@ -13,7 +13,7 @@ MovementsHandler::MovementsHandler(SettingsManager *sm) :
         QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.what())).exec();
     }
 
-    addAxises(axisesCount);
+    addAxises(axisesCount, sm);
     dimensionsManager = new DimensionsManager(axisesCount);
     currentCoordinates.setCoordinatesCount(axisesCount);
     currentCoordinatesFromBase.setCoordinatesCount(axisesCount);
@@ -28,7 +28,7 @@ MovementsHandler::~MovementsHandler()
     delete dimensionsManager;
 }
 
-void MovementsHandler::addAxises(const unsigned int &count)
+void MovementsHandler::addAxises(const unsigned int &count, SettingsManager *sm)
 {
     unsigned int axisCount = count;
     if(axisCount > 11)
@@ -39,17 +39,8 @@ void MovementsHandler::addAxises(const unsigned int &count)
     for(unsigned int i = 0; i < axisCount; i++)
     {
         std::string axisName = axisesNames.getNameByKey(i);
-        Axis* newAxis = new Axis(axisName);
+        Axis* newAxis = new Axis(axisName, sm);
         axises.push_back(std::shared_ptr<Axis>(newAxis));
-    }
-    setupAxises();
-}
-
-void MovementsHandler::setupAxises()
-{
-    for(auto axis : axises)
-    {
-        axis->setup();
     }
 }
 

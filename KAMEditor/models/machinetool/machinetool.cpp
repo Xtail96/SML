@@ -4,14 +4,12 @@ MachineTool::MachineTool() :
     settingsManager(new SettingsManager()),
     movementController(new MovementsHandler(settingsManager)),
     pointsManager(new PointsManager()),
-    sensorsManager(new SensorsManager()),
-    devicesManager(new DevicesManager()),
+    sensorsManager(new SensorsManager(settingsManager)),
+    devicesManager(new DevicesManager(settingsManager)),
     //commandsManager(new CommandsManager()),
     gcodesManager(new GCodesManager()),
     //smlFilesManager(new SMLFilesManager(commandsManager, pointsManager, devicesManager, movementController->getAxises().size())),
-    gcodesFilesManager(new GCodesFilesManager()),
-    velocity(10),
-    spindelRotations(5000)
+    gcodesFilesManager(new GCodesFilesManager())
 {
     QString machineToolInformationGroupName = "MachineToolInformation";
     try
@@ -19,6 +17,8 @@ MachineTool::MachineTool() :
             vendorId = settingsManager->get(machineToolInformationGroupName, "VendorId").toUInt();
             productId = settingsManager->get(machineToolInformationGroupName, "ProductId").toUInt();
             name = settingsManager->get(machineToolInformationGroupName, "Name").toString().toStdString();
+            velocity = 10;
+            spindelRotations = 18000;
     }
     catch(std::invalid_argument e)
     {
@@ -134,4 +134,9 @@ GCodesFilesManager *MachineTool::getGcodesFilesManager() const
 void MachineTool::setGcodesFilesManager(GCodesFilesManager *value)
 {
     gcodesFilesManager = value;
+}
+
+SettingsManager *MachineTool::getSettingsManager() const
+{
+    return settingsManager;
 }

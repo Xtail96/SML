@@ -12,6 +12,7 @@
  */
 class Device
 {
+protected:
     QString code;
 
     /// Имя устройства
@@ -37,6 +38,13 @@ class Device
 
     /// Маска, включающее устройство
     byte mask;
+
+    /*!
+     * \brief Настраивает устройство по менеджеру настроек
+     * \param settingsManager - константная ссылка на менеджер настроек
+     */
+    void setup(SettingsManager *sm);
+
 public:
     /*!
      * \brief Конструктор класса Устрйоство
@@ -50,20 +58,16 @@ public:
      * \param _mask - маска, включающая устройство (по умолчанию 0xff)
      */
     Device(QString _code,
-           QString _name = "undefined",
-           QString _boardName = "undefined",
+           QString _name,
+           QString _boardName,
            unsigned int _portNumber = 0,
            unsigned int _outputNumber = 0,
            bool _activeState = false,
-           bool _currentState = true,
            bool _needToDisplay = true,
            byte _mask = 0xff);
 
-    /*!
-     * \brief Настраивает устройство по менеджеру настроек
-     * \param settingsManager - константная ссылка на менеджер настроек
-     */
-    void setup();
+    Device(QString _code,
+           SettingsManager *sm = nullptr);
 
     /*!
      * \brief Проверяет включено ли устройство

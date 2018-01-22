@@ -85,7 +85,7 @@ public:
  */
 class DevicesManager
 {
-private:
+protected:
     /*!
      * \brief Идентификатор установки устройств
      * Id для контроллера, сообщающий, что в последующая команда будет на включение/выключение устройств
@@ -106,11 +106,17 @@ private:
     * \return маска устройства
     */
     byte getDeviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber);
+
+    /*!
+     * \brief Инициализирует контейнер с устройствами
+     */
+    void initialize(SettingsManager *sm);
+
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
      */
-    DevicesManager();
+    DevicesManager(SettingsManager* sm = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер устройств
@@ -135,11 +141,6 @@ public:
      * \param value - константная ссылка на новый контейнер с устройствами
      */
     void updateDevices(const std::vector<std::shared_ptr<Device> > &value);
-
-    /*!
-     * \brief Инициализирует контейнер с устройствами
-     */
-    void initialize();
 
     /*!
      * \brief Формирует посылку, которую нужно послать контроллеру для включения/отключения нужного устройства

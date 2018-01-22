@@ -190,15 +190,13 @@ QStringList MainWindowController::getPoint(unsigned int number)
 void MainWindowController::exportSettings()
 {
     QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
-    SettingsManager settingsManager;
-    settingsManager.exportSettings(path);
+    machineTool->getSettingsManager()->exportSettings(path);
 }
 
 void MainWindowController::importSettings()
 {
     QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
-    SettingsManager settingsManager;
-    settingsManager.importSettings(path);
+    machineTool->getSettingsManager()->importSettings(path);
 }
 
 void MainWindowController::parseGCodes(QString data)

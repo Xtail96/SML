@@ -6,7 +6,6 @@ Sensor::Sensor(QString _code,
                unsigned int _portNumber,
                unsigned int _inputNumber,
                bool _activeState,
-               bool _currentState,
                QColor _color) :
     code(_code),
     name(_name),
@@ -14,22 +13,43 @@ Sensor::Sensor(QString _code,
     portNumber(_portNumber),
     inputNumber(_inputNumber),
     activeState(_activeState),
-    currentState(_currentState),
+    currentState(!activeState),
     color(_color)
 {
-    setup();
 }
 
-void Sensor::setup()
+Sensor::Sensor(QString _code, SettingsManager *sm) :
+    code(_code)
 {
-    SettingsManager settingsManager;
-    name = QVariant(settingsManager.get(code, "Label")).toString();
-    portNumber = QVariant(settingsManager.get(code, "PortNumber")).toUInt();
-    inputNumber = QVariant(settingsManager.get(code, "InputNumber")).toUInt();
-    boardName = QVariant(settingsManager.get(code, "BoardName")).toString();
-    activeState = QVariant(settingsManager.get(code, "ActiveState")).toBool();
-    color = QColor(QVariant(settingsManager.get(code, "Color")).toString());
-    currentState = !activeState;
+    if(sm == nullptr)
+    {
+        qDebug() << "new SettingsManager instance in sensor #" + code;
+        sm = new SettingsManager();
+        setup(sm);
+        delete sm;
+    }
+    else
+    {
+        setup(sm);
+    }
+}
+
+void Sensor::setup(SettingsManager *sm)
+{
+    try
+    {
+        name = QVariant(sm->get(code, "Label")).toString();
+        portNumber = QVariant(sm->get(code, "PortNumber")).toUInt();
+        inputNumber = QVariant(sm->get(code, "InputNumber")).toUInt();
+        boardName = QVariant(sm->get(code, "BoardName")).toString();
+        activeState = QVariant(sm->get(code, "ActiveState")).toBool();
+        color = QColor(QVariant(sm->get(code, "Color")).toString());
+        currentState = !activeState;
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки датчика " + code, e.what()).exec();
+    }
 }
 
 bool Sensor::getCurrentState() const

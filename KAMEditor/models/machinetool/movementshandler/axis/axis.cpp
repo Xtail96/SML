@@ -1,5 +1,13 @@
 #include "axis.h"
-Axis::Axis(std::string _name, double _step, double _length, bool _invertDirection, double _jerk, double _acceleration, double _velocity, int _channel, double _basingVelocity) :
+Axis::Axis(std::string _name,
+           double _step,
+           double _length,
+           bool _invertDirection,
+           double _jerk,
+           double _acceleration,
+           double _velocity,
+           int _channel,
+           double _basingVelocity) :
     name(_name),
     step(_step),
     length(_length),
@@ -11,6 +19,22 @@ Axis::Axis(std::string _name, double _step, double _length, bool _invertDirectio
     basingVelocity(_basingVelocity)
 {
 
+}
+
+Axis::Axis(std::string _name, SettingsManager *sm) :
+    name(_name)
+{
+    if(sm == nullptr)
+    {
+        qDebug() << QString("new SettingsManager instance in axis ") + QString::fromStdString(name);
+        sm = new SettingsManager();
+        setup(sm);
+        delete sm;
+    }
+    else
+    {
+        setup(sm);
+    }
 }
 double Axis::getStep() const
 {
@@ -102,32 +126,38 @@ void Axis::setName(const std::string &value)
     name = value;
 }
 
-void Axis::setup()
+void Axis::setup(SettingsManager* sm)
 {
-    SettingsManager settings;
-    QString qAxisName = QString("Axis") + QString::fromStdString(name);
+    try
+    {
+        QString qAxisName = QString("Axis") + QString::fromStdString(name);
 
-    QVariant qAcceleration = settings.get(qAxisName, "Acceleration");
-    acceleration = qAcceleration.toDouble();
+        QVariant qAcceleration = sm->get(qAxisName, "Acceleration");
+        acceleration = qAcceleration.toDouble();
 
-    QVariant qBazaSearchSpeed = settings.get(qAxisName, "BazaSearchSpeed");
-    basingVelocity = qBazaSearchSpeed.toDouble();
+        QVariant qBazaSearchSpeed = sm->get(qAxisName, "BazaSearchSpeed");
+        basingVelocity = qBazaSearchSpeed.toDouble();
 
-    QVariant qChannel = settings.get(qAxisName, "Channel");
-    channel = qChannel.toInt();
+        QVariant qChannel = sm->get(qAxisName, "Channel");
+        channel = qChannel.toInt();
 
-    QVariant qJerk = settings.get(qAxisName, "Jerk");
-    jerk = qJerk.toDouble();
+        QVariant qJerk = sm->get(qAxisName, "Jerk");
+        jerk = qJerk.toDouble();
 
-    QVariant qVelocity = settings.get(qAxisName, "Speed");
-    velocity = qVelocity.toDouble();
+        QVariant qVelocity = sm->get(qAxisName, "Speed");
+        velocity = qVelocity.toDouble();
 
-    QVariant qLength = settings.get("TableSize", QString("Size" + QString::fromStdString(name)));
-    length = qLength.toDouble();
+        QVariant qLength = sm->get("TableSize", QString("Size" + QString::fromStdString(name)));
+        length = qLength.toDouble();
 
-    QVariant qStep = settings.get(qAxisName, "Step");
-    step = qStep.toDouble();
+        QVariant qStep = sm->get(qAxisName, "Step");
+        step = qStep.toDouble();
 
-    QVariant qInvertDirection = settings.get(qAxisName, "Invert");
-    invertDirection = qInvertDirection.toBool();
+        QVariant qInvertDirection = sm->get(qAxisName, "Invert");
+        invertDirection = qInvertDirection.toBool();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, QString("Ошибка настройки оси ") + QString::fromStdString(name), e.what()).exec();
+    }
 }
