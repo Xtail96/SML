@@ -12,6 +12,7 @@
 class Sensor
 {
 protected:
+    /// код датчика для получения информации из файла настроек
     QString code;
 
     /// имя датчика
@@ -37,17 +38,18 @@ protected:
 
     /*!
      * \brief Устанавливает параметры датчика
+     * \param sm - указатель на менеджер настроек
      */
     void setup(SettingsManager *sm);
 public:
     /*!
      * \brief Конструктор класса "Датчик"
-     * \param _name -  имя датчика
-     * \param _boardName -имя платы, к которой подключается датчик
-     * \param _portNumber -  номер порта
+     * \param _code - код датчика
+     * \param _name - имя датчика
+     * \param _boardName - имя платы, к которой подключается датчик
+     * \param _portNumber - номер порта
      * \param _inputNumber - номер входа
      * \param _activeState - активное состояние датчика
-     * \param _isEnable - текущее состояние датчика
      * \param _color - цвет инидкатора при срабатывании датчика
      */
     Sensor(QString _code,
@@ -58,6 +60,11 @@ public:
            bool _activeState = false,
            QColor _color = QColor(0, 125, 0));
 
+    /*!
+     * \brief Конструктор класса "Датчик"
+     * \param _code - код датчика
+     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
+     */
     Sensor(QString _code,
            SettingsManager *sm = nullptr);
 
@@ -115,6 +122,10 @@ public:
      */
     bool isActive();
 
+    /*!
+     * \brief Возвращает код датчика
+     * \return код датчика в формате строки (QString)
+     */
     QString getCode() const;
 };
 

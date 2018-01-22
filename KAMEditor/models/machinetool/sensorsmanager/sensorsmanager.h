@@ -16,7 +16,7 @@ struct StatesBuffer
 {
 public:
     /*!
-     * \brief buffer - содержит всю информацию о состояниях датчиков и устройств станка
+     * \brief buffer - содержит всю информацию о состояниях датчиков станка
      */
     byte_array buffer;
 
@@ -122,18 +122,20 @@ protected:
 
     /*!
      * \brief Инициализирует датчики по файлу настроек
+     * \param sm - указатель на менеджер настроек
      */
     void initilize(SettingsManager *sm);
 
 public:
     /*!
      * \brief Конструктор класса "Менеджер датчиков"
+     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
      */
     SensorsManager(SettingsManager *sm = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер датчиков
-     * \param object ссылка на объект класса Менеджер датчиков
+     * \param object - ссылка на объект класса Менеджер датчиков
      */
     SensorsManager(const SensorsManager &object);
 

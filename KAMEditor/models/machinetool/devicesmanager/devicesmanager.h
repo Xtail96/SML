@@ -109,18 +109,20 @@ protected:
 
     /*!
      * \brief Инициализирует контейнер с устройствами
+     * \param sm - указатель на менеджер настроек
      */
     void initialize(SettingsManager *sm);
 
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
+     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
      */
     DevicesManager(SettingsManager* sm = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер устройств
-     * \param object ссылка на объект класса Менеджер устройств
+     * \param object - ссылка на объект класса Менеджер устройств
      */
     DevicesManager(const DevicesManager &object);
 

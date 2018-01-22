@@ -13,6 +13,8 @@
 class Device
 {
 protected:
+
+    /// Код устройства для получения информации из файла настроек
     QString code;
 
     /// Имя устройства
@@ -41,19 +43,19 @@ protected:
 
     /*!
      * \brief Настраивает устройство по менеджеру настроек
-     * \param settingsManager - константная ссылка на менеджер настроек
+     * \param settingsManager - указатель на менеджер настроек
      */
     void setup(SettingsManager *sm);
 
 public:
     /*!
-     * \brief Конструктор класса Устрйоство
+     * \brief Конструктор класса "Устрйоство"
+     * \param _code - код устройства
      * \param _name - имя устройства
-     * \param _boardName - имя платы, к которой подключено устройство (по умолчанию undefined)
+     * \param _boardName - имя платы, к которой подключено устройство
      * \param _portNumber - номер порта, к которому подключено устройство (по умолчанию 0)
      * \param _outputNumber - номер выхода, к которому подключено устройство (по умолчанию 0)
      * \param _activeState - активаное состояние устройства (по умолчанию false)
-     * \param _currentState - текущее состояние устройства (по умолчанию true)
      * \param _needToDisplay - нужно ли отображать устройство для пользователя на панели устройств (по умолчанию true)
      * \param _mask - маска, включающая устройство (по умолчанию 0xff)
      */
@@ -66,6 +68,11 @@ public:
            bool _needToDisplay = true,
            byte _mask = 0xff);
 
+    /*!
+     * \brief Конструктор класса "Устрйоство"
+     * \param _code - код устройства
+     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
+     */
     Device(QString _code,
            SettingsManager *sm = nullptr);
 
@@ -171,6 +178,10 @@ public:
      */
     void setMask(const byte &value);
 
+    /*!
+     * \brief Возвращает код устройства
+     * \return код устройства в формате строки (QString)
+     */
     QString getCode() const;
 };
 
