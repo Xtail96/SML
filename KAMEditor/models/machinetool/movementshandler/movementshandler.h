@@ -18,9 +18,10 @@ protected:
     // шаг движения
     double step;
     double velocity;
-    DimensionsManager dimensionsManager;
+    DimensionsManager* dimensionsManager;
 public:
-    MovementsHandler(unsigned int _axisesCount, double _step = -1, double _velocity = 30);
+    MovementsHandler(SettingsManager* sm);
+    ~MovementsHandler();
     void addAxises(const unsigned int &count);
     void setupAxises();
     std::vector<std::shared_ptr<Axis> > getAxises() const;

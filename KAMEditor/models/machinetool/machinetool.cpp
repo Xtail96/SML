@@ -1,8 +1,8 @@
 #include "machinetool.h"
 
-MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _name, const unsigned int _axisesCount) :
-    vendorId(_vendorId), productId(_productId), name(_name),
-    movementController(new MovementsHandler(_axisesCount)),
+MachineTool::MachineTool() :
+    settingsManager(new SettingsManager()),
+    movementController(new MovementsHandler(settingsManager)),
     pointsManager(new PointsManager()),
     sensorsManager(new SensorsManager()),
     devicesManager(new DevicesManager()),
@@ -13,10 +13,23 @@ MachineTool::MachineTool(uint16_t _vendorId, uint16_t _productId, std::string _n
     velocity(10),
     spindelRotations(5000)
 {
+    QString machineToolInformationGroupName = "MachineToolInformation";
+    try
+    {
+            vendorId = settingsManager->get(machineToolInformationGroupName, "VendorId").toUInt();
+            productId = settingsManager->get(machineToolInformationGroupName, "ProductId").toUInt();
+            name = settingsManager->get(machineToolInformationGroupName, "Name").toString().toStdString();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации станка!") + QString(e.what()) + QString("; Приложение будет закрыто.")).exec();
+        exit(0);
+    }
 }
 
 MachineTool::~MachineTool()
 {
+    delete this->settingsManager;
     delete this->movementController;
     delete this->pointsManager;
     //delete this->commandsManager;

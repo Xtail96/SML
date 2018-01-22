@@ -27,10 +27,7 @@
 class MachineTool
 {
 public:
-    MachineTool(uint16_t _vendorId,
-                uint16_t _productId,
-                std::string _name,
-                const unsigned int _axisesCount = 3);
+    MachineTool();
     ~MachineTool();
 
     void updateCurrentState(byte_array value);
@@ -74,6 +71,7 @@ private:
 
     std::string name;
 
+    SettingsManager *settingsManager;
     MovementsHandler *movementController;
     PointsManager *pointsManager;
     SensorsManager *sensorsManager;

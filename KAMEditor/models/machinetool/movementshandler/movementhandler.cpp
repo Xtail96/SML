@@ -1,15 +1,31 @@
 #include "movementshandler.h"
 
-MovementsHandler::MovementsHandler(unsigned int _axisesCount, double _step, double _velocity) :
-    currentCoordinates(_axisesCount),
-    currentCoordinatesFromBase(_axisesCount),
-    parkCoordinates(_axisesCount),
-    step(_step),
-    velocity(_velocity),
-    dimensionsManager(_axisesCount)
+MovementsHandler::MovementsHandler(SettingsManager *sm) :
+    dimensionsManager()
 {
-    addAxises(_axisesCount);
+    size_t axisesCount = 3;
+    try
+    {
+        axisesCount = sm->get("MachineToolInformation", "AxisesCount").toUInt();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.what())).exec();
+    }
+
+    addAxises(axisesCount);
+    dimensionsManager = new DimensionsManager(axisesCount);
+    currentCoordinates.setCoordinatesCount(axisesCount);
+    currentCoordinatesFromBase.setCoordinatesCount(axisesCount);
+    parkCoordinates.setCoordinatesCount(axisesCount);
+    step = -1;
+    velocity = 30;
     axisesLength = getAxisesLength();
+}
+
+MovementsHandler::~MovementsHandler()
+{
+    delete dimensionsManager;
 }
 
 void MovementsHandler::addAxises(const unsigned int &count)
@@ -74,7 +90,7 @@ void MovementsHandler::move(const Point& offset)
 bool MovementsHandler::checkCurrentCoordinates(Point &newCoordinates)
 {
     bool isMovementCorrect = true;
-    if(!dimensionsManager.isMovementCorrect(axisesLength, newCoordinates))
+    if(!dimensionsManager->isMovementCorrect(axisesLength, newCoordinates))
     {
         isMovementCorrect = false;
     }

@@ -21,7 +21,7 @@ public:
      * \param _axisesCount число осей станка
      * \param _isDimensionControlEnable активен ли контроль габаритов (по умолчанию false)
      */
-    DimensionsManager(int _axisesCount, bool _isDimensionControlEnable = false);
+    DimensionsManager(int _axisesCount = 3, bool _isDimensionControlEnable = false);
     /*!
      * \brief Проверяет корректность перемещения
      * \param axisesLength длина по каждой из осей станка
