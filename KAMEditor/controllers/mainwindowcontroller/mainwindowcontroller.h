@@ -76,26 +76,10 @@ protected:
      */
     MachineTool* machineTool;
     ServerConnectionManager* serverManager;
-#ifdef Q_OS_WIN
-    /*!
-     * \brief Указатель на класс для взаимодействия с контроллером u1 по usb
-     * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
-     */
-    //UsbXpressDeviceManager* u1Manager;
-
-    /*!
-     * \brief Указатель на класс для взаимодействия с контроллером KFlop по usb
-     * \warning с помощью данного объекта, взаимодействие по usb осуществляется только в операционной системе windows
-     */
-    //KFlopManager* kflopManager;
-#endif
     /*!
      * \brief Указатель на мост для связи с классом Главное окно
      */
     MainWindowBridge* mainWindowBridge;
-
-    /// Таймер для обновления
-    //QTimer *timer;
 
 signals:
     /// Настройки станка загружены

@@ -3,22 +3,14 @@
 MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 {
     setupMainWindowBridge();
-    //setupU1Connection();
-    //setupKFlopConnection();
-    //setupTimer();
     setupServerConnection();
 }
 
 MainWindowController::~MainWindowController()
 {
-    //delete timer;
     delete mainWindowBridge;
     delete machineTool;
     delete serverManager;
-#ifdef Q_OS_WIN
-    //delete u1Manager;
-    //delete kflopManager;
-#endif
 }
 
 void MainWindowController::setupMainWindowBridge()
@@ -33,159 +25,34 @@ void MainWindowController::setupServerConnection()
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 }
 
-/*void MainWindowController::setupU1Connection()
+void MainWindowController::loadMachineToolSettings()
 {
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithU1()));
-}*/
-
-/*void MainWindowController::setupKFlopConnection()
-{
-    //connect(this, SIGNAL(u1IsConnected()), this, SLOT(connectWithKFlop()));
-    // for debug kflop manager
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(connectWithKFlop()));
-}*/
-
-/*void MainWindowController::setupTimer()
-{
-    timer = new QTimer(this);
-    timer->setInterval(100);
-    connect(this, SIGNAL(u1IsConnected()), timer, SLOT(start()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateMachineToolState()));
-}*/
-
-QStringList MainWindowController::getSensorsNames()
-{
-    return mainWindowBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
+    machineTool = new MachineTool();
+    emit machineToolSettingsIsLoaded();
 }
 
-QStringList MainWindowController::getSensorsParametrsNames()
+void MainWindowController::updateMachineToolState()
 {
-    return mainWindowBridge->sensorsParametrsNames();
+   // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
+    byte_array recieved = serverManager->getSensorsState();
+    qDebug() << recieved;
+    machineTool->updateCurrentState(recieved);
+    emit machineToolStateIsChanged();
 }
 
-QList<QStringList> MainWindowController::getSensorsSettings()
+void MainWindowController::testServer(bool on)
 {
-    return mainWindowBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
-}
-
-QList<QColor> MainWindowController::getSensorsLeds()
-{
-    return mainWindowBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
-}
-
-QStringList MainWindowController::getDevicesNames()
-{
-    return mainWindowBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
-}
-
-QStringList MainWindowController::getDevicesParametrsNames()
-{
-    return mainWindowBridge->devicesParametrsNames();
-}
-
-QList<QStringList> MainWindowController::getDevicesSettings()
-{
-    return mainWindowBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
-}
-
-QStringList MainWindowController::getOnScreenDevicesNames()
-{
-    return mainWindowBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
-}
-
-QList<bool> MainWindowController::getOnScreenDevicesStates()
-{
-    return mainWindowBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
-}
-
-QStringList MainWindowController::getAxisesNames()
-{
-    return mainWindowBridge->axisesNames(machineTool->getMovementController()->getAxises());
-}
-
-QStringList MainWindowController::getAxisesParametrsNames()
-{
-    return mainWindowBridge->axisesParametrsNames();
-}
-
-QList<QStringList> MainWindowController::getAxisesSettings()
-{
-    return mainWindowBridge->axisesSettings(machineTool->getMovementController()->getAxises());
-}
-
-QStringList MainWindowController::getOptionsNames()
-{
-    //todo: переписсать метод через модель
-    QStringList optionsNames =
+    byte_array data(16, 0);
+    if(on)
     {
-        "Кабриоль",
-        "Датчик вылета инструмента",
-        "Станция автоматической смазки"
-    };
-    return optionsNames;
-}
-
-unsigned int MainWindowController::getVelocity()
-{
-    return machineTool->getVelocity();
-}
-
-unsigned int MainWindowController::getSpindelRotations()
-{
-    return machineTool->getSpindelRotations();
-}
-
-QList<QStringList> MainWindowController::getPoints()
-{
-    return mainWindowBridge->points(machineTool->getPointsManager());
-}
-
-QStringList MainWindowController::getPoint(unsigned int number)
-{
-    return mainWindowBridge->point(machineTool->getPointsManager(), number);
-}
-
-/*int MainWindowController::getCommandId(QString commandName)
-{
-    return CommandsIds.getId(commandName.toStdString());
-}*/
-
-/*size_t MainWindowController::getCommandsCount()
-{
-    return machineTool->getCommandsManager()->commandsCount();
-}*/
-
-/*void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
-{
-    std::shared_ptr<SMLCommand> cmd = SMLCommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
-    machineTool->getCommandsManager()->insertCommand(index, cmd);
-    emit commandsUpdated();
-}*/
-
-/*QList<QTreeWidgetItem *> MainWindowController::getCommands()
-{
-    return mainWindowBridge->commands(machineTool->getCommandsManager());
-}*/
-
-/*QStringList MainWindowController::getCommandArguments(size_t index)
-{
-    std::shared_ptr<SMLCommand> cmd;
-    try
-    {
-        cmd = machineTool->getCommandsManager()->operator [](index);
+        data[2] = byte(238);
     }
-    catch(std::out_of_range e)
+    else
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        data[2] = byte(0);
     }
-    return cmd->getArguments();
-}*/
-
-/*void MainWindowController::updateCommand(QStringList arguments, size_t index)
-{
-    machineTool->getCommandsManager()->operator [](index)->setArguments(arguments);
-    emit commandsUpdated();
-}*/
+    serverManager->setSensorsState(data);
+}
 
 void MainWindowController::exportSettings()
 {
@@ -203,79 +70,6 @@ void MainWindowController::parseGCodes(QString data)
 {
     machineTool->getGcodesManager()->setGcodes(data);
     machineTool->getGcodesManager()->updateGCodesProgram();
-}
-
-void MainWindowController::loadMachineToolSettings()
-{
-    machineTool = new MachineTool();
-    emit machineToolSettingsIsLoaded();
-}
-
-/*void MainWindowController::connectWithU1()
-{
-#ifdef Q_OS_WIN
-    try
-    {
-        u1Manager = new UsbXpressDeviceManager(machineTool->getName());
-        //emit u1IsConnected();
-    }
-    catch(std::runtime_error e)
-    {
-        u1Manager = nullptr;
-        QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        //emit u1IsDisconnected();
-    }
-#endif
-#ifdef Q_OS_UNIX
-    //emit u1IsConnected();
-#endif
-}*/
-
-/*void MainWindowController::connectWithKFlop()
-{
-#ifdef Q_OS_WIN
-    try
-    {
-        kflopManager = new KFlopManager();
-        //emit kflopIsConnected();
-    }
-    catch(std::runtime_error e)
-    {
-        kflopManager = nullptr;
-        QMessageBox(QMessageBox::Warning, "Ошибка подключения", e.what()).exec();
-        //emit kflopIsDisconnected();
-    }
-#endif
-#ifdef Q_OS_UNIX
-    //emit kflopIsDisconnected();
-#endif
-}*/
-
-void MainWindowController::updateMachineToolState()
-{
-   // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
-    byte_array recieved = serverManager->getSensorsState();
-    qDebug() << recieved;
-    machineTool->updateCurrentState(recieved);
-    emit machineToolStateIsChanged();
-
-/*#ifdef Q_OS_WIN
-    try
-    {
-        byte_array recieved = u1Manager->getU1()->receiveData(16);
-        machineTool->updateCurrentState(recieved);
-        emit machineToolStateIsChanged();
-    }
-    catch(std::runtime_error e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        timer->stop();
-        //emit u1IsDisconnected();
-    }
-#endif
-#ifdef Q_OS_UNIX
-    //emit machineToolStateIsChanged();
-#endif*/
 }
 
 void MainWindowController::switchDevice(QString deviceName)
@@ -375,57 +169,6 @@ void MainWindowController::deletePoint(unsigned int number)
     }
 }
 
-/*void MainWindowController::deleteCommand(unsigned int number)
-{
-    try
-    {
-        machineTool->getCommandsManager()->deleteCommand(number);
-        emit commandsUpdated();
-    }
-    catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
-}*/
-
-/*std::vector< std::shared_ptr<SMLCommand> > MainWindowController::interpretCommands()
-{
-    return CommandsInterpreter::updateProgram(
-                mainWindowBridge->getAllCommandsInVector(machineTool->getCommandsManager()),
-                machineTool->getPointsManager(),
-                machineTool->getDevicesManager());
-}*/
-
-/*void MainWindowController::newSMLFile()
-{
-    machineTool->getSMLFilesManager()->new7KamFile();
-    emit commandsUpdated();
-    emit pointsUpdated();
-}*/
-
-/*void MainWindowController::openSMLFile()
-{
-    machineTool->getSMLFilesManager()->open7KamFile();
-    emit commandsUpdated();
-    emit pointsUpdated();
-}*/
-
-/*void MainWindowController::saveSMLFile()
-{
-    machineTool->getSMLFilesManager()->save7KamFile();
-}*/
-
-/*void MainWindowController::saveSMLFileAs()
-{
-    machineTool->getSMLFilesManager()->save7KamFileAs();
-}*/
-
-/*void MainWindowController::addSMLFile()
-{
-    machineTool->getSMLFilesManager()->add7KamFile();
-    emit commandsUpdated();
-    emit pointsUpdated();
-}*/
 
 void MainWindowController::openGCodesFile()
 {
@@ -482,16 +225,188 @@ QList<Point> MainWindowController::getMachineToolCoordinates()
     return machineToolCoordinates;
 }
 
-void MainWindowController::testServer(bool on)
+/*void MainWindowController::deleteCommand(unsigned int number)
 {
-    byte_array data(16, 0);
-    if(on)
+    try
     {
-        data[2] = byte(238);
+        machineTool->getCommandsManager()->deleteCommand(number);
+        emit commandsUpdated();
     }
-    else
+    catch(std::out_of_range e)
     {
-        data[2] = byte(0);
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
-    serverManager->setSensorsState(data);
+}*/
+
+/*std::vector< std::shared_ptr<SMLCommand> > MainWindowController::interpretCommands()
+{
+    return CommandsInterpreter::updateProgram(
+                mainWindowBridge->getAllCommandsInVector(machineTool->getCommandsManager()),
+                machineTool->getPointsManager(),
+                machineTool->getDevicesManager());
+}*/
+
+/*void MainWindowController::newSMLFile()
+{
+    machineTool->getSMLFilesManager()->new7KamFile();
+    emit commandsUpdated();
+    emit pointsUpdated();
+}*/
+
+/*void MainWindowController::openSMLFile()
+{
+    machineTool->getSMLFilesManager()->open7KamFile();
+    emit commandsUpdated();
+    emit pointsUpdated();
+}*/
+
+/*void MainWindowController::saveSMLFile()
+{
+    machineTool->getSMLFilesManager()->save7KamFile();
+}*/
+
+/*void MainWindowController::saveSMLFileAs()
+{
+    machineTool->getSMLFilesManager()->save7KamFileAs();
+}*/
+
+/*void MainWindowController::addSMLFile()
+{
+    machineTool->getSMLFilesManager()->add7KamFile();
+    emit commandsUpdated();
+    emit pointsUpdated();
+}*/
+
+/*int MainWindowController::getCommandId(QString commandName)
+{
+    return CommandsIds.getId(commandName.toStdString());
+}*/
+
+/*size_t MainWindowController::getCommandsCount()
+{
+    return machineTool->getCommandsManager()->commandsCount();
+}*/
+
+/*void MainWindowController::insertCommand(int id, QStringList arguments, size_t index)
+{
+    std::shared_ptr<SMLCommand> cmd = SMLCommandsBuilder::buildCommand(id, arguments, machineTool->getPointsManager(), machineTool->getDevicesManager());
+    machineTool->getCommandsManager()->insertCommand(index, cmd);
+    emit commandsUpdated();
+}*/
+
+/*QList<QTreeWidgetItem *> MainWindowController::getCommands()
+{
+    return mainWindowBridge->commands(machineTool->getCommandsManager());
+}*/
+
+/*QStringList MainWindowController::getCommandArguments(size_t index)
+{
+    std::shared_ptr<SMLCommand> cmd;
+    try
+    {
+        cmd = machineTool->getCommandsManager()->operator [](index);
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+    return cmd->getArguments();
+}*/
+
+/*void MainWindowController::updateCommand(QStringList arguments, size_t index)
+{
+    machineTool->getCommandsManager()->operator [](index)->setArguments(arguments);
+    emit commandsUpdated();
+}*/
+
+QStringList MainWindowController::getSensorsNames()
+{
+    return mainWindowBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
+}
+
+QStringList MainWindowController::getSensorsParametrsNames()
+{
+    return mainWindowBridge->sensorsParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getSensorsSettings()
+{
+    return mainWindowBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
+}
+
+QList<QColor> MainWindowController::getSensorsLeds()
+{
+    return mainWindowBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
+}
+
+QStringList MainWindowController::getDevicesNames()
+{
+    return mainWindowBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
+}
+
+QStringList MainWindowController::getDevicesParametrsNames()
+{
+    return mainWindowBridge->devicesParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getDevicesSettings()
+{
+    return mainWindowBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
+}
+
+QStringList MainWindowController::getOnScreenDevicesNames()
+{
+    return mainWindowBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
+}
+
+QList<bool> MainWindowController::getOnScreenDevicesStates()
+{
+    return mainWindowBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
+}
+
+QStringList MainWindowController::getAxisesNames()
+{
+    return mainWindowBridge->axisesNames(machineTool->getMovementController()->getAxises());
+}
+
+QStringList MainWindowController::getAxisesParametrsNames()
+{
+    return mainWindowBridge->axisesParametrsNames();
+}
+
+QList<QStringList> MainWindowController::getAxisesSettings()
+{
+    return mainWindowBridge->axisesSettings(machineTool->getMovementController()->getAxises());
+}
+
+QStringList MainWindowController::getOptionsNames()
+{
+    //todo: переписсать метод через модель
+    QStringList optionsNames =
+    {
+        "Кабриоль",
+        "Датчик вылета инструмента",
+        "Станция автоматической смазки"
+    };
+    return optionsNames;
+}
+
+unsigned int MainWindowController::getVelocity()
+{
+    return machineTool->getVelocity();
+}
+
+unsigned int MainWindowController::getSpindelRotations()
+{
+    return machineTool->getSpindelRotations();
+}
+
+QList<QStringList> MainWindowController::getPoints()
+{
+    return mainWindowBridge->points(machineTool->getPointsManager());
+}
+
+QStringList MainWindowController::getPoint(unsigned int number)
+{
+    return mainWindowBridge->point(machineTool->getPointsManager(), number);
 }
