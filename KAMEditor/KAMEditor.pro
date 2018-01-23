@@ -16,26 +16,13 @@ TEMPLATE = app
 CONFIG += c++11
 
 win32 {
-  LIBS += -lglu32 -lopengl32
-  LIBS += -L"$$PWD/libusb/libs"
-  LIBS += -llibusb-1.0.dll
-  LIBS += -L$$PWD/usbxpress/libs/ -lSiUSBXp
-  LIBS += -L$$PWD/kmotion/kmotion_dotnet_interop/lib/ -lKMotion_dotNet_Interop
+  #LIBS += -lglu32 -lopengl32
 }
 macx {
-  LIBS += -framework OpenGl
-  LIBS += -L"$$PWD/libusb/libs"
-  LIBS += -lusb-1.0
+  #LIBS += -framework OpenGl
 }
 unix {
-  LIBS += -lusb-1.0
 }
-
-INCLUDEPATH += $$PWD/usbxpress/include
-DEPENDPATH += $$PWD/usbxpress/include
-
-INCLUDEPATH += $$PWD/kmotion/kmotion_dotnet_interop/include
-DEPENDPATH += $$PWD/kmotion/kmotion_dotnet_interop/include
 
 
 SOURCES += main.cpp\
@@ -72,15 +59,7 @@ SOURCES += main.cpp\
     #models/machinetool/commandsmanager/commands/arc.cpp \
     #models/machinetool/commandsmanager/commands/line.cpp \
     models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.cpp \
-    #models/controllerconnector/usbdevicesmanager/usbdevicesmanager.cpp \
     models/machinetool/pointsmanager/point/point.cpp \
-    #models/controllerconnector/debugmodule/debugmodule.cpp \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.cpp \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/kflop.cpp \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/u1.cpp \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.cpp \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.cpp \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.cpp \
     models/machinetool/sensorsmanager/sensorsmanager.cpp \
     models/machinetool/devicesmanager/devicesmanager.cpp \
     gui/points/toselectionpointdialog.cpp \
@@ -96,8 +75,6 @@ SOURCES += main.cpp\
     gui/widgets/smleditortreewidget.cpp \
     gui/widgets/smlcommandslistwidget.cpp \
     gui/widgets/smlpointstablewidget.cpp \
-    #models/machinetool/pointsmanager/point/pointsbuilder.cpp \
-    #models/controllerconnector/kflopmanager/kflopmanager.cpp \
     gui/logdialog.cpp \
     #models/machinetool/commandsmanager/commands/smlvariable.cpp \
     #gui/commands/smlvariabledialog.cpp \
@@ -114,8 +91,8 @@ SOURCES += main.cpp\
     #gui/commands/smlswitchoffdialog.cpp \
     #gui/commands/smltttarcdialog.cpp \
     models/machinetool/gcodesmanager/gcodesmanager.cpp \
-    #gpr/gcode_program.cpp \
-    #gpr/parser.cpp \
+    gpr/gcode_program.cpp \
+    gpr/parser.cpp \
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp \
     #gui/widgets/gcodesviewwidget.cpp \
     gui/gcodeswebviewdialog.cpp \
@@ -153,17 +130,8 @@ HEADERS  += gui/mainwindow.h \
     #models/machinetool/commandsmanager/commands/arc.h \
     #models/machinetool/commandsmanager/commands/line.h \
     models/machinetool/movementshandler/dimensionsmanager/dimensionsmanager.h \
-    #models/controllerconnector/usbdevicesmanager/usbdevicesmanager.h \
     models/machinetool/pointsmanager/point/point.h \
-    #models/controllerconnector/debugmodule/debugmodule.h \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/usbdevice.h \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/kflop.h \
-    #models/controllerconnector/usbdevicesmanager/usbdevice/u1.h \
     models/machinetool/movementshandler/movementshandler.h \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/usbxpressdevice.h \
-    #dependencies.h \
-    #models/controllerconnector/usbxpressdevicesmanager/usbxpressdevice/silabsu1.h \
     models/machinetool/sensorsmanager/sensorsmanager.h \
     models/machinetool/devicesmanager/devicesmanager.h \
     gui/points/toselectionpointdialog.h \
@@ -180,7 +148,6 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smlcommandslistwidget.h \
     gui/widgets/smlpointstablewidget.h \
     models/machinetool/pointsmanager/point/pointsbuilder.h \
-    #models/controllerconnector/kflopmanager/kflopmanager.h \
     gui/logdialog.h \
     #models/machinetool/commandsmanager/commands/smlvariable.h \
     #gui/commands/smlvariabledialog.h \
@@ -200,10 +167,8 @@ HEADERS  += gui/mainwindow.h \
     #gui/commands/smlswitchoffdialog.h \
     #gui/commands/smltttarcdialog.h \
     models/machinetool/gcodesmanager/gcodesmanager.h \
-    #gpr/gcode_program.h \
-    #gpr/parser.h \
-    #kmotion/kmotion_dotnet_interop/include/KMotion_dotNet_Interop.h \
-    #libusb/include/libusb.h \
+    gpr/gcode_program.h \
+    gpr/parser.h \
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h \
     #gui/widgets/gcodesviewwidget.h \
     gui/gcodeswebviewdialog.h \

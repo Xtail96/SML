@@ -9,8 +9,6 @@
 #include "models/serverconnector/serverconnectionmanager.h"
 
 //#include "models/machinetool/commandsmanager/commands/smlcommandsbuilder.h"
-//#include "models/controllerconnector/usbxpressdevicesmanager/usbxpressdevicemanager.h"
-//#include "models/controllerconnector/kflopmanager/kflopmanager.h"
 
 #include "controllers/mainwindowcontroller/mainwindowbridge/mainwindowbridge.h"
 //#include "controllers/programvisualizewindowcontroller/programvisualizewindowcontroller.h"
