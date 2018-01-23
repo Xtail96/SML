@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef STRUCTS_H
+#define STRUCTS_H
 #include <string>
 #include <vector>
 #include <map>
@@ -337,4 +337,4 @@ struct
 
 } CommandsIds;
 
-#endif // VECTOR_H
+#endif // STRUCTS_H
