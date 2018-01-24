@@ -69,20 +69,29 @@ class ServerConnectionManager : public QObject
 {
     Q_OBJECT
 protected:
-    MachineToolState* currentState;
+    MachineToolState *currentState;
+    QWebSocket *m_webSocket;
+    QUrl m_url;
+    bool m_debug;
 
     void setup(SettingsManager *sm);
+    void setupWebSocket(const QUrl &url, bool debug = false);
 signals:
     void machineToolStateIsChanged();
 
 public:
-    ServerConnectionManager(SettingsManager *sm = nullptr);
+    ServerConnectionManager(const QUrl &url, SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);
 
     std::map<std::string, double> getMachineToolCoordinates();
+
+protected slots:
+    void onConnected();
+    void onDisconnected();
+    void onTextMessageReceived(QString message);
 
 };
 

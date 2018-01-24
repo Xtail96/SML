@@ -85,18 +85,6 @@ signals:
     /// Настройки станка загружены
     void machineToolSettingsIsLoaded();
 
-    /// Контроллер u1 подключен
-    //void u1IsConnected();
-
-    /// Контроллер u1 отключен
-    //void u1IsDisconnected();
-
-    /// Контроллер KFlop подключен
-    //void kflopIsConnected();
-
-    /// Контроллер KFlop отключен
-    //void kflopIsDisconnected();
-
     /// Обновлено состояние станка
     void machineToolStateIsChanged();
 
@@ -113,17 +101,8 @@ public slots:
     /// Слот для загрузки насроек станка
     void loadMachineToolSettings();
 
-    /// Слот для подключения к контроллеру U1
-    //void connectWithU1();
-
-    /// Слот для подключения к контроллеру KFlop
-    //void connectWithKFlop();
-
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateMachineToolState();
-
-    /// Слот для настройки таймера обновления дисплеев
-    //void setupTimer();
 
     void setupMainWindowBridge();
 

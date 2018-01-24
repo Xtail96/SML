@@ -1,7 +1,11 @@
 #include "serverconnectionmanager.h"
 
-ServerConnectionManager::ServerConnectionManager(SettingsManager *sm)
+ServerConnectionManager::ServerConnectionManager(const QUrl &url, SettingsManager *sm, bool debug, QObject *parent) :
+    QObject(parent)
 {
+
+    setupWebSocket(url, debug);
+
     if(sm == nullptr)
     {
         qDebug() << "new SettingsManager instance in server connection manager";
@@ -17,6 +21,8 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm)
 
 ServerConnectionManager::~ServerConnectionManager()
 {
+    m_webSocket->close();
+    delete m_webSocket;
     delete currentState;
 }
 
@@ -31,6 +37,22 @@ void ServerConnectionManager::setup(SettingsManager *sm)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка инициализации подключения к серверу", QString("Ошибка инициализации подключения к серверу!") + QString(e.what())).exec();
     }
+}
+
+void ServerConnectionManager::setupWebSocket(const QUrl &url, bool debug)
+{
+    m_url = url;
+    m_debug = debug;
+    if(m_debug)
+    {
+        qDebug() << "WebSocket Server url is" << m_url.toString();
+    }
+
+    m_webSocket = new QWebSocket();
+    connect(m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(m_webSocket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
+    m_webSocket->open(QUrl(m_url));
 }
 
 
@@ -48,4 +70,30 @@ void ServerConnectionManager::setSensorsState(byte_array value)
 std::map<std::string, double> ServerConnectionManager::getMachineToolCoordinates()
 {
     return currentState->axisesState.getAxisesCoordinates();
+}
+
+void ServerConnectionManager::onConnected()
+{
+    if(m_debug)
+    {
+        qDebug() << "WebSocket connected";
+    }
+    connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
+    m_webSocket->sendTextMessage(QStringLiteral("Hello, world!"));
+}
+
+void ServerConnectionManager::onDisconnected()
+{
+    if(m_debug)
+    {
+        qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
+    }
+}
+
+void ServerConnectionManager::onTextMessageReceived(QString message)
+{
+    if (m_debug)
+    {
+        qDebug() << "Message received:" << message;
+    }
 }
