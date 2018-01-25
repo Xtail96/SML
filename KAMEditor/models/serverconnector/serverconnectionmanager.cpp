@@ -96,7 +96,7 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
 {
     if (m_debug)
     {
-        QMessageBox(QMessageBox::Information, "", "Message recieved" + message).exec();
+        QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
         qDebug() << "Message received:" << message;
     }
 }
