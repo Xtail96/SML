@@ -76,7 +76,6 @@ void ServerConnectionManager::onConnected()
 {
     if(m_debug)
     {
-        QMessageBox(QMessageBox::Information, "", "WebSocket connected").exec();
         qDebug() << "WebSocket connected";
     }
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
@@ -87,7 +86,6 @@ void ServerConnectionManager::onDisconnected()
 {
     if(m_debug)
     {
-        QMessageBox(QMessageBox::Information, "", "WebSocket disconnected").exec();
         qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
     }
 }
