@@ -274,7 +274,7 @@ private slots:
     void on_pointCopyPushButton_clicked();
     void on_toBasePushButton_clicked();
     void on_open_action_triggered();
-    void on_gcodesEditorTextEdit_textChanged();
+    void on_gcodesEditorPlainTextEdit_textChanged();
     void on_importsettings_action_triggered();
     void on_savesettings_action_triggered();
     //void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);

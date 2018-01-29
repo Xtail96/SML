@@ -1035,7 +1035,7 @@ void MainWindow::on_open_action_triggered()
 }
 
 
-void MainWindow::on_gcodesEditorTextEdit_textChanged()
+void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 {
     QString text = ui->gcodesEditorPlainTextEdit->toPlainText();
 }
