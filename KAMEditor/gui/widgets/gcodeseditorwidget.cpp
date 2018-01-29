@@ -68,6 +68,8 @@ void GCodesEditorWidget::highlightCurrentLine()
         QTextEdit::ExtraSelection selection;
 
         QColor lineColor = QColor(Qt::yellow).lighter(160);
+        //QColor lineColor = QColor(Qt::green).lighter(180);
+        //QColor lineColor = QColor("#d2e9f8").lighter();
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
@@ -84,7 +86,7 @@ void GCodesEditorWidget::highlightCurrentLine()
 void GCodesEditorWidget::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), Qt::lightGray);
+    painter.fillRect(event->rect(), QColor(Qt::lightGray).lighter(120));
 
     QTextBlock block = QPlainTextEdit::firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -95,7 +97,7 @@ void GCodesEditorWidget::lineNumberAreaPaintEvent(QPaintEvent *event)
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
             painter.setPen(Qt::black);
-            painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
+            painter.drawText(-1, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignRight, number);
         }
 
