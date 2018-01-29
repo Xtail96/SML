@@ -554,12 +554,7 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_23">
             <item>
-             <widget class="QTextEdit" name="gcodesEditorTextEdit">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
+             <widget class="GCodesEditorWidget" name="gcodesEditorPlainTextEdit">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -5038,6 +5033,11 @@
    <class>SMLPointsTableWidget</class>
    <extends>QTableWidget</extends>
    <header>gui/widgets/smlpointstablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>GCodesEditorWidget</class>
+   <extends>QPlainTextEdit</extends>
+   <header>gui/widgets/gcodeseditorwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

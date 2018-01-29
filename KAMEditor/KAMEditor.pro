@@ -96,7 +96,8 @@ SOURCES += main.cpp\
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp \
     #gui/widgets/gcodesviewwidget.cpp \
     gui/gcodeswebviewdialog.cpp \
-    models/serverconnector/serverconnectionmanager.cpp
+    models/serverconnector/serverconnectionmanager.cpp \
+    gui/widgets/gcodeseditorwidget.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -172,7 +173,8 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h \
     #gui/widgets/gcodesviewwidget.h \
     gui/gcodeswebviewdialog.h \
-    models/serverconnector/serverconnectionmanager.h
+    models/serverconnector/serverconnectionmanager.h \
+    gui/widgets/gcodeseditorwidget.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

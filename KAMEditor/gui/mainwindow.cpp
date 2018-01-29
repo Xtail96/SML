@@ -111,7 +111,7 @@ void MainWindow::setupGCodesSyntaxHighlighter()
 {
     // устанвиливаем подсветку текста в виджете отображения G-кодов
     hightlighter = new GCodesSyntaxHighlighter(this);
-    hightlighter->setDocument(ui->gcodesEditorTextEdit->document());
+    hightlighter->setDocument(ui->gcodesEditorPlainTextEdit->document());
     hightlighter->setPattern();
 }
 
@@ -527,7 +527,7 @@ void MainWindow::updatePointsEditorButtons()
 void MainWindow::updateGCodesEditorWidget()
 {
     QString content = mainWindowController->getGCodesFileContent();
-    ui->gcodesEditorTextEdit->setText(content);
+    ui->gcodesEditorPlainTextEdit->setPlainText(content);
 }
 
 void MainWindow::updateBatteryStatusDisplay()
@@ -1037,7 +1037,7 @@ void MainWindow::on_open_action_triggered()
 
 void MainWindow::on_gcodesEditorTextEdit_textChanged()
 {
-    QString text = ui->gcodesEditorTextEdit->toPlainText();
+    QString text = ui->gcodesEditorPlainTextEdit->toPlainText();
 }
 
 void MainWindow::on_importsettings_action_triggered()
@@ -1178,7 +1178,7 @@ void MainWindow::on_add_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            mainWindowController->addGCodesFile(ui->gcodesEditorTextEdit->toPlainText());
+            mainWindowController->addGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1208,7 +1208,7 @@ void MainWindow::on_save_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            mainWindowController->saveGCodesFile(ui->gcodesEditorTextEdit->toPlainText());
+            mainWindowController->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1223,7 +1223,7 @@ void MainWindow::on_saveas_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            mainWindowController->saveGCodesFileAs(ui->gcodesEditorTextEdit->toPlainText());
+            mainWindowController->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1235,13 +1235,13 @@ void MainWindow::on_connectCommandLinkButton_clicked()
 
 void MainWindow::on_runCommandLinkButton_clicked()
 {
-    QString content = ui->gcodesEditorTextEdit->toPlainText();
+    QString content = ui->gcodesEditorPlainTextEdit->toPlainText();
     mainWindowController->parseGCodes(content);
 }
 
 void MainWindow::on_view_action_triggered()
 {
-    mainWindowController->updateGCodes(ui->gcodesEditorTextEdit->toPlainText());
+    mainWindowController->updateGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     GCodesWebViewDialog(this).exec();
