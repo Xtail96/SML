@@ -99,6 +99,8 @@ signals:
     /// Обновились G-коды
     void gcodesUpdated();
 
+    void filePathUpdated();
+
 public slots:
     /// Слот для загрузки насроек станка
     void loadMachineToolSettings();

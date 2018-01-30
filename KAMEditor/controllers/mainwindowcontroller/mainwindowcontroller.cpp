@@ -174,6 +174,7 @@ void MainWindowController::openGCodesFile()
 {
     machineTool->getGcodesFilesManager()->openGCodesFile();
     emit gcodesUpdated();
+    emit filePathUpdated();
 }
 
 QString MainWindowController::getGCodesFileContent()
@@ -185,18 +186,21 @@ void MainWindowController::saveGCodesFile(const QString data)
 {
     machineTool->getGcodesFilesManager()->setFileContent(data);
     machineTool->getGcodesFilesManager()->saveGCodesFile();
+    emit filePathUpdated();
 }
 
 void MainWindowController::saveGCodesFileAs(const QString data)
 {
     machineTool->getGcodesFilesManager()->setFileContent(data);
     machineTool->getGcodesFilesManager()->saveGCodesFileAs();
+    emit filePathUpdated();
 }
 
 void MainWindowController::newGCodesFile()
 {
     machineTool->getGcodesFilesManager()->newGCodesFile();
     emit gcodesUpdated();
+    emit filePathUpdated();
 }
 
 void MainWindowController::addGCodesFile(const QString data)
@@ -204,6 +208,7 @@ void MainWindowController::addGCodesFile(const QString data)
     saveGCodesFile(data);
     machineTool->getGcodesFilesManager()->addGCodesFile();
     emit gcodesUpdated();
+    emit filePathUpdated();
 }
 
 void MainWindowController::updateGCodes(const QString &data)
