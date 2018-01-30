@@ -58,6 +58,8 @@ public:
     QList<QStringList> getPoints();
     QStringList getPoint(unsigned int number);
 
+    QString getFilePath(QString type = "gcodes");
+
     //int getCommandId(QString commandName);
     //size_t getCommandsCount();
     //void insertCommand(int id, QStringList arguments, size_t index);

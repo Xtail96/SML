@@ -1030,6 +1030,8 @@ void MainWindow::on_open_action_triggered()
         if(ui->gcodesEditorTab->isVisible())
         {
             mainWindowController->openGCodesFile();
+            QString filePath = mainWindowController->getFilePath("gcodes");
+            ui->filePathLineEdit->setText(filePath);
         }
     }
 }
@@ -1194,6 +1196,8 @@ void MainWindow::on_create_action_triggered()
         if(ui->gcodesEditorTab->isVisible())
         {
             mainWindowController->newGCodesFile();
+            QString filePath = mainWindowController->getFilePath("gcodes");
+            ui->filePathLineEdit->setText(filePath);
         }
     }
 }
@@ -1209,6 +1213,8 @@ void MainWindow::on_save_action_triggered()
         if(ui->gcodesEditorTab->isVisible())
         {
             mainWindowController->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
+            QString filePath = mainWindowController->getFilePath("gcodes");
+            ui->filePathLineEdit->setText(filePath);
         }
     }
 }
@@ -1224,6 +1230,8 @@ void MainWindow::on_saveas_action_triggered()
         if(ui->gcodesEditorTab->isVisible())
         {
             mainWindowController->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
+            QString filePath = mainWindowController->getFilePath("gcodes");
+            ui->filePathLineEdit->setText(filePath);
         }
     }
 }

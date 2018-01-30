@@ -768,11 +768,31 @@
            <attribute name="title">
             <string>G-Коды</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_23">
-            <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0" colspan="2">
              <widget class="GCodesEditorWidget" name="gcodesEditorPlainTextEdit">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="filePathLabel">
+              <property name="text">
+               <string>Путь к файлу:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="filePathLineEdit">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="frame">
+               <bool>false</bool>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

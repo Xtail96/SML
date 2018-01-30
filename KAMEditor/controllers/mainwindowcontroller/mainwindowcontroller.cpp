@@ -410,3 +410,20 @@ QStringList MainWindowController::getPoint(unsigned int number)
 {
     return mainWindowBridge->point(machineTool->getPointsManager(), number);
 }
+
+QString MainWindowController::getFilePath(QString type)
+{
+    QString path = "";
+    if(type == "gcodes")
+    {
+        path = machineTool->getGcodesFilesManager()->getFilePath();
+    }
+    else
+    {
+        if(type == "sml")
+        {
+            path = "sml file path";
+        }
+    }
+    return path;
+}
