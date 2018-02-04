@@ -80,7 +80,7 @@ void ServerConnectionManager::onConnected()
     }
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
     connect(m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    m_webSocket->sendTextMessage(QStringLiteral("Hello, world!"));
+    m_webSocket->sendTextMessage(QStringLiteral("@SML-client@"));
 }
 
 void ServerConnectionManager::onDisconnected()
@@ -93,11 +93,9 @@ void ServerConnectionManager::onDisconnected()
 
 void ServerConnectionManager::onTextMessageReceived(QString message)
 {
-    QStringList list = QStringList(message);
-    QJsonArray machineToolState = QJsonArray::fromStringList(list);
     if (m_debug)
     {
-        //QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
+        QMessageBox(QMessageBox::Information, "", "Message recieved: " + message).exec();
         //qDebug() << "Message received:" << machineToolState;
         //emit textMessageReceived(message);
     }
