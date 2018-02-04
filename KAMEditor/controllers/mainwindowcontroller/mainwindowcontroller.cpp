@@ -20,8 +20,10 @@ void MainWindowController::setupMainWindowBridge()
 
 void MainWindowController::setupServerConnection()
 {
+
     serverManager = new ServerConnectionManager(QUrl(QStringLiteral("ws://localhost:1234")), nullptr, true);
     connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
+    connect(serverManager, SIGNAL(messageReceived(QJsonArray)), this, SLOT(sendDebugMessage(QJsonArray)));
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 }
 
@@ -52,6 +54,16 @@ void MainWindowController::testServer(bool on)
         data[2] = byte(0);
     }
     serverManager->setSensorsState(data);
+}
+
+void MainWindowController::sendTextMessgeToServer(QString message)
+{
+    serverManager->sendTextMessage(message);
+}
+
+void MainWindowController::sendDebugMessage(QJsonArray message)
+{
+    emit newDebugMessage(message);
 }
 
 void MainWindowController::exportSettings()

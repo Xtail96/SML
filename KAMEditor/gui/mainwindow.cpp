@@ -1265,3 +1265,8 @@ void MainWindow::on_edgesControlCheckBox_clicked()
         mainWindowController->testServer(false);
     }
 }
+
+void MainWindow::on_consoleOpenPushButton_clicked()
+{
+    SMLConsoleDialog(mainWindowController, this).exec();
+}

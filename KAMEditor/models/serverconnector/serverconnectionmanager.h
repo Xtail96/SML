@@ -77,8 +77,6 @@ protected:
 
     void setup(SettingsManager *sm);
     void setupWebSocket(const QUrl &url, bool debug = false);
-signals:
-    void machineToolStateIsChanged();
 
 public:
     ServerConnectionManager(const QUrl &url, SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
@@ -89,10 +87,16 @@ public:
 
     std::map<std::string, double> getMachineToolCoordinates();
 
+signals:
+    void machineToolStateIsChanged();
+    void messageReceived(QJsonArray machineToolState);
+
 protected slots:
     void onConnected();
     void onDisconnected();
     void onTextMessageReceived(QString message);
+
+public slots:
     void sendTextMessage(QString message);
 };
 

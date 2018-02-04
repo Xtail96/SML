@@ -81,6 +81,7 @@
 #include "controllers/mainwindowcontroller/mainwindowcontroller.h"
 
 #include "gcodeswebviewdialog.h"
+#include "smlconsoledialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -289,6 +290,7 @@ private slots:
     void on_runCommandLinkButton_clicked();
     void on_view_action_triggered();
     void on_edgesControlCheckBox_clicked();
+    void on_consoleOpenPushButton_clicked();
 };
 
 

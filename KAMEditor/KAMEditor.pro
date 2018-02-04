@@ -98,7 +98,8 @@ SOURCES += main.cpp\
     gui/gcodeswebviewdialog.cpp \
     models/serverconnector/serverconnectionmanager.cpp \
     gui/widgets/gcodeseditorwidget.cpp \
-    gui/widgets/console.cpp
+    gui/widgets/console.cpp \
+    gui/smlconsoledialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -176,7 +177,8 @@ HEADERS  += gui/mainwindow.h \
     gui/gcodeswebviewdialog.h \
     models/serverconnector/serverconnectionmanager.h \
     gui/widgets/gcodeseditorwidget.h \
-    gui/widgets/console.h
+    gui/widgets/console.h \
+    gui/smlconsoledialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
@@ -208,7 +210,8 @@ FORMS    += gui/mainwindow.ui \
     #gui/commands/smlswitchondialog.ui \
     #gui/commands/smlswitchoffdialog.ui \
     #gui/commands/smltttarcdialog.ui \
-    gui/gcodeswebviewdialog.ui
+    gui/gcodeswebviewdialog.ui \
+    gui/smlconsoledialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns

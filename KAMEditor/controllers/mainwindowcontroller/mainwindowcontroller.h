@@ -101,6 +101,8 @@ signals:
 
     void filePathUpdated();
 
+    void newDebugMessage(QJsonArray message);
+
 public slots:
     /// Слот для загрузки насроек станка
     void loadMachineToolSettings();
@@ -149,6 +151,8 @@ public slots:
     QList<Point> getMachineToolCoordinates();
 
     void testServer(bool on = true);
+    void sendTextMessgeToServer(QString message);
+    void sendDebugMessage(QJsonArray message);
 
     //friend class ProgramVisualizeWindowController;
 };

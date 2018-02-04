@@ -96,9 +96,10 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
     QJsonArray machineToolState = QJsonArray::fromStringList(list);
     if (m_debug)
     {
-        QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
+        //QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
         qDebug() << "Message received:" << machineToolState;
     }
+    emit messageReceived(machineToolState);
 }
 
 void ServerConnectionManager::sendTextMessage(QString message)
