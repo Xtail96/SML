@@ -23,7 +23,7 @@ void MainWindowController::setupServerConnection()
 
     serverManager = new ServerConnectionManager(QUrl(QStringLiteral("ws://localhost:1234")), nullptr, true);
     connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
-    connect(serverManager, SIGNAL(messageReceived(QJsonArray)), this, SLOT(sendDebugMessage(QJsonArray)));
+    connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(sendDebugMessage(QString)));
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 }
 
@@ -61,9 +61,9 @@ void MainWindowController::sendTextMessgeToServer(QString message)
     serverManager->sendTextMessage(message);
 }
 
-void MainWindowController::sendDebugMessage(QJsonArray message)
+void MainWindowController::sendDebugMessage(QString debugMessage)
 {
-    emit newDebugMessage(message);
+    emit newDebugMessage(debugMessage);
 }
 
 void MainWindowController::exportSettings()
@@ -82,6 +82,11 @@ void MainWindowController::parseGCodes(QString data)
 {
     machineTool->getGcodesManager()->setGcodes(data);
     machineTool->getGcodesManager()->updateGCodesProgram();
+}
+
+void MainWindowController::setServerDebug(bool debug)
+{
+    serverManager->setDebug(debug);
 }
 
 void MainWindowController::switchDevice(QString deviceName)

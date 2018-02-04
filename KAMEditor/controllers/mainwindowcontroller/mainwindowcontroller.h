@@ -22,6 +22,17 @@ class MainWindowController : public QObject
 {
     Q_OBJECT
 
+protected:
+    /*!
+     * \brief Указатель на станок, к которому требуется подключиться
+     */
+    MachineTool* machineTool;
+    ServerConnectionManager* serverManager;
+    /*!
+     * \brief Указатель на мост для связи с классом Главное окно
+     */
+    MainWindowBridge* mainWindowBridge;
+
 public:
     /*!
      * \brief Конструктор класса Контроллер главного окна
@@ -72,16 +83,7 @@ public:
 
     void parseGCodes(QString data);
 
-protected:
-    /*!
-     * \brief Указатель на станок, к которому требуется подключиться
-     */
-    MachineTool* machineTool;
-    ServerConnectionManager* serverManager;
-    /*!
-     * \brief Указатель на мост для связи с классом Главное окно
-     */
-    MainWindowBridge* mainWindowBridge;
+    void setServerDebug(bool debug);
 
 signals:
     /// Настройки станка загружены
@@ -101,7 +103,7 @@ signals:
 
     void filePathUpdated();
 
-    void newDebugMessage(QJsonArray message);
+    void newDebugMessage(QString message);
 
 public slots:
     /// Слот для загрузки насроек станка
@@ -152,7 +154,7 @@ public slots:
 
     void testServer(bool on = true);
     void sendTextMessgeToServer(QString message);
-    void sendDebugMessage(QJsonArray message);
+    void sendDebugMessage(QString debugMessage);
 
     //friend class ProgramVisualizeWindowController;
 };

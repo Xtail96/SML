@@ -98,11 +98,16 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
     {
         //QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
         qDebug() << "Message received:" << machineToolState;
+        emit textMessageReceived(message);
     }
-    emit messageReceived(machineToolState);
 }
 
 void ServerConnectionManager::sendTextMessage(QString message)
 {
     m_webSocket->sendTextMessage(message);
+}
+
+void ServerConnectionManager::setDebug(bool debug)
+{
+    m_debug = debug;
 }

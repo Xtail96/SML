@@ -24,7 +24,7 @@ private:
 
 protected slots:
     void sendCommang(QString cmd);
-    void printResult(QJsonArray result);
+    void printResult(QString result);
 };
 
 #endif // SMLCONSOLEDIALOG_H

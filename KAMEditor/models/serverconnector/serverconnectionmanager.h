@@ -87,9 +87,11 @@ public:
 
     std::map<std::string, double> getMachineToolCoordinates();
 
+    void setDebug(bool debug);
+
 signals:
     void machineToolStateIsChanged();
-    void messageReceived(QJsonArray machineToolState);
+    void textMessageReceived(QString message);
 
 protected slots:
     void onConnected();

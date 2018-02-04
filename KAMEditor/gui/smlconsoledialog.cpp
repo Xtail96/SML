@@ -7,18 +7,20 @@ SMLConsoleDialog::SMLConsoleDialog(MainWindowController *controller, QWidget *pa
     m_controller(controller)
 {
     ui->setupUi(this);
+    m_controller->setServerDebug(true);
     setup();
 }
 
 SMLConsoleDialog::~SMLConsoleDialog()
 {
+    m_controller->setServerDebug(false);
     delete ui;
 }
 
 void SMLConsoleDialog::setup()
 {
     connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(sendCommang(QString)));
-    connect(m_controller, SIGNAL(newDebugMessage(QJsonArray)), this, SLOT(printResult(QJsonArray)));
+    connect(m_controller, SIGNAL(newDebugMessage(QString)), this, SLOT(printResult(QString)));
 }
 
 void SMLConsoleDialog::sendCommang(QString cmd)
@@ -26,10 +28,7 @@ void SMLConsoleDialog::sendCommang(QString cmd)
     m_controller->sendTextMessgeToServer(cmd);
 }
 
-void SMLConsoleDialog::printResult(QJsonArray result)
+void SMLConsoleDialog::printResult(QString result)
 {
-    for(auto i : result)
-    {
-        ui->consolePlainTextEdit->output(i.toString());
-    }
+    ui->consolePlainTextEdit->output(result);
 }
