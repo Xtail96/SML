@@ -3,6 +3,7 @@
 
 #include <QtWebSockets>
 #include <QObject>
+#include <QJsonArray>
 
 #include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"

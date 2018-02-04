@@ -92,9 +92,11 @@ void ServerConnectionManager::onDisconnected()
 
 void ServerConnectionManager::onTextMessageReceived(QString message)
 {
+    QStringList list = QStringList(message);
+    QJsonArray machineToolState = QJsonArray::fromStringList(list);
     if (m_debug)
     {
         QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
-        qDebug() << "Message received:" << message;
+        qDebug() << "Message received:" << machineToolState;
     }
 }
