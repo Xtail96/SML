@@ -3,11 +3,11 @@
 Console::Console(QWidget *parent) :
 	QPlainTextEdit(parent)
 {
-    prompt = "redis> ";
+    prompt = "sml> ";
 
     QPalette p = palette();
-    p.setColor(QPalette::Base, Qt::black);
-    p.setColor(QPalette::Text, Qt::green);
+    p.setColor(QPalette::Base, SmlColors::gray());
+    p.setColor(QPalette::Text, SmlColors::lightGreen());
     setPalette(p);
 
     history = new QStringList;
@@ -63,7 +63,7 @@ void Console::output(QString s)
 {
     textCursor().insertBlock();
     QTextCharFormat format;
-    format.setForeground(Qt::white);
+    format.setForeground(QBrush(QColor(SmlColors::white())));
     textCursor().setBlockCharFormat(format);
     textCursor().insertText(s);
     insertPrompt();
@@ -75,7 +75,7 @@ void Console::insertPrompt(bool insertNewBlock)
     if(insertNewBlock)
 	textCursor().insertBlock();
     QTextCharFormat format;
-    format.setForeground(Qt::green);
+    format.setForeground(QBrush(QColor(SmlColors::lightGreen())));
     textCursor().setBlockCharFormat(format);
     textCursor().insertText(prompt);
     scrollDown();
