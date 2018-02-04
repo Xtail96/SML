@@ -25,7 +25,12 @@ void SMLConsoleDialog::setup()
 
 void SMLConsoleDialog::sendCommang(QString cmd)
 {
-    m_controller->sendTextMessgeToServer(cmd);
+    //m_controller->sendTextMessgeToServer(cmd);
+
+    QByteArray array = cmd.toUtf8();
+    m_controller->sendBinaryMessageToServer(array);
+
+    //qDebug() << "test convert" << QByteArray(cmd, cmd.size());
 }
 
 void SMLConsoleDialog::printResult(QString result)

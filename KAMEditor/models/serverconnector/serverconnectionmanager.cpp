@@ -79,6 +79,7 @@ void ServerConnectionManager::onConnected()
         qDebug() << "WebSocket connected";
     }
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
+    connect(m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
     m_webSocket->sendTextMessage(QStringLiteral("Hello, world!"));
 }
 
@@ -97,14 +98,29 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
     if (m_debug)
     {
         //QMessageBox(QMessageBox::Information, "", "Message recieved " + message).exec();
-        qDebug() << "Message received:" << machineToolState;
-        emit textMessageReceived(message);
+        //qDebug() << "Message received:" << machineToolState;
+        //emit textMessageReceived(message);
     }
+}
+
+void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
+{
+    QJsonDocument document = QJsonDocument::fromJson(message);
+    QJsonObject jsonResponse =  document.object();
+    qDebug() << "Received binary message" << message << "to json-object:"
+             << jsonResponse;
+
+    emit textMessageReceived(QString::fromUtf8(message));
 }
 
 void ServerConnectionManager::sendTextMessage(QString message)
 {
     m_webSocket->sendTextMessage(message);
+}
+
+void ServerConnectionManager::sendBinaryMessage(QByteArray message)
+{
+    m_webSocket->sendBinaryMessage(message);
 }
 
 void ServerConnectionManager::setDebug(bool debug)

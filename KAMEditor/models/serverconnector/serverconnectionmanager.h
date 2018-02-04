@@ -4,6 +4,7 @@
 #include <QtWebSockets>
 #include <QObject>
 #include <QJsonArray>
+#include <QJsonObject>
 
 #include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
@@ -97,9 +98,11 @@ protected slots:
     void onConnected();
     void onDisconnected();
     void onTextMessageReceived(QString message);
+    void onBinaryMessageReceived(QByteArray message);
 
 public slots:
     void sendTextMessage(QString message);
+    void sendBinaryMessage(QByteArray message);
 };
 
 

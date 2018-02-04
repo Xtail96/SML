@@ -154,6 +154,7 @@ public slots:
 
     void testServer(bool on = true);
     void sendTextMessgeToServer(QString message);
+    void sendBinaryMessageToServer(QByteArray message);
     void sendDebugMessage(QString debugMessage);
 
     //friend class ProgramVisualizeWindowController;

@@ -20,7 +20,6 @@ void MainWindowController::setupMainWindowBridge()
 
 void MainWindowController::setupServerConnection()
 {
-
     serverManager = new ServerConnectionManager(QUrl(QStringLiteral("ws://localhost:1234")), nullptr, true);
     connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
     connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(sendDebugMessage(QString)));
@@ -59,6 +58,11 @@ void MainWindowController::testServer(bool on)
 void MainWindowController::sendTextMessgeToServer(QString message)
 {
     serverManager->sendTextMessage(message);
+}
+
+void MainWindowController::sendBinaryMessageToServer(QByteArray message)
+{
+    serverManager->sendBinaryMessage(message);
 }
 
 void MainWindowController::sendDebugMessage(QString debugMessage)
