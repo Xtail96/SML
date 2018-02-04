@@ -100,3 +100,8 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
         qDebug() << "Message received:" << machineToolState;
     }
 }
+
+void ServerConnectionManager::sendTextMessage(QString message)
+{
+    m_webSocket->sendTextMessage(message);
+}

@@ -93,7 +93,7 @@ protected slots:
     void onConnected();
     void onDisconnected();
     void onTextMessageReceived(QString message);
-
+    void sendTextMessage(QString message);
 };
 
 

@@ -97,7 +97,8 @@ SOURCES += main.cpp\
     #gui/widgets/gcodesviewwidget.cpp \
     gui/gcodeswebviewdialog.cpp \
     models/serverconnector/serverconnectionmanager.cpp \
-    gui/widgets/gcodeseditorwidget.cpp
+    gui/widgets/gcodeseditorwidget.cpp \
+    gui/widgets/console.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -174,7 +175,8 @@ HEADERS  += gui/mainwindow.h \
     #gui/widgets/gcodesviewwidget.h \
     gui/gcodeswebviewdialog.h \
     models/serverconnector/serverconnectionmanager.h \
-    gui/widgets/gcodeseditorwidget.h
+    gui/widgets/gcodeseditorwidget.h \
+    gui/widgets/console.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \
