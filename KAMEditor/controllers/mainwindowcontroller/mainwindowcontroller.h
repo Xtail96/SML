@@ -164,6 +164,9 @@ public slots:
     void handleServerIsConnected();
     void handleServerIsDisconnected(QString message);
 
+    void openWebSocketConnection();
+    void stopWebSocketServer();
+
 
     //friend class ProgramVisualizeWindowController;
 };

@@ -100,6 +100,20 @@ void MainWindowController::handleServerIsDisconnected(QString message)
     emit machineToolIsDisconnected(message);
 }
 
+void MainWindowController::openWebSocketConnection()
+{
+    serverManager->openWebSocket();
+}
+
+void MainWindowController::stopWebSocketServer()
+{
+    if(!serverManager->stopServer())
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка подключения", "Не удалось остановить сервер!").exec();
+    }
+
+}
+
 void MainWindowController::exportSettings()
 {
     QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");

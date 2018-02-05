@@ -591,12 +591,18 @@ void MainWindow::updateMachineToolStatusDisplay()
 
 void MainWindow::showMachineToolConnected()
 {
+    ui->connectCommandLinkButton->setEnabled(false);
+    ui->disconnectCommandLinkButton->setEnabled(true);
+
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Machine Tool is connected");
 }
 
 void MainWindow::showMachineToolDisconnected(QString message)
 {
+    ui->connectCommandLinkButton->setEnabled(true);
+    ui->disconnectCommandLinkButton->setEnabled(false);
+
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage(QString("Machine Tool is disconnected with message:") + message);
 }
@@ -1238,9 +1244,10 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 void MainWindow::on_connectCommandLinkButton_clicked()
 {
     //LogDialog(this).exec();
+    mainWindowController->openWebSocketConnection();
 }
 
 void MainWindow::on_disconnectCommandLinkButton_clicked()
 {
-
+    mainWindowController->stopWebSocketServer();
 }
