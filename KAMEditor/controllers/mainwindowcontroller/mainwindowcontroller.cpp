@@ -35,6 +35,8 @@ void MainWindowController::loadMachineToolSettings()
 {
     machineTool = new MachineTool();
     emit machineToolSettingsIsLoaded();
+    updateMachineToolState();
+    emit machineToolIsDisconnected("Силовой блок пока не подключен!");
 }
 
 void MainWindowController::updateMachineToolState()
@@ -57,7 +59,7 @@ void MainWindowController::testServer(bool on)
     {
         data[2] = byte(0);
     }
-    serverManager->setSensorsState(data);
+    //serverManager->setSensorsState(data);
 }
 
 void MainWindowController::sendTextMessgeToServer(QString message)
