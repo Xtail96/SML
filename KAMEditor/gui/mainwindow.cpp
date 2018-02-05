@@ -39,13 +39,32 @@ void MainWindow::setupMainWindowController()
 {
     mainWindowController = new MainWindowController();
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
+
+    connect(mainWindowController, SIGNAL(machineToolIsConnected()), this, SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(showMachineToolDisconnected(QString)));
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(showMachineToolConnected()));
+
+    connect(mainWindowController, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
+    connect(mainWindowController, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
+
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
+
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
+
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
+
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDevicesPanel()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
+    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
+
+    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::setupSettingsWidgets()
 {
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
     connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
     connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 }
@@ -56,13 +75,8 @@ void MainWindow::setupWidgets()
     setupAxisesShortcuts();
     // проводим настройку необходимых виджетов
     setupStatusBar();
-    setupDisplays();
     setupEdgesControl();
     setupCoordinatesDisplay();
-    setupDevicesPanel();
-    setupVelocityPanel();
-    setupSpindelRotationsPanel();
-    setupOptionsPanel();
 
     setupEditorWidgets();
     setupSettingsWidgets();
@@ -89,18 +103,6 @@ void MainWindow::setupStatusBar()
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
-
-    // Подключение слотов для обработки сигналов контроллеров
-    //connect(mainWindowController, SIGNAL(kflopIsConnected()), this, SLOT(showMachineToolConnected()));
-    //connect(mainWindowController, SIGNAL(kflopIsDisconnected()), this, SLOT(showMachineToolDisconnected()));
-    //connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(showMachineToolDisconnected()));
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(showMachineToolConnected()));
-}
-
-void MainWindow::setupDisplays()
-{
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
-    //connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDisplays()));
 }
 
 void MainWindow::setupGCodesSyntaxHighlighter()
@@ -113,19 +115,9 @@ void MainWindow::setupGCodesSyntaxHighlighter()
 
 void MainWindow::setupEditorWidgets()
 {
-    connect(mainWindowController, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
-    connect(mainWindowController, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
-
     setupGCodesSyntaxHighlighter();
     setupPointsEditorWidgets();
     setupEditorFileActionsPushButtons();
-}
-
-void MainWindow::setupDevicesPanel()
-{
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDevicesPanel()));
-    //connect(mainWindowController, SIGNAL(u1IsConnected()), this, SLOT(updateDevicesPanel()));
-    //connect(mainWindowController, SIGNAL(u1IsDisconnected()), this, SLOT(updateDevicesPanel()));
 }
 
 void MainWindow::setupEdgesControl()
@@ -143,8 +135,6 @@ void MainWindow::setupPointsEditorFields()
 
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
     QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
 
@@ -164,21 +154,6 @@ void MainWindow::setupPointsPushButtons()
     connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
     updatePointsEditorButtons();
-}
-
-void MainWindow::setupVelocityPanel()
-{
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
-}
-
-void MainWindow::setupSpindelRotationsPanel()
-{
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
-}
-
-void MainWindow::setupOptionsPanel()
-{
-    connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
 }
 
 void MainWindow::updateSettingsBoards()
@@ -384,7 +359,6 @@ void MainWindow::setupPointsEditorWidgets()
 {
     setupPointsEditorFields();
     setupPointsPushButtons();
-    connect(mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::updateDisplays()
@@ -619,17 +593,12 @@ void MainWindow::showMachineToolConnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Machine Tool is connected");
-
-
-    ui->devicesListWidget->setEnabled(true);
 }
 
-void MainWindow::showMachineToolDisconnected()
+void MainWindow::showMachineToolDisconnected(QString message)
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage("Machine Tool is disconnected");
-
-    ui->devicesListWidget->setEnabled(false);
+    ui->statusBar->showMessage(QString("Machine Tool is disconnected with message:") + message);
 }
 
 void MainWindow::disableMovementButtonsShortcuts()

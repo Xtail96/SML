@@ -20,20 +20,21 @@ SMLConsoleDialog::~SMLConsoleDialog()
 void SMLConsoleDialog::setup()
 {
     connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(sendCommang(QString)));
-    connect(m_controller, SIGNAL(newDebugMessage(QString)), this, SLOT(printResult(QString)));
+    connect(m_controller, SIGNAL(receivedDebugMessage(QString)), this, SLOT(printResult(QString)));
+    connect(m_controller, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(handleMachineToolDisconnected(QString)));
 }
 
 void SMLConsoleDialog::sendCommang(QString cmd)
 {
-    //m_controller->sendTextMessgeToServer(cmd);
-
-    QByteArray array = cmd.toUtf8();
-    m_controller->sendBinaryMessageToServer(array);
-
-    //qDebug() << "test convert" << QByteArray(cmd, cmd.size());
+    m_controller->sendBinaryMessageToServer(cmd.toUtf8());
 }
 
 void SMLConsoleDialog::printResult(QString result)
 {
     ui->consolePlainTextEdit->output(result);
+}
+
+void SMLConsoleDialog::handleMachineToolDisconnected(QString message)
+{
+    ui->consolePlainTextEdit->output(QString("Error: machineTool is disconnected with message:") + message);
 }

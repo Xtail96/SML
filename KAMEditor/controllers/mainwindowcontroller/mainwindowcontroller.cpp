@@ -20,10 +20,15 @@ void MainWindowController::setupMainWindowBridge()
 
 void MainWindowController::setupServerConnection()
 {
+    //connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
+
     serverManager = new ServerConnectionManager(nullptr, true);
     connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
-    connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(sendDebugMessage(QString)));
-    connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
+    connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(handleDebugMessage(QString)));
+    connect(serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(handleDebugMessage(QByteArray)));
+
+    connect(serverManager, SIGNAL(serverIsConnected()), this, SLOT(handleServerIsConnected()));
+    connect(serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(handleServerIsDisconnected(QString)));
 }
 
 void MainWindowController::loadMachineToolSettings()
@@ -57,17 +62,42 @@ void MainWindowController::testServer(bool on)
 
 void MainWindowController::sendTextMessgeToServer(QString message)
 {
-    serverManager->sendTextMessage(message);
+    if(!serverManager->sendTextMessage(message))
+    {
+        QMessageBox(QMessageBox::Warning,
+                    "Ошибка подключения",
+                    QString("Не могу отправить на серевер сообщение") + message).exec();
+    }
 }
 
 void MainWindowController::sendBinaryMessageToServer(QByteArray message)
 {
-    serverManager->sendBinaryMessage(message);
+    if(!serverManager->sendBinaryMessage(message))
+    {
+        QMessageBox(QMessageBox::Warning,
+                    "Ошибка подключения",
+                    QString("Не могу отправить на серевер сообщение") + QString::fromUtf8(message)).exec();
+    }
 }
 
-void MainWindowController::sendDebugMessage(QString debugMessage)
+void MainWindowController::handleDebugMessage(QString debugMessage)
 {
-    emit newDebugMessage(debugMessage);
+    emit receivedDebugMessage(debugMessage);
+}
+
+void MainWindowController::handleDebugMessage(QByteArray debugMessage)
+{
+    emit receivedDebugMessage(QString::fromUtf8(debugMessage));
+}
+
+void MainWindowController::handleServerIsConnected()
+{
+    updateMachineToolState();
+}
+
+void MainWindowController::handleServerIsDisconnected(QString message)
+{
+    emit machineToolIsDisconnected(message);
 }
 
 void MainWindowController::exportSettings()

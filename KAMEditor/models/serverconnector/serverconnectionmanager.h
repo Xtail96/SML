@@ -78,14 +78,14 @@ protected:
     bool m_debug;
 
     void setup(SettingsManager *sm);
-    void startServer();
+    bool startServer();
 
 public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
 
     void openWebSocket();
-    void stopServer();
+    bool stopServer();
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);
@@ -97,6 +97,9 @@ public:
 signals:
     void machineToolStateIsChanged();
     void textMessageReceived(QString message);
+    void binaryMessageReceived(QByteArray message);
+    void serverIsConnected();
+    void serverIsDisconnected(QString message = "Server is disconnected");
 
 protected slots:
     void onConnected();
@@ -105,8 +108,8 @@ protected slots:
     void onBinaryMessageReceived(QByteArray message);
 
 public slots:
-    void sendTextMessage(QString message);
-    void sendBinaryMessage(QByteArray message);
+    bool sendTextMessage(QString message);
+    bool sendBinaryMessage(QByteArray message);
 };
 
 

@@ -130,9 +130,6 @@ private slots:
     /// Слоты для настройки Status Bar
     void setupStatusBar();
 
-    /// Слоты для настройки дисплеев
-    void setupDisplays();
-
     /// Слоты для настройки дисплея координат
     void setupCoordinatesDisplay();
     void setupEdgesControl();
@@ -149,18 +146,6 @@ private slots:
     void setupPointsEditorWidgets();
     void setupPointsEditorFields();
     void setupPointsPushButtons();
-
-    /// Слоты для настройки панели устройств
-    void setupDevicesPanel();
-
-    /// Слоты для настройки панели скорости
-    void setupVelocityPanel();
-
-    /// Cлот для настройки панели оборотов шпинделя
-    void setupSpindelRotationsPanel();
-
-    /// Слот для настройки панели опций
-    void setupOptionsPanel();
 
     /// Слоты для обновления дисплеев
     void updateDisplays();
@@ -235,7 +220,7 @@ private slots:
 
     /// Слоты для отображения поддержки/отсутсвия связи со станком
     void showMachineToolConnected();
-    void showMachineToolDisconnected();
+    void showMachineToolDisconnected(QString message);
 
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();

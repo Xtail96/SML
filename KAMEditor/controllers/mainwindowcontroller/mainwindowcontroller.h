@@ -103,7 +103,10 @@ signals:
 
     void filePathUpdated();
 
-    void newDebugMessage(QString message);
+    void receivedDebugMessage(QString message);
+
+    void machineToolIsConnected();
+    void machineToolIsDisconnected(QString message);
 
 public slots:
     /// Слот для загрузки насроек станка
@@ -155,7 +158,12 @@ public slots:
     void testServer(bool on = true);
     void sendTextMessgeToServer(QString message);
     void sendBinaryMessageToServer(QByteArray message);
-    void sendDebugMessage(QString debugMessage);
+    void handleDebugMessage(QString debugMessage);
+    void handleDebugMessage(QByteArray debugMessage);
+
+    void handleServerIsConnected();
+    void handleServerIsDisconnected(QString message);
+
 
     //friend class ProgramVisualizeWindowController;
 };

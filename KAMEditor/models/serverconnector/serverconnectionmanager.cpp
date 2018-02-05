@@ -32,18 +32,32 @@ ServerConnectionManager::~ServerConnectionManager()
 }
 
 
-void ServerConnectionManager::startServer()
+bool ServerConnectionManager::startServer()
 {
-    system(serverApplicationLocation.toStdString().data());
+    bool serverStarted = false;
+    if(m_webSocket != nullptr)
+    {
+        system(serverApplicationLocation.toStdString().data());
+        serverStarted = true;
+    }
+    return serverStarted;
 }
 
-void ServerConnectionManager::stopServer()
+bool ServerConnectionManager::stopServer()
 {
+    bool serverStopped = false;
     if(m_webSocket != nullptr)
     {
         QByteArray closeCommand = QString("close").toUtf8();
         sendBinaryMessage(closeCommand);
+        serverStopped = true;
+        emit serverIsDisconnected(m_url.toString() + QString(" is disconnected by order"));
     }
+    else
+    {
+        emit serverIsDisconnected(m_url.toString() + QString(" is not accessable"));
+    }
+    return serverStopped;
 }
 
 void ServerConnectionManager::setup(SettingsManager *sm)
@@ -58,7 +72,7 @@ void ServerConnectionManager::setup(SettingsManager *sm)
     }
     catch(std::invalid_argument e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации подключения к серверу", QString("Ошибка инициализации подключения к серверу!") + QString(e.what())).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации подключения к серверу", QString("Ошибка инициализации подключения к серверу! ") + QString(e.what())).exec();
     }
 }
 
@@ -106,6 +120,7 @@ void ServerConnectionManager::onConnected()
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessageReceived(QString)));
     connect(m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
     m_webSocket->sendTextMessage(QStringLiteral("@SML-client@"));
+    emit serverIsConnected();
 }
 
 void ServerConnectionManager::onDisconnected()
@@ -114,6 +129,7 @@ void ServerConnectionManager::onDisconnected()
     {
         qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
     }
+    stopServer();
 }
 
 void ServerConnectionManager::onTextMessageReceived(QString message)
@@ -130,20 +146,44 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
 {
     QJsonDocument document = QJsonDocument::fromJson(message);
     QJsonObject jsonResponse =  document.object();
-    qDebug() << "Received binary message" << message << "to json-object:"
-             << jsonResponse;
 
-    emit textMessageReceived(QString::fromUtf8(message));
+    if(m_debug)
+    {
+        qDebug() << "Received binary message" << message << "to json-object:"
+                 << jsonResponse;
+
+        emit binaryMessageReceived(message);
+    }
 }
 
-void ServerConnectionManager::sendTextMessage(QString message)
+bool ServerConnectionManager::sendTextMessage(QString message)
 {
-    m_webSocket->sendTextMessage(message);
+    bool messageSent = false;
+    if(m_webSocket != nullptr)
+    {
+        m_webSocket->sendTextMessage(message);
+        messageSent = true;
+    }
+    else
+    {
+        emit serverIsDisconnected(QString("Can not send text message:") + message);
+    }
+    return messageSent;
 }
 
-void ServerConnectionManager::sendBinaryMessage(QByteArray message)
+bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
 {
-    m_webSocket->sendBinaryMessage(message);
+    bool messageSent = false;
+    if(m_webSocket != nullptr)
+    {
+        m_webSocket->sendBinaryMessage(message);
+        messageSent = true;
+    }
+    else
+    {
+        emit serverIsDisconnected(QString("Can not send byte message:") + QString::fromUtf8(message));
+    }
+    return messageSent;
 }
 
 void ServerConnectionManager::setDebug(bool debug)
