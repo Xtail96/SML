@@ -1,11 +1,10 @@
 #include "serverconnectionmanager.h"
 
-ServerConnectionManager::ServerConnectionManager(const QUrl &url, SettingsManager *sm, bool debug, QObject *parent) :
-    QObject(parent)
+ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug, QObject *parent) :
+    QObject(parent),
+    m_webSocket(nullptr),
+    m_debug(debug)
 {
-
-    setupWebSocket(url, debug);
-
     if(sm == nullptr)
     {
         qDebug() << "new SettingsManager instance in server connection manager";
@@ -17,13 +16,34 @@ ServerConnectionManager::ServerConnectionManager(const QUrl &url, SettingsManage
     {
         setup(sm);
     }
+
+    openWebSocket();
 }
 
 ServerConnectionManager::~ServerConnectionManager()
 {
-    m_webSocket->close();
-    delete m_webSocket;
+    if(m_webSocket != nullptr)
+    {
+        stopServer();
+        m_webSocket->close();
+        delete m_webSocket;
+    }
     delete currentState;
+}
+
+
+void ServerConnectionManager::startServer()
+{
+    system(serverApplicationLocation.toStdString().data());
+}
+
+void ServerConnectionManager::stopServer()
+{
+    if(m_webSocket != nullptr)
+    {
+        QByteArray closeCommand = QString("close").toUtf8();
+        sendBinaryMessage(closeCommand);
+    }
 }
 
 void ServerConnectionManager::setup(SettingsManager *sm)
@@ -32,6 +52,9 @@ void ServerConnectionManager::setup(SettingsManager *sm)
     {
         size_t axisesCount = sm->get("MachineToolInformation", "AxisesCount").toUInt();
         currentState = new MachineToolState(axisesCount, 16);
+
+        m_url = QUrl(sm->get("MachineToolInformation", "ServerAddress").toString());
+        serverApplicationLocation = sm->get("MachineToolInformation", "ServerApplicationLocation").toString();
     }
     catch(std::invalid_argument e)
     {
@@ -39,20 +62,22 @@ void ServerConnectionManager::setup(SettingsManager *sm)
     }
 }
 
-void ServerConnectionManager::setupWebSocket(const QUrl &url, bool debug)
+void ServerConnectionManager::openWebSocket()
 {
-    m_url = url;
-    m_debug = debug;
-    if(m_debug)
+    //startServer();
+    if(!m_url.isEmpty())
     {
-        qDebug() << "WebSocket Server url is" << m_url.toString();
+        if(m_debug)
+        {
+            qDebug() << "WebSocket Server url is" << m_url.toString();
+        }
+
+        m_webSocket = new QWebSocket();
+        connect(m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
+        connect(m_webSocket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
+        m_webSocket->open(QUrl(m_url));
     }
-
-    m_webSocket = new QWebSocket();
-    connect(m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
-    connect(m_webSocket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
-
-    m_webSocket->open(QUrl(m_url));
 }
 
 

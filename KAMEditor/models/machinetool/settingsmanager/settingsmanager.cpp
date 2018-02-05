@@ -106,6 +106,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("VendorId", 0x10c4);
         settings->setValue("ProductId", 0xea61);
         settings->setValue("Name", "semil");
+        settings->setValue("ServerAddress", "ws://localhost:1234");
+        settings->setValue("ServerApplicationLocation", "/Users/Xtail/Projects/SMLKAMEditorServer/build-KAMEditorServer-Desktop_Qt_5_9_0_clang_64bit-Release/KAMEditorServer");
         settings->setValue("PackageSize", 16);
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);

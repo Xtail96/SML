@@ -75,13 +75,17 @@ protected:
     QWebSocket *m_webSocket;
     QUrl m_url;
     bool m_debug;
+    QString serverApplicationLocation;
 
     void setup(SettingsManager *sm);
-    void setupWebSocket(const QUrl &url, bool debug = false);
+    void startServer();
 
 public:
-    ServerConnectionManager(const QUrl &url, SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
+    ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
+
+    void openWebSocket();
+    void stopServer();
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);

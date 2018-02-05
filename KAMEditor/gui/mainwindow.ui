@@ -4732,6 +4732,17 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="consoleOpenPushButton">
+             <property name="text">
+              <string>Открыть консоль</string>
+             </property>
+             <property name="icon">
+              <iconset resource="images.qrc">
+               <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_4">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -4743,17 +4754,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="consoleOpenPushButton">
-             <property name="text">
-              <string>Открыть консоль</string>
-             </property>
-             <property name="icon">
-              <iconset resource="images.qrc">
-               <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
-             </property>
-            </widget>
            </item>
            <item>
             <widget class="QCommandLinkButton" name="connectCommandLinkButton">

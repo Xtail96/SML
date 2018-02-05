@@ -20,7 +20,7 @@ void MainWindowController::setupMainWindowBridge()
 
 void MainWindowController::setupServerConnection()
 {
-    serverManager = new ServerConnectionManager(QUrl(QStringLiteral("ws://localhost:1234")), nullptr, true);
+    serverManager = new ServerConnectionManager(nullptr, true);
     connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
     connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(sendDebugMessage(QString)));
     connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));

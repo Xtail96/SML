@@ -1235,11 +1235,6 @@ void MainWindow::on_saveas_action_triggered()
     }
 }
 
-void MainWindow::on_connectCommandLinkButton_clicked()
-{
-    LogDialog(this).exec();
-}
-
 void MainWindow::on_runCommandLinkButton_clicked()
 {
     QString content = ui->gcodesEditorPlainTextEdit->toPlainText();
@@ -1269,4 +1264,14 @@ void MainWindow::on_edgesControlCheckBox_clicked()
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
     SMLConsoleDialog(mainWindowController, this).exec();
+}
+
+void MainWindow::on_connectCommandLinkButton_clicked()
+{
+    //LogDialog(this).exec();
+}
+
+void MainWindow::on_disconnectCommandLinkButton_clicked()
+{
+
 }
