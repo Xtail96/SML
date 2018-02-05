@@ -74,8 +74,8 @@ protected:
     MachineToolState *currentState;
     QWebSocket *m_webSocket;
     QUrl m_url;
-    bool m_debug;
     QString serverApplicationLocation;
+    bool m_debug;
 
     void setup(SettingsManager *sm);
     void startServer();
