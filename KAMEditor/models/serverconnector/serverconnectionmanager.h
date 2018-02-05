@@ -79,7 +79,6 @@ protected:
 
     void setup(SettingsManager *sm);
     bool startServer();
-    void closeSocket();
 
 public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);

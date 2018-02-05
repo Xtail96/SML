@@ -28,7 +28,12 @@ ServerConnectionManager::~ServerConnectionManager()
                     "Пожалуйста, откройте диспетчер задач и закройте его вручную.").exec();
     }
 
-    closeSocket();
+    if(m_webSocket != nullptr)
+    {
+        m_webSocket->close();
+        delete m_webSocket;
+    }
+
     delete currentState;
 }
 
@@ -78,15 +83,6 @@ bool ServerConnectionManager::stopServer()
     return serverStopped;
 }
 
-void ServerConnectionManager::closeSocket()
-{
-    if(m_webSocket != nullptr)
-    {
-        m_webSocket->close();
-        m_webSocket->deleteLater();
-    }
-}
-
 void ServerConnectionManager::onConnected()
 {
     if(m_debug)
@@ -101,7 +97,6 @@ void ServerConnectionManager::onConnected()
 
 void ServerConnectionManager::onDisconnected()
 {
-    //closeSocket();
     if(m_debug)
     {
         qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
@@ -199,7 +194,7 @@ bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
     }
     else
     {
-        emit serverIsDisconnected(QString("Can not send byte message:") + QString::fromUtf8(message));
+        emit serverIsDisconnected(QString("Can not send byte message: ") + QString::fromUtf8(message));
     }
     return messageSent;
 }
