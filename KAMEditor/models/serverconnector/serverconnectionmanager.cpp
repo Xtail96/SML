@@ -44,8 +44,8 @@ void ServerConnectionManager::setup(SettingsManager *sm)
         size_t axisesCount = sm->get("MachineToolInformation", "AxisesCount").toUInt();
         currentState = new MachineToolState(axisesCount, 16);
 
-        m_url = QUrl(sm->get("MachineToolInformation", "ServerAddress").toString());
-        serverApplicationLocation = sm->get("MachineToolInformation", "ServerApplicationLocation").toString();
+        m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
+        serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
     }
     catch(std::invalid_argument e)
     {
