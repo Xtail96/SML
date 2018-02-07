@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QProcess>
 
 #include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
@@ -71,10 +72,13 @@ class ServerConnectionManager : public QObject
 {
     Q_OBJECT
 protected:
+    QProcess *m_server;
+    QUrl m_url;
+    QString m_serverApplicationLocation;
+
+
     MachineToolState *currentState;
     QWebSocket *m_webSocket;
-    QUrl m_url;
-    QString serverApplicationLocation;
     bool m_debug;
 
     void setup(SettingsManager *sm);

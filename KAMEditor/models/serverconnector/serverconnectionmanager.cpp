@@ -2,6 +2,7 @@
 
 ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug, QObject *parent) :
     QObject(parent),
+    m_server(nullptr),
     m_webSocket(nullptr),
     m_debug(debug)
 {
@@ -28,6 +29,11 @@ ServerConnectionManager::~ServerConnectionManager()
                     "Пожалуйста, откройте диспетчер задач и закройте его вручную.").exec();
     }
 
+    if(m_server != nullptr)
+    {
+        delete m_server;
+    }
+
     if(m_webSocket != nullptr)
     {
         m_webSocket->close();
@@ -45,7 +51,7 @@ void ServerConnectionManager::setup(SettingsManager *sm)
         currentState = new MachineToolState(axisesCount, 16);
 
         m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
-        serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
+        m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
     }
     catch(std::invalid_argument e)
     {
@@ -56,12 +62,16 @@ void ServerConnectionManager::setup(SettingsManager *sm)
 bool ServerConnectionManager::startServer()
 {
     bool serverStarted = false;
-    if(m_webSocket != nullptr)
+    QStringList arguments;
+    m_server = new QProcess();
+    m_server->start(m_serverApplicationLocation, arguments);
+    if(m_server->isOpen())
     {
-        system(serverApplicationLocation.toStdString().data());
+        qDebug() << "server is started";
         serverStarted = true;
     }
     return serverStarted;
+    //system(serverApplicationLocation.toStdString().data());
 }
 
 bool ServerConnectionManager::stopServer()
@@ -106,7 +116,7 @@ void ServerConnectionManager::onDisconnected()
 
 void ServerConnectionManager::openWebSocket()
 {
-    //startServer();
+    startServer();
     if(!m_url.isEmpty())
     {
         if(m_debug)
