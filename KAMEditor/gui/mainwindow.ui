@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
-    <height>795</height>
+    <width>1578</width>
+    <height>808</height>
    </rect>
   </property>
   <property name="palette">
@@ -2449,8 +2449,22 @@
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_15">
-           <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QCommandLinkButton" name="connectCommandLinkButton">
+             <property name="text">
+              <string>Подключить силовой блок</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCommandLinkButton" name="disconnectCommandLinkButton">
+             <property name="text">
+              <string>Отключить силовой блок</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QListWidget" name="devicesListWidget">
              <property name="font">
               <font>
@@ -2465,7 +2479,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item>
             <widget class="QFrame" name="controlButtonsFrame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -2627,7 +2641,7 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item>
             <widget class="QFrame" name="runFrame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -4755,20 +4769,6 @@
              </property>
             </spacer>
            </item>
-           <item>
-            <widget class="QCommandLinkButton" name="connectCommandLinkButton">
-             <property name="text">
-              <string>Подключить силовой блок</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCommandLinkButton" name="disconnectCommandLinkButton">
-             <property name="text">
-              <string>Отключить силовой блок</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>
@@ -4783,8 +4783,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1366</width>
-     <height>22</height>
+     <width>1578</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
