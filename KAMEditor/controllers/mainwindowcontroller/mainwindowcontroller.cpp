@@ -107,13 +107,9 @@ void MainWindowController::openWebSocketConnection()
     serverManager->openWebSocket();
 }
 
-void MainWindowController::stopWebSocketServer()
+void MainWindowController::closeWebSocketConnection()
 {
-    if(!serverManager->stopServer())
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка подключения", "Не удалось остановить сервер!").exec();
-    }
-
+    serverManager->closeWebSocket();
 }
 
 void MainWindowController::exportSettings()

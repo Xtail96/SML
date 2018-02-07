@@ -1249,5 +1249,5 @@ void MainWindow::on_connectCommandLinkButton_clicked()
 
 void MainWindow::on_disconnectCommandLinkButton_clicked()
 {
-    mainWindowController->stopWebSocketServer();
+    mainWindowController->closeWebSocketConnection();
 }

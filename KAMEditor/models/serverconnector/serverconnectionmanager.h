@@ -83,13 +83,14 @@ protected:
 
     void setup(SettingsManager *sm);
     bool startServer();
+    int stopServer();
 
 public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
 
     void openWebSocket();
-    bool stopServer();
+    void closeWebSocket();
 
     byte_array getSensorsState();
     void setSensorsState(byte_array value);

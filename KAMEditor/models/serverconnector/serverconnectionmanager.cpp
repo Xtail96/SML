@@ -2,7 +2,7 @@
 
 ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug, QObject *parent) :
     QObject(parent),
-    m_server(nullptr),
+    m_server(new QProcess()),
     m_webSocket(nullptr),
     m_debug(debug)
 {
@@ -17,28 +17,34 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug
     {
         setup(sm);
     }
+
+    if(startServer())
+    {
+        //QMessageBox(QMessageBox::Information, "Информация", "Сервер для подключений запущен.").exec();
+    }
+    else
+    {
+        QMessageBox(QMessageBox::Information, "Информация", "Не могу запустить сервер! Пожалуйста проверьте конфигурационный файл.").exec();
+    }
 }
 
 ServerConnectionManager::~ServerConnectionManager()
 {
-    if(!stopServer())
-    {
-        QMessageBox(QMessageBox::Warning,
-                    "Ошибка",
-                    "По каким-то причинам сервер не смог самостоятельно завершить работу."
-                    "Пожалуйста, откройте диспетчер задач и закройте его вручную.").exec();
-    }
+    // Отключаем сокет
+    closeWebSocket();
+    delete m_webSocket;
 
-    if(m_server != nullptr)
-    {
-        delete m_server;
-    }
 
-    if(m_webSocket != nullptr)
+    // Завершаем процесс сервер
+    if(stopServer() != QProcess::NormalExit)
     {
-        m_webSocket->close();
-        delete m_webSocket;
+        if(m_debug)
+        {
+            qDebug() << "Сервер не смог корректно завершить работу!";
+        }
+        //QMessageBox(QMessageBox::Warning, "Ошибка", "Сервер не смог корректно завершить работу!").exec();
     }
+    delete m_server;
 
     delete currentState;
 }
@@ -63,34 +69,63 @@ bool ServerConnectionManager::startServer()
 {
     bool serverStarted = false;
     QStringList arguments;
-    m_server = new QProcess();
     m_server->start(m_serverApplicationLocation, arguments);
     if(m_server->isOpen())
     {
-        qDebug() << "server is started";
         serverStarted = true;
+        if(m_debug)
+        {
+            qDebug() << "Server" << m_serverApplicationLocation << "with url =" << m_url << "is started";
+        }
     }
     return serverStarted;
-    //system(serverApplicationLocation.toStdString().data());
 }
 
-bool ServerConnectionManager::stopServer()
+int ServerConnectionManager::stopServer()
 {
-    qDebug() << "stop server";
-    bool serverStopped = false;
-    if(m_webSocket != nullptr)
+    //m_server->kill();
+    //m_server->terminate();
+    m_server->close();
+    m_server->waitForFinished(-1);
+    int normalExit = QProcess::NormalExit;
+    qDebug() << m_server->exitCode() << normalExit;
+    return m_server->exitCode();
+}
+
+void ServerConnectionManager::openWebSocket()
+{
+    if(!m_url.isEmpty() && m_server->isOpen())
     {
-        QByteArray closeCommand = QString("close").toUtf8();
-        sendBinaryMessage(closeCommand);
-        serverStopped = true;
-        emit serverIsDisconnected(m_url.toString() + QString(" is disconnected by order"));
+        if(m_debug)
+        {
+            qDebug() << "WebSocket Server url is" << m_url.toString() << m_server->isOpen();
+        }
+
+        if(m_webSocket != nullptr)
+        {
+            m_webSocket->close();
+            m_webSocket = nullptr;
+        }
+
+        m_webSocket = new QWebSocket();
+        connect(m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
+        connect(m_webSocket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
+        m_webSocket->open(QUrl(m_url));
     }
     else
     {
-        serverStopped = true;
-        emit serverIsDisconnected(m_url.toString() + QString(" is not accessable"));
+        QMessageBox(QMessageBox::Warning, "Ошибка подключения", "Не могу установить связь с сервером!").exec();
     }
-    return serverStopped;
+}
+
+void ServerConnectionManager::closeWebSocket()
+{
+    if(m_debug)
+    {
+        qDebug() << "Close current socket";
+    }
+    m_webSocket->close();
 }
 
 void ServerConnectionManager::onConnected()
@@ -113,31 +148,6 @@ void ServerConnectionManager::onDisconnected()
     }
     emit serverIsDisconnected();
 }
-
-void ServerConnectionManager::openWebSocket()
-{
-    startServer();
-    if(!m_url.isEmpty())
-    {
-        if(m_debug)
-        {
-            qDebug() << "WebSocket Server url is" << m_url.toString();
-        }
-
-        if(m_webSocket != nullptr)
-        {
-            m_webSocket->close();
-            m_webSocket = nullptr;
-        }
-
-        m_webSocket = new QWebSocket();
-        connect(m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
-        connect(m_webSocket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
-
-        m_webSocket->open(QUrl(m_url));
-    }
-}
-
 
 byte_array ServerConnectionManager::getSensorsState()
 {
