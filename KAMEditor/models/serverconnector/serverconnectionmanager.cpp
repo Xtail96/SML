@@ -48,9 +48,6 @@ void ServerConnectionManager::setup(SettingsManager *sm)
 
         m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
         m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
-
-        //connect(m_server, SIGNAL(started()), this, SLOT(openWebSocket()));
-        //connect(m_server, SIGNAL(finished(int)), this, SLOT(closeWebSocket()));
     }
     catch(std::invalid_argument e)
     {
@@ -90,27 +87,19 @@ bool ServerConnectionManager::startServer()
 
 int ServerConnectionManager::stopServer()
 {
-    if(m_webSocket != nullptr)
-    {
-        QString exitMessage = "close";
-        sendBinaryMessage(exitMessage.toUtf8());
-    }
-
     qDebug() << m_server->state();
-
     if(m_server->state() != QProcess::ProcessState::NotRunning)
     {
         m_server->close();
         m_server->waitForFinished(-1);
     }
-
     qDebug() << m_server->state();
     return m_server->exitCode();
 }
 
 void ServerConnectionManager::openWebSocket()
 {
-    if(!m_url.isEmpty() && m_server->isOpen())
+    if(!m_url.isEmpty())
     {
         if(m_debug)
         {
@@ -196,13 +185,12 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
 
 void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
 {
-    QJsonDocument document = QJsonDocument::fromJson(message);
-    QJsonObject jsonResponse =  document.object();
-
+    //QJsonDocument document = QJsonDocument::fromJson(message);
+    //QJsonObject jsonResponse =  document.object();
     if(m_debug)
     {
-        qDebug() << "Received binary message" << message << "to json-object:"
-                 << jsonResponse;
+        /*qDebug() << "Received binary message" << message << "to json-object:"
+                 << jsonResponse;*/
 
         emit binaryMessageReceived(message);
     }
