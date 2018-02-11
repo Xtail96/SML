@@ -9,6 +9,7 @@
 
 #include "models/structs.h"
 #include "models/machinetool/settingsmanager/settingsmanager.h"
+#include "jsonparser/json.h"
 
 struct AxisesStateList
 {
@@ -114,6 +115,8 @@ public slots:
     void closeWebSocket();
     bool sendTextMessage(QString message);
     bool sendBinaryMessage(QByteArray message);
+
+    void testJsonParser();
 };
 
 

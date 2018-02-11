@@ -99,7 +99,8 @@ SOURCES += main.cpp\
     models/serverconnector/serverconnectionmanager.cpp \
     gui/widgets/gcodeseditorwidget.cpp \
     gui/widgets/console.cpp \
-    gui/smlconsoledialog.cpp
+    gui/smlconsoledialog.cpp \
+    jsonparser/json.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/points/addpointdialog.h \
@@ -178,7 +179,8 @@ HEADERS  += gui/mainwindow.h \
     models/serverconnector/serverconnectionmanager.h \
     gui/widgets/gcodeseditorwidget.h \
     gui/widgets/console.h \
-    gui/smlconsoledialog.h
+    gui/smlconsoledialog.h \
+    jsonparser/json.h
 
 FORMS    += gui/mainwindow.ui \
     gui/points/addpointdialog.ui \

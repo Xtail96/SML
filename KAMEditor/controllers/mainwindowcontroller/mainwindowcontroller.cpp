@@ -60,6 +60,8 @@ void MainWindowController::testServer(bool on)
         data[2] = byte(0);
     }
     //serverManager->setSensorsState(data);
+
+    serverManager->testJsonParser();
 }
 
 void MainWindowController::sendTextMessgeToServer(QString message)

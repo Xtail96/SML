@@ -186,6 +186,30 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
 
         emit binaryMessageReceived(message);
     }
+
+    bool ok;
+    QString json = QString::fromUtf8(message);
+    QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
+    if(ok)
+    {
+        qDebug() << "success";
+        qDebug() << "encoding:" << result["encoding"].toString();
+        qDebug() << "plugins:";
+
+        foreach(QVariant plugin, result["plug-ins"].toList()) {
+            qDebug() << "  -" << plugin.toString();
+        }
+
+        QtJson::JsonObject nested = result["indent"].toMap();
+        qDebug() << "length:" << nested["length"].toInt();
+        qDebug() << "use_space:" << nested["use_space"].toBool();
+    }
+    else
+    {
+        qDebug() << "an error is occured";
+    }
+
+
 }
 
 bool ServerConnectionManager::sendTextMessage(QString message)
@@ -216,6 +240,27 @@ bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
         emit serverIsDisconnected(QString("Can not send byte message: ") + QString::fromUtf8(message));
     }
     return messageSent;
+}
+
+void ServerConnectionManager::testJsonParser()
+{
+    QtJson::JsonObject message;
+    message["encoding"] = "utf-8";
+
+    QtJson::JsonArray plugins;
+    plugins.append("c++");
+    plugins.append("python");
+    plugins.append("ruby");
+    message["plug-ins"] = plugins;
+
+    QtJson::JsonObject indent;
+    indent["length"] = 3;
+    indent["use_space"] = true;
+
+    message["indent"] = indent;
+
+    QByteArray data = QtJson::serialize(message);
+    sendBinaryMessage(data);
 }
 
 void ServerConnectionManager::setDebug(bool debug)
