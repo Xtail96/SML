@@ -27,12 +27,12 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug
 
 ServerConnectionManager::~ServerConnectionManager()
 {
-    // Отключаем сокет
-    closeWebSocket();
-
     // Завершаем процесс сервер
     int exitCode = stopServer();
     qDebug() << "Сервер завершил работу с кодом" << exitCode;
+
+    // Отключаем сокет
+    closeWebSocket();
 
     delete m_webSocket;
     delete m_server;
@@ -60,31 +60,51 @@ void ServerConnectionManager::setup(SettingsManager *sm)
 
 bool ServerConnectionManager::startServer()
 {
-    bool serverStarted = false;
+    bool serverRunning = false;
     QStringList arguments;
-    m_server->start(m_serverApplicationLocation, arguments);
-    if(m_server->isOpen())
+    if(m_server->state() == QProcess::ProcessState::NotRunning)
     {
-        serverStarted = true;
-        if(m_debug)
+        m_server->start(m_serverApplicationLocation, arguments);
+        if(m_server->state() == QProcess::ProcessState::Starting || m_server->state() == QProcess::ProcessState::Running)
         {
-            qDebug() << "Server" << m_serverApplicationLocation << "with url =" << m_url << "is started";
+            serverRunning = true;
+            if(m_debug)
+            {
+                qDebug() << "Server" << m_serverApplicationLocation << "with url =" << m_url << "is started";
+            }
+        }
+        else
+        {
+            if(m_debug)
+            {
+                qDebug() << "Can not start server" << m_serverApplicationLocation << "with url =" << m_url;
+            }
         }
     }
     else
     {
-        if(m_debug)
-        {
-            qDebug() << "Can not start server" << m_serverApplicationLocation << "with url =" << m_url;
-        }
+        serverRunning = true;
     }
-    return serverStarted;
+    return serverRunning;
 }
 
 int ServerConnectionManager::stopServer()
 {
-    m_server->close();
-    m_server->waitForFinished(-1);
+    if(m_webSocket != nullptr)
+    {
+        QString exitMessage = "close";
+        sendBinaryMessage(exitMessage.toUtf8());
+    }
+
+    qDebug() << m_server->state();
+
+    if(m_server->state() != QProcess::ProcessState::NotRunning)
+    {
+        m_server->close();
+        m_server->waitForFinished(-1);
+    }
+
+    qDebug() << m_server->state();
     return m_server->exitCode();
 }
 
