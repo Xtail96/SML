@@ -18,13 +18,10 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug
         setup(sm);
     }
 
-    if(startServer())
+    if(!startServer())
     {
-        //QMessageBox(QMessageBox::Information, "Информация", "Сервер для подключений запущен.").exec();
-    }
-    else
-    {
-        QMessageBox(QMessageBox::Information, "Информация", "Не могу запустить сервер! Пожалуйста проверьте конфигурационный файл.").exec();
+        QMessageBox(QMessageBox::Information, "Информация",
+                    "Не могу запустить сервер! Пожалуйста проверьте конфигурационный файл.").exec();
     }
 }
 
@@ -32,20 +29,13 @@ ServerConnectionManager::~ServerConnectionManager()
 {
     // Отключаем сокет
     closeWebSocket();
-    delete m_webSocket;
-
 
     // Завершаем процесс сервер
-    if(stopServer() != QProcess::NormalExit)
-    {
-        if(m_debug)
-        {
-            qDebug() << "Сервер не смог корректно завершить работу!";
-        }
-        //QMessageBox(QMessageBox::Warning, "Ошибка", "Сервер не смог корректно завершить работу!").exec();
-    }
-    delete m_server;
+    int exitCode = stopServer();
+    qDebug() << "Сервер завершил работу с кодом" << exitCode;
 
+    delete m_webSocket;
+    delete m_server;
     delete currentState;
 }
 
@@ -58,6 +48,9 @@ void ServerConnectionManager::setup(SettingsManager *sm)
 
         m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
         m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
+
+        //connect(m_server, SIGNAL(started()), this, SLOT(openWebSocket()));
+        //connect(m_server, SIGNAL(finished(int)), this, SLOT(closeWebSocket()));
     }
     catch(std::invalid_argument e)
     {
@@ -78,17 +71,20 @@ bool ServerConnectionManager::startServer()
             qDebug() << "Server" << m_serverApplicationLocation << "with url =" << m_url << "is started";
         }
     }
+    else
+    {
+        if(m_debug)
+        {
+            qDebug() << "Can not start server" << m_serverApplicationLocation << "with url =" << m_url;
+        }
+    }
     return serverStarted;
 }
 
 int ServerConnectionManager::stopServer()
 {
-    //m_server->kill();
-    //m_server->terminate();
     m_server->close();
     m_server->waitForFinished(-1);
-    int normalExit = QProcess::NormalExit;
-    qDebug() << m_server->exitCode() << normalExit;
     return m_server->exitCode();
 }
 
@@ -98,7 +94,7 @@ void ServerConnectionManager::openWebSocket()
     {
         if(m_debug)
         {
-            qDebug() << "WebSocket Server url is" << m_url.toString() << m_server->isOpen();
+            qDebug() << "WebSocket Server url is" << m_url.toString();
         }
 
         if(m_webSocket != nullptr)
@@ -121,11 +117,14 @@ void ServerConnectionManager::openWebSocket()
 
 void ServerConnectionManager::closeWebSocket()
 {
-    if(m_debug)
+    if(m_webSocket != nullptr)
     {
-        qDebug() << "Close current socket";
+        if(m_debug)
+        {
+            qDebug() << "Close current socket";
+        }
+        m_webSocket->close();
     }
-    m_webSocket->close();
 }
 
 void ServerConnectionManager::onConnected()
@@ -169,8 +168,8 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
 {
     if (m_debug)
     {
-        QMessageBox(QMessageBox::Information, "", "Message recieved: " + message).exec();
-        //qDebug() << "Message received:" << machineToolState;
+        //QMessageBox(QMessageBox::Information, "", "Message recieved: " + message).exec();
+        qDebug() << "Message received:" << message;
         //emit textMessageReceived(message);
     }
 }

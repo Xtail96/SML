@@ -89,9 +89,6 @@ public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
 
-    void openWebSocket();
-    void closeWebSocket();
-
     byte_array getSensorsState();
     void setSensorsState(byte_array value);
 
@@ -113,6 +110,8 @@ protected slots:
     void onBinaryMessageReceived(QByteArray message);
 
 public slots:
+    void openWebSocket();
+    void closeWebSocket();
     bool sendTextMessage(QString message);
     bool sendBinaryMessage(QByteArray message);
 };
