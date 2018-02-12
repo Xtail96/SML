@@ -73,9 +73,9 @@ class ServerConnectionManager : public QObject
 {
     Q_OBJECT
 protected:
-    QProcess *m_server;
+    //QProcess *m_server;
     QUrl m_url;
-    QString m_serverApplicationLocation;
+    //QString m_serverApplicationLocation;
 
 
     MachineToolState *currentState;

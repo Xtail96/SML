@@ -2,7 +2,7 @@
 
 ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug, QObject *parent) :
     QObject(parent),
-    m_server(new QProcess()),
+    //m_server(new QProcess(this)),
     m_webSocket(nullptr),
     m_debug(debug)
 {
@@ -18,24 +18,24 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug
         setup(sm);
     }
 
-    if(!startServer())
+    /*if(!startServer())
     {
         QMessageBox(QMessageBox::Information, "Информация",
                     "Не могу запустить сервер! Пожалуйста проверьте конфигурационный файл.").exec();
-    }
+    }*/
 }
 
 ServerConnectionManager::~ServerConnectionManager()
 {
     // Завершаем процесс сервер
-    int exitCode = stopServer();
-    qDebug() << "Сервер завершил работу с кодом" << exitCode;
+    //int exitCode = stopServer();
+    //qDebug() << "Сервер завершил работу с кодом" << exitCode;
 
     // Отключаем сокет
     closeWebSocket();
 
     delete m_webSocket;
-    delete m_server;
+    //delete m_server;
     delete currentState;
 }
 
@@ -47,7 +47,7 @@ void ServerConnectionManager::setup(SettingsManager *sm)
         currentState = new MachineToolState(axisesCount, 16);
 
         m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
-        m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
+        //m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
     }
     catch(std::invalid_argument e)
     {
@@ -55,6 +55,7 @@ void ServerConnectionManager::setup(SettingsManager *sm)
     }
 }
 
+/*
 bool ServerConnectionManager::startServer()
 {
     bool serverRunning = false;
@@ -87,6 +88,9 @@ bool ServerConnectionManager::startServer()
 
 int ServerConnectionManager::stopServer()
 {
+    sendBinaryMessage(QByteArray("close"));
+    m_server->waitForFinished(60000);
+
     qDebug() << m_server->state();
     if(m_server->state() != QProcess::ProcessState::NotRunning)
     {
@@ -96,6 +100,8 @@ int ServerConnectionManager::stopServer()
     qDebug() << m_server->state();
     return m_server->exitCode();
 }
+
+*/
 
 void ServerConnectionManager::openWebSocket()
 {
@@ -155,6 +161,37 @@ void ServerConnectionManager::onDisconnected()
         qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
     }
     emit serverIsDisconnected();
+}
+
+bool ServerConnectionManager::sendTextMessage(QString message)
+{
+    bool messageSent = false;
+    if(m_webSocket != nullptr)
+    {
+        m_webSocket->sendTextMessage(message);
+        messageSent = true;
+    }
+    else
+    {
+        emit serverIsDisconnected(QString("Can not send text message:") + message);
+    }
+    return messageSent;
+}
+
+bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
+{
+    bool messageSent = false;
+    if(m_webSocket != nullptr)
+    {
+        m_webSocket->sendBinaryMessage(message);
+        messageSent = true;
+    }
+    else
+    {
+        qDebug() << "Can not send binary message";
+        emit serverIsDisconnected(QString("Can not send byte message: ") + QString::fromUtf8(message));
+    }
+    return messageSent;
 }
 
 byte_array ServerConnectionManager::getSensorsState()
@@ -218,36 +255,6 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     }
 
 
-}
-
-bool ServerConnectionManager::sendTextMessage(QString message)
-{
-    bool messageSent = false;
-    if(m_webSocket != nullptr)
-    {
-        m_webSocket->sendTextMessage(message);
-        messageSent = true;
-    }
-    else
-    {
-        emit serverIsDisconnected(QString("Can not send text message:") + message);
-    }
-    return messageSent;
-}
-
-bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
-{
-    bool messageSent = false;
-    if(m_webSocket != nullptr)
-    {
-        m_webSocket->sendBinaryMessage(message);
-        messageSent = true;
-    }
-    else
-    {
-        emit serverIsDisconnected(QString("Can not send byte message: ") + QString::fromUtf8(message));
-    }
-    return messageSent;
 }
 
 void ServerConnectionManager::testJsonParser()
