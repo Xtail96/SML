@@ -629,6 +629,11 @@ void MainWindow::onMachineToolConnected()
     ui->movementDNegativePushButton->setEnabled(true);
     ui->movementDPositivePushButton->setEnabled(true);
 
+    for(auto shortcut : axisesShortcuts)
+    {
+        shortcut->setEnabled(true);
+    }
+
     ui->discreteRadioButton_1->setEnabled(true);
     ui->discreteRadioButton_2->setEnabled(true);
     ui->discreteRadioButton_3->setEnabled(true);
@@ -692,6 +697,11 @@ void MainWindow::onMachineToolDisconnected(QString message)
 
     ui->movementDNegativePushButton->setEnabled(false);
     ui->movementDPositivePushButton->setEnabled(false);
+
+    for(auto shortcut : axisesShortcuts)
+    {
+        shortcut->setEnabled(false);
+    }
 
     ui->discreteRadioButton_1->setEnabled(false);
     ui->discreteRadioButton_2->setEnabled(false);
