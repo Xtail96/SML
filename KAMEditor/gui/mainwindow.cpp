@@ -40,9 +40,9 @@ void MainWindow::setupMainWindowController()
     mainWindowController = new MainWindowController();
     connect(this, SIGNAL(ready()), mainWindowController, SLOT(loadMachineToolSettings()));
 
-    connect(mainWindowController, SIGNAL(machineToolIsConnected()), this, SLOT(showMachineToolConnected()));
-    connect(mainWindowController, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(showMachineToolDisconnected(QString)));
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(showMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(machineToolIsConnected()), this, SLOT(onMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(onMachineToolDisconnected(QString)));
+    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(onMachineToolConnected()));
 
     connect(mainWindowController, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(mainWindowController, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
@@ -589,22 +589,132 @@ void MainWindow::updateMachineToolStatusDisplay()
 */
 }
 
-void MainWindow::showMachineToolConnected()
+void MainWindow::onMachineToolConnected()
 {
     ui->connectCommandLinkButton->setEnabled(false);
     ui->disconnectCommandLinkButton->setEnabled(true);
 
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->showMessage("Machine Tool is connected");
+    ui->statusBar->showMessage("Силовой блок подключен");
+
+    ui->devicesListWidget->setEnabled(true);
+    ui->sensorsTableWidget->setEnabled(true);
+
+    ui->currentCoordinatesListWidget->setEnabled(true);
+    ui->baseCoordinatesListWidget->setEnabled(true);
+    ui->parkCoordinatesListWidget->setEnabled(true);
+    ui->edgesControlCheckBox->setEnabled(true);
+
+    ui->movementXNegativePushButton->setEnabled(true);
+    ui->movementXPositivePushButton->setEnabled(true);
+    ui->movementXNegativeYNegativePushButton->setEnabled(true);
+    ui->movementXNegativeYPositivePushButton->setEnabled(true);
+    ui->movementXPositiveYNegativePushButton->setEnabled(true);
+    ui->movementXPositiveYPositivePushButton->setEnabled(true);
+    ui->movementYNegativePushButton->setEnabled(true);
+    ui->movementYPositivePushButton->setEnabled(true);
+
+    ui->movementZNegativePushButton->setEnabled(true);
+    ui->movementZPositivePushButton->setEnabled(true);
+
+    ui->movementANegativePushButton->setEnabled(true);
+    ui->movementAPositivePushButton->setEnabled(true);
+
+    ui->movementBNegativePushButton->setEnabled(true);
+    ui->movementBPositivePushButton->setEnabled(true);
+
+    ui->movementCNegativePushButton->setEnabled(true);
+    ui->movementCPositivePushButton->setEnabled(true);
+
+    ui->movementDNegativePushButton->setEnabled(true);
+    ui->movementDPositivePushButton->setEnabled(true);
+
+    ui->discreteRadioButton_1->setEnabled(true);
+    ui->discreteRadioButton_2->setEnabled(true);
+    ui->discreteRadioButton_3->setEnabled(true);
+    ui->discreteRadioButton_4->setEnabled(true);
+    ui->discreteRadioButton_5->setEnabled(true);
+
+    ui->feedrateScrollBar->setEnabled(true);
+    ui->feedrateLcdNumber->setEnabled(true);
+    ui->rotationsScrollBar->setEnabled(true);
+    ui->rotationsLcdNumber->setEnabled(true);
+
+    ui->toBasePushButton->setEnabled(true);
+    ui->toZeroPushButton->setEnabled(true);
+    ui->toParkPushButton->setEnabled(true);
+    ui->zeroPushButton->setEnabled(true);
+    ui->zeroSensorPushButton->setEnabled(true);
+    ui->parkPushButton->setEnabled(true);
+
+    ui->runCommandLinkButton->setEnabled(true);
+    ui->stopCommandLinkButton->setEnabled(true);
+
+    ui->optionsListWidget->setEnabled(true);
 }
 
-void MainWindow::showMachineToolDisconnected(QString message)
+void MainWindow::onMachineToolDisconnected(QString message)
 {
     ui->connectCommandLinkButton->setEnabled(true);
     ui->disconnectCommandLinkButton->setEnabled(false);
 
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage(QString("Machine Tool is disconnected with message:") + message);
+    ui->statusBar->showMessage(QString("Силовой блок отключен: ") + message);
+
+    ui->devicesListWidget->setEnabled(false);
+    ui->sensorsTableWidget->setEnabled(false);
+
+    ui->currentCoordinatesListWidget->setEnabled(false);
+    ui->baseCoordinatesListWidget->setEnabled(false);
+    ui->parkCoordinatesListWidget->setEnabled(false);
+    ui->edgesControlCheckBox->setEnabled(false);
+
+    ui->movementXNegativePushButton->setEnabled(false);
+    ui->movementXPositivePushButton->setEnabled(false);
+    ui->movementXNegativeYNegativePushButton->setEnabled(false);
+    ui->movementXNegativeYPositivePushButton->setEnabled(false);
+    ui->movementXPositiveYNegativePushButton->setEnabled(false);
+    ui->movementXPositiveYPositivePushButton->setEnabled(false);
+    ui->movementYNegativePushButton->setEnabled(false);
+    ui->movementYPositivePushButton->setEnabled(false);
+
+    ui->movementZNegativePushButton->setEnabled(false);
+    ui->movementZPositivePushButton->setEnabled(false);
+
+    ui->movementANegativePushButton->setEnabled(false);
+    ui->movementAPositivePushButton->setEnabled(false);
+
+    ui->movementBNegativePushButton->setEnabled(false);
+    ui->movementBPositivePushButton->setEnabled(false);
+
+    ui->movementCNegativePushButton->setEnabled(false);
+    ui->movementCPositivePushButton->setEnabled(false);
+
+    ui->movementDNegativePushButton->setEnabled(false);
+    ui->movementDPositivePushButton->setEnabled(false);
+
+    ui->discreteRadioButton_1->setEnabled(false);
+    ui->discreteRadioButton_2->setEnabled(false);
+    ui->discreteRadioButton_3->setEnabled(false);
+    ui->discreteRadioButton_4->setEnabled(false);
+    ui->discreteRadioButton_5->setEnabled(false);
+
+    ui->feedrateScrollBar->setEnabled(false);
+    ui->feedrateLcdNumber->setEnabled(false);
+    ui->rotationsScrollBar->setEnabled(false);
+    ui->rotationsLcdNumber->setEnabled(false);
+
+    ui->toBasePushButton->setEnabled(false);
+    ui->toZeroPushButton->setEnabled(false);
+    ui->toParkPushButton->setEnabled(false);
+    ui->zeroPushButton->setEnabled(false);
+    ui->zeroSensorPushButton->setEnabled(false);
+    ui->parkPushButton->setEnabled(false);
+
+    ui->runCommandLinkButton->setEnabled(false);
+    ui->stopCommandLinkButton->setEnabled(false);
+
+    ui->optionsListWidget->setEnabled(false);
 }
 
 void MainWindow::disableMovementButtonsShortcuts()

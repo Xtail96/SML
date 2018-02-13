@@ -219,8 +219,8 @@ private slots:
     //void deleteSelectedCommands(QModelIndexList indexes);
 
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void showMachineToolConnected();
-    void showMachineToolDisconnected(QString message);
+    void onMachineToolConnected();
+    void onMachineToolDisconnected(QString message);
 
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();
