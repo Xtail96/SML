@@ -4633,7 +4633,7 @@
       <widget class="QWidget" name="settingsTab">
        <attribute name="icon">
         <iconset resource="images.qrc">
-         <normaloff>:/new/prefix1/images/Settings.png</normaloff>:/new/prefix1/images/Settings.png</iconset>
+         <normaloff>:/new/prefix1/images/ImportSettings.png</normaloff>:/new/prefix1/images/ImportSettings.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Настройки</string>
@@ -4784,7 +4784,7 @@
      <x>0</x>
      <y>0</y>
      <width>1578</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
