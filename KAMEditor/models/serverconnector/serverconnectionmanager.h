@@ -134,8 +134,6 @@ public slots:
     void closeWebSocket();
     bool sendTextMessage(QString message);
     bool sendBinaryMessage(QByteArray message);
-
-    void testJsonParser();
 };
 
 

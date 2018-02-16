@@ -194,23 +194,17 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     {
         qDebug() << "success";
         QtJson::JsonObject u1State = result["U1State"].toMap();
-        QList<QVariant> sensorsState = u1State["SensorsState"].toList();
-        qDebug() << sensorsState;
-        QList<QVariant> devicesState = u1State["DevicesState"].toList();
-        qDebug() << devicesState;
-        setU1CurrentState(sensorsState, devicesState);
-
-
-        /*qDebug() << "encoding:" << result["encoding"].toString();
-        qDebug() << "plugins:";
-
-        foreach(QVariant plugin, result["plug-ins"].toList()) {
-            qDebug() << "  -" << plugin.toString();
+        if(!u1State.isEmpty())
+        {
+            QList<QVariant> sensorsState = u1State["SensorsState"].toList();
+            qDebug() << sensorsState;
+            QList<QVariant> devicesState = u1State["DevicesState"].toList();
+            qDebug() << devicesState;
+            setU1CurrentState(sensorsState, devicesState);
         }
 
-        QtJson::JsonObject nested = result["indent"].toMap();
-        qDebug() << "length:" << nested["length"].toInt();
-        qDebug() << "use_space:" << nested["use_space"].toBool();*/
+        QtJson::JsonObject u2State = result["U2State"].toMap();
+        qDebug() << !(u2State.isEmpty());
     }
     else
     {
@@ -218,27 +212,6 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     }
 
 
-}
-
-void ServerConnectionManager::testJsonParser()
-{
-    QtJson::JsonObject message;
-    message["encoding"] = "utf-8";
-
-    QtJson::JsonArray plugins;
-    plugins.append("c++");
-    plugins.append("python");
-    plugins.append("ruby");
-    message["plug-ins"] = plugins;
-
-    QtJson::JsonObject indent;
-    indent["length"] = 3;
-    indent["use_space"] = true;
-
-    message["indent"] = indent;
-
-    QByteArray data = QtJson::serialize(message);
-    sendBinaryMessage(data);
 }
 
 void ServerConnectionManager::setDebug(bool debug)
