@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Консоль</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
     <number>5</number>
@@ -42,6 +46,8 @@
    <header>gui/widgets/console.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
