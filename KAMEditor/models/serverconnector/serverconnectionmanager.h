@@ -83,8 +83,8 @@ protected:
     bool m_debug;
 
     void setup(SettingsManager *sm);
-    bool startServer();
-    int stopServer();
+    //bool startServer();
+    //int stopServer();
 
 public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
