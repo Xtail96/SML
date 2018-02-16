@@ -2,7 +2,6 @@
 
 ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug, QObject *parent) :
     QObject(parent),
-    //m_server(new QProcess(this)),
     m_webSocket(nullptr),
     m_debug(debug)
 {
@@ -17,91 +16,29 @@ ServerConnectionManager::ServerConnectionManager(SettingsManager *sm, bool debug
     {
         setup(sm);
     }
-
-    /*if(!startServer())
-    {
-        QMessageBox(QMessageBox::Information, "Информация",
-                    "Не могу запустить сервер! Пожалуйста проверьте конфигурационный файл.").exec();
-    }*/
 }
 
 ServerConnectionManager::~ServerConnectionManager()
 {
-    // Завершаем процесс сервер
-    //int exitCode = stopServer();
-    //qDebug() << "Сервер завершил работу с кодом" << exitCode;
-
     // Отключаем сокет
     closeWebSocket();
 
     delete m_webSocket;
-    //delete m_server;
-    delete currentState;
+    delete m_u1CurrentState;
 }
 
 void ServerConnectionManager::setup(SettingsManager *sm)
 {
     try
     {
-        size_t axisesCount = sm->get("MachineToolInformation", "AxisesCount").toUInt();
-        currentState = new MachineToolState(axisesCount, 16);
-
+        m_u1CurrentState = new U1State(16, 1);
         m_url = QUrl(sm->get("MachineToolInformation", "ServerUrl").toString());
-        //m_serverApplicationLocation = sm->get("MachineToolInformation", "ServerLocation").toString();
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка инициализации подключения к серверу", QString("Ошибка инициализации подключения к серверу! ") + QString(e.what())).exec();
     }
 }
-
-/*
-bool ServerConnectionManager::startServer()
-{
-    bool serverRunning = false;
-    QStringList arguments;
-    if(m_server->state() == QProcess::ProcessState::NotRunning)
-    {
-        m_server->start(m_serverApplicationLocation, arguments);
-        if(m_server->state() == QProcess::ProcessState::Starting || m_server->state() == QProcess::ProcessState::Running)
-        {
-            serverRunning = true;
-            if(m_debug)
-            {
-                qDebug() << "Server" << m_serverApplicationLocation << "with url =" << m_url << "is started";
-            }
-        }
-        else
-        {
-            if(m_debug)
-            {
-                qDebug() << "Can not start server" << m_serverApplicationLocation << "with url =" << m_url;
-            }
-        }
-    }
-    else
-    {
-        serverRunning = true;
-    }
-    return serverRunning;
-}
-
-int ServerConnectionManager::stopServer()
-{
-    sendBinaryMessage(QByteArray("close"));
-    m_server->waitForFinished(60000);
-
-    qDebug() << m_server->state();
-    if(m_server->state() != QProcess::ProcessState::NotRunning)
-    {
-        m_server->close();
-        m_server->waitForFinished(-1);
-    }
-    qDebug() << m_server->state();
-    return m_server->exitCode();
-}
-
-*/
 
 void ServerConnectionManager::openWebSocket()
 {
@@ -196,18 +133,41 @@ bool ServerConnectionManager::sendBinaryMessage(QByteArray message)
 
 byte_array ServerConnectionManager::getSensorsState()
 {
-    return currentState->sensorsState.getSensorsState();
+    return m_u1CurrentState->getSensorsState();
 }
 
-void ServerConnectionManager::setSensorsState(byte_array value)
+void ServerConnectionManager::setU1CurrentState(byte_array sensorsState, byte_array devicesState)
 {
-    currentState->sensorsState.setSensorsState(value);
+    m_u1CurrentState->setSensorsState(sensorsState);
+    m_u1CurrentState->setDevicesState(devicesState);
     emit machineToolStateIsChanged();
+}
+
+void ServerConnectionManager::setU1CurrentState(QList<QVariant> sensorsState, QList<QVariant> devicesState)
+{
+    byte_array currentSensorsState;
+    for(auto group : sensorsState)
+    {
+        currentSensorsState.push_back(group.toUInt());
+    }
+
+    byte_array currentDevicesState;
+    for(auto group : devicesState)
+    {
+        currentDevicesState.push_back(group.toUInt());
+    }
+
+    setU1CurrentState(currentSensorsState, currentDevicesState);
 }
 
 std::map<std::string, double> ServerConnectionManager::getMachineToolCoordinates()
 {
-    return currentState->axisesState.getAxisesCoordinates();
+    std::map<std::string, double> tmp;
+    tmp.insert(std::make_pair("X", 100));
+    tmp.insert(std::make_pair("Y", 200));
+    tmp.insert(std::make_pair("Z", 300));
+
+    return tmp;
 }
 
 void ServerConnectionManager::onTextMessageReceived(QString message)
@@ -222,13 +182,8 @@ void ServerConnectionManager::onTextMessageReceived(QString message)
 
 void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
 {
-    //QJsonDocument document = QJsonDocument::fromJson(message);
-    //QJsonObject jsonResponse =  document.object();
     if(m_debug)
     {
-        /*qDebug() << "Received binary message" << message << "to json-object:"
-                 << jsonResponse;*/
-
         emit binaryMessageReceived(message);
     }
 
@@ -238,7 +193,15 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     if(ok)
     {
         qDebug() << "success";
-        qDebug() << "encoding:" << result["encoding"].toString();
+        QtJson::JsonObject u1State = result["U1State"].toMap();
+        QList<QVariant> sensorsState = u1State["SensorsState"].toList();
+        qDebug() << sensorsState;
+        QList<QVariant> devicesState = u1State["DevicesState"].toList();
+        qDebug() << devicesState;
+        setU1CurrentState(sensorsState, devicesState);
+
+
+        /*qDebug() << "encoding:" << result["encoding"].toString();
         qDebug() << "plugins:";
 
         foreach(QVariant plugin, result["plug-ins"].toList()) {
@@ -247,7 +210,7 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
 
         QtJson::JsonObject nested = result["indent"].toMap();
         qDebug() << "length:" << nested["length"].toInt();
-        qDebug() << "use_space:" << nested["use_space"].toBool();
+        qDebug() << "use_space:" << nested["use_space"].toBool();*/
     }
     else
     {

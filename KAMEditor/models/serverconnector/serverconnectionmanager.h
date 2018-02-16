@@ -31,26 +31,57 @@ public:
     }
 };
 
-struct SensorsStateList
+struct U1State
 {
 private:
-    byte_array sensorsState;
+    byte_array *sensorsState;
+    byte_array *devicesState;
 public:
-    SensorsStateList(size_t count = 16)
+    U1State(size_t sensorsPackageSize = 16, size_t devicesPackageSize = 1)
     {
-        sensorsState = byte_array(count, 0);
+        sensorsState = new byte_array(sensorsPackageSize, 0);
+        devicesState = new byte_array(devicesPackageSize, 0);
+    }
+
+    ~U1State()
+    {
+        delete sensorsState;
+        delete devicesState;
     }
 
     byte_array getSensorsState()
     {
-        return sensorsState;
+        return *sensorsState;
     }
 
     void setSensorsState(byte_array value)
     {
-        if(value.size() == sensorsState.size())
+        if(value.size() == sensorsState->size())
         {
-            sensorsState = value;
+            for(size_t i = 0; i < sensorsState->size(); i++)
+            {
+                sensorsState->operator [](i) = value.operator [](i);
+            }
+        }
+        else
+        {
+            qDebug() << "Попытка установить состояние датчиков неправильной длины";
+        }
+    }
+
+    byte_array getDevicesState()
+    {
+        return *devicesState;
+    }
+
+    void setDevicesState(byte_array value)
+    {
+        if(value.size() == devicesState->size())
+        {
+            for(size_t i = 0; i < devicesState->size(); i++)
+            {
+                devicesState->operator [](i) = value.operator [](i);
+            }
         }
         else
         {
@@ -59,39 +90,27 @@ public:
     }
 };
 
-struct MachineToolState
-{
-    AxisesStateList axisesState;
-    SensorsStateList sensorsState;
-
-    MachineToolState(size_t axisesCount = 3, size_t sensorsCount = 16) :
-        axisesState(axisesCount),
-        sensorsState(sensorsCount){}
-};
-
 class ServerConnectionManager : public QObject
 {
     Q_OBJECT
 protected:
-    //QProcess *m_server;
     QUrl m_url;
-    //QString m_serverApplicationLocation;
 
 
-    MachineToolState *currentState;
+    U1State *m_u1CurrentState;
+
     QWebSocket *m_webSocket;
     bool m_debug;
 
     void setup(SettingsManager *sm);
-    //bool startServer();
-    //int stopServer();
 
 public:
     ServerConnectionManager(SettingsManager *sm = nullptr, bool debug = false, QObject *parent = Q_NULLPTR);
     ~ServerConnectionManager();
 
     byte_array getSensorsState();
-    void setSensorsState(byte_array value);
+    void setU1CurrentState(byte_array sensorsState, byte_array devicesState);
+    void setU1CurrentState(QList<QVariant> sensorsState, QList<QVariant> devicesState);
 
     std::map<std::string, double> getMachineToolCoordinates();
 
