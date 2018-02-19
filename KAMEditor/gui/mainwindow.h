@@ -102,14 +102,14 @@ private:
     Ui::MainWindow *ui;
 
     /// Контроллер главного окна
-    MainWindowController* mainWindowController;
+    MainWindowController* m_mainWindowController;
     void setupMainWindowController();
 
     /// Горячие клавиши кнопок для перемещения по осям станка
-    std::vector<QShortcut*> axisesShortcuts;
+    std::vector<QShortcut*> m_axisesShortcuts;
 
     /// Подсветки синтаксиса в редакторе G-кодов
-    GCodesSyntaxHighlighter* hightlighter;
+    GCodesSyntaxHighlighter* m_hightlighter;
 
     /// Метод для настройки таблиц настроек
     void setupSettingsWidgets();

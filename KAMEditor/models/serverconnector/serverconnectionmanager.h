@@ -93,12 +93,10 @@ public:
 class ServerConnectionManager : public QObject
 {
     Q_OBJECT
+
 protected:
     QUrl m_url;
-
-
     U1State *m_u1CurrentState;
-
     QWebSocket *m_webSocket;
     bool m_debug;
 

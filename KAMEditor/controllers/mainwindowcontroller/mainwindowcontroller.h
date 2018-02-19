@@ -26,12 +26,12 @@ protected:
     /*!
      * \brief Указатель на станок, к которому требуется подключиться
      */
-    MachineTool* machineTool;
-    ServerConnectionManager* serverManager;
+    MachineTool* m_machineTool;
+    ServerConnectionManager* m_serverManager;
     /*!
      * \brief Указатель на мост для связи с классом Главное окно
      */
-    MainWindowBridge* mainWindowBridge;
+    MainWindowBridge* m_mainWindowBridge;
 
 public:
     /*!

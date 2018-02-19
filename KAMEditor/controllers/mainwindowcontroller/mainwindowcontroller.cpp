@@ -8,32 +8,32 @@ MainWindowController::MainWindowController(QObject *parent) : QObject(parent)
 
 MainWindowController::~MainWindowController()
 {
-    delete mainWindowBridge;
-    delete machineTool;
-    delete serverManager;
+    delete m_mainWindowBridge;
+    delete m_machineTool;
+    delete m_serverManager;
 }
 
 void MainWindowController::setupMainWindowBridge()
 {
-    mainWindowBridge = new MainWindowBridge();
+    m_mainWindowBridge = new MainWindowBridge();
 }
 
 void MainWindowController::setupServerConnection()
 {
     //connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 
-    serverManager = new ServerConnectionManager(nullptr, true);
-    connect(serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
-    connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(handleDebugMessage(QString)));
-    connect(serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(handleDebugMessage(QByteArray)));
+    m_serverManager = new ServerConnectionManager(nullptr, true);
+    connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    connect(m_serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(handleDebugMessage(QString)));
+    connect(m_serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(handleDebugMessage(QByteArray)));
 
-    connect(serverManager, SIGNAL(serverIsConnected()), this, SLOT(handleServerIsConnected()));
-    connect(serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(handleServerIsDisconnected(QString)));
+    connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(handleServerIsConnected()));
+    connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(handleServerIsDisconnected(QString)));
 }
 
 void MainWindowController::loadMachineToolSettings()
 {
-    machineTool = new MachineTool();
+    m_machineTool = new MachineTool();
     emit machineToolSettingsIsLoaded();
     updateU1State();
     emit machineToolIsDisconnected("Силовой блок пока не подключен!");
@@ -42,9 +42,9 @@ void MainWindowController::loadMachineToolSettings()
 void MainWindowController::updateU1State()
 {
    // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
-    byte_array recieved = serverManager->getSensorsState();
+    byte_array recieved = m_serverManager->getSensorsState();
     qDebug() << recieved;
-    machineTool->updateCurrentState(recieved);
+    m_machineTool->updateCurrentState(recieved);
     emit u1StateIsChanged();
 }
 
@@ -63,7 +63,7 @@ void MainWindowController::testServer(bool on)
 
 void MainWindowController::sendTextMessgeToServer(QString message)
 {
-    if(!serverManager->sendTextMessage(message))
+    if(!m_serverManager->sendTextMessage(message))
     {
         QMessageBox(QMessageBox::Warning,
                     "Ошибка подключения",
@@ -73,7 +73,7 @@ void MainWindowController::sendTextMessgeToServer(QString message)
 
 void MainWindowController::sendBinaryMessageToServer(QByteArray message)
 {
-    if(!serverManager->sendBinaryMessage(message))
+    if(!m_serverManager->sendBinaryMessage(message))
     {
         QMessageBox(QMessageBox::Warning,
                     "Ошибка подключения",
@@ -103,43 +103,48 @@ void MainWindowController::handleServerIsDisconnected(QString message)
 
 void MainWindowController::openWebSocketConnection()
 {
-    serverManager->openWebSocket();
+    m_serverManager->openWebSocket();
 }
 
 void MainWindowController::closeWebSocketConnection()
 {
-    serverManager->closeWebSocket();
+    m_serverManager->closeWebSocket();
 }
 
 void MainWindowController::exportSettings()
 {
     QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
-    machineTool->getSettingsManager()->exportSettings(path);
+    m_machineTool->getSettingsManager()->exportSettings(path);
 }
 
 void MainWindowController::importSettings()
 {
     QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
-    machineTool->getSettingsManager()->importSettings(path);
+    m_machineTool->getSettingsManager()->importSettings(path);
 }
 
 void MainWindowController::parseGCodes(QString data)
 {
-    machineTool->getGcodesManager()->setGcodes(data);
-    machineTool->getGcodesManager()->updateGCodesProgram();
+    m_machineTool->getGcodesManager()->setGcodes(data);
+    m_machineTool->getGcodesManager()->updateGCodesProgram();
 }
 
 void MainWindowController::setServerDebug(bool debug)
 {
-    serverManager->setDebug(debug);
+    m_serverManager->setDebug(debug);
 }
 
 void MainWindowController::switchDevice(QString deviceName)
 {
     try
     {
-        Device &device = machineTool->getDevicesManager()->findDevice(deviceName);
-        byte_array data = machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
+        Device &device = m_machineTool->getDevicesManager()->findDevice(deviceName);
+        byte_array data = m_machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
+
+        QByteArray message;
+
+        m_serverManager->sendBinaryMessage(message);
+
 /*#ifdef Q_OS_WIN
         if(u1Manager != nullptr)
         {
@@ -169,7 +174,7 @@ void MainWindowController::updateVelocity(int value)
 {
     if(value >= 0)
     {
-        machineTool->setVelocity(value);
+        m_machineTool->setVelocity(value);
     }
     else
     {
@@ -181,7 +186,7 @@ void MainWindowController::updateSpindelRotations(int value)
 {
     if(value >= 0)
     {
-        machineTool->setSpindelRotations(value);
+        m_machineTool->setSpindelRotations(value);
     }
     else
     {
@@ -191,17 +196,17 @@ void MainWindowController::updateSpindelRotations(int value)
 
 void MainWindowController::addPoint(QStringList coordinates)
 {
-    Point* p = mainWindowBridge->makePoint(coordinates);
-    machineTool->getPointsManager()->addPoint(p);
+    Point* p = m_mainWindowBridge->makePoint(coordinates);
+    m_machineTool->getPointsManager()->addPoint(p);
     emit pointsUpdated();
 }
 
 void MainWindowController::updatePoint(QStringList coordinates, unsigned int number)
 {
-    Point* p = mainWindowBridge->makePoint(coordinates);
+    Point* p = m_mainWindowBridge->makePoint(coordinates);
     try
     {
-        std::shared_ptr<Point> originPoint = machineTool->getPointsManager()->operator [](number);
+        std::shared_ptr<Point> originPoint = m_machineTool->getPointsManager()->operator [](number);
         unsigned int originPointDimension = originPoint->size();
         unsigned int newPointDimension = p->size();
         unsigned int rangeForUpdate = std::min(originPointDimension, newPointDimension);
@@ -221,8 +226,8 @@ void MainWindowController::deletePoint(unsigned int number)
 {
     try
     {
-        std::shared_ptr<Point> p = machineTool->getPointsManager()->operator [](number);
-        machineTool->getPointsManager()->deletePoint(p);
+        std::shared_ptr<Point> p = m_machineTool->getPointsManager()->operator [](number);
+        m_machineTool->getPointsManager()->deletePoint(p);
         emit pointsUpdated();
     }
     catch(std::out_of_range e)
@@ -234,33 +239,33 @@ void MainWindowController::deletePoint(unsigned int number)
 
 void MainWindowController::openGCodesFile()
 {
-    machineTool->getGcodesFilesManager()->openGCodesFile();
+    m_machineTool->getGcodesFilesManager()->openGCodesFile();
     emit gcodesUpdated();
     emit filePathUpdated();
 }
 
 QString MainWindowController::getGCodesFileContent()
 {
-    return machineTool->getGcodesFilesManager()->getContent();
+    return m_machineTool->getGcodesFilesManager()->getContent();
 }
 
 void MainWindowController::saveGCodesFile(const QString data)
 {
-    machineTool->getGcodesFilesManager()->setFileContent(data);
-    machineTool->getGcodesFilesManager()->saveGCodesFile();
+    m_machineTool->getGcodesFilesManager()->setFileContent(data);
+    m_machineTool->getGcodesFilesManager()->saveGCodesFile();
     emit filePathUpdated();
 }
 
 void MainWindowController::saveGCodesFileAs(const QString data)
 {
-    machineTool->getGcodesFilesManager()->setFileContent(data);
-    machineTool->getGcodesFilesManager()->saveGCodesFileAs();
+    m_machineTool->getGcodesFilesManager()->setFileContent(data);
+    m_machineTool->getGcodesFilesManager()->saveGCodesFileAs();
     emit filePathUpdated();
 }
 
 void MainWindowController::newGCodesFile()
 {
-    machineTool->getGcodesFilesManager()->newGCodesFile();
+    m_machineTool->getGcodesFilesManager()->newGCodesFile();
     emit gcodesUpdated();
     emit filePathUpdated();
 }
@@ -268,27 +273,27 @@ void MainWindowController::newGCodesFile()
 void MainWindowController::addGCodesFile(const QString data)
 {
     saveGCodesFile(data);
-    machineTool->getGcodesFilesManager()->addGCodesFile();
+    m_machineTool->getGcodesFilesManager()->addGCodesFile();
     emit gcodesUpdated();
     emit filePathUpdated();
 }
 
 void MainWindowController::updateGCodes(const QString &data)
 {
-    machineTool->getGcodesManager()->setGcodes(data);
+    m_machineTool->getGcodesManager()->setGcodes(data);
 }
 
 QString MainWindowController::getGCodesProgram()
 {
-    return machineTool->getGcodesManager()->gcodes();
+    return m_machineTool->getGcodesManager()->gcodes();
 }
 
 QList<Point> MainWindowController::getMachineToolCoordinates()
 {
     QList<Point> machineToolCoordinates;
-    machineToolCoordinates.push_back(machineTool->getMovementController()->getCurrentCoordinates());
-    machineToolCoordinates.push_back(machineTool->getMovementController()->getCurrentCoordinatesFromBase());
-    machineToolCoordinates.push_back(machineTool->getMovementController()->getParkCoordinates());
+    machineToolCoordinates.push_back(m_machineTool->getMovementController()->getCurrentCoordinates());
+    machineToolCoordinates.push_back(m_machineTool->getMovementController()->getCurrentCoordinatesFromBase());
+    machineToolCoordinates.push_back(m_machineTool->getMovementController()->getParkCoordinates());
     return machineToolCoordinates;
 }
 
@@ -388,62 +393,62 @@ QList<Point> MainWindowController::getMachineToolCoordinates()
 
 QStringList MainWindowController::getSensorsNames()
 {
-    return mainWindowBridge->sensorsNames(machineTool->getSensorsManager()->getSensors());
+    return m_mainWindowBridge->sensorsNames(m_machineTool->getSensorsManager()->getSensors());
 }
 
 QStringList MainWindowController::getSensorsParametrsNames()
 {
-    return mainWindowBridge->sensorsParametrsNames();
+    return m_mainWindowBridge->sensorsParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getSensorsSettings()
 {
-    return mainWindowBridge->sensorsSettings(machineTool->getSensorsManager()->getSensors());
+    return m_mainWindowBridge->sensorsSettings(m_machineTool->getSensorsManager()->getSensors());
 }
 
 QList<QColor> MainWindowController::getSensorsLeds()
 {
-    return mainWindowBridge->sensorsLeds(machineTool->getSensorsManager()->getSensors());
+    return m_mainWindowBridge->sensorsLeds(m_machineTool->getSensorsManager()->getSensors());
 }
 
 QStringList MainWindowController::getDevicesNames()
 {
-    return mainWindowBridge->devicesNames(machineTool->getDevicesManager()->getDevices());
+    return m_mainWindowBridge->devicesNames(m_machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getDevicesParametrsNames()
 {
-    return mainWindowBridge->devicesParametrsNames();
+    return m_mainWindowBridge->devicesParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getDevicesSettings()
 {
-    return mainWindowBridge->devicesSettings(machineTool->getDevicesManager()->getDevices());
+    return m_mainWindowBridge->devicesSettings(m_machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getOnScreenDevicesNames()
 {
-    return mainWindowBridge->onScreenDevicesNames(machineTool->getDevicesManager()->getDevices());
+    return m_mainWindowBridge->onScreenDevicesNames(m_machineTool->getDevicesManager()->getDevices());
 }
 
 QList<bool> MainWindowController::getOnScreenDevicesStates()
 {
-    return mainWindowBridge->onScreenDevicesStates(machineTool->getDevicesManager()->getDevices());
+    return m_mainWindowBridge->onScreenDevicesStates(m_machineTool->getDevicesManager()->getDevices());
 }
 
 QStringList MainWindowController::getAxisesNames()
 {
-    return mainWindowBridge->axisesNames(machineTool->getMovementController()->getAxises());
+    return m_mainWindowBridge->axisesNames(m_machineTool->getMovementController()->getAxises());
 }
 
 QStringList MainWindowController::getAxisesParametrsNames()
 {
-    return mainWindowBridge->axisesParametrsNames();
+    return m_mainWindowBridge->axisesParametrsNames();
 }
 
 QList<QStringList> MainWindowController::getAxisesSettings()
 {
-    return mainWindowBridge->axisesSettings(machineTool->getMovementController()->getAxises());
+    return m_mainWindowBridge->axisesSettings(m_machineTool->getMovementController()->getAxises());
 }
 
 QStringList MainWindowController::getOptionsNames()
@@ -460,22 +465,22 @@ QStringList MainWindowController::getOptionsNames()
 
 unsigned int MainWindowController::getVelocity()
 {
-    return machineTool->getVelocity();
+    return m_machineTool->getVelocity();
 }
 
 unsigned int MainWindowController::getSpindelRotations()
 {
-    return machineTool->getSpindelRotations();
+    return m_machineTool->getSpindelRotations();
 }
 
 QList<QStringList> MainWindowController::getPoints()
 {
-    return mainWindowBridge->points(machineTool->getPointsManager());
+    return m_mainWindowBridge->points(m_machineTool->getPointsManager());
 }
 
 QStringList MainWindowController::getPoint(unsigned int number)
 {
-    return mainWindowBridge->point(machineTool->getPointsManager(), number);
+    return m_mainWindowBridge->point(m_machineTool->getPointsManager(), number);
 }
 
 QString MainWindowController::getFilePath(QString type)
@@ -483,7 +488,7 @@ QString MainWindowController::getFilePath(QString type)
     QString path = "";
     if(type == "gcodes")
     {
-        path = machineTool->getGcodesFilesManager()->getFilePath();
+        path = m_machineTool->getGcodesFilesManager()->getFilePath();
     }
     else
     {
