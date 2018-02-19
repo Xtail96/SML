@@ -141,9 +141,25 @@ void MainWindowController::switchDevice(QString deviceName)
         Device &device = m_machineTool->getDevicesManager()->findDevice(deviceName);
         byte_array data = m_machineTool->getDevicesManager()->getSwitchDeviceData(device, !device.getCurrentState());
 
-        QByteArray message;
+        QtJson::JsonObject generalMessage;
+        QtJson::JsonObject u1Message;
+        QtJson::JsonArray u1Data;
 
-        m_serverManager->sendBinaryMessage(message);
+        for(auto byte_unit : data)
+        {
+            u1Data.push_back(byte_unit);
+        }
+        u1Message["SwitchDevice"] = u1Data;
+        generalMessage["MessageToU1"] = u1Message;
+
+
+        bool ok = false;
+        QByteArray message = QtJson::serialize(generalMessage, ok);
+        qDebug() << "Try to switch device =" << message;
+        if(ok)
+        {
+            m_serverManager->sendBinaryMessage(message);
+        }
 
 /*#ifdef Q_OS_WIN
         if(u1Manager != nullptr)
@@ -162,7 +178,7 @@ void MainWindowController::switchDevice(QString deviceName)
             QMessageBox(QMessageBox::Warning, "Ошибка инициализации", "Не могу связаться со станком").exec();
         }
 #endif*/
-        device.setCurrentState(!device.getCurrentState());
+        //device.setCurrentState(!device.getCurrentState());
     }
     catch(std::invalid_argument e)
     {

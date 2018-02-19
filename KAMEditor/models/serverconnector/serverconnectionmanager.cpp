@@ -192,7 +192,7 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
     if(ok)
     {
-        qDebug() << "success";
+        //qDebug() << "success";
         QtJson::JsonObject u1State = result["U1State"].toMap();
         if(!u1State.isEmpty())
         {
@@ -203,8 +203,8 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
             setU1CurrentState(sensorsState, devicesState);
         }
 
-        QtJson::JsonObject u2State = result["U2State"].toMap();
-        qDebug() << !(u2State.isEmpty());
+        //QtJson::JsonObject u2State = result["U2State"].toMap();
+        //qDebug() << !(u2State.isEmpty());
     }
     else
     {
