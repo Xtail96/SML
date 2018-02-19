@@ -23,7 +23,7 @@ void MainWindowController::setupServerConnection()
     //connect(this, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateMachineToolState()));
 
     serverManager = new ServerConnectionManager(nullptr, true);
-    connect(serverManager, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateMachineToolState()));
+    connect(serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     connect(serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(handleDebugMessage(QString)));
     connect(serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(handleDebugMessage(QByteArray)));
 
@@ -35,17 +35,17 @@ void MainWindowController::loadMachineToolSettings()
 {
     machineTool = new MachineTool();
     emit machineToolSettingsIsLoaded();
-    updateMachineToolState();
+    updateU1State();
     emit machineToolIsDisconnected("Силовой блок пока не подключен!");
 }
 
-void MainWindowController::updateMachineToolState()
+void MainWindowController::updateU1State()
 {
    // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
     byte_array recieved = serverManager->getSensorsState();
     qDebug() << recieved;
     machineTool->updateCurrentState(recieved);
-    emit machineToolStateIsChanged();
+    emit u1StateIsChanged();
 }
 
 void MainWindowController::testServer(bool on)
@@ -93,7 +93,7 @@ void MainWindowController::handleDebugMessage(QByteArray debugMessage)
 
 void MainWindowController::handleServerIsConnected()
 {
-    updateMachineToolState();
+    updateU1State();
 }
 
 void MainWindowController::handleServerIsDisconnected(QString message)

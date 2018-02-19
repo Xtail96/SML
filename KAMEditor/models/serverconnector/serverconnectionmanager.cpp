@@ -140,7 +140,7 @@ void ServerConnectionManager::setU1CurrentState(byte_array sensorsState, byte_ar
 {
     m_u1CurrentState->setSensorsState(sensorsState);
     m_u1CurrentState->setDevicesState(devicesState);
-    emit machineToolStateIsChanged();
+    emit u1StateIsChanged();
 }
 
 void ServerConnectionManager::setU1CurrentState(QList<QVariant> sensorsState, QList<QVariant> devicesState)

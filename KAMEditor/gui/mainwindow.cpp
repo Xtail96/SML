@@ -42,12 +42,12 @@ void MainWindow::setupMainWindowController()
 
     connect(mainWindowController, SIGNAL(machineToolIsConnected()), this, SLOT(onMachineToolConnected()));
     connect(mainWindowController, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(onMachineToolDisconnected(QString)));
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), SLOT(onMachineToolConnected()));
+    connect(mainWindowController, SIGNAL(u1StateIsChanged()), SLOT(onMachineToolConnected()));
 
     connect(mainWindowController, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(mainWindowController, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
 
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDisplays()));
+    connect(mainWindowController, SIGNAL(u1StateIsChanged()), this, SLOT(updateDisplays()));
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
@@ -55,7 +55,7 @@ void MainWindow::setupMainWindowController()
 
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    connect(mainWindowController, SIGNAL(machineToolStateIsChanged()), this, SLOT(updateDevicesPanel()));
+    connect(mainWindowController, SIGNAL(u1StateIsChanged()), this, SLOT(updateDevicesPanel()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
     connect(mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));

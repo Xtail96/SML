@@ -117,7 +117,7 @@ public:
     void setDebug(bool debug);
 
 signals:
-    void machineToolStateIsChanged();
+    void u1StateIsChanged();
     void textMessageReceived(QString message);
     void binaryMessageReceived(QByteArray message);
     void serverIsConnected();

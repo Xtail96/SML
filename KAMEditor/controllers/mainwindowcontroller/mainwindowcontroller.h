@@ -90,7 +90,7 @@ signals:
     void machineToolSettingsIsLoaded();
 
     /// Обновлено состояние станка
-    void machineToolStateIsChanged();
+    void u1StateIsChanged();
 
     /// Точки обновились
     void pointsUpdated();
@@ -113,7 +113,7 @@ public slots:
     void loadMachineToolSettings();
 
     /// Слот для испускания сигнала об обновлении состояния станка
-    void updateMachineToolState();
+    void updateU1State();
 
     void setupMainWindowBridge();
 
