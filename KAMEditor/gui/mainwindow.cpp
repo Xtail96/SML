@@ -55,10 +55,10 @@ void MainWindow::setupMainWindowController()
 
     connect(m_mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
 
-    connect(m_mainWindowController, SIGNAL(u1StateIsChanged()), this, SLOT(updateDevicesPanel()));
     connect(m_mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
     connect(m_mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
     connect(m_mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
+    connect(m_mainWindowController, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesPanel()));
 
     connect(m_mainWindowController, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
@@ -295,23 +295,45 @@ void MainWindow::updateDevicesPanel()
     QStringList onScreenDevicesNames = m_mainWindowController->getOnScreenDevicesNames();
     QList<bool> onScreenDevicesStates = m_mainWindowController->getOnScreenDevicesStates();
 
-    ui->devicesListWidget->clear();
+    ui->devicesLedsListWidget->clear();
+    ui->devicesButtonsListWidget->clear();
 
     for(int i = 0; i < onScreenDevicesNames.size(); i++)
     {
-        QListWidgetItem* item = new QListWidgetItem();
-        item->setText(onScreenDevicesNames[i]);
+        QListWidgetItem* button = new QListWidgetItem();
+        QListWidgetItem* led = new QListWidgetItem();
+        button->setText(onScreenDevicesNames[i]);
         if(onScreenDevicesStates[i])
         {
-            item->setTextColor(SmlColors::white());
-            item->setBackgroundColor(SmlColors::red());
+            led->setBackgroundColor(SmlColors::red());
         }
         else
         {
-            item->setTextColor(SmlColors::gray());
-            item->setBackgroundColor(SmlColors::white());
+            led->setBackgroundColor(SmlColors::white());
         }
-        ui->devicesListWidget->addItem(item);
+        ui->devicesButtonsListWidget->addItem(button);
+        ui->devicesLedsListWidget->addItem(led);
+    }
+}
+
+void MainWindow::updateDevicesLeds()
+{
+    QList<bool> onScreenDevicesStates = m_mainWindowController->getOnScreenDevicesStates();
+
+    ui->devicesLedsListWidget->clear();
+
+    for(int i = 0; i < onScreenDevicesStates.size(); i++)
+    {
+        QListWidgetItem* led = new QListWidgetItem();
+        if(onScreenDevicesStates[i])
+        {
+            led->setBackgroundColor(SmlColors::red());
+        }
+        else
+        {
+            led->setBackgroundColor(SmlColors::white());
+        }
+        ui->devicesLedsListWidget->addItem(led);
     }
 }
 
@@ -366,6 +388,7 @@ void MainWindow::updateDisplays()
     updateCoordinatesDisplays();
     updateBatteryStatusDisplay();
     updateSensorsDisplay();
+    updateDevicesLeds();
 #ifdef Q_OS_WIN
     /*if(u1Manager != nullptr)
     {
@@ -597,7 +620,9 @@ void MainWindow::onMachineToolConnected()
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Силовой блок подключен");
 
-    ui->devicesListWidget->setEnabled(true);
+    ui->devicesButtonsListWidget->setEnabled(true);
+    ui->devicesLedsListWidget->setEnabled(true);
+
     ui->sensorsTableWidget->setEnabled(true);
 
     ui->currentCoordinatesListWidget->setEnabled(true);
@@ -666,7 +691,8 @@ void MainWindow::onMachineToolDisconnected(QString message)
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage(QString("Силовой блок отключен: ") + message);
 
-    ui->devicesListWidget->setEnabled(false);
+    ui->devicesButtonsListWidget->setEnabled(false);
+    ui->devicesLedsListWidget->setEnabled(false);
     ui->sensorsTableWidget->setEnabled(false);
 
     ui->currentCoordinatesListWidget->setEnabled(false);
@@ -1263,7 +1289,7 @@ void MainWindow::on_savesettings_action_triggered()
     }
 }*/
 
-void MainWindow::on_devicesListWidget_clicked(const QModelIndex &index)
+void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)
 {
     QString deviceName = index.data().toString();
     m_mainWindowController->switchDevice(deviceName);
