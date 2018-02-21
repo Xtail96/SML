@@ -24,6 +24,7 @@ private:
 
 protected slots:
     void sendCommang(QString cmd);
+    void handleCommand(QString cmd);
     void printResult(QString result);
     void handleMachineToolDisconnected(QString message);
 };

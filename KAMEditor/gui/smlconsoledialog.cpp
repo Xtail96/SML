@@ -7,7 +7,6 @@ SMLConsoleDialog::SMLConsoleDialog(MainWindowController *controller, QWidget *pa
     m_controller(controller)
 {
     ui->setupUi(this);
-    m_controller->setServerDebug(true);
     setup();
 }
 
@@ -19,7 +18,7 @@ SMLConsoleDialog::~SMLConsoleDialog()
 
 void SMLConsoleDialog::setup()
 {
-    connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(sendCommang(QString)));
+    connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(handleCommang(QString)));
     connect(m_controller, SIGNAL(receivedDebugMessage(QString)), this, SLOT(printResult(QString)));
     connect(m_controller, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(handleMachineToolDisconnected(QString)));
 }
@@ -27,6 +26,18 @@ void SMLConsoleDialog::setup()
 void SMLConsoleDialog::sendCommang(QString cmd)
 {
     m_controller->sendBinaryMessageToServer(cmd.toUtf8());
+}
+
+void SMLConsoleDialog::handleCommand(QString cmd)
+{
+    if(cmd == "debug")
+    {
+        m_controller->setServerDebug(true);
+    }
+    else
+    {
+        sendCommang(cmd);
+    }
 }
 
 void SMLConsoleDialog::printResult(QString result)

@@ -12,7 +12,7 @@
  * \brief Структура "Буффер состояний"
  *  Содержит информацию о состоянии систем станка
  */
-struct StatesBuffer
+struct SensorsBuffer
 {
 public:
     /*!
@@ -120,6 +120,8 @@ protected:
      */
     std::vector< std::shared_ptr<Sensor> > sensors;
 
+    SensorsBuffer m_buffer;
+
     /*!
      * \brief Инициализирует датчики по файлу настроек
      * \param sm - указатель на менеджер настроек
@@ -149,7 +151,9 @@ public:
      * \brief Обновляет состояния датчиков по буферу состояний станка
      * \param buffer - буфер состояний станка
      */
-    void updateSensors(const StatesBuffer buffer);
+    void updateSensors(const SensorsBuffer buffer);
+
+    void updateSensors(const byte_array sensorsState);
 };
 
 #endif // SENSORSMANAGER_H

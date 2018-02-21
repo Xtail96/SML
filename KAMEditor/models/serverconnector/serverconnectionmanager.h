@@ -107,6 +107,7 @@ public:
     ~ServerConnectionManager();
 
     byte_array getSensorsState();
+    byte_array getDevicesState();
     void setU1CurrentState(byte_array sensorsState, byte_array devicesState);
     void setU1CurrentState(QList<QVariant> sensorsState, QList<QVariant> devicesState);
 

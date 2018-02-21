@@ -50,11 +50,21 @@ std::vector<std::shared_ptr<Sensor> >& SensorsManager::getSensors()
     return sensors;
 }
 
-void SensorsManager::updateSensors(const StatesBuffer buffer)
+void SensorsManager::updateSensors(const SensorsBuffer buffer)
 {
     for(auto sensor : sensors)
     {
         bool isVoltage = buffer.getSensorState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        sensor->setCurrentState(isVoltage);
+    }
+}
+
+void SensorsManager::updateSensors(const byte_array sensorsState)
+{
+    m_buffer.updateBuffer(sensorsState);
+    for(auto sensor : sensors)
+    {
+        bool isVoltage = m_buffer.getSensorState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
         sensor->setCurrentState(isVoltage);
     }
 }

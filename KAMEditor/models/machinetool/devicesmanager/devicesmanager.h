@@ -77,6 +77,11 @@ public:
             devicesState = value;
         }
     }
+
+    bool getDeviceState(byte deviceMask)
+    {
+        return ((devicesState & deviceMask) == devicesState);
+    }
 };
 
 
@@ -143,6 +148,8 @@ public:
      * \param value - константная ссылка на новый контейнер с устройствами
      */
     void updateDevices(const std::vector<std::shared_ptr<Device> > &value);
+
+    void updateDevices(const byte_array devicesState);
 
     /*!
      * \brief Формирует посылку, которую нужно послать контроллеру для включения/отключения нужного устройства

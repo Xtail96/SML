@@ -136,6 +136,11 @@ byte_array ServerConnectionManager::getSensorsState()
     return m_u1CurrentState->getSensorsState();
 }
 
+byte_array ServerConnectionManager::getDevicesState()
+{
+    return m_u1CurrentState->getDevicesState();
+}
+
 void ServerConnectionManager::setU1CurrentState(byte_array sensorsState, byte_array devicesState)
 {
     m_u1CurrentState->setSensorsState(sensorsState);

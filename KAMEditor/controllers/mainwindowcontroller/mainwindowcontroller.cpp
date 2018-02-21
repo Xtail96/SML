@@ -42,23 +42,15 @@ void MainWindowController::loadMachineToolSettings()
 void MainWindowController::updateU1State()
 {
    // получать данные о текущем положении станка от контроллера движения и перезаписывать координаты станка.
-    byte_array recieved = m_serverManager->getSensorsState();
-    qDebug() << recieved;
-    m_machineTool->updateCurrentState(recieved);
+    byte_array sensors = m_serverManager->getSensorsState();
+    byte_array devices = m_serverManager->getDevicesState();
+    m_machineTool->updateCurrentState(sensors, devices);
     emit u1StateIsChanged();
 }
 
-void MainWindowController::testServer(bool on)
+void MainWindowController::testServer()
 {
-    byte_array data(16, 0);
-    if(on)
-    {
-        data[2] = byte(238);
-    }
-    else
-    {
-        data[2] = byte(0);
-    }
+    switchDevice("Фрезер");
 }
 
 void MainWindowController::sendTextMessgeToServer(QString message)

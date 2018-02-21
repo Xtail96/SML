@@ -40,10 +40,13 @@ MachineTool::~MachineTool()
     delete this->gcodesFilesManager;
 }
 
-void MachineTool::updateCurrentState(byte_array value)
+void MachineTool::updateCurrentState(byte_array sensorsState, byte_array devicesState)
 {
-    buffer.updateBuffer(value);
-    sensorsManager->updateSensors(buffer);
+    //sensorsStateBuffer.updateBuffer(sensorsState);
+    //devicesStateBuffer.setDevicesState(devicesState);
+
+    sensorsManager->updateSensors(sensorsState);
+    devicesManager->updateDevices(devicesState);
 }
 
 MovementsHandler* MachineTool::getMovementController() const
@@ -81,10 +84,10 @@ SensorsManager *MachineTool::getSensorsManager() const
     return sensorsManager;
 }
 
-StatesBuffer &MachineTool::getBuffer()
+/*SensorsBuffer &MachineTool::getBuffer()
 {
-    return buffer;
-}
+    return sensorsStateBuffer;
+}*/
 
 DevicesManager *MachineTool::getDevicesManager() const
 {

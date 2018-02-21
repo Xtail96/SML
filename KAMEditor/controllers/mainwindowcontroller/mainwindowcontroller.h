@@ -155,7 +155,7 @@ public slots:
 
     QList<Point> getMachineToolCoordinates();
 
-    void testServer(bool on = true);
+    void testServer();
     void sendTextMessgeToServer(QString message);
     void sendBinaryMessageToServer(QByteArray message);
     void handleDebugMessage(QString debugMessage);

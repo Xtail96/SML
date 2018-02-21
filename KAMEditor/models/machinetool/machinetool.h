@@ -25,12 +25,31 @@
  *      /TODO Описание класса станок
  */
 class MachineTool
-{
+{   
+protected:
+    uint16_t vendorId;
+
+    uint16_t productId;
+
+    std::string name;
+
+    SettingsManager *settingsManager;
+    MovementsHandler *movementController;
+    PointsManager *pointsManager;
+    SensorsManager *sensorsManager;
+    DevicesManager *devicesManager;
+    //CommandsManager *commandsManager;
+    GCodesManager *gcodesManager;
+    //SMLFilesManager* smlFilesManager;
+    GCodesFilesManager *gcodesFilesManager;
+
+    unsigned int velocity;
+    unsigned int spindelRotations;
 public:
     MachineTool();
     ~MachineTool();
 
-    void updateCurrentState(byte_array value);
+    void updateCurrentState(byte_array sensorsState, byte_array devicesState);
 
     MovementsHandler *getMovementController() const;
 
@@ -45,7 +64,7 @@ public:
 
     SensorsManager *getSensorsManager() const;
 
-    StatesBuffer& getBuffer();
+    //SensorsBuffer& getBuffer();
 
     DevicesManager *getDevicesManager() const;
 
@@ -65,28 +84,6 @@ public:
     void setGcodesFilesManager(GCodesFilesManager *value);
 
     SettingsManager *getSettingsManager() const;
-
-private:
-    uint16_t vendorId;
-
-    uint16_t productId;
-
-    std::string name;
-
-    SettingsManager *settingsManager;
-    MovementsHandler *movementController;
-    PointsManager *pointsManager;
-    SensorsManager *sensorsManager;
-    DevicesManager *devicesManager;
-    //CommandsManager *commandsManager;
-    GCodesManager *gcodesManager;
-    //SMLFilesManager* smlFilesManager;
-    GCodesFilesManager *gcodesFilesManager;
-
-    StatesBuffer buffer;
-
-    unsigned int velocity;
-    unsigned int spindelRotations;
 };
 
 #endif // MACHINETOOL_H

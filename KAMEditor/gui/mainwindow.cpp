@@ -1345,14 +1345,7 @@ void MainWindow::on_view_action_triggered()
 
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
-    if(ui->edgesControlCheckBox->isChecked())
-    {
-        m_mainWindowController->testServer(true);
-    }
-    else
-    {
-        m_mainWindowController->testServer(false);
-    }
+    m_mainWindowController->testServer();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

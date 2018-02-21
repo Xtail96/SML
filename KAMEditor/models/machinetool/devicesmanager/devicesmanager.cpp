@@ -134,3 +134,13 @@ void DevicesManager::updateDevices(const std::vector<std::shared_ptr<Device> > &
 {
     devices = value;
 }
+
+void DevicesManager::updateDevices(const byte_array devicesState)
+{
+    devicesBuffer.setDevicesState(devicesState[0]);
+    for(auto device : devices)
+    {
+        bool isEnable = devicesBuffer.getDeviceState(device->getMask());
+        device->setCurrentState(isEnable);
+    }
+}
