@@ -2473,6 +2473,9 @@
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <property name="spacing">
+               <number>1</number>
+              </property>
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -2502,11 +2505,26 @@
               </item>
               <item>
                <widget class="QListWidget" name="devicesLedsListWidget">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>30</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="editTriggers">
                  <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="viewMode">
+                 <enum>QListView::ListMode</enum>
                 </property>
                </widget>
               </item>
