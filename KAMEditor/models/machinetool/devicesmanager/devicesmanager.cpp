@@ -140,7 +140,16 @@ void DevicesManager::updateDevices(const byte_array devicesState)
     devicesBuffer.setDevicesState(devicesState[0]);
     for(auto device : devices)
     {
-        bool isEnable = devicesBuffer.getDeviceState(device->getMask());
-        device->setCurrentState(isEnable);
+        bool enable = devicesBuffer.getDeviceState(device->getMask());
+        bool deviceState;
+        if(enable)
+        {
+            deviceState = device->getActiveState();
+        }
+        else
+        {
+            deviceState = !(device->getActiveState());
+        }
+        device->setCurrentState(deviceState);
     }
 }

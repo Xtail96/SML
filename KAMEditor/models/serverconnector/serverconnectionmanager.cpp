@@ -197,14 +197,13 @@ void ServerConnectionManager::onBinaryMessageReceived(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
     if(ok)
     {
-        //qDebug() << "success";
         QtJson::JsonObject u1State = result["U1State"].toMap();
         if(!u1State.isEmpty())
         {
             QList<QVariant> sensorsState = u1State["SensorsState"].toList();
-            qDebug() << sensorsState;
+            //qDebug() << sensorsState;
             QList<QVariant> devicesState = u1State["DevicesState"].toList();
-            qDebug() << devicesState;
+            //qDebug() << devicesState;
             setU1CurrentState(sensorsState, devicesState);
         }
 

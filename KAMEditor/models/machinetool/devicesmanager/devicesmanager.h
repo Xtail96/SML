@@ -53,7 +53,7 @@ public:
             qDebug() << "invert:" + QString::number(deviceMask, 2);
             devicesState = devicesState | deviceMask;
         }
-        qDebug() << QString::number(devicesState, 2);
+        qDebug() << "Devices state =" << QString::number(devicesState, 2);
         return devicesState;
     }
 
@@ -80,7 +80,12 @@ public:
 
     bool getDeviceState(byte deviceMask)
     {
-        return ((devicesState & deviceMask) == devicesState);
+        bool enable = false;
+        if(devicesState != 0x00)
+        {
+            enable = ((devicesState & deviceMask) == devicesState);
+        }
+        return enable;
     }
 };
 
