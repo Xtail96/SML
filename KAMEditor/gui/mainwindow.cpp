@@ -618,7 +618,7 @@ void MainWindow::onMachineToolConnected()
     ui->disconnectCommandLinkButton->setEnabled(true);
 
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->showMessage("Силовой блок подключен");
+    ui->statusBar->showMessage("Связь с силовым блоком установлена");
 
     ui->devicesButtonsListWidget->setEnabled(true);
     ui->devicesLedsListWidget->setEnabled(true);
@@ -689,7 +689,7 @@ void MainWindow::onMachineToolDisconnected(QString message)
     ui->disconnectCommandLinkButton->setEnabled(false);
 
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage(QString("Силовой блок отключен: ") + message);
+    ui->statusBar->showMessage(QString("Отсутсвует связь с силовым блоком: ") + message);
 
     ui->devicesButtonsListWidget->setEnabled(false);
     ui->devicesLedsListWidget->setEnabled(false);

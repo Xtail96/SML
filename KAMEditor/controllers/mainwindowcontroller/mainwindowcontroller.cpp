@@ -36,7 +36,7 @@ void MainWindowController::loadMachineToolSettings()
     m_machineTool = new MachineTool();
     emit machineToolSettingsIsLoaded();
     updateU1State();
-    emit machineToolIsDisconnected("Силовой блок пока не подключен!");
+    emit machineToolIsDisconnected();
 }
 
 void MainWindowController::updateU1State()

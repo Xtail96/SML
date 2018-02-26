@@ -106,7 +106,7 @@ signals:
     void receivedDebugMessage(QString message);
 
     void machineToolIsConnected();
-    void machineToolIsDisconnected(QString message);
+    void machineToolIsDisconnected(QString message = "");
 
 public slots:
     /// Слот для загрузки насроек станка
