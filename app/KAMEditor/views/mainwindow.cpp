@@ -19,7 +19,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     hideWidgets();
 
-    emit ready();
+    //updateAxisesBoard();
+    updateDevicesBoard();
+    updateSensorsBoard();
+    updatePointsEditorFields();
+    updateVelocityPanel();
+    updateSpindelRotationsPanel();
+    updateOptionsPanel();
+    updateDevicesPanel();
+    updateDisplays();
+    onMachineToolDisconnected("");
 }
 
 MainWindow::~MainWindow()
@@ -153,7 +162,6 @@ void MainWindow::setupWidgets()
     connect(ui->saveFileAsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
     connect(ui->viewPushButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
-
 }
 
 void MainWindow::updateSettingsBoards()
@@ -318,7 +326,6 @@ void MainWindow::updateDevicesLeds()
         ui->devicesLedsListWidget->addItem(led);
     }
 }
-
 
 void MainWindow::updateDisplays()
 {

@@ -83,14 +83,11 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+signals:
 
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-signals:
-    /// Виджеты настроены
-    void ready();
-
 private:
     Ui::MainWindow *ui;
 

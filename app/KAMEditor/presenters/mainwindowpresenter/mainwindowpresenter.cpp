@@ -16,8 +16,6 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
 
     connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(onConnected()));
     connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));
-
-    emit machineToolIsDisconnected();
 }
 
 MainWindowPresenter::~MainWindowPresenter()
