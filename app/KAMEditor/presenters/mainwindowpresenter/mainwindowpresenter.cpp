@@ -143,7 +143,7 @@ void MainWindowPresenter::updateVelocity(int value)
 {
     if(value >= 0)
     {
-
+        feedrate = value;
     }
     else
     {
@@ -155,7 +155,7 @@ void MainWindowPresenter::updateSpindelRotations(int value)
 {
     if(value >= 0)
     {
-
+        rotations = value;
     }
     else
     {
@@ -344,13 +344,13 @@ QStringList MainWindowPresenter::getOptionsNames()
 unsigned int MainWindowPresenter::getVelocity()
 {
     //return m_machineTool->getVelocity();
-    return 100;
+    return feedrate;
 }
 
 unsigned int MainWindowPresenter::getSpindelRotations()
 {
     //return m_machineTool->getSpindelRotations();
-    return 18000;
+    return rotations;
 }
 
 QList<QStringList> MainWindowPresenter::getPoints()

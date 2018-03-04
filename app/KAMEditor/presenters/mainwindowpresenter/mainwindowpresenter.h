@@ -54,6 +54,9 @@ protected:
 
     PointsManager* m_pointsManager;
 
+    size_t feedrate = 50;
+    size_t rotations = 2000;
+
 public:
     /*!
      * \brief Конструктор класса Контроллер главного окна
@@ -94,6 +97,10 @@ public:
     void importSettings();
 
     void parseGCodes(QString data);
+
+    size_t getFeedrate() const;
+
+    size_t getRotations() const;
 
 public slots:
 
