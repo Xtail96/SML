@@ -95,8 +95,6 @@ FORMS    += views/mainwindow.ui \
     views/logdialog.ui \
     views/gcodeswebviewdialog.ui \
     views/smlconsoledialog.ui \
-    views/gcodeswebviewdialog.ui \
-    views/logdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
