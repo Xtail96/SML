@@ -17,8 +17,8 @@ SMLConsoleDialog::~SMLConsoleDialog()
 
 void SMLConsoleDialog::setup()
 {
-    connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(handleCommang(QString)));
-    connect(m_controller, SIGNAL(receivedDebugMessage(QString)), this, SLOT(printResult(QString)));
+    connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(handleCommand(QString)));
+    connect(m_controller, SIGNAL(receivedMessage(QString)), this, SLOT(printResult(QString)));
     connect(m_controller, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(handleMachineToolDisconnected(QString)));
 }
 
