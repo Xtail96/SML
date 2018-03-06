@@ -156,12 +156,12 @@ void MainWindow::setupWidgets()
     updatePointsEditorButtons();
 
     // настройка кнопок работы с файлами
-    connect(ui->newFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
-    connect(ui->openFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
-    connect(ui->saveFilePushButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
-    connect(ui->saveFileAsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
-    connect(ui->addPushButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
-    connect(ui->viewPushButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
+    connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
+    connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
+    connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
+    connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
+    connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
 }
 
 void MainWindow::updateSettingsBoards()

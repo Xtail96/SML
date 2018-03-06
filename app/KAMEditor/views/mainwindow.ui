@@ -197,37 +197,6 @@
            <property name="bottomMargin">
             <number>5</number>
            </property>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="saveFilePushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="6">
             <spacer name="horizontalSpacer">
              <property name="orientation">
@@ -241,145 +210,27 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="5">
-            <widget class="QPushButton" name="viewPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
+           <item row="0" column="2">
+            <widget class="QToolButton" name="saveFileToolButton">
              <property name="text">
-              <string/>
+              <string>Сохранить файл</string>
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
+               <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
              </property>
              <property name="iconSize">
               <size>
-               <width>25</width>
-               <height>25</height>
+               <width>32</width>
+               <height>32</height>
               </size>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="openFilePushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="saveFileAsPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="newFilePushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item row="0" column="4">
-            <widget class="QPushButton" name="addPushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-              </font>
-             </property>
+            <widget class="QToolButton" name="addFileToolButton">
              <property name="text">
-              <string/>
+              <string>Добавить файл</string>
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
@@ -387,12 +238,77 @@
              </property>
              <property name="iconSize">
               <size>
-               <width>25</width>
-               <height>25</height>
+               <width>32</width>
+               <height>32</height>
               </size>
              </property>
-             <property name="flat">
-              <bool>true</bool>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QToolButton" name="saveFileAsToolButton">
+             <property name="text">
+              <string>Сохранить файл как</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QToolButton" name="openFileToolButton">
+             <property name="text">
+              <string>Открыть файл</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QToolButton" name="newFileToolButton">
+             <property name="text">
+              <string>Новый файл</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QToolButton" name="viewToolButton">
+             <property name="text">
+              <string>Просмотр</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -998,7 +914,7 @@
             <string>G-Коды</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0" colspan="2">
+            <item row="1" column="0" colspan="2">
              <widget class="GCodesEditorWidget" name="gcodesEditorPlainTextEdit">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
