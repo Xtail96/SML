@@ -2,8 +2,11 @@
 #define GCODESWEBVIEWDIALOG_H
 
 #include <QDialog>
+
+#ifdef Q_OS_UNIX
 #include <QWebEngineView>
 #include <QWebEngineSettings>
+#endif
 
 namespace Ui {
 class GCodesWebViewDialog;
