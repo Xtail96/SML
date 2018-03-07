@@ -1,6 +1,7 @@
 #ifndef GCODESWEBVIEWDIALOG_H
 #define GCODESWEBVIEWDIALOG_H
 
+#ifdef Q_OS_UNIX
 #include <QDialog>
 #include <QWebEngineView>
 #include <QWebEngineSettings>
@@ -22,5 +23,6 @@ private:
     Ui::GCodesWebViewDialog *ui;
     QWebEngineView *engine_view;
 };
+#endif
 
 #endif // GCODESWEBVIEWDIALOG_H

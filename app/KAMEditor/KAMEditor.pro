@@ -6,8 +6,10 @@
 
 QT       += core gui
 QT += opengl
-QT += webenginewidgets
 QT += websockets
+unix {
+    QT += webenginewidgets
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,10 +19,10 @@ TEMPLATE = app
 CONFIG += c++11
 
 win32 {
-  #LIBS += -lglu32 -lopengl32
+  LIBS += -lglu32 -lopengl32
 }
 macx {
-  #LIBS += -framework OpenGl
+  LIBS += -framework OpenGl
 }
 unix {
 }
