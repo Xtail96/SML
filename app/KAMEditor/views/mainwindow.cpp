@@ -438,18 +438,18 @@ void MainWindow::updateFilePath()
 
 void MainWindow::updateBatteryStatusDisplay()
 {
-    #ifdef Q_OS_WIN
-        SYSTEM_POWER_STATUS status;
-        GetSystemPowerStatus(&status);
+#ifdef Q_OS_WIN
+    SYSTEM_POWER_STATUS status;
+    GetSystemPowerStatus(&status);
 
-        if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
-        status.BatteryLifePercent = 100;
+    if ((status.BatteryLifePercent < 0) || (status.BatteryLifePercent > 100))
+    status.BatteryLifePercent = 100;
 
-        ui->batteryProgressBar->setValue(status.BatteryLifePercent);
-    #endif
-    #ifdef Q_OS_OSX
-        ui->batteryProgressBar->setValue(100);
-    #endif
+    ui->batteryProgressBar->setValue(status.BatteryLifePercent);
+#endif
+#ifdef Q_OS_OSX
+    ui->batteryProgressBar->setValue(100);
+#endif
 }
 
 void MainWindow::updateBaseStatus()
