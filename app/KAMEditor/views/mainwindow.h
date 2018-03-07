@@ -14,6 +14,10 @@
 #include <QListWidget>
 #include <QDebug>
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 /// Подключение диалогов редактора точек
 #include "points/addpointdialog.h"
 #include "points/toselectionpointdialog.h"
