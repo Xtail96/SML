@@ -1,12 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <set>
-#include <tuple>
-#include <vector>
-
 #include <QMainWindow>
-#include <QTimer>
 #include <QShortcut>
 #include <QKeySequence>
 #include <QList>
@@ -18,10 +13,6 @@
 #include <QTableWidgetItem>
 #include <QListWidget>
 #include <QDebug>
-
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
 
 /// Подключение диалогов редактора точек
 #include "points/addpointdialog.h"

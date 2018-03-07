@@ -1,5 +1,4 @@
 #ifdef Q_OS_UNIX
-
 #include "gcodeswebviewdialog.h"
 #include "ui_gcodeswebviewdialog.h"
 
@@ -21,5 +20,4 @@ GCodesWebViewDialog::~GCodesWebViewDialog()
     delete engine_view;
     delete ui;
 }
-
 #endif

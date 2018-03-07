@@ -1110,7 +1110,9 @@ void MainWindow::on_view_action_triggered()
     m_mainWindowPresenter->updateGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
+#ifdef Q_OS_UNIX
     //GCodesWebViewDialog(this).exec();
+#endif
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()
