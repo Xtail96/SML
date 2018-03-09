@@ -84,7 +84,19 @@ SOURCES += main.cpp\
     views/candlevisualizer/glwidget.cpp \
     views/candlevisualizer/drawers/shaderdrawable.cpp \
     views/candlevisualizer/drawers/tooldrawer.cpp \
-    views/candlevisualizerdialog.cpp
+    views/candlevisualizerdialog.cpp \
+    views/candlevisualizer/drawers/gcodedrawer.cpp \
+    views/candlevisualizer/drawers/heightmapborderdrawer.cpp \
+    views/candlevisualizer/drawers/heightmapgriddrawer.cpp \
+    views/candlevisualizer/drawers/heightmapinterpolationdrawer.cpp \
+    views/candlevisualizer/drawers/origindrawer.cpp \
+    views/candlevisualizer/drawers/selectiondrawer.cpp \
+    views/candlevisualizer/parser/arcproperties.cpp \
+    views/candlevisualizer/parser/gcodeparser.cpp \
+    views/candlevisualizer/parser/gcodepreprocessorutils.cpp \
+    views/candlevisualizer/parser/gcodeviewparse.cpp \
+    views/candlevisualizer/parser/linesegment.cpp \
+    views/candlevisualizer/parser/pointsegment.cpp
 
 HEADERS  += views/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -122,7 +134,19 @@ HEADERS  += views/mainwindow.h \
     views/candlevisualizer/utils/interpolation.h \
     views/candlevisualizer/utils/util.h \
     views/candlevisualizer/drawers/tooldrawer.h \
-    views/candlevisualizerdialog.h
+    views/candlevisualizerdialog.h \
+    views/candlevisualizer/drawers/gcodedrawer.h \
+    views/candlevisualizer/drawers/heightmapborderdrawer.h \
+    views/candlevisualizer/drawers/heightmapgriddrawer.h \
+    views/candlevisualizer/drawers/heightmapinterpolationdrawer.h \
+    views/candlevisualizer/drawers/origindrawer.h \
+    views/candlevisualizer/drawers/selectiondrawer.h \
+    views/candlevisualizer/parser/arcproperties.h \
+    views/candlevisualizer/parser/gcodeparser.h \
+    views/candlevisualizer/parser/gcodepreprocessorutils.h \
+    views/candlevisualizer/parser/gcodeviewparse.h \
+    views/candlevisualizer/parser/linesegment.h \
+    views/candlevisualizer/parser/pointsegment.h
 
 FORMS    += views/mainwindow.ui \
     views/points/addpointdialog.ui \
@@ -137,8 +161,11 @@ macx:ICON = $${PWD}/applicationOSX.icns
 
 RESOURCES += \
     views/resources/pages.qrc \
-    views/resources/images.qrc
+    views/resources/images.qrc \
+    views/candlevisualizer/shaders.qrc
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
-    applicationOSX.icns
+    applicationOSX.icns \
+    views/candlevisualizer/shaders/fshader.glsl \
+    views/candlevisualizer/shaders/vshader.glsl
