@@ -488,6 +488,10 @@ void GLWidget::paintEvent(QPaintEvent *pe) {
 #ifdef GLES
     update();
 #endif
+
+#ifdef Q_OS_MACX
+    update();
+#endif
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
