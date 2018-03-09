@@ -69,6 +69,7 @@
 #include "presenters/mainwindowpresenter/mainwindowpresenter.h"
 
 #include "gcodeswebviewdialog.h"
+#include "views/candlevisualizerdialog.h"
 #include "smlconsoledialog.h"
 
 namespace Ui {

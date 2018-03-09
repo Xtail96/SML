@@ -28,6 +28,29 @@ unix {
 }
 
 
+# from candle project
+DEFINES += sNan=\"65536\"
+
+win32: {
+    QT += winextras
+    DEFINES += WINDOWS
+    QMAKE_LFLAGS += "-Wl,--large-address-aware"
+    QMAKE_CXXFLAGS_DEBUG += -g3 -pg
+    QMAKE_LFLAGS_DEBUG += -pg -lgmon
+}
+
+unix:!macx {
+    DEFINES += UNIX #GL_GLEXT_PROTOTYPES
+    QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/libs\'"
+}
+
+contains(QT_CONFIG, opengles.) {
+    warning("GL ES detected. VAO will be disabled.")
+    DEFINES += GLES
+    INSTALLS += target
+}
+#end
+
 SOURCES += main.cpp\
         views/mainwindow.cpp \
     models/settingsmanager/settingsmanager.cpp \
@@ -57,7 +80,11 @@ SOURCES += main.cpp\
     views/logdialog.cpp \
     views/points/addpointdialog.cpp \
     views/points/toselectionpointdialog.cpp \
-    views/smlconsoledialog.cpp
+    views/smlconsoledialog.cpp \
+    views/candlevisualizer/glwidget.cpp \
+    views/candlevisualizer/drawers/shaderdrawable.cpp \
+    views/candlevisualizer/drawers/tooldrawer.cpp \
+    views/candlevisualizerdialog.cpp
 
 HEADERS  += views/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -89,7 +116,13 @@ HEADERS  += views/mainwindow.h \
     views/logdialog.h \
     views/points/addpointdialog.h \
     views/points/toselectionpointdialog.h \
-    views/smlconsoledialog.h
+    views/smlconsoledialog.h \
+    views/candlevisualizer/glwidget.h \
+    views/candlevisualizer/drawers/shaderdrawable.h \
+    views/candlevisualizer/utils/interpolation.h \
+    views/candlevisualizer/utils/util.h \
+    views/candlevisualizer/drawers/tooldrawer.h \
+    views/candlevisualizerdialog.h
 
 FORMS    += views/mainwindow.ui \
     views/points/addpointdialog.ui \
@@ -97,6 +130,7 @@ FORMS    += views/mainwindow.ui \
     views/logdialog.ui \
     views/gcodeswebviewdialog.ui \
     views/smlconsoledialog.ui \
+    views/candlevisualizerdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
