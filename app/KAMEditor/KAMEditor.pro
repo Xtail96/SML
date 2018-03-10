@@ -96,7 +96,9 @@ SOURCES += main.cpp\
     views/candlevisualizer/parser/gcodepreprocessorutils.cpp \
     views/candlevisualizer/parser/gcodeviewparse.cpp \
     views/candlevisualizer/parser/linesegment.cpp \
-    views/candlevisualizer/parser/pointsegment.cpp
+    views/candlevisualizer/parser/pointsegment.cpp \
+    views/candlevisualizer/tables/gcodetablemodel.cpp \
+    views/candlevisualizer/tables/heightmaptablemodel.cpp
 
 HEADERS  += views/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -146,7 +148,9 @@ HEADERS  += views/mainwindow.h \
     views/candlevisualizer/parser/gcodepreprocessorutils.h \
     views/candlevisualizer/parser/gcodeviewparse.h \
     views/candlevisualizer/parser/linesegment.h \
-    views/candlevisualizer/parser/pointsegment.h
+    views/candlevisualizer/parser/pointsegment.h \
+    views/candlevisualizer/tables/gcodetablemodel.h \
+    views/candlevisualizer/tables/heightmaptablemodel.h
 
 FORMS    += views/mainwindow.ui \
     views/points/addpointdialog.ui \

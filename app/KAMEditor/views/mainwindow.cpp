@@ -1111,7 +1111,8 @@ void MainWindow::on_view_action_triggered()
     on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     //GCodesWebViewDialog(this).exec();
-    CandleVisualizerDialog(this).exec();
+
+    CandleVisualizerDialog(m_mainWindowPresenter->getFilePath(), this).exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

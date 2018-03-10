@@ -70,6 +70,7 @@
 
 #include "gcodeswebviewdialog.h"
 #include "views/candlevisualizerdialog.h"
+//#include "views/candlevisualizer/app/src/frmmain.h"
 #include "smlconsoledialog.h"
 
 namespace Ui {
