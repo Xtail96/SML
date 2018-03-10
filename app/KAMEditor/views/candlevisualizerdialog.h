@@ -37,6 +37,15 @@ public:
     void loadFile(QString fileName);
     QTime updateProgramEstimatedTime(QList<LineSegment*> lines);
 
+private slots:
+    void on_topToolButton_clicked();
+
+    void on_frontToolButton_clicked();
+
+    void on_sideToolButton_clicked();
+
+    void on_isometricToolButton_clicked();
+
 private:
     Ui::CandleVisualizerDialog *ui;
 

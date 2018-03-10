@@ -194,3 +194,27 @@ QTime CandleVisualizerDialog::updateProgramEstimatedTime(QList<LineSegment *> li
 
         return t;
 }
+
+void CandleVisualizerDialog::on_topToolButton_clicked()
+{
+    ui->glwVisualizer->setTopView();
+    ui->glwVisualizer->update();
+}
+
+void CandleVisualizerDialog::on_frontToolButton_clicked()
+{
+    ui->glwVisualizer->setFrontView();
+    ui->glwVisualizer->update();
+}
+
+void CandleVisualizerDialog::on_sideToolButton_clicked()
+{
+    ui->glwVisualizer->setLeftView();
+    ui->glwVisualizer->update();
+}
+
+void CandleVisualizerDialog::on_isometricToolButton_clicked()
+{
+    ui->glwVisualizer->setIsometricView();
+    ui->glwVisualizer->update();
+}
