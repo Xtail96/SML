@@ -6,27 +6,37 @@
 #include <QMessageBox>
 #include <QString>
 #include <QDebug>
+#include <QDialog>
+#include <QProgressDialog>
+#include <QTime>
 
-class GCodesFilesManager
+class GCodesFilesManager : public QObject
 {
+    Q_OBJECT
 protected:
     QString filePath;
-    QString fileContent;
+    QStringList fileContent;
 public:
-    GCodesFilesManager();
+    GCodesFilesManager(QObject *parent);
     void openGCodesFile();
     void openGCodesFile(QString path);
-    QString readFileInfo(QString path);
+    QStringList readFileInfo(QString path);
+    QString loadFile(QString path);
     void saveGCodesFile();
     void saveGCodesFileAs();
     static void createGCodesFile(const QString path);
     void newGCodesFile();
     void addGCodesFile();
 
-    QString getContent() const;
+    QStringList getContent() const;
     QString getFilePath() const;
     void setFilePath(const QString &value);
-    void setFileContent(const QString &value);
+    void setFileContent(const QStringList &value);
+
+signals:
+    void startLoading();
+    void loading(int value);
+    void loaded();
 };
 
 #endif // GCODESFILESMANAGER_H

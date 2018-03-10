@@ -6,7 +6,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     m_serverManager(new ServerConnectionManager(m_settingsManager, false, this)),
     m_sensorsManager(new SensorsManager(m_settingsManager)),
     m_devicesManager(new DevicesManager(m_settingsManager)),
-    m_gcodesFilesManager(new GCodesFilesManager()),
+    m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_gcodesManager(new GCodesManager()),
     m_pointsManager(new PointsManager())
 {
@@ -86,6 +86,21 @@ void MainWindowPresenter::openWebSocketConnection()
 void MainWindowPresenter::closeWebSocketConnection()
 {
     m_serverManager->closeWebSocket();
+}
+
+void MainWindowPresenter::onGCodesLoadingStart()
+{
+    emit gcodesLoadingStart();
+}
+
+void MainWindowPresenter::onGCodesLoading(int currentValue)
+{
+    emit gcodesIsLoading(currentValue);
+}
+
+void MainWindowPresenter::onGCodesLoaded()
+{
+    emit gcodesLoaded();
 }
 
 void MainWindowPresenter::exportSettings()
@@ -208,26 +223,32 @@ void MainWindowPresenter::deletePoint(unsigned int number)
 
 void MainWindowPresenter::openGCodesFile()
 {
+    connect(m_gcodesFilesManager, SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
+    connect(m_gcodesFilesManager, SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
+    connect(m_gcodesFilesManager, SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
+
     m_gcodesFilesManager->openGCodesFile();
+
     emit gcodesUpdated();
     emit filePathUpdated();
 }
 
-QString MainWindowPresenter::getGCodesFileContent()
+QStringList MainWindowPresenter::getGCodesFileContent()
 {
     return m_gcodesFilesManager->getContent();
 }
 
 void MainWindowPresenter::saveGCodesFile(const QString data)
 {
-    m_gcodesFilesManager->setFileContent(data);
+
+    m_gcodesFilesManager->setFileContent(data.split('\n'));
     m_gcodesFilesManager->saveGCodesFile();
     emit filePathUpdated();
 }
 
 void MainWindowPresenter::saveGCodesFileAs(const QString data)
 {
-    m_gcodesFilesManager->setFileContent(data);
+    m_gcodesFilesManager->setFileContent(data.split('\n'));
     m_gcodesFilesManager->saveGCodesFileAs();
     emit filePathUpdated();
 }

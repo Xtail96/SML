@@ -43,7 +43,13 @@ signals:
     void machineToolIsConnected();
     void machineToolIsDisconnected(QString message = "");
 
+    void gcodesLoadingStart();
+    void gcodesIsLoading(int value);
+    void gcodesLoaded();
+
 protected:
+    QWidget* m_widget;
+
     SettingsManager* m_settingsManager;
     ServerConnectionManager* m_serverManager;
 
@@ -126,7 +132,7 @@ public slots:
     void addSMLFile();*/
 
     void openGCodesFile();
-    QString getGCodesFileContent();
+    QStringList getGCodesFileContent();
     void saveGCodesFile(const QString data);
     void saveGCodesFileAs(const QString data);
     void newGCodesFile();
@@ -147,6 +153,10 @@ public slots:
 
     void openWebSocketConnection();
     void closeWebSocketConnection();
+
+    void onGCodesLoadingStart();
+    void onGCodesLoading(int currentValue);
+    void onGCodesLoaded();
 };
 
 #endif // MAINWINDOWPRESENTER_H

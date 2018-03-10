@@ -173,26 +173,26 @@ QTime CandleVisualizerDialog::updateProgramEstimatedTime(QList<LineSegment *> li
 {
     double time = 0;
 
-        for (int i = 0; i < lines.count(); i++) {
-            LineSegment *ls = lines[i];
-        //    foreach (LineSegment *ls, lines) {
-            double length = (ls->getEnd() - ls->getStart()).length();
+    for (int i = 0; i < lines.count(); i++) {
+        LineSegment *ls = lines[i];
+    //    foreach (LineSegment *ls, lines) {
+        double length = (ls->getEnd() - ls->getStart()).length();
 
-            if (!qIsNaN(length) && !qIsNaN(ls->getSpeed()) && ls->getSpeed() != 0) time +=
-                    length / (ls->getSpeed());
-        }
+        if (!qIsNaN(length) && !qIsNaN(ls->getSpeed()) && ls->getSpeed() != 0) time +=
+                length / (ls->getSpeed());
+    }
 
-        time *= 60;
+    time *= 60;
 
-        QTime t;
+    QTime t;
 
-        t.setHMS(0, 0, 0);
-        t = t.addSecs(time);
+    t.setHMS(0, 0, 0);
+    t = t.addSecs(time);
 
-        ui->glwVisualizer->setSpendTime(QTime(0, 0, 0));
-        ui->glwVisualizer->setEstimatedTime(t);
+    ui->glwVisualizer->setSpendTime(QTime(0, 0, 0));
+    ui->glwVisualizer->setEstimatedTime(t);
 
-        return t;
+    return t;
 }
 
 void CandleVisualizerDialog::on_topToolButton_clicked()

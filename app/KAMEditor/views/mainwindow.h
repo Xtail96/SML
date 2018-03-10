@@ -98,7 +98,6 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     GCodesSyntaxHighlighter* m_hightlighter;
 
-
     /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcutsAutoRepeat();
     void enableMovementButtonsShortcutsAutoRepeat();

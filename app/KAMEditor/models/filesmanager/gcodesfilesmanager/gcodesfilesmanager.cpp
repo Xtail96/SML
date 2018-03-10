@@ -1,8 +1,9 @@
 #include "gcodesfilesmanager.h"
 
-GCodesFilesManager::GCodesFilesManager() :
+GCodesFilesManager::GCodesFilesManager(QObject *parent) :
+    QObject(parent),
     filePath(""),
-    fileContent("")
+    fileContent(QStringList())
 {
 
 }
@@ -19,19 +20,87 @@ void GCodesFilesManager::openGCodesFile()
 void GCodesFilesManager::openGCodesFile(QString path)
 {
     filePath = path;
+    //fileContent = readFileInfo(path);
     fileContent = readFileInfo(path);
 }
 
-QString GCodesFilesManager::readFileInfo(QString path)
+QStringList GCodesFilesManager::readFileInfo(QString path)
 {
-    QString content = "";
-    QFile inputFile(path);
+    QStringList content = QStringList();
+
+    /*QFile inputFile(path);
     if(inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream in(&inputFile);
         content = in.readAll();
         inputFile.close();
+    }*/
+
+    QTime time;
+    time.start();
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox(QMessageBox::Warning, "Ошибка", ("Невозможно открыть файл:\n"+ path));
     }
+    else
+    {
+        // Prepare text stream
+        QTextStream textStream(&file);
+
+        // Read lines
+        while (!textStream.atEnd())
+        {
+            content.append(textStream.readLine());
+        }
+    }
+    return content;
+}
+
+QString GCodesFilesManager::loadFile(QString path)
+{
+    QTime time;
+    time.start();
+
+    QString content = "";
+
+    QStringList data;
+
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox(QMessageBox::Warning, "Ошибка", ("Невозможно открыть файл:\n"+ path));
+    }
+    else
+    {
+        // Prepare text stream
+        QTextStream textStream(&file);
+
+        // Read lines
+        while (!textStream.atEnd())
+        {
+            data.append(textStream.readLine());
+        }
+    }
+
+    qDebug() << "Prepared to load:" << time.elapsed();
+    time.start();
+
+    double currentValue = 0;
+    double progressStep = ((double) (100)) / ((double) (data.count()));
+
+    //emit startLoading();
+
+    for(auto line : data)
+    {
+        content += line + QString('\n');
+        currentValue += progressStep;
+        qDebug() << currentValue << progressStep;
+        //emit loading(currentValue);
+    }
+
+    //emit loaded();
     return content;
 }
 
@@ -48,7 +117,12 @@ void GCodesFilesManager::saveGCodesFile()
         }
         else
         {
-            file.write(fileContent.toUtf8());
+            QString data;
+            for(auto line : fileContent)
+            {
+                data.append(line + '\n');
+            }
+            file.write(data.toUtf8());
             file.close();
         }
     }
@@ -94,14 +168,14 @@ void GCodesFilesManager::createGCodesFile(const QString path)
 void GCodesFilesManager::newGCodesFile()
 {
     setFilePath("");
-    setFileContent("");
+    setFileContent(QStringList());
 }
 
 void GCodesFilesManager::addGCodesFile()
 {
     QString originPath = filePath;
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
-    QString content = readFileInfo(path);
+    QStringList content = readFileInfo(path);
     if(content.size() > 0)
     {
         fileContent += content;
@@ -109,7 +183,7 @@ void GCodesFilesManager::addGCodesFile()
     filePath = originPath;
 }
 
-QString GCodesFilesManager::getContent() const
+QStringList GCodesFilesManager::getContent() const
 {
     return fileContent;
 }
@@ -124,7 +198,7 @@ void GCodesFilesManager::setFilePath(const QString &value)
     filePath = value;
 }
 
-void GCodesFilesManager::setFileContent(const QString &value)
+void GCodesFilesManager::setFileContent(const QStringList &value)
 {
     fileContent = value;
 }
