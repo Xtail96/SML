@@ -49,18 +49,9 @@ private:
     GcodeDrawer *m_currentDrawer;
 
     ToolDrawer m_toolDrawer;
-    HeightMapBorderDrawer m_heightMapBorderDrawer;
-    HeightMapGridDrawer m_heightMapGridDrawer;
-    HeightMapInterpolationDrawer m_heightMapInterpolationDrawer;
     SelectionDrawer m_selectionDrawer;
 
     GCodeTableModel m_programModel;
-    GCodeTableModel m_probeModel;
-    GCodeTableModel m_programHeightmapModel;
-
-    HeightMapTableModel m_heightMapModel;
-
-    bool m_programLoading;
 };
 
 #endif // CANDLEVISUALIZERDIALOG_H

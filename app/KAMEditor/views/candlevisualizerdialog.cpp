@@ -26,17 +26,12 @@ CandleVisualizerDialog::CandleVisualizerDialog(QString fileName, QWidget *parent
     m_probeDrawer = new GcodeDrawer();
     m_probeDrawer->setViewParser(&m_probeParser);
     m_probeDrawer->setVisible(false);
-    //m_heightMapGridDrawer.setModel(&m_heightMapModel);
     m_currentDrawer = m_codeDrawer;
     m_toolDrawer.setToolPosition(QVector3D(0, 0, 0));
 
     ui->glwVisualizer->addDrawable(m_originDrawer);
     ui->glwVisualizer->addDrawable(m_codeDrawer);
     ui->glwVisualizer->addDrawable(m_probeDrawer);
-    //ui->glwVisualizer->addDrawable(&m_toolDrawer);
-    //ui->glwVisualizer->addDrawable(&m_heightMapBorderDrawer);
-    //ui->glwVisualizer->addDrawable(&m_heightMapGridDrawer);
-    //ui->glwVisualizer->addDrawable(&m_heightMapInterpolationDrawer);
     ui->glwVisualizer->addDrawable(&m_selectionDrawer);
     ui->glwVisualizer->fitDrawable();
 
@@ -185,13 +180,6 @@ QTime CandleVisualizerDialog::updateProgramEstimatedTime(QList<LineSegment *> li
 
             if (!qIsNaN(length) && !qIsNaN(ls->getSpeed()) && ls->getSpeed() != 0) time +=
                     length / (ls->getSpeed());
-
-    //        qDebug() << "length/time:" << length << ((ui->chkFeedOverride->isChecked() && !ls->isFastTraverse())
-    //                                                 ? (ls->getSpeed() * ui->txtFeed->value() / 100) : ls->getSpeed())
-    //                 << time;
-
-    //        if (qIsNaN(length)) qDebug() << "length nan:" << i << ls->getLineNumber() << ls->getStart() << ls->getEnd();
-    //        if (qIsNaN(ls->getSpeed())) qDebug() << "speed nan:" << ls->getSpeed();
         }
 
         time *= 60;
