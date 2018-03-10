@@ -132,7 +132,7 @@ public slots:
     void addSMLFile();*/
 
     void openGCodesFile();
-    QStringList getGCodesFileContent();
+    QString getGCodesFileContent();
     void saveGCodesFile(const QString data);
     void saveGCodesFileAs(const QString data);
     void newGCodesFile();

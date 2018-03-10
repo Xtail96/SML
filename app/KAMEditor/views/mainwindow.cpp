@@ -426,26 +426,17 @@ void MainWindow::updatePointsEditorButtons()
 
 void MainWindow::updateGCodesEditorWidget()
 {
-    QStringList data = m_mainWindowPresenter->getGCodesFileContent();
+    QString data = m_mainWindowPresenter->getGCodesFileContent();
 
-    QProgressDialog progress("Opening file...", "Abort", 0, data.count(), this);
+    QProgressDialog progress("Opening file. Please wait", "", 0, data.count(), this);
     progress.setWindowModality(Qt::WindowModal);
     progress.setFixedSize(progress.sizeHint());
     progress.show();
     progress.setStyleSheet("QProgressBar {text-align: center; qproperty-format: \"\"}");
 
-    QString content;
+    //QStringList content = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
-    progress.setValue(0);
-    for(auto line : data)
-    {
-        //ui->gcodesEditorPlainTextEdit->appendPlainText(line);
-        content.append(line);
-        content.append('\n');
-        progress.setValue(progress.value() + 1);
-    }
-
-    ui->gcodesEditorPlainTextEdit->setPlainText(content);
+    ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
     progress.close();
 }
 

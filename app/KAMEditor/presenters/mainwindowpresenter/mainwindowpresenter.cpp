@@ -233,7 +233,7 @@ void MainWindowPresenter::openGCodesFile()
     emit filePathUpdated();
 }
 
-QStringList MainWindowPresenter::getGCodesFileContent()
+QString MainWindowPresenter::getGCodesFileContent()
 {
     return m_gcodesFilesManager->getContent();
 }
@@ -241,14 +241,14 @@ QStringList MainWindowPresenter::getGCodesFileContent()
 void MainWindowPresenter::saveGCodesFile(const QString data)
 {
 
-    m_gcodesFilesManager->setFileContent(data.split('\n'));
+    m_gcodesFilesManager->setFileContent(data);
     m_gcodesFilesManager->saveGCodesFile();
     emit filePathUpdated();
 }
 
 void MainWindowPresenter::saveGCodesFileAs(const QString data)
 {
-    m_gcodesFilesManager->setFileContent(data.split('\n'));
+    m_gcodesFilesManager->setFileContent(data);
     m_gcodesFilesManager->saveGCodesFileAs();
     emit filePathUpdated();
 }
