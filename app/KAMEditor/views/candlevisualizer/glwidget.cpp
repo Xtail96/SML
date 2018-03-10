@@ -489,7 +489,7 @@ void GLWidget::paintEvent(QPaintEvent *pe) {
     update();
 #endif
 
-#ifdef Q_OS_MACX
+#ifdef Q_OS_UNIX
     update();
 #endif
 }
