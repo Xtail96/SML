@@ -2,6 +2,7 @@
 
 Sensor::Sensor(QString _code,
                QString _name,
+               QString _label,
                QString _boardName,
                unsigned int _portNumber,
                unsigned int _inputNumber,
@@ -9,6 +10,7 @@ Sensor::Sensor(QString _code,
                QColor _color) :
     code(_code),
     name(_name),
+    label(_label),
     boardName(_boardName),
     portNumber(_portNumber),
     inputNumber(_inputNumber),
@@ -38,7 +40,8 @@ void Sensor::setup(SettingsManager *sm)
 {
     try
     {
-        name = QVariant(sm->get(code, "Label")).toString();
+        label = QVariant(sm->get(code, "Label")).toString();
+        name  = QVariant(sm->get(code, "Name")).toString();
         portNumber = QVariant(sm->get(code, "PortNumber")).toUInt();
         inputNumber = QVariant(sm->get(code, "InputNumber")).toUInt();
         boardName = QVariant(sm->get(code, "BoardName")).toString();
@@ -104,4 +107,9 @@ QColor Sensor::getColor() const
 bool Sensor::isActive()
 {
     return (activeState == currentState);
+}
+
+QString Sensor::getLabel() const
+{
+    return label;
 }

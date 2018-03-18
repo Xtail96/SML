@@ -75,8 +75,8 @@ public:
       */
     ~MainWindowPresenter();
 
-    QStringList getSensorsNames();
-    QStringList getSensorsParametrsNames();
+    QStringList getSensorsLabels();
+    QStringList getSensorParametrLabels();
     QList<QStringList> getSensorsSettings();
     QList<QColor> getSensorsLeds();
     QStringList getDevicesNames();

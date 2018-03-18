@@ -10,26 +10,27 @@ MainWindowBridge::~MainWindowBridge()
 
 }
 
-QStringList MainWindowBridge::sensorsNames(std::vector<std::shared_ptr<Sensor> > sensors)
+QStringList MainWindowBridge::sensorsLabels(std::vector<std::shared_ptr<Sensor> > sensors)
 {
-    QStringList names;
+    QStringList labels;
     for(auto sensor : sensors)
     {
-        names.push_back(sensor->getName());
+        labels.push_back(sensor->getLabel());
     }
-    return names;
+    return labels;
 }
 
-QStringList MainWindowBridge::sensorsParametrsNames()
+QStringList MainWindowBridge::sensorParametrLabels()
 {
-    QStringList parametrsNames =
+    QStringList parametrsLabels =
     {
+        "Имя датчика",
         "Имя платы",
         "Номер порта",
         "Номер входа",
         "Активное состояние",
     };
-    return parametrsNames;
+    return parametrsLabels;
 }
 
 QList<QStringList> MainWindowBridge::sensorsSettings(std::vector<std::shared_ptr<Sensor> > sensors)
@@ -39,6 +40,7 @@ QList<QStringList> MainWindowBridge::sensorsSettings(std::vector<std::shared_ptr
     {
         QStringList sensorSettings =
         {
+            sensor->getName(),
             sensor->getBoardName(),
             QString::number(sensor->getPortNumber()),
             QString::number(sensor->getInputNumber()),

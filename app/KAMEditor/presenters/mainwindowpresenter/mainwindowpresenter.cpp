@@ -287,14 +287,14 @@ QList<Point> MainWindowPresenter::getMachineToolCoordinates()
     return machineToolCoordinates;
 }
 
-QStringList MainWindowPresenter::getSensorsNames()
+QStringList MainWindowPresenter::getSensorsLabels()
 {
-    return MainWindowBridge::sensorsNames(m_sensorsManager->getSensors());
+    return MainWindowBridge::sensorsLabels(m_sensorsManager->getSensors());
 }
 
-QStringList MainWindowPresenter::getSensorsParametrsNames()
+QStringList MainWindowPresenter::getSensorParametrLabels()
 {
-    return MainWindowBridge::sensorsParametrsNames();
+    return MainWindowBridge::sensorParametrLabels();
 }
 
 QList<QStringList> MainWindowPresenter::getSensorsSettings()

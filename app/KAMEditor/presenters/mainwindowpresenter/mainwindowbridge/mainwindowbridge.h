@@ -15,8 +15,8 @@ public:
     MainWindowBridge();
     ~MainWindowBridge();
 
-    static QStringList sensorsNames(std::vector< std::shared_ptr<Sensor> > sensors);
-    static QStringList sensorsParametrsNames();
+    static QStringList sensorsLabels(std::vector< std::shared_ptr<Sensor> > sensors);
+    static QStringList sensorParametrLabels();
     static QList<QStringList> sensorsSettings(std::vector< std::shared_ptr<Sensor> > sensors);
     static QList<QColor> sensorsLeds(std::vector< std::shared_ptr<Sensor> > sensors);
 

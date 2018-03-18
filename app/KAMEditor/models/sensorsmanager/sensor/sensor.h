@@ -18,6 +18,9 @@ protected:
     /// имя датчика
     QString name;
 
+    /// подпись датчика для отображения в итнтерфейсе
+    QString label;
+
     /// имя платы, к которой подключен датчик
     QString boardName;
 
@@ -53,7 +56,7 @@ public:
      * \param _color - цвет инидкатора при срабатывании датчика
      */
     Sensor(QString _code,
-           QString _name,
+           QString _name, QString _label,
            QString _boardName,
            unsigned int _portNumber,
            unsigned int _inputNumber,
@@ -127,6 +130,12 @@ public:
      * \return код датчика в формате строки (QString)
      */
     QString getCode() const;
+
+    /*!
+     * \brief Возврщает подпись датчика
+     * \return подпись датчика в формате строки (QString)
+     */
+    QString getLabel() const;
 };
 
 #endif // SENSOR_H

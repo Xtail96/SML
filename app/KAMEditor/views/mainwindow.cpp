@@ -205,8 +205,8 @@ void MainWindow::updateAxisesBoard()
 
 void MainWindow::updateSensorsBoard()
 {
-    QStringList sensorsNames = m_mainWindowPresenter->getSensorsNames();
-    QStringList sensorsParametrsNames = m_mainWindowPresenter->getSensorsParametrsNames();
+    QStringList sensorsNames = m_mainWindowPresenter->getSensorsLabels();
+    QStringList sensorsParametrsNames = m_mainWindowPresenter->getSensorParametrLabels();
     QList<QStringList> sensorsSettings = m_mainWindowPresenter->getSensorsSettings();
 
     ui->sensorsSettingsTableWidget->clear();
@@ -263,7 +263,7 @@ void MainWindow::updatePointsEditorWidgets()
 
 void MainWindow::updateSensorsDisplay()
 {
-    QStringList sensorsNames = m_mainWindowPresenter->getSensorsNames();
+    QStringList sensorsNames = m_mainWindowPresenter->getSensorsLabels();
     QList<QColor> sensorsLeds = m_mainWindowPresenter->getSensorsLeds();
 
     ui->sensorsTableWidget->clear();

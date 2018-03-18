@@ -199,6 +199,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor0");
         settings->setValue("Label", "Датчик оси X");
+        settings->setValue("Name", "SensorAxisX");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 0);
         settings->setValue("BoardName", "portal");
@@ -208,6 +209,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor1");
         settings->setValue("Label", "Датчик оси Y");
+        settings->setValue("Name", "SensorAxisY");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 1);
         settings->setValue("BoardName", "portal");
@@ -217,6 +219,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor2");
         settings->setValue("Label", "Датчик оси Z");
+        settings->setValue("Name", "SensorAxisZ");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 2);
         settings->setValue("BoardName", "portal");
@@ -226,6 +229,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor3");
         settings->setValue("Label", "Датчик оси A");
+        settings->setValue("Name", "SensorAxisA");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 7);
         settings->setValue("BoardName", "portal");
@@ -235,6 +239,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor4");
         settings->setValue("Label", "Датчик оси B");
+        settings->setValue("Name", "SensorAxisB");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 4);
         settings->setValue("BoardName", "portal");
@@ -244,6 +249,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor5");
         settings->setValue("Label", "Датчик оси C");
+        settings->setValue("Name", "SensorAxisC");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 5);
         settings->setValue("BoardName", "portal");
@@ -253,6 +259,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor6");
         settings->setValue("Label", "Датчик оси D");
+        settings->setValue("Name", "SensorAxisD");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 6);
         settings->setValue("BoardName", "portal");
@@ -262,6 +269,7 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("Sensor7");
         settings->setValue("Label", "Датчик Ноля");
+        settings->setValue("Name", "SensorZero");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 3);
         settings->setValue("BoardName", "portal");
