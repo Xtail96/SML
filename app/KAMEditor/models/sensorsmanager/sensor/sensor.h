@@ -123,7 +123,7 @@ public:
      * \brief Сработал ли датчик
      * \return true, если датчик сработал, false - иначе
      */
-    bool isActive();
+    bool isEnable();
 
     /*!
      * \brief Возвращает код датчика

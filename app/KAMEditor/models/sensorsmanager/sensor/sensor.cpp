@@ -104,7 +104,7 @@ QColor Sensor::getColor() const
     return color;
 }
 
-bool Sensor::isActive()
+bool Sensor::isEnable()
 {
     return (activeState == currentState);
 }

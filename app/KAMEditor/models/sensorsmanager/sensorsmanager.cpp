@@ -54,7 +54,7 @@ void SensorsManager::updateSensors(const SensorsBuffer buffer)
 {
     for(auto sensor : sensors)
     {
-        bool isVoltage = buffer.getSensorState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        bool isVoltage = buffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
         sensor->setCurrentState(isVoltage);
     }
 }
@@ -64,7 +64,21 @@ void SensorsManager::updateSensors(const byte_array sensorsState)
     m_buffer.updateBuffer(sensorsState);
     for(auto sensor : sensors)
     {
-        bool isVoltage = m_buffer.getSensorState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        bool isVoltage = m_buffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
         sensor->setCurrentState(isVoltage);
     }
+}
+
+bool SensorsManager::getSensorStateByName(QString sensorName)
+{
+    bool enable = false;
+    for(auto sensor : sensors)
+    {
+        if(sensor->getName() == sensorName)
+        {
+            enable = sensor->isEnable();
+            break;
+        }
+    }
+    return enable;
 }

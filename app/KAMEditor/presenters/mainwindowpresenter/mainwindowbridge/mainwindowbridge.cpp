@@ -57,7 +57,7 @@ QList<QColor> MainWindowBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> 
     for(auto sensor : sensors)
     {
         QColor sensorLed(SmlColors::white());
-        if(sensor->isActive())
+        if(sensor->isEnable())
         {
             sensorLed = sensor->getColor();
         }
