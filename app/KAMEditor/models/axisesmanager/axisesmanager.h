@@ -13,10 +13,23 @@ public:
     explicit AxisesManager(SettingsManager* settingsManager = nullptr);
     ~AxisesManager();
 
+    void updateCurrentCoordinates(Point newCoordinates);
+
+    Point getCurrentCoordinatesFromZero();
+    Point getCurrentCoordinatesFromBase();
+
+    Point getZeroCoordinates() const;
+    void setZeroCoordinates(const Point &zeroCoordinates);
+
+    Point getParkCoordinates() const;
+    void setParkCoordinates(const Point &parkCoordinates);
+
 protected:
     QList< std::shared_ptr<Axis> > m_axises;
     Point m_zeroCoordinates;
     Point m_parkCoordinates;
+
+    bool m_softLimitsEnable;
 
     void setup(SettingsManager* settingsManager);
 };
