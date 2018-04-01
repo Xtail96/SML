@@ -12,6 +12,7 @@
 #include "models/pointsmanager/pointsmanager.h"
 #include "models/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h"
 #include "models/gcodesmanager/gcodesmanager.h"
+#include "models/axisesmanager/axisesmanager.h"
 
 
 /*!
@@ -21,47 +22,6 @@
 class MainWindowPresenter : public QObject
 {
     Q_OBJECT
-signals:
-    /// Обновлено состояние станка
-    void u1StateIsChanged();
-
-    void u2StateIsChanged();
-
-    /// Точки обновились
-    void pointsUpdated();
-
-    /// Команды обновились
-    //void commandsUpdated();
-
-    /// Обновились G-коды
-    void gcodesUpdated();
-
-    void filePathUpdated();
-
-    void receivedMessage(QString message);
-
-    void machineToolIsConnected();
-    void machineToolIsDisconnected(QString message = "");
-
-    void gcodesLoadingStart();
-    void gcodesIsLoading(int value);
-    void gcodesLoaded();
-
-protected:
-    QWidget* m_widget;
-
-    SettingsManager* m_settingsManager;
-    ServerConnectionManager* m_serverManager;
-
-    SensorsManager* m_sensorsManager;
-    DevicesManager* m_devicesManager;
-    GCodesFilesManager* m_gcodesFilesManager;
-    GCodesManager* m_gcodesManager;
-
-    PointsManager* m_pointsManager;
-
-    size_t feedrate = 50;
-    size_t rotations = 2000;
 
 public:
     /*!
@@ -107,6 +67,50 @@ public:
     size_t getFeedrate() const;
 
     size_t getRotations() const;
+
+protected:
+    QWidget* m_widget;
+
+    SettingsManager* m_settingsManager;
+    ServerConnectionManager* m_serverManager;
+
+    SensorsManager* m_sensorsManager;
+    DevicesManager* m_devicesManager;
+    AxisesManager* m_axisesManager;
+
+    GCodesFilesManager* m_gcodesFilesManager;
+    GCodesManager* m_gcodesManager;
+
+    PointsManager* m_pointsManager;
+
+    size_t feedrate = 50;
+    size_t rotations = 2000;
+
+signals:
+    /// Обновлено состояние станка
+    void u1StateIsChanged();
+
+    void u2StateIsChanged();
+
+    /// Точки обновились
+    void pointsUpdated();
+
+    /// Команды обновились
+    //void commandsUpdated();
+
+    /// Обновились G-коды
+    void gcodesUpdated();
+
+    void filePathUpdated();
+
+    void receivedMessage(QString message);
+
+    void machineToolIsConnected();
+    void machineToolIsDisconnected(QString message = "");
+
+    void gcodesLoadingStart();
+    void gcodesIsLoading(int value);
+    void gcodesLoaded();
 
 public slots:
 

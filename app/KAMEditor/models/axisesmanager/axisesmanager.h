@@ -7,23 +7,18 @@
 #include "models/axisesmanager/axis/axis.h"
 #include "models/pointsmanager/point/point.h"
 
-class AxisesManager : public QObject
+class AxisesManager
 {
-    Q_OBJECT
 public:
-    explicit AxisesManager(SettingsManager* settingsManager = nullptr, QObject *parent = nullptr);
+    explicit AxisesManager(SettingsManager* settingsManager = nullptr);
     ~AxisesManager();
 
 protected:
     QList< std::shared_ptr<Axis> > m_axises;
-    Point zeroCoordinates;
-    Point parkCoordinates;
+    Point m_zeroCoordinates;
+    Point m_parkCoordinates;
 
     void setup(SettingsManager* settingsManager);
-
-signals:
-
-public slots:
 };
 
 #endif // AXISESMANAGER_H

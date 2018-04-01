@@ -1,6 +1,6 @@
 #include "axisesmanager.h"
 
-AxisesManager::AxisesManager(SettingsManager *settingsManager, QObject *parent) : QObject(parent)
+AxisesManager::AxisesManager(SettingsManager *settingsManager)
 {
     if(settingsManager != nullptr)
     {

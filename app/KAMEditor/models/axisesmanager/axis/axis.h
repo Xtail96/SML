@@ -7,6 +7,28 @@ class Axis
 {
 public:
     explicit Axis(QString name, SettingsManager* settingsManager = nullptr);
+    ~Axis();
+
+    QString name() const;
+    void setName(const QString &name);
+
+    double length() const;
+    void setLength(double length);
+
+    double step() const;
+    void setStep(double step);
+
+    double currentPosition() const;
+    void setCurrentPosition(double currentPosition);
+
+    bool invertDirection() const;
+    void setInvertDirection(bool invertDirection);
+
+    double currentVelocity() const;
+    void setCurrentVelocity(double currentVelocity);
+
+    double basingVelocity() const;
+    void setBasingVelocity(double basingVelocity);
 
 protected:
     QString m_name;

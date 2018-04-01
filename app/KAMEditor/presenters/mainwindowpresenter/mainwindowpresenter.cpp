@@ -6,6 +6,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     m_serverManager(new ServerConnectionManager(m_settingsManager, false, this)),
     m_sensorsManager(new SensorsManager(m_settingsManager)),
     m_devicesManager(new DevicesManager(m_settingsManager)),
+    m_axisesManager(new AxisesManager(m_settingsManager)),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_gcodesManager(new GCodesManager()),
     m_pointsManager(new PointsManager())
@@ -23,6 +24,7 @@ MainWindowPresenter::~MainWindowPresenter()
     delete m_pointsManager;
     delete m_gcodesManager;
     delete m_gcodesFilesManager;
+    delete m_axisesManager;
     delete m_devicesManager;
     delete m_sensorsManager;
     delete m_serverManager;
