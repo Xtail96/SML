@@ -356,7 +356,7 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
     display->clear();
     for(size_t i = 0; i < coordinates.size(); i++)
     {
-        QString axisKey = QString::fromStdString(axisesNames.getNameByKey(i));
+        QString axisKey = SML_AXISES_NAMES.getNameByKey(i);
         QString axisLabel = axisKey + QString(": ") + QString::number(coordinates[i], 'f', 3);
         display->addItem(axisLabel);
     }

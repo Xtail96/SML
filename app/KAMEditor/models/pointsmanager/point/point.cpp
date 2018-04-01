@@ -33,9 +33,9 @@ double& Point::operator[](size_t idx)
         throw std::out_of_range("Координаты с номером " + std::to_string(idx) + " не существует.");
 }
 
-double& Point::operator[](std::string name)
+double& Point::operator[](QString name)
 {
-    int idx = axisesNames.getKeyByName(name);
+    int idx = SML_AXISES_NAMES.getKeyByName(name);
     return operator[](idx);
 }
 
@@ -44,7 +44,7 @@ double& Point::get(size_t idx)
     return operator[](idx);
 }
 
-double& Point::get(std::string name)
+double& Point::get(QString name)
 {
     return operator[](name);
 }

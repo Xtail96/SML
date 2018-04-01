@@ -84,7 +84,7 @@ public:
      *
      * \see Point::operator[](size_t idx);
      */
-    double& operator[](std::string name);
+    double& operator[](QString name);
 
     /**
      * @brief Получение конкретной координаты по заданному номеру
@@ -94,9 +94,9 @@ public:
 
     /**
      * @brief Получение конкретной координаты по заданному имени оси
-     * \see double& operator[](std::string name)
+     * \see double& operator[](QString name)
      */
-    double& get(std::string name);
+    double& get(QString name);
 
     /**
      * @return текущее число координат точки

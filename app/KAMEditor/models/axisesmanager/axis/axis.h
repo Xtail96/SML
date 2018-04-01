@@ -1,27 +1,23 @@
 #ifndef AXIS_H
 #define AXIS_H
 
-#include <QObject>
-
 #include "models/settingsmanager/settingsmanager.h"
 
-class Axis : public QObject
+class Axis
 {
-    Q_OBJECT
 public:
-    explicit Axis(SettingsManager* settingsManager = nullptr, QObject *parent = nullptr);
+    explicit Axis(QString name, SettingsManager* settingsManager = nullptr);
 
 protected:
     QString m_name;
     double m_length;
+    double m_step;
     double m_currentPosition;
+    bool m_invertDirection;
+    double m_currentVelocity;
+    double m_basingVelocity;
 
     void setup(SettingsManager* settingsManager);
-
-signals:
-    void currentPositionUpdated(double newPosition);
-
-public slots:
 };
 
 #endif // AXIS_H

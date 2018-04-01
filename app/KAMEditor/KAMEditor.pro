@@ -100,7 +100,8 @@ SOURCES += main.cpp\
     views/candlevisualizer/tables/gcodetablemodel.cpp \
     views/candlevisualizer/tables/heightmaptablemodel.cpp \
     libs/simpleqtlogger/simpleQtLogger.cpp \
-    models/axisesmanager/axis/axis.cpp
+    models/axisesmanager/axis/axis.cpp \
+    models/axisesmanager/axisesmanager.cpp
 
 HEADERS  += views/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -154,7 +155,8 @@ HEADERS  += views/mainwindow.h \
     views/candlevisualizer/tables/gcodetablemodel.h \
     views/candlevisualizer/tables/heightmaptablemodel.h \
     libs/simpleqtlogger/simpleQtLogger.h \
-    models/axisesmanager/axis/axis.h
+    models/axisesmanager/axis/axis.h \
+    models/axisesmanager/axisesmanager.h
 
 FORMS    += views/mainwindow.ui \
     views/points/addpointdialog.ui \
