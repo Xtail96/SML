@@ -133,7 +133,7 @@ void MainWindowPresenter::switchDevice(QString deviceName)
     {
         Device &device = m_devicesManager->findDevice(deviceName);
         qDebug() << "current state = " << device.getCurrentState();
-        byte_array data = m_devicesManager->getSwitchDeviceData(device, !device.getCurrentState());
+        byte_array data = m_devicesManager->switchDeviceData(device, !device.getCurrentState());
 
         QtJson::JsonObject generalMessage;
         QtJson::JsonObject u1Message;
@@ -316,27 +316,27 @@ QList<QColor> MainWindowPresenter::getSensorsLeds()
 
 QStringList MainWindowPresenter::getDevicesNames()
 {
-    return MainWindowBridge::devicesNames(m_devicesManager->getDevices());
+    return m_devicesManager->devicesNames();
 }
 
 QStringList MainWindowPresenter::getDevicesParametrsNames()
 {
-    return MainWindowBridge::devicesParametrsNames();
+    return m_devicesManager->devicesParametrsNames();
 }
 
 QList<QStringList> MainWindowPresenter::getDevicesSettings()
 {
-    return MainWindowBridge::devicesSettings(m_devicesManager->getDevices());
+    return m_devicesManager->devicesSettings();
 }
 
 QStringList MainWindowPresenter::getOnScreenDevicesNames()
 {
-    return MainWindowBridge::onScreenDevicesNames(m_devicesManager->getDevices());
+    return m_devicesManager->onScreenDevicesNames();
 }
 
 QList<bool> MainWindowPresenter::getOnScreenDevicesStates()
 {
-    return MainWindowBridge::onScreenDevicesStates(m_devicesManager->getDevices());
+    return m_devicesManager->onScreenDevicesStates();
 }
 
 QStringList MainWindowPresenter::getAxisesNames()

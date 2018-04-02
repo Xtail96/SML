@@ -16,8 +16,8 @@ DevicesManager::DevicesManager(SettingsManager *sm)
 }
 
 DevicesManager::DevicesManager(const DevicesManager &object) :
-    devices(object.devices),
-    devicesBuffer(object.devicesBuffer)
+    m_devices(object.m_devices),
+    m_devicesBuffer(object.m_devicesBuffer)
 {
 
 }
@@ -38,7 +38,7 @@ void DevicesManager::initialize(SettingsManager *sm)
         for(auto code : devicesCodes)
         {
             Device* device = new Device(code, sm);
-            devices.push_back(std::shared_ptr<Device>(device));
+            m_devices.push_back(std::shared_ptr<Device>(device));
         }
     }
     catch(std::invalid_argument e)
@@ -49,7 +49,7 @@ void DevicesManager::initialize(SettingsManager *sm)
 
 Device &DevicesManager::findDevice(QString deviceName)
 {
-    for(auto it : devices)
+    for(auto it : m_devices)
     {
         if(it->getName() == deviceName)
         {
@@ -60,11 +60,78 @@ Device &DevicesManager::findDevice(QString deviceName)
     throw std::invalid_argument(errorString);
 }
 
-byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool onOff, byte firstAgrument, byte secondArgument)
+QStringList DevicesManager::devicesNames()
+{
+    QStringList names;
+    for(auto device : m_devices)
+    {
+        names.push_back(device->getName());
+    }
+    return names;
+}
+
+QStringList DevicesManager::devicesParametrsNames()
+{
+    QStringList parametrsNames =
+    {
+        "Имя платы",
+        "Номер порта",
+        "Номер выхода",
+        "Активное состояние",
+        "Маска",
+    };
+    return parametrsNames;
+}
+
+QList<QStringList> DevicesManager::devicesSettings()
+{
+    QList<QStringList> devicesSettings;
+    for(auto device : m_devices)
+    {
+        QStringList deviceSettings =
+        {
+            device->getBoardName(),
+            QString::number(device->getPortNumber()),
+            QString::number(device->getOutputNumber()),
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+    return devicesSettings;
+}
+
+QStringList DevicesManager::onScreenDevicesNames()
+{
+    QStringList names;
+    for(auto device : m_devices)
+    {
+        if(device->getNeedToDisplay())
+        {
+            names.push_back(device->getName());
+        }
+    }
+    return names;
+}
+
+QList<bool> DevicesManager::onScreenDevicesStates()
+{
+    QList<bool> devicesStates;
+    for(auto device : m_devices)
+    {
+        if(device->getNeedToDisplay())
+        {
+            devicesStates.push_back(device->isEnable());
+        }
+    }
+    return devicesStates;
+}
+
+byte_array DevicesManager::switchDeviceData(const Device &device, bool onOff, byte firstAgrument, byte secondArgument)
 {
     //byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
     byte deviceMask = device.getMask();
-    byte devicesMask = devicesBuffer.getDevicesMask(deviceMask, onOff);
+    byte devicesMask = m_devicesBuffer.getDevicesMask(deviceMask, onOff);
     byte_array data =
     {
         SET_DEVICES,
@@ -75,7 +142,7 @@ byte_array DevicesManager::getSwitchDeviceData(const Device &device, bool onOff,
     return data;
 }
 
-byte DevicesManager::getDeviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber)
+byte DevicesManager::deviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber)
 {
     byte deviceMask = 0xff;
     if(boardName == "u1")
@@ -120,27 +187,27 @@ byte DevicesManager::getDeviceMask(QString boardName, unsigned int portNumber, u
     return deviceMask;
 }
 
-std::vector<std::shared_ptr<Device> > &DevicesManager::getDevices()
+std::vector<std::shared_ptr<Device> > &DevicesManager::devices()
 {
-    return devices;
+    return m_devices;
 }
 
-DevicesBuffer DevicesManager::getDevicesBuffer() const
+DevicesBuffer DevicesManager::devicesBuffer() const
 {
-    return devicesBuffer;
+    return m_devicesBuffer;
 }
 
 void DevicesManager::updateDevices(const std::vector<std::shared_ptr<Device> > &value)
 {
-    devices = value;
+    m_devices = value;
 }
 
 void DevicesManager::updateDevices(const byte_array devicesState)
 {
-    devicesBuffer.setDevicesState(devicesState[0]);
-    for(auto device : devices)
+    m_devicesBuffer.setDevicesState(devicesState[0]);
+    for(auto device : m_devices)
     {
-        bool enable = devicesBuffer.getDeviceState(device->getMask());
+        bool enable = m_devicesBuffer.getDeviceState(device->getMask());
         bool deviceState;
         if(enable)
         {

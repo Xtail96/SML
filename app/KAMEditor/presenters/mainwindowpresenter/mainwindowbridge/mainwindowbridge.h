@@ -14,15 +14,6 @@ public:
     MainWindowBridge();
     ~MainWindowBridge();
 
-    static QStringList devicesNames(std::vector< std::shared_ptr<Device> > devices);
-    static QStringList devicesParametrsNames();
-    static QList<QStringList> devicesSettings(std::vector< std::shared_ptr<Device> > devices);
-    static QStringList onScreenDevicesNames(std::vector< std::shared_ptr<Device> > devices);
-    static QList<bool> onScreenDevicesStates(std::vector< std::shared_ptr<Device> > devices);
-
-    //static QStringList axisesParametrsNames();
-    //QList<QStringList> axisesSettings(std::vector< std::shared_ptr<Axis> > axises);
-
     static QList<QStringList> points(PointsManager* pointsManager);
     static QStringList point(PointsManager* pointsManager, unsigned int number);
 
