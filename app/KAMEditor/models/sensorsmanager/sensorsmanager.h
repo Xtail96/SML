@@ -210,12 +210,28 @@ public:
      */
     bool sensorStateByName(QString sensorName);
 
+    /*!
+     * \brief Возвращает подписи для всех датчиков в виде списка для вывода в итерфейс
+     * \return подписи датчиков в формате QStringList
+     */
     QStringList sensorsLabels();
 
+    /*!
+     * \brief Возвращает названия параметров датчика в виде списка для вывода в интерфейс
+     * \return названия параметров датчика в формате QStringList
+     */
     QStringList sensorParametrLabels();
 
+    /*!
+     * \brief Возвращает настройки каждого датчика для вывода в интерфейс
+     * \return настройки всех датчиков в формате QList<QStringList>
+     */
     QList<QStringList> sensorsSettings();
 
+    /*!
+     * \brief Возвращает состояние "светодиода" для каждого датчика для вывода в интерфейс
+     * \return "светодиоды" всех датчиков в формате QList<QColor>
+     */
     QList<QColor> sensorsLeds();
 };
 

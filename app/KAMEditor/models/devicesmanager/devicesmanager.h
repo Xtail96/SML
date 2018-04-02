@@ -174,10 +174,34 @@ public:
      */
     Device& findDevice(QString deviceName);
 
+    /*!
+     * \brief Возвращает названия всех устройств для вывода в интерфейс
+     * \return названия всех устройств в формате списка QStringList
+     */
     QStringList devicesNames();
+
+    /*!
+     * \brief Возвращает названия параметров устройств для вывода в интерфейс
+     * \return названия параметров устройств в формате списка QStringList
+     */
     QStringList devicesParametrsNames();
+
+    /*!
+     * \brief Возвращает настройки всех устройств для вывода в интерфейс
+     * \return настройки устройств в формате QList<QStringList>
+     */
     QList<QStringList> devicesSettings();
+
+    /*!
+     * \brief Возвращает названия устройств, которые необходимо отображать в Наладке
+     * \return названия устройств для отображения в Наладке в виде списка QStringList
+     */
     QStringList onScreenDevicesNames();
+
+    /*!
+     * \brief Возвращает состояние (включено/выключено) устройств, которые необходимо отображать в Наладке
+     * \return состояние (включено/выключено) каждого устройства, необходимого для отображения в Наладке в виде списка QList<bool>
+     */
     QList<bool> onScreenDevicesStates();
 };
 

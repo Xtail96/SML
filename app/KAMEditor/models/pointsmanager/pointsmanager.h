@@ -95,9 +95,24 @@ public:
     Point3D getPoint3D(QString idx);
     static Point3D toPoint3D(std::shared_ptr<Point> origin);
 
+    /**
+     * \brief Возвращает все точки в виде списка для вывода на экран
+     * \return точки в виде списка QList<QStringList>
+     */
     QList<QStringList> points();
+
+    /**
+     * \brief Возвращает координаты точки в виде списка для вывода на экран
+     * \param number - номер точки (начиная с нуля)
+     * \return координаты указанной точки в формате сиска QStringList
+     */
     QStringList point(unsigned int number);
 
+    /**
+     * \brief Создает и возвращает новый экземпляр класса Точка
+     * \param arguments - координаты точки в формате списка QStringList
+     * \return новый экземпляр точки
+     */
     static Point *makePoint(QStringList arguments);
 
 protected:
