@@ -95,7 +95,12 @@ public:
     Point3D getPoint3D(QString idx);
     static Point3D toPoint3D(std::shared_ptr<Point> origin);
 
-private:
+    QList<QStringList> points();
+    QStringList point(unsigned int number);
+
+    static Point *makePoint(QStringList arguments);
+
+protected:
     /// Список всех точек
     std::vector< std::shared_ptr<Point> > m_points;
 };

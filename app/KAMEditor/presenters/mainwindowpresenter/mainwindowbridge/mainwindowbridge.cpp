@@ -10,68 +10,6 @@ MainWindowBridge::~MainWindowBridge()
 
 }
 
-QList<QStringList> MainWindowBridge::points(PointsManager *pointsManager)
-{
-    QList<QStringList> points;
-    unsigned int pointsCount = pointsManager->pointCount();
-
-    for(unsigned int i = 0; i < pointsCount; i++)
-    {
-        std::shared_ptr<Point> point = pointsManager->operator [](i);
-
-        QStringList coordinates;
-        unsigned int coordinatesCount = point.get()->size();
-        for(unsigned int j = 0; j < coordinatesCount; j++)
-        {
-            QString coordinate;
-            try
-            {
-                coordinate = QString::number(point.get()->operator [](j));
-            }
-            catch(std::out_of_range e)
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-                break;
-            }
-            coordinates.push_back(coordinate);
-        }
-        points.push_back(coordinates);
-    }
-    return points;
-}
-
-QStringList MainWindowBridge::point(PointsManager *pointsManager, unsigned int number)
-{
-    QStringList coordinates;
-    try
-    {
-        std::shared_ptr<Point> p = pointsManager->operator [](number);
-        unsigned int coordinatesCount = p.get()->size();
-        for(unsigned int j = 0; j < coordinatesCount; j++)
-        {
-            QString coordinate;
-            coordinate = QString::number(p.get()->operator [](j));
-            coordinates.push_back(coordinate);
-        }
-    }
-    catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
-    return coordinates;
-}
-
-Point* MainWindowBridge::makePoint(QStringList arguments)
-{
-    std::vector<double> pointsCoordinates;
-    for(auto argument : arguments)
-    {
-        pointsCoordinates.push_back(argument.toDouble());
-    }
-    Point* p = new Point(pointsCoordinates);
-    return p;
-}
-
 /*QList<QTreeWidgetItem *> MainWindowBridge::commands(CommandsManager *commandsManager)
 {
     QList<QTreeWidgetItem*> commands;

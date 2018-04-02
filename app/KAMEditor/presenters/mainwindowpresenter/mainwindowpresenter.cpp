@@ -187,14 +187,14 @@ void MainWindowPresenter::updateSpindelRotations(int value)
 
 void MainWindowPresenter::addPoint(QStringList coordinates)
 {
-    Point* p = MainWindowBridge::makePoint(coordinates);
+    Point* p = PointsManager::makePoint(coordinates);
     m_pointsManager->addPoint(p);
     emit pointsUpdated();
 }
 
 void MainWindowPresenter::updatePoint(QStringList coordinates, unsigned int number)
 {
-    Point* p = MainWindowBridge::makePoint(coordinates);
+    Point* p = PointsManager::makePoint(coordinates);
     try
     {
         std::shared_ptr<Point> originPoint = m_pointsManager->operator [](number);
@@ -375,12 +375,12 @@ unsigned int MainWindowPresenter::getSpindelRotations()
 
 QList<QStringList> MainWindowPresenter::getPoints()
 {
-    return MainWindowBridge::points(m_pointsManager);
+    return m_pointsManager->points();
 }
 
 QStringList MainWindowPresenter::getPoint(unsigned int number)
 {
-    return MainWindowBridge::point(m_pointsManager, number);
+    return m_pointsManager->point(number);
 }
 
 QString MainWindowPresenter::getFilePath(QString type)
