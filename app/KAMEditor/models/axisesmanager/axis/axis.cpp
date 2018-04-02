@@ -23,6 +23,7 @@ Axis::~Axis()
 void Axis::setup(SettingsManager *settingsManager)
 {
     m_currentPosition = 0.0;
+    m_softLimitsEnable = false;
     try
     {
         QString fullAxisName = QString("Axis") + m_name;
@@ -117,4 +118,25 @@ double Axis::basingVelocity() const
 void Axis::setBasingVelocity(double basingVelocity)
 {
     m_basingVelocity = basingVelocity;
+}
+
+bool Axis::softLimitsEnable() const
+{
+    return m_softLimitsEnable;
+}
+
+void Axis::setSoftLimitsEnable(bool softLimitsEnable)
+{
+    m_softLimitsEnable = softLimitsEnable;
+}
+
+QString Axis::axisSettings() const
+{
+    QString settings = "";
+    settings += QString("Имя оси: ") + m_name + QString("; ");
+    settings += QString("Длина оси: ") + QString::number(m_length) + QString("; ");
+    settings += QString("Шаг по оси: ") + QString::number(m_step) + QString("; ");
+    settings += QString("Обратное направление: ") + QString::number(m_invertDirection) + QString("; ");
+    settings += QString("Скорость базирования: ") + QString::number(m_basingVelocity) + QString("; ");
+    return settings;
 }

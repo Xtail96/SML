@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     hideWidgets();
 
-    //updateAxisesBoard();
+    updateAxisesBoard();
     updateDevicesBoard();
     updateSensorsBoard();
     updatePointsEditorFields();
@@ -173,34 +173,8 @@ void MainWindow::updateSettingsBoards()
 
 void MainWindow::updateAxisesBoard()
 {
-    QStringList names = m_mainWindowPresenter->getAxisesNames();
-    QStringList axisesParametrsNames = m_mainWindowPresenter->getAxisesParametrsNames();
-    QList<QStringList> axisesSettings = m_mainWindowPresenter->getAxisesSettings();
-
-    ui->axisSettingsTableWidget->clear();
-    ui->axisSettingsTableWidget->setColumnCount(names.size());
-    ui->axisSettingsTableWidget->setHorizontalHeaderLabels(names);
-    ui->axisSettingsTableWidget->setRowCount(axisesParametrsNames.size());
-    ui->axisSettingsTableWidget->setVerticalHeaderLabels(axisesParametrsNames);
-
-    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
-    {
-        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
-    for(int i = 0; i < ui->axisSettingsTableWidget->rowCount(); i++)
-    {
-        ui->axisSettingsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
-    for(int i = 0; i < ui->axisSettingsTableWidget->columnCount(); i++)
-    {
-        ui->axisSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        for(int j = 0; j < ui->axisSettingsTableWidget->rowCount(); j++)
-        {
-            ui->axisSettingsTableWidget->setItem(j, i, new QTableWidgetItem(axisesSettings[i][j]));
-        }
-    }
+    QStringList axisesSettings = m_mainWindowPresenter->getAxisesSettings();
+    ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
 void MainWindow::updateSensorsBoard()
@@ -1285,3 +1259,8 @@ void MainWindow::on_disconnectCommandLinkButton_clicked()
         ui->smlEditorTreeWidget->resizeColumnToContents(i);
     }
 }*/
+
+void MainWindow::on_edgesControlCheckBox_clicked()
+{
+    m_mainWindowPresenter->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+}

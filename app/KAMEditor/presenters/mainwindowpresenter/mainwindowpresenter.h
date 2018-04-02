@@ -46,8 +46,7 @@ public:
     QList<bool> getOnScreenDevicesStates();
 
     QStringList getAxisesNames();
-    QStringList getAxisesParametrsNames();
-    QList<QStringList> getAxisesSettings();
+    QStringList getAxisesSettings();
 
     QStringList getOptionsNames();
 
@@ -67,6 +66,8 @@ public:
     size_t getFeedrate() const;
 
     size_t getRotations() const;
+
+    void setSoftLimitsMode(bool enable);
 
 protected:
     QWidget* m_widget;

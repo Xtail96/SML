@@ -1,7 +1,6 @@
 #include "axisesmanager.h"
 
-AxisesManager::AxisesManager(SettingsManager *settingsManager) :
-    m_softLimitsEnable(false)
+AxisesManager::AxisesManager(SettingsManager *settingsManager)
 {
     if(settingsManager != nullptr)
     {
@@ -25,12 +24,14 @@ void AxisesManager::setup(SettingsManager *settingsManager)
     size_t axisesCount = 3;
     try
     {
-        axisesCount = settingsManager->get("MachineToolInformation", "AxisesCount").toUInt();
+         axisesCount = settingsManager->get("MachineToolInformation", "AxisesCount").toUInt();
          for(size_t i = 0; i < axisesCount; i++)
          {
              std::shared_ptr<Axis> axis = std::shared_ptr<Axis>(new Axis(SML_AXISES_NAMES.getNameByKey(i), settingsManager));
              m_axises.push_back(axis);
          }
+         m_zeroCoordinates = Point(m_axises.size());
+         m_parkCoordinates = Point(m_axises.size());
     }
     catch(std::invalid_argument e)
     {
@@ -61,7 +62,12 @@ Point AxisesManager::getCurrentCoordinatesFromZero()
 {
     Point currentFromZero(m_axises.size());
     Point p = getCurrentCoordinatesFromBase();
-    currentFromZero = p.operator -=(m_zeroCoordinates);
+
+    if(p.size() == m_zeroCoordinates.size())
+    {
+        currentFromZero = p.operator -=(m_zeroCoordinates);
+    }
+
     return currentFromZero;
 }
 
@@ -93,4 +99,33 @@ Point AxisesManager::getParkCoordinates() const
 void AxisesManager::setParkCoordinates(const Point &parkCoordinates)
 {
     m_parkCoordinates = parkCoordinates;
+}
+
+QStringList AxisesManager::getAxisesNames() const
+{
+    QStringList names;
+    for(auto axis : m_axises)
+    {
+        names.push_back(axis->name());
+    }
+    return names;
+}
+
+QStringList AxisesManager::getAxisesSettings() const
+{
+    QStringList axisesSettings;
+
+    for(auto axis : m_axises)
+    {
+        axisesSettings.push_back(axis->axisSettings());
+    }
+    return axisesSettings;
+}
+
+void AxisesManager::setSoftLimitsMode(bool enable)
+{
+    for(auto axis : m_axises)
+    {
+        axis->setSoftLimitsEnable(enable);
+    }
 }

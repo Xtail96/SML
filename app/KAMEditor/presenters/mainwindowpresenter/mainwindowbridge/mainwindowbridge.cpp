@@ -133,17 +133,7 @@ QList<bool> MainWindowBridge::onScreenDevicesStates(std::vector<std::shared_ptr<
     return devicesStates;
 }
 
-/*QStringList MainWindowBridge::axisesNames(std::vector<std::shared_ptr<Axis> > axises)
-{
-    QStringList names;
-    for(auto axis : axises)
-    {
-        names.push_back(QString::fromStdString(axis->getName()));
-    }
-    return names;
-}*/
-
-QStringList MainWindowBridge::axisesParametrsNames()
+/*QStringList MainWindowBridge::axisesParametrsNames()
 {
     QStringList parametrsNames =
     {
@@ -157,7 +147,7 @@ QStringList MainWindowBridge::axisesParametrsNames()
         "Канал"
     };
     return parametrsNames;
-}
+}*/
 
 /*QList<QStringList> MainWindowBridge::axisesSettings(std::vector<std::shared_ptr<Axis> > axises)
 {

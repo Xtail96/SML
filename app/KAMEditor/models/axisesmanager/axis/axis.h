@@ -30,6 +30,11 @@ public:
     double basingVelocity() const;
     void setBasingVelocity(double basingVelocity);
 
+    bool softLimitsEnable() const;
+    void setSoftLimitsEnable(bool softLimitsEnable);
+
+    QString axisSettings() const;
+
 protected:
     QString m_name;
     double m_length;
@@ -38,6 +43,8 @@ protected:
     bool m_invertDirection;
     double m_currentVelocity;
     double m_basingVelocity;
+
+    bool m_softLimitsEnable;
 
     void setup(SettingsManager* settingsManager);
 };

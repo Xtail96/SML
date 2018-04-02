@@ -26,8 +26,7 @@ public:
     static QStringList onScreenDevicesNames(std::vector< std::shared_ptr<Device> > devices);
     static QList<bool> onScreenDevicesStates(std::vector< std::shared_ptr<Device> > devices);
 
-    //QStringList axisesNames(std::vector< std::shared_ptr<Axis> > axises);
-    static QStringList axisesParametrsNames();
+    //static QStringList axisesParametrsNames();
     //QList<QStringList> axisesSettings(std::vector< std::shared_ptr<Axis> > axises);
 
     static QList<QStringList> points(PointsManager* pointsManager);

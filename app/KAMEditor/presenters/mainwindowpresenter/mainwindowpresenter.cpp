@@ -122,6 +122,11 @@ void MainWindowPresenter::parseGCodes(QString data)
     m_gcodesManager->updateGCodesProgram(data);
 }
 
+void MainWindowPresenter::setSoftLimitsMode(bool enable)
+{
+    m_axisesManager->setSoftLimitsMode(enable);
+}
+
 void MainWindowPresenter::switchDevice(QString deviceName)
 {
     try
@@ -283,9 +288,9 @@ QString MainWindowPresenter::getGCodesProgram()
 QList<Point> MainWindowPresenter::getMachineToolCoordinates()
 {
     QList<Point> machineToolCoordinates;
-    /*machineToolCoordinates.push_back(m_machineTool->getMovementController()->getCurrentCoordinates());
-    machineToolCoordinates.push_back(m_machineTool->getMovementController()->getCurrentCoordinatesFromBase());
-    machineToolCoordinates.push_back(m_machineTool->getMovementController()->getParkCoordinates());*/
+    machineToolCoordinates.push_back(m_axisesManager->getCurrentCoordinatesFromZero());
+    machineToolCoordinates.push_back(m_axisesManager->getCurrentCoordinatesFromBase());
+    machineToolCoordinates.push_back(m_axisesManager->getParkCoordinates());
     return machineToolCoordinates;
 }
 
@@ -336,20 +341,12 @@ QList<bool> MainWindowPresenter::getOnScreenDevicesStates()
 
 QStringList MainWindowPresenter::getAxisesNames()
 {
-    //return m_mainWindowBridge->axisesNames(m_machineTool->getMovementController()->getAxises());
-    QStringList l = {QString("X"), QString("Y"), QString("Z") };
-    return l;
+    return m_axisesManager->getAxisesNames();
 }
 
-QStringList MainWindowPresenter::getAxisesParametrsNames()
+QStringList MainWindowPresenter::getAxisesSettings()
 {
-    return MainWindowBridge::axisesParametrsNames();
-}
-
-QList<QStringList> MainWindowPresenter::getAxisesSettings()
-{
-    //return m_mainWindowBridge->axisesSettings(m_machineTool->getMovementController()->getAxises());
-    return QList<QStringList>();
+    return m_axisesManager->getAxisesSettings();
 }
 
 QStringList MainWindowPresenter::getOptionsNames()
