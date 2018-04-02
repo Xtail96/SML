@@ -162,7 +162,7 @@ protected:
     /*!
      * \brief Вектор умных указателей на датчики станка
      */
-    std::vector< std::shared_ptr<Sensor> > sensors;
+    std::vector< std::shared_ptr<Sensor> > m_sensors;
 
     SensorsBuffer m_buffer;
 
@@ -189,7 +189,7 @@ public:
      * \brief Возвращает ссылку на датчики станка
      * \return вектор умных указателей на датчики станка
      */
-    std::vector<std::shared_ptr<Sensor> > &getSensors();
+    std::vector<std::shared_ptr<Sensor> > &sensors();
 
     /*!
      * \brief Обновляет состояния датчиков по буферу состояния датчиков
@@ -208,7 +208,15 @@ public:
      * \param sensorName - имя датчика (НЕ подпись!).
      * \return true, если датчик сработал или false, если датчик не сработал
      */
-    bool getSensorStateByName(QString sensorName);
+    bool sensorStateByName(QString sensorName);
+
+    QStringList sensorsLabels();
+
+    QStringList sensorParametrLabels();
+
+    QList<QStringList> sensorsSettings();
+
+    QList<QColor> sensorsLeds();
 };
 
 #endif // SENSORSMANAGER_H

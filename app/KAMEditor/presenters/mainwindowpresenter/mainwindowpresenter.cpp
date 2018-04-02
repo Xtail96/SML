@@ -296,22 +296,22 @@ QList<Point> MainWindowPresenter::getMachineToolCoordinates()
 
 QStringList MainWindowPresenter::getSensorsLabels()
 {
-    return MainWindowBridge::sensorsLabels(m_sensorsManager->getSensors());
+    return m_sensorsManager->sensorsLabels();
 }
 
 QStringList MainWindowPresenter::getSensorParametrLabels()
 {
-    return MainWindowBridge::sensorParametrLabels();
+    return m_sensorsManager->sensorParametrLabels();
 }
 
 QList<QStringList> MainWindowPresenter::getSensorsSettings()
 {
-    return MainWindowBridge::sensorsSettings(m_sensorsManager->getSensors());
+    return m_sensorsManager->sensorsSettings();
 }
 
 QList<QColor> MainWindowPresenter::getSensorsLeds()
 {
-    return MainWindowBridge::sensorsLeds(m_sensorsManager->getSensors());
+    return m_sensorsManager->sensorsLeds();
 }
 
 QStringList MainWindowPresenter::getDevicesNames()

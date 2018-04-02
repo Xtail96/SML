@@ -5,7 +5,6 @@
 #include <QTableWidgetItem>
 #include <QTreeWidgetItem>
 
-#include "models/sensorsmanager/sensor/sensor.h"
 #include "models/devicesmanager/device/device.h"
 #include "models/pointsmanager/pointsmanager.h"
 
@@ -14,11 +13,6 @@ class MainWindowBridge
 public:
     MainWindowBridge();
     ~MainWindowBridge();
-
-    static QStringList sensorsLabels(std::vector< std::shared_ptr<Sensor> > sensors);
-    static QStringList sensorParametrLabels();
-    static QList<QStringList> sensorsSettings(std::vector< std::shared_ptr<Sensor> > sensors);
-    static QList<QColor> sensorsLeds(std::vector< std::shared_ptr<Sensor> > sensors);
 
     static QStringList devicesNames(std::vector< std::shared_ptr<Device> > devices);
     static QStringList devicesParametrsNames();

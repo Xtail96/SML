@@ -10,62 +10,6 @@ MainWindowBridge::~MainWindowBridge()
 
 }
 
-QStringList MainWindowBridge::sensorsLabels(std::vector<std::shared_ptr<Sensor> > sensors)
-{
-    QStringList labels;
-    for(auto sensor : sensors)
-    {
-        labels.push_back(sensor->getLabel());
-    }
-    return labels;
-}
-
-QStringList MainWindowBridge::sensorParametrLabels()
-{
-    QStringList parametrsLabels =
-    {
-        "Имя датчика",
-        "Имя платы",
-        "Номер порта",
-        "Номер входа",
-        "Активное состояние",
-    };
-    return parametrsLabels;
-}
-
-QList<QStringList> MainWindowBridge::sensorsSettings(std::vector<std::shared_ptr<Sensor> > sensors)
-{
-    QList<QStringList> sensorsSettings;
-    for(auto sensor : sensors)
-    {
-        QStringList sensorSettings =
-        {
-            sensor->getName(),
-            sensor->getBoardName(),
-            QString::number(sensor->getPortNumber()),
-            QString::number(sensor->getInputNumber()),
-            QString::number(sensor->getActiveState())
-        };
-        sensorsSettings.push_back(sensorSettings);
-    }
-    return sensorsSettings;
-}
-
-QList<QColor> MainWindowBridge::sensorsLeds(std::vector<std::shared_ptr<Sensor> > sensors)
-{
-    QList<QColor> sensorsLeds;
-    for(auto sensor : sensors)
-    {
-        QColor sensorLed(SmlColors::white());
-        if(sensor->isEnable())
-        {
-            sensorLed = sensor->getColor();
-        }
-        sensorsLeds.push_back(sensorLed);
-    }
-    return sensorsLeds;
-}
-
 QStringList MainWindowBridge::devicesNames(std::vector<std::shared_ptr<Device> > devices)
 {
     QStringList names;
@@ -132,43 +76,6 @@ QList<bool> MainWindowBridge::onScreenDevicesStates(std::vector<std::shared_ptr<
     }
     return devicesStates;
 }
-
-/*QStringList MainWindowBridge::axisesParametrsNames()
-{
-    QStringList parametrsNames =
-    {
-        "Длина",
-        "Шаг",
-        "Направление",
-        "Рывок",
-        "Ускорение",
-        "Скорость",
-        "Скорость Базирования",
-        "Канал"
-    };
-    return parametrsNames;
-}*/
-
-/*QList<QStringList> MainWindowBridge::axisesSettings(std::vector<std::shared_ptr<Axis> > axises)
-{
-    QList<QStringList> axisesSettings;
-    for(auto axis : axises)
-    {
-        QStringList axisSettings =
-        {
-            QString::number(axis->getLength()),
-            QString::number(axis->getStep()),
-            QString::number(axis->getInvertDirection()),
-            QString::number(axis->getJerk()),
-            QString::number(axis->getAcceleration()),
-            QString::number(axis->getVelocity()),
-            QString::number(axis->getBasingVelocity()),
-            QString::number(axis->getChannel())
-        };
-        axisesSettings.push_back(axisSettings);
-    }
-    return axisesSettings;
-}*/
 
 QList<QStringList> MainWindowBridge::points(PointsManager *pointsManager)
 {
