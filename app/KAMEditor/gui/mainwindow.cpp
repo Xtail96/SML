@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_mainWindowPresenter(new MachineTool(this)),
+    m_machineTool(new MachineTool(this)),
     m_hightlighter(new GCodesSyntaxHighlighter(this))
 {
     ui->setupUi(this);
@@ -41,7 +41,7 @@ MainWindow::~MainWindow()
     }
 
     delete m_hightlighter;
-    delete m_mainWindowPresenter;
+    delete m_machineTool;
     delete ui;
 }
 
@@ -49,14 +49,14 @@ void MainWindow::setupMainWindowPresenter()
 {
     //connect(this, SIGNAL(ready()), m_mainWindowPresenter, SLOT(loadMachineToolSettings()));
 
-    connect(m_mainWindowPresenter, SIGNAL(machineToolIsConnected()), this, SLOT(onMachineToolConnected()));
-    connect(m_mainWindowPresenter, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(onMachineToolDisconnected(QString)));
-    connect(m_mainWindowPresenter, SIGNAL(u1StateIsChanged()), SLOT(onMachineToolConnected()));
+    connect(m_machineTool, SIGNAL(machineToolIsConnected()), this, SLOT(onMachineToolConnected()));
+    connect(m_machineTool, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(onMachineToolDisconnected(QString)));
+    connect(m_machineTool, SIGNAL(u1StateIsChanged()), SLOT(onMachineToolConnected()));
 
-    connect(m_mainWindowPresenter, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
-    connect(m_mainWindowPresenter, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
+    connect(m_machineTool, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
+    connect(m_machineTool, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
 
-    connect(m_mainWindowPresenter, SIGNAL(u1StateIsChanged()), this, SLOT(updateDisplays()));
+    connect(m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(updateDisplays()));
 
     //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
     //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
@@ -69,7 +69,7 @@ void MainWindow::setupMainWindowPresenter()
     //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
     //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesPanel()));
 
-    connect(m_mainWindowPresenter, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
+    connect(m_machineTool, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::setupWidgets()
@@ -173,15 +173,15 @@ void MainWindow::updateSettingsBoards()
 
 void MainWindow::updateAxisesBoard()
 {
-    QStringList axisesSettings = m_mainWindowPresenter->getAxisesSettings();
+    QStringList axisesSettings = m_machineTool->getAxisesSettings();
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
 void MainWindow::updateSensorsBoard()
 {
-    QStringList sensorsNames = m_mainWindowPresenter->getSensorsLabels();
-    QStringList sensorsParametrsNames = m_mainWindowPresenter->getSensorParametrLabels();
-    QList<QStringList> sensorsSettings = m_mainWindowPresenter->getSensorsSettings();
+    QStringList sensorsNames = m_machineTool->getSensorsLabels();
+    QStringList sensorsParametrsNames = m_machineTool->getSensorParametrLabels();
+    QList<QStringList> sensorsSettings = m_machineTool->getSensorsSettings();
 
     ui->sensorsSettingsTableWidget->clear();
     ui->sensorsSettingsTableWidget->setRowCount(sensorsNames.size());
@@ -205,9 +205,9 @@ void MainWindow::updateSensorsBoard()
 
 void MainWindow::updateDevicesBoard()
 {
-    QStringList devicesNames = m_mainWindowPresenter->getDevicesNames();
-    QStringList devicesParametrsNames = m_mainWindowPresenter->getDevicesParametrsNames();
-    QList<QStringList> devicesSettings = m_mainWindowPresenter->getDevicesSettings();
+    QStringList devicesNames = m_machineTool->getDevicesNames();
+    QStringList devicesParametrsNames = m_machineTool->getDevicesParametrsNames();
+    QList<QStringList> devicesSettings = m_machineTool->getDevicesSettings();
 
     ui->devicesSettingsTableWidget->clear();
     ui->devicesSettingsTableWidget->setRowCount(devicesNames.size());
@@ -237,8 +237,8 @@ void MainWindow::updatePointsEditorWidgets()
 
 void MainWindow::updateSensorsDisplay()
 {
-    QStringList sensorsNames = m_mainWindowPresenter->getSensorsLabels();
-    QList<QColor> sensorsLeds = m_mainWindowPresenter->getSensorsLeds();
+    QStringList sensorsNames = m_machineTool->getSensorsLabels();
+    QList<QColor> sensorsLeds = m_machineTool->getSensorsLeds();
 
     ui->sensorsTableWidget->clear();
     ui->sensorsTableWidget->setRowCount(sensorsNames.size());
@@ -256,8 +256,8 @@ void MainWindow::updateSensorsDisplay()
 
 void MainWindow::updateDevicesPanel()
 {
-    QStringList onScreenDevicesNames = m_mainWindowPresenter->getOnScreenDevicesNames();
-    QList<bool> onScreenDevicesStates = m_mainWindowPresenter->getOnScreenDevicesStates();
+    QStringList onScreenDevicesNames = m_machineTool->getOnScreenDevicesNames();
+    QList<bool> onScreenDevicesStates = m_machineTool->getOnScreenDevicesStates();
 
     ui->devicesLedsListWidget->clear();
     ui->devicesButtonsListWidget->clear();
@@ -282,7 +282,7 @@ void MainWindow::updateDevicesPanel()
 
 void MainWindow::updateDevicesLeds()
 {
-    QList<bool> onScreenDevicesStates = m_mainWindowPresenter->getOnScreenDevicesStates();
+    QList<bool> onScreenDevicesStates = m_machineTool->getOnScreenDevicesStates();
 
     ui->devicesLedsListWidget->clear();
 
@@ -311,7 +311,7 @@ void MainWindow::updateDisplays()
 
 void MainWindow::updateCoordinatesDisplays()
 {
-    QList<Point> machineToolCoordinates = m_mainWindowPresenter->getMachineToolCoordinates();
+    QList<Point> machineToolCoordinates = m_machineTool->getMachineToolCoordinates();
 
     if(machineToolCoordinates.length() >= 3)
     {
@@ -338,9 +338,9 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
 
 void MainWindow::updatePointsEditorFields()
 {
-    QList<QStringList> points = m_mainWindowPresenter->getPoints();
+    QList<QStringList> points = m_machineTool->getPoints();
     QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
-    QStringList axisesLabels = m_mainWindowPresenter->getAxisesNames();
+    QStringList axisesLabels = m_machineTool->getAxisesNames();
 
     for(auto field : fields)
     {
@@ -400,7 +400,7 @@ void MainWindow::updatePointsEditorButtons()
 
 void MainWindow::updateGCodesEditorWidget()
 {
-    QString data = m_mainWindowPresenter->getGCodesFileContent();
+    QString data = m_machineTool->getGCodesFileContent();
 
     QProgressDialog progress("Opening file. Please wait", "", 0, data.count(), this);
     progress.setWindowModality(Qt::WindowModal);
@@ -416,7 +416,7 @@ void MainWindow::updateGCodesEditorWidget()
 
 void MainWindow::updateFilePath()
 {
-    QString filePath = m_mainWindowPresenter->getFilePath("gcodes");
+    QString filePath = m_machineTool->getFilePath("gcodes");
     ui->filePathLineEdit->setText(filePath);
 }
 
@@ -443,21 +443,21 @@ void MainWindow::updateBaseStatus()
 
 void MainWindow::updateVelocityPanel()
 {
-    int velocity = m_mainWindowPresenter->getVelocity();
+    int velocity = m_machineTool->getVelocity();
     ui->feedrateLcdNumber->display(QString::number(velocity));
     ui->feedrateScrollBar->setValue(velocity);
 }
 
 void MainWindow::updateSpindelRotationsPanel()
 {
-    int rotations = m_mainWindowPresenter->getSpindelRotations();
+    int rotations = m_machineTool->getSpindelRotations();
     ui->rotationsLcdNumber->display(QString::number(rotations));
     ui->rotationsScrollBar->setValue(rotations);
 }
 
 void MainWindow::updateOptionsPanel()
 {
-    QStringList optionsNames = m_mainWindowPresenter->getOptionsNames();
+    QStringList optionsNames = m_machineTool->getOptionsNames();
     ui->optionsListWidget->addItems(optionsNames);
 }
 
@@ -803,13 +803,13 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    m_mainWindowPresenter->updateVelocity(value);
+    m_machineTool->updateVelocity(value);
     updateVelocityPanel();
 }
 
 void MainWindow::on_rotationsScrollBar_valueChanged(int value)
 {
-    m_mainWindowPresenter->updateSpindelRotations(value);
+    m_machineTool->updateSpindelRotations(value);
     updateSpindelRotationsPanel();
 }
 
@@ -936,8 +936,8 @@ void MainWindow::on_pointCopyPushButton_clicked()
 
         for(auto row : selectedRowsIndexes)
         {
-            QStringList pointsArguments = m_mainWindowPresenter->getPoint(row.row());
-            m_mainWindowPresenter->addPoint(pointsArguments);
+            QStringList pointsArguments = m_machineTool->getPoint(row.row());
+            m_machineTool->addPoint(pointsArguments);
         }
     }
     else
@@ -964,14 +964,14 @@ void MainWindow::updateEdgesControlStatus()
 
 void MainWindow::addPoint()
 {
-    AddPointDialog(m_mainWindowPresenter, this).exec();
+    AddPointDialog(m_machineTool, this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
     try
     {
-        AddPointDialog(m_mainWindowPresenter, index.row(), this).exec();
+        AddPointDialog(m_machineTool, index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -983,7 +983,7 @@ void MainWindow::deletePoints(QModelIndexList indexes)
 {
     for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        m_mainWindowPresenter->deletePoint(indexes[i].row());
+        m_machineTool->deletePoint(indexes[i].row());
     }
 }
 
@@ -997,7 +997,7 @@ void MainWindow::on_open_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_mainWindowPresenter->openGCodesFile();
+            m_machineTool->openGCodesFile();
         }
     }
 }
@@ -1009,18 +1009,18 @@ void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 
 void MainWindow::on_importsettings_action_triggered()
 {
-    m_mainWindowPresenter->importSettings();
+    m_machineTool->importSettings();
 }
 
 void MainWindow::on_savesettings_action_triggered()
 {
-    m_mainWindowPresenter->exportSettings();
+    m_machineTool->exportSettings();
 }
 
 void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)
 {
     QString deviceName = index.data().toString();
-    m_mainWindowPresenter->switchDevice(deviceName);
+    m_machineTool->switchDevice(deviceName);
 }
 
 void MainWindow::on_add_action_triggered()
@@ -1033,7 +1033,7 @@ void MainWindow::on_add_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_mainWindowPresenter->addGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
+            m_machineTool->addGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1048,7 +1048,7 @@ void MainWindow::on_create_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_mainWindowPresenter->newGCodesFile();
+            m_machineTool->newGCodesFile();
         }
     }
 }
@@ -1063,7 +1063,7 @@ void MainWindow::on_save_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_mainWindowPresenter->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
+            m_machineTool->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1078,7 +1078,7 @@ void MainWindow::on_saveas_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_mainWindowPresenter->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
+            m_machineTool->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1086,32 +1086,32 @@ void MainWindow::on_saveas_action_triggered()
 void MainWindow::on_runCommandLinkButton_clicked()
 {
     QString content = ui->gcodesEditorPlainTextEdit->toPlainText();
-    m_mainWindowPresenter->parseGCodes(content);
+    m_machineTool->parseGCodes(content);
 }
 
 void MainWindow::on_view_action_triggered()
 {
-    m_mainWindowPresenter->updateGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
+    m_machineTool->updateGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     //GCodesWebViewDialog(this).exec();
 
-    CandleVisualizerDialog(m_mainWindowPresenter->getFilePath(), this).exec();
+    CandleVisualizerDialog(m_machineTool->getFilePath(), this).exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
-    SMLConsoleDialog(m_mainWindowPresenter, this).exec();
+    SMLConsoleDialog(m_machineTool, this).exec();
 }
 
 void MainWindow::on_connectCommandLinkButton_clicked()
 {
-    m_mainWindowPresenter->openWebSocketConnection();
+    m_machineTool->openWebSocketConnection();
 }
 
 void MainWindow::on_disconnectCommandLinkButton_clicked()
 {
-    m_mainWindowPresenter->closeWebSocketConnection();
+    m_machineTool->closeWebSocketConnection();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
@@ -1262,5 +1262,5 @@ void MainWindow::on_disconnectCommandLinkButton_clicked()
 
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
-    m_mainWindowPresenter->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+    m_machineTool->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
 }

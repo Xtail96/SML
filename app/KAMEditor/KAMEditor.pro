@@ -79,24 +79,24 @@ SOURCES += main.cpp\
     gui/addpointdialog.cpp \
     gui/toselectionpointdialog.cpp \
     gui/smlconsoledialog.cpp \
-    gui/candlevisualizer/glwidget.cpp \
-    gui/candlevisualizer/drawers/shaderdrawable.cpp \
-    gui/candlevisualizer/drawers/tooldrawer.cpp \
+    libs/candlevisualizer/glwidget.cpp \
+    libs/candlevisualizer/drawers/shaderdrawable.cpp \
+    libs/candlevisualizer/drawers/tooldrawer.cpp \
     gui/candlevisualizerdialog.cpp \
-    gui/candlevisualizer/drawers/gcodedrawer.cpp \
-    gui/candlevisualizer/drawers/heightmapborderdrawer.cpp \
-    gui/candlevisualizer/drawers/heightmapgriddrawer.cpp \
-    gui/candlevisualizer/drawers/heightmapinterpolationdrawer.cpp \
-    gui/candlevisualizer/drawers/origindrawer.cpp \
-    gui/candlevisualizer/drawers/selectiondrawer.cpp \
-    gui/candlevisualizer/parser/arcproperties.cpp \
-    gui/candlevisualizer/parser/gcodeparser.cpp \
-    gui/candlevisualizer/parser/gcodepreprocessorutils.cpp \
-    gui/candlevisualizer/parser/gcodeviewparse.cpp \
-    gui/candlevisualizer/parser/linesegment.cpp \
-    gui/candlevisualizer/parser/pointsegment.cpp \
-    gui/candlevisualizer/tables/gcodetablemodel.cpp \
-    gui/candlevisualizer/tables/heightmaptablemodel.cpp \
+    libs/candlevisualizer/drawers/gcodedrawer.cpp \
+    libs/candlevisualizer/drawers/heightmapborderdrawer.cpp \
+    libs/candlevisualizer/drawers/heightmapgriddrawer.cpp \
+    libs/candlevisualizer/drawers/heightmapinterpolationdrawer.cpp \
+    libs/candlevisualizer/drawers/origindrawer.cpp \
+    libs/candlevisualizer/drawers/selectiondrawer.cpp \
+    libs/candlevisualizer/parser/arcproperties.cpp \
+    libs/candlevisualizer/parser/gcodeparser.cpp \
+    libs/candlevisualizer/parser/gcodepreprocessorutils.cpp \
+    libs/candlevisualizer/parser/gcodeviewparse.cpp \
+    libs/candlevisualizer/parser/linesegment.cpp \
+    libs/candlevisualizer/parser/pointsegment.cpp \
+    libs/candlevisualizer/tables/gcodetablemodel.cpp \
+    libs/candlevisualizer/tables/heightmaptablemodel.cpp \
     libs/simpleqtlogger/simpleQtLogger.cpp \
     models/axisesmanager/axis/axis.cpp \
     models/axisesmanager/axisesmanager.cpp \
@@ -131,26 +131,26 @@ HEADERS  += gui/mainwindow.h \
     gui/addpointdialog.h \
     gui/toselectionpointdialog.h \
     gui/smlconsoledialog.h \
-    gui/candlevisualizer/glwidget.h \
-    gui/candlevisualizer/drawers/shaderdrawable.h \
-    gui/candlevisualizer/utils/interpolation.h \
-    gui/candlevisualizer/utils/util.h \
-    gui/candlevisualizer/drawers/tooldrawer.h \
+    libs/candlevisualizer/glwidget.h \
+    libs/candlevisualizer/drawers/shaderdrawable.h \
+    libs/candlevisualizer/utils/interpolation.h \
+    libs/candlevisualizer/utils/util.h \
+    libs/candlevisualizer/drawers/tooldrawer.h \
     gui/candlevisualizerdialog.h \
-    gui/candlevisualizer/drawers/gcodedrawer.h \
-    gui/candlevisualizer/drawers/heightmapborderdrawer.h \
-    gui/candlevisualizer/drawers/heightmapgriddrawer.h \
-    gui/candlevisualizer/drawers/heightmapinterpolationdrawer.h \
-    gui/candlevisualizer/drawers/origindrawer.h \
-    gui/candlevisualizer/drawers/selectiondrawer.h \
-    gui/candlevisualizer/parser/arcproperties.h \
-    gui/candlevisualizer/parser/gcodeparser.h \
-    gui/candlevisualizer/parser/gcodepreprocessorutils.h \
-    gui/candlevisualizer/parser/gcodeviewparse.h \
-    gui/candlevisualizer/parser/linesegment.h \
-    gui/candlevisualizer/parser/pointsegment.h \
-    gui/candlevisualizer/tables/gcodetablemodel.h \
-    gui/candlevisualizer/tables/heightmaptablemodel.h \
+    libs/candlevisualizer/drawers/gcodedrawer.h \
+    libs/candlevisualizer/drawers/heightmapborderdrawer.h \
+    libs/candlevisualizer/drawers/heightmapgriddrawer.h \
+    libs/candlevisualizer/drawers/heightmapinterpolationdrawer.h \
+    libs/candlevisualizer/drawers/origindrawer.h \
+    libs/candlevisualizer/drawers/selectiondrawer.h \
+    libs/candlevisualizer/parser/arcproperties.h \
+    libs/candlevisualizer/parser/gcodeparser.h \
+    libs/candlevisualizer/parser/gcodepreprocessorutils.h \
+    libs/candlevisualizer/parser/gcodeviewparse.h \
+    libs/candlevisualizer/parser/linesegment.h \
+    libs/candlevisualizer/parser/pointsegment.h \
+    libs/candlevisualizer/tables/gcodetablemodel.h \
+    libs/candlevisualizer/tables/heightmaptablemodel.h \
     libs/simpleqtlogger/simpleQtLogger.h \
     models/axisesmanager/axis/axis.h \
     models/axisesmanager/axisesmanager.h \
@@ -170,10 +170,10 @@ macx:ICON = $${PWD}/applicationOSX.icns
 RESOURCES += \
     gui/resources/pages.qrc \
     gui/resources/images.qrc \
-    gui/candlevisualizer/shaders.qrc
+    libs/candlevisualizer/shaders.qrc
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
     applicationOSX.icns \
-    gui/candlevisualizer/shaders/fshader.glsl \
-    gui/candlevisualizer/shaders/vshader.glsl
+    libs/candlevisualizer/shaders/fshader.glsl \
+    libs/candlevisualizer/shaders/vshader.glsl

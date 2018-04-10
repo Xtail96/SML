@@ -86,8 +86,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    /// Контроллер главного окна
-    MachineTool* m_mainWindowPresenter;
+    MachineTool* m_machineTool;
     void setupMainWindowPresenter();
 
     /// Горячие клавиши кнопок для перемещения по осям станка

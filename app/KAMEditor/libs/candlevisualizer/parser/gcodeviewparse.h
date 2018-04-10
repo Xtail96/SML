@@ -13,7 +13,7 @@
 #include <QVector2D>
 #include "linesegment.h"
 #include "gcodeparser.h"
-#include "gui/candlevisualizer/utils/util.h"
+#include "libs/candlevisualizer/utils/util.h"
 
 class GcodeViewParse : public QObject
 {

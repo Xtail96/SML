@@ -256,7 +256,7 @@
   <customwidget>
    <class>GLWidget</class>
    <extends>QWidget</extends>
-   <header location="global">gui/candlevisualizer/glwidget.h</header>
+   <header location="global">libs/candlevisualizer/glwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

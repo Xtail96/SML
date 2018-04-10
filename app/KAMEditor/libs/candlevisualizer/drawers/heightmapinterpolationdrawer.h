@@ -9,7 +9,7 @@
 #include <QVector3D>
 #include <QColor>
 #include "shaderdrawable.h"
-#include "gui/candlevisualizer/utils/util.h"
+#include "libs/candlevisualizer/utils/util.h"
 
 class HeightMapInterpolationDrawer : public ShaderDrawable
 {
