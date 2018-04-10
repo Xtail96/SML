@@ -1,10 +1,9 @@
 #include "lubricationsystemwindow.h"
 #include "ui_lubricationsystemwindow.h"
 
-LubricationSystemWindow::LubricationSystemWindow(DevicesManager *_devicesManager, QWidget *parent) :
+LubricationSystemWindow::LubricationSystemWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LubricationSystemWindow),
-    devicesManager(_devicesManager),
     generalLubricationTimer(new QTimer(this)),
     stepLubriactionTimer(new QTimer(this))
 {
@@ -65,25 +64,25 @@ void LubricationSystemWindow::updateProgressBar()
 
 void LubricationSystemWindow::switchLubricationSystem()
 {
-    QString deviceName = "САС";
+    /*QString deviceName = "САС";
     try
     {
         Device &device = devicesManager->findDevice(deviceName);
         byte_array data = devicesManager->getSwitchDeviceData(device, !device.getCurrentState());
 #ifdef Q_OS_WIN
-        /*try
+        try
         {
             u1Manager->getU1()->sendData(data);
         }
         catch(std::runtime_error e)
         {
             QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-        }*/
+        }
 #endif
         device.setCurrentState(!device.getCurrentState());
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }

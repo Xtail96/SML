@@ -100,7 +100,10 @@ SOURCES += main.cpp\
     libs/simpleqtlogger/simpleQtLogger.cpp \
     models/axisesmanager/axis/axis.cpp \
     models/axisesmanager/axisesmanager.cpp \
-    models/machinetool.cpp
+    models/machinetool.cpp \
+    options/toollengthsensorwindow.cpp \
+    options/lubricationsystemwindow.cpp \
+    options/kabriolwindow.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -154,7 +157,10 @@ HEADERS  += gui/mainwindow.h \
     libs/simpleqtlogger/simpleQtLogger.h \
     models/axisesmanager/axis/axis.h \
     models/axisesmanager/axisesmanager.h \
-    models/machinetool.h
+    models/machinetool.h \
+    options/toollengthsensorwindow.h \
+    options/lubricationsystemwindow.h \
+    options/kabriolwindow.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
@@ -162,7 +168,10 @@ FORMS    += gui/mainwindow.ui \
     gui/logdialog.ui \
     gui/gcodeswebviewdialog.ui \
     gui/smlconsoledialog.ui \
-    gui/candlevisualizerdialog.ui
+    gui/candlevisualizerdialog.ui \
+    options/toollengthsensorwindow.ui \
+    options/lubricationsystemwindow.ui \
+    options/kabriolwindow.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
