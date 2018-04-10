@@ -43,7 +43,7 @@
   <customwidget>
    <class>Console</class>
    <extends>QPlainTextEdit</extends>
-   <header>views/widgets/console.h</header>
+   <header>gui/widgets/console.h</header>
   </customwidget>
  </customwidgets>
  <resources>

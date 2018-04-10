@@ -5119,22 +5119,22 @@
   <customwidget>
    <class>GCodesEditorWidget</class>
    <extends>QPlainTextEdit</extends>
-   <header>views/widgets/gcodeseditorwidget.h</header>
+   <header>gui/widgets/gcodeseditorwidget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLCommandsListWidget</class>
    <extends>QListWidget</extends>
-   <header>views/widgets/smlcommandslistwidget.h</header>
+   <header>gui/widgets/smlcommandslistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLEditorTreeWidget</class>
    <extends>QTreeWidget</extends>
-   <header>views/widgets/smleditortreewidget.h</header>
+   <header>gui/widgets/smleditortreewidget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLPointsTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>views/widgets/smlpointstablewidget.h</header>
+   <header>gui/widgets/smlpointstablewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

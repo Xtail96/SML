@@ -19,8 +19,8 @@
 #endif
 
 /// Подключение диалогов редактора точек
-#include "points/addpointdialog.h"
-#include "points/toselectionpointdialog.h"
+#include "gui/addpointdialog.h"
+#include "gui/toselectionpointdialog.h"
 
 /// Подключение диалогов команд
 /*#include "commands/linedialog.h"
@@ -66,12 +66,10 @@
 /// Подключение файла с библиотечными зависимостями
 //#include "dependencies.h"
 
-#include "presenters/mainwindowpresenter/mainwindowpresenter.h"
+#include "models/machinetool.h"
 
-#include "gcodeswebviewdialog.h"
-#include "views/candlevisualizerdialog.h"
-//#include "views/candlevisualizer/app/src/frmmain.h"
-#include "smlconsoledialog.h"
+#include "gui/candlevisualizerdialog.h"
+#include "gui/smlconsoledialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -89,7 +87,7 @@ private:
     Ui::MainWindow *ui;
 
     /// Контроллер главного окна
-    MainWindowPresenter* m_mainWindowPresenter;
+    MachineTool* m_mainWindowPresenter;
     void setupMainWindowPresenter();
 
     /// Горячие клавиши кнопок для перемещения по осям станка

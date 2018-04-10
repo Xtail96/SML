@@ -7,7 +7,7 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLTexture>
-#include "views/candlevisualizer/utils/util.h"
+#include "gui/candlevisualizer/utils/util.h"
 
 struct VertexData
 {

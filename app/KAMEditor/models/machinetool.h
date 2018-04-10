@@ -1,9 +1,7 @@
-#ifndef MAINWINDOWPRESENTER_H
-#define MAINWINDOWPRESENTER_H
+#ifndef MACHINETOOL_H
+#define MACHINETOOL_H
 
 #include <QObject>
-
-#include "presenters/mainwindowpresenter/mainwindowbridge/mainwindowbridge.h"
 #include "models/serverconnectionmanager/serverconnectionmanager.h"
 
 #include "models/devicesmanager/devicesmanager.h"
@@ -19,7 +17,7 @@
  * \brief Класс Контроллер главного окна
  * Отвечает за всю логику работы с элементами главного окна
  */
-class MainWindowPresenter : public QObject
+class MachineTool : public QObject
 {
     Q_OBJECT
 
@@ -28,12 +26,12 @@ public:
      * \brief Конструктор класса Контроллер главного окна
      * \param parent - указатель на объект (по умолчанию равен nullptr)
      */
-    explicit MainWindowPresenter(QObject *parent = nullptr);
+    explicit MachineTool(QObject *parent = nullptr);
 
     /*!
       * \brief Деструктор класса Контроллер главного окна
       */
-    ~MainWindowPresenter();
+    ~MachineTool();
 
     QStringList getSensorsLabels();
     QStringList getSensorParametrLabels();
@@ -164,4 +162,4 @@ public slots:
     void onGCodesLoaded();
 };
 
-#endif // MAINWINDOWPRESENTER_H
+#endif // MACHINETOOL_H

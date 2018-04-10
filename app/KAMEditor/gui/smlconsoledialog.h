@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "presenters/mainwindowpresenter/mainwindowpresenter.h"
+#include "models/machinetool.h"
 
 namespace Ui {
 class SMLConsoleDialog;
@@ -14,13 +14,13 @@ class SMLConsoleDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SMLConsoleDialog(MainWindowPresenter* controller, QWidget *parent = 0);
+    explicit SMLConsoleDialog(MachineTool* controller, QWidget *parent = 0);
     ~SMLConsoleDialog();
 protected:
     void setup();
 private:
     Ui::SMLConsoleDialog *ui;
-    MainWindowPresenter *m_controller;
+    MachineTool *m_controller;
 
 protected slots:
     void sendCommang(QString cmd);

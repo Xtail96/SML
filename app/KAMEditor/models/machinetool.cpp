@@ -1,6 +1,6 @@
-#include "mainwindowpresenter.h"
+#include "machinetool.h"
 
-MainWindowPresenter::MainWindowPresenter(QObject *parent) :
+MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
     m_serverManager(new ServerConnectionManager(m_settingsManager, false, this)),
@@ -19,7 +19,7 @@ MainWindowPresenter::MainWindowPresenter(QObject *parent) :
     connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));
 }
 
-MainWindowPresenter::~MainWindowPresenter()
+MachineTool::~MachineTool()
 {
     delete m_pointsManager;
     delete m_gcodesManager;
@@ -31,17 +31,17 @@ MainWindowPresenter::~MainWindowPresenter()
     delete m_settingsManager;
 }
 
-void MainWindowPresenter::onConnected()
+void MachineTool::onConnected()
 {
     updateU1State();
 }
 
-void MainWindowPresenter::onDisconnected(QString message)
+void MachineTool::onDisconnected(QString message)
 {
     emit machineToolIsDisconnected(message);
 }
 
-void MainWindowPresenter::updateU1State()
+void MachineTool::updateU1State()
 {
     byte_array sensors = m_serverManager->getSensorsState();
     byte_array devices = m_serverManager->getDevicesState();
@@ -50,7 +50,7 @@ void MainWindowPresenter::updateU1State()
     emit u1StateIsChanged();
 }
 
-void MainWindowPresenter::sendTextMessgeToServer(QString message)
+void MachineTool::sendTextMessgeToServer(QString message)
 {
     if(!m_serverManager->sendTextMessage(message))
     {
@@ -60,7 +60,7 @@ void MainWindowPresenter::sendTextMessgeToServer(QString message)
     }
 }
 
-void MainWindowPresenter::sendBinaryMessageToServer(QByteArray message)
+void MachineTool::sendBinaryMessageToServer(QByteArray message)
 {
     if(!m_serverManager->sendBinaryMessage(message))
     {
@@ -70,64 +70,64 @@ void MainWindowPresenter::sendBinaryMessageToServer(QByteArray message)
     }
 }
 
-void MainWindowPresenter::onMessageReceived(QString message)
+void MachineTool::onMessageReceived(QString message)
 {
     emit receivedMessage(message);
 }
 
-void MainWindowPresenter::onMessageReceived(QByteArray message)
+void MachineTool::onMessageReceived(QByteArray message)
 {
     emit receivedMessage(QString::fromUtf8(message));
 }
 
-void MainWindowPresenter::openWebSocketConnection()
+void MachineTool::openWebSocketConnection()
 {
     m_serverManager->openWebSocket();
 }
 
-void MainWindowPresenter::closeWebSocketConnection()
+void MachineTool::closeWebSocketConnection()
 {
     m_serverManager->closeWebSocket();
 }
 
-void MainWindowPresenter::onGCodesLoadingStart()
+void MachineTool::onGCodesLoadingStart()
 {
     emit gcodesLoadingStart();
 }
 
-void MainWindowPresenter::onGCodesLoading(int currentValue)
+void MachineTool::onGCodesLoading(int currentValue)
 {
     emit gcodesIsLoading(currentValue);
 }
 
-void MainWindowPresenter::onGCodesLoaded()
+void MachineTool::onGCodesLoaded()
 {
     emit gcodesLoaded();
 }
 
-void MainWindowPresenter::exportSettings()
+void MachineTool::exportSettings()
 {
     QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
     m_settingsManager->exportSettings(path);
 }
 
-void MainWindowPresenter::importSettings()
+void MachineTool::importSettings()
 {
     QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
     m_settingsManager->importSettings(path);
 }
 
-void MainWindowPresenter::parseGCodes(QString data)
+void MachineTool::parseGCodes(QString data)
 {
     m_gcodesManager->updateGCodesProgram(data);
 }
 
-void MainWindowPresenter::setSoftLimitsMode(bool enable)
+void MachineTool::setSoftLimitsMode(bool enable)
 {
     m_axisesManager->setSoftLimitsMode(enable);
 }
 
-void MainWindowPresenter::switchDevice(QString deviceName)
+void MachineTool::switchDevice(QString deviceName)
 {
     try
     {
@@ -161,7 +161,7 @@ void MainWindowPresenter::switchDevice(QString deviceName)
     }
 }
 
-void MainWindowPresenter::updateVelocity(int value)
+void MachineTool::updateVelocity(int value)
 {
     if(value >= 0)
     {
@@ -173,7 +173,7 @@ void MainWindowPresenter::updateVelocity(int value)
     }
 }
 
-void MainWindowPresenter::updateSpindelRotations(int value)
+void MachineTool::updateSpindelRotations(int value)
 {
     if(value >= 0)
     {
@@ -185,14 +185,14 @@ void MainWindowPresenter::updateSpindelRotations(int value)
     }
 }
 
-void MainWindowPresenter::addPoint(QStringList coordinates)
+void MachineTool::addPoint(QStringList coordinates)
 {
     Point* p = PointsManager::makePoint(coordinates);
     m_pointsManager->addPoint(p);
     emit pointsUpdated();
 }
 
-void MainWindowPresenter::updatePoint(QStringList coordinates, unsigned int number)
+void MachineTool::updatePoint(QStringList coordinates, unsigned int number)
 {
     Point* p = PointsManager::makePoint(coordinates);
     try
@@ -213,7 +213,7 @@ void MainWindowPresenter::updatePoint(QStringList coordinates, unsigned int numb
     }
 }
 
-void MainWindowPresenter::deletePoint(unsigned int number)
+void MachineTool::deletePoint(unsigned int number)
 {
     try
     {
@@ -228,7 +228,7 @@ void MainWindowPresenter::deletePoint(unsigned int number)
 }
 
 
-void MainWindowPresenter::openGCodesFile()
+void MachineTool::openGCodesFile()
 {
     connect(m_gcodesFilesManager, SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
     connect(m_gcodesFilesManager, SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
@@ -240,12 +240,12 @@ void MainWindowPresenter::openGCodesFile()
     emit filePathUpdated();
 }
 
-QString MainWindowPresenter::getGCodesFileContent()
+QString MachineTool::getGCodesFileContent()
 {
     return m_gcodesFilesManager->getContent();
 }
 
-void MainWindowPresenter::saveGCodesFile(const QString data)
+void MachineTool::saveGCodesFile(const QString data)
 {
 
     m_gcodesFilesManager->setFileContent(data);
@@ -253,21 +253,21 @@ void MainWindowPresenter::saveGCodesFile(const QString data)
     emit filePathUpdated();
 }
 
-void MainWindowPresenter::saveGCodesFileAs(const QString data)
+void MachineTool::saveGCodesFileAs(const QString data)
 {
     m_gcodesFilesManager->setFileContent(data);
     m_gcodesFilesManager->saveGCodesFileAs();
     emit filePathUpdated();
 }
 
-void MainWindowPresenter::newGCodesFile()
+void MachineTool::newGCodesFile()
 {
     m_gcodesFilesManager->newGCodesFile();
     emit gcodesUpdated();
     emit filePathUpdated();
 }
 
-void MainWindowPresenter::addGCodesFile(const QString data)
+void MachineTool::addGCodesFile(const QString data)
 {
     saveGCodesFile(data);
     m_gcodesFilesManager->addGCodesFile();
@@ -275,17 +275,17 @@ void MainWindowPresenter::addGCodesFile(const QString data)
     emit filePathUpdated();
 }
 
-void MainWindowPresenter::updateGCodes(const QString &data)
+void MachineTool::updateGCodes(const QString &data)
 {
     m_gcodesManager->setGcodes(data);
 }
 
-QString MainWindowPresenter::getGCodesProgram()
+QString MachineTool::getGCodesProgram()
 {
     return m_gcodesManager->gcodes();
 }
 
-QList<Point> MainWindowPresenter::getMachineToolCoordinates()
+QList<Point> MachineTool::getMachineToolCoordinates()
 {
     QList<Point> machineToolCoordinates;
     machineToolCoordinates.push_back(m_axisesManager->getCurrentCoordinatesFromZero());
@@ -294,62 +294,62 @@ QList<Point> MainWindowPresenter::getMachineToolCoordinates()
     return machineToolCoordinates;
 }
 
-QStringList MainWindowPresenter::getSensorsLabels()
+QStringList MachineTool::getSensorsLabels()
 {
     return m_sensorsManager->sensorsLabels();
 }
 
-QStringList MainWindowPresenter::getSensorParametrLabels()
+QStringList MachineTool::getSensorParametrLabels()
 {
     return m_sensorsManager->sensorParametrLabels();
 }
 
-QList<QStringList> MainWindowPresenter::getSensorsSettings()
+QList<QStringList> MachineTool::getSensorsSettings()
 {
     return m_sensorsManager->sensorsSettings();
 }
 
-QList<QColor> MainWindowPresenter::getSensorsLeds()
+QList<QColor> MachineTool::getSensorsLeds()
 {
     return m_sensorsManager->sensorsLeds();
 }
 
-QStringList MainWindowPresenter::getDevicesNames()
+QStringList MachineTool::getDevicesNames()
 {
     return m_devicesManager->devicesNames();
 }
 
-QStringList MainWindowPresenter::getDevicesParametrsNames()
+QStringList MachineTool::getDevicesParametrsNames()
 {
     return m_devicesManager->devicesParametrsNames();
 }
 
-QList<QStringList> MainWindowPresenter::getDevicesSettings()
+QList<QStringList> MachineTool::getDevicesSettings()
 {
     return m_devicesManager->devicesSettings();
 }
 
-QStringList MainWindowPresenter::getOnScreenDevicesNames()
+QStringList MachineTool::getOnScreenDevicesNames()
 {
     return m_devicesManager->onScreenDevicesNames();
 }
 
-QList<bool> MainWindowPresenter::getOnScreenDevicesStates()
+QList<bool> MachineTool::getOnScreenDevicesStates()
 {
     return m_devicesManager->onScreenDevicesStates();
 }
 
-QStringList MainWindowPresenter::getAxisesNames()
+QStringList MachineTool::getAxisesNames()
 {
     return m_axisesManager->getAxisesNames();
 }
 
-QStringList MainWindowPresenter::getAxisesSettings()
+QStringList MachineTool::getAxisesSettings()
 {
     return m_axisesManager->getAxisesSettings();
 }
 
-QStringList MainWindowPresenter::getOptionsNames()
+QStringList MachineTool::getOptionsNames()
 {
     //todo: переписсать метод через модель
     QStringList optionsNames =
@@ -361,29 +361,29 @@ QStringList MainWindowPresenter::getOptionsNames()
     return optionsNames;
 }
 
-unsigned int MainWindowPresenter::getVelocity()
+unsigned int MachineTool::getVelocity()
 {
     //return m_machineTool->getVelocity();
     return feedrate;
 }
 
-unsigned int MainWindowPresenter::getSpindelRotations()
+unsigned int MachineTool::getSpindelRotations()
 {
     //return m_machineTool->getSpindelRotations();
     return rotations;
 }
 
-QList<QStringList> MainWindowPresenter::getPoints()
+QList<QStringList> MachineTool::getPoints()
 {
     return m_pointsManager->points();
 }
 
-QStringList MainWindowPresenter::getPoint(unsigned int number)
+QStringList MachineTool::getPoint(unsigned int number)
 {
     return m_pointsManager->point(number);
 }
 
-QString MainWindowPresenter::getFilePath(QString type)
+QString MachineTool::getFilePath(QString type)
 {
     QString path = "";
     if(type == "gcodes")

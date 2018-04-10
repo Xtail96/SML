@@ -2,7 +2,7 @@
 // Copyright 2015-2016 Hayrullin Denis Ravilevich
 
 #include "glwidget.h"
-#include "views/candlevisualizer/drawers/tooldrawer.h"
+#include "gui/candlevisualizer/drawers/tooldrawer.h"
 #include <QDebug>
 #include <QtWidgets>
 #include <QPainter>

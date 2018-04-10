@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_mainWindowPresenter(new MainWindowPresenter(this)),
+    m_mainWindowPresenter(new MachineTool(this)),
     m_hightlighter(new GCodesSyntaxHighlighter(this))
 {
     ui->setupUi(this);

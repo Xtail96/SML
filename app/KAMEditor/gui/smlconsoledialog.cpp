@@ -1,7 +1,7 @@
 #include "smlconsoledialog.h"
 #include "ui_smlconsoledialog.h"
 
-SMLConsoleDialog::SMLConsoleDialog(MainWindowPresenter *controller, QWidget *parent) :
+SMLConsoleDialog::SMLConsoleDialog(MachineTool *controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SMLConsoleDialog),
     m_controller(controller)

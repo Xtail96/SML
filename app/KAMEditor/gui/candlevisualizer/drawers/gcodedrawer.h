@@ -6,8 +6,8 @@
 
 #include <QObject>
 #include <QVector3D>
-#include "views/candlevisualizer/parser/linesegment.h"
-#include "views/candlevisualizer/parser/gcodeviewparse.h"
+#include "gui/candlevisualizer/parser/linesegment.h"
+#include "gui/candlevisualizer/parser/gcodeviewparse.h"
 #include "shaderdrawable.h"
 
 class GcodeDrawer : public QObject, public ShaderDrawable

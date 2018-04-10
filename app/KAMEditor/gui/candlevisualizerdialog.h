@@ -6,20 +6,19 @@
 #include <QMessageBox>
 #include <QProgressDialog>
 
-#include "views/candlevisualizer/parser/gcodeviewparse.h"
+#include "gui/candlevisualizer/parser/gcodeviewparse.h"
 
-#include "views/candlevisualizer/drawers/origindrawer.h"
-#include "views/candlevisualizer/drawers/gcodedrawer.h"
-#include "views/candlevisualizer/drawers/tooldrawer.h"
-#include "views/candlevisualizer/drawers/heightmapborderdrawer.h"
-#include "views/candlevisualizer/drawers/heightmapgriddrawer.h"
-#include "views/candlevisualizer/drawers/heightmapinterpolationdrawer.h"
-#include "views/candlevisualizer/drawers/shaderdrawable.h"
-#include "views/candlevisualizer/drawers/selectiondrawer.h"
-#include "views/candlevisualizer/tables/gcodetablemodel.h"
-#include "views/candlevisualizer/tables/heightmaptablemodel.h"
-
-#include "views/candlevisualizer/utils/interpolation.h"
+#include "gui/candlevisualizer/drawers/origindrawer.h"
+#include "gui/candlevisualizer/drawers/gcodedrawer.h"
+#include "gui/candlevisualizer/drawers/tooldrawer.h"
+#include "gui/candlevisualizer/drawers/heightmapborderdrawer.h"
+#include "gui/candlevisualizer/drawers/heightmapgriddrawer.h"
+#include "gui/candlevisualizer/drawers/heightmapinterpolationdrawer.h"
+#include "gui/candlevisualizer/drawers/shaderdrawable.h"
+#include "gui/candlevisualizer/drawers/selectiondrawer.h"
+#include "gui/candlevisualizer/tables/gcodetablemodel.h"
+#include "gui/candlevisualizer/tables/heightmaptablemodel.h"
+#include "gui/candlevisualizer/utils/interpolation.h"
 
 namespace Ui {
 class CandleVisualizerDialog;

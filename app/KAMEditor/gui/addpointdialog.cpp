@@ -1,7 +1,7 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(MainWindowPresenter *_controller, QWidget *parent) :
+AddPointDialog::AddPointDialog(MachineTool *_controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     controller(_controller),
@@ -11,7 +11,7 @@ AddPointDialog::AddPointDialog(MainWindowPresenter *_controller, QWidget *parent
     connect(this, SIGNAL(newPoint(QStringList)), controller, SLOT(addPoint(QStringList)));
 }
 
-AddPointDialog::AddPointDialog(MainWindowPresenter *_controller, unsigned int _pointNumber, QWidget *parent) :
+AddPointDialog::AddPointDialog(MachineTool *_controller, unsigned int _pointNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
     controller(_controller),
