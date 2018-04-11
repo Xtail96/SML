@@ -87,7 +87,7 @@ private:
     Ui::MainWindow *ui;
 
     MachineTool* m_machineTool;
-    void setupMainWindowPresenter();
+    void setupMachineTool();
 
     /// Горячие клавиши кнопок для перемещения по осям станка
     std::vector<QShortcut*> m_axisesShortcuts;

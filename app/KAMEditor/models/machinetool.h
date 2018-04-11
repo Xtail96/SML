@@ -14,8 +14,8 @@
 
 
 /*!
- * \brief Класс Контроллер главного окна
- * Отвечает за всю логику работы с элементами главного окна
+ * \brief Класс Станок
+ * Отвечает за всю логику приложения
  */
 class MachineTool : public QObject
 {
@@ -23,13 +23,13 @@ class MachineTool : public QObject
 
 public:
     /*!
-     * \brief Конструктор класса Контроллер главного окна
+     * \brief Конструктор класса Станок
      * \param parent - указатель на объект (по умолчанию равен nullptr)
      */
     explicit MachineTool(QObject *parent = nullptr);
 
     /*!
-      * \brief Деструктор класса Контроллер главного окна
+      * \brief Деструктор класса Станок
       */
     ~MachineTool();
 

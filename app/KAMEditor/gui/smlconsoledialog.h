@@ -14,13 +14,13 @@ class SMLConsoleDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SMLConsoleDialog(MachineTool* controller, QWidget *parent = 0);
+    explicit SMLConsoleDialog(MachineTool* machineTool, QWidget *parent = 0);
     ~SMLConsoleDialog();
 protected:
     void setup();
 private:
     Ui::SMLConsoleDialog *ui;
-    MachineTool *m_controller;
+    MachineTool *m_machineTool;
 
 protected slots:
     void sendCommang(QString cmd);

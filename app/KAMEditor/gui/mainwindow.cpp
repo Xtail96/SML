@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
-    setupMainWindowPresenter();
+    setupMachineTool();
 
     // настройка виджетов
     setupWidgets();
@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setupMainWindowPresenter()
+void MainWindow::setupMachineTool()
 {
     //connect(this, SIGNAL(ready()), m_mainWindowPresenter, SLOT(loadMachineToolSettings()));
 
