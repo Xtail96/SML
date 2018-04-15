@@ -115,6 +115,7 @@ public slots:
 
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateU1State();
+    void getInitialU1State();
 
     void switchDevice(QString deviceName);
     void updateVelocity(int value);

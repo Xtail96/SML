@@ -12,7 +12,7 @@ struct DevicesBuffer
 {
 private:
     /// текущее состояние всех устройств
-    byte devicesState;
+    byte devicesState = 0xff;
 
     /*!
      * \brief Инвертирует байт

@@ -16,6 +16,7 @@ MachineTool::MachineTool(QObject *parent) :
     connect(m_serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onMessageReceived(QByteArray)));
 
     connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(onConnected()));
+    connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(getInitialU1State()));
     connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));
 }
 
@@ -48,6 +49,23 @@ void MachineTool::updateU1State()
     m_sensorsManager->updateSensors(sensors);
     m_devicesManager->updateDevices(devices);
     emit u1StateIsChanged();
+}
+
+void MachineTool::getInitialU1State()
+{
+    QtJson::JsonObject generalMessage;
+    QtJson::JsonObject u1Message;
+
+    u1Message["DirectMessage"] = "GetState";
+    generalMessage["MessageToU1"] = u1Message;
+
+    bool ok = false;
+    QByteArray message = QtJson::serialize(generalMessage, ok);
+    qDebug() << "Get U1 state =" << message;
+    if(ok)
+    {
+        m_serverManager->sendBinaryMessage(message);
+    }
 }
 
 void MachineTool::sendTextMessgeToServer(QString message)
