@@ -38,6 +38,9 @@ void SensorsManager::initilize(SettingsManager *sm)
             Sensor* sensor = new Sensor(code, sm);
             m_sensors.push_back(std::shared_ptr<Sensor>(sensor));
         }
+
+        size_t bufferSize = QVariant(sm->get("MachineToolInformation", "SensorsBufferSize")).toUInt();
+        m_sensorsBuffer.resetBuffer(bufferSize);
     }
     catch(std::invalid_argument e)
     {
@@ -61,10 +64,10 @@ void SensorsManager::updateSensors(const SensorsBuffer buffer)
 
 void SensorsManager::updateSensors(const byte_array sensorsState)
 {
-    m_buffer.updateBuffer(sensorsState);
+    m_sensorsBuffer.updateBuffer(sensorsState);
     for(auto sensor : m_sensors)
     {
-        bool isVoltage = m_buffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
+        bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
         sensor->setCurrentState(isVoltage);
     }
 }
