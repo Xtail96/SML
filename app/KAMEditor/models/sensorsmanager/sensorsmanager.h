@@ -58,7 +58,7 @@ public:
         bool voltage = false;
         if(plateName == "portal")
         {
-            voltage = checkPortalSensorState(portNumber, inputNumber, m_buffer[2]);
+            checkPortalSensorState(portNumber, inputNumber);
         }
         else
         {
@@ -79,7 +79,7 @@ public:
 
 
     /*!
-     * \brief Заполняет буффер нулями
+     * \brief Заполняет буфер нулями
      * \param size - необходимый размер буфера
      */
     void resetBuffer(size_t size)
@@ -94,7 +94,7 @@ protected:
      * Каждый байт представляет собой состояние какого-либо порта.
      * К одному порту может быть подключено до 8 датчиков.
      * Таким образом, максимальное число поддерживаемых датчиков равно buffer_size * 8.
-     * Описание структуры буффера
+     * Описание структуры буфера
      * buffer[0] - reserved (1 байт)
      * buffer[1] - датчики 0 порта портальной платы (1 байт)
      * buffer[2] - датчики 1 порта портальной платы (1 байт)
@@ -114,7 +114,7 @@ protected:
      * buffer[16] - датчики 7 порта U1 (1 байт)
      * Если размер буфера будет меньше станартного размера (17 байт),
      * то структура выше определяет, какие порты портальной платы и контроллера U1 не будут задействованы.
-     * Если размер буффера будет больше, то данные с 18 байта и дальше  будут игнорироваться.
+     * Если размер буфера будет больше, то данные с 18 байта и дальше  будут игнорироваться.
      */
     byte_array m_buffer;
 
@@ -123,7 +123,7 @@ protected:
      * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
      * \warning Не определяет включен датчик или выключен!
      * Применима, если номер входа датчика = номеру бита в байте, кодирующем состояние группы датчиков.
-     * Нумерация в байте порта должна идти с младшего разряда и, начиная, с нуля.
+     * Нумерация в байте порта должна идти с младшего разряда и, начинаться, с нуля.
      * Пример:
      * 1111[1]11
      * В данном случае, датчик, состояние которого выделено [], подключен к 1 порту и 2 входу портальной платы.
@@ -159,19 +159,55 @@ protected:
 
     /*!
      * \brief Проверяет состояние датчика Портальной платы
+     * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
+     * \warning Не определяет включен датчик или выключен!
      * \param portNumber - номер порта, к которому подключен датчик
      * \param inputNumber - номер входа, к которому подключен датчик
-     * \param portState - байт, в котором содержится состояние всех датчиков, нужного порта
      * \return true, если есть напряжение на входе, false - иначе
      */
-    bool checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber, byte portState) const
+    bool checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber) const
     {
         bool voltage = true;
 
         switch(portNumber) {
+        case 0:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
+            break;
+        }
         case 1:
         {
-            voltage = standardInputStateCheck(inputNumber, portState);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
+            break;
+        }
+        case 2:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
+            break;
+        }
+        case 3:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
+            break;
+        }
+        case 4:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
+            break;
+        }
+        case 5:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
+            break;
+        }
+        case 6:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
+            break;
+        }
+        case 7:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
             break;
         }
         default:
