@@ -1258,3 +1258,13 @@ void MainWindow::on_edgesControlCheckBox_clicked()
 {
     m_machineTool->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
 }
+
+void MainWindow::on_disconnectCommandLinkButton_clicked()
+{
+    m_machineTool->stopServer();
+}
+
+void MainWindow::on_connectCommandLinkButton_clicked()
+{
+    m_machineTool->startServer();
+}
