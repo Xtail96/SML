@@ -10,6 +10,18 @@
 
 enum Role {U1Adapter, U2Adapter};
 
+struct Adapter
+{
+    Role name;
+    QWebSocket* socket;
+
+    explicit Adapter(Role _name, QWebSocket* _socket) :
+        name(_name),
+        socket(_socket)
+    {
+    }
+};
+
 class SMLKAMEditorServer : public QObject
 {
     Q_OBJECT
@@ -21,7 +33,7 @@ protected:
     QWebSocketServer *m_server;
     qint16 m_port;
 
-    QList<QWebSocket *> m_adapters;
+    QList<Adapter *> m_adapters;
     //QWebSocket *m_u1Adapter;
     //QWebSocket *m_u2Adapter;
 

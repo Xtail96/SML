@@ -71,13 +71,12 @@ void SMLKAMEditorServer::stop()
 
 void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
 {
-    if(m_adapters.first() != nullptr)
+    for(auto adapter : m_adapters)
     {
-        m_adapters.first()->sendBinaryMessage(message);
-    }
-    else
-    {
-        QMessageBox(QMessageBox::Warning, "Routing error", "Can not send messae to U1. U1 is empty.").exec();
+        if(adapter->name == U1Adapter)
+        {
+            adapter->socket->sendBinaryMessage(message);
+        }
     }
 }
 
@@ -140,7 +139,7 @@ void SMLKAMEditorServer::processTextMessage(QString message)
             pSender->sendTextMessage("Registered!");
             if(m_debug)
             {
-                qDebug() << "U1Adapter registered:" << m_adapters.first() << " " << pSender;
+                qDebug() << "U1Adapter registered:" << m_adapters << " " << pSender;
                 qDebug() << "Unregistered:" << m_unregisteredConnections;
             }
         }
@@ -212,7 +211,19 @@ void SMLKAMEditorServer::socketDisconnected()
             emit u2Disconnected();
         }*/
 
-        m_adapters.removeAll(pSender);
+        QList<Adapter *> tmp;
+        for(auto adapter : m_adapters)
+        {
+            if(adapter->socket == pSender)
+            {
+                tmp.push_back(adapter);
+            }
+        }
+
+        for(auto adapter : tmp)
+        {
+            m_adapters.removeAll(adapter);
+        }
 
         m_unregisteredConnections.removeAll(pSender);
         pSender->deleteLater();
@@ -221,17 +232,17 @@ void SMLKAMEditorServer::socketDisconnected()
 
 void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
 {
+    m_adapters.push_back(new Adapter(role, connection));
+    m_unregisteredConnections.removeAll(connection);
     switch (role) {
     case U1Adapter:
-        m_adapters.push_front(connection);
         emit u1Connected();
         break;
     case U2Adapter:
-        m_adapters.push_back(connection);
         emit u2Connected();
         break;
     default:
         break;
     }
-    m_unregisteredConnections.removeAll(connection);
+
 }
