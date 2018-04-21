@@ -27,8 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     updateSpindelRotationsPanel();
     updateOptionsPanel();
     updateDevicesPanel();
-    updateDisplays();
-    onMachineToolDisconnected("");
+
+    updateU1Displays();
+    updateU2Displays();
+
+    onU1Disconnected();
+    onU2Disconnected();
 }
 
 MainWindow::~MainWindow()
@@ -47,28 +51,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupMachineTool()
 {
-    //connect(this, SIGNAL(ready()), m_mainWindowPresenter, SLOT(loadMachineToolSettings()));
+    connect(m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
-    connect(m_machineTool, SIGNAL(machineToolIsConnected()), this, SLOT(onMachineToolConnected()));
-    connect(m_machineTool, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(onMachineToolDisconnected(QString)));
-    connect(m_machineTool, SIGNAL(u1StateIsChanged()), SLOT(onMachineToolConnected()));
+    connect(m_machineTool, SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    connect(m_machineTool, SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    connect(m_machineTool, SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
 
     connect(m_machineTool, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(m_machineTool, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
-
-    connect(m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(updateDisplays()));
-
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateAxisesBoard()));
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesBoard()));
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSensorsBoard()));
-
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updatePointsEditorFields()));
-
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateVelocityPanel()));
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateSpindelRotationsPanel()));
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateOptionsPanel()));
-    //connect(m_mainWindowPresenter, SIGNAL(machineToolSettingsIsLoaded()), this, SLOT(updateDevicesPanel()));
-
     connect(m_machineTool, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
@@ -235,6 +227,13 @@ void MainWindow::updatePointsEditorWidgets()
     updatePointsEditorButtons();
 }
 
+void MainWindow::updateU1Displays()
+{
+    updateBatteryStatusDisplay();
+    updateSensorsDisplay();
+    updateDevicesLeds();
+}
+
 void MainWindow::updateSensorsDisplay()
 {
     QStringList sensorsNames = m_machineTool->getSensorsLabels();
@@ -301,12 +300,9 @@ void MainWindow::updateDevicesLeds()
     }
 }
 
-void MainWindow::updateDisplays()
+void MainWindow::updateU2Displays()
 {
     updateCoordinatesDisplays();
-    updateBatteryStatusDisplay();
-    updateSensorsDisplay();
-    updateDevicesLeds();
 }
 
 void MainWindow::updateCoordinatesDisplays()
@@ -443,7 +439,7 @@ void MainWindow::updateBaseStatus()
 
 void MainWindow::updateVelocityPanel()
 {
-    int velocity = m_machineTool->getVelocity();
+    int velocity = m_machineTool->getFeedrate();
     ui->feedrateLcdNumber->display(QString::number(velocity));
     ui->feedrateScrollBar->setValue(velocity);
 }
@@ -467,19 +463,45 @@ void MainWindow::hideWidgets()
     ui->commandsToolsListWidget->setEnabled(false);
 }
 
-void MainWindow::onMachineToolConnected()
+void MainWindow::onU1Connected()
 {
     ui->connectCommandLinkButton->setEnabled(false);
     ui->disconnectCommandLinkButton->setEnabled(true);
 
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->showMessage("Связь с силовым блоком установлена");
+    ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
 
     ui->devicesButtonsListWidget->setEnabled(true);
     ui->devicesLedsListWidget->setEnabled(true);
 
     ui->sensorsTableWidget->setEnabled(true);
 
+    ui->rotationsScrollBar->setEnabled(true);
+    ui->rotationsLcdNumber->setEnabled(true);
+
+    ui->optionsListWidget->setEnabled(true);
+}
+
+void MainWindow::onU1Disconnected()
+{
+    ui->connectCommandLinkButton->setEnabled(true);
+    ui->disconnectCommandLinkButton->setEnabled(false);
+
+    ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+    ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
+
+    ui->devicesButtonsListWidget->setEnabled(false);
+    ui->devicesLedsListWidget->setEnabled(false);
+    ui->sensorsTableWidget->setEnabled(false);
+
+    ui->rotationsScrollBar->setEnabled(false);
+    ui->rotationsLcdNumber->setEnabled(false);
+
+    ui->optionsListWidget->setEnabled(false);
+}
+
+void MainWindow::onU2Connected()
+{
     ui->currentCoordinatesListWidget->setEnabled(true);
     ui->baseCoordinatesListWidget->setEnabled(true);
     ui->parkCoordinatesListWidget->setEnabled(true);
@@ -522,8 +544,6 @@ void MainWindow::onMachineToolConnected()
 
     ui->feedrateScrollBar->setEnabled(true);
     ui->feedrateLcdNumber->setEnabled(true);
-    ui->rotationsScrollBar->setEnabled(true);
-    ui->rotationsLcdNumber->setEnabled(true);
 
     ui->toBasePushButton->setEnabled(true);
     ui->toZeroPushButton->setEnabled(true);
@@ -534,22 +554,10 @@ void MainWindow::onMachineToolConnected()
 
     ui->runCommandLinkButton->setEnabled(true);
     ui->stopCommandLinkButton->setEnabled(true);
-
-    ui->optionsListWidget->setEnabled(true);
 }
 
-void MainWindow::onMachineToolDisconnected(QString message)
+void MainWindow::onU2Disconnected()
 {
-    ui->connectCommandLinkButton->setEnabled(true);
-    ui->disconnectCommandLinkButton->setEnabled(false);
-
-    ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage(QString("Отсутсвует связь с силовым блоком: ") + message);
-
-    ui->devicesButtonsListWidget->setEnabled(false);
-    ui->devicesLedsListWidget->setEnabled(false);
-    ui->sensorsTableWidget->setEnabled(false);
-
     ui->currentCoordinatesListWidget->setEnabled(false);
     ui->baseCoordinatesListWidget->setEnabled(false);
     ui->parkCoordinatesListWidget->setEnabled(false);
@@ -592,8 +600,6 @@ void MainWindow::onMachineToolDisconnected(QString message)
 
     ui->feedrateScrollBar->setEnabled(false);
     ui->feedrateLcdNumber->setEnabled(false);
-    ui->rotationsScrollBar->setEnabled(false);
-    ui->rotationsLcdNumber->setEnabled(false);
 
     ui->toBasePushButton->setEnabled(false);
     ui->toZeroPushButton->setEnabled(false);
@@ -604,8 +610,6 @@ void MainWindow::onMachineToolDisconnected(QString message)
 
     ui->runCommandLinkButton->setEnabled(false);
     ui->stopCommandLinkButton->setEnabled(false);
-
-    ui->optionsListWidget->setEnabled(false);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
@@ -1102,18 +1106,6 @@ void MainWindow::on_view_action_triggered()
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
     SMLConsoleDialog(m_machineTool, this).exec();
-}
-
-void MainWindow::on_connectCommandLinkButton_clicked()
-{
-    m_machineTool->startServer();
-    //m_machineTool->openWebSocketConnection();
-}
-
-void MainWindow::on_disconnectCommandLinkButton_clicked()
-{
-    m_machineTool->stopServer();
-    //m_machineTool->closeWebSocketConnection();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)

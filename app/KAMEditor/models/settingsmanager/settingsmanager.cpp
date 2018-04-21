@@ -114,7 +114,11 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("DevicesCount", 5);
         settings->setValue("SensorsBufferSize", 18);
         settings->setValue("DevicesBufferSize", 1);
+    settings->endGroup();
+
+    settings->beginGroup("ServerSettings");
         settings->setValue("ServerPort", 1234);
+        settings->setValue("DebugMode", 1);
     settings->endGroup();
 
     settings->beginGroup("DefaultDirs");

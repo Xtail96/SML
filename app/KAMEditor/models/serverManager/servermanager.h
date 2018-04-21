@@ -15,7 +15,7 @@ private:
     byte_array *sensorsState;
     byte_array *devicesState;
 public:
-    U1State(size_t sensorsPackageSize = 32, size_t devicesPackageSize = 1)
+    U1State(size_t sensorsPackageSize = 18, size_t devicesPackageSize = 1)
     {
         sensorsState = new byte_array(sensorsPackageSize, 0);
         devicesState = new byte_array(devicesPackageSize, 0);
@@ -34,7 +34,7 @@ public:
 
     void setSensorsState(byte_array value)
     {
-        if(value.size() == sensorsState->size())
+        if(value.size() >= sensorsState->size())
         {
             for(size_t i = 0; i < sensorsState->size(); i++)
             {
@@ -79,11 +79,17 @@ public:
 protected:
     SMLKAMEditorServer *m_server;
     U1State *m_u1CurrentState;
+    void setup(SettingsManager* settingsManager);
 
     void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState);
     void updateU1State(byte_array sensorsState, byte_array devicesState);
 
 signals:
+    void u1Connected();
+    void u1Disconnected();
+    void u2Connected();
+    void u2Disconnected();
+
     void u1StateIsChanged();
 
 public slots:
@@ -95,7 +101,11 @@ public slots:
 
 protected slots:
     void onBinaryMessageReceived(QByteArray message);
-    void onCloseSignal();
+
+    void onU1Connected();
+    void onU1Disconnected();
+    void onU2Connected();
+    void onU2Disconnected();
 };
 
 #endif // SERVERMANAGER_H

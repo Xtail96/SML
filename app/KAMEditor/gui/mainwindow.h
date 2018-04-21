@@ -106,7 +106,8 @@ private slots:
     void setupWidgets();
 
     /// Слоты для обновления дисплеев
-    void updateDisplays();
+    void updateU1Displays();
+    void updateU2Displays();
 
     /// Слот для обновления дисплея координат
     void updateCoordinatesDisplays();
@@ -173,8 +174,11 @@ private slots:
     //void deleteSelectedCommands(QModelIndexList indexes);
 
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onMachineToolConnected();
-    void onMachineToolDisconnected(QString message);
+    void onU1Connected();
+    void onU1Disconnected();
+
+    void onU2Connected();
+    void onU2Disconnected();
 
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();
@@ -214,11 +218,9 @@ private slots:
     void on_create_action_triggered();
     void on_save_action_triggered();
     void on_saveas_action_triggered();
-    void on_connectCommandLinkButton_clicked();
     void on_runCommandLinkButton_clicked();
     void on_view_action_triggered();
     void on_consoleOpenPushButton_clicked();
-    void on_disconnectCommandLinkButton_clicked();
     void on_edgesControlCheckBox_clicked();
 };
 

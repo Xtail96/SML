@@ -14,7 +14,7 @@ class SMLKAMEditorServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SMLKAMEditorServer(SettingsManager *settingsManager = nullptr, bool debug = false, QObject *parent = nullptr);
+    explicit SMLKAMEditorServer(SettingsManager *settingsManager = nullptr, QObject *parent = nullptr);
     ~SMLKAMEditorServer();
 
 protected:
@@ -28,7 +28,11 @@ protected:
     bool m_debug;
 signals:
     void newConnection();
-    void closeSignal();
+
+    void u1Connected();
+    void u1Disconnected();
+    void u2Connected();
+    void u2Disconnected();
 
     void byteMessageReceived(QByteArray message);
 

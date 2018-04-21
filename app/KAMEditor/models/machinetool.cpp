@@ -9,17 +9,11 @@ MachineTool::MachineTool(QObject *parent) :
     m_axisesManager(new AxisesManager(m_settingsManager)),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_gcodesManager(new GCodesManager()),
-    m_pointsManager(new PointsManager())
+    m_pointsManager(new PointsManager()),
+    m_u1Connected(false),
+    m_u2Connected(false)
 {
-    connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
-
-    /*connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
-    connect(m_serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
-    connect(m_serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onMessageReceived(QByteArray)));
-
-    connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(onConnected()));
-    connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(getInitialU1State()));
-    connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));*/
+    setup();
 }
 
 MachineTool::~MachineTool()
@@ -34,14 +28,24 @@ MachineTool::~MachineTool()
     delete m_settingsManager;
 }
 
-void MachineTool::onConnected()
+void MachineTool::setup()
 {
-    updateU1State();
+    connect(m_serverManager, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_serverManager, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    startServer();
 }
 
-void MachineTool::onDisconnected(QString message)
+void MachineTool::onU1Connected()
 {
-    emit machineToolIsDisconnected(message);
+    updateU1State();
+    emit u1Connected();
+}
+
+void MachineTool::onU1Disconnected()
+{
+    updateU1State();
+    emit u1Disconnected();
 }
 
 void MachineTool::updateU1State()
@@ -51,33 +55,6 @@ void MachineTool::updateU1State()
     m_sensorsManager->updateSensors(sensors);
     m_devicesManager->updateDevices(devices);
     emit u1StateIsChanged();
-}
-
-void MachineTool::getInitialU1State()
-{
-    /*QtJson::JsonObject generalMessage;
-    QtJson::JsonObject u1Message;
-
-    u1Message["DirectMessage"] = "GetState";
-    generalMessage["MessageToU1"] = u1Message;
-
-    bool ok = false;
-    QByteArray message = QtJson::serialize(generalMessage, ok);
-    qDebug() << "Get U1 state =" << message;
-    if(ok)
-    {
-        m_serverManager->sendBinaryMessage(message);
-    }*/
-}
-
-void MachineTool::onMessageReceived(QString message)
-{
-    emit receivedMessage(message);
-}
-
-void MachineTool::onMessageReceived(QByteArray message)
-{
-    emit receivedMessage(QString::fromUtf8(message));
 }
 
 void MachineTool::onGCodesLoadingStart()
@@ -342,13 +319,13 @@ QStringList MachineTool::getOptionsNames()
     return optionsNames;
 }
 
-unsigned int MachineTool::getVelocity()
+size_t MachineTool::getFeedrate() const
 {
     //return m_machineTool->getVelocity();
     return feedrate;
 }
 
-unsigned int MachineTool::getSpindelRotations()
+size_t MachineTool::getSpindelRotations() const
 {
     //return m_machineTool->getSpindelRotations();
     return rotations;

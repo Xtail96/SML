@@ -33,40 +33,6 @@ public:
       */
     ~MachineTool();
 
-    QStringList getSensorsLabels();
-    QStringList getSensorParametrLabels();
-    QList<QStringList> getSensorsSettings();
-    QList<QColor> getSensorsLeds();
-    QStringList getDevicesNames();
-    QStringList getDevicesParametrsNames();
-    QList<QStringList> getDevicesSettings();
-    QStringList getOnScreenDevicesNames();
-    QList<bool> getOnScreenDevicesStates();
-
-    QStringList getAxisesNames();
-    QStringList getAxisesSettings();
-
-    QStringList getOptionsNames();
-
-
-    unsigned int getVelocity();
-    unsigned int getSpindelRotations();
-
-    QList<QStringList> getPoints();
-    QStringList getPoint(unsigned int number);
-
-    QString getFilePath(QString type = "gcodes");
-    void exportSettings();
-    void importSettings();
-
-    void parseGCodes(QString data);
-
-    size_t getFeedrate() const;
-
-    size_t getRotations() const;
-
-    void setSoftLimitsMode(bool enable);
-
 protected:
     QWidget* m_widget;
 
@@ -82,13 +48,23 @@ protected:
 
     PointsManager* m_pointsManager;
 
+    bool m_u1Connected;
+    bool m_u2Connected;
+
     size_t feedrate = 50;
     size_t rotations = 2000;
 
+    void setup();
+
 signals:
+    void u1Connected();
+    void u2Connected();
+
+    void u1Disconnected();
+    void u2Disconnected();
+
     /// Обновлено состояние станка
     void u1StateIsChanged();
-
     void u2StateIsChanged();
 
     /// Точки обновились
@@ -102,11 +78,6 @@ signals:
 
     void filePathUpdated();
 
-    void receivedMessage(QString message);
-
-    void machineToolIsConnected();
-    void machineToolIsDisconnected(QString message = "");
-
     void gcodesLoadingStart();
     void gcodesIsLoading(int value);
     void gcodesLoaded();
@@ -116,9 +87,11 @@ public slots:
     void startServer();
     void stopServer();
 
+    void onU1Connected();
+    void onU1Disconnected();
+
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateU1State();
-    void getInitialU1State();
 
     void switchDevice(QString deviceName);
     void updateVelocity(int value);
@@ -149,15 +122,39 @@ public slots:
 
     QList<Point> getMachineToolCoordinates();
 
-    void onMessageReceived(QString message);
-    void onMessageReceived(QByteArray message);
-
-    void onConnected();
-    void onDisconnected(QString message);
-
     void onGCodesLoadingStart();
     void onGCodesLoading(int currentValue);
     void onGCodesLoaded();
+
+    QStringList getSensorsLabels();
+    QStringList getSensorParametrLabels();
+    QList<QStringList> getSensorsSettings();
+    QList<QColor> getSensorsLeds();
+    QStringList getDevicesNames();
+    QStringList getDevicesParametrsNames();
+    QList<QStringList> getDevicesSettings();
+    QStringList getOnScreenDevicesNames();
+    QList<bool> getOnScreenDevicesStates();
+
+    QStringList getAxisesNames();
+    QStringList getAxisesSettings();
+
+    QStringList getOptionsNames();
+
+    QList<QStringList> getPoints();
+    QStringList getPoint(unsigned int number);
+
+    QString getFilePath(QString type = "gcodes");
+    void exportSettings();
+    void importSettings();
+
+    void parseGCodes(QString data);
+
+    size_t getFeedrate() const;
+
+    size_t getSpindelRotations() const;
+
+    void setSoftLimitsMode(bool enable);
 };
 
 #endif // MACHINETOOL_H

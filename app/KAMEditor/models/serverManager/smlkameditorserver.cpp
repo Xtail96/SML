@@ -1,12 +1,12 @@
 #include "smlkameditorserver.h"
 
-SMLKAMEditorServer::SMLKAMEditorServer(SettingsManager *settingsManager, bool debug, QObject *parent) :
+SMLKAMEditorServer::SMLKAMEditorServer(SettingsManager *settingsManager, QObject *parent) :
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
     m_port(0),
     m_u1Adapter(nullptr),
     m_u2Adapter(nullptr),
-    m_debug(debug)
+    m_debug(false)
 {
     if(settingsManager != nullptr)
     {
@@ -22,19 +22,20 @@ SMLKAMEditorServer::SMLKAMEditorServer(SettingsManager *settingsManager, bool de
 
 SMLKAMEditorServer::~SMLKAMEditorServer()
 {
-    stop();
-
     qDeleteAll(m_unregisteredConnections.begin(), m_unregisteredConnections.end());
 
     if(m_u1Adapter != nullptr)
     {
-        delete m_u1Adapter;
+        m_u1Adapter->deleteLater();
     }
 
     if(m_u2Adapter != nullptr)
     {
-        delete m_u2Adapter;
+        m_u2Adapter->deleteLater();
     }
+
+    stop();
+    m_server->deleteLater();
 }
 
 void SMLKAMEditorServer::start()
@@ -79,7 +80,8 @@ void SMLKAMEditorServer::setup(SettingsManager *sm)
 {
     try
     {
-        m_port = sm->get("MachineToolInformation", "ServerPort").toUInt();
+        m_port = sm->get("ServerSettings", "ServerPort").toUInt();
+        m_debug = sm->get("ServerSettings", "DebugMode").toInt();
     }
     catch(std::invalid_argument e)
     {
@@ -95,7 +97,8 @@ void SMLKAMEditorServer::closeServer()
         qDebug() << m_server->error();
         qDebug() << m_server->errorString();
     }
-    emit closeSignal();
+    emit u1Disconnected();
+    emit u2Disconnected();
 }
 
 void SMLKAMEditorServer::onNewConnection()
@@ -194,11 +197,13 @@ void SMLKAMEditorServer::socketDisconnected()
         if(pSender == m_u1Adapter)
         {
             m_u1Adapter = nullptr;
+            emit u1Disconnected();
         }
 
         if(pSender == m_u2Adapter)
         {
             m_u2Adapter = nullptr;
+            emit u2Disconnected();
         }
 
         m_unregisteredConnections.removeAll(pSender);
@@ -211,9 +216,11 @@ void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
     switch (role) {
     case U1Adapter:
         m_u1Adapter = connection;
+        emit u1Connected();
         break;
     case U2Adapter:
         m_u2Adapter = connection;
+        emit u2Connected();
         break;
     default:
         break;
