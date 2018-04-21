@@ -62,7 +62,7 @@ public:
         bool voltage = false;
         if(plateName == "portal")
         {
-            checkPortalSensorState(portNumber, inputNumber);
+            voltage = checkPortalSensorState(portNumber, inputNumber);
         }
         else
         {

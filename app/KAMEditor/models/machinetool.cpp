@@ -46,7 +46,6 @@ void MachineTool::onDisconnected(QString message)
 
 void MachineTool::updateU1State()
 {
-    qDebug() << "update u1 in machinetool";
     byte_array sensors = m_serverManager->getSensorsState();
     byte_array devices = m_serverManager->getDevicesState();
     m_sensorsManager->updateSensors(sensors);
