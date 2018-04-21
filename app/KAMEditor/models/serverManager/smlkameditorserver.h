@@ -12,13 +12,22 @@ enum Role {U1Adapter, U2Adapter};
 
 struct Adapter
 {
-    Role name;
-    QWebSocket* socket;
+protected:
+    Role m_name;
+    QWebSocket* m_socket;
 
-    explicit Adapter(Role _name, QWebSocket* _socket) :
-        name(_name),
-        socket(_socket)
+public:
+    explicit Adapter(Role name, QWebSocket* socket) : m_name(name), m_socket(socket){}
+    ~Adapter() {}
+
+    Role name() const
     {
+        return m_name;
+    }
+
+    QWebSocket* socket() const
+    {
+        return m_socket;
     }
 };
 
@@ -34,9 +43,6 @@ protected:
     qint16 m_port;
 
     QList<Adapter *> m_adapters;
-    //QWebSocket *m_u1Adapter;
-    //QWebSocket *m_u2Adapter;
-
     QList<QWebSocket *> m_unregisteredConnections;
     bool m_debug;
 signals:
@@ -56,10 +62,10 @@ public slots:
 
 protected slots:
     void setup(SettingsManager* sm);
-    void closeServer();
+    void onServerClosed();
     void onNewConnection();
-    void processTextMessage(QString message);
-    void processBinaryMessage(QByteArray message);
+    void onTextMessage(QString message);
+    void onBinaryMessage(QByteArray message);
     void socketDisconnected();
     void registerConnection(QWebSocket *connection, Role role);
 
