@@ -57,7 +57,6 @@ SOURCES += main.cpp\
     libs/jsonparser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    models/serverconnectionmanager/serverconnectionmanager.cpp \
     models/devicesmanager/devicesmanager.cpp \
     models/devicesmanager/device/device.cpp \
     models/sensorsmanager/sensorsmanager.cpp \
@@ -103,7 +102,9 @@ SOURCES += main.cpp\
     models/machinetool.cpp \
     options/toollengthsensorwindow.cpp \
     options/lubricationsystemwindow.cpp \
-    options/kabriolwindow.cpp
+    options/kabriolwindow.cpp \
+    models/serverManager/smlkameditorserver.cpp \
+    models/serverManager/servermanager.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -111,7 +112,6 @@ HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    models/serverconnectionmanager/serverconnectionmanager.h \
     models/devicesmanager/devicesmanager.h \
     models/devicesmanager/device/device.h \
     models/sensorsmanager/sensorsmanager.h \
@@ -160,7 +160,9 @@ HEADERS  += gui/mainwindow.h \
     models/machinetool.h \
     options/toollengthsensorwindow.h \
     options/lubricationsystemwindow.h \
-    options/kabriolwindow.h
+    options/kabriolwindow.h \
+    models/serverManager/smlkameditorserver.h \
+    models/serverManager/servermanager.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

@@ -24,7 +24,7 @@ void SMLConsoleDialog::setup()
 
 void SMLConsoleDialog::sendCommang(QString cmd)
 {
-    m_machineTool->sendBinaryMessageToServer(cmd.toUtf8());
+    //m_machineTool->sendBinaryMessageToServer(cmd.toUtf8());
 }
 
 void SMLConsoleDialog::handleCommand(QString cmd)

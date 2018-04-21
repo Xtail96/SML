@@ -2,7 +2,7 @@
 #define MACHINETOOL_H
 
 #include <QObject>
-#include "models/serverconnectionmanager/serverconnectionmanager.h"
+#include "models/serverManager/servermanager.h"
 
 #include "models/devicesmanager/devicesmanager.h"
 #include "models/sensorsmanager/sensorsmanager.h"
@@ -71,7 +71,7 @@ protected:
     QWidget* m_widget;
 
     SettingsManager* m_settingsManager;
-    ServerConnectionManager* m_serverManager;
+    ServerManager* m_serverManager;
 
     SensorsManager* m_sensorsManager;
     DevicesManager* m_devicesManager;
@@ -113,6 +113,9 @@ signals:
 
 public slots:
 
+    void startServer();
+    void stopServer();
+
     /// Слот для испускания сигнала об обновлении состояния станка
     void updateU1State();
     void getInitialU1State();
@@ -144,19 +147,13 @@ public slots:
     void updateGCodes(const QString &data);
     QString getGCodesProgram();
 
-
     QList<Point> getMachineToolCoordinates();
 
-    void sendTextMessgeToServer(QString message);
-    void sendBinaryMessageToServer(QByteArray message);
     void onMessageReceived(QString message);
     void onMessageReceived(QByteArray message);
 
     void onConnected();
     void onDisconnected(QString message);
-
-    void openWebSocketConnection();
-    void closeWebSocketConnection();
 
     void onGCodesLoadingStart();
     void onGCodesLoading(int currentValue);

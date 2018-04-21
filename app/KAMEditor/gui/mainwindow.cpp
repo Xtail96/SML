@@ -1106,12 +1106,14 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 
 void MainWindow::on_connectCommandLinkButton_clicked()
 {
-    m_machineTool->openWebSocketConnection();
+    m_machineTool->startServer();
+    //m_machineTool->openWebSocketConnection();
 }
 
 void MainWindow::on_disconnectCommandLinkButton_clicked()
 {
-    m_machineTool->closeWebSocketConnection();
+    m_machineTool->stopServer();
+    //m_machineTool->closeWebSocketConnection();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)

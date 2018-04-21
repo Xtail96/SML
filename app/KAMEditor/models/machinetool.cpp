@@ -3,7 +3,7 @@
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
-    m_serverManager(new ServerConnectionManager(m_settingsManager, false, this)),
+    m_serverManager(new ServerManager(m_settingsManager, this)),
     m_sensorsManager(new SensorsManager(m_settingsManager)),
     m_devicesManager(new DevicesManager(m_settingsManager)),
     m_axisesManager(new AxisesManager(m_settingsManager)),
@@ -12,12 +12,14 @@ MachineTool::MachineTool(QObject *parent) :
     m_pointsManager(new PointsManager())
 {
     connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+
+    /*connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     connect(m_serverManager, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
     connect(m_serverManager, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onMessageReceived(QByteArray)));
 
     connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(onConnected()));
     connect(m_serverManager, SIGNAL(serverIsConnected()), this, SLOT(getInitialU1State()));
-    connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));
+    connect(m_serverManager, SIGNAL(serverIsDisconnected(QString)), this, SLOT(onDisconnected(QString)));*/
 }
 
 MachineTool::~MachineTool()
@@ -44,6 +46,7 @@ void MachineTool::onDisconnected(QString message)
 
 void MachineTool::updateU1State()
 {
+    qDebug() << "update u1 in machinetool";
     byte_array sensors = m_serverManager->getSensorsState();
     byte_array devices = m_serverManager->getDevicesState();
     m_sensorsManager->updateSensors(sensors);
@@ -53,7 +56,7 @@ void MachineTool::updateU1State()
 
 void MachineTool::getInitialU1State()
 {
-    QtJson::JsonObject generalMessage;
+    /*QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
 
     u1Message["DirectMessage"] = "GetState";
@@ -65,27 +68,7 @@ void MachineTool::getInitialU1State()
     if(ok)
     {
         m_serverManager->sendBinaryMessage(message);
-    }
-}
-
-void MachineTool::sendTextMessgeToServer(QString message)
-{
-    if(!m_serverManager->sendTextMessage(message))
-    {
-        QMessageBox(QMessageBox::Warning,
-                    "Ошибка подключения",
-                    QString("Не могу отправить на серевер сообщение") + message).exec();
-    }
-}
-
-void MachineTool::sendBinaryMessageToServer(QByteArray message)
-{
-    if(!m_serverManager->sendBinaryMessage(message))
-    {
-        QMessageBox(QMessageBox::Warning,
-                    "Ошибка подключения",
-                    QString("Не могу отправить на серевер сообщение") + QString::fromUtf8(message)).exec();
-    }
+    }*/
 }
 
 void MachineTool::onMessageReceived(QString message)
@@ -96,16 +79,6 @@ void MachineTool::onMessageReceived(QString message)
 void MachineTool::onMessageReceived(QByteArray message)
 {
     emit receivedMessage(QString::fromUtf8(message));
-}
-
-void MachineTool::openWebSocketConnection()
-{
-    m_serverManager->openWebSocket();
-}
-
-void MachineTool::closeWebSocketConnection()
-{
-    m_serverManager->closeWebSocket();
 }
 
 void MachineTool::onGCodesLoadingStart()
@@ -145,6 +118,16 @@ void MachineTool::setSoftLimitsMode(bool enable)
     m_axisesManager->setSoftLimitsMode(enable);
 }
 
+void MachineTool::startServer()
+{
+    m_serverManager->startServer();
+}
+
+void MachineTool::stopServer()
+{
+    m_serverManager->stopServer();
+}
+
 void MachineTool::switchDevice(QString deviceName)
 {
     try
@@ -152,26 +135,7 @@ void MachineTool::switchDevice(QString deviceName)
         Device &device = m_devicesManager->findDevice(deviceName);
         qDebug() << "current state = " << device.getCurrentState();
         byte_array data = m_devicesManager->switchDeviceData(device, !device.getCurrentState());
-
-        QtJson::JsonObject generalMessage;
-        QtJson::JsonObject u1Message;
-        QtJson::JsonArray u1Data;
-
-        for(auto byte_unit : data)
-        {
-            u1Data.push_back(byte_unit);
-        }
-        u1Message["SwitchDevice"] = u1Data;
-        generalMessage["MessageToU1"] = u1Message;
-
-
-        bool ok = false;
-        QByteArray message = QtJson::serialize(generalMessage, ok);
-        qDebug() << "Try to switch device =" << message;
-        if(ok)
-        {
-            m_serverManager->sendBinaryMessage(message);
-        }
+        m_serverManager->switchDevice(data);
     }
     catch(std::invalid_argument e)
     {

@@ -28,6 +28,10 @@ public:
         {
             m_buffer = value;
         }
+        else
+        {
+            qDebug() << "can not update buffer" << m_buffer.size() << " > " << value.size();
+        }
     }
 
     /*!
