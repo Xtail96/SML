@@ -4,6 +4,8 @@ SMLKAMEditorServer::SMLKAMEditorServer(SettingsManager *settingsManager, QObject
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
     m_port(0),
+    m_u1Adapter(new QWebSocket()),
+    m_u2Adapter(new QWebSocket()),
     m_debug(false)
 {
     if(settingsManager != nullptr)
@@ -20,12 +22,28 @@ SMLKAMEditorServer::SMLKAMEditorServer(SettingsManager *settingsManager, QObject
 
 SMLKAMEditorServer::~SMLKAMEditorServer()
 {
-    qDebug() << m_unregisteredConnections;
-    stop();
-    delete m_server;
+    disconnect(m_u1Adapter, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+    disconnect(m_u1Adapter, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+    disconnect(m_u1Adapter, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 
-    qDeleteAll(m_adapters.begin(), m_adapters.end());
+    disconnect(m_u2Adapter, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+    disconnect(m_u2Adapter, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+    disconnect(m_u2Adapter, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+
+    for(auto socket : m_unregisteredConnections)
+    {
+        disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+        disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+        disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+    }
+
+    this->stop();
+
     qDeleteAll(m_unregisteredConnections.begin(), m_unregisteredConnections.end());
+    delete m_u1Adapter;
+    delete m_u2Adapter;
+
+    delete m_server;
 }
 
 void SMLKAMEditorServer::start()
@@ -56,69 +74,14 @@ void SMLKAMEditorServer::stop()
 
 void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
 {
-    for(auto adapter : m_adapters)
+    if(m_u1Adapter != nullptr)
     {
-        if(adapter->name() == U1Adapter)
-        {
-            adapter->socket()->sendBinaryMessage(message);
-        }
+        m_u1Adapter->sendBinaryMessage(message);
     }
-}
-
-QStringList SMLKAMEditorServer::currentAdapters()
-{
-    QStringList adapters;
-
-    for(auto adapter : m_adapters)
+    else
     {
-        QString name = "";
-        switch (adapter->name()) {
-        case U1Adapter:
-            name += "U1Adapter";
-            break;
-        case U2Adapter:
-            name += "U2Adapter";
-            break;
-        default:
-            break;
-        }
-
-        QString localPort = QString::number(adapter->socket()->localPort());
-        QString localAddress = adapter->socket()->localAddress().toString();
-        QString peerName = adapter->socket()->peerName();
-        QString peerPort = QString::number(adapter->socket()->peerPort());
-        QString peerAddress = adapter->socket()->peerAddress().toString();
-
-        QString adapterSettingsString =
-                "Name [" + name + "] " +
-                "on local port [" + localPort + "] " +
-                "with local address [" + localAddress +"] " +
-                "with peer name [" + peerName + "] " +
-                "with peer port [" + peerPort + "] " +
-                "with peer address [" + peerAddress + "]";
-        adapters.push_back(adapterSettingsString);
+        emit u1Disconnected();
     }
-
-    for(auto socket : m_unregisteredConnections)
-    {
-        QString name = "Undefined";
-        QString localPort = QString::number(socket->localPort());
-        QString localAddress = socket->localAddress().toString();
-        QString peerName = socket->peerName();
-        QString peerPort = QString::number(socket->peerPort());
-        QString peerAddress = socket->peerAddress().toString();
-
-        QString adapterSettingsString =
-                "Name [" + name + "] " +
-                "on local port [" + localPort + "] " +
-                "with local address " + localAddress + "] " +
-                "with peer name" + peerName + "] " +
-                "with peer port" + peerPort + "] " +
-                "with peer address" + peerAddress + "]";
-        adapters.push_back(adapterSettingsString);
-    }
-
-    return adapters;
 }
 
 void SMLKAMEditorServer::setup(SettingsManager *sm)
@@ -181,7 +144,7 @@ void SMLKAMEditorServer::onTextMessage(QString message)
             pSender->sendTextMessage("Registered!");
             if(m_debug)
             {
-                qDebug() << "U1Adapter registered:" << m_adapters << " " << pSender;
+                qDebug() << "U1Adapter registered:" << m_u1Adapter << " " << pSender;
                 qDebug() << "Unregistered:" << m_unregisteredConnections;
             }
         }
@@ -225,18 +188,18 @@ void SMLKAMEditorServer::socketDisconnected()
 
     if (pSender)
     {
-        QList<Adapter *> tmp;
-        for(auto adapter : m_adapters)
+        pSender->close();
+
+        if(pSender == m_u1Adapter)
         {
-            if(adapter->socket() == pSender)
-            {
-                tmp.push_back(adapter);
-            }
+            m_u1Adapter = nullptr;
+            emit u1Disconnected();
         }
 
-        for(auto adapter : tmp)
+        if(pSender == m_u2Adapter)
         {
-            m_adapters.removeAll(adapter);
+            m_u2Adapter = nullptr;
+            emit u2Disconnected();
         }
 
         m_unregisteredConnections.removeAll(pSender);
@@ -246,17 +209,50 @@ void SMLKAMEditorServer::socketDisconnected()
 
 void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
 {
-    m_adapters.push_back(new Adapter(role, connection));
     m_unregisteredConnections.removeAll(connection);
     switch (role) {
     case U1Adapter:
+        m_u1Adapter = connection;
         emit u1Connected();
         break;
     case U2Adapter:
+        m_u2Adapter = connection;
         emit u2Connected();
         break;
     default:
         break;
     }
 
+}
+
+QStringList SMLKAMEditorServer::currentAdapters()
+{
+    QStringList adapters;
+
+    QString u1AdapterSettings =
+            QString("Name [U1Adapter] ") +
+            QString("on local port [") + QString::number(m_u1Adapter->localPort()) + "] " +
+            QString("with local address [") + m_u1Adapter->localAddress().toString() +"]";
+    adapters.push_back(u1AdapterSettings);
+
+    QString u2AdapterSettings =
+            QString("Name [U2Adapter] ") +
+            QString("on local port [") + QString::number(m_u2Adapter->localPort()) + "] " +
+            QString("with local address [") + m_u2Adapter->localAddress().toString() +"]";
+    adapters.push_back(u2AdapterSettings);
+
+    for(auto socket : m_unregisteredConnections)
+    {
+        QString name = "Undefined";
+        QString localPort = QString::number(socket->localPort());
+        QString localAddress = socket->localAddress().toString();
+
+        QString adapterSettingsString =
+                "Name [" + name + "] " +
+                "on local port [" + localPort + "] " +
+                "with local address " + localAddress + "]";
+        adapters.push_back(adapterSettingsString);
+    }
+
+    return adapters;
 }

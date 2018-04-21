@@ -42,7 +42,9 @@ protected:
     QWebSocketServer *m_server;
     qint16 m_port;
 
-    QList<Adapter *> m_adapters;
+    QWebSocket *m_u1Adapter;
+    QWebSocket *m_u2Adapter;
+
     QList<QWebSocket *> m_unregisteredConnections;
     bool m_debug;
 signals:
@@ -70,7 +72,6 @@ protected slots:
     void onBinaryMessage(QByteArray message);
     void socketDisconnected();
     void registerConnection(QWebSocket *connection, Role role);
-
 };
 
 #endif // SMLKAMEDITORSERVER_H
