@@ -155,6 +155,8 @@ public slots:
     size_t getSpindelRotations() const;
 
     void setSoftLimitsMode(bool enable);
+
+    QStringList getCurrentConnections();
 };
 
 #endif // MACHINETOOL_H

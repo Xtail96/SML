@@ -94,6 +94,11 @@ void MachineTool::setSoftLimitsMode(bool enable)
     m_axisesManager->setSoftLimitsMode(enable);
 }
 
+QStringList MachineTool::getCurrentConnections()
+{
+    return m_serverManager->getCurrentConnections();
+}
+
 void MachineTool::startServer()
 {
     m_serverManager->startServer();

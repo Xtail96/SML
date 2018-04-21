@@ -65,6 +65,62 @@ void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
     }
 }
 
+QStringList SMLKAMEditorServer::currentAdapters()
+{
+    QStringList adapters;
+
+    for(auto adapter : m_adapters)
+    {
+        QString name = "";
+        switch (adapter->name()) {
+        case U1Adapter:
+            name += "U1Adapter";
+            break;
+        case U2Adapter:
+            name += "U2Adapter";
+            break;
+        default:
+            break;
+        }
+
+        QString localPort = QString::number(adapter->socket()->localPort());
+        QString localAddress = adapter->socket()->localAddress().toString();
+        QString peerName = adapter->socket()->peerName();
+        QString peerPort = QString::number(adapter->socket()->peerPort());
+        QString peerAddress = adapter->socket()->peerAddress().toString();
+
+        QString adapterSettingsString =
+                "Name [" + name + "] " +
+                "on local port [" + localPort + "] " +
+                "with local address [" + localAddress +"] " +
+                "with peer name [" + peerName + "] " +
+                "with peer port [" + peerPort + "] " +
+                "with peer address [" + peerAddress + "]";
+        adapters.push_back(adapterSettingsString);
+    }
+
+    for(auto socket : m_unregisteredConnections)
+    {
+        QString name = "Undefined";
+        QString localPort = QString::number(socket->localPort());
+        QString localAddress = socket->localAddress().toString();
+        QString peerName = socket->peerName();
+        QString peerPort = QString::number(socket->peerPort());
+        QString peerAddress = socket->peerAddress().toString();
+
+        QString adapterSettingsString =
+                "Name [" + name + "] " +
+                "on local port [" + localPort + "] " +
+                "with local address " + localAddress + "] " +
+                "with peer name" + peerName + "] " +
+                "with peer port" + peerPort + "] " +
+                "with peer address" + peerAddress + "]";
+        adapters.push_back(adapterSettingsString);
+    }
+
+    return adapters;
+}
+
 void SMLKAMEditorServer::setup(SettingsManager *sm)
 {
     try
@@ -76,6 +132,7 @@ void SMLKAMEditorServer::setup(SettingsManager *sm)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
+
 }
 
 void SMLKAMEditorServer::onServerClosed()

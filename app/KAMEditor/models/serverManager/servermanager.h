@@ -98,6 +98,7 @@ public slots:
     byte_array getDevicesState();
     void startServer();
     void stopServer();
+    QStringList getCurrentConnections();
 
 protected slots:
     void onBinaryMessageReceived(QByteArray message);

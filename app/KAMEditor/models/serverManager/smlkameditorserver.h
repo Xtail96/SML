@@ -60,6 +60,8 @@ public slots:
     void stop();
     void sendMessageToU1(QByteArray message);
 
+    QStringList currentAdapters();
+
 protected slots:
     void setup(SettingsManager* sm);
     void onServerClosed();

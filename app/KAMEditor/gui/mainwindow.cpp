@@ -22,11 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     updateAxisesBoard();
     updateDevicesBoard();
     updateSensorsBoard();
+
     updatePointsEditorFields();
     updateVelocityPanel();
     updateSpindelRotationsPanel();
     updateOptionsPanel();
     updateDevicesPanel();
+    updateServerPanel();
 
     updateU1Displays();
     updateU2Displays();
@@ -58,6 +60,11 @@ void MainWindow::setupMachineTool()
     connect(m_machineTool, SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
     connect(m_machineTool, SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
     connect(m_machineTool, SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
+
+    connect(m_machineTool, SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool, SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool, SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
 
     connect(m_machineTool, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(m_machineTool, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
@@ -219,6 +226,13 @@ void MainWindow::updateDevicesBoard()
             ui->devicesSettingsTableWidget->setItem(i, j, new QTableWidgetItem(devicesSettings[i][j]));
         }
     }
+}
+
+void MainWindow::updateServerPanel()
+{
+    ui->currentConnectionsListWidget->clear();
+    QStringList connections = m_machineTool->getCurrentConnections();
+    ui->currentConnectionsListWidget->addItems(connections);
 }
 
 void MainWindow::updatePointsEditorWidgets()
@@ -1251,14 +1265,4 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
     m_machineTool->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
-}
-
-void MainWindow::on_disconnectCommandLinkButton_clicked()
-{
-    m_machineTool->stopServer();
-}
-
-void MainWindow::on_connectCommandLinkButton_clicked()
-{
-    m_machineTool->startServer();
 }

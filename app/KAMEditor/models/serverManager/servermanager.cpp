@@ -108,6 +108,11 @@ void ServerManager::stopServer()
     m_server->stop();
 }
 
+QStringList ServerManager::getCurrentConnections()
+{
+    return m_server->currentAdapters();
+}
+
 void ServerManager::onBinaryMessageReceived(QByteArray message)
 {
     bool ok;
