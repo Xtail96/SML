@@ -10,27 +10,6 @@
 
 enum Role {U1Adapter, U2Adapter};
 
-struct Adapter
-{
-protected:
-    Role m_name;
-    QWebSocket* m_socket;
-
-public:
-    explicit Adapter(Role name, QWebSocket* socket) : m_name(name), m_socket(socket){}
-    ~Adapter() {}
-
-    Role name() const
-    {
-        return m_name;
-    }
-
-    QWebSocket* socket() const
-    {
-        return m_socket;
-    }
-};
-
 class SMLKAMEditorServer : public QObject
 {
     Q_OBJECT

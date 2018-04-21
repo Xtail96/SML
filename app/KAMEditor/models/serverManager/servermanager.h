@@ -6,7 +6,7 @@
 #include "libs/jsonparser/json.h"
 
 #include "models/structs.h"
-#include "models/serverManager/smlkameditorserver.h"
+#include "models/serverManager/smlkameditorserver/smlkameditorserver.h"
 #include "models/settingsmanager/settingsmanager.h"
 
 struct U1State

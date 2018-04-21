@@ -103,7 +103,7 @@ SOURCES += main.cpp\
     options/toollengthsensorwindow.cpp \
     options/lubricationsystemwindow.cpp \
     options/kabriolwindow.cpp \
-    models/serverManager/smlkameditorserver.cpp \
+    models/serverManager/smlkameditorserver/smlkameditorserver.cpp \
     models/serverManager/servermanager.cpp
 
 HEADERS  += gui/mainwindow.h \
@@ -161,7 +161,7 @@ HEADERS  += gui/mainwindow.h \
     options/toollengthsensorwindow.h \
     options/lubricationsystemwindow.h \
     options/kabriolwindow.h \
-    models/serverManager/smlkameditorserver.h \
+    models/serverManager/smlkameditorserver/smlkameditorserver.h \
     models/serverManager/servermanager.h
 
 FORMS    += gui/mainwindow.ui \
