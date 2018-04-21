@@ -465,9 +465,6 @@ void MainWindow::hideWidgets()
 
 void MainWindow::onU1Connected()
 {
-    ui->connectCommandLinkButton->setEnabled(false);
-    ui->disconnectCommandLinkButton->setEnabled(true);
-
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
 
@@ -484,9 +481,6 @@ void MainWindow::onU1Connected()
 
 void MainWindow::onU1Disconnected()
 {
-    ui->connectCommandLinkButton->setEnabled(true);
-    ui->disconnectCommandLinkButton->setEnabled(false);
-
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
 
