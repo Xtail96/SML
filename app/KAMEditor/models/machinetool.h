@@ -1,8 +1,6 @@
 #ifndef MACHINETOOL_H
 #define MACHINETOOL_H
 
-#include <memory>
-
 #include <QObject>
 
 #include "models/serverManager/servermanager.h"
@@ -37,17 +35,17 @@ public:
     ~MachineTool();
 
 protected:
-    std::unique_ptr<SettingsManager> m_settingsManager;
-    std::unique_ptr<ServerManager> m_serverManager;
+    QScopedPointer<SettingsManager> m_settingsManager;
+    QScopedPointer<ServerManager> m_serverManager;
 
-    std::unique_ptr<SensorsManager> m_sensorsManager;
-    std::unique_ptr<DevicesManager> m_devicesManager;
-    std::unique_ptr<AxisesManager> m_axisesManager;
+    QScopedPointer<SensorsManager> m_sensorsManager;
+    QScopedPointer<DevicesManager> m_devicesManager;
+    QScopedPointer<AxisesManager> m_axisesManager;
 
-    std::unique_ptr<GCodesFilesManager> m_gcodesFilesManager;
-    std::unique_ptr<GCodesManager> m_gcodesManager;
+    QScopedPointer<GCodesFilesManager> m_gcodesFilesManager;
+    QScopedPointer<GCodesManager> m_gcodesManager;
 
-    std::unique_ptr<PointsManager> m_pointsManager;
+    QScopedPointer<PointsManager> m_pointsManager;
 
     bool m_u1Connected;
     bool m_u2Connected;

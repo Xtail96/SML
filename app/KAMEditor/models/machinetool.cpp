@@ -3,10 +3,10 @@
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
-    m_serverManager(new ServerManager(m_settingsManager.get(), this)),
-    m_sensorsManager(new SensorsManager(m_settingsManager.get())),
-    m_devicesManager(new DevicesManager(m_settingsManager.get())),
-    m_axisesManager(new AxisesManager(m_settingsManager.get())),
+    m_serverManager(new ServerManager(m_settingsManager.data(), this)),
+    m_sensorsManager(new SensorsManager(m_settingsManager.data())),
+    m_devicesManager(new DevicesManager(m_settingsManager.data())),
+    m_axisesManager(new AxisesManager(m_settingsManager.data())),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_gcodesManager(new GCodesManager()),
     m_pointsManager(new PointsManager()),
@@ -23,9 +23,9 @@ MachineTool::~MachineTool()
 
 void MachineTool::setup()
 {
-    connect(m_serverManager.get(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_serverManager.get(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_serverManager.get(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     startServer();
 }
 
@@ -201,9 +201,9 @@ void MachineTool::deletePoint(unsigned int number)
 
 void MachineTool::openGCodesFile()
 {
-    connect(m_gcodesFilesManager.get(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
-    connect(m_gcodesFilesManager.get(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
-    connect(m_gcodesFilesManager.get(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
+    connect(m_gcodesFilesManager.data(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
+    connect(m_gcodesFilesManager.data(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
+    connect(m_gcodesFilesManager.data(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
 
     m_gcodesFilesManager->openGCodesFile();
 
