@@ -107,7 +107,7 @@ void SMLKAMEditorServer::onNewConnection()
 
 void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
 {
-    QWebSocket* socket = m_adapters.socketByName(U1Adapter);
+    QWebSocket* socket = m_adapters.socketByType(Adapter::U1Adapter);
     if(socket != nullptr)
     {
         socket->sendBinaryMessage(message);
@@ -138,11 +138,11 @@ void SMLKAMEditorServer::onTextMessage(QString message)
     {
         if(message == "@SML-U1Adapter@")
         {
-            registerConnection(pSender, U1Adapter);
+            registerConnection(pSender, Adapter::U1Adapter);
             pSender->sendTextMessage("Registered!");
             if(m_debug)
             {
-                qDebug() << "U1Adapter registered:" << m_adapters.socketByName(U1Adapter) << " " << pSender;
+                qDebug() << "U1Adapter registered:" << m_adapters.socketByType(Adapter::U1Adapter) << " " << pSender;
                 qDebug() << "Unregistered:" << m_unregisteredConnections;
             }
         }
@@ -150,7 +150,7 @@ void SMLKAMEditorServer::onTextMessage(QString message)
         {
             if(message == "@SML-U2Adapter@")
             {
-                registerConnection(pSender, U2Adapter);
+                registerConnection(pSender, Adapter::U2Adapter);
             }
             else
             {
@@ -194,15 +194,15 @@ void SMLKAMEditorServer::socketDisconnected()
     }
 }
 
-void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
+void SMLKAMEditorServer::registerConnection(QWebSocket *connection, int type)
 {
-    m_adapters.pushBack(connection, role);
+    m_adapters.pushBack(connection, type);
     m_unregisteredConnections.removeAll(connection);
-    switch (role) {
-    case U1Adapter:
+    switch (type) {
+    case Adapter::U1Adapter:
         emit u1Connected();
         break;
-    case U2Adapter:
+    case Adapter::U2Adapter:
         emit u2Connected();
         break;
     default:

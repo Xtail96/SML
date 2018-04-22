@@ -48,7 +48,7 @@ protected slots:
     void onTextMessage(QString message);
     void onBinaryMessage(QByteArray message);
     void socketDisconnected();
-    void registerConnection(QWebSocket *connection, Role role);
+    void registerConnection(QWebSocket *connection, int type);
 };
 
 #endif // SMLKAMEDITORSERVER_H

@@ -4,18 +4,18 @@
 #include <QString>
 #include <QWebSocket>
 
-enum Role {U1Adapter, U2Adapter, Undefined};
-
 class Adapter
 {
 public:
-    explicit Adapter(Role name, QWebSocket *socket);
+    enum Type {U1Adapter, U2Adapter, Undefined};
+
+    explicit Adapter(int type, QWebSocket *socket);
     ~Adapter();
-    Role name() const;
+    int type() const;
     QWebSocket *socket() const;
 
 protected:
-    Role m_name;
+    int m_type;
     QWebSocket *m_socket;
 };
 

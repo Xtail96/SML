@@ -10,17 +10,21 @@ AdaptersContainer::~AdaptersContainer()
     qDeleteAll(m_adapters.begin(), m_adapters.end());
 }
 
-void AdaptersContainer::pushBack(QWebSocket *socket, Role role)
+void AdaptersContainer::pushBack(QWebSocket *socket, int type)
 {
-    m_adapters.push_back(new Adapter(role, socket));
+    if((type != Adapter::U1Adapter) && (type != Adapter::U2Adapter) && (type != Adapter::Undefined))
+    {
+        type = Adapter::Undefined;
+    }
+    m_adapters.push_back(new Adapter(type, socket));
 }
 
-QWebSocket *AdaptersContainer::socketByName(Role name)
+QWebSocket *AdaptersContainer::socketByType(int type)
 {
     QWebSocket* socket = nullptr;
     for(auto adapter : m_adapters)
     {
-        if(adapter->name() == name)
+        if(adapter->type() == type)
         {
             socket = adapter->socket();
             break;
@@ -29,18 +33,18 @@ QWebSocket *AdaptersContainer::socketByName(Role name)
     return socket;
 }
 
-Role AdaptersContainer::nameBySocket(QWebSocket *socket)
+int AdaptersContainer::typeBySocket(QWebSocket *socket)
 {
-    Role name = Undefined;
+    int type = Adapter::Undefined;
     for(auto adapter : m_adapters)
     {
         if(adapter->socket() == socket)
         {
-            name = adapter->name();
+            type = adapter->type();
             break;
         }
     }
-    return name;
+    return type;
 }
 
 void AdaptersContainer::removeAll(QWebSocket *socket)
@@ -75,7 +79,7 @@ QStringList AdaptersContainer::adaptersSettings()
     QStringList adapters;
     for(auto adapter : m_adapters)
     {
-        QString name = QString::number(adapter->name());
+        QString name = QString::number(adapter->type() + 1);
         QString localPort = QString::number(adapter->socket()->localPort());
         QString localAddress = adapter->socket()->localAddress().toString();
 

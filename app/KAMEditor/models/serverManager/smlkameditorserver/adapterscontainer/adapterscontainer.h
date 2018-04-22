@@ -12,9 +12,9 @@ public:
     explicit AdaptersContainer();
     ~AdaptersContainer();
 
-    void pushBack(QWebSocket* socket, Role role);
-    QWebSocket* socketByName(Role name);
-    Role nameBySocket(QWebSocket* socket);
+    void pushBack(QWebSocket* socket, int type);
+    QWebSocket* socketByType(int type);
+    int typeBySocket(QWebSocket* socket);
     void removeAll(QWebSocket* socket);
 
     QList<QWebSocket *> sokets();

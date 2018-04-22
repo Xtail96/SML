@@ -1,7 +1,7 @@
 #include "adapter.h"
 
-Adapter::Adapter(Role name, QWebSocket *socket) :
-    m_name(name),
+Adapter::Adapter(int name, QWebSocket *socket) :
+    m_type(name),
     m_socket(socket)
 {
 
@@ -12,9 +12,9 @@ Adapter::~Adapter()
 
 }
 
-Role Adapter::name() const
+int Adapter::type() const
 {
-    return m_name;
+    return m_type;
 }
 
 QWebSocket *Adapter::socket() const
