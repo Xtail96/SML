@@ -99,6 +99,21 @@ QStringList MachineTool::getCurrentConnections()
     return m_serverManager->getCurrentConnections();
 }
 
+QString MachineTool::getServerPort()
+{
+    return QString::number(m_serverManager->getServerPort());
+}
+
+QString MachineTool::getSensorsBufferSize()
+{
+    return QString::number(m_serverManager->getSensorsBufferSize());
+}
+
+QString MachineTool::getDevicesBufferSize()
+{
+    return QString::number(m_serverManager->getDevicesBufferSize());
+}
+
 void MachineTool::startServer()
 {
     m_serverManager->startServer();

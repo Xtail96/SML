@@ -211,3 +211,8 @@ QStringList SMLKAMEditorServer::currentAdapters()
 {
     return m_adapters.adaptersSettings();
 }
+
+size_t SMLKAMEditorServer::port() const
+{
+    return m_port;
+}

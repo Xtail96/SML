@@ -99,6 +99,9 @@ public slots:
     void startServer();
     void stopServer();
     QStringList getCurrentConnections();
+    size_t getServerPort();
+    size_t getSensorsBufferSize();
+    size_t getDevicesBufferSize();
 
 protected slots:
     void onBinaryMessageReceived(QByteArray message);

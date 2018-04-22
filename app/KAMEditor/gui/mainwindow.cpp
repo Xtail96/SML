@@ -233,6 +233,10 @@ void MainWindow::updateServerPanel()
     ui->currentConnectionsListWidget->clear();
     QStringList connections = m_machineTool->getCurrentConnections();
     ui->currentConnectionsListWidget->addItems(connections);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->getDevicesBufferSize());
 }
 
 void MainWindow::updatePointsEditorWidgets()

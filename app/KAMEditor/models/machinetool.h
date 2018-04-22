@@ -157,6 +157,10 @@ public slots:
     void setSoftLimitsMode(bool enable);
 
     QStringList getCurrentConnections();
+
+    QString getServerPort();
+    QString getSensorsBufferSize();
+    QString getDevicesBufferSize();
 };
 
 #endif // MACHINETOOL_H

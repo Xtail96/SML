@@ -38,6 +38,7 @@ public slots:
     void sendMessageToU1(QByteArray message);
 
     QStringList currentAdapters();
+    size_t port() const;
 
 protected slots:
     void setup(SettingsManager* sm);

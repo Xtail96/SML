@@ -113,6 +113,21 @@ QStringList ServerManager::getCurrentConnections()
     return m_server->currentAdapters();
 }
 
+size_t ServerManager::getServerPort()
+{
+    return m_server->port();
+}
+
+size_t ServerManager::getSensorsBufferSize()
+{
+    return m_u1CurrentState->getSensorsState().size();
+}
+
+size_t ServerManager::getDevicesBufferSize()
+{
+    return m_u1CurrentState->getDevicesState().size();
+}
+
 void ServerManager::onBinaryMessageReceived(QByteArray message)
 {
     bool ok;
