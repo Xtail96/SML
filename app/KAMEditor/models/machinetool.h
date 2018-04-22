@@ -34,19 +34,17 @@ public:
     ~MachineTool();
 
 protected:
-    QWidget* m_widget;
+    std::shared_ptr<SettingsManager> m_settingsManager;
+    std::shared_ptr<ServerManager> m_serverManager;
 
-    SettingsManager* m_settingsManager;
-    ServerManager* m_serverManager;
+    std::shared_ptr<SensorsManager> m_sensorsManager;
+    std::shared_ptr<DevicesManager> m_devicesManager;
+    std::shared_ptr<AxisesManager> m_axisesManager;
 
-    SensorsManager* m_sensorsManager;
-    DevicesManager* m_devicesManager;
-    AxisesManager* m_axisesManager;
+    std::shared_ptr<GCodesFilesManager> m_gcodesFilesManager;
+    std::shared_ptr<GCodesManager> m_gcodesManager;
 
-    GCodesFilesManager* m_gcodesFilesManager;
-    GCodesManager* m_gcodesManager;
-
-    PointsManager* m_pointsManager;
+    std::shared_ptr<PointsManager> m_pointsManager;
 
     bool m_u1Connected;
     bool m_u2Connected;

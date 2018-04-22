@@ -2,14 +2,14 @@
 
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
-    m_settingsManager(new SettingsManager()),
-    m_serverManager(new ServerManager(m_settingsManager, this)),
-    m_sensorsManager(new SensorsManager(m_settingsManager)),
-    m_devicesManager(new DevicesManager(m_settingsManager)),
-    m_axisesManager(new AxisesManager(m_settingsManager)),
-    m_gcodesFilesManager(new GCodesFilesManager(this)),
-    m_gcodesManager(new GCodesManager()),
-    m_pointsManager(new PointsManager()),
+    m_settingsManager(std::shared_ptr<SettingsManager> (new SettingsManager())),
+    m_serverManager(std::shared_ptr<ServerManager> (new ServerManager(m_settingsManager.get(), this))),
+    m_sensorsManager(std::shared_ptr<SensorsManager> (new SensorsManager(m_settingsManager.get()))),
+    m_devicesManager(std::shared_ptr<DevicesManager> (new DevicesManager(m_settingsManager.get()))),
+    m_axisesManager(std::shared_ptr<AxisesManager> (new AxisesManager(m_settingsManager.get()))),
+    m_gcodesFilesManager(std::shared_ptr<GCodesFilesManager> (new GCodesFilesManager(this))),
+    m_gcodesManager(std::shared_ptr<GCodesManager> (new GCodesManager())),
+    m_pointsManager(std::shared_ptr<PointsManager> (new PointsManager())),
     m_u1Connected(false),
     m_u2Connected(false)
 {
@@ -18,21 +18,14 @@ MachineTool::MachineTool(QObject *parent) :
 
 MachineTool::~MachineTool()
 {
-    delete m_pointsManager;
-    delete m_gcodesManager;
-    delete m_gcodesFilesManager;
-    delete m_axisesManager;
-    delete m_devicesManager;
-    delete m_sensorsManager;
-    delete m_serverManager;
-    delete m_settingsManager;
+
 }
 
 void MachineTool::setup()
 {
-    connect(m_serverManager, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_serverManager, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_serverManager, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    connect(m_serverManager.get(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_serverManager.get(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_serverManager.get(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     startServer();
 }
 
@@ -208,9 +201,9 @@ void MachineTool::deletePoint(unsigned int number)
 
 void MachineTool::openGCodesFile()
 {
-    connect(m_gcodesFilesManager, SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
-    connect(m_gcodesFilesManager, SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
-    connect(m_gcodesFilesManager, SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
+    connect(m_gcodesFilesManager.get(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
+    connect(m_gcodesFilesManager.get(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
+    connect(m_gcodesFilesManager.get(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
 
     m_gcodesFilesManager->openGCodesFile();
 
