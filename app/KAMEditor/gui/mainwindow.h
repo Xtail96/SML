@@ -86,14 +86,14 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    MachineTool* m_machineTool;
+    std::unique_ptr<MachineTool> m_machineTool;
     void setupMachineTool();
 
     /// Горячие клавиши кнопок для перемещения по осям станка
     std::vector<QShortcut*> m_axisesShortcuts;
 
     /// Подсветки синтаксиса в редакторе G-кодов
-    GCodesSyntaxHighlighter* m_hightlighter;
+    std::unique_ptr<GCodesSyntaxHighlighter> m_hightlighter;
 
     /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcutsAutoRepeat();

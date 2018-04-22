@@ -46,29 +46,27 @@ MainWindow::~MainWindow()
         m_axisesShortcuts.pop_back();
     }
 
-    delete m_hightlighter;
-    delete m_machineTool;
     delete ui;
 }
 
 void MainWindow::setupMachineTool()
 {
-    connect(m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
+    connect(m_machineTool.get(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_machineTool.get(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_machineTool.get(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
-    connect(m_machineTool, SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    connect(m_machineTool, SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
-    connect(m_machineTool, SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
+    connect(m_machineTool.get(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    connect(m_machineTool.get(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    connect(m_machineTool.get(), SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
 
-    connect(m_machineTool, SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
-    connect(m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
-    connect(m_machineTool, SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
-    connect(m_machineTool, SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool.get(), SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool.get(), SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool.get(), SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
+    connect(m_machineTool.get(), SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
 
-    connect(m_machineTool, SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
-    connect(m_machineTool, SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
-    connect(m_machineTool, SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
+    connect(m_machineTool.get(), SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
+    connect(m_machineTool.get(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
+    connect(m_machineTool.get(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 }
 
 void MainWindow::setupWidgets()
@@ -980,14 +978,14 @@ void MainWindow::updateEdgesControlStatus()
 
 void MainWindow::addPoint()
 {
-    AddPointDialog(m_machineTool, this).exec();
+    AddPointDialog(m_machineTool.get(), this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
     try
     {
-        AddPointDialog(m_machineTool, index.row(), this).exec();
+        AddPointDialog(m_machineTool.get(), index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -1117,7 +1115,7 @@ void MainWindow::on_view_action_triggered()
 
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
-    SMLConsoleDialog(m_machineTool, this).exec();
+    SMLConsoleDialog(m_machineTool.get(), this).exec();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
