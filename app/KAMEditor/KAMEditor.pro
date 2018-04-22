@@ -104,7 +104,9 @@ SOURCES += main.cpp\
     options/lubricationsystemwindow.cpp \
     options/kabriolwindow.cpp \
     models/serverManager/smlkameditorserver/smlkameditorserver.cpp \
-    models/serverManager/servermanager.cpp
+    models/serverManager/servermanager.cpp \
+    models/serverManager/smlkameditorserver/adapterscontainer/adapter/adapter.cpp \
+    models/serverManager/smlkameditorserver/adapterscontainer/adapterscontainer.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -162,7 +164,9 @@ HEADERS  += gui/mainwindow.h \
     options/lubricationsystemwindow.h \
     options/kabriolwindow.h \
     models/serverManager/smlkameditorserver/smlkameditorserver.h \
-    models/serverManager/servermanager.h
+    models/serverManager/servermanager.h \
+    models/serverManager/smlkameditorserver/adapterscontainer/adapter/adapter.h \
+    models/serverManager/smlkameditorserver/adapterscontainer/adapterscontainer.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

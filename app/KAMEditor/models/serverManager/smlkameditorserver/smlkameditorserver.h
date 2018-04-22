@@ -8,7 +8,7 @@
 #include "models/structs.h"
 #include "models/settingsmanager/settingsmanager.h"
 
-enum Role {U1Adapter, U2Adapter};
+#include "models/serverManager/smlkameditorserver/adapterscontainer/adapterscontainer.h"
 
 class SMLKAMEditorServer : public QObject
 {
@@ -20,8 +20,8 @@ public:
 protected:
     QWebSocketServer *m_server;
     qint16 m_port;
+    AdaptersContainer m_adapters;
 
-    QList<QWebSocket *> m_adapters;
     QList<QWebSocket *> m_unregisteredConnections;
     bool m_debug;
 signals:

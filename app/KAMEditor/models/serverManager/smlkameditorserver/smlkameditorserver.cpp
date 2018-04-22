@@ -22,25 +22,45 @@ SMLKAMEditorServer::~SMLKAMEditorServer()
 {
     this->stop();
 
-    for(auto adapter : m_adapters)
+    QList<QWebSocket *> sockets = m_adapters.sokets();
+    for(auto socket : sockets)
     {
-        if(adapter->isValid())
+        if(socket->isValid())
         {
-            disconnect(adapter, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-            disconnect(adapter, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-            disconnect(adapter, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+            disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+            disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+            disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
         }
     }
-    qDeleteAll(m_adapters.begin(), m_adapters.end());
 
     for(auto socket : m_unregisteredConnections)
     {
-        disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-        disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-        disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+        if(socket->isValid())
+        {
+            disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+            disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+            disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+        }
     }
     qDeleteAll(m_unregisteredConnections.begin(), m_unregisteredConnections.end());
+
     delete m_server;
+}
+
+void SMLKAMEditorServer::setup(SettingsManager *sm)
+{
+    connect(m_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    connect(m_server, SIGNAL(closed()), this, SLOT(onServerClosed()));
+    try
+    {
+        m_port = sm->get("ServerSettings", "ServerPort").toUInt();
+        m_debug = sm->get("ServerSettings", "DebugMode").toInt();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+
 }
 
 void SMLKAMEditorServer::start()
@@ -49,8 +69,6 @@ void SMLKAMEditorServer::start()
     {
         if (m_server->listen(QHostAddress::Any, m_port))
         {
-            connect(m_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
-            connect(m_server, SIGNAL(closed()), this, SLOT(onServerClosed()));
             if (m_debug)
             {
                 qDebug() << "Echoserver listening on port" << m_port;
@@ -89,21 +107,11 @@ void SMLKAMEditorServer::onNewConnection()
 
 void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
 {
-    m_adapters.first()->sendBinaryMessage(message);
-}
-
-void SMLKAMEditorServer::setup(SettingsManager *sm)
-{
-    try
+    QWebSocket* socket = m_adapters.socketByName(U1Adapter);
+    if(socket != nullptr)
     {
-        m_port = sm->get("ServerSettings", "ServerPort").toUInt();
-        m_debug = sm->get("ServerSettings", "DebugMode").toInt();
+        socket->sendBinaryMessage(message);
     }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
-
 }
 
 void SMLKAMEditorServer::onServerClosed()
@@ -134,7 +142,7 @@ void SMLKAMEditorServer::onTextMessage(QString message)
             pSender->sendTextMessage("Registered!");
             if(m_debug)
             {
-                qDebug() << "U1Adapter registered:" << m_adapters << " " << pSender;
+                qDebug() << "U1Adapter registered:" << m_adapters.socketByName(U1Adapter) << " " << pSender;
                 qDebug() << "Unregistered:" << m_unregisteredConnections;
             }
         }
@@ -188,14 +196,13 @@ void SMLKAMEditorServer::socketDisconnected()
 
 void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
 {
+    m_adapters.pushBack(connection, role);
     m_unregisteredConnections.removeAll(connection);
     switch (role) {
     case U1Adapter:
-        m_adapters.push_front(connection);
         emit u1Connected();
         break;
     case U2Adapter:
-        m_adapters.push_back(connection);
         emit u2Connected();
         break;
     default:
@@ -206,20 +213,7 @@ void SMLKAMEditorServer::registerConnection(QWebSocket *connection, Role role)
 
 QStringList SMLKAMEditorServer::currentAdapters()
 {
-    QStringList adapters;
-
-    for(auto socket : m_adapters)
-    {
-        QString name = "Undefined";
-        QString localPort = QString::number(socket->localPort());
-        QString localAddress = socket->localAddress().toString();
-
-        QString adapterSettingsString =
-                "Name [" + name + "] " +
-                "on local port [" + localPort + "] " +
-                "with local address [" + localAddress + "]";
-        adapters.push_back(adapterSettingsString);
-    }
+    QStringList adapters = m_adapters.adaptersSettings();
 
     for(auto socket : m_unregisteredConnections)
     {
