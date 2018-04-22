@@ -76,7 +76,7 @@ QList<QWebSocket *> AdaptersContainer::sokets()
 
 QStringList AdaptersContainer::adaptersSettings()
 {
-    QStringList adapters;
+    QStringList settings;
     for(auto adapter : m_adapters)
     {
         QString name = QString::number(adapter->type() + 1);
@@ -87,7 +87,7 @@ QStringList AdaptersContainer::adaptersSettings()
                 "Name [U" + name + "Adapter] " +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
-        adapters.push_back(adapterSettingsString);
+        settings.push_back(adapterSettingsString);
     }
-    return adapters;
+    return settings;
 }

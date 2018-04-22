@@ -21,8 +21,6 @@ protected:
     QWebSocketServer *m_server;
     qint16 m_port;
     AdaptersContainer m_adapters;
-
-    QList<QWebSocket *> m_unregisteredConnections;
     bool m_debug;
 signals:
     void newConnection();
