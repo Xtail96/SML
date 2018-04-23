@@ -978,14 +978,14 @@ void MainWindow::updateEdgesControlStatus()
 
 void MainWindow::addPoint()
 {
-    AddPointDialog(m_machineTool.data(), this).exec();
+    AddPointDialog(*(m_machineTool.data()), this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
     try
     {
-        AddPointDialog(m_machineTool.data(), index.row(), this).exec();
+        AddPointDialog(*(m_machineTool.data()), index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
