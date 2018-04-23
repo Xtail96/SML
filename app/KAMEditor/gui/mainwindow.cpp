@@ -1115,7 +1115,7 @@ void MainWindow::on_view_action_triggered()
 
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
-    SMLConsoleDialog(m_machineTool.data(), this).exec();
+    SMLConsoleDialog(*(m_machineTool.data()), this).exec();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)

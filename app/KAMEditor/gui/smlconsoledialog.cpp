@@ -1,7 +1,7 @@
 #include "smlconsoledialog.h"
 #include "ui_smlconsoledialog.h"
 
-SMLConsoleDialog::SMLConsoleDialog(MachineTool *machineTool, QWidget *parent) :
+SMLConsoleDialog::SMLConsoleDialog(MachineTool &machineTool, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SMLConsoleDialog),
     m_machineTool(machineTool)
@@ -18,8 +18,8 @@ SMLConsoleDialog::~SMLConsoleDialog()
 void SMLConsoleDialog::setup()
 {
     connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(handleCommand(QString)));
-    connect(m_machineTool, SIGNAL(receivedMessage(QString)), this, SLOT(printResult(QString)));
-    connect(m_machineTool, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(handleMachineToolDisconnected(QString)));
+    //connect(&m_machineTool, SIGNAL(receivedMessage(QString)), this, SLOT(printResult(QString)));
+    //connect(&m_machineTool, SIGNAL(machineToolIsDisconnected(QString)), this, SLOT(handleMachineToolDisconnected(QString)));
 }
 
 void SMLConsoleDialog::sendCommang(QString cmd)
