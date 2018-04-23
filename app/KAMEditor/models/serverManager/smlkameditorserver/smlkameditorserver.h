@@ -21,9 +21,9 @@ protected:
     QScopedPointer<QWebSocketServer> m_server;
     qint16 m_port;
 
-    QList< std::shared_ptr<QWebSocket> > m_u1Connections;
-    QList< std::shared_ptr<QWebSocket> > m_u2Connections;
-    QList< std::shared_ptr<QWebSocket> > m_unregistered;
+    QList< QWebSocket* > m_u1Connections;
+    QList< QWebSocket* > m_u2Connections;
+    QList< QWebSocket* > m_unregistered;
 
     bool m_debug;
 signals:
