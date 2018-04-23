@@ -21,9 +21,9 @@ protected:
     QScopedPointer<QWebSocketServer> m_server;
     qint16 m_port;
 
-    QList< std::shared_ptr<QWebSocket> > m_u1Connections;
-    QList< std::shared_ptr<QWebSocket> > m_u2Connections;
-    QList< std::shared_ptr<QWebSocket> > m_unregistered;
+    QList< QSharedPointer<QWebSocket> > m_u1Connections;
+    QList< QSharedPointer<QWebSocket> > m_u2Connections;
+    QList< QSharedPointer<QWebSocket> > m_unregistered;
 
     bool m_debug;
 signals:
@@ -51,7 +51,7 @@ protected slots:
     void onTextMessage(QString message);
     void onBinaryMessage(QByteArray message);
     void socketDisconnected();
-    void registerConnection(std::shared_ptr<QWebSocket> connection, int type);
+    void registerConnection(QSharedPointer<QWebSocket> &connection, int type);
 };
 
 #endif // SMLKAMEDITORSERVER_H
