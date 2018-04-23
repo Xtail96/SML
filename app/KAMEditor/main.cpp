@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("Semil");
     QCoreApplication::setOrganizationDomain("semil.ru");
-    QCoreApplication::setApplicationName("KAMEditor");
+    QCoreApplication::setApplicationName("SMLKAMEditor");
 
     MainWindow w;
     w.show();
