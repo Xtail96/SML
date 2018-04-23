@@ -3,7 +3,7 @@
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
-    m_serverManager(new ServerManager(m_settingsManager.data(), this)),
+    m_serverManager(new ServerManager(*(m_settingsManager.data()), this)),
     m_sensorsManager(new SensorsManager(m_settingsManager.data())),
     m_devicesManager(new DevicesManager(m_settingsManager.data())),
     m_axisesManager(new AxisesManager(m_settingsManager.data())),

@@ -13,15 +13,15 @@ public:
     ~AdaptersContainer();
 
     void pushBack(QWebSocket* socket, int type);
-    QWebSocket* socketByType(int type);
+    QWebSocket socketByType(int type);
     int typeBySocket(QWebSocket* socket);
-    void removeAll(QWebSocket* socket);
+    void removeAll(QScopedPointer<QWebSocket> socket);
 
-    QList<QWebSocket *> sokets();
+    QList< QScopedPointer<QWebSocket> > sokets();
     QStringList adaptersSettings();
 
 protected:
-    QList<Adapter*> m_adapters;
+    QList< QScopedPointer<Adapter> > m_adapters;
 };
 
 #endif // ADAPTERSCONTAINER_H

@@ -7,7 +7,7 @@ AdaptersContainer::AdaptersContainer()
 
 AdaptersContainer::~AdaptersContainer()
 {
-    qDeleteAll(m_adapters.begin(), m_adapters.end());
+
 }
 
 void AdaptersContainer::pushBack(QWebSocket *socket, int type)
@@ -19,9 +19,9 @@ void AdaptersContainer::pushBack(QWebSocket *socket, int type)
     m_adapters.push_back(new Adapter(type, socket));
 }
 
-QWebSocket *AdaptersContainer::socketByType(int type)
+QWebSocket AdaptersContainer::socketByType(int type)
 {
-    QWebSocket* socket = nullptr;
+    QWebSocket socket;
     for(auto adapter : m_adapters)
     {
         if(adapter->type() == type)
@@ -38,7 +38,7 @@ int AdaptersContainer::typeBySocket(QWebSocket *socket)
     int type = Adapter::Undefined;
     for(auto adapter : m_adapters)
     {
-        if(adapter->socket() == socket)
+        if(adapter->socket() == *(socket))
         {
             type = adapter->type();
             break;
@@ -49,7 +49,7 @@ int AdaptersContainer::typeBySocket(QWebSocket *socket)
 
 void AdaptersContainer::removeAll(QWebSocket *socket)
 {
-    QList<Adapter*> tmp;
+    QList< std::shared_ptr<Adapter> > tmp;
     for(auto adapter : m_adapters)
     {
         if(adapter->socket() == socket)
@@ -64,9 +64,9 @@ void AdaptersContainer::removeAll(QWebSocket *socket)
     }
 }
 
-QList<QWebSocket *> AdaptersContainer::sokets()
+QList<QWebSocket> AdaptersContainer::sokets()
 {
-    QList<QWebSocket *> sockets;
+    QList<QWebSocket> sockets;
     for(auto adapter : m_adapters)
     {
         sockets.push_back(adapter->socket());

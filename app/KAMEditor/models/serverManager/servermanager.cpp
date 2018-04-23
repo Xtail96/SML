@@ -1,45 +1,34 @@
 #include "servermanager.h"
 
-ServerManager::ServerManager(SettingsManager *settingsManager, QObject *parent) :
+ServerManager::ServerManager(const SettingsManager &settingsManager, QObject *parent) :
     QObject(parent),
-    m_server(new SMLKAMEditorServer(settingsManager, this)),
-    m_u1CurrentState(nullptr)
+    m_server(new SMLKAMEditorServer(settingsManager, this))
 {
-    if(settingsManager != nullptr)
-    {
-        setup(settingsManager);
-    }
-    else
-    {
-        SettingsManager* sm = new SettingsManager();
-        setup(sm);
-        delete sm;
-    }
+    setup(settingsManager);
 }
 
 ServerManager::~ServerManager()
 {
-    delete m_u1CurrentState;
-    delete m_server;
+
 }
 
-void ServerManager::setup(SettingsManager *settingsManager)
+void ServerManager::setup(const SettingsManager &settingsManager)
 {
     try
     {
-        size_t sensorsPackageSize = settingsManager->get("MachineToolInformation", "SensorsBufferSize").toUInt();
-        size_t devicesPackageSize = settingsManager->get("MachineToolInformation", "DevicesBufferSize").toUInt();
-        m_u1CurrentState = new U1State(sensorsPackageSize, devicesPackageSize);
+        size_t sensorsPackageSize = settingsManager.get("MachineToolInformation", "SensorsBufferSize").toUInt();
+        size_t devicesPackageSize = settingsManager.get("MachineToolInformation", "DevicesBufferSize").toUInt();
+        m_u1CurrentState = U1State(sensorsPackageSize, devicesPackageSize);
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Settings Error", e.what()).exec();
     }
-    connect(m_server, SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    connect(m_server, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_server, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_server, SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    connect(m_server, SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    connect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
+    connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    connect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
 void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState)
@@ -61,8 +50,8 @@ void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> 
 
 void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesState)
 {
-    m_u1CurrentState->setSensorsState(sensorsState);
-    m_u1CurrentState->setDevicesState(devicesState);
+    m_u1CurrentState.setSensorsState(sensorsState);
+    m_u1CurrentState.setDevicesState(devicesState);
     emit u1StateIsChanged();
 }
 
@@ -90,12 +79,12 @@ void ServerManager::switchDevice(byte_array data)
 
 byte_array ServerManager::getSensorsState()
 {
-    return m_u1CurrentState->getSensorsState();
+    return m_u1CurrentState.getSensorsState();
 }
 
 byte_array ServerManager::getDevicesState()
 {
-    return m_u1CurrentState->getDevicesState();
+    return m_u1CurrentState.getDevicesState();
 }
 
 void ServerManager::startServer()
@@ -120,12 +109,12 @@ size_t ServerManager::getServerPort()
 
 size_t ServerManager::getSensorsBufferSize()
 {
-    return m_u1CurrentState->getSensorsState().size();
+    return m_u1CurrentState.getSensorsState().size();
 }
 
 size_t ServerManager::getDevicesBufferSize()
 {
-    return m_u1CurrentState->getDevicesState().size();
+    return m_u1CurrentState.getDevicesState().size();
 }
 
 void ServerManager::onBinaryMessageReceived(QByteArray message)

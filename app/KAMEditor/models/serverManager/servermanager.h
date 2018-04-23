@@ -12,53 +12,52 @@
 struct U1State
 {
 private:
-    byte_array *sensorsState;
-    byte_array *devicesState;
+    byte_array sensorsState;
+    byte_array devicesState;
 public:
     U1State(size_t sensorsPackageSize = 18, size_t devicesPackageSize = 1)
     {
-        sensorsState = new byte_array(sensorsPackageSize, 0);
-        devicesState = new byte_array(devicesPackageSize, 0);
+        sensorsState = byte_array(sensorsPackageSize, 0);
+        devicesState = byte_array(devicesPackageSize, 0);
     }
 
     ~U1State()
     {
-        delete sensorsState;
-        delete devicesState;
+
     }
 
     byte_array getSensorsState()
     {
-        return *sensorsState;
+        return sensorsState;
     }
 
     void setSensorsState(byte_array value)
     {
-        if(value.size() >= sensorsState->size())
+        if(value.size() >= sensorsState.size())
         {
-            for(size_t i = 0; i < sensorsState->size(); i++)
+            for(size_t i = 0; i < sensorsState.size(); i++)
             {
-                sensorsState->operator [](i) = value.operator [](i);
+                sensorsState.operator [](i) = value.operator [](i);
             }
         }
         else
         {
-            qDebug() << "Попытка установить состояние датчиков неправильной длины" << value.size() << sensorsState->size();
+            qDebug() << "Попытка установить состояние датчиков неправильной длины" << value.size() << sensorsState.size();
         }
     }
 
     byte_array getDevicesState()
     {
-        return *devicesState;
+        return devicesState;
     }
 
     void setDevicesState(byte_array value)
     {
-        if(value.size() == devicesState->size())
+        if(value.size() == devicesState.size())
         {
-            for(size_t i = 0; i < devicesState->size(); i++)
+            for(size_t i = 0; i < devicesState.size(); i++)
             {
-                devicesState->operator [](i) = value.operator [](i);
+                devicesState.operator [](i) = value.operator [](i);
             }
         }
         else
@@ -73,13 +72,13 @@ class ServerManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit ServerManager(SettingsManager *settingsManager = nullptr, QObject *parent = nullptr);
+    explicit ServerManager(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
     ~ServerManager();
 
 protected:
-    SMLKAMEditorServer *m_server;
-    U1State *m_u1CurrentState;
-    void setup(SettingsManager* settingsManager);
+    QScopedPointer<SMLKAMEditorServer> m_server;
+    U1State m_u1CurrentState;
+    void setup(const SettingsManager& settingsManager);
 
     void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState);
     void updateU1State(byte_array sensorsState, byte_array devicesState);

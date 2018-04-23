@@ -16,7 +16,7 @@ public:
 
 protected:
     int m_type;
-    QWebSocket *m_socket;
+    QScopedPointer<QWebSocket> m_socket;
 };
 
 #endif // ADAPTER_H

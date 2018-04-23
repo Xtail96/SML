@@ -8,19 +8,23 @@
 #include "models/structs.h"
 #include "models/settingsmanager/settingsmanager.h"
 
-#include "models/serverManager/smlkameditorserver/adapterscontainer/adapterscontainer.h"
-
 class SMLKAMEditorServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SMLKAMEditorServer(SettingsManager *settingsManager = nullptr, QObject *parent = nullptr);
+    explicit SMLKAMEditorServer(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
     ~SMLKAMEditorServer();
 
+    enum Type {Undefined, U1Adapter, U2Adapter};
+
 protected:
-    QWebSocketServer *m_server;
+    QScopedPointer<QWebSocketServer> m_server;
     qint16 m_port;
-    AdaptersContainer m_adapters;
+
+    QList< std::shared_ptr<QWebSocket> > m_u1Connections;
+    QList< std::shared_ptr<QWebSocket> > m_u2Connections;
+    QList< std::shared_ptr<QWebSocket> > m_unregistered;
+
     bool m_debug;
 signals:
     void newConnection();
@@ -41,13 +45,13 @@ public slots:
     size_t port() const;
 
 protected slots:
-    void setup(SettingsManager* sm);
+    void setup(const SettingsManager &sm);
     void onServerClosed();
     void onNewConnection();
     void onTextMessage(QString message);
     void onBinaryMessage(QByteArray message);
     void socketDisconnected();
-    void registerConnection(QWebSocket *connection, int type);
+    void registerConnection(std::shared_ptr<QWebSocket> connection, int type);
 };
 
 #endif // SMLKAMEDITORSERVER_H

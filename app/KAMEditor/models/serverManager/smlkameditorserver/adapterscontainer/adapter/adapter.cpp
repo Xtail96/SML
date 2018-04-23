@@ -17,7 +17,7 @@ int Adapter::type() const
     return m_type;
 }
 
-QWebSocket *Adapter::socket() const
+QWebSocket* Adapter::socket() const
 {
-    return m_socket;
+    return m_socket.data();
 }
