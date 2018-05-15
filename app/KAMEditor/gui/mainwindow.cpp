@@ -417,7 +417,8 @@ void MainWindow::updateGCodesEditorWidget()
     //QStringList content = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
     // fix!
-    ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
+    //ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
+    ui->gcodesEditorPlainTextEdit->setPlainText(data);
 }
 
 void MainWindow::updateFilePath()

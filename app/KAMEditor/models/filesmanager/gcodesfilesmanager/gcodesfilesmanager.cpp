@@ -154,6 +154,7 @@ void GCodesFilesManager::onFileLoaded(QString content)
     fileContent = content;
     m_readerThread->quit();
     m_readerThread->wait();
+    qDebug() << "gcodes file loaded";
     emit loadedFile();
 }
 
