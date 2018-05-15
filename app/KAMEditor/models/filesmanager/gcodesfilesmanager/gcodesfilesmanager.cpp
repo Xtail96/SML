@@ -3,9 +3,19 @@
 GCodesFilesManager::GCodesFilesManager(QObject *parent) :
     QObject(parent),
     filePath(""),
-    fileContent("")
+    fileContent(""),
+    m_readerThread(new QThread(this))
 {
+    m_readerThread->setObjectName("ReaderThread");
+}
 
+GCodesFilesManager::~GCodesFilesManager()
+{
+    if(m_readerThread->isRunning())
+    {
+        m_readerThread->quit();
+        m_readerThread->wait();
+    }
 }
 
 void GCodesFilesManager::openGCodesFile()
@@ -20,12 +30,20 @@ void GCodesFilesManager::openGCodesFile()
 void GCodesFilesManager::openGCodesFile(QString path)
 {
     filePath = path;
-    fileContent = readFileInfo(path);
+    readFileInfo(path);
 }
 
-QString GCodesFilesManager::readFileInfo(QString path)
+void GCodesFilesManager::readFileInfo(QString path)
 {
-    QString content = "";
+    FilesReader* reader = new FilesReader();
+    reader->moveToThread(m_readerThread);
+    connect(m_readerThread, SIGNAL(finished()), reader, SLOT(deleteLater()));
+    connect(reader, SIGNAL(successfullRead(QString)), this, SLOT(onFileReaded(QString)));
+    connect(reader, SIGNAL(loading(int)), this, SLOT(onFileLoading(int)));
+    m_readerThread->start();
+    reader->readFileInfo(path);
+
+    /*QString content = "";
 
     QFile inputFile(path);
     if(inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -34,7 +52,8 @@ QString GCodesFilesManager::readFileInfo(QString path)
         content = in.readAll();
         inputFile.close();
     }
-    return content;
+
+    return content;*/
 }
 
 void GCodesFilesManager::saveGCodesFile()
@@ -101,14 +120,15 @@ void GCodesFilesManager::newGCodesFile()
 
 void GCodesFilesManager::addGCodesFile()
 {
-    QString originPath = filePath;
+    /*QString originPath = filePath;
     QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+
     QString content = readFileInfo(path);
     if(content.size() > 0)
     {
         fileContent += content;
     }
-    filePath = originPath;
+    filePath = originPath;*/
 }
 
 QString GCodesFilesManager::getContent() const
@@ -129,5 +149,20 @@ void GCodesFilesManager::setFilePath(const QString &value)
 void GCodesFilesManager::setFileContent(const QString &value)
 {
     fileContent = value;
+}
+
+void GCodesFilesManager::onFileReaded(QString content)
+{
+    fileContent = content;
+    emit loaded();
+    m_readerThread->quit();
+    m_readerThread->wait();
+    qDebug() << "readed file";
+}
+
+void GCodesFilesManager::onFileLoading(int value)
+{
+    //qDebug() << "loading" << value;
+    emit loading(value);
 }
 

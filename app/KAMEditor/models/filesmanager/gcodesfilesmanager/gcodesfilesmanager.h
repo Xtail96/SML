@@ -9,6 +9,9 @@
 #include <QDialog>
 #include <QProgressDialog>
 #include <QTime>
+#include <QThread>
+
+#include "models/filesmanager/gcodesfilesmanager/filesreader.h"
 
 class GCodesFilesManager : public QObject
 {
@@ -16,11 +19,16 @@ class GCodesFilesManager : public QObject
 protected:
     QString filePath;
     QString fileContent;
+
+    QThread* m_readerThread;
+
 public:
     GCodesFilesManager(QObject *parent);
+    ~GCodesFilesManager();
+
     void openGCodesFile();
     void openGCodesFile(QString path);
-    QString readFileInfo(QString path);
+    void readFileInfo(QString path);
     void saveGCodesFile();
     void saveGCodesFileAs();
     static void createGCodesFile(const QString path);
@@ -36,6 +44,10 @@ signals:
     void startLoading();
     void loading(int value);
     void loaded();
+
+public slots:
+    void onFileReaded(QString content);
+    void onFileLoading(int value);
 };
 
 #endif // GCODESFILESMANAGER_H

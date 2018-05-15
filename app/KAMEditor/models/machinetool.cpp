@@ -62,7 +62,8 @@ void MachineTool::onGCodesLoading(int currentValue)
 
 void MachineTool::onGCodesLoaded()
 {
-    emit gcodesLoaded();
+    emit gcodesUpdated();
+    emit filePathUpdated();
 }
 
 void MachineTool::exportSettings()
@@ -207,8 +208,12 @@ void MachineTool::openGCodesFile()
 
     m_gcodesFilesManager->openGCodesFile();
 
-    emit gcodesUpdated();
-    emit filePathUpdated();
+    disconnect(m_gcodesFilesManager.data(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
+    disconnect(m_gcodesFilesManager.data(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
+    disconnect(m_gcodesFilesManager.data(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
+
+    //emit gcodesUpdated();
+    //emit filePathUpdated();
 }
 
 QString MachineTool::getGCodesFileContent()
