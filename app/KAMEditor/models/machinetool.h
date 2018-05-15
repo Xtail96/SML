@@ -74,12 +74,7 @@ signals:
 
     /// Обновились G-коды
     void gcodesUpdated();
-
     void filePathUpdated();
-
-    void gcodesLoadingStart();
-    void gcodesIsLoading(int value);
-    void gcodesLoaded();
 
 public slots:
 
@@ -121,8 +116,6 @@ public slots:
 
     QList<Point> getMachineToolCoordinates();
 
-    void onGCodesLoadingStart();
-    void onGCodesLoading(int currentValue);
     void onGCodesLoaded();
 
     QStringList getSensorsLabels();

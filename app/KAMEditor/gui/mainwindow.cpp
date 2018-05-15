@@ -414,16 +414,10 @@ void MainWindow::updateGCodesEditorWidget()
 {
     QString data = m_machineTool->getGCodesFileContent();
 
-    QProgressDialog progress("Opening file. Please wait", "", 0, data.count(), this);
-    progress.setWindowModality(Qt::WindowModal);
-    progress.setFixedSize(progress.sizeHint());
-    progress.show();
-    progress.setStyleSheet("QProgressBar {text-align: center; qproperty-format: \"\"}");
-
     //QStringList content = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
+    // fix!
     ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
-    progress.close();
 }
 
 void MainWindow::updateFilePath()

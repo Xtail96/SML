@@ -50,16 +50,6 @@ void MachineTool::updateU1State()
     emit u1StateIsChanged();
 }
 
-void MachineTool::onGCodesLoadingStart()
-{
-    emit gcodesLoadingStart();
-}
-
-void MachineTool::onGCodesLoading(int currentValue)
-{
-    emit gcodesIsLoading(currentValue);
-}
-
 void MachineTool::onGCodesLoaded()
 {
     emit gcodesUpdated();
@@ -202,18 +192,11 @@ void MachineTool::deletePoint(unsigned int number)
 
 void MachineTool::openGCodesFile()
 {
-    connect(m_gcodesFilesManager.data(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
-    connect(m_gcodesFilesManager.data(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
-    connect(m_gcodesFilesManager.data(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
+    connect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
 
     m_gcodesFilesManager->openGCodesFile();
 
-    disconnect(m_gcodesFilesManager.data(), SIGNAL(startLoading()), this, SLOT(onGCodesLoadingStart()));
-    disconnect(m_gcodesFilesManager.data(), SIGNAL(loading(int)), this, SLOT(onGCodesLoading(int)));
-    disconnect(m_gcodesFilesManager.data(), SIGNAL(loaded()), this, SLOT(onGCodesLoaded()));
-
-    //emit gcodesUpdated();
-    //emit filePathUpdated();
+    disconnect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
 }
 
 QString MachineTool::getGCodesFileContent()

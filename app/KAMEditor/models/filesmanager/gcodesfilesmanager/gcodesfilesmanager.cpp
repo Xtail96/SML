@@ -16,6 +16,7 @@ GCodesFilesManager::~GCodesFilesManager()
         m_readerThread->quit();
         m_readerThread->wait();
     }
+    delete m_readerThread;
 }
 
 void GCodesFilesManager::openGCodesFile()
@@ -38,22 +39,19 @@ void GCodesFilesManager::readFileInfo(QString path)
     FilesReader* reader = new FilesReader();
     reader->moveToThread(m_readerThread);
     connect(m_readerThread, SIGNAL(finished()), reader, SLOT(deleteLater()));
-    connect(reader, SIGNAL(successfullRead(QString)), this, SLOT(onFileReaded(QString)));
-    connect(reader, SIGNAL(loading(int)), this, SLOT(onFileLoading(int)));
+    connect(reader, SIGNAL(successfullRead(QString)), this, SLOT(onFileLoaded(QString)));
+
+    QProgressDialog* progressDialog = new QProgressDialog("Opening file. Please wait", "", 0, 100);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setFixedSize(progressDialog->sizeHint());
+    progressDialog->setStyleSheet("QProgressBar {text-align: center; qproperty-format: \"\"}");
+
+    connect(m_readerThread, SIGNAL(started()), progressDialog, SLOT(show()));
+    connect(m_readerThread, SIGNAL(finished()), progressDialog, SLOT(deleteLater()));
+    connect(reader, SIGNAL(loading(int)), progressDialog, SLOT(setValue(int)));
+
     m_readerThread->start();
     reader->readFileInfo(path);
-
-    /*QString content = "";
-
-    QFile inputFile(path);
-    if(inputFile.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream in(&inputFile);
-        content = in.readAll();
-        inputFile.close();
-    }
-
-    return content;*/
 }
 
 void GCodesFilesManager::saveGCodesFile()
@@ -151,18 +149,11 @@ void GCodesFilesManager::setFileContent(const QString &value)
     fileContent = value;
 }
 
-void GCodesFilesManager::onFileReaded(QString content)
+void GCodesFilesManager::onFileLoaded(QString content)
 {
     fileContent = content;
-    emit loaded();
     m_readerThread->quit();
     m_readerThread->wait();
-    qDebug() << "readed file";
-}
-
-void GCodesFilesManager::onFileLoading(int value)
-{
-    //qDebug() << "loading" << value;
-    emit loading(value);
+    emit loadedFile();
 }
 

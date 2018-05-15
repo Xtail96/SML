@@ -2,6 +2,7 @@
 
 FilesReader::FilesReader(QObject *parent) : QObject(parent)
 {
+
 }
 
 void FilesReader::readFileInfo(QString path)

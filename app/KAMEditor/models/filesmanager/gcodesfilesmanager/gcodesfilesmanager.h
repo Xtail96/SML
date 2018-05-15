@@ -10,6 +10,7 @@
 #include <QProgressDialog>
 #include <QTime>
 #include <QThread>
+#include <QProgressDialog>
 
 #include "models/filesmanager/gcodesfilesmanager/filesreader.h"
 
@@ -41,13 +42,10 @@ public:
     void setFileContent(const QString &value);
 
 signals:
-    void startLoading();
-    void loading(int value);
-    void loaded();
+    void loadedFile();
 
 public slots:
-    void onFileReaded(QString content);
-    void onFileLoading(int value);
+    void onFileLoaded(QString content);
 };
 
 #endif // GCODESFILESMANAGER_H
