@@ -7,13 +7,14 @@
 QT       += core gui
 QT += opengl
 QT += websockets
-unix {
-    QT += webenginewidgets
-}
+
+#unix {
+#    QT += webenginewidgets
+#}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = KAMEditor
+TARGET = SML
 TEMPLATE = app
 
 CONFIG += c++11
@@ -72,7 +73,7 @@ SOURCES += main.cpp\
     gui/widgets/smlcommandslistwidget.cpp \
     gui/widgets/smleditortreewidget.cpp \
     gui/widgets/smlpointstablewidget.cpp \
-    gui/gcodeswebviewdialog.cpp \
+    #gui/gcodeswebviewdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/logdialog.cpp \
     gui/addpointdialog.cpp \
@@ -129,7 +130,7 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/smlcommandslistwidget.h \
     gui/widgets/smleditortreewidget.h \
     gui/widgets/smlpointstablewidget.h \
-    gui/gcodeswebviewdialog.h \
+    #gui/gcodeswebviewdialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/logdialog.h \
     gui/addpointdialog.h \
