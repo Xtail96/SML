@@ -68,7 +68,7 @@ public:
         {
             if(plateName == "u1")
             {
-                // todo
+                voltage = checkU1SensorState(portNumber, inputNumber);
             }
             else
             {
@@ -212,6 +212,65 @@ protected:
         case 7:
         {
             voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
+            break;
+        }
+        default:
+            break;
+        }
+        return voltage;
+    }
+
+    /*!
+     * \brief Проверяет состояние датчика, подключенного к U1
+     * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
+     * \warning Не определяет включен датчик или выключен!
+     * \param portNumber - номер порта, к которому подключен датчик
+     * \param inputNumber - номер входа, к которому подключен датчик
+     * \return true, если есть напряжение на входе, false - иначе
+     */
+    bool checkU1SensorState(unsigned int portNumber, unsigned int inputNumber) const
+    {
+        bool voltage = true;
+
+        switch(portNumber) {
+        case 0:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
+            break;
+        }
+        case 1:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
+            break;
+        }
+        case 2:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
+            break;
+        }
+        case 3:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
+            break;
+        }
+        case 4:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
+            break;
+        }
+        case 5:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
+            break;
+        }
+        case 6:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
+            break;
+        }
+        case 7:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[16]);
             break;
         }
         default:
