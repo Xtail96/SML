@@ -99,26 +99,25 @@ protected:
      * К одному порту может быть подключено до 8 датчиков.
      * Таким образом, максимальное число поддерживаемых датчиков равно buffer_size * 8.
      * Описание структуры буфера
-     * buffer[0] - reserved (1 байт)
-     * buffer[1] - датчики 0 порта портальной платы (1 байт)
-     * buffer[2] - датчики 1 порта портальной платы (1 байт)
-     * buffer[3] - датчики 2 порта портальной платы (1 байт)
-     * buffer[4] - датчики 3 порта портальной платы (1 байт)
-     * buffer[5] - датчики 4 порта портальной платы (1 байт)
-     * buffer[6] - датчики 5 порта портальной платы (1 байт)
-     * buffer[7] - датчики 6 порта портальной платы (1 байт)
-     * buffer[8] - датчики 7 порта портальной платы (1 байт)
-     * buffer[9] - датчики 0 порта U1 (1 байт)
-     * buffer[10] - датчики 1 порта U1 (1 байт)
-     * buffer[11] - датчики 2 порта U1 (1 байт)
-     * buffer[12] - датчики 3 порта U1 (1 байт)
-     * buffer[13] - датчики 4 порта U1 (1 байт)
-     * buffer[14] - датчики 5 порта U1 (1 байт)
-     * buffer[15] - датчики 6 порта U1 (1 байт)
-     * buffer[16] - датчики 7 порта U1 (1 байт)
-     * Если размер буфера будет меньше станартного размера (17 байт),
+     * buffer[0] - датчики 0 порта портальной платы (1 байт)
+     * buffer[1] - датчики 1 порта портальной платы (1 байт)
+     * buffer[2] - датчики 2 порта портальной платы (1 байт)
+     * buffer[3] - датчики 3 порта портальной платы (1 байт)
+     * buffer[4] - датчики 4 порта портальной платы (1 байт)
+     * buffer[5] - датчики 5 порта портальной платы (1 байт)
+     * buffer[6] - датчики 6 порта портальной платы (1 байт)
+     * buffer[7] - датчики 7 порта портальной платы (1 байт)
+     * buffer[8] - датчики 0 порта U1 (1 байт)
+     * buffer[9] - датчики 1 порта U1 (1 байт)
+     * buffer[10] - датчики 2 порта U1 (1 байт)
+     * buffer[11] - датчики 3 порта U1 (1 байт)
+     * buffer[12] - датчики 4 порта U1 (1 байт)
+     * buffer[13] - датчики 5 порта U1 (1 байт)
+     * buffer[14] - датчики 6 порта U1 (1 байт)
+     * buffer[15] - датчики 7 порта U1 (1 байт)
+     * Если размер буфера будет меньше станартного размера (16 байт),
      * то структура выше определяет, какие порты портальной платы и контроллера U1 не будут задействованы.
-     * Если размер буфера будет больше, то данные с 18 байта и дальше  будут игнорироваться.
+     * Если размер буфера будет больше, то данные с 17 байта и дальше  будут игнорироваться.
      */
     byte_array m_buffer;
 
@@ -176,42 +175,42 @@ protected:
         switch(portNumber) {
         case 0:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[0]);
             break;
         }
         case 1:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
             break;
         }
         case 2:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
             break;
         }
         case 3:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
             break;
         }
         case 4:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
             break;
         }
         case 5:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
             break;
         }
         case 6:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
             break;
         }
         case 7:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
             break;
         }
         default:
@@ -235,42 +234,42 @@ protected:
         switch(portNumber) {
         case 0:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
             break;
         }
         case 1:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
             break;
         }
         case 2:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
             break;
         }
         case 3:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
             break;
         }
         case 4:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
             break;
         }
         case 5:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
             break;
         }
         case 6:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
             break;
         }
         case 7:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[16]);
+            voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
             break;
         }
         default:

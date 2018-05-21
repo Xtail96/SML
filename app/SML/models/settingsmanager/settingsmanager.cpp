@@ -111,7 +111,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);
         settings->setValue("DevicesCount", 5);
-        settings->setValue("SensorsBufferSize", 18);
+        settings->setValue("SensorsBufferSize", 16);
         settings->setValue("DevicesBufferSize", 1);
     settings->endGroup();
 
@@ -206,7 +206,7 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Sensor0");
         settings->setValue("Label", "Датчик оси X");
         settings->setValue("Name", "SensorAxisX");
-        settings->setValue("PortNumber", 1);
+        settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 0);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
@@ -216,7 +216,7 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Sensor1");
         settings->setValue("Label", "Датчик оси Y");
         settings->setValue("Name", "SensorAxisY");
-        settings->setValue("PortNumber", 1);
+        settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 1);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
@@ -226,7 +226,7 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Sensor2");
         settings->setValue("Label", "Датчик оси Z");
         settings->setValue("Name", "SensorAxisZ");
-        settings->setValue("PortNumber", 1);
+        settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 2);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
@@ -236,8 +236,8 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Sensor3");
         settings->setValue("Label", "Датчик оси A");
         settings->setValue("Name", "SensorAxisA");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 7);
+        settings->setValue("PortNumber", 0);
+        settings->setValue("InputNumber", 3);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
@@ -247,7 +247,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси B");
         settings->setValue("Name", "SensorAxisB");
         settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 4);
+        settings->setValue("InputNumber", 0);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
@@ -257,7 +257,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси C");
         settings->setValue("Name", "SensorAxisC");
         settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 5);
+        settings->setValue("InputNumber", 1);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
@@ -267,7 +267,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси D");
         settings->setValue("Name", "SensorAxisD");
         settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 6);
+        settings->setValue("InputNumber", 2);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
@@ -276,8 +276,8 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Sensor7");
         settings->setValue("Label", "Датчик Ноля");
         settings->setValue("Name", "SensorZero");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 3);
+        settings->setValue("PortNumber", 0);
+        settings->setValue("InputNumber", 4);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
