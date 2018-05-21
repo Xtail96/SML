@@ -26,7 +26,13 @@ void MachineTool::setup()
     connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
     startServer();
+}
+
+void MachineTool::onU1Error(int errorCode)
+{
+    handleMachineToolErrors(errorCode);
 }
 
 void MachineTool::onU1Connected()
@@ -96,6 +102,12 @@ QString MachineTool::getSensorsBufferSize()
 QString MachineTool::getDevicesBufferSize()
 {
     return QString::number(m_serverManager->getDevicesBufferSize());
+}
+
+void MachineTool::handleMachineToolErrors(int errorCode)
+{
+    // обрабатываем ошибки и испускаем сигнал об их наступлении
+    emit machineToolErrorIsOccured(errorCode);
 }
 
 void MachineTool::startServer()

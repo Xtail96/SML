@@ -31,7 +31,7 @@ void ServerManager::setup(const SettingsManager &settingsManager)
     connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
-void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState)
+void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError)
 {
     byte_array currentSensorsState;
     for(auto group : sensorsState)
@@ -45,14 +45,21 @@ void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> 
         currentDevicesState.push_back(group.toUInt());
     }
 
-    updateU1State(currentSensorsState, currentDevicesState);
+    updateU1State(currentSensorsState, currentDevicesState, lastError);
 }
 
-void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesState)
+void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesState, int lastError)
 {
+    m_u1CurrentState.setLastEror(lastError);
     m_u1CurrentState.setSensorsState(sensorsState);
     m_u1CurrentState.setDevicesState(devicesState);
     emit u1StateIsChanged();
+
+    int currentU1Error = m_u1CurrentState.getLastError();
+    if(currentU1Error != 0)
+    {
+        emit u1ErrorIsOccured(m_u1CurrentState.getLastError());
+    }
 }
 
 void ServerManager::switchDevice(byte_array data)
@@ -131,7 +138,8 @@ void ServerManager::onBinaryMessageReceived(QByteArray message)
             //qDebug() << sensorsState;
             QList<QVariant> devicesState = u1State["DevicesState"].toList();
             //qDebug() << devicesState;
-            updateU1State(sensorsState, devicesState);
+            int lastError = u1State["LastError"].toInt();
+            updateU1State(sensorsState, devicesState, lastError);
         }
 
         //QtJson::JsonObject u2State = result["U2State"].toMap();

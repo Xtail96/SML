@@ -12,13 +12,15 @@
 struct U1State
 {
 private:
-    byte_array sensorsState;
-    byte_array devicesState;
+    byte_array m_sensorsState;
+    byte_array m_devicesState;
+    int m_lastError;
 public:
-    U1State(size_t sensorsPackageSize = 18, size_t devicesPackageSize = 1)
+    U1State(size_t sensorsPackageSize = 18, size_t devicesPackageSize = 1, int lastError = 0)
     {
-        sensorsState = byte_array(sensorsPackageSize, 0);
-        devicesState = byte_array(devicesPackageSize, 0);
+        m_sensorsState = byte_array(sensorsPackageSize, 0);
+        m_devicesState = byte_array(devicesPackageSize, 0);
+        m_lastError = lastError;
     }
 
     ~U1State()
@@ -28,42 +30,52 @@ public:
 
     byte_array getSensorsState()
     {
-        return sensorsState;
+        return m_sensorsState;
     }
 
     void setSensorsState(byte_array value)
     {
-        if(value.size() >= sensorsState.size())
+        if(value.size() >= m_sensorsState.size())
         {
-            for(size_t i = 0; i < sensorsState.size(); i++)
+            for(size_t i = 0; i < m_sensorsState.size(); i++)
             {
-                sensorsState.operator [](i) = value.operator [](i);
+                m_sensorsState.operator [](i) = value.operator [](i);
             }
         }
         else
         {
-            qDebug() << "Попытка установить состояние датчиков неправильной длины" << value.size() << sensorsState.size();
+            qDebug() << "Попытка установить состояние датчиков неправильной длины" << value.size() << m_sensorsState.size();
         }
     }
 
     byte_array getDevicesState()
     {
-        return devicesState;
+        return m_devicesState;
     }
 
     void setDevicesState(byte_array value)
     {
-        if(value.size() == devicesState.size())
+        if(value.size() == m_devicesState.size())
         {
-            for(size_t i = 0; i < devicesState.size(); i++)
+            for(size_t i = 0; i < m_devicesState.size(); i++)
             {
-                devicesState.operator [](i) = value.operator [](i);
+                m_devicesState.operator [](i) = value.operator [](i);
             }
         }
         else
         {
             qDebug() << "Попытка установить состояние устройств неправильной длины";
         }
+    }
+
+    int getLastError()
+    {
+        return m_lastError;
+    }
+
+    void setLastEror(int lastError)
+    {
+        m_lastError = lastError;
     }
 };
 
@@ -80,8 +92,8 @@ protected:
     U1State m_u1CurrentState;
     void setup(const SettingsManager& settingsManager);
 
-    void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState);
-    void updateU1State(byte_array sensorsState, byte_array devicesState);
+    void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError);
+    void updateU1State(byte_array sensorsState, byte_array devicesState, int lastError);
 
 signals:
     void u1Connected();
@@ -90,6 +102,7 @@ signals:
     void u2Disconnected();
 
     void u1StateIsChanged();
+    void u1ErrorIsOccured(int errorCode);
 
 public slots:
     void switchDevice(byte_array data);

@@ -64,6 +64,8 @@ void MainWindow::setupMachineTool()
     connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
     connect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
 
+    connect(m_machineTool.data(), SIGNAL(machineToolErrorIsOccured(int)), this, SLOT(onMachineToolError(int)));
+
     connect(m_machineTool.data(), SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
     connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
@@ -615,6 +617,12 @@ void MainWindow::onU2Disconnected()
 
     ui->runCommandLinkButton->setEnabled(false);
     ui->stopCommandLinkButton->setEnabled(false);
+}
+
+void MainWindow::onMachineToolError(int errorCode)
+{
+    QString errorString = QStringLiteral("Machine Tool error is occured ") + QString::number(errorCode);
+    ui->statusBar->showMessage(errorString);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()

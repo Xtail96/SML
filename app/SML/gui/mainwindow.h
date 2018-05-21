@@ -182,6 +182,10 @@ private slots:
     void onU2Connected();
     void onU2Disconnected();
 
+
+    /// Слоты для обработки ошибок станка
+    void onMachineToolError(int errorCode);
+
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();
     void on_discreteRadioButton_2_clicked();

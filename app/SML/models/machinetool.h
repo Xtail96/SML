@@ -66,6 +66,9 @@ signals:
     void u1StateIsChanged();
     void u2StateIsChanged();
 
+    /// В работе программы возникли ошибки
+    void machineToolErrorIsOccured(int errorCode);
+
     /// Точки обновились
     void pointsUpdated();
 
@@ -81,16 +84,9 @@ public slots:
     void startServer();
     void stopServer();
 
-    void onU1Connected();
-    void onU1Disconnected();
-
-    /// Слот для испускания сигнала об обновлении состояния станка
-    void updateU1State();
-
     void switchDevice(QString deviceName);
     void updateVelocity(int value);
     void updateSpindelRotations(int value);
-
 
     void addPoint(QStringList coordinates);
     void updatePoint(QStringList coordinates, unsigned int number);
@@ -115,8 +111,6 @@ public slots:
     QString getGCodesProgram();
 
     QList<Point> getMachineToolCoordinates();
-
-    void onGCodesLoaded();
 
     QStringList getSensorsLabels();
     QStringList getSensorParametrLabels();
@@ -153,6 +147,18 @@ public slots:
     QString getServerPort();
     QString getSensorsBufferSize();
     QString getDevicesBufferSize();
+
+protected slots:
+    void onU1Connected();
+    void onU1Disconnected();
+    void onU1Error(int errorCode);
+
+    /// Слот для испускания сигнала об обновлении состояния станка
+    void updateU1State();
+
+    void handleMachineToolErrors(int errorCode);
+
+    void onGCodesLoaded();
 };
 
 #endif // MACHINETOOL_H
