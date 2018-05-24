@@ -104,9 +104,9 @@ SOURCES += main.cpp\
     options/toollengthsensorwindow.cpp \
     options/lubricationsystemwindow.cpp \
     options/kabriolwindow.cpp \
-    models/serverManager/smlkameditorserver/smlkameditorserver.cpp \
     models/serverManager/servermanager.cpp \
-    models/filesmanager/gcodesfilesmanager/filesreader.cpp
+    models/filesmanager/gcodesfilesmanager/filesreader.cpp \
+    models/serverManager/smlkameditorserver/smlserver.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -163,9 +163,9 @@ HEADERS  += gui/mainwindow.h \
     options/toollengthsensorwindow.h \
     options/lubricationsystemwindow.h \
     options/kabriolwindow.h \
-    models/serverManager/smlkameditorserver/smlkameditorserver.h \
     models/serverManager/servermanager.h \
-    models/filesmanager/gcodesfilesmanager/filesreader.h
+    models/filesmanager/gcodesfilesmanager/filesreader.h \
+    models/serverManager/smlkameditorserver/smlserver.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

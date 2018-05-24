@@ -1,6 +1,6 @@
-#include "smlkameditorserver.h"
+#include "smlserver.h"
 
-SMLKAMEditorServer::SMLKAMEditorServer(const SettingsManager &settingsManager, QObject *parent) :
+SMLServer::SMLServer(const SettingsManager &settingsManager, QObject *parent) :
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
     m_port(0),
@@ -9,7 +9,7 @@ SMLKAMEditorServer::SMLKAMEditorServer(const SettingsManager &settingsManager, Q
     setup(settingsManager);
 }
 
-SMLKAMEditorServer::~SMLKAMEditorServer()
+SMLServer::~SMLServer()
 {
     stop();
 
@@ -57,7 +57,7 @@ SMLKAMEditorServer::~SMLKAMEditorServer()
 
 }
 
-void SMLKAMEditorServer::setup(const SettingsManager &sm)
+void SMLServer::setup(const SettingsManager &sm)
 {
     connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
     connect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
@@ -73,7 +73,7 @@ void SMLKAMEditorServer::setup(const SettingsManager &sm)
 
 }
 
-void SMLKAMEditorServer::start()
+void SMLServer::start()
 {
     if(m_port != 0)
     {
@@ -89,7 +89,7 @@ void SMLKAMEditorServer::start()
     }
 }
 
-void SMLKAMEditorServer::stop()
+void SMLServer::stop()
 {
     qDebug() << "stop server";
     if(m_server->isListening())
@@ -99,7 +99,7 @@ void SMLKAMEditorServer::stop()
     qDebug() << "Server successfully stopped. Good Bye!";
 }
 
-void SMLKAMEditorServer::onNewConnection()
+void SMLServer::onNewConnection()
 {
     QWebSocket* pSocket = m_server->nextPendingConnection();
 
@@ -116,7 +116,7 @@ void SMLKAMEditorServer::onNewConnection()
 
 }
 
-void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
+void SMLServer::sendMessageToU1(QByteArray message)
 {
     for(auto socket : m_u1Connections)
     {
@@ -130,7 +130,7 @@ void SMLKAMEditorServer::sendMessageToU1(QByteArray message)
     }
 }
 
-void SMLKAMEditorServer::onServerClosed()
+void SMLServer::onServerClosed()
 {
     if(m_debug)
     {
@@ -142,7 +142,7 @@ void SMLKAMEditorServer::onServerClosed()
     emit u2Disconnected();
 }
 
-void SMLKAMEditorServer::onTextMessage(QString message)
+void SMLServer::onTextMessage(QString message)
 {
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (m_debug)
@@ -154,14 +154,14 @@ void SMLKAMEditorServer::onTextMessage(QString message)
     {
         if(message == "@SML-U1Adapter@")
         {
-            registerConnection(pSender, SMLKAMEditorServer::U1Adapter);
+            registerConnection(pSender, SMLServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
         else
         {
             if(message == "@SML-U2Adapter@")
             {
-                registerConnection(pSender, SMLKAMEditorServer::U2Adapter);
+                registerConnection(pSender, SMLServer::U2Adapter);
             }
             else
             {
@@ -173,7 +173,7 @@ void SMLKAMEditorServer::onTextMessage(QString message)
     }
 }
 
-void SMLKAMEditorServer::onBinaryMessage(QByteArray message)
+void SMLServer::onBinaryMessage(QByteArray message)
 {
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (pSender)
@@ -190,7 +190,7 @@ void SMLKAMEditorServer::onBinaryMessage(QByteArray message)
     }
 }
 
-void SMLKAMEditorServer::socketDisconnected()
+void SMLServer::socketDisconnected()
 {
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (pSender)
@@ -222,10 +222,10 @@ void SMLKAMEditorServer::socketDisconnected()
     }
 }
 
-void SMLKAMEditorServer::registerConnection(QWebSocket* connection, int type)
+void SMLServer::registerConnection(QWebSocket* connection, int type)
 {
     switch (type) {
-    case SMLKAMEditorServer::U1Adapter:
+    case SMLServer::U1Adapter:
         m_u1Connections.push_back(connection);
         m_unregistered.removeAll(connection);
         emit u1Connected();
@@ -234,7 +234,7 @@ void SMLKAMEditorServer::registerConnection(QWebSocket* connection, int type)
             qDebug() << "U1Adapter registered:" << connection;
         }
         break;
-    case SMLKAMEditorServer::U2Adapter:
+    case SMLServer::U2Adapter:
         m_u2Connections.push_back(connection);
         m_unregistered.removeAll(connection);
         emit u2Connected();
@@ -260,7 +260,7 @@ void SMLKAMEditorServer::registerConnection(QWebSocket* connection, int type)
     }
 }
 
-QStringList SMLKAMEditorServer::currentAdapters()
+QStringList SMLServer::currentAdapters()
 {
     QStringList settings;
 
@@ -303,7 +303,7 @@ QStringList SMLKAMEditorServer::currentAdapters()
     return settings;
 }
 
-size_t SMLKAMEditorServer::port() const
+size_t SMLServer::port() const
 {
     return m_port;
 }

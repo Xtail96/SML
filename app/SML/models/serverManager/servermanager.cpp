@@ -2,7 +2,7 @@
 
 ServerManager::ServerManager(const SettingsManager &settingsManager, QObject *parent) :
     QObject(parent),
-    m_server(new SMLKAMEditorServer(settingsManager, this))
+    m_server(new SMLServer(settingsManager, this))
 {
     setup(settingsManager);
 }

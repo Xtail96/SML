@@ -6,7 +6,7 @@
 #include "libs/jsonparser/json.h"
 
 #include "models/structs.h"
-#include "models/serverManager/smlkameditorserver/smlkameditorserver.h"
+#include "models/serverManager/smlkameditorserver/smlserver.h"
 #include "models/settingsmanager/settingsmanager.h"
 
 struct U1State
@@ -88,7 +88,7 @@ public:
     ~ServerManager();
 
 protected:
-    QScopedPointer<SMLKAMEditorServer> m_server;
+    QScopedPointer<SMLServer> m_server;
     U1State m_u1CurrentState;
     void setup(const SettingsManager& settingsManager);
 

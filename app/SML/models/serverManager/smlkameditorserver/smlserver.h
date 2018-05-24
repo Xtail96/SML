@@ -1,5 +1,5 @@
-#ifndef SMLKAMEDITORSERVER_H
-#define SMLKAMEDITORSERVER_H
+#ifndef SMLSERVER_H
+#define SMLSERVER_H
 
 #include <QObject>
 #include <QWebSocketServer>
@@ -8,12 +8,12 @@
 #include "models/structs.h"
 #include "models/settingsmanager/settingsmanager.h"
 
-class SMLKAMEditorServer : public QObject
+class SMLServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SMLKAMEditorServer(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
-    ~SMLKAMEditorServer();
+    explicit SMLServer(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
+    ~SMLServer();
 
     enum Type {Undefined, U1Adapter, U2Adapter};
 
@@ -54,4 +54,4 @@ protected slots:
     void registerConnection(QWebSocket *connection, int type);
 };
 
-#endif // SMLKAMEDITORSERVER_H
+#endif // SMLRSERVER_H
