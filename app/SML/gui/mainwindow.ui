@@ -59,7 +59,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>SML KAMEditor 1.0.0:Acacia</string>
+   <string>SML 1.0.0:Acacia</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_10">
@@ -4899,7 +4899,7 @@
      <x>0</x>
      <y>0</y>
      <width>1578</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
