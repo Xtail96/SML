@@ -1103,12 +1103,13 @@ void MainWindow::on_saveas_action_triggered()
 void MainWindow::on_runCommandLinkButton_clicked()
 {
     QString content = ui->gcodesEditorPlainTextEdit->toPlainText();
-    m_machineTool->parseGCodes(content);
+    m_machineTool->setGCodes(content);
+    m_machineTool->parseGCodes();
 }
 
 void MainWindow::on_view_action_triggered()
 {
-    m_machineTool->updateGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
+    m_machineTool->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
     //ProgramVisualizeWindow(mainWindowController, this).exec();
     //GCodesWebViewDialog(this).exec();

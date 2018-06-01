@@ -1,149 +1,139 @@
 #include "device.h"
 
-Device::Device(QString _code,
-               QString _name,
-               QString _boardName,
-               unsigned int _portNumber,
-               unsigned int _outputNumber,
-               bool _activeState,
-               bool _needToDisplay,
-               byte _mask) :
-    code(_code),
-    name(_name),
-    boardName(_boardName),
-    portNumber(_portNumber),
-    outputNumber(_outputNumber),
-    activeState(_activeState),
-    currentState(!activeState),
-    needToDisplay(_needToDisplay),
-    mask(_mask)
+Device::Device(QString code,
+               QString name,
+               QString boardName,
+               unsigned int portNumber,
+               unsigned int outputNumber,
+               bool activeState,
+               bool needToDisplay,
+               byte mask) :
+    m_code(code),
+    m_name(name),
+    m_boardName(boardName),
+    m_portNumber(portNumber),
+    m_outputNumber(outputNumber),
+    m_activeState(activeState),
+    m_currentState(!m_activeState),
+    m_needToDisplay(needToDisplay),
+    m_mask(mask)
 {
 }
 
-Device::Device(QString _code, SettingsManager *sm) :
-    code(_code)
+Device::Device(QString code, const SettingsManager &sm) :
+    m_code(code)
 {
-    if(sm == nullptr)
-    {
-        qDebug() << "new SettingsManager instance in device #" + code;
-        sm = new SettingsManager();
-        setup(sm);
-        delete sm;
-    }
-    else
-    {
-        setup(sm);
-    }
+    setup(sm);
 }
 
-void Device::setup(SettingsManager *sm)
+void Device::setup(const SettingsManager &sm)
 {
     try
     {
-        name = QVariant(sm->get(code, "Label")).toString();
-        boardName = QVariant(sm->get(code, "BoardName")).toString();
-        portNumber = QVariant(sm->get(code, "PortNumber")).toUInt();
-        outputNumber = QVariant(sm->get(code, "OutputNumber")).toUInt();
-        activeState = QVariant(sm->get(code, "ActiveState")).toBool();
-        needToDisplay = QVariant(sm->get(code, "NeedToDisplay")).toBool();
-        mask = QVariant(sm->get(code, "Mask")).toUInt();
-        currentState = !activeState;
+        m_name = QVariant(sm.get(m_code, "Label")).toString();
+        m_boardName = QVariant(sm.get(m_code, "BoardName")).toString();
+        m_portNumber = QVariant(sm.get(m_code, "PortNumber")).toUInt();
+        m_outputNumber = QVariant(sm.get(m_code, "OutputNumber")).toUInt();
+        m_activeState = QVariant(sm.get(m_code, "ActiveState")).toBool();
+        m_needToDisplay = QVariant(sm.get(m_code, "NeedToDisplay")).toBool();
+        m_mask = QVariant(sm.get(m_code, "Mask")).toUInt();
+        m_currentState = !m_activeState;
     }
     catch(std::invalid_argument e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + code, e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_code, e.what()).exec();
     }
 }
 
 QString Device::getBoardName() const
 {
-    return boardName;
+    return m_boardName;
 }
 
 void Device::setBoardName(const QString &value)
 {
-    boardName = value;
+    m_boardName = value;
 }
 
 unsigned int Device::getPortNumber() const
 {
-    return portNumber;
+    return m_portNumber;
 }
 
 void Device::setPortNumber(unsigned int value)
 {
-    portNumber = value;
+    m_portNumber = value;
 }
 
 unsigned int Device::getOutputNumber() const
 {
-    return outputNumber;
+    return m_outputNumber;
 }
 
 void Device::setOutputNumber(unsigned int value)
 {
-    outputNumber = value;
+    m_outputNumber = value;
 }
 
 QString Device::getName() const
 {
-    return name;
+    return m_name;
 }
 
 void Device::setName(const QString &value)
 {
-    name = value;
+    m_name = value;
 }
 
 bool Device::getActiveState() const
 {
-    return activeState;
+    return m_activeState;
 }
 
 void Device::setActiveState(bool value)
 {
-    activeState = value;
+    m_activeState = value;
 }
 
 bool Device::getCurrentState() const
 {
-    return currentState;
+    return m_currentState;
 }
 
 void Device::setCurrentState(bool value)
 {
-    if(currentState != value)
+    if(m_currentState != value)
     {
-        currentState = value;
+        m_currentState = value;
     }
 }
 
 bool Device::getNeedToDisplay() const
 {
-    return needToDisplay;
+    return m_needToDisplay;
 }
 
 void Device::setNeedToDisplay(bool value)
 {
-    needToDisplay = value;
+    m_needToDisplay = value;
 }
 
 byte Device::getMask() const
 {
-    return mask;
+    return m_mask;
 }
 
 void Device::setMask(const byte &value)
 {
-    mask = value;
+    m_mask = value;
 }
 
 QString Device::getCode() const
 {
-    return code;
+    return m_code;
 }
 
 bool Device::isEnable() const
 {
-    return (activeState == currentState);
+    return (m_activeState == m_currentState);
 }

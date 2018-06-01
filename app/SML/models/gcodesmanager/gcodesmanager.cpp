@@ -9,9 +9,8 @@ GCodesManager::~GCodesManager()
 
 }
 
-void GCodesManager::updateGCodesProgram(QString content)
+void GCodesManager::updateGCodesProgram()
 {
-    setGcodes(content);
     const std::string data = m_gcodes.toStdString();
     gpr::gcode_program program = gpr::parse_gcode(data);
     size_t programLength = program.num_blocks();

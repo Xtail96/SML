@@ -289,7 +289,7 @@ protected:
     /*!
      * \brief Вектор умных указателей на датчики станка
      */
-    std::vector< std::shared_ptr<Sensor> > m_sensors;
+    QList< QSharedPointer<Sensor> > m_sensors;
 
     SensorsBuffer m_sensorsBuffer;
 
@@ -297,14 +297,14 @@ protected:
      * \brief Инициализирует датчики по файлу настроек
      * \param sm - указатель на менеджер настроек
      */
-    void initilize(SettingsManager *sm);
+    void setup(const SettingsManager &sm);
 
 public:
     /*!
      * \brief Конструктор класса "Менеджер датчиков"
      * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
      */
-    SensorsManager(SettingsManager *sm = nullptr);
+    SensorsManager(const SettingsManager &sm = SettingsManager());
 
     /*!
      * \brief Конструктор копирования класса Менеджер датчиков
@@ -316,7 +316,7 @@ public:
      * \brief Возвращает ссылку на датчики станка
      * \return вектор умных указателей на датчики станка
      */
-    std::vector<std::shared_ptr<Sensor> > &sensors();
+    QList< QSharedPointer<Sensor> > &sensors();
 
     /*!
      * \brief Обновляет состояния датчиков по буферу состояния датчиков

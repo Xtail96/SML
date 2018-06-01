@@ -6,7 +6,7 @@
 class Axis
 {
 public:
-    explicit Axis(QString name, SettingsManager* settingsManager = nullptr);
+    explicit Axis(QString name, const SettingsManager &settingsManager = SettingsManager());
     ~Axis();
 
     QString name() const;
@@ -46,7 +46,7 @@ protected:
 
     bool m_softLimitsEnable;
 
-    void setup(SettingsManager* settingsManager);
+    void setup(const SettingsManager &settingsManager);
 };
 
 #endif // AXIS_H

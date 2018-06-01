@@ -103,7 +103,7 @@ protected:
     const unsigned char SET_DEVICES = 16;
 
     /// Вектор умных указателей на устройства
-    std::vector< std::shared_ptr<Device> > m_devices;
+    QList< QSharedPointer<Device> > m_devices;
 
     /// Буфер устройств
     DevicesBuffer m_devicesBuffer;
@@ -119,16 +119,16 @@ protected:
 
     /*!
      * \brief Инициализирует контейнер с устройствами
-     * \param sm - указатель на менеджер настроек
+     * \param sm - менеджер настроек
      */
-    void initialize(SettingsManager *sm);
+    void setup(const SettingsManager &sm);
 
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
-     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
+     * \param sm - менеджер настроек
      */
-    DevicesManager(SettingsManager* sm = nullptr);
+    DevicesManager(const SettingsManager &sm = SettingsManager());
 
     /*!
      * \brief Конструктор копирования класса Менеджер устройств
@@ -140,7 +140,7 @@ public:
      * \brief Возвращет ссылку на контейнер устройств
      * \return ссылка вектор устройств
      */
-    std::vector<std::shared_ptr<Device> >& devices();
+    QList<QSharedPointer<Device> >& devices();
 
     /*!
      * \brief Возвращает буфер устройств
@@ -152,7 +152,7 @@ public:
      * \brief Обновляет контейнер устройств
      * \param value - константная ссылка на новый контейнер с устройствами
      */
-    void updateDevices(const std::vector<std::shared_ptr<Device> > &value);
+    void updateDevices(const QList<QSharedPointer<Device> > &value);
 
     void updateDevices(const byte_array devicesState);
 

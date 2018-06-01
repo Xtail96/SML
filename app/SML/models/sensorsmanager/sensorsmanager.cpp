@@ -1,18 +1,8 @@
 #include "sensorsmanager.h"
 
-SensorsManager::SensorsManager(SettingsManager *sm)
+SensorsManager::SensorsManager(const SettingsManager &sm)
 {
-    if(sm == nullptr)
-    {
-        qDebug() << "new SettingsManager instance in sensorsManager";
-        sm = new SettingsManager();
-        initilize(sm);
-        delete sm;
-    }
-    else
-    {
-        initilize(sm);
-    }
+    setup(sm);
 }
 
 SensorsManager::SensorsManager(const SensorsManager &object) :
@@ -20,11 +10,11 @@ SensorsManager::SensorsManager(const SensorsManager &object) :
 {
 }
 
-void SensorsManager::initilize(SettingsManager *sm)
+void SensorsManager::setup(const SettingsManager &sm)
 {
     try
     {
-        unsigned int sensorsCount = QVariant(sm->get("MachineToolInformation", "SensorsCount")).toUInt();
+        unsigned int sensorsCount = QVariant(sm.get("MachineToolInformation", "SensorsCount")).toUInt();
 
         std::vector<QString> sensorsCodes;
         for(unsigned int i = 0; i < sensorsCount; i++)
@@ -36,10 +26,10 @@ void SensorsManager::initilize(SettingsManager *sm)
         for(auto code : sensorsCodes)
         {
             Sensor* sensor = new Sensor(code, sm);
-            m_sensors.push_back(std::shared_ptr<Sensor>(sensor));
+            m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
 
-        size_t bufferSize = QVariant(sm->get("MachineToolInformation", "SensorsBufferSize")).toUInt();
+        size_t bufferSize = QVariant(sm.get("MachineToolInformation", "SensorsBufferSize")).toUInt();
         m_sensorsBuffer.resetBuffer(bufferSize);
     }
     catch(std::invalid_argument e)
@@ -48,7 +38,7 @@ void SensorsManager::initilize(SettingsManager *sm)
     }
 }
 
-std::vector<std::shared_ptr<Sensor> >& SensorsManager::sensors()
+QList<QSharedPointer<Sensor> > &SensorsManager::sensors()
 {
     return m_sensors;
 }

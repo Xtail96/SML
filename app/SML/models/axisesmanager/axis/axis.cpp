@@ -1,18 +1,9 @@
 #include "axis.h"
 
-Axis::Axis(QString name, SettingsManager *settingsManager) :
+Axis::Axis(QString name, const SettingsManager &settingsManager) :
     m_name(name)
 {
-    if(settingsManager != nullptr)
-    {
-        setup(settingsManager);
-    }
-    else
-    {
-        SettingsManager* sm = new SettingsManager();
-        setup(sm);
-        delete sm;
-    }
+    setup(settingsManager);
 }
 
 Axis::~Axis()
@@ -20,7 +11,7 @@ Axis::~Axis()
 
 }
 
-void Axis::setup(SettingsManager *settingsManager)
+void Axis::setup(const SettingsManager &settingsManager)
 {
     m_currentPosition = 0.0;
     m_softLimitsEnable = false;
@@ -28,20 +19,20 @@ void Axis::setup(SettingsManager *settingsManager)
     {
         QString fullAxisName = QString("Axis") + m_name;
 
-        QVariant qLength = settingsManager->get("TableSize", QString("Size" + m_name));
+        QVariant qLength = settingsManager.get("TableSize", QString("Size" + m_name));
         m_length = qLength.toDouble();
 
-        QVariant qStep = settingsManager->get(fullAxisName, "Step");
+        QVariant qStep = settingsManager.get(fullAxisName, "Step");
         m_step = qStep.toDouble();
 
         m_currentPosition = 0.0;
 
-        QVariant qInvertDirection = settingsManager->get(fullAxisName, "Invert");
+        QVariant qInvertDirection = settingsManager.get(fullAxisName, "Invert");
         m_invertDirection = qInvertDirection.toBool();
 
         m_currentVelocity = 30.0;
 
-        QVariant qBazaSearchSpeed = settingsManager->get(fullAxisName, "BazaSearchSpeed");
+        QVariant qBazaSearchSpeed = settingsManager.get(fullAxisName, "BazaSearchSpeed");
         m_basingVelocity = qBazaSearchSpeed.toDouble();
     }
     catch(std::invalid_argument e)

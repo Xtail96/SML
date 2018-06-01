@@ -4,9 +4,9 @@ MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
     m_serverManager(new ServerManager(*(m_settingsManager.data()), this)),
-    m_sensorsManager(new SensorsManager(m_settingsManager.data())),
-    m_devicesManager(new DevicesManager(m_settingsManager.data())),
-    m_axisesManager(new AxisesManager(m_settingsManager.data())),
+    m_sensorsManager(new SensorsManager(*(m_settingsManager.data()))),
+    m_devicesManager(new DevicesManager(*(m_settingsManager.data()))),
+    m_axisesManager(new AxisesManager(*(m_settingsManager.data()))),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_gcodesManager(new GCodesManager()),
     m_pointsManager(new PointsManager()),
@@ -74,9 +74,9 @@ void MachineTool::importSettings()
     m_settingsManager->importSettings(path);
 }
 
-void MachineTool::parseGCodes(QString data)
+void MachineTool::parseGCodes()
 {
-    m_gcodesManager->updateGCodesProgram(data);
+    m_gcodesManager->updateGCodesProgram();
 }
 
 void MachineTool::setSoftLimitsMode(bool enable)
@@ -246,7 +246,7 @@ void MachineTool::addGCodesFile(const QString data)
     emit filePathUpdated();
 }
 
-void MachineTool::updateGCodes(const QString &data)
+void MachineTool::setGCodes(const QString &data)
 {
     m_gcodesManager->setGcodes(data);
 }

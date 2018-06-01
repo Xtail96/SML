@@ -1,17 +1,8 @@
 #include "axisesmanager.h"
 
-AxisesManager::AxisesManager(SettingsManager *settingsManager)
+AxisesManager::AxisesManager(const SettingsManager &settingsManager)
 {
-    if(settingsManager != nullptr)
-    {
-        setup(settingsManager);
-    }
-    else
-    {
-        SettingsManager* sm = new SettingsManager();
-        setup(sm);
-        delete sm;
-    }
+    setup(settingsManager);
 }
 
 AxisesManager::~AxisesManager()
@@ -19,15 +10,15 @@ AxisesManager::~AxisesManager()
 
 }
 
-void AxisesManager::setup(SettingsManager *settingsManager)
+void AxisesManager::setup(const SettingsManager &settingsManager)
 {
     size_t axisesCount = 3;
     try
     {
-         axisesCount = settingsManager->get("MachineToolInformation", "AxisesCount").toUInt();
+         axisesCount = settingsManager.get("MachineToolInformation", "AxisesCount").toUInt();
          for(size_t i = 0; i < axisesCount; i++)
          {
-             std::shared_ptr<Axis> axis = std::shared_ptr<Axis>(new Axis(SML_AXISES_NAMES.getNameByKey(i), settingsManager));
+             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(SML_AXISES_NAMES.getNameByKey(i), settingsManager));
              m_axises.push_back(axis);
          }
          m_zeroCoordinates = Point(m_axises.size());

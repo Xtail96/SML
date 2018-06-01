@@ -14,7 +14,7 @@ public:
     GCodesManager();
     ~GCodesManager();
 
-    void updateGCodesProgram(QString content);
+    void updateGCodesProgram();
 
     QString gcodes() const;
     void setGcodes(const QString &gcodes);

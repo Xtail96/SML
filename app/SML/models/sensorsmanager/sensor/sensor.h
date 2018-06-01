@@ -13,63 +13,63 @@ class Sensor
 {
 protected:
     /// код датчика для получения информации из файла настроек
-    QString code;
+    QString m_code;
 
     /// имя датчика
-    QString name;
+    QString m_name;
 
     /// подпись датчика для отображения в итнтерфейсе
-    QString label;
+    QString m_label;
 
     /// имя платы, к которой подключен датчик
-    QString boardName;
+    QString m_boardName;
 
     /// номер порта, ко входу которого подключен датчик
-    unsigned int portNumber;
+    unsigned int m_portNumber;
 
     /// номер входа, к которому подключен датчик
-    unsigned int inputNumber;
+    unsigned int m_inputNumber;
 
     /// активное состояние датчика
-    bool activeState;
+    bool m_activeState;
 
     /// сотояние датчика (включен/выключен)
-    bool currentState;
+    bool m_currentState;
 
     /// цвет индикатора при срабатывании датчика
-    QColor color;
+    QColor m_color;
 
     /*!
      * \brief Устанавливает параметры датчика
-     * \param sm - указатель на менеджер настроек
+     * \param sm - менеджер настроек
      */
-    void setup(SettingsManager *sm);
+    void setup(const SettingsManager &sm);
 public:
     /*!
      * \brief Конструктор класса "Датчик"
-     * \param _code - код датчика
-     * \param _name - имя датчика
-     * \param _boardName - имя платы, к которой подключается датчик
-     * \param _portNumber - номер порта
-     * \param _inputNumber - номер входа
-     * \param _activeState - активное состояние датчика
-     * \param _color - цвет инидкатора при срабатывании датчика
+     * \param code - код датчика
+     * \param name - имя датчика
+     * \param boardName - имя платы, к которой подключается датчик
+     * \param portNumber - номер порта
+     * \param inputNumber - номер входа
+     * \param activeState - активное состояние датчика
+     * \param color - цвет инидкатора при срабатывании датчика
      */
-    Sensor(QString _code,
-           QString _name, QString _label,
-           QString _boardName,
-           unsigned int _portNumber,
-           unsigned int _inputNumber,
-           bool _activeState = false,
-           QColor _color = QColor(0, 125, 0));
+    Sensor(QString code,
+           QString name,
+           QString label,
+           QString boardName,
+           unsigned int portNumber,
+           unsigned int inputNumber,
+           bool activeState = false,
+           QColor color = QColor(0, 125, 0));
 
     /*!
      * \brief Конструктор класса "Датчик"
      * \param _code - код датчика
-     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
+     * \param sm - менеджер настроек
      */
-    Sensor(QString _code,
-           SettingsManager *sm = nullptr);
+    Sensor(QString code, const SettingsManager &sm = SettingsManager());
 
     /*!
      * \brief Получает текущее состояние датчика

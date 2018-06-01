@@ -10,7 +10,7 @@
 class AxisesManager
 {
 public:
-    explicit AxisesManager(SettingsManager* settingsManager = nullptr);
+    explicit AxisesManager(const SettingsManager &settingsManager = SettingsManager());
     ~AxisesManager();
 
     void updateCurrentCoordinates(Point newCoordinates);
@@ -30,11 +30,11 @@ public:
     void setSoftLimitsMode(bool enable);
 
 protected:
-    QList< std::shared_ptr<Axis> > m_axises;
+    QList< QSharedPointer<Axis> > m_axises;
     Point m_zeroCoordinates;
     Point m_parkCoordinates;
 
-    void setup(SettingsManager* settingsManager);
+    void setup(const SettingsManager &settingsManager);
 };
 
 #endif // AXISESMANAGER_H

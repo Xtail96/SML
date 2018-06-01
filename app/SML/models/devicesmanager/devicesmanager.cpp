@@ -1,18 +1,8 @@
 #include "devicesmanager.h"
 
-DevicesManager::DevicesManager(SettingsManager *sm)
+DevicesManager::DevicesManager(const SettingsManager &sm)
 {
-    if(sm == nullptr)
-    {
-        qDebug() << "new SettingsManager instance in devicesManager";
-        sm = new SettingsManager();
-        initialize(sm);
-        delete sm;
-    }
-    else
-    {
-        initialize(sm);
-    }
+    setup(sm);
 }
 
 DevicesManager::DevicesManager(const DevicesManager &object) :
@@ -22,11 +12,11 @@ DevicesManager::DevicesManager(const DevicesManager &object) :
 
 }
 
-void DevicesManager::initialize(SettingsManager *sm)
+void DevicesManager::setup(const SettingsManager &sm)
 {
     try
     {
-        unsigned int devicesCount = QVariant(sm->get("MachineToolInformation", "DevicesCount")).toUInt();
+        unsigned int devicesCount = QVariant(sm.get("MachineToolInformation", "DevicesCount")).toUInt();
 
         std::vector<QString> devicesCodes;
         for(unsigned int i = 0; i < devicesCount; i++)
@@ -38,7 +28,7 @@ void DevicesManager::initialize(SettingsManager *sm)
         for(auto code : devicesCodes)
         {
             Device* device = new Device(code, sm);
-            m_devices.push_back(std::shared_ptr<Device>(device));
+            m_devices.push_back(QSharedPointer<Device>(device));
         }
     }
     catch(std::invalid_argument e)
@@ -187,7 +177,7 @@ byte DevicesManager::deviceMask(QString boardName, unsigned int portNumber, unsi
     return deviceMask;
 }
 
-std::vector<std::shared_ptr<Device> > &DevicesManager::devices()
+QList<QSharedPointer<Device> > &DevicesManager::devices()
 {
     return m_devices;
 }
@@ -197,7 +187,7 @@ DevicesBuffer DevicesManager::devicesBuffer() const
     return m_devicesBuffer;
 }
 
-void DevicesManager::updateDevices(const std::vector<std::shared_ptr<Device> > &value)
+void DevicesManager::updateDevices(const QList< QSharedPointer<Device> > &value)
 {
     m_devices = value;
 }

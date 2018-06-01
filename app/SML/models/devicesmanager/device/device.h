@@ -15,66 +15,65 @@ class Device
 protected:
 
     /// Код устройства для получения информации из файла настроек
-    QString code;
+    QString m_code;
 
     /// Имя устройства
-    QString name;
+    QString m_name;
 
     /// Имя платы, к которой подключено устройство
-    QString boardName;
+    QString m_boardName;
 
     /// Номер порта, к которому подключено устройство
-    unsigned int portNumber;
+    unsigned int m_portNumber;
 
     /// Номер выхода, к которому подключено устройство
-    unsigned int outputNumber;
+    unsigned int m_outputNumber;
 
     /// Активное состояние устройства (устройство включено)
-    bool activeState;
+    bool m_activeState;
 
     /// Текущее состояние устройства (true или false стоит на соответсвующем выходе)
-    bool currentState;
+    bool m_currentState;
 
     /// Требуется ли отображать устройство для пользователя в панели устройств
-    bool needToDisplay;
+    bool m_needToDisplay;
 
     /// Маска, включающее устройство
-    byte mask;
+    byte m_mask;
 
     /*!
      * \brief Настраивает устройство по менеджеру настроек
-     * \param settingsManager - указатель на менеджер настроек
+     * \param sm - менеджер настроек
      */
-    void setup(SettingsManager *sm);
+    void setup(const SettingsManager &sm);
 
 public:
     /*!
      * \brief Конструктор класса "Устрйоство"
-     * \param _code - код устройства
-     * \param _name - имя устройства
-     * \param _boardName - имя платы, к которой подключено устройство
-     * \param _portNumber - номер порта, к которому подключено устройство (по умолчанию 0)
-     * \param _outputNumber - номер выхода, к которому подключено устройство (по умолчанию 0)
-     * \param _activeState - активаное состояние устройства (по умолчанию false)
-     * \param _needToDisplay - нужно ли отображать устройство для пользователя на панели устройств (по умолчанию true)
-     * \param _mask - маска, включающая устройство (по умолчанию 0xff)
+     * \param code - код устройства
+     * \param name - имя устройства
+     * \param boardName - имя платы, к которой подключено устройство
+     * \param portNumber - номер порта, к которому подключено устройство (по умолчанию 0)
+     * \param outputNumber - номер выхода, к которому подключено устройство (по умолчанию 0)
+     * \param activeState - активаное состояние устройства (по умолчанию false)
+     * \param needToDisplay - нужно ли отображать устройство для пользователя на панели устройств (по умолчанию true)
+     * \param mask - маска, включающая устройство (по умолчанию 0xff)
      */
-    Device(QString _code,
-           QString _name,
-           QString _boardName,
-           unsigned int _portNumber = 0,
-           unsigned int _outputNumber = 0,
-           bool _activeState = false,
-           bool _needToDisplay = true,
-           byte _mask = 0xff);
+    Device(QString code,
+           QString name,
+           QString boardName,
+           unsigned int portNumber = 0,
+           unsigned int outputNumber = 0,
+           bool activeState = false,
+           bool needToDisplay = true,
+           byte mask = 0xff);
 
     /*!
      * \brief Конструктор класса "Устрйоство"
      * \param _code - код устройства
-     * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
+     * \param sm - менеджер настроек
      */
-    Device(QString _code,
-           SettingsManager *sm = nullptr);
+    Device(QString code, const SettingsManager &sm = SettingsManager());
 
     /*!
      * \brief Проверяет включено ли устройство
