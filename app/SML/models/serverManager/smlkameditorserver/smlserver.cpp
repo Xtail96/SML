@@ -81,7 +81,7 @@ void SMLServer::start()
         {
             if (m_debug)
             {
-                qDebug() << "Hello! SML KAMEditor Server is listening port" << m_port;
+                qDebug() << "Hello! SML Server is listening port" << m_port;
                 qDebug() << m_server->error();
                 qDebug() << m_server->errorString();
             }
