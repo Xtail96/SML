@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,22 +18,27 @@
     <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="leftMargin">
-    <number>5</number>
-   </property>
-   <property name="topMargin">
-    <number>5</number>
-   </property>
-   <property name="rightMargin">
-    <number>5</number>
-   </property>
-   <property name="bottomMargin">
-    <number>5</number>
-   </property>
    <item row="0" column="0">
     <widget class="Console" name="consolePlainTextEdit">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QPlainTextEdit" name="monitorPlainTextEdit">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

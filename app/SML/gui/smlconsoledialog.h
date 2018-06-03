@@ -24,9 +24,14 @@ private:
 
 protected slots:
     void sendCommang(QString cmd);
-    void handleCommand(QString cmd);
+    void onCommand(QString cmd);
     void printResult(QString result);
-    void handleMachineToolDisconnected(QString message);
+
+    void showMachineToolState(QString state);
+
+    void onU1Connected();
+    void onU1Disconnected();
+    void onU1StateChanged();
 };
 
 #endif // SMLCONSOLEDIALOG_H
