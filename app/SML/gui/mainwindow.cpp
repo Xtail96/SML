@@ -254,37 +254,41 @@ void MainWindow::updateU1Displays()
 
 void MainWindow::updateSensorsDisplay()
 {
-    QStringList sensorsNames = m_machineTool->getSensorsLabels();
-    QList<QColor> sensorsLeds = m_machineTool->getSensorsLeds();
+    QPair< QStringList, QList<QColor> > sensors;
+    sensors.first = m_machineTool->getSensorsLabels();
+    sensors.second = m_machineTool->getSensorsLeds();
 
     ui->sensorsTableWidget->clear();
-    ui->sensorsTableWidget->setRowCount(sensorsNames.size());
-    ui->sensorsTableWidget->setVerticalHeaderLabels(sensorsNames);
+    ui->sensorsTableWidget->setRowCount(sensors.first.size());
+    ui->sensorsTableWidget->setVerticalHeaderLabels(sensors.first);
     ui->sensorsTableWidget->setColumnCount(1);
 
-    for(int i = 0; i < ui->sensorsTableWidget->rowCount(); i++)
+    int size = qMin(sensors.first.size(), sensors.second.size());
+    for(int i = 0; i < size; i++)
     {
         ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
         QTableWidgetItem *item = new QTableWidgetItem();
-        item->setBackground(sensorsLeds[i]);
+        item->setBackground(sensors.second[i]);
         ui->sensorsTableWidget->setItem(i, 0, item);
     }
 }
 
 void MainWindow::updateDevicesPanel()
 {
-    QStringList onScreenDevicesNames = m_machineTool->getOnScreenDevicesNames();
-    QList<bool> onScreenDevicesStates = m_machineTool->getOnScreenDevicesStates();
+    QPair< QStringList, QList<bool> > devices;
+    devices.first = m_machineTool->getOnScreenDevicesNames();
+    devices.second = m_machineTool->getOnScreenDevicesStates();
 
     ui->devicesLedsListWidget->clear();
     ui->devicesButtonsListWidget->clear();
 
-    for(int i = 0; i < onScreenDevicesNames.size(); i++)
+    int size = qMin(devices.first.size(), devices.second.size());
+    for(int i = 0; i < size; i++)
     {
         QListWidgetItem* button = new QListWidgetItem();
         QListWidgetItem* led = new QListWidgetItem();
-        button->setText(onScreenDevicesNames[i]);
-        if(onScreenDevicesStates[i])
+        button->setText(devices.first[i]);
+        if(devices.second[i])
         {
             led->setBackgroundColor(SmlColors::red());
         }

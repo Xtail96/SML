@@ -142,7 +142,7 @@ private slots:
     void updateGCodesEditorWidget();
     void updateFilePath();
 
-    /// Слот для обновления статуса баировки станка
+    /// Слот для обновления статуса базировки станка
     void updateBaseStatus();
 
     /// Слот для обновления панели устройств
