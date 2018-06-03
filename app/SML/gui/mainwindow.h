@@ -87,7 +87,6 @@ private:
     Ui::MainWindow *ui;
 
     QScopedPointer<MachineTool> m_machineTool;
-    void setupMachineTool();
 
     /// Горячие клавиши кнопок для перемещения по осям станка
     std::vector<QShortcut*> m_axisesShortcuts;
@@ -104,6 +103,8 @@ private:
 private slots:
     /// Слоты для настройки виджетов
     void setupWidgets();
+
+    void setup();
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();

@@ -12,9 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
-    setupMachineTool();
-
-    // настройка виджетов
+    setup();
     setupWidgets();
 
     hideWidgets();
@@ -49,7 +47,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setupMachineTool()
+void MainWindow::setup()
 {
     connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -69,10 +67,7 @@ void MainWindow::setupMachineTool()
     connect(m_machineTool.data(), SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
     connect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
     connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
-}
 
-void MainWindow::setupWidgets()
-{
     // задаем горячие клавиши
     std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
         std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())),
@@ -100,16 +95,44 @@ void MainWindow::setupWidgets()
         m_axisesShortcuts.push_back(shortcut);
     }
 
-    // проводим настройку виджетов
+    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
 
 
+    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
+    {
+        connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
+        connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+    }
+    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+    updatePointsEditorButtons();
+
+    // настройка кнопок работы с файлами
+    connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
+    connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
+    connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
+    connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
+    connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
+
+    // настройка импорта и экспорта настроек
+    connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
+    connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
+
+}
+
+void MainWindow::setupWidgets()
+{
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
     // настройка контроля габаритов
-    connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
     updateEdgesControlStatus();
 
     // настройка дисплеев координат
@@ -132,35 +155,11 @@ void MainWindow::setupWidgets()
     m_hightlighter->setDocument(ui->gcodesEditorPlainTextEdit->document());
     m_hightlighter->setPattern();
 
-    // настройка импорта и экспорта настроек
-    connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
-    connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
-
     // настройка редактора точек
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
-    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
-    {
-        connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
-        connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
-        connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
-    }
-    connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
-    connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
-    connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
-    updatePointsEditorButtons();
-
-    // настройка кнопок работы с файлами
-    connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
-    connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
-    connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
-    connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
-    connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
-    connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
 }
 
 void MainWindow::updateSettingsBoards()

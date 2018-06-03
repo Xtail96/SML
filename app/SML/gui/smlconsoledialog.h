@@ -18,6 +18,7 @@ public:
     ~SMLConsoleDialog();
 protected:
     void setup();
+    void setupWidgets();
 private:
     Ui::SMLConsoleDialog *ui;
     MachineTool& m_machineTool;

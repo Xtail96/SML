@@ -8,6 +8,7 @@ SMLConsoleDialog::SMLConsoleDialog(MachineTool &machineTool, QWidget *parent) :
 {
     ui->setupUi(this);
     setup();
+    setupWidgets();
 }
 
 SMLConsoleDialog::~SMLConsoleDialog()
@@ -25,6 +26,14 @@ void SMLConsoleDialog::setup()
     connect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
     connect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     connect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+}
+
+void SMLConsoleDialog::setupWidgets()
+{
+    QPalette p = palette();
+    p.setColor(QPalette::Base, SmlColors::gray());
+    p.setColor(QPalette::Text, SmlColors::lightGreen());
+    ui->monitorPlainTextEdit->setPalette(p);
 }
 
 void SMLConsoleDialog::sendCommang(QString cmd)
