@@ -2,7 +2,7 @@
 
 DevicesManager::DevicesManager(const SettingsManager &sm)
 {
-    setup(sm);
+    initialize(sm);
 }
 
 DevicesManager::DevicesManager(const DevicesManager &object) :
@@ -12,7 +12,7 @@ DevicesManager::DevicesManager(const DevicesManager &object) :
 
 }
 
-void DevicesManager::setup(const SettingsManager &sm)
+void DevicesManager::initialize(const SettingsManager &sm)
 {
     try
     {

@@ -13,10 +13,7 @@ SMLConsoleDialog::SMLConsoleDialog(MachineTool &machineTool, QWidget *parent) :
 
 SMLConsoleDialog::~SMLConsoleDialog()
 {
-    disconnect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
-    disconnect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
-    disconnect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    disconnect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    reset();
     delete ui;
 }
 
@@ -26,6 +23,14 @@ void SMLConsoleDialog::setup()
     connect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
     connect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     connect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+}
+
+void SMLConsoleDialog::reset()
+{
+    disconnect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
+    disconnect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
+    disconnect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    disconnect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
 }
 
 void SMLConsoleDialog::setupWidgets()

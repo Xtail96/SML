@@ -297,7 +297,7 @@ protected:
      * \brief Инициализирует датчики по файлу настроек
      * \param sm - указатель на менеджер настроек
      */
-    void setup(const SettingsManager &sm);
+    void initialize(const SettingsManager &sm);
 
 public:
     /*!

@@ -2,7 +2,7 @@
 
 SensorsManager::SensorsManager(const SettingsManager &sm)
 {
-    setup(sm);
+    initialize(sm);
 }
 
 SensorsManager::SensorsManager(const SensorsManager &object) :
@@ -10,7 +10,7 @@ SensorsManager::SensorsManager(const SensorsManager &object) :
 {
 }
 
-void SensorsManager::setup(const SettingsManager &sm)
+void SensorsManager::initialize(const SettingsManager &sm)
 {
     try
     {

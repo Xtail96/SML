@@ -12,31 +12,26 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     QMainWindow::showMaximized();
 
+    m_shortcutsMap.push_back(std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
+    m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
+
     setup();
     setupWidgets();
-
-    hideWidgets();
-
-    updateAxisesBoard();
-    updateDevicesBoard();
-    updateSensorsBoard();
-
-    updatePointsEditorFields();
-    updateVelocityPanel();
-    updateSpindelRotationsPanel();
-    updateOptionsPanel();
-    updateDevicesPanel();
-    updateServerPanel();
-
-    updateU1Displays();
-    updateU2Displays();
-
-    onU1Disconnected();
-    onU2Disconnected();
 }
 
 MainWindow::~MainWindow()
 {
+    reset();
     // удаляем горячие клавиши
     while (m_axisesShortcuts.size() > 0)
     {
@@ -69,21 +64,7 @@ void MainWindow::setup()
     connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 
     // задаем горячие клавиши
-    std::vector<std::tuple <const char*, QPushButton*, const char*> > shortcutsMap = {
-        std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())),
-        std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())),
-        std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())),
-        std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())),
-        std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())),
-        std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())),
-        std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())),
-        std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())),
-        std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())),
-        std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())),
-        std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())),
-        std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())),
-    };
-    for (auto i = shortcutsMap.begin(); i != shortcutsMap.end(); i++)
+    for (auto i = m_shortcutsMap.begin(); i != m_shortcutsMap.end(); i++)
     {
         const char* shortcutKey = std::get<0>(*i);
         QPushButton* shortcutButton = std::get<1>(*i);
@@ -109,7 +90,6 @@ void MainWindow::setup()
     connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
     connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
-    updatePointsEditorButtons();
 
     // настройка кнопок работы с файлами
     connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
@@ -122,7 +102,55 @@ void MainWindow::setup()
     // настройка импорта и экспорта настроек
     connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
     connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
+}
 
+void MainWindow::reset()
+{
+    disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
+
+    disconnect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    disconnect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    disconnect(m_machineTool.data(), SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
+
+    disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
+    disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
+    disconnect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
+    disconnect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
+
+    disconnect(m_machineTool.data(), SIGNAL(machineToolErrorIsOccured(int)), this, SLOT(onMachineToolError(int)));
+
+    disconnect(m_machineTool.data(), SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
+    disconnect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
+    disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
+
+    disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+
+
+    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
+    {
+        disconnect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        disconnect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
+        disconnect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+    }
+    disconnect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
+    disconnect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
+    disconnect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
+    disconnect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+
+    // настройка кнопок работы с файлами
+    disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
+    disconnect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
+    disconnect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
+    disconnect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
+    disconnect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
+
+    // настройка импорта и экспорта настроек
+    disconnect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
+    disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 }
 
 void MainWindow::setupWidgets()
@@ -160,6 +188,27 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    hideWidgets();
+
+    updateAxisesBoard();
+    updateDevicesBoard();
+    updateSensorsBoard();
+
+    updatePointsEditorFields();
+    updatePointsEditorButtons();
+
+    updateVelocityPanel();
+    updateSpindelRotationsPanel();
+    updateOptionsPanel();
+    updateDevicesPanel();
+    updateServerPanel();
+
+    updateU1Displays();
+    updateU2Displays();
+
+    onU1Disconnected();
+    onU2Disconnected();
 }
 
 void MainWindow::updateSettingsBoards()

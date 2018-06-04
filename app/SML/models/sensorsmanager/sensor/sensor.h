@@ -40,10 +40,10 @@ protected:
     QColor m_color;
 
     /*!
-     * \brief Устанавливает параметры датчика
+     * \brief Инициализирует датчик с помощью менеджера настроек
      * \param sm - менеджер настроек
      */
-    void setup(const SettingsManager &sm);
+    void initialize(const SettingsManager &sm);
 public:
     /*!
      * \brief Конструктор класса "Датчик"

@@ -14,11 +14,12 @@ MachineTool::MachineTool(QObject *parent) :
     m_u2Connected(false)
 {
     setup();
+    startServer();
 }
 
 MachineTool::~MachineTool()
 {
-
+    reset();
 }
 
 void MachineTool::setup()
@@ -27,7 +28,14 @@ void MachineTool::setup()
     connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
-    startServer();
+}
+
+void MachineTool::reset()
+{
+    disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    disconnect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
 }
 
 void MachineTool::onU1Error(int errorCode)

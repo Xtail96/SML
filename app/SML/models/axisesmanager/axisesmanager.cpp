@@ -2,7 +2,7 @@
 
 AxisesManager::AxisesManager(const SettingsManager &settingsManager)
 {
-    setup(settingsManager);
+    initialize(settingsManager);
 }
 
 AxisesManager::~AxisesManager()
@@ -10,7 +10,7 @@ AxisesManager::~AxisesManager()
 
 }
 
-void AxisesManager::setup(const SettingsManager &settingsManager)
+void AxisesManager::initialize(const SettingsManager &settingsManager)
 {
     size_t axisesCount = 3;
     try

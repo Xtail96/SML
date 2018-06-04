@@ -34,7 +34,7 @@ protected:
     Point m_zeroCoordinates;
     Point m_parkCoordinates;
 
-    void setup(const SettingsManager &settingsManager);
+    void initialize(const SettingsManager &settingsManager);
 };
 
 #endif // AXISESMANAGER_H

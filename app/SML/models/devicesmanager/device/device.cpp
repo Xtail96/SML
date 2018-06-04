@@ -23,10 +23,10 @@ Device::Device(QString code,
 Device::Device(QString code, const SettingsManager &sm) :
     m_code(code)
 {
-    setup(sm);
+    initialize(sm);
 }
 
-void Device::setup(const SettingsManager &sm)
+void Device::initialize(const SettingsManager &sm)
 {
     try
     {
