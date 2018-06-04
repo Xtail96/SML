@@ -6,16 +6,7 @@ SMLServer::SMLServer(const SettingsManager &settingsManager, QObject *parent) :
     m_port(0),
     m_debug(false)
 {
-    try
-    {
-        m_port = settingsManager.get("ServerSettings", "ServerPort").toUInt();
-        m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
-
+    initialize(settingsManager);
     setup();
 }
 
@@ -66,6 +57,19 @@ SMLServer::~SMLServer()
     }
     qDeleteAll(m_unregistered.begin(), m_unregistered.end());
 
+}
+
+void SMLServer::initialize(const SettingsManager &settingsManager)
+{
+    try
+    {
+        m_port = settingsManager.get("ServerSettings", "ServerPort").toUInt();
+        m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
 
 void SMLServer::setup()

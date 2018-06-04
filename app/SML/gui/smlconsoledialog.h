@@ -18,6 +18,7 @@ public:
     ~SMLConsoleDialog();
 protected:
     void setup();
+    void reset();
     void setupWidgets();
 private:
     Ui::SMLConsoleDialog *ui;

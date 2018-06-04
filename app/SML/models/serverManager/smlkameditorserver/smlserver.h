@@ -45,6 +45,7 @@ public slots:
     size_t port() const;
 
 protected slots:
+    void initialize(const SettingsManager &settingsManager);
     void setup();
     void reset();
 

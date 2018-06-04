@@ -42,7 +42,7 @@ protected:
     byte m_mask;
 
     /*!
-     * \brief Настраивает устройство по менеджеру настроек
+     * \brief Инициализирует устройство с помощью менеджера настроек
      * \param sm - менеджер настроек
      */
     void initialize(const SettingsManager &sm);

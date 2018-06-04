@@ -102,10 +102,13 @@ private:
     void setMovementButtonsRepeatAutoRepeat(bool state);
 
 private slots:
-    /// Слоты для настройки виджетов
+    /// Слоты для начальной настройки виджетов
     void setupWidgets();
 
+    /// Подключает необходимые слоты к полям и сигналам
     void setup();
+
+    /// Отключает слоты от полей и сигналов
     void reset();
 
     /// Слоты для обновления дисплеев

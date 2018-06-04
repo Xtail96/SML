@@ -27,27 +27,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setup();
     setupWidgets();
-
-    hideWidgets();
-
-    updateAxisesBoard();
-    updateDevicesBoard();
-    updateSensorsBoard();
-
-    updatePointsEditorFields();
-    updatePointsEditorButtons();
-
-    updateVelocityPanel();
-    updateSpindelRotationsPanel();
-    updateOptionsPanel();
-    updateDevicesPanel();
-    updateServerPanel();
-
-    updateU1Displays();
-    updateU2Displays();
-
-    onU1Disconnected();
-    onU2Disconnected();
 }
 
 MainWindow::~MainWindow()
@@ -210,7 +189,26 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    hideWidgets();
 
+    updateAxisesBoard();
+    updateDevicesBoard();
+    updateSensorsBoard();
+
+    updatePointsEditorFields();
+    updatePointsEditorButtons();
+
+    updateVelocityPanel();
+    updateSpindelRotationsPanel();
+    updateOptionsPanel();
+    updateDevicesPanel();
+    updateServerPanel();
+
+    updateU1Displays();
+    updateU2Displays();
+
+    onU1Disconnected();
+    onU2Disconnected();
 }
 
 void MainWindow::updateSettingsBoards()
