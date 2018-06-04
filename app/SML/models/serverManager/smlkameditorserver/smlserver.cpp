@@ -6,12 +6,23 @@ SMLServer::SMLServer(const SettingsManager &settingsManager, QObject *parent) :
     m_port(0),
     m_debug(false)
 {
-    setup(settingsManager);
+    try
+    {
+        m_port = settingsManager.get("ServerSettings", "ServerPort").toUInt();
+        m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+
+    setup();
 }
 
 SMLServer::~SMLServer()
 {
     stop();
+    reset();
 
     for(auto socket : m_u1Connections)
     {
@@ -57,20 +68,16 @@ SMLServer::~SMLServer()
 
 }
 
-void SMLServer::setup(const SettingsManager &sm)
+void SMLServer::setup()
 {
     connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
     connect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
-    try
-    {
-        m_port = sm.get("ServerSettings", "ServerPort").toUInt();
-        m_debug = sm.get("ServerSettings", "DebugMode").toInt();
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+}
 
+void SMLServer::reset()
+{
+    disconnect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    disconnect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
 }
 
 void SMLServer::start()

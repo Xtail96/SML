@@ -45,7 +45,9 @@ public slots:
     size_t port() const;
 
 protected slots:
-    void setup(const SettingsManager &sm);
+    void setup();
+    void reset();
+
     void onServerClosed();
     void onNewConnection();
     void onTextMessage(QString message);

@@ -292,13 +292,6 @@ protected:
     QList< QSharedPointer<Sensor> > m_sensors;
 
     SensorsBuffer m_sensorsBuffer;
-
-    /*!
-     * \brief Инициализирует датчики по файлу настроек
-     * \param sm - указатель на менеджер настроек
-     */
-    void setup(const SettingsManager &sm);
-
 public:
     /*!
      * \brief Конструктор класса "Менеджер датчиков"

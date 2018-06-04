@@ -45,7 +45,7 @@ protected:
      * \brief Настраивает устройство по менеджеру настроек
      * \param sm - менеджер настроек
      */
-    void setup(const SettingsManager &sm);
+    void initialize(const SettingsManager &sm);
 
 public:
     /*!

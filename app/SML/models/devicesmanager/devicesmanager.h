@@ -121,7 +121,7 @@ protected:
      * \brief Инициализирует контейнер с устройствами
      * \param sm - менеджер настроек
      */
-    void setup(const SettingsManager &sm);
+    void initialize(const SettingsManager &sm);
 
 public:
     /*!

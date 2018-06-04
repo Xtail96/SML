@@ -89,7 +89,8 @@ private:
     QScopedPointer<MachineTool> m_machineTool;
 
     /// Горячие клавиши кнопок для перемещения по осям станка
-    std::vector<QShortcut*> m_axisesShortcuts;
+    QList< std::tuple<const char*, QPushButton*, const char*> > m_shortcutsMap;
+    QList<QShortcut*> m_axisesShortcuts;
 
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
@@ -105,6 +106,7 @@ private slots:
     void setupWidgets();
 
     void setup();
+    void reset();
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();

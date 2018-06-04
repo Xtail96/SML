@@ -43,7 +43,7 @@ protected:
      * \brief Устанавливает параметры датчика
      * \param sm - менеджер настроек
      */
-    void setup(const SettingsManager &sm);
+    void initialize(const SettingsManager &sm);
 public:
     /*!
      * \brief Конструктор класса "Датчик"

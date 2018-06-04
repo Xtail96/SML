@@ -23,10 +23,10 @@ Sensor::Sensor(QString _code,
 Sensor::Sensor(QString code, const SettingsManager &sm) :
     m_code(code)
 {
-    setup(sm);
+    initialize(sm);
 }
 
-void Sensor::setup(const SettingsManager &sm)
+void Sensor::initialize(const SettingsManager &sm)
 {
     try
     {
