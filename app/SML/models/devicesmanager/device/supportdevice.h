@@ -7,7 +7,6 @@ class SupportDevice : public Device
 {
 public:
     SupportDevice(QString code, const SettingsManager &sm = SettingsManager());
-
     QStringList getParams() override;
 };
 

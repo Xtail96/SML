@@ -134,12 +134,10 @@ void MachineTool::switchDevice(QString deviceName)
     {
         Device &device = m_devicesManager->findDevice(deviceName);
         qDebug() << "current state = " << device.getCurrentState();
-        byte mask = m_devicesManager->getDeviceSwitchMask(device, !device.getCurrentState());
+        //byte mask = m_devicesManager->getDeviceSwitchParams(device, !device.getCurrentState());
 
-        QStringList params;
-        params.push_back(QString("18000"));
-
-        m_serverManager->switchDevice(mask, ServerManager::Spindel, params);
+        QStringList params = m_devicesManager->getDeviceSwitchParams(device.getIndex().toUInt(), !device.getCurrentState());;
+        m_serverManager->switchDevice(ServerManager::Spindel, params);
     }
     catch(std::invalid_argument e)
     {

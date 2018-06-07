@@ -72,17 +72,25 @@ void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesSta
     }
 }
 
-void ServerManager::switchDevice(byte mask, ServerManager::DeviceType deviceType, QStringList params)
+void ServerManager::switchDevice(ServerManager::DeviceType deviceType, QStringList params)
 {
+    qDebug() << params;
+    if(params.size() <= 1)
+    {
+        return;
+    }
+
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
+    device["Index"] = params[0];
+    device["State"] = params[1];
 
     switch (deviceType) {
     case DeviceType::Spindel:
         device["Type"] = "Spindel";
-        if(params.size() > 0)
+        if(params.size() > 2)
         {
-            device["Rotations"] = params[0];
+            device["Rotations"] = params[2];
         }
         break;
     case DeviceType::Support:
@@ -91,8 +99,6 @@ void ServerManager::switchDevice(byte mask, ServerManager::DeviceType deviceType
     default:
         break;
     }
-
-    device["Mask"] = mask;
     u1Message["SwitchDevice"] = device;
 
 

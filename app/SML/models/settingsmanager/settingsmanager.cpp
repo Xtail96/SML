@@ -103,17 +103,15 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("MachineToolInformation");
-        settings->setValue("VendorId", 0x10c4);
-        settings->setValue("ProductId", 0xea61);
-        settings->setValue("Name", "semil");
-        //settings->setValue("ServerUrl", "ws://localhost:1234");
-        //settings->setValue("ServerLocation", "/Users/Xtail/Projects/SMLKAMEditorServer/build-KAMEditorServer-Desktop_Qt_5_9_0_clang_64bit-Release/KAMEditorServer");
+        //settings->setValue("VendorId", 0x10c4);
+        //settings->setValue("ProductId", 0xea61);
+        //settings->setValue("Name", "semil");
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);
         settings->setValue("SpindelsCount", 3);
         settings->setValue("SupportDevicesCount", 2);
         settings->setValue("SensorsBufferSize", 16);
-        settings->setValue("DevicesBufferSize", 1);
+        settings->setValue("DevicesBufferSize", 5);
     settings->endGroup();
 
     settings->beginGroup("ServerSettings");
@@ -285,31 +283,33 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Spindel0");
+        settings->setValue("Index", 0);
         settings->setValue("Label", "Фрезер");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 3);
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0xfe);
+        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 24000);
         settings->setValue("LowerBound", 2000);
     settings->endGroup();
 
     settings->beginGroup("Spindel1");
+        settings->setValue("Index", 1);
         settings->setValue("Label", "Фрезер 2");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 7);
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0xfd);
-        settings->setValue("Type", "SPINDEL");
+        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 12000);
         settings->setValue("LowerBound", 8000);
     settings->endGroup();
 
     settings->beginGroup("Spindel2");
+        settings->setValue("Index", 2);
         settings->setValue("Label", "Шпиндель R");
         settings->setValue("PortNumber", 0);
         settings->setValue("OutputNumber", 3);
@@ -317,29 +317,31 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0xfb);
+        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 2000);
         settings->setValue("LowerBound", 0);
     settings->endGroup();
 
     settings->beginGroup("SupportDevice0");
+        settings->setValue("Index", 3);
         settings->setValue("Label", "Муфта");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 5);
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0xef);
+        settings->setValue("Mask", 0x01);
     settings->endGroup();
 
     settings->beginGroup("SupportDevice1");
+        settings->setValue("Index", 4);
         settings->setValue("Label", "САС");
         settings->setValue("PortNumber", 2);
         settings->setValue("OutputNumber", 0);
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", false);
-        settings->setValue("Mask", 0xf7);
+        settings->setValue("Mask", 0x01);
     settings->endGroup();
 
     // применяем изменения
