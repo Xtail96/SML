@@ -134,8 +134,12 @@ void MachineTool::switchDevice(QString deviceName)
     {
         Device &device = m_devicesManager->findDevice(deviceName);
         qDebug() << "current state = " << device.getCurrentState();
-        byte_array data = m_devicesManager->switchDeviceData(device, !device.getCurrentState());
-        m_serverManager->switchDevice(data);
+        byte mask = m_devicesManager->getDeviceSwitchMask(device, !device.getCurrentState());
+
+        QStringList params;
+        params.push_back(QString("18000"));
+
+        m_serverManager->switchDevice(mask, ServerManager::Spindel, params);
     }
     catch(std::invalid_argument e)
     {
@@ -295,17 +299,17 @@ QList<QColor> MachineTool::getSensorsLeds()
 
 QStringList MachineTool::getDevicesNames()
 {
-    return m_devicesManager->devicesNames();
+    return m_devicesManager->getAllDevicesNames();
 }
 
 QStringList MachineTool::getDevicesParametrsNames()
 {
-    return m_devicesManager->devicesParametrsNames();
+    return m_devicesManager->getDevicesParametrsNames();
 }
 
 QList<QStringList> MachineTool::getDevicesSettings()
 {
-    return m_devicesManager->devicesSettings();
+    return m_devicesManager->getDevicesSettings();
 }
 
 QStringList MachineTool::getOnScreenDevicesNames()

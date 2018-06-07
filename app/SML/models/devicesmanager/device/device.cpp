@@ -26,6 +26,11 @@ Device::Device(QString code, const SettingsManager &sm) :
     initialize(sm);
 }
 
+Device::~Device()
+{
+
+}
+
 void Device::initialize(const SettingsManager &sm)
 {
     try

@@ -106,7 +106,9 @@ SOURCES += main.cpp\
     options/kabriolwindow.cpp \
     models/serverManager/servermanager.cpp \
     models/filesmanager/gcodesfilesmanager/filesreader.cpp \
-    models/serverManager/smlkameditorserver/smlserver.cpp
+    models/serverManager/smlkameditorserver/smlserver.cpp \
+    models/devicesmanager/device/spindel.cpp \
+    models/devicesmanager/device/supportdevice.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -165,7 +167,9 @@ HEADERS  += gui/mainwindow.h \
     options/kabriolwindow.h \
     models/serverManager/servermanager.h \
     models/filesmanager/gcodesfilesmanager/filesreader.h \
-    models/serverManager/smlkameditorserver/smlserver.h
+    models/serverManager/smlkameditorserver/smlserver.h \
+    models/devicesmanager/device/spindel.h \
+    models/devicesmanager/device/supportdevice.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

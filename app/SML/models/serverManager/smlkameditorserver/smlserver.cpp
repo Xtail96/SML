@@ -64,7 +64,7 @@ void SMLServer::initialize(const SettingsManager &settingsManager)
     try
     {
         m_port = settingsManager.get("ServerSettings", "ServerPort").toUInt();
-        m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
+        //m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
     }
     catch(std::invalid_argument e)
     {
@@ -189,15 +189,11 @@ void SMLServer::onBinaryMessage(QByteArray message)
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (pSender)
     {
-        if (m_debug)
+        if(m_debug)
         {
             qDebug() << "Binary Message received:" << message;
         }
         emit byteMessageReceived(message);
-        if (m_debug)
-        {
-            qDebug() << "Binary Message received:" << message;
-        }
     }
 }
 

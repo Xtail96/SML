@@ -3,7 +3,8 @@
 #include <vector>
 #include <memory>
 
-#include "models/devicesmanager/device/device.h"
+#include "models/devicesmanager/device/spindel.h"
+#include "models/devicesmanager/device/supportdevice.h"
 
 /*!
  * \brief Структура Буфер устройств
@@ -96,14 +97,8 @@ public:
 class DevicesManager
 {
 protected:
-    /*!
-     * \brief Идентификатор установки устройств
-     * Id для контроллера, сообщающий, что в последующая команда будет на включение/выключение устройств
-     */
-    const unsigned char SET_DEVICES = 16;
-
-    /// Вектор умных указателей на устройства
-    QList< QSharedPointer<Device> > m_devices;
+    QList< QSharedPointer<Device> > m_spindels;
+    QList< QSharedPointer<Device> > m_supportDevices;
 
     /// Буфер устройств
     DevicesBuffer m_devicesBuffer;
@@ -142,29 +137,15 @@ public:
      */
     QList<QSharedPointer<Device> >& devices();
 
-    /*!
-     * \brief Возвращает буфер устройств
-     * \return буфер устройств
-     */
-    DevicesBuffer devicesBuffer() const;
-
-    /*!
-     * \brief Обновляет контейнер устройств
-     * \param value - константная ссылка на новый контейнер с устройствами
-     */
-    void updateDevices(const QList<QSharedPointer<Device> > &value);
-
     void updateDevices(const byte_array devicesState);
 
     /*!
      * \brief Формирует посылку, которую нужно послать контроллеру для включения/отключения нужного устройства
      * \param device - устройство, которое необходимо включить/выключить
-     * \param onOff - true, включить устройство, false -выключить устрой ство
-     * \param firstAgrument - 1 аргумент для включения/выключения устройства (по умолчанию 0x00)
-     * \param secondArgument - 2 аргумент для включения/выключения устройства (по умолчанию 0x00)
+     * \param onOff - true, включить устройство, false -выключить устройство
      * \return послыка для контроллера включающая/отключающая устройство device с аргументами firstArgument и secondArgument
      */
-    byte_array switchDeviceData(const Device &device, bool onOff, byte firstAgrument = 0x00, byte secondArgument = 0x00);
+    byte getDeviceSwitchMask(const Device &device, bool onOff);
 
     /*!
      * \brief Производит поиск устройства в списке устройств
@@ -178,19 +159,19 @@ public:
      * \brief Возвращает названия всех устройств для вывода в интерфейс
      * \return названия всех устройств в формате списка QStringList
      */
-    QStringList devicesNames();
+    QStringList getAllDevicesNames();
 
     /*!
      * \brief Возвращает названия параметров устройств для вывода в интерфейс
      * \return названия параметров устройств в формате списка QStringList
      */
-    QStringList devicesParametrsNames();
+    QStringList getDevicesParametrsNames();
 
     /*!
      * \brief Возвращает настройки всех устройств для вывода в интерфейс
      * \return настройки устройств в формате QList<QStringList>
      */
-    QList<QStringList> devicesSettings();
+    QList<QStringList> getDevicesSettings();
 
     /*!
      * \brief Возвращает названия устройств, которые необходимо отображать в Наладке

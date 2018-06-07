@@ -110,7 +110,8 @@ void SettingsManager::generateDefaultSettings()
         //settings->setValue("ServerLocation", "/Users/Xtail/Projects/SMLKAMEditorServer/build-KAMEditorServer-Desktop_Qt_5_9_0_clang_64bit-Release/KAMEditorServer");
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);
-        settings->setValue("DevicesCount", 5);
+        settings->setValue("SpindelsCount", 3);
+        settings->setValue("SupportDevicesCount", 2);
         settings->setValue("SensorsBufferSize", 16);
         settings->setValue("DevicesBufferSize", 1);
     settings->endGroup();
@@ -283,7 +284,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Color", "#b22222");
     settings->endGroup();
 
-    settings->beginGroup("Device0");
+    settings->beginGroup("Spindel0");
         settings->setValue("Label", "Фрезер");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 3);
@@ -291,9 +292,11 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
         settings->setValue("Mask", 0xfe);
+        settings->setValue("UpperBound", 24000);
+        settings->setValue("LowerBound", 2000);
     settings->endGroup();
 
-    settings->beginGroup("Device1");
+    settings->beginGroup("Spindel1");
         settings->setValue("Label", "Фрезер 2");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 7);
@@ -301,9 +304,12 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
         settings->setValue("Mask", 0xfd);
+        settings->setValue("Type", "SPINDEL");
+        settings->setValue("UpperBound", 12000);
+        settings->setValue("LowerBound", 8000);
     settings->endGroup();
 
-    settings->beginGroup("Device2");
+    settings->beginGroup("Spindel2");
         settings->setValue("Label", "Шпиндель R");
         settings->setValue("PortNumber", 0);
         settings->setValue("OutputNumber", 3);
@@ -312,9 +318,11 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
         settings->setValue("Mask", 0xfb);
+        settings->setValue("UpperBound", 2000);
+        settings->setValue("LowerBound", 0);
     settings->endGroup();
 
-    settings->beginGroup("Device3");
+    settings->beginGroup("SupportDevice0");
         settings->setValue("Label", "Муфта");
         settings->setValue("PortNumber", 1);
         settings->setValue("OutputNumber", 5);
@@ -324,7 +332,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Mask", 0xef);
     settings->endGroup();
 
-    settings->beginGroup("Device4");
+    settings->beginGroup("SupportDevice1");
         settings->setValue("Label", "САС");
         settings->setValue("PortNumber", 2);
         settings->setValue("OutputNumber", 0);
@@ -332,10 +340,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", false);
         settings->setValue("Mask", 0xf7);
-    settings->endGroup();
-
-    settings->beginGroup("Visualisation");
-        settings->setValue("GridMaximalAccuracy", 0.01);
     settings->endGroup();
 
     // применяем изменения

@@ -6,7 +6,8 @@ DevicesManager::DevicesManager(const SettingsManager &sm)
 }
 
 DevicesManager::DevicesManager(const DevicesManager &object) :
-    m_devices(object.m_devices),
+    m_spindels(object.m_spindels),
+    m_supportDevices(object.m_supportDevices),
     m_devicesBuffer(object.m_devicesBuffer)
 {
 
@@ -16,19 +17,21 @@ void DevicesManager::initialize(const SettingsManager &sm)
 {
     try
     {
-        unsigned int devicesCount = QVariant(sm.get("MachineToolInformation", "DevicesCount")).toUInt();
+        unsigned int spindelsCount = QVariant(sm.get("MachineToolInformation", "SpindelsCount")).toUInt();
+        unsigned int supportDevicesCount = QVariant(sm.get("MachineToolInformation", "SupportDevicesCount")).toUInt();
 
-        std::vector<QString> devicesCodes;
-        for(unsigned int i = 0; i < devicesCount; i++)
+        for(unsigned int i = 0; i < spindelsCount; i++)
         {
-            QString deviceString = QString("Device") + QString::number(i);
-            devicesCodes.push_back(deviceString);
+            QString spindelCode = QString("Spindel") + QString::number(i);
+            Device* spindel = new Spindel(spindelCode, sm);
+            m_spindels.push_back(QSharedPointer<Device> (spindel));
         }
 
-        for(auto code : devicesCodes)
+        for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
-            Device* device = new Device(code, sm);
-            m_devices.push_back(QSharedPointer<Device>(device));
+            QString supportDeviceCode = QString("SupportDevice") + QString::number(i);
+            Device* device = new SupportDevice(supportDeviceCode, sm);
+            m_supportDevices.push_back(QSharedPointer<Device> (device));
         }
     }
     catch(std::invalid_argument e)
@@ -39,7 +42,9 @@ void DevicesManager::initialize(const SettingsManager &sm)
 
 Device &DevicesManager::findDevice(QString deviceName)
 {
-    for(auto it : m_devices)
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
+
+    for(auto it : allDevices)
     {
         if(it->getName() == deviceName)
         {
@@ -50,17 +55,18 @@ Device &DevicesManager::findDevice(QString deviceName)
     throw std::invalid_argument(errorString);
 }
 
-QStringList DevicesManager::devicesNames()
+QStringList DevicesManager::getAllDevicesNames()
 {
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QStringList names;
-    for(auto device : m_devices)
+    for(auto device : allDevices)
     {
         names.push_back(device->getName());
     }
     return names;
 }
 
-QStringList DevicesManager::devicesParametrsNames()
+QStringList DevicesManager::getDevicesParametrsNames()
 {
     QStringList parametrsNames =
     {
@@ -73,10 +79,11 @@ QStringList DevicesManager::devicesParametrsNames()
     return parametrsNames;
 }
 
-QList<QStringList> DevicesManager::devicesSettings()
+QList<QStringList> DevicesManager::getDevicesSettings()
 {
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QList<QStringList> devicesSettings;
-    for(auto device : m_devices)
+    for(auto device : allDevices)
     {
         QStringList deviceSettings =
         {
@@ -93,8 +100,9 @@ QList<QStringList> DevicesManager::devicesSettings()
 
 QStringList DevicesManager::onScreenDevicesNames()
 {
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QStringList names;
-    for(auto device : m_devices)
+    for(auto device : allDevices)
     {
         if(device->getNeedToDisplay())
         {
@@ -106,8 +114,9 @@ QStringList DevicesManager::onScreenDevicesNames()
 
 QList<bool> DevicesManager::onScreenDevicesStates()
 {
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QList<bool> devicesStates;
-    for(auto device : m_devices)
+    for(auto device : allDevices)
     {
         if(device->getNeedToDisplay())
         {
@@ -117,19 +126,10 @@ QList<bool> DevicesManager::onScreenDevicesStates()
     return devicesStates;
 }
 
-byte_array DevicesManager::switchDeviceData(const Device &device, bool onOff, byte firstAgrument, byte secondArgument)
+byte DevicesManager::getDeviceSwitchMask(const Device &device, bool onOff)
 {
-    //byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
     byte deviceMask = device.getMask();
-    byte devicesMask = m_devicesBuffer.getDevicesMask(deviceMask, onOff);
-    byte_array data =
-    {
-        SET_DEVICES,
-        devicesMask,
-        firstAgrument,
-        secondArgument
-    };
-    return data;
+    return m_devicesBuffer.getDevicesMask(deviceMask, onOff);
 }
 
 byte DevicesManager::deviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber)
@@ -179,23 +179,15 @@ byte DevicesManager::deviceMask(QString boardName, unsigned int portNumber, unsi
 
 QList<QSharedPointer<Device> > &DevicesManager::devices()
 {
-    return m_devices;
-}
-
-DevicesBuffer DevicesManager::devicesBuffer() const
-{
-    return m_devicesBuffer;
-}
-
-void DevicesManager::updateDevices(const QList< QSharedPointer<Device> > &value)
-{
-    m_devices = value;
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
+    return allDevices;
 }
 
 void DevicesManager::updateDevices(const byte_array devicesState)
 {
+    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     m_devicesBuffer.setDevicesState(devicesState[0]);
-    for(auto device : m_devices)
+    for(auto device : allDevices)
     {
         bool enable = m_devicesBuffer.getDeviceState(device->getMask());
         bool deviceState;

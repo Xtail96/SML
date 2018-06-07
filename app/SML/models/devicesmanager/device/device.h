@@ -12,41 +12,6 @@
  */
 class Device
 {
-protected:
-
-    /// Код устройства для получения информации из файла настроек
-    QString m_code;
-
-    /// Имя устройства
-    QString m_name;
-
-    /// Имя платы, к которой подключено устройство
-    QString m_boardName;
-
-    /// Номер порта, к которому подключено устройство
-    unsigned int m_portNumber;
-
-    /// Номер выхода, к которому подключено устройство
-    unsigned int m_outputNumber;
-
-    /// Активное состояние устройства (устройство включено)
-    bool m_activeState;
-
-    /// Текущее состояние устройства (true или false стоит на соответсвующем выходе)
-    bool m_currentState;
-
-    /// Требуется ли отображать устройство для пользователя в панели устройств
-    bool m_needToDisplay;
-
-    /// Маска, включающее устройство
-    byte m_mask;
-
-    /*!
-     * \brief Инициализирует устройство с помощью менеджера настроек
-     * \param sm - менеджер настроек
-     */
-    void initialize(const SettingsManager &sm);
-
 public:
     /*!
      * \brief Конструктор класса "Устрйоство"
@@ -74,6 +39,8 @@ public:
      * \param sm - менеджер настроек
      */
     Device(QString code, const SettingsManager &sm = SettingsManager());
+
+    virtual ~Device();
 
     /*!
      * \brief Проверяет включено ли устройство
@@ -182,6 +149,43 @@ public:
      * \return код устройства в формате строки (QString)
      */
     QString getCode() const;
+
+    virtual QStringList getParams() = 0;
+
+protected:
+
+    /// Код устройства для получения информации из файла настроек
+    QString m_code;
+
+    /// Имя устройства
+    QString m_name;
+
+    /// Имя платы, к которой подключено устройство
+    QString m_boardName;
+
+    /// Номер порта, к которому подключено устройство
+    unsigned int m_portNumber;
+
+    /// Номер выхода, к которому подключено устройство
+    unsigned int m_outputNumber;
+
+    /// Активное состояние устройства (устройство включено)
+    bool m_activeState;
+
+    /// Текущее состояние устройства (true или false стоит на соответсвующем выходе)
+    bool m_currentState;
+
+    /// Требуется ли отображать устройство для пользователя в панели устройств
+    bool m_needToDisplay;
+
+    /// Маска, включающее устройство
+    byte m_mask;
+
+    /*!
+     * \brief Инициализирует устройство с помощью менеджера настроек
+     * \param sm - менеджер настроек
+     */
+    void initialize(const SettingsManager &sm);
 };
 
 #endif // DEVICE_H
