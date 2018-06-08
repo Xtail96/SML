@@ -3,7 +3,7 @@
 Axis::Axis(QString name, const SettingsManager &settingsManager) :
     m_name(name)
 {
-    setup(settingsManager);
+    initialize(settingsManager);
 }
 
 Axis::~Axis()
@@ -11,7 +11,7 @@ Axis::~Axis()
 
 }
 
-void Axis::setup(const SettingsManager &settingsManager)
+void Axis::initialize(const SettingsManager &settingsManager)
 {
     m_currentPosition = 0.0;
     m_softLimitsEnable = false;

@@ -13,29 +13,29 @@ MachineTool::MachineTool(QObject *parent) :
     m_u1Connected(false),
     m_u2Connected(false)
 {
-    setup();
+    setupConnections();
     startServer();
 }
 
 MachineTool::~MachineTool()
 {
-    reset();
+    resetConnections();
 }
 
-void MachineTool::setup()
+void MachineTool::setupConnections()
 {
-    connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
-    connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
+    QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    QObject::connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
 }
 
-void MachineTool::reset()
+void MachineTool::resetConnections()
 {
-    disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
-    disconnect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
+    QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
+    QObject::disconnect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
 }
 
 void MachineTool::onU1Error(int errorCode)
@@ -112,6 +112,11 @@ QString MachineTool::getDevicesBufferSize()
     return QString::number(m_serverManager->getDevicesBufferSize());
 }
 
+QList<Spindel> MachineTool::getSpindels()
+{
+    return m_devicesManager->getSpindels();
+}
+
 void MachineTool::handleMachineToolErrors(int errorCode)
 {
     // обрабатываем ошибки и испускаем сигнал об их наступлении
@@ -128,14 +133,27 @@ void MachineTool::stopServer()
     m_serverManager->stopServer();
 }
 
-void MachineTool::switchDevice(QString deviceName)
+void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)
 {
     try
     {
-        Device &device = m_devicesManager->findDevice(deviceName);
-        qDebug() << "current state = " << device.getCurrentState();
-        byte_array data = m_devicesManager->switchDeviceData(device, !device.getCurrentState());
-        m_serverManager->switchDevice(data);
+        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
+        m_devicesManager->setSpindelRotations(spindel.getName(), rotations);
+        QStringList params = m_devicesManager->getSwitchSpindelParams(spindel.getName());
+        m_serverManager->switchDeviceOn(ServerManager::Spindel, spindel.getIndex(), params);
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+void MachineTool::switchSpindelOff(QString spindelName)
+{
+    try
+    {
+        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
+        m_serverManager->switchDeviceOff(ServerManager::Spindel, spindel.getIndex());
     }
     catch(std::invalid_argument e)
     {
@@ -295,17 +313,17 @@ QList<QColor> MachineTool::getSensorsLeds()
 
 QStringList MachineTool::getDevicesNames()
 {
-    return m_devicesManager->devicesNames();
+    return m_devicesManager->getAllDevicesNames();
 }
 
 QStringList MachineTool::getDevicesParametrsNames()
 {
-    return m_devicesManager->devicesParametrsNames();
+    return m_devicesManager->getDevicesParametrsNames();
 }
 
 QList<QStringList> MachineTool::getDevicesSettings()
 {
-    return m_devicesManager->devicesSettings();
+    return m_devicesManager->getDevicesSettings();
 }
 
 QStringList MachineTool::getOnScreenDevicesNames()

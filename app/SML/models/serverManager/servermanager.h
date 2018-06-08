@@ -87,11 +87,13 @@ public:
     explicit ServerManager(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
     ~ServerManager();
 
+    enum DeviceType {Spindel, Support};
+
 protected:
     QScopedPointer<SMLServer> m_server;
     U1State m_u1CurrentState;
-    void setup();
-    void reset();
+    void setupConnections();
+    void resetConnections();
 
     void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError);
     void updateU1State(byte_array sensorsState, byte_array devicesState, int lastError);
@@ -106,7 +108,10 @@ signals:
     void u1ErrorIsOccured(int errorCode);
 
 public slots:
-    void switchDevice(byte_array data);
+    void switchDeviceOn(ServerManager::DeviceType deviceType, QString index, QStringList params);
+    void switchDeviceOff(ServerManager::DeviceType deviceType, QString index);
+
+    void switchDeviceOn(byte_array data);
     byte_array getSensorsState();
     byte_array getDevicesState();
     void startServer();

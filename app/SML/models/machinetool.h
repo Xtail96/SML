@@ -73,10 +73,10 @@ protected:
     size_t rotations = 2000;
 
     /// Подключает нужные слоты к полям и сигналам класса
-    void setup();
+    void setupConnections();
 
     /// Отключает слоты от полей и сигналов класса
-    void reset();
+    void resetConnections();
 
 signals:
     /// Сигнал подключения адаптера контроллера датчиков и устройств
@@ -120,7 +120,8 @@ public slots:
     void stopServer();
 
     /// Включает устройство
-    void switchDevice(QString deviceName);
+    void switchSpindelOn(QString spindelName, size_t rotations);
+    void switchSpindelOff(QString spindelName);
 
     /// Обновляет значение скорости пермещения
     void updateVelocity(int value);
@@ -249,6 +250,8 @@ public slots:
 
     /// Возвращает размер буфера устройств
     QString getDevicesBufferSize();
+
+    QList<Spindel> getSpindels();
 
 protected slots:
 

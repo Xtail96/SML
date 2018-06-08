@@ -15,30 +15,30 @@ ServerManager::ServerManager(const SettingsManager &settingsManager, QObject *pa
         QMessageBox(QMessageBox::Warning, "Settings Error", e.what()).exec();
     }
 
-    setup();
+    setupConnections();
 }
 
 ServerManager::~ServerManager()
 {
-    reset();
+    resetConnections();
 }
 
-void ServerManager::setup()
+void ServerManager::setupConnections()
 {
-    connect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    QObject::connect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
+    QObject::connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    QObject::connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
-void ServerManager::reset()
+void ServerManager::resetConnections()
 {
-    disconnect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    disconnect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    disconnect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    QObject::disconnect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
+    QObject::disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
 void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError)
@@ -72,7 +72,70 @@ void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesSta
     }
 }
 
-void ServerManager::switchDevice(byte_array data)
+void ServerManager::switchDeviceOn(ServerManager::DeviceType deviceType, QString index, QStringList params)
+{
+    QtJson::JsonObject generalMessage;
+    QtJson::JsonObject u1Message;
+    QtJson::JsonObject device;
+    device["Index"] = index;
+    device["Target"] = "On";
+
+    switch (deviceType) {
+    case DeviceType::Spindel:
+        device["Type"] = "Spindel";
+        if(params.size() > 0)
+        {
+            device["Rotations"] = params[0];
+        }
+        break;
+    case DeviceType::Support:
+        device["Type"] = "Support";
+        break;
+    default:
+        break;
+    }
+    u1Message["SwitchDevice"] = device;
+    generalMessage["MessageToU1"] = u1Message;
+
+    bool ok = false;
+    QByteArray message = QtJson::serialize(generalMessage, ok);
+    qDebug() << "Try to switch on device =" << message;
+    if(ok)
+    {
+        m_server->sendMessageToU1(message);
+    }
+}
+
+void ServerManager::switchDeviceOff(DeviceType deviceType, QString index)
+{
+    QtJson::JsonObject generalMessage;
+    QtJson::JsonObject u1Message;
+    QtJson::JsonObject device;
+    device["Index"] = index;
+    device["Target"] = "Off";
+    switch (deviceType) {
+    case DeviceType::Spindel:
+        device["Type"] = "Spindel";
+        break;
+    case DeviceType::Support:
+        device["Type"] = "Support";
+        break;
+    default:
+        break;
+    }
+    u1Message["SwitchDevice"] = device;
+    generalMessage["MessageToU1"] = u1Message;
+
+    bool ok = false;
+    QByteArray message = QtJson::serialize(generalMessage, ok);
+    qDebug() << "Try to switch off device =" << message;
+    if(ok)
+    {
+        m_server->sendMessageToU1(message);
+    }
+}
+
+void ServerManager::switchDeviceOn(byte_array data)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;

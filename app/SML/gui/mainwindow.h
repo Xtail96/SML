@@ -70,6 +70,7 @@
 
 #include "gui/candlevisualizerdialog.h"
 #include "gui/smlconsoledialog.h"
+#include "gui/widgets/spindelcontrolwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -103,13 +104,15 @@ private:
 
 private slots:
     /// Слоты для начальной настройки виджетов
-    void setupWidgets();
+    void initializeWidgets();
+    void initializeSpindelsControlPanel();
+    void updateSpindelsControlPanel();
 
     /// Подключает необходимые слоты к полям и сигналам
-    void setup();
+    void setupConnections();
 
     /// Отключает слоты от полей и сигналов
-    void reset();
+    void resetConnections();
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();
@@ -225,7 +228,7 @@ private slots:
     void on_savesettings_action_triggered();
     //void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     //void on_commandsToolsListWidget_clicked(const QModelIndex &index);
-    void on_devicesButtonsListWidget_clicked(const QModelIndex &index);
+    //void on_devicesButtonsListWidget_clicked(const QModelIndex &index);
     void on_add_action_triggered();
     void on_create_action_triggered();
     void on_save_action_triggered();

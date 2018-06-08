@@ -6,7 +6,8 @@ DevicesManager::DevicesManager(const SettingsManager &sm)
 }
 
 DevicesManager::DevicesManager(const DevicesManager &object) :
-    m_devices(object.m_devices),
+    m_spindels(object.m_spindels),
+    m_supportDevices(object.m_supportDevices),
     m_devicesBuffer(object.m_devicesBuffer)
 {
 
@@ -16,19 +17,21 @@ void DevicesManager::initialize(const SettingsManager &sm)
 {
     try
     {
-        unsigned int devicesCount = QVariant(sm.get("MachineToolInformation", "DevicesCount")).toUInt();
+        unsigned int spindelsCount = QVariant(sm.get("MachineToolInformation", "SpindelsCount")).toUInt();
+        unsigned int supportDevicesCount = QVariant(sm.get("MachineToolInformation", "SupportDevicesCount")).toUInt();
 
-        std::vector<QString> devicesCodes;
-        for(unsigned int i = 0; i < devicesCount; i++)
+        for(unsigned int i = 0; i < spindelsCount; i++)
         {
-            QString deviceString = QString("Device") + QString::number(i);
-            devicesCodes.push_back(deviceString);
+            QString spindelCode = QString("Spindel") + QString::number(i);
+            Spindel* spindel = new Spindel(spindelCode, sm);
+            m_spindels.push_back(QSharedPointer<Spindel> (spindel));
         }
 
-        for(auto code : devicesCodes)
+        for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
-            Device* device = new Device(code, sm);
-            m_devices.push_back(QSharedPointer<Device>(device));
+            QString supportDeviceCode = QString("SupportDevice") + QString::number(i);
+            SupportDevice* device = new SupportDevice(supportDeviceCode, sm);
+            m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
         }
     }
     catch(std::invalid_argument e)
@@ -37,52 +40,69 @@ void DevicesManager::initialize(const SettingsManager &sm)
     }
 }
 
-Device &DevicesManager::findDevice(QString deviceName)
+Device &DevicesManager::findDevice(size_t index)
 {
-    for(auto it : m_devices)
+    for(auto device : m_spindels)
     {
-        if(it->getName() == deviceName)
+        if(device->getIndex().toUInt() == index)
         {
-            return *it;
+            return *device;
         }
     }
+
+    for(auto device : m_supportDevices)
+    {
+        if(device->getIndex().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
     std::string errorString = "device not found";
     throw std::invalid_argument(errorString);
 }
 
-QStringList DevicesManager::devicesNames()
+QStringList DevicesManager::getAllDevicesNames()
 {
     QStringList names;
-    for(auto device : m_devices)
+    for(auto device : m_spindels)
     {
-        names.push_back(device->getName());
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
+    {
+        names.push_back(device->getLabel());
     }
     return names;
 }
 
-QStringList DevicesManager::devicesParametrsNames()
+QStringList DevicesManager::getDevicesParametrsNames()
 {
     QStringList parametrsNames =
     {
-        "Имя платы",
-        "Номер порта",
-        "Номер выхода",
         "Активное состояние",
         "Маска",
     };
     return parametrsNames;
 }
 
-QList<QStringList> DevicesManager::devicesSettings()
+QList<QStringList> DevicesManager::getDevicesSettings()
 {
     QList<QStringList> devicesSettings;
-    for(auto device : m_devices)
+    for(auto device : m_spindels)
     {
         QStringList deviceSettings =
         {
-            device->getBoardName(),
-            QString::number(device->getPortNumber()),
-            QString::number(device->getOutputNumber()),
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+
+    for(auto device : m_supportDevices)
+    {
+        QStringList deviceSettings =
+        {
             QString::number(device->getActiveState()),
             QString::number(device->getMask(), 2)
         };
@@ -94,12 +114,13 @@ QList<QStringList> DevicesManager::devicesSettings()
 QStringList DevicesManager::onScreenDevicesNames()
 {
     QStringList names;
-    for(auto device : m_devices)
+    for(auto device : m_spindels)
     {
-        if(device->getNeedToDisplay())
-        {
-            names.push_back(device->getName());
-        }
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
+    {
+        names.push_back(device->getLabel());
     }
     return names;
 }
@@ -107,95 +128,121 @@ QStringList DevicesManager::onScreenDevicesNames()
 QList<bool> DevicesManager::onScreenDevicesStates()
 {
     QList<bool> devicesStates;
-    for(auto device : m_devices)
+    for(auto device : m_spindels)
     {
-        if(device->getNeedToDisplay())
-        {
-            devicesStates.push_back(device->isEnable());
-        }
+        devicesStates.push_back(device->isEnable());
+    }
+    for(auto device : m_supportDevices)
+    {
+        devicesStates.push_back(device->isEnable());
     }
     return devicesStates;
 }
 
-byte_array DevicesManager::switchDeviceData(const Device &device, bool onOff, byte firstAgrument, byte secondArgument)
+QList<Spindel> DevicesManager::getSpindels()
 {
-    //byte deviceMask = getDeviceMask(device.getBoardName(), device.getPortNumber(), device.getOutputNumber());
-    byte deviceMask = device.getMask();
-    byte devicesMask = m_devicesBuffer.getDevicesMask(deviceMask, onOff);
-    byte_array data =
+    QList<Spindel> spindels;
+    for(auto spindel : m_spindels)
     {
-        SET_DEVICES,
-        devicesMask,
-        firstAgrument,
-        secondArgument
-    };
-    return data;
+        spindels.push_back(*(spindel.data()));
+    }
+    return spindels;
 }
 
-byte DevicesManager::deviceMask(QString boardName, unsigned int portNumber, unsigned int outputNumber)
+Spindel &DevicesManager::findSpindel(QString name)
 {
-    byte deviceMask = 0xff;
-    if(boardName == "u1")
+    for(auto spindel : m_spindels)
     {
-        switch(portNumber){
-        case 0:
-            switch (outputNumber) {
-            case 3:
-                deviceMask = 0xfb;
-                break;
-            default:
-                break;
-            }
-            break;
-        case 1:
-            switch (outputNumber) {
-            case 3:
-                deviceMask = 0xfe;
-                break;
-            case 5:
-                deviceMask = 0xef;
-                break;
-            case 7:
-                deviceMask = 0xfd;
-                break;
-            default:
-                break;
-            }
-            break;
-        case 2:
-            switch (outputNumber) {
-            case 0:
-                deviceMask = 0xf7;
-                break;
-            default:
-                break;
-            }
-        default:
+        if(spindel->getName() == name)
+        {
+            return *(spindel.data());
+        }
+    }
+
+    std::string errorString = "spindel " + name.toStdString() + " not found";
+    throw std::invalid_argument(errorString);
+}
+
+QStringList DevicesManager::getSwitchSpindelParams(QString name)
+{
+    QStringList params;
+    try
+    {
+        Spindel &spindel = findSpindel(name);
+        params = spindel.getParams();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+    return params;
+}
+
+void DevicesManager::setSpindelRotations(QString name, size_t rotations)
+{
+    try
+    {
+        Spindel &spindel = findSpindel(name);
+        spindel.setCurrentRotations(rotations);
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
+
+QStringList DevicesManager::getDeviceSwitchParams(size_t index, bool onOff)
+{
+    QStringList deviceData;
+
+    deviceData.push_back(QString::number(index));
+    if(onOff)
+    {
+        deviceData.push_back("1");
+    }
+    else
+    {
+        deviceData.push_back("0");
+    }
+
+    for(auto device : m_spindels)
+    {
+        if(device->getIndex().toUInt() == index)
+        {
+            deviceData += device->getParams();
             break;
         }
     }
-    return deviceMask;
-}
-
-QList<QSharedPointer<Device> > &DevicesManager::devices()
-{
-    return m_devices;
-}
-
-DevicesBuffer DevicesManager::devicesBuffer() const
-{
-    return m_devicesBuffer;
-}
-
-void DevicesManager::updateDevices(const QList< QSharedPointer<Device> > &value)
-{
-    m_devices = value;
+    return deviceData;
 }
 
 void DevicesManager::updateDevices(const byte_array devicesState)
 {
-    m_devicesBuffer.setDevicesState(devicesState[0]);
-    for(auto device : m_devices)
+    for(size_t i = 0; i < devicesState.size(); i++)
+    {
+        try
+        {
+            Device& device = findDevice(i);
+            if(devicesState[i] == 0x01)
+            {
+                device.updateCurrentState(device.getActiveState());
+            }
+            else
+            {
+                if(devicesState[i] == 0x00)
+                {
+                    device.updateCurrentState(!device.getActiveState());
+                }
+            }
+        }
+        catch(std::invalid_argument e)
+        {
+            qDebug() << e.what() << i;
+        }
+    }
+
+    /*m_devicesBuffer.setDevicesState(devicesState[0]);
+    for(auto device : allDevices)
     {
         bool enable = m_devicesBuffer.getDeviceState(device->getMask());
         bool deviceState;
@@ -207,6 +254,6 @@ void DevicesManager::updateDevices(const byte_array devicesState)
         {
             deviceState = !(device->getActiveState());
         }
-        device->setCurrentState(deviceState);
-    }
+        device->updateCurrentState(deviceState);
+    }*/
 }

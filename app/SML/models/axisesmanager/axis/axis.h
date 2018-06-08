@@ -46,7 +46,7 @@ protected:
 
     bool m_softLimitsEnable;
 
-    void setup(const SettingsManager &settingsManager);
+    void initialize(const SettingsManager &settingsManager);
 };
 
 #endif // AXIS_H
