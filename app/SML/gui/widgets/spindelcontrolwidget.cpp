@@ -15,7 +15,6 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
 
     QFrame* container = new QFrame(this);
     container->setLayout(new QVBoxLayout(container));
-    //container->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
     container->layout()->setSpacing(0);
     container->layout()->setContentsMargins(0, 0, 0, 0);
 
@@ -23,37 +22,84 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
     topFrame->setLayout(new QHBoxLayout(topFrame));
     topFrame->layout()->setSpacing(0);
     topFrame->layout()->setContentsMargins(0, 0, 0, 0);
-        QLabel* titleLabel = new QLabel(m_spindelLabel, container);
-        titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-        topFrame->layout()->addWidget(titleLabel);
+        m_titleLabel = new QLabel(m_spindelLabel, container);
+        m_titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
+        topFrame->layout()->addWidget(m_titleLabel);
 
-        QLCDNumber* rotationsDisplay = new QLCDNumber(container);
-        rotationsDisplay->display(QString::number(m_currentRotations));
-        rotationsDisplay->setSegmentStyle(QLCDNumber::Flat);
-        rotationsDisplay->setFrameShape(QFrame::NoFrame);
-        topFrame->layout()->addWidget(rotationsDisplay);
+        m_rotationsLCDNumber = new QLCDNumber(container);
+        m_rotationsLCDNumber->display(QString::number(m_currentRotations));
+        m_rotationsLCDNumber->setSegmentStyle(QLCDNumber::Flat);
+        m_rotationsLCDNumber->setFrameShape(QFrame::NoFrame);
+        topFrame->layout()->addWidget(m_rotationsLCDNumber);
     container->layout()->addWidget(topFrame);
 
-    QSlider* slider = new QSlider(Qt::Horizontal, container);
-    slider->setMaximum(m_rotationsUpperBound);
-    slider->setMinimum(m_rotationsLowerBound);
-    slider->setValue(m_currentRotations);
-    container->layout()->addWidget(slider);
+    m_rotationsSlider = new QSlider(Qt::Horizontal, container);
+    m_rotationsSlider->setMaximum(m_rotationsUpperBound);
+    m_rotationsSlider->setMinimum(m_rotationsLowerBound);
+    m_rotationsSlider->setValue(m_currentRotations);
+    connect(m_rotationsSlider, SIGNAL(valueChanged(int)), this, SLOT(onRotationsSliderValueChanged(int)));
+    container->layout()->addWidget(m_rotationsSlider);
 
 
-    QPushButton* enablePushButton = new QPushButton(container);
+    m_switchPushButton = new QPushButton(container);
+    m_switchPushButton->setObjectName("switchPushButton");
     if(!m_enable)
     {
-        enablePushButton->setText("Включить");
+        m_switchPushButton->setText("Включить");
     }
     else
     {
-        enablePushButton->setText("Выключить");
+        m_switchPushButton->setText("Выключить");
     }
-    container->layout()->addWidget(enablePushButton);
+    connect(m_switchPushButton, SIGNAL(clicked(bool)), this, SLOT(onSwitchSpindelClicked()));
+    container->layout()->addWidget(m_switchPushButton);
 
-    QPushButton* warmingUpPushButton = new QPushButton("Прогреть", container);
-    container->layout()->addWidget(warmingUpPushButton);
+    m_warmingUpPushButton = new QPushButton("Прогреть", container);
+    container->layout()->addWidget(m_warmingUpPushButton);
 
     this->layout()->addWidget(container);
+}
+
+void SpindelControlWidget::onSwitchSpindelClicked()
+{
+    if(!m_enable)
+    {
+        emit switchOn(m_spindelName, m_currentRotations);
+    }
+    else
+    {
+        emit switchOff(m_spindelName);
+    }
+    m_enable = !m_enable;
+}
+
+void SpindelControlWidget::onWarmingSpindelUpClicked()
+{
+    emit switchOn(m_spindelName, m_rotationsLowerBound);
+    update(true, m_currentRotations);
+}
+
+void SpindelControlWidget::onRotationsSliderValueChanged(int value)
+{
+    m_currentRotations = value;
+    m_rotationsLCDNumber->display(QString::number(m_currentRotations));
+}
+
+void SpindelControlWidget::update(bool enable, size_t rotations)
+{
+    m_enable = enable;
+    if(!m_enable)
+    {
+        m_switchPushButton->setStyleSheet("");
+        m_switchPushButton->setText("Включить");
+    }
+    else
+    {
+        m_switchPushButton->setStyleSheet("background-color:#b22222, color: #fff;");
+        m_switchPushButton->setText("Выключить");
+    }
+
+    m_currentRotations = rotations;
+    m_rotationsSlider->setValue(m_currentRotations);
+    m_rotationsLCDNumber->display(QString::number(m_currentRotations));
 }
