@@ -23,15 +23,15 @@ void DevicesManager::initialize(const SettingsManager &sm)
         for(unsigned int i = 0; i < spindelsCount; i++)
         {
             QString spindelCode = QString("Spindel") + QString::number(i);
-            Device* spindel = new Spindel(spindelCode, sm);
-            m_spindels.push_back(QSharedPointer<Device> (spindel));
+            Spindel* spindel = new Spindel(spindelCode, sm);
+            m_spindels.push_back(QSharedPointer<Spindel> (spindel));
         }
 
         for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
             QString supportDeviceCode = QString("SupportDevice") + QString::number(i);
-            Device* device = new SupportDevice(supportDeviceCode, sm);
-            m_supportDevices.push_back(QSharedPointer<Device> (device));
+            SupportDevice* device = new SupportDevice(supportDeviceCode, sm);
+            m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
         }
     }
     catch(std::invalid_argument e)
@@ -42,39 +42,56 @@ void DevicesManager::initialize(const SettingsManager &sm)
 
 Device &DevicesManager::findDevice(QString deviceName)
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
-
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
     {
         if(device->getLabel() == deviceName)
         {
             return *device;
         }
     }
+
+    for(auto device : m_supportDevices)
+    {
+        if(device->getLabel() == deviceName)
+        {
+            return *device;
+        }
+    }
+
     std::string errorString = "device not found";
     throw std::invalid_argument(errorString);
 }
 
 Device &DevicesManager::findDevice(unsigned int index)
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
-
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
     {
         if(device->getIndex().toUInt() == index)
         {
             return *device;
         }
     }
+
+    for(auto device : m_supportDevices)
+    {
+        if(device->getIndex().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
     std::string errorString = "device not found";
     throw std::invalid_argument(errorString);
 }
 
 QStringList DevicesManager::getAllDevicesNames()
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QStringList names;
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
+    {
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
     {
         names.push_back(device->getLabel());
     }
@@ -93,9 +110,18 @@ QStringList DevicesManager::getDevicesParametrsNames()
 
 QList<QStringList> DevicesManager::getDevicesSettings()
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QList<QStringList> devicesSettings;
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
+    {
+        QStringList deviceSettings =
+        {
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+
+    for(auto device : m_supportDevices)
     {
         QStringList deviceSettings =
         {
@@ -109,9 +135,12 @@ QList<QStringList> DevicesManager::getDevicesSettings()
 
 QStringList DevicesManager::onScreenDevicesNames()
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QStringList names;
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
+    {
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
     {
         names.push_back(device->getLabel());
     }
@@ -120,19 +149,31 @@ QStringList DevicesManager::onScreenDevicesNames()
 
 QList<bool> DevicesManager::onScreenDevicesStates()
 {
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
     QList<bool> devicesStates;
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
+    {
+        devicesStates.push_back(device->isEnable());
+    }
+    for(auto device : m_supportDevices)
     {
         devicesStates.push_back(device->isEnable());
     }
     return devicesStates;
 }
 
+QList<Spindel> DevicesManager::getSpindels()
+{
+    QList<Spindel> spindels;
+    for(auto spindel : m_spindels)
+    {
+        spindels.push_back(*(spindel.data()));
+    }
+    return spindels;
+}
+
 QStringList DevicesManager::getDeviceSwitchParams(size_t index, bool onOff)
 {
     QStringList deviceData;
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
 
     deviceData.push_back(QString::number(index));
     if(onOff)
@@ -144,7 +185,7 @@ QStringList DevicesManager::getDeviceSwitchParams(size_t index, bool onOff)
         deviceData.push_back("0");
     }
 
-    for(auto device : allDevices)
+    for(auto device : m_spindels)
     {
         if(device->getIndex().toUInt() == index)
         {
@@ -153,12 +194,6 @@ QStringList DevicesManager::getDeviceSwitchParams(size_t index, bool onOff)
         }
     }
     return deviceData;
-}
-
-QList<QSharedPointer<Device> > &DevicesManager::devices()
-{
-    QList< QSharedPointer<Device> > allDevices = m_spindels + m_supportDevices;
-    return allDevices;
 }
 
 void DevicesManager::updateDevices(const byte_array devicesState)

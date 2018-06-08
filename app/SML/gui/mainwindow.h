@@ -70,6 +70,7 @@
 
 #include "gui/candlevisualizerdialog.h"
 #include "gui/smlconsoledialog.h"
+#include "gui/widgets/spindelcontrolwidget.h"
 
 namespace Ui {
 class MainWindow;

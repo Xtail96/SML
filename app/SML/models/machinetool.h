@@ -250,6 +250,8 @@ public slots:
     /// Возвращает размер буфера устройств
     QString getDevicesBufferSize();
 
+    QList<Spindel> getSpindels();
+
 protected slots:
 
     /// Обрабатывает событие подключения адаптера U1

@@ -46,3 +46,18 @@ void Spindel::setLowerBound(const size_t &lowerBound)
 {
     m_lowerBound = lowerBound;
 }
+
+size_t Spindel::getUpperBound() const
+{
+    return m_upperBound;
+}
+
+size_t Spindel::getLowerBound() const
+{
+    return m_lowerBound;
+}
+
+size_t Spindel::getCurrentRotations() const
+{
+    return m_currentRotations;
+}

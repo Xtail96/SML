@@ -15,6 +15,12 @@ public:
 
     void setLowerBound(const size_t &lowerBound);
 
+    size_t getUpperBound() const;
+
+    size_t getLowerBound() const;
+
+    size_t getCurrentRotations() const;
+
 protected:
     size_t m_currentRotations;
     size_t m_upperBound;

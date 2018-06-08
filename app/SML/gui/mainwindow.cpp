@@ -323,6 +323,26 @@ void MainWindow::updateSensorsDisplay()
 
 void MainWindow::updateDevicesPanel()
 {
+    ui->spindelsListWidget->clear();
+    QList<Spindel> spindels = m_machineTool->getSpindels();
+    for(auto spindel : spindels)
+    {
+        SpindelControlWidget* widget = new SpindelControlWidget(spindel.getLabel(),
+                                                                spindel.getCode(),
+                                                                spindel.getUpperBound(),
+                                                                spindel.getLowerBound(),
+                                                                spindel.getCurrentRotations(),
+                                                                spindel.isEnable(),
+                                                                ui->spindelsListWidget);
+
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setSizeHint(widget->minimumSizeHint());
+
+        ui->spindelsListWidget->addItem(item);
+        ui->spindelsListWidget->setItemWidget(item, widget);
+    }
+
+
     QPair< QStringList, QList<bool> > devices;
     devices.first = m_machineTool->getOnScreenDevicesNames();
     devices.second = m_machineTool->getOnScreenDevicesStates();

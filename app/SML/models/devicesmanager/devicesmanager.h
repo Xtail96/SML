@@ -97,19 +97,6 @@ private:
  */
 class DevicesManager
 {
-protected:
-    QList< QSharedPointer<Device> > m_spindels;
-    QList< QSharedPointer<Device> > m_supportDevices;
-
-    /// Буфер устройств
-    DevicesBuffer m_devicesBuffer;
-
-    /*!
-     * \brief Инициализирует контейнер с устройствами
-     * \param sm - менеджер настроек
-     */
-    void initialize(const SettingsManager &sm);
-
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
@@ -122,12 +109,6 @@ public:
      * \param object - ссылка на объект класса Менеджер устройств
      */
     DevicesManager(const DevicesManager &object);
-
-    /*!
-     * \brief Возвращет ссылку на контейнер устройств
-     * \return ссылка вектор устройств
-     */
-    QList<QSharedPointer<Device> >& devices();
 
     void updateDevices(const byte_array devicesState);
 
@@ -171,6 +152,21 @@ public:
      * \return состояние (включено/выключено) каждого устройства, необходимого для отображения в Наладке в виде списка QList<bool>
      */
     QList<bool> onScreenDevicesStates();
+
+    QList<Spindel> getSpindels();
+
+protected:
+    QList< QSharedPointer<Spindel> > m_spindels;
+    QList< QSharedPointer<SupportDevice> > m_supportDevices;
+
+    /// Буфер устройств
+    DevicesBuffer m_devicesBuffer;
+
+    /*!
+     * \brief Инициализирует контейнер с устройствами
+     * \param sm - менеджер настроек
+     */
+    void initialize(const SettingsManager &sm);
 };
 
 #endif // DEVICESMANAGER_H
