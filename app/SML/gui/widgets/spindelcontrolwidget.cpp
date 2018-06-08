@@ -11,12 +11,12 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     this->setLayout(mainLayout);
-    this->layout()->setContentsMargins(5, 15, 5, 10);
+    this->layout()->setContentsMargins(5, 5, 5, 5);
 
     QFrame* container = new QFrame(this);
     QVBoxLayout* containerLayout = new QVBoxLayout(container);
     container->setLayout(containerLayout);
-    container->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
+    //container->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
     container->layout()->setSpacing(0);
     container->layout()->setContentsMargins(5, 5, 5, 5);
 
@@ -24,6 +24,17 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
     QLabel* titleLabel = new QLabel(m_spindelLabel, this);
     titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
     container->layout()->addWidget(titleLabel);
+
+    QPushButton* enableButton = new QPushButton(container);
+    if(!m_enable)
+    {
+        enableButton->setText("Включить");
+    }
+    else
+    {
+        enableButton->setText("Выключить");
+    }
+    container->layout()->addWidget(enableButton);
 
     this->layout()->addWidget(container);
 }

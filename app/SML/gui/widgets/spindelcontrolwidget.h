@@ -5,6 +5,7 @@
 #include <QFrame>
 #include <QLabel>
 #include <QLayout>
+#include <QPushButton>
 
 class SpindelControlWidget : public QWidget
 {
