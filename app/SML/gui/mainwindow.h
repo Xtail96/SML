@@ -104,13 +104,15 @@ private:
 
 private slots:
     /// Слоты для начальной настройки виджетов
-    void setupWidgets();
+    void initWidgets();
+    void initSpindelsControlPanel();
+    void updateSpindelsControlPanel();
 
     /// Подключает необходимые слоты к полям и сигналам
-    void setup();
+    void setupConnections();
 
     /// Отключает слоты от полей и сигналов
-    void reset();
+    void resetConnections();
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();

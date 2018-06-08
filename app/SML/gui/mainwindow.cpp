@@ -25,13 +25,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
     m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
 
-    setup();
-    setupWidgets();
+    setupConnections();
+    initWidgets();
 }
 
 MainWindow::~MainWindow()
 {
-    reset();
+    resetConnections();
     // удаляем горячие клавиши
     while (m_axisesShortcuts.size() > 0)
     {
@@ -42,7 +42,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setup()
+void MainWindow::setupConnections()
 {
     connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -104,7 +104,7 @@ void MainWindow::setup()
     connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 }
 
-void MainWindow::reset()
+void MainWindow::resetConnections()
 {
     disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -153,7 +153,7 @@ void MainWindow::reset()
     disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 }
 
-void MainWindow::setupWidgets()
+void MainWindow::initWidgets()
 {
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
@@ -189,6 +189,8 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    initSpindelsControlPanel();
+
     hideWidgets();
 
     updateAxisesBoard();
@@ -209,6 +211,43 @@ void MainWindow::setupWidgets()
 
     onU1Disconnected();
     onU2Disconnected();
+}
+
+void MainWindow::initSpindelsControlPanel()
+{
+    ui->spindelsListWidget->clear();
+    QList<Spindel> spindels = m_machineTool->getSpindels();
+    for(auto spindel : spindels)
+    {
+        SpindelControlWidget* widget = new SpindelControlWidget(spindel.getLabel(),
+                                                                spindel.getCode(),
+                                                                spindel.getUpperBound(),
+                                                                spindel.getLowerBound(),
+                                                                spindel.getCurrentRotations(),
+                                                                spindel.isEnable(),
+                                                                ui->spindelsListWidget);
+
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setSizeHint(widget->minimumSizeHint());
+
+        ui->spindelsListWidget->addItem(item);
+        ui->spindelsListWidget->setItemWidget(item, widget);
+    }
+}
+
+void MainWindow::updateSpindelsControlPanel()
+{
+    QList<Spindel> spindels = m_machineTool->getSpindels();
+    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
+
+    if(spindelsWidgetsCount >= (size_t) spindels.size())
+    {
+        for(size_t i = 0; i < spindelsWidgetsCount; i++)
+        {
+            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+            widget->updateControls(spindels[i].isEnable(), spindels[i].getCurrentRotations());
+        }
+    }
 }
 
 void MainWindow::updateSettingsBoards()
@@ -298,6 +337,7 @@ void MainWindow::updateU1Displays()
     updateBatteryStatusDisplay();
     updateSensorsDisplay();
     updateDevicesLeds();
+    updateSpindelsControlPanel();
 }
 
 void MainWindow::updateSensorsDisplay()
@@ -323,26 +363,6 @@ void MainWindow::updateSensorsDisplay()
 
 void MainWindow::updateDevicesPanel()
 {
-    ui->spindelsListWidget->clear();
-    QList<Spindel> spindels = m_machineTool->getSpindels();
-    for(auto spindel : spindels)
-    {
-        SpindelControlWidget* widget = new SpindelControlWidget(spindel.getLabel(),
-                                                                spindel.getCode(),
-                                                                spindel.getUpperBound(),
-                                                                spindel.getLowerBound(),
-                                                                spindel.getCurrentRotations(),
-                                                                spindel.isEnable(),
-                                                                ui->spindelsListWidget);
-
-        QListWidgetItem* item = new QListWidgetItem();
-        item->setSizeHint(widget->minimumSizeHint());
-
-        ui->spindelsListWidget->addItem(item);
-        ui->spindelsListWidget->setItemWidget(item, widget);
-    }
-
-
     QPair< QStringList, QList<bool> > devices;
     devices.first = m_machineTool->getOnScreenDevicesNames();
     devices.second = m_machineTool->getOnScreenDevicesStates();

@@ -16,7 +16,7 @@ class SpindelControlWidget : public QWidget
 public:
     explicit SpindelControlWidget(QString spindelLabel, QString spindelName, size_t rotationsUpperBound, size_t rotationsLowerBound, size_t currentRotations, bool enable, QWidget *parent = nullptr);
 
-    void update(bool enable, size_t rotations);
+    void updateControls(bool enable, size_t rotations);
 
 signals:
     void switchOn(QString spindelName, size_t rotations);

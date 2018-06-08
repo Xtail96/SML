@@ -76,7 +76,7 @@ void SpindelControlWidget::onSwitchSpindelClicked()
 void SpindelControlWidget::onWarmingSpindelUpClicked()
 {
     emit switchOn(m_spindelName, m_rotationsLowerBound);
-    update(true, m_currentRotations);
+    updateControls(true, m_currentRotations);
 }
 
 void SpindelControlWidget::onRotationsSliderValueChanged(int value)
@@ -85,21 +85,22 @@ void SpindelControlWidget::onRotationsSliderValueChanged(int value)
     m_rotationsLCDNumber->display(QString::number(m_currentRotations));
 }
 
-void SpindelControlWidget::update(bool enable, size_t rotations)
+void SpindelControlWidget::updateControls(bool enable, size_t rotations)
 {
     m_enable = enable;
+    m_currentRotations = rotations;
     if(!m_enable)
     {
-        m_switchPushButton->setStyleSheet("");
+        //m_switchPushButton->setStyleSheet("");
         m_switchPushButton->setText("Включить");
+        m_rotationsSlider->setEnabled(true);
     }
     else
     {
-        m_switchPushButton->setStyleSheet("background-color:#b22222, color: #fff;");
+        //m_switchPushButton->setStyleSheet("background-color:#b22222; color: #fff;");
         m_switchPushButton->setText("Выключить");
+        m_rotationsSlider->setEnabled(false);
+        m_rotationsSlider->setValue(m_currentRotations);
+        m_rotationsLCDNumber->display(QString::number(m_currentRotations));
     }
-
-    m_currentRotations = rotations;
-    m_rotationsSlider->setValue(m_currentRotations);
-    m_rotationsLCDNumber->display(QString::number(m_currentRotations));
 }
