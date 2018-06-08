@@ -11,19 +11,30 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     this->setLayout(mainLayout);
-    this->layout()->setContentsMargins(5, 5, 5, 5);
+    this->layout()->setContentsMargins(0, 5, 0, 5);
 
     QFrame* container = new QFrame(this);
-    QVBoxLayout* containerLayout = new QVBoxLayout(container);
-    container->setLayout(containerLayout);
+    container->setLayout(new QVBoxLayout(container));
     //container->setStyleSheet("margin-left: 1px; margin-right: 1px; background-color: #eee; border: 1px solid #dfdfdf; border-radius: 5px;");
     container->layout()->setSpacing(0);
-    container->layout()->setContentsMargins(5, 5, 5, 5);
+    container->layout()->setContentsMargins(0, 0, 0, 0);
 
-    // task title
-    QLabel* titleLabel = new QLabel(m_spindelLabel, this);
-    titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-    container->layout()->addWidget(titleLabel);
+    QFrame* topFrame = new QFrame(container);
+    topFrame->setLayout(new QHBoxLayout(topFrame));
+    topFrame->layout()->setSpacing(0);
+    topFrame->layout()->setContentsMargins(0, 0, 0, 0);
+        QLabel* titleLabel = new QLabel(m_spindelLabel, container);
+        titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
+        topFrame->layout()->addWidget(titleLabel);
+
+        QLCDNumber* rotationsDisplay = new QLCDNumber(container);
+        rotationsDisplay->display(QString::number(m_currentRotations));
+        rotationsDisplay->setSegmentStyle(QLCDNumber::Flat);
+        rotationsDisplay->setFrameShape(QFrame::NoFrame);
+        topFrame->layout()->addWidget(rotationsDisplay);
+    container->layout()->addWidget(topFrame);
+
+
 
     QPushButton* enableButton = new QPushButton(container);
     if(!m_enable)
