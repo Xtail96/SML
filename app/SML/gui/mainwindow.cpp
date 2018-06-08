@@ -243,10 +243,12 @@ void MainWindow::updateSpindelsControlPanel()
     QList<Spindel> spindels = m_machineTool->getSpindels();
     size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
 
+
     if(spindelsWidgetsCount >= (size_t) spindels.size())
     {
         for(size_t i = 0; i < spindelsWidgetsCount; i++)
         {
+            //qDebug() << spindels[i].isEnable();
             SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
             widget->updateControls(spindels[i].isEnable(), spindels[i].getCurrentRotations());
         }

@@ -225,13 +225,13 @@ void DevicesManager::updateDevices(const byte_array devicesState)
             Device& device = findDevice(i);
             if(devicesState[i] == 0x01)
             {
-                device.updateCurrentState(true);
+                device.updateCurrentState(device.getActiveState());
             }
             else
             {
                 if(devicesState[i] == 0x00)
                 {
-                    device.updateCurrentState(false);
+                    device.updateCurrentState(!device.getActiveState());
                 }
             }
         }

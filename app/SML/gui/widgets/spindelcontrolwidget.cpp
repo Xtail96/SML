@@ -55,6 +55,7 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
     container->layout()->addWidget(m_switchPushButton);
 
     m_warmingUpPushButton = new QPushButton("Прогреть", container);
+    connect(m_warmingUpPushButton, SIGNAL(clicked(bool)), this, SLOT(onWarmingSpindelUpClicked()));
     container->layout()->addWidget(m_warmingUpPushButton);
 
     this->layout()->addWidget(container);
@@ -75,7 +76,6 @@ void SpindelControlWidget::onSwitchSpindelClicked()
 void SpindelControlWidget::onWarmingSpindelUpClicked()
 {
     emit switchOn(m_spindelName, m_rotationsLowerBound);
-    updateControls(true, m_currentRotations);
 }
 
 void SpindelControlWidget::onRotationsSliderValueChanged(int value)
@@ -87,7 +87,6 @@ void SpindelControlWidget::onRotationsSliderValueChanged(int value)
 void SpindelControlWidget::updateControls(bool enable, size_t rotations)
 {
     m_enable = enable;
-    m_currentRotations = rotations;
     if(!m_enable)
     {
         //m_switchPushButton->setStyleSheet("");
@@ -97,6 +96,7 @@ void SpindelControlWidget::updateControls(bool enable, size_t rotations)
     else
     {
         //m_switchPushButton->setStyleSheet("background-color:#b22222; color: #fff;");
+        m_currentRotations = rotations;
         m_switchPushButton->setText("Выключить");
         m_rotationsSlider->setEnabled(false);
         m_rotationsSlider->setValue(m_currentRotations);

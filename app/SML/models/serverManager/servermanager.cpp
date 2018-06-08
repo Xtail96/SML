@@ -74,10 +74,11 @@ void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesSta
 
 void ServerManager::switchDeviceOn(ServerManager::DeviceType deviceType, QString index, QStringList params)
 {
+    QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
     device["Index"] = index;
-    device["State"] = "On";
+    device["Target"] = "On";
 
     switch (deviceType) {
     case DeviceType::Spindel:
@@ -94,10 +95,10 @@ void ServerManager::switchDeviceOn(ServerManager::DeviceType deviceType, QString
         break;
     }
     u1Message["SwitchDevice"] = device;
-
+    generalMessage["MessageToU1"] = u1Message;
 
     bool ok = false;
-    QByteArray message = QtJson::serialize(u1Message, ok);
+    QByteArray message = QtJson::serialize(generalMessage, ok);
     qDebug() << "Try to switch on device =" << message;
     if(ok)
     {
@@ -107,10 +108,11 @@ void ServerManager::switchDeviceOn(ServerManager::DeviceType deviceType, QString
 
 void ServerManager::switchDeviceOff(DeviceType deviceType, QString index)
 {
+    QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
     device["Index"] = index;
-    device["State"] = "Off";
+    device["Target"] = "Off";
     switch (deviceType) {
     case DeviceType::Spindel:
         device["Type"] = "Spindel";
@@ -122,9 +124,10 @@ void ServerManager::switchDeviceOff(DeviceType deviceType, QString index)
         break;
     }
     u1Message["SwitchDevice"] = device;
+    generalMessage["MessageToU1"] = u1Message;
 
     bool ok = false;
-    QByteArray message = QtJson::serialize(u1Message, ok);
+    QByteArray message = QtJson::serialize(generalMessage, ok);
     qDebug() << "Try to switch off device =" << message;
     if(ok)
     {
