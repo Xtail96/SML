@@ -34,18 +34,26 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
         topFrame->layout()->addWidget(rotationsDisplay);
     container->layout()->addWidget(topFrame);
 
+    QSlider* slider = new QSlider(Qt::Horizontal, container);
+    slider->setMaximum(m_rotationsUpperBound);
+    slider->setMinimum(m_rotationsLowerBound);
+    slider->setValue(m_currentRotations);
+    container->layout()->addWidget(slider);
 
 
-    QPushButton* enableButton = new QPushButton(container);
+    QPushButton* enablePushButton = new QPushButton(container);
     if(!m_enable)
     {
-        enableButton->setText("Включить");
+        enablePushButton->setText("Включить");
     }
     else
     {
-        enableButton->setText("Выключить");
+        enablePushButton->setText("Выключить");
     }
-    container->layout()->addWidget(enableButton);
+    container->layout()->addWidget(enablePushButton);
+
+    QPushButton* warmingUpPushButton = new QPushButton("Прогреть", container);
+    container->layout()->addWidget(warmingUpPushButton);
 
     this->layout()->addWidget(container);
 }

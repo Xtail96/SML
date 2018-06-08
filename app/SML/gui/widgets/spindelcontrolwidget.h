@@ -7,6 +7,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QLCDNumber>
+#include <QSlider>
 
 class SpindelControlWidget : public QWidget
 {
