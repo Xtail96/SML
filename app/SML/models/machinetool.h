@@ -120,7 +120,8 @@ public slots:
     void stopServer();
 
     /// Включает устройство
-    void switchDevice(QString deviceName);
+    void switchSpindelOn(QString spindelName, size_t rotations);
+    void switchSpindelOff(QString spindelName);
 
     /// Обновляет значение скорости пермещения
     void updateVelocity(int value);

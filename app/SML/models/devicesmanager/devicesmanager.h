@@ -115,15 +115,6 @@ public:
     QStringList getDeviceSwitchParams(size_t index, bool onOff);
 
     /*!
-     * \brief Производит поиск устройства в списке устройств
-     * \param deviceName - имя устройства
-     * \return ссылка на найденное устройство
-     * \warning Если устройство не найдено, бросает исключение std::invalid_argument с параметром device not found
-     */
-    Device& findDevice(QString deviceName);
-    Device& findDevice(unsigned int index);
-
-    /*!
      * \brief Возвращает названия всех устройств для вывода в интерфейс
      * \return названия всех устройств в формате списка QStringList
      */
@@ -154,6 +145,9 @@ public:
     QList<bool> onScreenDevicesStates();
 
     QList<Spindel> getSpindels();
+    Spindel& findSpindel(QString name);
+    QStringList getSwitchSpindelParams(QString name);
+    void setSpindelRotations(QString name, size_t rotations);
 
 protected:
     QList< QSharedPointer<Spindel> > m_spindels;
@@ -167,6 +161,9 @@ protected:
      * \param sm - менеджер настроек
      */
     void initialize(const SettingsManager &sm);
+
+
+    Device& findDevice(size_t index);
 };
 
 #endif // DEVICESMANAGER_H

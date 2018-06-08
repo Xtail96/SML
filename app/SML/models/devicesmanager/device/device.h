@@ -18,7 +18,7 @@ public:
      * \param code - код устройства
      * \param sm - менеджер настроек
      */
-    Device(QString code, const SettingsManager &sm = SettingsManager());
+    Device(QString name, const SettingsManager &sm = SettingsManager());
 
     virtual ~Device();
 
@@ -36,14 +36,14 @@ public:
 
     byte getMask() const;
 
-    QString getCode() const;
+    QString getName() const;
 
     QString getIndex() const;
 
 protected:
 
     /// Код устройства для получения информации из файла настроек
-    QString m_code;
+    QString m_name;
 
     /// Индекс устройства = номер байта, в котором лежит состояние устройства
     QString m_index;

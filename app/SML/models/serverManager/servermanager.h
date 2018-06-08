@@ -108,8 +108,10 @@ signals:
     void u1ErrorIsOccured(int errorCode);
 
 public slots:
-    void switchDevice(ServerManager::DeviceType deviceType, QStringList params);
-    void switchDevice(byte_array data);
+    void switchDeviceOn(ServerManager::DeviceType deviceType, QString index, QStringList params);
+    void switchDeviceOff(ServerManager::DeviceType deviceType, QString index);
+
+    void switchDeviceOn(byte_array data);
     byte_array getSensorsState();
     byte_array getDevicesState();
     void startServer();

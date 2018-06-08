@@ -133,16 +133,27 @@ void MachineTool::stopServer()
     m_serverManager->stopServer();
 }
 
-void MachineTool::switchDevice(QString deviceName)
+void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)
 {
     try
     {
-        Device &device = m_devicesManager->findDevice(deviceName);
-        qDebug() << "current state = " << device.getCurrentState();
-        //byte mask = m_devicesManager->getDeviceSwitchParams(device, !device.getCurrentState());
+        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
+        m_devicesManager->setSpindelRotations(spindel.getName(), rotations);
+        QStringList params = m_devicesManager->getSwitchSpindelParams(spindel.getName());
+        m_serverManager->switchDeviceOn(ServerManager::Spindel, spindel.getIndex(), params);
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
 
-        QStringList params = m_devicesManager->getDeviceSwitchParams(device.getIndex().toUInt(), !device.getCurrentState());;
-        m_serverManager->switchDevice(ServerManager::Spindel, params);
+void MachineTool::switchSpindelOff(QString spindelName)
+{
+    try
+    {
+        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
+        m_serverManager->switchDeviceOff(ServerManager::Spindel, spindel.getIndex());
     }
     catch(std::invalid_argument e)
     {

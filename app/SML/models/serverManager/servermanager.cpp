@@ -72,25 +72,19 @@ void ServerManager::updateU1State(byte_array sensorsState, byte_array devicesSta
     }
 }
 
-void ServerManager::switchDevice(ServerManager::DeviceType deviceType, QStringList params)
+void ServerManager::switchDeviceOn(ServerManager::DeviceType deviceType, QString index, QStringList params)
 {
-    qDebug() << params;
-    if(params.size() <= 1)
-    {
-        return;
-    }
-
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
-    device["Index"] = params[0];
-    device["State"] = params[1];
+    device["Index"] = index;
+    device["State"] = "On";
 
     switch (deviceType) {
     case DeviceType::Spindel:
         device["Type"] = "Spindel";
-        if(params.size() > 2)
+        if(params.size() > 0)
         {
-            device["Rotations"] = params[2];
+            device["Rotations"] = params[0];
         }
         break;
     case DeviceType::Support:
@@ -104,14 +98,41 @@ void ServerManager::switchDevice(ServerManager::DeviceType deviceType, QStringLi
 
     bool ok = false;
     QByteArray message = QtJson::serialize(u1Message, ok);
-    qDebug() << "Try to switch device =" << message;
+    qDebug() << "Try to switch on device =" << message;
     if(ok)
     {
         m_server->sendMessageToU1(message);
     }
 }
 
-void ServerManager::switchDevice(byte_array data)
+void ServerManager::switchDeviceOff(DeviceType deviceType, QString index)
+{
+    QtJson::JsonObject u1Message;
+    QtJson::JsonObject device;
+    device["Index"] = index;
+    device["State"] = "Off";
+    switch (deviceType) {
+    case DeviceType::Spindel:
+        device["Type"] = "Spindel";
+        break;
+    case DeviceType::Support:
+        device["Type"] = "Support";
+        break;
+    default:
+        break;
+    }
+    u1Message["SwitchDevice"] = device;
+
+    bool ok = false;
+    QByteArray message = QtJson::serialize(u1Message, ok);
+    qDebug() << "Try to switch off device =" << message;
+    if(ok)
+    {
+        m_server->sendMessageToU1(message);
+    }
+}
+
+void ServerManager::switchDeviceOn(byte_array data)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;

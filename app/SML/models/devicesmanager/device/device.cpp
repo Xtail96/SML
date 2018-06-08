@@ -1,7 +1,7 @@
 #include "device.h"
 
-Device::Device(QString code, const SettingsManager &sm) :
-    m_code(code)
+Device::Device(QString name, const SettingsManager &sm) :
+    m_name(name)
 {
     initialize(sm);
 }
@@ -15,15 +15,15 @@ void Device::initialize(const SettingsManager &sm)
 {
     try
     {
-        m_label = QVariant(sm.get(m_code, "Label")).toString();
-        m_index = QVariant(sm.get(m_code, "Index")).toString();
-        m_activeState = QVariant(sm.get(m_code, "ActiveState")).toBool();
-        m_mask = QVariant(sm.get(m_code, "Mask")).toUInt();
+        m_label = QVariant(sm.get(m_name, "Label")).toString();
+        m_index = QVariant(sm.get(m_name, "Index")).toString();
+        m_activeState = QVariant(sm.get(m_name, "ActiveState")).toBool();
+        m_mask = QVariant(sm.get(m_name, "Mask")).toUInt();
         m_currentState = !m_activeState;
     }
     catch(std::invalid_argument e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_code, e.what() + m_code).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_name, e.what() + m_name).exec();
     }
 }
 
@@ -60,9 +60,9 @@ byte Device::getMask() const
     return m_mask;
 }
 
-QString Device::getCode() const
+QString Device::getName() const
 {
-    return m_code;
+    return m_name;
 }
 
 QString Device::getIndex() const

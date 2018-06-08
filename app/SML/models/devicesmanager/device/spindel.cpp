@@ -15,13 +15,13 @@ void Spindel::initialize(const SettingsManager &sm)
 {
     try
     {
-        m_upperBound = QVariant(sm.get(m_code, "UpperBound")).toULongLong();
-        m_lowerBound = QVariant(sm.get(m_code, "LowerBound")).toULongLong();
+        m_upperBound = QVariant(sm.get(m_name, "UpperBound")).toULongLong();
+        m_lowerBound = QVariant(sm.get(m_name, "LowerBound")).toULongLong();
         m_currentRotations = m_lowerBound;
     }
     catch(std::invalid_argument e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_code, e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_name, e.what()).exec();
     }
 }
 

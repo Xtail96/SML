@@ -228,7 +228,7 @@ private slots:
     void on_savesettings_action_triggered();
     //void on_smlEditorTreeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     //void on_commandsToolsListWidget_clicked(const QModelIndex &index);
-    void on_devicesButtonsListWidget_clicked(const QModelIndex &index);
+    //void on_devicesButtonsListWidget_clicked(const QModelIndex &index);
     void on_add_action_triggered();
     void on_create_action_triggered();
     void on_save_action_triggered();

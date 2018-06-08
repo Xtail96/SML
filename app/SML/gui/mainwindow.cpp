@@ -220,7 +220,7 @@ void MainWindow::initSpindelsControlPanel()
     for(auto spindel : spindels)
     {
         SpindelControlWidget* widget = new SpindelControlWidget(spindel.getLabel(),
-                                                                spindel.getCode(),
+                                                                spindel.getName(),
                                                                 spindel.getUpperBound(),
                                                                 spindel.getLowerBound(),
                                                                 spindel.getCurrentRotations(),
@@ -232,6 +232,9 @@ void MainWindow::initSpindelsControlPanel()
 
         ui->spindelsListWidget->addItem(item);
         ui->spindelsListWidget->setItemWidget(item, widget);
+
+        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
+        QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 }
 
@@ -1126,11 +1129,11 @@ void MainWindow::on_savesettings_action_triggered()
     m_machineTool->exportSettings();
 }
 
-void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)
+/*void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)
 {
     QString deviceName = index.data().toString();
     m_machineTool->switchDevice(deviceName);
-}
+}*/
 
 void MainWindow::on_add_action_triggered()
 {

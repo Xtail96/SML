@@ -40,29 +40,7 @@ void DevicesManager::initialize(const SettingsManager &sm)
     }
 }
 
-Device &DevicesManager::findDevice(QString deviceName)
-{
-    for(auto device : m_spindels)
-    {
-        if(device->getLabel() == deviceName)
-        {
-            return *device;
-        }
-    }
-
-    for(auto device : m_supportDevices)
-    {
-        if(device->getLabel() == deviceName)
-        {
-            return *device;
-        }
-    }
-
-    std::string errorString = "device not found";
-    throw std::invalid_argument(errorString);
-}
-
-Device &DevicesManager::findDevice(unsigned int index)
+Device &DevicesManager::findDevice(size_t index)
 {
     for(auto device : m_spindels)
     {
@@ -169,6 +147,48 @@ QList<Spindel> DevicesManager::getSpindels()
         spindels.push_back(*(spindel.data()));
     }
     return spindels;
+}
+
+Spindel &DevicesManager::findSpindel(QString name)
+{
+    for(auto spindel : m_spindels)
+    {
+        if(spindel->getName() == name)
+        {
+            return *(spindel.data());
+        }
+    }
+
+    std::string errorString = "spindel " + name.toStdString() + " not found";
+    throw std::invalid_argument(errorString);
+}
+
+QStringList DevicesManager::getSwitchSpindelParams(QString name)
+{
+    QStringList params;
+    try
+    {
+        Spindel &spindel = findSpindel(name);
+        params = spindel.getParams();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+    return params;
+}
+
+void DevicesManager::setSpindelRotations(QString name, size_t rotations)
+{
+    try
+    {
+        Spindel &spindel = findSpindel(name);
+        spindel.setCurrentRotations(rotations);
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
 }
 
 QStringList DevicesManager::getDeviceSwitchParams(size_t index, bool onOff)

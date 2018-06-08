@@ -70,7 +70,6 @@ void SpindelControlWidget::onSwitchSpindelClicked()
     {
         emit switchOff(m_spindelName);
     }
-    m_enable = !m_enable;
 }
 
 void SpindelControlWidget::onWarmingSpindelUpClicked()
