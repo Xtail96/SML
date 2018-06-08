@@ -46,8 +46,8 @@ public slots:
 
 protected slots:
     void initialize(const SettingsManager &settingsManager);
-    void setup();
-    void reset();
+    void setupConnections();
+    void resetConnections();
 
     void onServerClosed();
     void onNewConnection();

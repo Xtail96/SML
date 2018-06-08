@@ -92,8 +92,8 @@ public:
 protected:
     QScopedPointer<SMLServer> m_server;
     U1State m_u1CurrentState;
-    void setup();
-    void reset();
+    void setupConnections();
+    void resetConnections();
 
     void updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError);
     void updateU1State(byte_array sensorsState, byte_array devicesState, int lastError);

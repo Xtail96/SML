@@ -73,10 +73,10 @@ protected:
     size_t rotations = 2000;
 
     /// Подключает нужные слоты к полям и сигналам класса
-    void setup();
+    void setupConnections();
 
     /// Отключает слоты от полей и сигналов класса
-    void reset();
+    void resetConnections();
 
 signals:
     /// Сигнал подключения адаптера контроллера датчиков и устройств

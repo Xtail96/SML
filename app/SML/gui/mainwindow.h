@@ -104,8 +104,8 @@ private:
 
 private slots:
     /// Слоты для начальной настройки виджетов
-    void initWidgets();
-    void initSpindelsControlPanel();
+    void initializeWidgets();
+    void initializeSpindelsControlPanel();
     void updateSpindelsControlPanel();
 
     /// Подключает необходимые слоты к полям и сигналам

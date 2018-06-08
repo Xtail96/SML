@@ -15,30 +15,30 @@ ServerManager::ServerManager(const SettingsManager &settingsManager, QObject *pa
         QMessageBox(QMessageBox::Warning, "Settings Error", e.what()).exec();
     }
 
-    setup();
+    setupConnections();
 }
 
 ServerManager::~ServerManager()
 {
-    reset();
+    resetConnections();
 }
 
-void ServerManager::setup()
+void ServerManager::setupConnections()
 {
-    connect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    connect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    QObject::connect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
+    QObject::connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    QObject::connect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
-void ServerManager::reset()
+void ServerManager::resetConnections()
 {
-    disconnect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
-    disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    disconnect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    disconnect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
+    QObject::disconnect(m_server.data(), SIGNAL(byteMessageReceived(QByteArray)), this, SLOT(onBinaryMessageReceived(QByteArray)));
+    QObject::disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
 }
 
 void ServerManager::updateU1State(QList<QVariant> sensorsState, QList<QVariant> devicesState, int lastError)

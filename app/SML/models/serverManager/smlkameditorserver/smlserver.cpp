@@ -7,13 +7,13 @@ SMLServer::SMLServer(const SettingsManager &settingsManager, QObject *parent) :
     m_debug(false)
 {
     initialize(settingsManager);
-    setup();
+    setupConnections();
 }
 
 SMLServer::~SMLServer()
 {
     stop();
-    reset();
+    resetConnections();
 
     for(auto socket : m_u1Connections)
     {
@@ -21,9 +21,9 @@ SMLServer::~SMLServer()
         {
             if(socket->isValid())
             {
-                disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-                disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-                disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+                QObject::disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+                QObject::disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+                QObject::disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
             }
         }
     }
@@ -35,9 +35,9 @@ SMLServer::~SMLServer()
         {
             if(socket->isValid())
             {
-                disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-                disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-                disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+                QObject::disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+                QObject::disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+                QObject::disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
             }
         }
     }
@@ -49,9 +49,9 @@ SMLServer::~SMLServer()
         {
             if(socket->isValid())
             {
-                disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-                disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-                disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+                QObject::disconnect(socket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+                QObject::disconnect(socket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+                QObject::disconnect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
             }
         }
     }
@@ -72,16 +72,16 @@ void SMLServer::initialize(const SettingsManager &settingsManager)
     }
 }
 
-void SMLServer::setup()
+void SMLServer::setupConnections()
 {
-    connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
-    connect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
+    QObject::connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    QObject::connect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
 }
 
-void SMLServer::reset()
+void SMLServer::resetConnections()
 {
-    disconnect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
-    disconnect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
+    QObject::disconnect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    QObject::disconnect(m_server.data(), SIGNAL(closed()), this, SLOT(onServerClosed()));
 }
 
 void SMLServer::start()
@@ -114,9 +114,9 @@ void SMLServer::onNewConnection()
 {
     QWebSocket* pSocket = m_server->nextPendingConnection();
 
-    connect(pSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
-    connect(pSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
-    connect(pSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+    QObject::connect(pSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onTextMessage(QString)));
+    QObject::connect(pSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onBinaryMessage(QByteArray)));
+    QObject::connect(pSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 
     m_unregistered.push_back(pSocket);
 
