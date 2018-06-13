@@ -4270,7 +4270,14 @@
                    <number>0</number>
                   </property>
                   <item row="0" column="0">
-                   <widget class="QListWidget" name="spindelsListWidget"/>
+                   <widget class="QListWidget" name="spindelsListWidget">
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::NoSelection</enum>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
