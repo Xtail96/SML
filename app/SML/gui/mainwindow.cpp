@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
     m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
 
-    initializeWidgets();
+    setupWidgets();
     setupConnections();
 
     updateAxisesBoard();
@@ -61,14 +61,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::initializeWidgets()
+void MainWindow::setupWidgets()
 {
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
-    initializeSpindelsControlPanel();
+    setupSpindelsControlPanel();
 
     // настройка контроля габаритов
     updateEdgesControlStatus();
@@ -228,7 +228,7 @@ void MainWindow::resetConnections()
     }
 }
 
-void MainWindow::initializeSpindelsControlPanel()
+void MainWindow::setupSpindelsControlPanel()
 {
     ui->spindelsListWidget->clear();
     QList<Spindel> spindels = m_machineTool->getSpindels();
