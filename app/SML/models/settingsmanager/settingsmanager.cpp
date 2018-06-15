@@ -109,9 +109,9 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);
         settings->setValue("SpindelsCount", 3);
-        settings->setValue("SupportDevicesCount", 2);
+        settings->setValue("SupportDevicesCount", 0);
         settings->setValue("SensorsBufferSize", 16);
-        settings->setValue("DevicesBufferSize", 5);
+        settings->setValue("DevicesBufferSize", 3);
     settings->endGroup();
 
     settings->beginGroup("ServerSettings");
