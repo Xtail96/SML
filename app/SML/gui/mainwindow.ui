@@ -4068,10 +4068,10 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="0" column="0" rowspan="2">
             <widget class="QFrame" name="sensorsFrame">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -4090,111 +4090,41 @@
                <enum>QLayout::SetDefaultConstraint</enum>
               </property>
               <property name="leftMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="rightMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="bottomMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <item>
-               <widget class="QTableWidget" name="sensorsTableWidget">
+               <widget class="QLabel" name="sensorsDisplayLabel">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>95</width>
-                  <height>16777215</height>
-                 </size>
+                <property name="text">
+                 <string>Датчики</string>
                 </property>
-                <property name="baseSize">
-                 <size>
-                  <width>95</width>
-                  <height>0</height>
-                 </size>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
                 </property>
-                <property name="font">
-                 <font>
-                  <pointsize>8</pointsize>
-                 </font>
+               </widget>
+              </item>
+              <item>
+               <widget class="SensorsDisplayWidget" name="sensorsDisplayWidget" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Sunken</enum>
-                </property>
-                <property name="lineWidth">
-                 <number>1</number>
-                </property>
-                <property name="midLineWidth">
-                 <number>0</number>
-                </property>
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
-                </property>
-                <property name="tabKeyNavigation">
-                 <bool>false</bool>
-                </property>
-                <property name="showDropIndicator" stdset="0">
-                 <bool>false</bool>
-                </property>
-                <property name="dragDropOverwriteMode">
-                 <bool>false</bool>
-                </property>
-                <property name="alternatingRowColors">
-                 <bool>true</bool>
-                </property>
-                <property name="selectionMode">
-                 <enum>QAbstractItemView::NoSelection</enum>
-                </property>
-                <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
-                </property>
-                <property name="gridStyle">
-                 <enum>Qt::SolidLine</enum>
-                </property>
-                <attribute name="horizontalHeaderVisible">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>10</number>
-                </attribute>
-                <attribute name="horizontalHeaderHighlightSections">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderMinimumSectionSize">
-                 <number>10</number>
-                </attribute>
-                <attribute name="horizontalHeaderStretchLastSection">
-                 <bool>true</bool>
-                </attribute>
-                <attribute name="verticalHeaderDefaultSectionSize">
-                 <number>25</number>
-                </attribute>
-                <attribute name="verticalHeaderHighlightSections">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderMinimumSectionSize">
-                 <number>25</number>
-                </attribute>
-                <attribute name="verticalHeaderStretchLastSection">
-                 <bool>false</bool>
-                </attribute>
                </widget>
               </item>
              </layout>
@@ -4234,7 +4164,7 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>221</width>
+                <width>224</width>
                 <height>407</height>
                </rect>
               </property>
@@ -5376,6 +5306,12 @@
    <class>SMLPointsTableWidget</class>
    <extends>QTableWidget</extends>
    <header>gui/widgets/smlpointstablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SensorsDisplayWidget</class>
+   <extends>QWidget</extends>
+   <header>gui/widgets/sensorsdisplaywidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

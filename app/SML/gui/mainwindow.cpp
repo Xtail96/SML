@@ -646,7 +646,7 @@ void MainWindow::onU1Connected()
     ui->devicesButtonsListWidget->setEnabled(true);
     ui->devicesLedsListWidget->setEnabled(true);
 
-    ui->sensorsTableWidget->setEnabled(true);
+    //ui->sensorsTableWidget->setEnabled(true);
 
     ui->rotationsScrollBar->setEnabled(true);
     ui->rotationsLcdNumber->setEnabled(true);
@@ -663,7 +663,7 @@ void MainWindow::onU1Disconnected()
 
     ui->devicesButtonsListWidget->setEnabled(false);
     ui->devicesLedsListWidget->setEnabled(false);
-    ui->sensorsTableWidget->setEnabled(false);
+    //ui->sensorsTableWidget->setEnabled(false);
 
     ui->rotationsScrollBar->setEnabled(false);
     ui->rotationsLcdNumber->setEnabled(false);
