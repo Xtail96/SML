@@ -105,9 +105,17 @@ private:
 private slots:
     /// Слоты для начальной настройки виджетов
     void setupWidgets();
+
+    /// слот для инициализации дисплея датчиков
     void setupSensorsDisplay();
+
+    /// слот для обновления дисплея датчиков
     void updateSensorsDisplay(QString name, QColor color);
+
+    /// слот для инициализации таблицы настроек датчиков
     void setupSensorsSettingsBoard();
+
+
     void setupSpindelsControlPanel();
     void updateSpindelsControlPanel();
 

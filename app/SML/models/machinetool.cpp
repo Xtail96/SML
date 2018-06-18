@@ -58,13 +58,12 @@ void MachineTool::onSensorStateChanged(QString sensorName, bool state)
     {
         do somtething
     }*/
-    qDebug() << "sesor state changed" << sensorName << state;
     QColor led = QColor(SmlColors::white());
     if(state)
     {
         led =  m_sensorsManager->findSensor(sensorName)->getColor();
     }
-    emit sensorStateChangedSendNext(sensorName, led);
+    emit sensorStateChanged(sensorName, led);
 }
 
 void MachineTool::onU1Error(int errorCode)

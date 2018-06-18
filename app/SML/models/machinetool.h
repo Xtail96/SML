@@ -112,7 +112,7 @@ signals:
     /// Обновился путь до файла с G-Codes
     void filePathUpdated();
 
-    void sensorStateChangedSendNext(QString sensorName, QColor color);
+    void sensorStateChanged(QString sensorName, QColor color);
 
 public slots:
     void onSensorStateChanged(QString sensorName, bool state);

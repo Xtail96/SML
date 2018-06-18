@@ -235,7 +235,7 @@ void MainWindow::setupConnections()
         QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 
-    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChangedSendNext(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
+    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
 }
 
 void MainWindow::resetConnections()
@@ -293,7 +293,7 @@ void MainWindow::resetConnections()
         QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 
-    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChangedSendNext(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
 }
 
 void MainWindow::setupSpindelsControlPanel()
