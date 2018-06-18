@@ -3,15 +3,8 @@
 
 #include <QObject>
 
-#include "models/serverManager/servermanager.h"
-
-#include "models/devicesmanager/devicesmanager.h"
-#include "models/sensorsmanager/sensorsmanager.h"
-#include "models/settingsmanager/settingsmanager.h"
-#include "models/pointsmanager/pointsmanager.h"
-#include "models/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h"
-#include "models/gcodesmanager/gcodesmanager.h"
-#include "models/axisesmanager/axisesmanager.h"
+#include "models/repository/repository.h"
+#include "models/types/server/smlserver.h"
 
 
 /*!
@@ -36,41 +29,15 @@ public:
     ~MachineTool();
 
 protected:
-    /// Менеджер настроек
-    QScopedPointer<SettingsManager> m_settingsManager;
+    QScopedPointer<Repository> m_repository;
+    QScopedPointer<SMLServer> m_server;
 
-    /// Менеджер управления сервером
-    QScopedPointer<ServerManager> m_serverManager;
-
-    /// Менеджер для работы с датчиками
-    QScopedPointer<SensorsManager> m_sensorsManager;
-
-    /// Менеджер для работы с устройствами
-    QScopedPointer<DevicesManager> m_devicesManager;
-
-    /// Менеджер для управления осями
-    QScopedPointer<AxisesManager> m_axisesManager;
-
-    /// Менеджер для управления файлами в G-Codes
-    QScopedPointer<GCodesFilesManager> m_gcodesFilesManager;
-
-    /// Менеджер обработки G-Codes
-    QScopedPointer<GCodesManager> m_gcodesManager;
-
-    /// Менеджер для работы с точками
-    QScopedPointer<PointsManager> m_pointsManager;
 
     /// Флаг подключения адаптера контроллера датчиков и устройств
     bool m_u1Connected;
 
     /// Флаг подключения адптера контроллера движения
     bool m_u2Connected;
-
-    /// Скорость перемещени ?
-    size_t feedrate = 50;
-
-    /// Обороты шпинделя ?
-    size_t rotations = 2000;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();

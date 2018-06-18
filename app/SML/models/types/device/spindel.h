@@ -1,11 +1,18 @@
 #ifndef SPINDEL_H
 #define SPINDEL_H
 
-#include "models/devicesmanager/device/device.h"
+#include "models/types/device/device.h"
 class Spindel : public Device
 {
 public:
-    Spindel(QString code, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
+    Spindel(QString name,
+            QString label,
+            QString index,
+            bool activeState,
+            int mask,
+            size_t lowerBound,
+            size_t upperBound,
+            QObject *parent = nullptr);
     ~Spindel();
     QStringList getParams() override;
 
@@ -25,8 +32,6 @@ protected:
     size_t m_currentRotations;
     size_t m_upperBound;
     size_t m_lowerBound;
-
-    void initialize(const SettingsManager &sm);
 };
 
 #endif // SPINDEL_H

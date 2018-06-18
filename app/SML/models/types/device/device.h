@@ -1,11 +1,6 @@
 #ifndef DEVICE_H
 #define DEVICE_H
-#include <string>
-
-#include <QMainWindow>
-
-#include "models/settingsmanager/settingsmanager.h"
-#include "models/structs.h"
+#include "models/types/structs.h"
 
 /*!
  * \brief Класс Устройство
@@ -16,10 +11,8 @@ class Device : public QObject
 public:
     /*!
      * \brief Конструктор класса "Устрйоство"
-     * \param code - код устройства
-     * \param sm - менеджер настроек
      */
-    Device(QString name, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
+    Device(QString name, QString label, QString index, bool activeState, int mask, QObject *parent = nullptr);
 
     virtual ~Device();
 
@@ -60,12 +53,6 @@ protected:
 
     /// Маска, включающее устройство
     byte m_mask;
-
-    /*!
-     * \brief Инициализирует устройство с помощью менеджера настроек
-     * \param sm - менеджер настроек
-     */
-    void initialize(const SettingsManager &sm);
 };
 
 #endif // DEVICE_H

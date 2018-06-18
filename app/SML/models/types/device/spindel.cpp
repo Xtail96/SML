@@ -1,28 +1,16 @@
 #include "spindel.h"
 
-Spindel::Spindel(QString code, const SettingsManager &sm, QObject *parent) :
-    Device(code, sm, parent)
+Spindel::Spindel(QString name, QString label, QString index, bool activeState, int mask, size_t lowerBound, size_t upperBound, QObject *parent) :
+    Device(name, label, index, activeState, mask),
+    m_upperBound(upperBound),
+    m_lowerBound(lowerBound),
+    m_currentRotations(m_lowerBound)
 {
-    initialize(sm);
 }
 
 Spindel::~Spindel()
 {
 
-}
-
-void Spindel::initialize(const SettingsManager &sm)
-{
-    try
-    {
-        m_upperBound = QVariant(sm.get(m_name, "UpperBound")).toULongLong();
-        m_lowerBound = QVariant(sm.get(m_name, "LowerBound")).toULongLong();
-        m_currentRotations = m_lowerBound;
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_name, e.what()).exec();
-    }
 }
 
 QStringList Spindel::getParams()

@@ -1,44 +1,25 @@
 #include "axis.h"
 
-Axis::Axis(QString name, const SettingsManager &settingsManager) :
-    m_name(name)
+Axis::Axis(QString name,
+           double length,
+           double step,
+           bool invertDirection,
+           double basingVelocity) :
+    m_name(name),
+    m_length(length),
+    m_step(step),
+    m_currentPosition(0.0),
+    m_invertDirection(invertDirection),
+    m_currentVelocity(30.0),
+    m_basingVelocity(basingVelocity),
+    m_softLimitsEnable(false)
 {
-    initialize(settingsManager);
+
 }
 
 Axis::~Axis()
 {
 
-}
-
-void Axis::initialize(const SettingsManager &settingsManager)
-{
-    m_currentPosition = 0.0;
-    m_softLimitsEnable = false;
-    try
-    {
-        QString fullAxisName = QString("Axis") + m_name;
-
-        QVariant qLength = settingsManager.get("TableSize", QString("Size" + m_name));
-        m_length = qLength.toDouble();
-
-        QVariant qStep = settingsManager.get(fullAxisName, "Step");
-        m_step = qStep.toDouble();
-
-        m_currentPosition = 0.0;
-
-        QVariant qInvertDirection = settingsManager.get(fullAxisName, "Invert");
-        m_invertDirection = qInvertDirection.toBool();
-
-        m_currentVelocity = 30.0;
-
-        QVariant qBazaSearchSpeed = settingsManager.get(fullAxisName, "BazaSearchSpeed");
-        m_basingVelocity = qBazaSearchSpeed.toDouble();
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, QString("Ошибка настройки оси ") + m_name, e.what()).exec();
-    }
 }
 
 QString Axis::name() const

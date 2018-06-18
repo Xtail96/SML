@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "models/structs.h"
+#include "models/types/structs.h"
 
 /**
  * @brief Класс "Точка"

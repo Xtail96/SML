@@ -1,10 +1,9 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <string>
+#include <QColor>
 
-#include "models/structs.h"
-#include "models/settingsmanager/settingsmanager.h"
+#include "models/types/structs.h"
 
 /*!
  * \brief Класс Датчик
@@ -16,10 +15,15 @@ class Sensor : public QObject
 public:
     /*!
      * \brief Конструктор класса "Датчик"
-     * \param _code - код датчика
-     * \param sm - менеджер настроек
      */
-    Sensor(QString code, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
+    Sensor(QString name,
+           QString label,
+           size_t portNumber,
+           size_t inputNumber,
+           QString boardName,
+           bool activeState,
+           QColor color,
+           QObject *parent = nullptr);
 
     /*!
      * \brief Получает текущее состояние датчика
@@ -76,12 +80,6 @@ public:
     bool isEnable();
 
     /*!
-     * \brief Возвращает код датчика
-     * \return код датчика в формате строки (QString)
-     */
-    QString getCode() const;
-
-    /*!
      * \brief Возврщает подпись датчика
      * \return подпись датчика в формате строки (QString)
      */
@@ -90,9 +88,6 @@ public:
     QString getSettings();
 
 protected:
-    /// код датчика для получения информации из файла настроек
-    QString m_code;
-
     /// имя датчика
     QString m_name;
 
@@ -116,12 +111,6 @@ protected:
 
     /// цвет индикатора при срабатывании датчика
     QColor m_color;
-
-    /*!
-     * \brief Инициализирует датчик с помощью менеджера настроек
-     * \param sm - менеджер настроек
-     */
-    void initialize(const SettingsManager &sm);
 
 signals:
     void stateChanged(QString name, bool state);

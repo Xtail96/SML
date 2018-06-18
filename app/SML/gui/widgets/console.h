@@ -5,7 +5,7 @@
 #include <QPlainTextEdit>
 #include <QScrollBar>
 
-#include "models/structs.h"
+#include "models/types/structs.h"
 
 class Console : public QPlainTextEdit
 {

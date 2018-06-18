@@ -66,7 +66,7 @@ SOURCES += main.cpp\
     #gui/gcodeswebviewdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/logdialog.cpp \
-    gui/addpointdialog.cpp \
+    #gui/addpointdialog.cpp \
     gui/toselectionpointdialog.cpp \
     gui/smlconsoledialog.cpp \
     libs/candlevisualizer/glwidget.cpp \
@@ -94,15 +94,15 @@ SOURCES += main.cpp\
     models/machinetool.cpp \
     models/types/settingsmanager/settingsmanager.cpp \
     models/types/server/smlserver.cpp \
-    models/types/server/adapterscontainer/adapter/adapter.cpp \
-    models/types/server/adapterscontainer/adapterscontainer.cpp \
     models/types/sensor/sensor.cpp \
     models/types/device/supportdevice.cpp \
     models/types/device/spindel.cpp \
     models/types/device/device.cpp \
     models/types/axis/axis.cpp \
     models/types/point/pointsbuilder.cpp \
-    models/types/point/point.cpp
+    models/types/point/point.cpp \
+    models/types/sensor/sensorsbuffer.cpp \
+    models/types/device/devicesbuffer.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -117,7 +117,7 @@ HEADERS  += gui/mainwindow.h \
     #gui/gcodeswebviewdialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/logdialog.h \
-    gui/addpointdialog.h \
+    #gui/addpointdialog.h \
     gui/toselectionpointdialog.h \
     gui/smlconsoledialog.h \
     libs/candlevisualizer/glwidget.h \
@@ -145,21 +145,21 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/sensorsdisplaywidget.h \
     models/repository/repository.h \
     models/machinetool.h \
-    models/structs.h \
+    models/types/structs.h \
     models/types/settingsmanager/settingsmanager.h \
     models/types/server/smlserver.h \
-    models/types/server/adapterscontainer/adapter/adapter.h \
-    models/types/server/adapterscontainer/adapterscontainer.h \
     models/types/sensor/sensor.h \
     models/types/device/supportdevice.h \
     models/types/device/spindel.h \
     models/types/device/device.h \
     models/types/axis/axis.h \
     models/types/point/pointsbuilder.h \
-    models/types/point/point.h
+    models/types/point/point.h \
+    models/types/sensor/sensorsbuffer.h \
+    models/types/device/devicesbuffer.h
 
 FORMS    += gui/mainwindow.ui \
-    gui/addpointdialog.ui \
+    #gui/addpointdialog.ui \
     gui/toselectionpointdialog.ui \
     gui/logdialog.ui \
     gui/gcodeswebviewdialog.ui \

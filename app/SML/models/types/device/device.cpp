@@ -1,31 +1,25 @@
 #include "device.h"
 
-Device::Device(QString name, const SettingsManager &sm, QObject *parent) :
+Device::Device(QString name,
+               QString label,
+               QString index,
+               bool activeState,
+               int mask,
+               QObject *parent) :
     QObject(parent),
-    m_name(name)
+    m_name(name),
+    m_label(label),
+    m_index(index),
+    m_activeState(activeState),
+    m_mask(mask),
+    m_currentState(!m_activeState)
 {
-    initialize(sm);
+
 }
 
 Device::~Device()
 {
 
-}
-
-void Device::initialize(const SettingsManager &sm)
-{
-    try
-    {
-        m_label = QVariant(sm.get(m_name, "Label")).toString();
-        m_index = QVariant(sm.get(m_name, "Index")).toString();
-        m_activeState = QVariant(sm.get(m_name, "ActiveState")).toBool();
-        m_mask = QVariant(sm.get(m_name, "Mask")).toUInt();
-        m_currentState = !m_activeState;
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки устройства " + m_name, e.what() + m_name).exec();
-    }
 }
 
 void Device::updateCurrentState(bool value)

@@ -1,12 +1,12 @@
 #ifndef SUPPORTDEVICE_H
 #define SUPPORTDEVICE_H
 
-#include "models/devicesmanager/device/device.h"
+#include "models/types/device/device.h"
 
 class SupportDevice : public Device
 {
 public:
-    SupportDevice(QString code, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
+    SupportDevice(QString name, QString label, QString index, bool activeState, int mask, QObject *parent = nullptr);
     QStringList getParams() override;
 };
 

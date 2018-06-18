@@ -17,7 +17,7 @@
     #include <OpenGL/gl.h>
 #endif
 
-#include "models/structs.h"
+#include "models/types/structs.h"
 #include "libs/gpr/parser.h"
 
 class GCodesViewWidget : public QGLWidget

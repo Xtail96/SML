@@ -2,14 +2,8 @@
 
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
-    m_settingsManager(new SettingsManager()),
-    m_serverManager(new ServerManager(*(m_settingsManager.data()), this)),
-    m_sensorsManager(new SensorsManager(*(m_settingsManager.data()), this)),
-    m_devicesManager(new DevicesManager(*(m_settingsManager.data()))),
-    m_axisesManager(new AxisesManager(*(m_settingsManager.data()))),
-    m_gcodesFilesManager(new GCodesFilesManager(this)),
-    m_gcodesManager(new GCodesManager()),
-    m_pointsManager(new PointsManager()),
+    m_repository(new Repository(this)),
+    m_server(new SMLServer(m_repository->m_port, this)),
     m_u1Connected(false),
     m_u2Connected(false)
 {
@@ -24,7 +18,7 @@ MachineTool::~MachineTool()
 
 void MachineTool::setupConnections()
 {
-    QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
@@ -34,12 +28,12 @@ void MachineTool::setupConnections()
     {
         Sensor* sensor = m_sensorsManager->findSensor(name);
         QObject::connect(sensor, SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorStateChanged(QString,bool)));
-    }
+    }*/
 }
 
 void MachineTool::resetConnections()
 {
-    QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
@@ -49,7 +43,7 @@ void MachineTool::resetConnections()
     {
         Sensor* sensor = m_sensorsManager->findSensor(name);
         QObject::disconnect(sensor, SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorStateChanged(QString,bool)));
-    }
+    }*/
 }
 
 void MachineTool::onSensorStateChanged(QString sensorName, bool state)
@@ -58,66 +52,66 @@ void MachineTool::onSensorStateChanged(QString sensorName, bool state)
     {
         do somtething
     }*/
-    QColor led = QColor(SmlColors::white());
+    /*QColor led = QColor(SmlColors::white());
     if(state)
     {
         led =  m_sensorsManager->findSensor(sensorName)->getColor();
     }
-    emit sensorStateChanged(sensorName, led);
+    emit sensorStateChanged(sensorName, led);*/
 }
 
 void MachineTool::onU1Error(int errorCode)
 {
-    handleMachineToolErrors(errorCode);
+    //handleMachineToolErrors(errorCode);
 }
 
 void MachineTool::onU1Connected()
 {
-    updateU1State();
-    emit u1Connected();
+    //updateU1State();
+    //emit u1Connected();
 }
 
 void MachineTool::onU1Disconnected()
 {
-    updateU1State();
-    emit u1Disconnected();
+    //updateU1State();
+    //emit u1Disconnected();
 }
 
 void MachineTool::updateU1State()
 {
-    byte_array sensors = m_serverManager->getSensorsState();
+    /*byte_array sensors = m_serverManager->getSensorsState();
     byte_array devices = m_serverManager->getDevicesState();
     m_sensorsManager->updateSensors(sensors);
     m_devicesManager->updateDevices(devices);
-    emit u1StateIsChanged();
+    emit u1StateIsChanged();*/
 }
 
 void MachineTool::onGCodesLoaded()
 {
-    emit gcodesUpdated();
-    emit filePathUpdated();
+    //emit gcodesUpdated();
+    //emit filePathUpdated();
 }
 
 void MachineTool::exportSettings()
 {
-    QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
-    m_settingsManager->exportSettings(path);
+    //QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
+    //m_settingsManager->exportSettings(path);
 }
 
 void MachineTool::importSettings()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
-    m_settingsManager->importSettings(path);
+    //QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
+    //m_settingsManager->importSettings(path);
 }
 
 QStringList MachineTool::getSensorNames()
 {
-    return m_sensorsManager->sensorsNames();
+    //return m_sensorsManager->sensorsNames();
 }
 
 QMap<QString, QString> MachineTool::getSensorSettings(QString name)
 {
-    QMap<QString, QString> sensorsSettingsMap;
+    /*QMap<QString, QString> sensorsSettingsMap;
     QString settingsString = m_sensorsManager->sensorSettings(name);
     QStringList settingsList = settingsString.split(";");
 
@@ -129,63 +123,63 @@ QMap<QString, QString> MachineTool::getSensorSettings(QString name)
             sensorsSettingsMap.insert(item.at(0), item.at(1));
         }
     }
-    return sensorsSettingsMap;
+    return sensorsSettingsMap;*/
 }
 
 void MachineTool::parseGCodes()
 {
-    m_gcodesManager->updateGCodesProgram();
+    //m_gcodesManager->updateGCodesProgram();
 }
 
 void MachineTool::setSoftLimitsMode(bool enable)
 {
-    m_axisesManager->setSoftLimitsMode(enable);
+    //m_axisesManager->setSoftLimitsMode(enable);
 }
 
 QStringList MachineTool::getCurrentConnections()
 {
-    return m_serverManager->getCurrentConnections();
+    //return m_serverManager->getCurrentConnections();
 }
 
 QString MachineTool::getServerPort()
 {
-    return QString::number(m_serverManager->getServerPort());
+    //return QString::number(m_serverManager->getServerPort());
 }
 
 QString MachineTool::getSensorsBufferSize()
 {
-    return QString::number(m_serverManager->getSensorsBufferSize());
+    //return QString::number(m_serverManager->getSensorsBufferSize());
 }
 
 QString MachineTool::getDevicesBufferSize()
 {
-    return QString::number(m_serverManager->getDevicesBufferSize());
+    //return QString::number(m_serverManager->getDevicesBufferSize());
 }
 
 QList<Spindel*> MachineTool::getSpindels()
 {
-    return m_devicesManager->getSpindels();
+    //return m_devicesManager->getSpindels();
 }
 
 void MachineTool::handleMachineToolErrors(int errorCode)
 {
     // обрабатываем ошибки и испускаем сигнал об их наступлении
-    emit machineToolErrorIsOccured(errorCode);
+    //emit machineToolErrorIsOccured(errorCode);
 }
 
 void MachineTool::startServer()
 {
-    m_serverManager->startServer();
+    //m_serverManager->startServer();
 }
 
 void MachineTool::stopServer()
 {
-    m_serverManager->stopServer();
+    //m_serverManager->stopServer();
 }
 
 void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)
 {
-    try
+    /*try
     {
         Spindel &spindel = m_devicesManager->findSpindel(spindelName);
         m_devicesManager->setSpindelRotations(spindel.getName(), rotations);
@@ -195,12 +189,12 @@ void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void MachineTool::switchSpindelOff(QString spindelName)
 {
-    try
+    /*try
     {
         Spindel &spindel = m_devicesManager->findSpindel(spindelName);
         m_serverManager->switchDeviceOff(ServerManager::Spindel, spindel.getIndex());
@@ -208,43 +202,43 @@ void MachineTool::switchSpindelOff(QString spindelName)
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void MachineTool::updateVelocity(int value)
 {
-    if(value >= 0)
+    /*if(value >= 0)
     {
         feedrate = value;
     }
     else
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицательной").exec();
-    }
+    }*/
 }
 
 void MachineTool::updateSpindelRotations(int value)
 {
-    if(value >= 0)
+    /*if(value >= 0)
     {
         rotations = value;
     }
     else
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицательными").exec();
-    }
+    }*/
 }
 
 void MachineTool::addPoint(QStringList coordinates)
 {
-    Point* p = PointsManager::makePoint(coordinates);
+    /*Point* p = PointsManager::makePoint(coordinates);
     m_pointsManager->addPoint(p);
-    emit pointsUpdated();
+    emit pointsUpdated();*/
 }
 
 void MachineTool::updatePoint(QStringList coordinates, unsigned int number)
 {
-    Point* p = PointsManager::makePoint(coordinates);
+    /*Point* p = PointsManager::makePoint(coordinates);
     try
     {
         std::shared_ptr<Point> originPoint = m_pointsManager->operator [](number);
@@ -260,12 +254,12 @@ void MachineTool::updatePoint(QStringList coordinates, unsigned int number)
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void MachineTool::deletePoint(unsigned int number)
 {
-    try
+    /*try
     {
         std::shared_ptr<Point> p = m_pointsManager->operator [](number);
         m_pointsManager->deletePoint(p);
@@ -274,150 +268,150 @@ void MachineTool::deletePoint(unsigned int number)
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 
 void MachineTool::openGCodesFile()
 {
-    connect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
+    /*connect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
 
     m_gcodesFilesManager->openGCodesFile();
 
-    disconnect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
+    disconnect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));*/
 }
 
 QString MachineTool::getGCodesFileContent()
 {
-    return m_gcodesFilesManager->getContent();
+    //return m_gcodesFilesManager->getContent();
 }
 
 void MachineTool::saveGCodesFile(const QString data)
 {
 
-    m_gcodesFilesManager->setFileContent(data);
+    /*m_gcodesFilesManager->setFileContent(data);
     m_gcodesFilesManager->saveGCodesFile();
-    emit filePathUpdated();
+    emit filePathUpdated();*/
 }
 
 void MachineTool::saveGCodesFileAs(const QString data)
 {
-    m_gcodesFilesManager->setFileContent(data);
+    /*m_gcodesFilesManager->setFileContent(data);
     m_gcodesFilesManager->saveGCodesFileAs();
-    emit filePathUpdated();
+    emit filePathUpdated();*/
 }
 
 void MachineTool::newGCodesFile()
 {
-    m_gcodesFilesManager->newGCodesFile();
+    /*m_gcodesFilesManager->newGCodesFile();
     emit gcodesUpdated();
-    emit filePathUpdated();
+    emit filePathUpdated();*/
 }
 
 void MachineTool::addGCodesFile(const QString data)
 {
-    saveGCodesFile(data);
+    /*saveGCodesFile(data);
     m_gcodesFilesManager->addGCodesFile();
     emit gcodesUpdated();
-    emit filePathUpdated();
+    emit filePathUpdated();*/
 }
 
 void MachineTool::setGCodes(const QString &data)
 {
-    m_gcodesManager->setGcodes(data);
+    //m_gcodesManager->setGcodes(data);
 }
 
 QString MachineTool::getGCodesProgram()
 {
-    return m_gcodesManager->gcodes();
+    //return m_gcodesManager->gcodes();
 }
 
 QList<Point> MachineTool::getMachineToolCoordinates()
 {
-    QList<Point> machineToolCoordinates;
+    /*QList<Point> machineToolCoordinates;
     machineToolCoordinates.push_back(m_axisesManager->getCurrentCoordinatesFromZero());
     machineToolCoordinates.push_back(m_axisesManager->getCurrentCoordinatesFromBase());
     machineToolCoordinates.push_back(m_axisesManager->getParkCoordinates());
-    return machineToolCoordinates;
+    return machineToolCoordinates;*/
 }
 
 QStringList MachineTool::getSensorsSettings()
 {
-    return m_sensorsManager->sensorsSettings();
+    //return m_sensorsManager->sensorsSettings();
 }
 
 QStringList MachineTool::getDevicesNames()
 {
-    return m_devicesManager->getAllDevicesNames();
+    //return m_devicesManager->getAllDevicesNames();
 }
 
 QStringList MachineTool::getDevicesParametrsNames()
 {
-    return m_devicesManager->getDevicesParametrsNames();
+    //return m_devicesManager->getDevicesParametrsNames();
 }
 
 QList<QStringList> MachineTool::getDevicesSettings()
 {
-    return m_devicesManager->getDevicesSettings();
+    //return m_devicesManager->getDevicesSettings();
 }
 
 QStringList MachineTool::getOnScreenDevicesNames()
 {
-    return m_devicesManager->onScreenDevicesNames();
+    //return m_devicesManager->onScreenDevicesNames();
 }
 
 QList<bool> MachineTool::getOnScreenDevicesStates()
 {
-    return m_devicesManager->onScreenDevicesStates();
+    //return m_devicesManager->onScreenDevicesStates();
 }
 
 QStringList MachineTool::getAxisesNames()
 {
-    return m_axisesManager->getAxisesNames();
+    //return m_axisesManager->getAxisesNames();
 }
 
 QStringList MachineTool::getAxisesSettings()
 {
-    return m_axisesManager->getAxisesSettings();
+    //return m_axisesManager->getAxisesSettings();
 }
 
 QStringList MachineTool::getOptionsNames()
 {
     //todo: переписсать метод через модель
-    QStringList optionsNames =
+    /*QStringList optionsNames =
     {
         "Кабриоль",
         "Датчик вылета инструмента",
         "Станция автоматической смазки"
     };
-    return optionsNames;
+    return optionsNames;*/
 }
 
 size_t MachineTool::getFeedrate() const
 {
     //return m_machineTool->getVelocity();
-    return feedrate;
+    //return feedrate;
 }
 
 size_t MachineTool::getSpindelRotations() const
 {
     //return m_machineTool->getSpindelRotations();
-    return rotations;
+    //return rotations;
 }
 
 QList<QStringList> MachineTool::getPoints()
 {
-    return m_pointsManager->points();
+    //return m_pointsManager->points();
 }
 
 QStringList MachineTool::getPoint(unsigned int number)
 {
-    return m_pointsManager->point(number);
+    //return m_pointsManager->point(number);
 }
 
 QString MachineTool::getFilePath(QString type)
 {
-    QString path = "";
+    /*QString path = "";
     if(type == "gcodes")
     {
         path = m_gcodesFilesManager->getFilePath();
@@ -429,5 +423,5 @@ QString MachineTool::getFilePath(QString type)
             path = "sml file path";
         }
     }
-    return path;
+    return path;*/
 }

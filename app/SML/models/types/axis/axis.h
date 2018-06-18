@@ -1,12 +1,12 @@
 #ifndef AXIS_H
 #define AXIS_H
 
-#include "models/settingsmanager/settingsmanager.h"
+#include <QString>
 
 class Axis
 {
 public:
-    explicit Axis(QString name, const SettingsManager &settingsManager = SettingsManager());
+    explicit Axis(QString name, double length, double step, bool invertDirection, double basingVelocity);
     ~Axis();
 
     QString name() const;
@@ -45,8 +45,6 @@ protected:
     double m_basingVelocity;
 
     bool m_softLimitsEnable;
-
-    void initialize(const SettingsManager &settingsManager);
 };
 
 #endif // AXIS_H

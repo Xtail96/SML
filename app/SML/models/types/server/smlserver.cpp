@@ -1,12 +1,11 @@
 #include "smlserver.h"
 
-SMLServer::SMLServer(const SettingsManager &settingsManager, QObject *parent) :
+SMLServer::SMLServer(size_t port, QObject *parent) :
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
-    m_port(0),
+    m_port(port),
     m_debug(false)
 {
-    initialize(settingsManager);
     setupConnections();
 }
 
@@ -57,19 +56,6 @@ SMLServer::~SMLServer()
     }
     qDeleteAll(m_unregistered.begin(), m_unregistered.end());
 
-}
-
-void SMLServer::initialize(const SettingsManager &settingsManager)
-{
-    try
-    {
-        m_port = settingsManager.get("ServerSettings", "ServerPort").toUInt();
-        //m_debug = settingsManager.get("ServerSettings", "DebugMode").toInt();
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }
 }
 
 void SMLServer::setupConnections()

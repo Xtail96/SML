@@ -1,29 +1,23 @@
 #include "sensor.h"
 
-Sensor::Sensor(QString code, const SettingsManager &sm, QObject *parent) :
+Sensor::Sensor(QString name,
+               QString label,
+               size_t portNumber,
+               size_t inputNumber,
+               QString boardName,
+               bool activeState,
+               QColor color,
+               QObject *parent) :
     QObject(parent),
-    m_code(code)
+    m_name(name),
+    m_label(label),
+    m_portNumber(portNumber),
+    m_inputNumber(inputNumber),
+    m_boardName(boardName),
+    m_activeState(activeState),
+    m_currentState(!m_activeState),
+    m_color(color)
 {
-    initialize(sm);
-}
-
-void Sensor::initialize(const SettingsManager &sm)
-{
-    try
-    {
-        m_label = QVariant(sm.get(m_code, "Label")).toString();
-        m_name  = QVariant(sm.get(m_code, "Name")).toString();
-        m_portNumber = QVariant(sm.get(m_code, "PortNumber")).toUInt();
-        m_inputNumber = QVariant(sm.get(m_code, "InputNumber")).toUInt();
-        m_boardName = QVariant(sm.get(m_code, "BoardName")).toString();
-        m_activeState = QVariant(sm.get(m_code, "ActiveState")).toBool();
-        m_color = QColor(QVariant(sm.get(m_code, "Color")).toString());
-        m_currentState = !m_activeState;
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки датчика " + m_code, e.what()).exec();
-    }
 }
 
 void Sensor::update(bool state)
@@ -76,12 +70,6 @@ QString Sensor::getBoardName() const
 bool Sensor::getActiveState() const
 {
     return m_activeState;
-}
-
-
-QString Sensor::getCode() const
-{
-    return m_code;
 }
 
 QColor Sensor::getColor() const

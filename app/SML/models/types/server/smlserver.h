@@ -5,14 +5,13 @@
 #include <QWebSocketServer>
 #include <QWebSocket>
 
-#include "models/structs.h"
-#include "models/settingsmanager/settingsmanager.h"
+#include "models/types/structs.h"
 
 class SMLServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SMLServer(const SettingsManager &settingsManager = SettingsManager(), QObject *parent = nullptr);
+    explicit SMLServer(size_t port, QObject *parent = nullptr);
     ~SMLServer();
 
     enum Type {Undefined, U1Adapter, U2Adapter};
@@ -45,7 +44,6 @@ public slots:
     size_t port() const;
 
 protected slots:
-    void initialize(const SettingsManager &settingsManager);
     void setupConnections();
     void resetConnections();
 

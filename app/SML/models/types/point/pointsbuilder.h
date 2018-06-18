@@ -1,7 +1,7 @@
 #ifndef POINTSBUILDER_H
 #define POINTSBUILDER_H
 
-#include "models/pointsmanager/point/point.h"
+#include "models/types/point/point.h"
 
 class PointsBuilder
 {

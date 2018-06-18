@@ -19,8 +19,8 @@
 #endif
 
 /// Подключение диалогов редактора точек
-#include "gui/addpointdialog.h"
-#include "gui/toselectionpointdialog.h"
+//#include "gui/addpointdialog.h"
+//#include "gui/toselectionpointdialog.h"
 
 /// Подключение диалогов команд
 /*#include "commands/linedialog.h"
@@ -54,9 +54,6 @@
 
 /// Подключение подсветки синтаксиса G-кодов
 #include "gcodessyntaxhighlighter.h"
-
-/// Подключение менеджера настроек
-#include "models/settingsmanager/settingsmanager.h"
 
 /// Подключение диалогов опций
 /*#include "gui/options/kabriolwindow.h"
