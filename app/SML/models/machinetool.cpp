@@ -4,8 +4,9 @@ MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_repository(new Repository(this)),
     m_server(new SMLServer(m_repository->m_port, this)),
-    m_u1Connected(false),
-    m_u2Connected(false)
+    m_connectionMonitor(new ConnectionsMonitor(m_repository->m_u1Connection.data(),
+                                               m_repository->m_u2Connection.data(),
+                                               this))
 {
     setupConnections();
     startServer();
@@ -18,6 +19,16 @@ MachineTool::~MachineTool()
 
 void MachineTool::setupConnections()
 {
+    QObject::connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
+    QObject::connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::connect(m_server.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>,int)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>,int)));
+
+    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
+    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
+    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
+
+
     /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
@@ -33,6 +44,15 @@ void MachineTool::setupConnections()
 
 void MachineTool::resetConnections()
 {
+    QObject::disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::disconnect(m_server.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>,int)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>,int)));
+
+    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
+    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
+    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
+
     /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
@@ -44,6 +64,22 @@ void MachineTool::resetConnections()
         Sensor* sensor = m_sensorsManager->findSensor(name);
         QObject::disconnect(sensor, SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorStateChanged(QString,bool)));
     }*/
+}
+
+void MachineTool::onConnectionMonitor_U1Connected()
+{
+    emit u1Connected();
+}
+
+void MachineTool::onConnectionMonitor_U1Disconnected()
+{
+    emit u1Disconnected();
+}
+
+void MachineTool::onConnectionMonitor_U1Error(int code)
+{
+    qDebug() << "u1 eror" << code;
+    //emit u1Disconnected();
 }
 
 void MachineTool::onSensorStateChanged(QString sensorName, bool state)
@@ -60,21 +96,19 @@ void MachineTool::onSensorStateChanged(QString sensorName, bool state)
     emit sensorStateChanged(sensorName, led);*/
 }
 
-void MachineTool::onU1Error(int errorCode)
+void MachineTool::onServer_U1Error(int errorCode)
 {
-    //handleMachineToolErrors(errorCode);
+    m_repository->setU1Error(errorCode);
 }
 
-void MachineTool::onU1Connected()
+void MachineTool::onServer_U1Connected()
 {
-    //updateU1State();
-    //emit u1Connected();
+    m_repository->setU1Connected(true);
 }
 
-void MachineTool::onU1Disconnected()
+void MachineTool::onServer_U1Disconnected()
 {
-    //updateU1State();
-    //emit u1Disconnected();
+    m_repository->setU1Connected(false);
 }
 
 void MachineTool::updateU1State()
@@ -161,6 +195,13 @@ QList<Spindel*> MachineTool::getSpindels()
     //return m_devicesManager->getSpindels();
 }
 
+void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error)
+{
+    m_repository->setU1Sensors(sensors);
+    m_repository->setU1Devices(devices);
+    m_repository->setU1Error(error);
+}
+
 void MachineTool::handleMachineToolErrors(int errorCode)
 {
     // обрабатываем ошибки и испускаем сигнал об их наступлении
@@ -169,12 +210,12 @@ void MachineTool::handleMachineToolErrors(int errorCode)
 
 void MachineTool::startServer()
 {
-    //m_serverManager->startServer();
+    m_server->start();
 }
 
 void MachineTool::stopServer()
 {
-    //m_serverManager->stopServer();
+    m_server->stop();
 }
 
 void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)

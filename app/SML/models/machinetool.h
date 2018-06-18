@@ -6,6 +6,8 @@
 #include "models/repository/repository.h"
 #include "models/types/server/smlserver.h"
 
+#include "models/services/connections/connectionsmonitor.h"
+
 
 /*!
  * \brief Класс Станок
@@ -32,12 +34,7 @@ protected:
     QScopedPointer<Repository> m_repository;
     QScopedPointer<SMLServer> m_server;
 
-
-    /// Флаг подключения адаптера контроллера датчиков и устройств
-    bool m_u1Connected;
-
-    /// Флаг подключения адптера контроллера движения
-    bool m_u2Connected;
+    QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();
@@ -46,39 +43,9 @@ protected:
     void resetConnections();
 
 signals:
-    /// Сигнал подключения адаптера контроллера датчиков и устройств
     void u1Connected();
-
-    /// Сигнал отключения адаптера контроллера датчиков и устройств
     void u1Disconnected();
-
-    /// Обновлено состояние датчиков и устрйоств
-    void u1StateIsChanged();
-
-    /// Сигнал подключения адаптера контроллера движения
-    void u2Connected();
-
-    /// Сигнал отключения адаптера контроллера движения
-    void u2Disconnected();
-
-    /// Обновлено состояния осей
-    void u2StateIsChanged();
-
-    /// В работе программы возникли ошибки
-    void machineToolErrorIsOccured(int errorCode);
-
-    /// Точки обновились
-    void pointsUpdated();
-
-    /// Команды обновились
-    //void commandsUpdated();
-
-    /// Обновились G-коды
-    void gcodesUpdated();
-
-    /// Обновился путь до файла с G-Codes
-    void filePathUpdated();
-
+    void u1Error(int code);
     void sensorStateChanged(QString sensorName, QColor color);
 
 public slots:
@@ -93,7 +60,23 @@ public slots:
     /// Включает устройство
     void switchSpindelOn(QString spindelName, size_t rotations);
     void switchSpindelOff(QString spindelName);
+protected slots:
+    /// пишем даные в репозиторий
+    void onServer_U1Connected();
+    void onServer_U1Disconnected();
+    void onServer_U1Error(int errorCode);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
 
+    /// обрабатываем данные от монитора
+    void onConnectionMonitor_U1Connected();
+    void onConnectionMonitor_U1Disconnected();
+    void onConnectionMonitor_U1Error(int code);
+
+
+/////////////////////////////////////////////////////////////
+
+
+public slots:
     /// Обновляет значение скорости пермещения
     void updateVelocity(int value);
 
@@ -220,14 +203,6 @@ public slots:
 
 protected slots:
 
-    /// Обрабатывает событие подключения адаптера U1
-    void onU1Connected();
-
-    /// Обрабатывает событие отключения адаптера U1
-    void onU1Disconnected();
-
-    /// Обрабатывает событие ошибки адаптера U1
-    void onU1Error(int errorCode);
 
     /// Обрабатывает событие изменения состояния U1
     void updateU1State();

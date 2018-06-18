@@ -28,21 +28,21 @@ MainWindow::MainWindow(QWidget *parent) :
     setupWidgets();
     setupConnections();
 
-    updateAxisesBoard();
-    updateDevicesBoard();
+    //updateAxisesBoard();
+    //updateDevicesBoard();
     //updateSensorsBoard();
 
-    updatePointsEditorFields();
-    updatePointsEditorButtons();
+    //updatePointsEditorFields();
+    //updatePointsEditorButtons();
 
-    updateVelocityPanel();
-    updateSpindelRotationsPanel();
-    updateOptionsPanel();
-    updateDevicesPanel();
-    updateServerPanel();
+    //updateVelocityPanel();
+    //updateSpindelRotationsPanel();
+    //updateOptionsPanel();
+    //updateDevicesPanel();
+    //updateServerPanel();
 
-    updateU1Displays();
-    updateU2Displays();
+    //updateU1Displays();
+    //updateU2Displays();
 
     onU1Disconnected();
     onU2Disconnected();
@@ -163,9 +163,11 @@ void MainWindow::setupSensorsSettingsBoard()
 
 void MainWindow::setupConnections()
 {
-    /*QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+
+    QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
+
+    /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
     QObject::connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
     QObject::connect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
@@ -234,9 +236,11 @@ void MainWindow::setupConnections()
 
 void MainWindow::resetConnections()
 {
-    /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
+
+
+    /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
     QObject::disconnect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));

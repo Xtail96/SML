@@ -102,7 +102,9 @@ SOURCES += main.cpp\
     models/types/point/pointsbuilder.cpp \
     models/types/point/point.cpp \
     models/types/sensor/sensorsbuffer.cpp \
-    models/types/device/devicesbuffer.cpp
+    models/types/device/devicesbuffer.cpp \
+    models/types/connection/connection.cpp \
+    models/services/connections/connectionsmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -156,7 +158,10 @@ HEADERS  += gui/mainwindow.h \
     models/types/point/pointsbuilder.h \
     models/types/point/point.h \
     models/types/sensor/sensorsbuffer.h \
-    models/types/device/devicesbuffer.h
+    models/types/device/devicesbuffer.h \
+    models/types/server/u1state.h \
+    models/types/connection/connection.h \
+    models/services/connections/connectionsmonitor.h
 
 FORMS    += gui/mainwindow.ui \
     #gui/addpointdialog.ui \

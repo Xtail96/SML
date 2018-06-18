@@ -5,7 +5,10 @@
 #include <QWebSocketServer>
 #include <QWebSocket>
 
+#include "libs/jsonparser/json.h"
+
 #include "models/types/structs.h"
+#include "models/types/server/u1state.h"
 
 class SMLServer : public QObject
 {
@@ -30,6 +33,8 @@ signals:
 
     void u1Connected();
     void u1Disconnected();
+    void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
+
     void u2Connected();
     void u2Disconnected();
 
@@ -51,6 +56,9 @@ protected slots:
     void onNewConnection();
     void onTextMessage(QString message);
     void onBinaryMessage(QByteArray message);
+
+    U1State parseU1BinaryMessage(QByteArray message);
+
     void socketDisconnected();
     void registerConnection(QWebSocket *connection, int type);
 };

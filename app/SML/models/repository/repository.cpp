@@ -2,7 +2,9 @@
 
 Repository::Repository(QObject *parent) :
     QObject(parent),
-    m_settingsManager(new SettingsManager())
+    m_settingsManager(new SettingsManager()),
+    m_u1Connection(new Connection(this)),
+    m_u2Connection(new Connection(this))
 {
     loadSettigs();
 }
@@ -149,4 +151,87 @@ void Repository::loadAxisesSettings()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.what())).exec();
     }
+}
+
+void Repository::setU1Connected(bool connected)
+{
+    m_u1Connection->setConnected(connected);
+}
+
+void Repository::setU1Sensors(QList<QVariant> sensors)
+{
+    byte_array currentSensorsState;
+    for(auto port : sensors)
+    {
+        currentSensorsState.push_back(port.toUInt());
+    }
+
+    m_sensorsBuffer.updateBuffer(currentSensorsState);
+    for(auto sensor : m_sensors)
+    {
+        bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(),
+                                                       sensor->getPortNumber(),
+                                                       sensor->getInputNumber());
+        sensor->update(isVoltage);
+    }
+}
+
+void Repository::setU1Devices(QList<QVariant> devices)
+{
+    byte_array currentDevicesState;
+    for(auto device : devices)
+    {
+        currentDevicesState.push_back(device.toUInt());
+    }
+
+    for(size_t i = 0; i < currentDevicesState.size(); i++)
+    {
+        try
+        {
+            Device& device = findDevice(i);
+            if(currentDevicesState[i] == 0x01)
+            {
+                device.updateCurrentState(device.getActiveState());
+            }
+            else
+            {
+                if(currentDevicesState[i] == 0x00)
+                {
+                    device.updateCurrentState(!device.getActiveState());
+                }
+            }
+        }
+        catch(std::invalid_argument e)
+        {
+            qDebug() << e.what() << i;
+        }
+    }
+
+}
+
+void Repository::setU1Error(int code)
+{
+    m_u1Connection->setLastError(code);
+}
+
+Device &Repository::findDevice(size_t index)
+{
+    for(auto device : m_spindels)
+    {
+        if(device->getIndex().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
+    for(auto device : m_supportDevices)
+    {
+        if(device->getIndex().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
+    std::string errorString = "device not found";
+    throw std::invalid_argument(errorString);
 }
