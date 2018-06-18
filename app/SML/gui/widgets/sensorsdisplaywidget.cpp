@@ -13,7 +13,7 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
 
     m_sensorsTable = new QTableWidget(container);
 #ifdef Q_OS_MACOS
-    m_sensorsTable->setMinimumWidth(105);
+    m_sensorsTable->setMinimumWidth(110);
 #endif
 #ifdef Q_OS_LINUX
     m_sensorsTable->setMinimumWidth(150);
