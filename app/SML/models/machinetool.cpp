@@ -246,30 +246,6 @@ void MachineTool::switchSpindelOff(QString spindelName)
     }*/
 }
 
-void MachineTool::updateVelocity(int value)
-{
-    /*if(value >= 0)
-    {
-        feedrate = value;
-    }
-    else
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Скорость не может быть отрицательной").exec();
-    }*/
-}
-
-void MachineTool::updateSpindelRotations(int value)
-{
-    /*if(value >= 0)
-    {
-        rotations = value;
-    }
-    else
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", "Обороты шпинделя не могут быть отрицательными").exec();
-    }*/
-}
-
 void MachineTool::addPoint(QStringList coordinates)
 {
     /*Point* p = PointsManager::makePoint(coordinates);

@@ -77,12 +77,6 @@ protected slots:
 
 
 public slots:
-    /// Обновляет значение скорости пермещения
-    void updateVelocity(int value);
-
-    /// Обвновляет значение оборотв шпинделя
-    void updateSpindelRotations(int value);
-
     /// Производит добавление точки
     void addPoint(QStringList coordinates);
 
