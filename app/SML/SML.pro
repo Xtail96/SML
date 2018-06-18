@@ -54,19 +54,9 @@ contains(QT_CONFIG, opengles.) {
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
-    models/settingsmanager/settingsmanager.cpp \
     libs/jsonparser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    models/devicesmanager/devicesmanager.cpp \
-    models/devicesmanager/device/device.cpp \
-    models/sensorsmanager/sensorsmanager.cpp \
-    models/sensorsmanager/sensor/sensor.cpp \
-    models/filesmanager/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    models/gcodesmanager/gcodesmanager.cpp \
-    models/pointsmanager/pointsmanager.cpp \
-    models/pointsmanager/point/point.cpp \
-    models/pointsmanager/point/pointsbuilder.cpp \
     gui/widgets/console.cpp \
     gui/widgets/gcodeseditorwidget.cpp \
     gui/widgets/gcodesviewwidget.cpp \
@@ -98,36 +88,26 @@ SOURCES += main.cpp\
     libs/candlevisualizer/tables/gcodetablemodel.cpp \
     libs/candlevisualizer/tables/heightmaptablemodel.cpp \
     libs/simpleqtlogger/simpleQtLogger.cpp \
-    models/axisesmanager/axis/axis.cpp \
-    models/axisesmanager/axisesmanager.cpp \
-    models/machinetool.cpp \
-    options/toollengthsensorwindow.cpp \
-    options/lubricationsystemwindow.cpp \
-    options/kabriolwindow.cpp \
-    models/serverManager/servermanager.cpp \
-    models/filesmanager/gcodesfilesmanager/filesreader.cpp \
-    models/serverManager/smlkameditorserver/smlserver.cpp \
-    models/devicesmanager/device/spindel.cpp \
-    models/devicesmanager/device/supportdevice.cpp \
     gui/widgets/spindelcontrolwidget.cpp \
-    gui/widgets/sensorsdisplaywidget.cpp
+    gui/widgets/sensorsdisplaywidget.cpp \
+    models/repository/repository.cpp \
+    models/machinetool.cpp \
+    models/types/settingsmanager/settingsmanager.cpp \
+    models/types/server/smlserver.cpp \
+    models/types/server/adapterscontainer/adapter/adapter.cpp \
+    models/types/server/adapterscontainer/adapterscontainer.cpp \
+    models/types/sensor/sensor.cpp \
+    models/types/device/supportdevice.cpp \
+    models/types/device/spindel.cpp \
+    models/types/device/device.cpp \
+    models/types/axis/axis.cpp \
+    models/types/point/pointsbuilder.cpp \
+    models/types/point/point.cpp
 
 HEADERS  += gui/mainwindow.h \
-    models/settingsmanager/settingsmanager.h \
-    models/structs.h \
     libs/jsonparser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    models/devicesmanager/devicesmanager.h \
-    models/devicesmanager/device/device.h \
-    models/sensorsmanager/sensorsmanager.h \
-    models/sensorsmanager/sensor/sensor.h \
-    models/structs.h \
-    models/filesmanager/gcodesfilesmanager/gcodesfilesmanager.h \
-    models/gcodesmanager/gcodesmanager.h \
-    models/pointsmanager/pointsmanager.h \
-    models/pointsmanager/point/point.h \
-    models/pointsmanager/point/pointsbuilder.h \
     gui/widgets/console.h \
     gui/widgets/gcodeseditorwidget.h \
     gui/widgets/gcodesviewwidget.h \
@@ -161,19 +141,22 @@ HEADERS  += gui/mainwindow.h \
     libs/candlevisualizer/tables/gcodetablemodel.h \
     libs/candlevisualizer/tables/heightmaptablemodel.h \
     libs/simpleqtlogger/simpleQtLogger.h \
-    models/axisesmanager/axis/axis.h \
-    models/axisesmanager/axisesmanager.h \
-    models/machinetool.h \
-    options/toollengthsensorwindow.h \
-    options/lubricationsystemwindow.h \
-    options/kabriolwindow.h \
-    models/serverManager/servermanager.h \
-    models/filesmanager/gcodesfilesmanager/filesreader.h \
-    models/serverManager/smlkameditorserver/smlserver.h \
-    models/devicesmanager/device/spindel.h \
-    models/devicesmanager/device/supportdevice.h \
     gui/widgets/spindelcontrolwidget.h \
-    gui/widgets/sensorsdisplaywidget.h
+    gui/widgets/sensorsdisplaywidget.h \
+    models/repository/repository.h \
+    models/machinetool.h \
+    models/structs.h \
+    models/types/settingsmanager/settingsmanager.h \
+    models/types/server/smlserver.h \
+    models/types/server/adapterscontainer/adapter/adapter.h \
+    models/types/server/adapterscontainer/adapterscontainer.h \
+    models/types/sensor/sensor.h \
+    models/types/device/supportdevice.h \
+    models/types/device/spindel.h \
+    models/types/device/device.h \
+    models/types/axis/axis.h \
+    models/types/point/pointsbuilder.h \
+    models/types/point/point.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
