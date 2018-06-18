@@ -109,7 +109,8 @@ SOURCES += main.cpp\
     models/serverManager/smlkameditorserver/smlserver.cpp \
     models/devicesmanager/device/spindel.cpp \
     models/devicesmanager/device/supportdevice.cpp \
-    gui/widgets/spindelcontrolwidget.cpp
+    gui/widgets/spindelcontrolwidget.cpp \
+    gui/widgets/sensordisplay.cpp
 
 HEADERS  += gui/mainwindow.h \
     models/settingsmanager/settingsmanager.h \
@@ -171,7 +172,8 @@ HEADERS  += gui/mainwindow.h \
     models/serverManager/smlkameditorserver/smlserver.h \
     models/devicesmanager/device/spindel.h \
     models/devicesmanager/device/supportdevice.h \
-    gui/widgets/spindelcontrolwidget.h
+    gui/widgets/spindelcontrolwidget.h \
+    gui/widgets/sensordisplay.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updateAxisesBoard();
     updateDevicesBoard();
-    updateSensorsBoard();
+    //updateSensorsBoard();
 
     updatePointsEditorFields();
     updatePointsEditorButtons();
@@ -68,6 +68,8 @@ void MainWindow::setupWidgets()
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
+    setupSensorsDisplay();
+    setupSensorsSettingsBoard();
     setupSpindelsControlPanel();
 
     // настройка контроля габаритов
@@ -100,6 +102,57 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     hideWidgets();
+}
+
+void MainWindow::setupSensorsDisplay()
+{
+
+}
+
+void MainWindow::updateSensorsDisplay(QString name, QColor color)
+{
+
+}
+
+void MainWindow::setupSensorsSettingsBoard()
+{
+    QStringList sensorsSettings = m_machineTool->getSensorsSettings();
+
+    QStringList labels;
+    QList< QPair<int, int> > positions;
+    QList<QTableWidgetItem*> items;
+
+    // rows
+    for(int i = 0; i < sensorsSettings.size(); i++)
+    {
+        QStringList sensorSettings = sensorsSettings.at(i).split(";");
+        // columns
+        for(int j = 0; j < sensorSettings.size(); j++)
+        {
+            QStringList pair = sensorSettings[j].split(":");
+            //qDebug() << pair;
+            if(pair.size() == 2)
+            {
+                if(!labels.contains(pair.at(0)))
+                {
+                    labels.push_back(pair.at(0));
+                }
+
+                QTableWidgetItem* item = new QTableWidgetItem(pair.at(1));
+                items.push_back(item);
+                positions.push_back(QPair<int, int>(i, j));
+            }
+        }
+    }
+
+    ui->sensorsSettingsTableWidget->setColumnCount(labels.size());
+    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(labels);
+
+    ui->sensorsSettingsTableWidget->setRowCount(sensorsSettings.size());
+    for(int i = 0; i < items.size(); i++)
+    {
+        ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
+    }
 }
 
 void MainWindow::setupConnections()
@@ -270,7 +323,7 @@ void MainWindow::updateSpindelsControlPanel()
 void MainWindow::updateSettingsBoards()
 {
     updateAxisesBoard();
-    updateSensorsBoard();
+    //updateSensorsBoard();
     updateDevicesBoard();
 }
 
@@ -280,7 +333,7 @@ void MainWindow::updateAxisesBoard()
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
-void MainWindow::updateSensorsBoard()
+/*void MainWindow::updateSensorsBoard()
 {
     QStringList sensorsNames = m_machineTool->getSensorsLabels();
     QStringList sensorsParametrsNames = m_machineTool->getSensorParametrLabels();
@@ -304,7 +357,7 @@ void MainWindow::updateSensorsBoard()
             ui->sensorsSettingsTableWidget->setItem(i, j, new QTableWidgetItem(sensorsSettings[i][j]));
         }
     }
-}
+}*/
 
 void MainWindow::updateDevicesBoard()
 {
@@ -352,12 +405,12 @@ void MainWindow::updatePointsEditorWidgets()
 void MainWindow::updateU1Displays()
 {
     updateBatteryStatusDisplay();
-    updateSensorsDisplay();
+    //updateSensorsDisplay();
     updateDevicesLeds();
     updateSpindelsControlPanel();
 }
 
-void MainWindow::updateSensorsDisplay()
+/*void MainWindow::updateSensorsDisplay()
 {
     QPair< QStringList, QList<QColor> > sensors;
     sensors.first = m_machineTool->getSensorsLabels();
@@ -376,7 +429,7 @@ void MainWindow::updateSensorsDisplay()
         item->setBackground(sensors.second[i]);
         ui->sensorsTableWidget->setItem(i, 0, item);
     }
-}
+}*/
 
 void MainWindow::updateDevicesPanel()
 {

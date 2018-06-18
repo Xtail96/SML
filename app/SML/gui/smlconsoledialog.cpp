@@ -79,7 +79,7 @@ void SMLConsoleDialog::onU1Disconnected()
     showMachineToolState("U1 Disconnected");
 }
 
-void SMLConsoleDialog::onU1StateChanged()
+/*void SMLConsoleDialog::onU1StateChanged()
 {
     QString u1State = "";
 
@@ -108,4 +108,4 @@ void SMLConsoleDialog::onU1StateChanged()
     }
 
     showMachineToolState(u1State);
-}
+}*/

@@ -283,46 +283,22 @@ protected:
 /*!
  * \brief Класс "Менеджер датчиков"
  */
-class SensorsManager
+class SensorsManager : public QObject
 {
-protected:
-    /*!
-     * \brief Вектор умных указателей на датчики станка
-     */
-    QList< QSharedPointer<Sensor> > m_sensors;
-
-    SensorsBuffer m_sensorsBuffer;
-
-    /*!
-     * \brief Инициализирует датчики по файлу настроек
-     * \param sm - указатель на менеджер настроек
-     */
-    void initialize(const SettingsManager &sm);
+    Q_OBJECT
 
 public:
     /*!
      * \brief Конструктор класса "Менеджер датчиков"
      * \param sm - указатель на менеджер настроек (по умолчанию nullptr)
      */
-    SensorsManager(const SettingsManager &sm = SettingsManager());
+    SensorsManager(const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер датчиков
      * \param object - ссылка на объект класса Менеджер датчиков
      */
     SensorsManager(const SensorsManager &object);
-
-    /*!
-     * \brief Возвращает ссылку на датчики станка
-     * \return вектор умных указателей на датчики станка
-     */
-    QList< QSharedPointer<Sensor> > &sensors();
-
-    /*!
-     * \brief Обновляет состояния датчиков по буферу состояния датчиков
-     * \param buffer - буфер состояний станка
-     */
-    void updateSensors(const SensorsBuffer buffer);
 
     /*!
      * \brief Обновляет состояния датчиков по массиву байт
@@ -338,28 +314,34 @@ public:
     bool sensorStateByName(QString sensorName);
 
     /*!
-     * \brief Возвращает подписи для всех датчиков в виде списка для вывода в итерфейс
-     * \return подписи датчиков в формате QStringList
-     */
-    QStringList sensorsLabels();
-
-    /*!
-     * \brief Возвращает названия параметров датчика в виде списка для вывода в интерфейс
-     * \return названия параметров датчика в формате QStringList
-     */
-    QStringList sensorParametrLabels();
-
-    /*!
-     * \brief Возвращает настройки каждого датчика для вывода в интерфейс
-     * \return настройки всех датчиков в формате QList<QStringList>
-     */
-    QList<QStringList> sensorsSettings();
-
-    /*!
      * \brief Возвращает состояние "светодиода" для каждого датчика для вывода в интерфейс
      * \return "светодиоды" всех датчиков в формате QList<QColor>
      */
     QList<QColor> sensorsLeds();
+
+    Sensor* findSensor(QString name);
+
+    QString sensorSettings(QString name);
+    QStringList sensorsSettings();
+    QStringList sensorsNames();
+
+protected:
+    /*!
+     * \brief Вектор умных указателей на датчики станка
+     */
+    QList< QSharedPointer<Sensor> > m_sensors;
+
+    SensorsBuffer m_sensorsBuffer;
+
+    /*!
+     * \brief Инициализирует датчики по файлу настроек
+     * \param sm - указатель на менеджер настроек
+     */
+    void initialize(const SettingsManager &sm);
+
+signals:
+
+public slots:
 };
 
 #endif // SENSORSMANAGER_H

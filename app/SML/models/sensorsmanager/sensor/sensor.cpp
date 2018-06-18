@@ -1,26 +1,7 @@
 #include "sensor.h"
 
-Sensor::Sensor(QString _code,
-               QString name,
-               QString label,
-               QString boardName,
-               unsigned int portNumber,
-               unsigned int inputNumber,
-               bool activeState,
-               QColor color) :
-    m_code(_code),
-    m_name(name),
-    m_label(label),
-    m_boardName(boardName),
-    m_portNumber(portNumber),
-    m_inputNumber(inputNumber),
-    m_activeState(activeState),
-    m_currentState(!m_activeState),
-    m_color(color)
-{
-}
-
-Sensor::Sensor(QString code, const SettingsManager &sm) :
+Sensor::Sensor(QString code, const SettingsManager &sm, QObject *parent) :
+    QObject(parent),
     m_code(code)
 {
     initialize(sm);
@@ -45,6 +26,11 @@ void Sensor::initialize(const SettingsManager &sm)
     }
 }
 
+void Sensor::update(bool state)
+{
+    setCurrentState(state);
+}
+
 bool Sensor::getCurrentState() const
 {
     return m_currentState;
@@ -55,6 +41,15 @@ void Sensor::setCurrentState(bool value)
     if(m_currentState != value)
     {
         m_currentState = value;
+    }
+
+    if(m_currentState == m_activeState)
+    {
+        emit stateChanged(m_name, true);
+    }
+    else
+    {
+        emit stateChanged(m_name, false);
     }
 }
 
@@ -102,4 +97,15 @@ bool Sensor::isEnable()
 QString Sensor::getLabel() const
 {
     return m_label;
+}
+
+QString Sensor::getSettings()
+{
+    QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
+            QStringLiteral("Name:") + m_name + QStringLiteral(";") +
+            QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
+            QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
+            QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
+            QStringLiteral("ActiveState:") + QString::number(m_activeState);
+    return sensorSettings;
 }

@@ -105,6 +105,9 @@ private:
 private slots:
     /// Слоты для начальной настройки виджетов
     void setupWidgets();
+    void setupSensorsDisplay();
+    void updateSensorsDisplay(QString name, QColor color);
+    void setupSensorsSettingsBoard();
     void setupSpindelsControlPanel();
     void updateSpindelsControlPanel();
 
@@ -123,7 +126,7 @@ private slots:
     void showCoordinates(QListWidget* display, Point coordinates);
 
     /// Слот для обновления дисплея датчиков
-    void updateSensorsDisplay();
+    //void updateSensorsDisplay();
 
     /// Слот для обновления дисплея заряда батареи
     void updateBatteryStatusDisplay();
@@ -132,7 +135,7 @@ private slots:
     void updateSettingsBoards();
 
     /// Слот для обновления "доски" настроек датчиков
-    void updateSensorsBoard();
+    //void updateSensorsBoard();
 
     /// Слот для обновления "доски" настроек устройств
     void updateDevicesBoard();

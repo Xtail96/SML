@@ -4,7 +4,7 @@ MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
     m_serverManager(new ServerManager(*(m_settingsManager.data()), this)),
-    m_sensorsManager(new SensorsManager(*(m_settingsManager.data()))),
+    m_sensorsManager(new SensorsManager(*(m_settingsManager.data()), this)),
     m_devicesManager(new DevicesManager(*(m_settingsManager.data()))),
     m_axisesManager(new AxisesManager(*(m_settingsManager.data()))),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
@@ -28,6 +28,13 @@ void MachineTool::setupConnections()
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
+
+    QStringList sensorsNames = m_sensorsManager->sensorsNames();
+    for(auto name : sensorsNames)
+    {
+        Sensor* sensor = m_sensorsManager->findSensor(name);
+        QObject::connect(sensor, SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorStateChanged(QString,bool)));
+    }
 }
 
 void MachineTool::resetConnections()
@@ -36,6 +43,28 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1ErrorIsOccured(int)), this, SLOT(onU1Error(int)));
+
+    QStringList sensorsNames = m_sensorsManager->sensorsNames();
+    for(auto name : sensorsNames)
+    {
+        Sensor* sensor = m_sensorsManager->findSensor(name);
+        QObject::disconnect(sensor, SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorStateChanged(QString,bool)));
+    }
+}
+
+void MachineTool::onSensorStateChanged(QString sensorName, bool state)
+{
+    /*if(sensorName == "name")
+    {
+        do somtething
+    }*/
+    qDebug() << "sesor state changed" << sensorName << state;
+    QColor led = QColor(SmlColors::white());
+    if(state)
+    {
+        led =  m_sensorsManager->findSensor(sensorName)->getColor();
+    }
+    emit sensorStateChangedSendNext(sensorName, led);
 }
 
 void MachineTool::onU1Error(int errorCode)
@@ -291,24 +320,9 @@ QList<Point> MachineTool::getMachineToolCoordinates()
     return machineToolCoordinates;
 }
 
-QStringList MachineTool::getSensorsLabels()
-{
-    return m_sensorsManager->sensorsLabels();
-}
-
-QStringList MachineTool::getSensorParametrLabels()
-{
-    return m_sensorsManager->sensorParametrLabels();
-}
-
-QList<QStringList> MachineTool::getSensorsSettings()
+QStringList MachineTool::getSensorsSettings()
 {
     return m_sensorsManager->sensorsSettings();
-}
-
-QList<QColor> MachineTool::getSensorsLeds()
-{
-    return m_sensorsManager->sensorsLeds();
 }
 
 QStringList MachineTool::getDevicesNames()

@@ -1,6 +1,7 @@
 #include "sensorsmanager.h"
 
-SensorsManager::SensorsManager(const SettingsManager &sm)
+SensorsManager::SensorsManager(const SettingsManager &sm, QObject *parent) :
+    QObject(parent)
 {
     initialize(sm);
 }
@@ -38,27 +39,13 @@ void SensorsManager::initialize(const SettingsManager &sm)
     }
 }
 
-QList<QSharedPointer<Sensor> > &SensorsManager::sensors()
-{
-    return m_sensors;
-}
-
-void SensorsManager::updateSensors(const SensorsBuffer buffer)
-{
-    for(auto sensor : m_sensors)
-    {
-        bool isVoltage = buffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
-        sensor->setCurrentState(isVoltage);
-    }
-}
-
 void SensorsManager::updateSensors(const byte_array sensorsState)
 {
     m_sensorsBuffer.updateBuffer(sensorsState);
     for(auto sensor : m_sensors)
     {
         bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(), sensor->getPortNumber(), sensor->getInputNumber());
-        sensor->setCurrentState(isVoltage);
+        sensor->update(isVoltage);
     }
 }
 
@@ -76,47 +63,6 @@ bool SensorsManager::sensorStateByName(QString sensorName)
     return enable;
 }
 
-QStringList SensorsManager::sensorsLabels()
-{
-    QStringList labels;
-    for(auto sensor : m_sensors)
-    {
-        labels.push_back(sensor->getLabel());
-    }
-    return labels;
-}
-
-QStringList SensorsManager::sensorParametrLabels()
-{
-    QStringList parametrsLabels =
-    {
-        "Имя датчика",
-        "Имя платы",
-        "Номер порта",
-        "Номер входа",
-        "Активное состояние",
-    };
-    return parametrsLabels;
-}
-
-QList<QStringList> SensorsManager::sensorsSettings()
-{
-    QList<QStringList> sensorsSettings;
-    for(auto sensor : m_sensors)
-    {
-        QStringList sensorSettings =
-        {
-            sensor->getName(),
-            sensor->getBoardName(),
-            QString::number(sensor->getPortNumber()),
-            QString::number(sensor->getInputNumber()),
-            QString::number(sensor->getActiveState())
-        };
-        sensorsSettings.push_back(sensorSettings);
-    }
-    return sensorsSettings;
-}
-
 QList<QColor> SensorsManager::sensorsLeds()
 {
     QList<QColor> sensorsLeds;
@@ -130,4 +76,43 @@ QList<QColor> SensorsManager::sensorsLeds()
         sensorsLeds.push_back(sensorLed);
     }
     return sensorsLeds;
+}
+
+Sensor *SensorsManager::findSensor(QString name)
+{
+    Sensor* currentSensor = nullptr;
+    for(auto sensor : m_sensors)
+    {
+        if(sensor->getName() == name)
+        {
+            currentSensor = sensor.data();
+            break;
+        }
+    }
+    return currentSensor;
+}
+
+QString SensorsManager::sensorSettings(QString name)
+{
+    return findSensor(name)->getSettings();
+}
+
+QStringList SensorsManager::sensorsSettings()
+{
+    QStringList settings;
+    for(auto sensor : m_sensors)
+    {
+        settings.push_back(sensor->getSettings());
+    }
+    return settings;
+}
+
+QStringList SensorsManager::sensorsNames()
+{
+    QStringList names;
+    for(auto sensor : m_sensors)
+    {
+        names.push_back(sensor->getName());
+    }
+    return names;
 }

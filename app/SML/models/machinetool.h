@@ -112,7 +112,11 @@ signals:
     /// Обновился путь до файла с G-Codes
     void filePathUpdated();
 
+    void sensorStateChangedSendNext(QString sensorName, QColor color);
+
 public slots:
+    void onSensorStateChanged(QString sensorName, bool state);
+
     /// Производит запуск сервера
     void startServer();
 
@@ -184,17 +188,8 @@ public slots:
     /// Возвращает текущие координаты станка
     QList<Point> getMachineToolCoordinates();
 
-    /// Возвращает имена датчиков в виде списка
-    QStringList getSensorsLabels();
-
-    /// Возвращает текущие цвета индикаторов подключенных датчиков
-    QList<QColor> getSensorsLeds();
-
-    /// Возвращает названия настроек дачтков
-    QStringList getSensorParametrLabels();
-
     /// Вовращает значения настроей подключенных датчиков
-    QList<QStringList> getSensorsSettings();
+    QStringList getSensorsSettings();
 
     /// Возвращает список подключенных устройств
     QStringList getDevicesNames();
