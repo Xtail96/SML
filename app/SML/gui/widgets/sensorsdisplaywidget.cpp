@@ -13,7 +13,7 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
 
     sensorsTable = new QTableWidget(container);
     //sensorsTable->setMaximumWidth();
-    sensorsTable->setMinimumWidth(125);
+    sensorsTable->setMinimumWidth(150);
     sensorsTable->setLayoutDirection(Qt::RightToLeft);
     sensorsTable->setShowGrid(true);
 
