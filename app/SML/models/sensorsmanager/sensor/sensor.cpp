@@ -106,6 +106,7 @@ QString Sensor::getSettings()
             QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
-            QStringLiteral("ActiveState:") + QString::number(m_activeState);
+            QStringLiteral("ActiveState:") + QString::number(m_activeState) + QStringLiteral(";") +
+            QStringLiteral("LedColor:") + QString::number(m_color.red()) + QStringLiteral(",") + QString::number(m_color.green()) + QStringLiteral(",") + QString::number(m_color.blue());
     return sensorSettings;
 }

@@ -111,6 +111,28 @@ void MachineTool::importSettings()
     m_settingsManager->importSettings(path);
 }
 
+QStringList MachineTool::getSensorNames()
+{
+    return m_sensorsManager->sensorsNames();
+}
+
+QMap<QString, QString> MachineTool::getSensorSettings(QString name)
+{
+    QMap<QString, QString> sensorsSettingsMap;
+    QString settingsString = m_sensorsManager->sensorSettings(name);
+    QStringList settingsList = settingsString.split(";");
+
+    for(auto setting : settingsList)
+    {
+        QStringList item = setting.split(":");
+        if(item.size() == 2)
+        {
+            sensorsSettingsMap.insert(item.at(0), item.at(1));
+        }
+    }
+    return sensorsSettingsMap;
+}
+
 void MachineTool::parseGCodes()
 {
     m_gcodesManager->updateGCodesProgram();

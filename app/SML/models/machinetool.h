@@ -177,6 +177,9 @@ public slots:
 
     /// set-еры и get-еры
 
+    QStringList getSensorNames();
+    QMap<QString, QString> getSensorSettings(QString name);
+
     /// Устанавливает текущее значение G-Codes
     void setGCodes(const QString &data);
     /// Возвращает текущее значение G-Codes

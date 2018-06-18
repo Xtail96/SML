@@ -106,12 +106,24 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupSensorsDisplay()
 {
+    QStringList names = m_machineTool->getSensorNames();
 
+    for(auto name : names)
+    {
+        QMap<QString, QString> parameters = m_machineTool->getSensorSettings(name);
+        QStringList colors = parameters["LedColor"].split(",");
+        QColor led = QColor();
+        if(colors.size() == 3)
+        {
+            led = QColor(colors[0].toInt(), colors[1].toInt(), colors[2].toInt());
+        }
+        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], led);
+    }
 }
 
 void MainWindow::updateSensorsDisplay(QString name, QColor color)
 {
-
+    ui->sensorsDisplayWidget->updateSensorState(name, color);
 }
 
 void MainWindow::setupSensorsSettingsBoard()
@@ -223,6 +235,7 @@ void MainWindow::setupConnections()
         QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 
+    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChangedSendNext(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
 }
 
 void MainWindow::resetConnections()
@@ -279,6 +292,8 @@ void MainWindow::resetConnections()
         QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
         QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
+
+    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChangedSendNext(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));
 }
 
 void MainWindow::setupSpindelsControlPanel()
