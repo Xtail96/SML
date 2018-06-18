@@ -90,7 +90,7 @@ void SMLServer::start()
     {
         if (m_server->listen(QHostAddress::Any, m_port))
         {
-            qDebug() << "Hello! SML Server is listening at port" << m_port;
+            qDebug() << "Hello! SML Server is listening on port" << m_port;
             if (m_debug)
             {
                 qDebug() << m_server->error();
