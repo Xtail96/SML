@@ -162,7 +162,7 @@ QString MachineTool::getDevicesBufferSize()
     return QString::number(m_serverManager->getDevicesBufferSize());
 }
 
-QList<Spindel> MachineTool::getSpindels()
+QList<Spindel*> MachineTool::getSpindels()
 {
     return m_devicesManager->getSpindels();
 }

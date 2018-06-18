@@ -10,15 +10,16 @@
 /*!
  * \brief Класс Устройство
  */
-class Device
+class Device : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief Конструктор класса "Устрйоство"
      * \param code - код устройства
      * \param sm - менеджер настроек
      */
-    Device(QString name, const SettingsManager &sm = SettingsManager());
+    Device(QString name, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
 
     virtual ~Device();
 

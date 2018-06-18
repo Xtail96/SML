@@ -1,6 +1,7 @@
 #include "device.h"
 
-Device::Device(QString name, const SettingsManager &sm) :
+Device::Device(QString name, const SettingsManager &sm, QObject *parent) :
+    QObject(parent),
     m_name(name)
 {
     initialize(sm);

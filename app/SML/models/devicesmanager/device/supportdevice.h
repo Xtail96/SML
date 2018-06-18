@@ -6,7 +6,7 @@
 class SupportDevice : public Device
 {
 public:
-    SupportDevice(QString code, const SettingsManager &sm = SettingsManager());
+    SupportDevice(QString code, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
     QStringList getParams() override;
 };
 

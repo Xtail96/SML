@@ -5,7 +5,7 @@
 class Spindel : public Device
 {
 public:
-    Spindel(QString code, const SettingsManager &sm = SettingsManager());
+    Spindel(QString code, const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
     ~Spindel();
     QStringList getParams() override;
 

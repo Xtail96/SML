@@ -1,6 +1,7 @@
 #include "devicesmanager.h"
 
-DevicesManager::DevicesManager(const SettingsManager &sm)
+DevicesManager::DevicesManager(const SettingsManager &sm, QObject *parent) :
+    QObject(parent)
 {
     initialize(sm);
 }
@@ -23,14 +24,14 @@ void DevicesManager::initialize(const SettingsManager &sm)
         for(unsigned int i = 0; i < spindelsCount; i++)
         {
             QString spindelCode = QString("Spindel") + QString::number(i);
-            Spindel* spindel = new Spindel(spindelCode, sm);
+            Spindel* spindel = new Spindel(spindelCode, sm, this);
             m_spindels.push_back(QSharedPointer<Spindel> (spindel));
         }
 
         for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
             QString supportDeviceCode = QString("SupportDevice") + QString::number(i);
-            SupportDevice* device = new SupportDevice(supportDeviceCode, sm);
+            SupportDevice* device = new SupportDevice(supportDeviceCode, sm, this);
             m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
         }
     }
@@ -139,12 +140,12 @@ QList<bool> DevicesManager::onScreenDevicesStates()
     return devicesStates;
 }
 
-QList<Spindel> DevicesManager::getSpindels()
+QList<Spindel *> DevicesManager::getSpindels()
 {
-    QList<Spindel> spindels;
+    QList<Spindel *> spindels;
     for(auto spindel : m_spindels)
     {
-        spindels.push_back(*(spindel.data()));
+        spindels.push_back(spindel.data());
     }
     return spindels;
 }

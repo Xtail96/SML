@@ -1,7 +1,7 @@
 #include "supportdevice.h"
 
-SupportDevice::SupportDevice(QString code, const SettingsManager &sm) :
-    Device(code, sm)
+SupportDevice::SupportDevice(QString code, const SettingsManager &sm, QObject *parent) :
+    Device(code, sm, parent)
 {
 
 }

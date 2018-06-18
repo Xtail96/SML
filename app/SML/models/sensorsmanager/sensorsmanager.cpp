@@ -26,7 +26,7 @@ void SensorsManager::initialize(const SettingsManager &sm)
 
         for(auto code : sensorsCodes)
         {
-            Sensor* sensor = new Sensor(code, sm);
+            Sensor* sensor = new Sensor(code, sm, this);
             m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
 

@@ -115,7 +115,6 @@ signals:
     void sensorStateChanged(QString sensorName, QColor color);
 
 public slots:
-
     void onSensorStateChanged(QString sensorName, bool state);
 
     /// Производит запуск сервера
@@ -250,7 +249,7 @@ public slots:
     /// Возвращает размер буфера устройств
     QString getDevicesBufferSize();
 
-    QList<Spindel> getSpindels();
+    QList<Spindel *> getSpindels();
 
 protected slots:
 

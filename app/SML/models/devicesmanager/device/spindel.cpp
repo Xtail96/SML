@@ -1,7 +1,7 @@
 #include "spindel.h"
 
-Spindel::Spindel(QString code, const SettingsManager &sm) :
-    Device(code, sm)
+Spindel::Spindel(QString code, const SettingsManager &sm, QObject *parent) :
+    Device(code, sm, parent)
 {
     initialize(sm);
 }

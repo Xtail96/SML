@@ -293,15 +293,15 @@ void MainWindow::resetConnections()
 void MainWindow::setupSpindelsControlPanel()
 {
     ui->spindelsListWidget->clear();
-    QList<Spindel> spindels = m_machineTool->getSpindels();
+    QList<Spindel*> spindels = m_machineTool->getSpindels();
     for(auto spindel : spindels)
     {
-        SpindelControlWidget* widget = new SpindelControlWidget(spindel.getLabel(),
-                                                                spindel.getName(),
-                                                                spindel.getUpperBound(),
-                                                                spindel.getLowerBound(),
-                                                                spindel.getCurrentRotations(),
-                                                                spindel.isEnable(),
+        SpindelControlWidget* widget = new SpindelControlWidget(spindel->getLabel(),
+                                                                spindel->getName(),
+                                                                spindel->getUpperBound(),
+                                                                spindel->getLowerBound(),
+                                                                spindel->getCurrentRotations(),
+                                                                spindel->isEnable(),
                                                                 ui->spindelsListWidget);
 
         QListWidgetItem* item = new QListWidgetItem();
@@ -314,7 +314,7 @@ void MainWindow::setupSpindelsControlPanel()
 
 void MainWindow::updateSpindelsControlPanel()
 {
-    QList<Spindel> spindels = m_machineTool->getSpindels();
+    QList<Spindel* > spindels = m_machineTool->getSpindels();
     size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
 
 
@@ -324,7 +324,7 @@ void MainWindow::updateSpindelsControlPanel()
         {
             //qDebug() << spindels[i].isEnable();
             SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-            widget->updateControls(spindels[i].isEnable(), spindels[i].getCurrentRotations());
+            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
         }
     }
 }

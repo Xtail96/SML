@@ -95,14 +95,15 @@ private:
 /*!
  * \brief Класс Менеджер устройств
  */
-class DevicesManager
+class DevicesManager : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief Конструктор класса Менеджер устройств
      * \param sm - менеджер настроек
      */
-    DevicesManager(const SettingsManager &sm = SettingsManager());
+    DevicesManager(const SettingsManager &sm = SettingsManager(), QObject *parent = nullptr);
 
     /*!
      * \brief Конструктор копирования класса Менеджер устройств
@@ -144,7 +145,7 @@ public:
      */
     QList<bool> onScreenDevicesStates();
 
-    QList<Spindel> getSpindels();
+    QList<Spindel *> getSpindels();
     Spindel& findSpindel(QString name);
     QStringList getSwitchSpindelParams(QString name);
     void setSpindelRotations(QString name, size_t rotations);
