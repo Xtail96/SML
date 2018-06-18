@@ -33,7 +33,7 @@ protected:
     };
 
     QList< QSharedPointer<SensorWidget> > m_sensors;
-    QTableWidget* sensorsTable;
+    QTableWidget* m_sensorsTable;
 
     QSharedPointer<SensorWidget> findSensor(QString name);
 

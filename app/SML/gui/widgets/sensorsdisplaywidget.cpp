@@ -11,20 +11,28 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
     container->layout()->setSpacing(0);
     container->layout()->setContentsMargins(0, 0, 0, 0);
 
-    sensorsTable = new QTableWidget(container);
-    //sensorsTable->setMaximumWidth();
-    sensorsTable->setMinimumWidth(150);
-    sensorsTable->setLayoutDirection(Qt::RightToLeft);
-    sensorsTable->setShowGrid(true);
+    m_sensorsTable = new QTableWidget(container);
+#ifdef Q_OS_MACOS
+    m_sensorsTable->setMinimumWidth(105);
+#endif
+#ifdef Q_OS_LINUX
+    m_sensorsTable->setMinimumWidth(150);
+#endif
+#ifdef Q_OS_WIN
+    m_sensorsTable->setMinimumWidth(150);
+#endif
 
-    container->layout()->addWidget(sensorsTable);
+    m_sensorsTable->setLayoutDirection(Qt::RightToLeft);
+    m_sensorsTable->setShowGrid(true);
+
+    container->layout()->addWidget(m_sensorsTable);
 
     this->layout()->addWidget(container);
 }
 
 void SensorsDisplayWidget::update()
 {
-    sensorsTable->clear();
+    m_sensorsTable->clear();
 
     QStringList labels;
     QList<QTableWidgetItem*> items;
@@ -37,21 +45,21 @@ void SensorsDisplayWidget::update()
         items.push_back(item);
     }
 
-    sensorsTable->setColumnCount(1);
-    sensorsTable->setRowCount(labels.size());
-    sensorsTable->setVerticalHeaderLabels(labels);
+    m_sensorsTable->setColumnCount(1);
+    m_sensorsTable->setRowCount(labels.size());
+    m_sensorsTable->setVerticalHeaderLabels(labels);
 
-    QHeaderView*horizontalHeader = sensorsTable->horizontalHeader();
+    QHeaderView*horizontalHeader = m_sensorsTable->horizontalHeader();
     horizontalHeader->setVisible(false);
     horizontalHeader->setSectionResizeMode(QHeaderView::Stretch);
 
-    QHeaderView* verticalHeader = sensorsTable->verticalHeader();
+    QHeaderView* verticalHeader = m_sensorsTable->verticalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Fixed);
     verticalHeader->setDefaultSectionSize(25);
 
     for(int i = 0; i < items.size(); i++)
     {
-        sensorsTable->setItem(i, 0, items[i]);
+        m_sensorsTable->setItem(i, 0, items[i]);
     }
 }
 
