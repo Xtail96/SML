@@ -111,13 +111,7 @@ void MainWindow::setupSensorsDisplay()
     for(auto name : names)
     {
         QMap<QString, QString> parameters = m_machineTool->getSensorSettings(name);
-        QStringList colors = parameters["LedColor"].split(",");
-        QColor led = QColor();
-        if(colors.size() == 3)
-        {
-            led = QColor(colors[0].toInt(), colors[1].toInt(), colors[2].toInt());
-        }
-        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], led);
+        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
     }
 }
 

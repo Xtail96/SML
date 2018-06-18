@@ -90,9 +90,9 @@ void SMLServer::start()
     {
         if (m_server->listen(QHostAddress::Any, m_port))
         {
+            qDebug() << "Hello! SML Server is listening at port" << m_port;
             if (m_debug)
             {
-                qDebug() << "Hello! SML Server is listening port" << m_port;
                 qDebug() << m_server->error();
                 qDebug() << m_server->errorString();
             }
@@ -254,16 +254,19 @@ void SMLServer::registerConnection(QWebSocket* connection, int type)
         break;
     }
 
-    qDebug() << "u1";
-    for(auto socket : m_u1Connections)
+    if(m_debug)
     {
-        qDebug() << socket;
-    }
+        qDebug() << "u1";
+        for(auto socket : m_u1Connections)
+        {
+            qDebug() << socket;
+        }
 
-    qDebug() << "unregistered";
-    for(auto socket : m_unregistered)
-    {
-        qDebug() << socket;
+        qDebug() << "unregistered";
+        for(auto socket : m_unregistered)
+        {
+            qDebug() << socket;
+        }
     }
 }
 

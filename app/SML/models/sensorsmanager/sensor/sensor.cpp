@@ -41,15 +41,15 @@ void Sensor::setCurrentState(bool value)
     if(m_currentState != value)
     {
         m_currentState = value;
-    }
 
-    if(m_currentState == m_activeState)
-    {
-        emit stateChanged(m_name, true);
-    }
-    else
-    {
-        emit stateChanged(m_name, false);
+        if(m_currentState == m_activeState)
+        {
+            emit stateChanged(m_name, true);
+        }
+        else
+        {
+            emit stateChanged(m_name, false);
+        }
     }
 }
 

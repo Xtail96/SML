@@ -115,6 +115,7 @@ signals:
     void sensorStateChanged(QString sensorName, QColor color);
 
 public slots:
+
     void onSensorStateChanged(QString sensorName, bool state);
 
     /// Производит запуск сервера
