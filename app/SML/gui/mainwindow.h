@@ -107,17 +107,17 @@ private:
 
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void on_MachineTool_U1Connected();
-    void on_MachineTool_U1Disconnected();
+    void onMachineTool_U1Connected();
+    void onMachineTool_U1Disconnected();
 
-    void on_MachineTool_U2Connected();
-    void on_MachineTool_U2Disconnected();
+    void onMachineTool_U2Connected();
+    void onMachineTool_U2Disconnected();
 
     /// Слоты для обработки ошибок станка
-    void on_MachineTool_U1Error(int errorCode);
+    void onMachineTool_U1Error(int errorCode);
 
     /// слот для обновления дисплея датчиков
-    void on_MachineTool_SensorStateChanged(QString name, QColor color);
+    void onMachineTool_SensorStateChanged(QString name, QColor color);
 
     /// Слоты для начальной настройки виджетов
     void setupWidgets();

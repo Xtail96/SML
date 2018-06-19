@@ -14,7 +14,7 @@ signals:
     void stateChanged(QString sensorName, bool state);
 
 public slots:
-    void onStateChanged(QString name, bool state);
+    void onSensor_StateChanged(QString name, bool state);
 };
 
 #endif // SENSORSMONITOR_H

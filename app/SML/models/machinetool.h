@@ -66,19 +66,19 @@ public slots:
 
 protected slots:
     /// пишем даные в репозиторий
-    void on_Server_U1Connected();
-    void on_Server_U1Disconnected();
-    void on_Server_U1Error(int errorCode);
-    void on_Server_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
+    void onServer_U1Connected();
+    void onServer_U1Disconnected();
+    void onServer_U1Error(int errorCode);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
 
     /// обрабатываем данные от монитора
-    void on_ConnectionMonitor_U1Connected();
-    void on_ConnectionMonitor_U1Disconnected();
-    void on_ConnectionMonitor_U1LastErrorChanged(int code);
+    void onConnectionMonitor_U1Connected();
+    void onConnectionMonitor_U1Disconnected();
+    void onConnectionMonitor_U1LastErrorChanged(int code);
 
-    void on_PointsMonitor_PointsUpdated();
+    void onPointsMonitor_PointsUpdated();
 
-    void on_SensorMonitor_StateChanged(QString sensorName, bool state);
+    void onSensorMonitor_StateChanged(QString sensorName, bool state);
 
 /////////////////////////////////////////////////////////////
 

@@ -24,11 +24,11 @@ signals:
     void u2LastErrorChanged(int code);
 
 protected slots:
-    void onU1ConnectionStateChanged(bool state);
-    void onU1LastErrorChanged(int code);
+    void onU1_ConnectionStateChanged(bool state);
+    void onU1_LastErrorChanged(int code);
 
-    void onU2ConnectionStateChanged(bool state);
-    void onU2LastErrorChanged(int code);
+    void onU2_ConnectionStateChanged(bool state);
+    void onU2_LastErrorChanged(int code);
 };
 
 #endif // CONNECTIONSMONITOR_H
