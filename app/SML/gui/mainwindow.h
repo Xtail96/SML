@@ -19,8 +19,8 @@
 #endif
 
 /// Подключение диалогов редактора точек
-//#include "gui/addpointdialog.h"
-//#include "gui/toselectionpointdialog.h"
+#include "gui/addpointdialog.h"
+#include "gui/toselectionpointdialog.h"
 
 /// Подключение диалогов команд
 /*#include "commands/linedialog.h"
@@ -183,6 +183,8 @@ private slots:
     void addPoint();
     void editPoint(QModelIndex index);
     void deletePoints(QModelIndexList indexes);
+
+    void onPointsUpdated();
 
 
     /// Слоты для обработки сигналов виджета дерева SML-команд

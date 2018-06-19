@@ -4,7 +4,8 @@ Repository::Repository(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
     m_u1Connection(new Connection(this)),
-    m_u2Connection(new Connection(this))
+    m_u2Connection(new Connection(this)),
+    m_pointsManager(new PointsManager(this))
 {
     loadSettigs();
 }
@@ -442,65 +443,38 @@ QStringList Repository::getOptionsNames()
     return optionsNames;
 }
 
-QSharedPointer<Point> Repository::findPoint(size_t idx)
+void Repository::addPoint(QStringList coordinates)
 {
-    if (idx < (size_t) m_points.size())
-    {
-        return m_points[idx];
-    }
-    else
-    {
-        std::string errMsg = "Нет точки с номером " + std::to_string(idx);
-        errMsg += " (Всего " + std::to_string(m_points.size()) + " точек)";
-
-        throw std::out_of_range(errMsg);
-    }
+    Point* p = PointsManager::makePoint(coordinates);
+    m_pointsManager->addPoint(p);
 }
 
 QList<QStringList> Repository::getPoints()
 {
-    QList<QStringList> points;
-    for(auto point : m_points)
-    {
-        QStringList coordinates;
-        unsigned int coordinatesCount = point.data()->size();
-        for(unsigned int j = 0; j < coordinatesCount; j++)
-        {
-            QString coordinate;
-            try
-            {
-                coordinate = QString::number(point.data()->operator [](j));
-            }
-            catch(std::out_of_range e)
-            {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-                break;
-            }
-            coordinates.push_back(coordinate);
-        }
-        points.push_back(coordinates);
-    }
+    return m_pointsManager->points();
 }
 
 QStringList Repository::getPoint(unsigned int number)
 {
-    QStringList coordinates;
+    return m_pointsManager->point(number);
+}
+
+void Repository::deletePoint(unsigned int number)
+{
     try
     {
-        QSharedPointer<Point> p = findPoint(number);
-        unsigned int coordinatesCount = p.data()->size();
-        for(unsigned int j = 0; j < coordinatesCount; j++)
-        {
-            QString coordinate;
-            coordinate = QString::number(p.data()->operator [](j));
-            coordinates.push_back(coordinate);
-        }
+        std::shared_ptr<Point> p = m_pointsManager->operator [](number);
+        m_pointsManager->deletePoint(p);
     }
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
-    return coordinates;
+}
+
+void Repository::updatePoint(QStringList coordinates, unsigned int number)
+{
+    m_pointsManager->updatePoint(coordinates, number);
 }
 
 QString Repository::getFilePath(QString type)

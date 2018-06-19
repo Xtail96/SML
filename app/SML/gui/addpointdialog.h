@@ -2,7 +2,6 @@
 #define ADDPOINTDIALOG_H
 
 #include <QDialog>
-#include "models/pointsmanager/pointsmanager.h"
 
 #include "models/machinetool.h"
 

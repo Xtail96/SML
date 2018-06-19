@@ -6,7 +6,8 @@ MachineTool::MachineTool(QObject *parent) :
     m_server(new SMLServer(m_repository->m_port, this)),
     m_connectionMonitor(new ConnectionsMonitor(m_repository->m_u1Connection.data(),
                                                m_repository->m_u2Connection.data(),
-                                               this))
+                                               this)),
+    m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this))
 {
     setupConnections();
     startServer();
@@ -15,6 +16,11 @@ MachineTool::MachineTool(QObject *parent) :
 MachineTool::~MachineTool()
 {
     resetConnections();
+}
+
+Repository *MachineTool::repository()
+{
+    return m_repository.data();
 }
 
 void MachineTool::setupConnections()
@@ -28,6 +34,7 @@ void MachineTool::setupConnections()
     QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
     QObject::connect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
 
+    QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
 
     /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -53,6 +60,7 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
     QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
 
+    QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
@@ -80,6 +88,11 @@ void MachineTool::onConnectionMonitor_U1Error(int code)
 {
     qDebug() << "u1 eror" << code;
     //emit u1Disconnected();
+}
+
+void MachineTool::onPointsMonitor_PointsUpdated()
+{
+    emit pointsUpdated();
 }
 
 void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
@@ -179,49 +192,6 @@ void MachineTool::switchSpindelOff(QString spindelName)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }*/
 }
-
-void MachineTool::addPoint(QStringList coordinates)
-{
-    /*Point* p = PointsManager::makePoint(coordinates);
-    m_pointsManager->addPoint(p);
-    emit pointsUpdated();*/
-}
-
-void MachineTool::updatePoint(QStringList coordinates, unsigned int number)
-{
-    /*Point* p = PointsManager::makePoint(coordinates);
-    try
-    {
-        std::shared_ptr<Point> originPoint = m_pointsManager->operator [](number);
-        unsigned int originPointDimension = originPoint->size();
-        unsigned int newPointDimension = p->size();
-        unsigned int rangeForUpdate = std::min(originPointDimension, newPointDimension);
-        for(unsigned int i = 0; i < rangeForUpdate; i++)
-        {
-            originPoint->get(i) = p->get(i);
-        }
-        emit pointsUpdated();
-    }
-    catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
-}
-
-void MachineTool::deletePoint(unsigned int number)
-{
-    /*try
-    {
-        std::shared_ptr<Point> p = m_pointsManager->operator [](number);
-        m_pointsManager->deletePoint(p);
-        emit pointsUpdated();
-    }
-    catch(std::out_of_range e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
-}
-
 
 void MachineTool::openGCodesFile()
 {

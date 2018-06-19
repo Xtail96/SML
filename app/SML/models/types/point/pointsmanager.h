@@ -4,19 +4,20 @@
 #include <vector>
 #include <memory>
 #include <QMessageBox>
-#include "models/pointsmanager/point/point.h"
+#include "models/types/point/point.h"
 
 /**
  * @brief Класс Менеджер точек
  * Взаимодействие с точками происходит через этот класс
  */
-class PointsManager
+class PointsManager : public QObject
 {
+    Q_OBJECT
 public:
     /**
      * @brief Конструктор класа Менеджер точек
      */
-    PointsManager();
+    PointsManager(QObject* parent = nullptr);
 
     /**
      * @brief Конструктор копирования для класса Менеджер точек
@@ -73,6 +74,8 @@ public:
      */
     void deletePoints(size_t beginIndex, size_t endIndex);
 
+    void updatePoint(QStringList coordinates, unsigned int number);
+
     /**
      * @return текущее количество точек
      */
@@ -118,6 +121,9 @@ public:
 protected:
     /// Список всех точек
     std::vector< std::shared_ptr<Point> > m_points;
+
+signals:
+    void pointsUpdated();
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "pointsmanager.h"
 
-PointsManager::PointsManager()
+PointsManager::PointsManager(QObject *parent) :
+    QObject(parent)
 {
     // резервируем некоторое количество точек наперед, чтобы при добавлении не происходило перераспределение памяти вектора
     m_points.reserve(32);
@@ -21,22 +22,26 @@ void PointsManager::addPoint(Point *p)
 {
     std::shared_ptr<Point> ptr(p);
     m_points.push_back(ptr);
+    emit pointsUpdated();
 }
 
 void PointsManager::deletePoint(Point *p)
 {
     deletePoint(std::shared_ptr<Point>(p));
+    emit pointsUpdated();
 }
 
 void PointsManager::deletePoint(const std::shared_ptr<Point>& p)
 {
     m_points.erase( std::remove(m_points.begin(), m_points.end(), p), m_points.end() );
+    emit pointsUpdated();
 }
 
 void PointsManager::deletePoint(size_t idx)
 {
     std::shared_ptr<Point> point = operator [](idx);
     deletePoint(point);
+    emit pointsUpdated();
 }
 
 void PointsManager::deletePoints(size_t beginIndex, size_t endIndex)
@@ -45,6 +50,28 @@ void PointsManager::deletePoints(size_t beginIndex, size_t endIndex)
     if((beginIndex <=  pointsSize) && (endIndex <= pointsSize))
     {
         m_points.erase(m_points.begin() + beginIndex, m_points.begin() + endIndex);
+    }
+    emit pointsUpdated();
+}
+
+void PointsManager::updatePoint(QStringList coordinates, unsigned int number)
+{
+    Point* p = PointsManager::makePoint(coordinates);
+    try
+    {
+        std::shared_ptr<Point> originPoint = this->operator [](number);
+        unsigned int originPointDimension = originPoint->size();
+        unsigned int newPointDimension = p->size();
+        unsigned int rangeForUpdate = std::min(originPointDimension, newPointDimension);
+        for(unsigned int i = 0; i < rangeForUpdate; i++)
+        {
+            originPoint->get(i) = p->get(i);
+        }
+        emit pointsUpdated();
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
 
@@ -59,6 +86,7 @@ void PointsManager::setCoordinatesCount(size_t num)
     {
         point->setCoordinatesCount(num);
     }
+    emit pointsUpdated();
 }
 
 std::shared_ptr<Point>& PointsManager::operator[](size_t idx)

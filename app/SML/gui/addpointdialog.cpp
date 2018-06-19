@@ -8,7 +8,6 @@ AddPointDialog::AddPointDialog(MachineTool &machineTool, QWidget *parent) :
     m_Edit(false)
 {
     setupFields();
-    connect(this, SIGNAL(newPoint(QStringList)), &m_machineTool, SLOT(addPoint(QStringList)));
 }
 
 AddPointDialog::AddPointDialog(MachineTool &machineTool, unsigned int _pointNumber, QWidget *parent) :
@@ -21,7 +20,6 @@ AddPointDialog::AddPointDialog(MachineTool &machineTool, unsigned int _pointNumb
     setupFields();
     setWindowTitle("Редактировать точку");
     ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
-    connect(this, SIGNAL(updatePointsCoordinates(QStringList,uint)), &m_machineTool, SLOT(updatePoint(QStringList,uint)));
 }
 
 AddPointDialog::~AddPointDialog()
@@ -48,11 +46,11 @@ void AddPointDialog::on_buttonBox_accepted()
 
     if(!m_Edit)
     {
-        emit newPoint(qArguments);
+        m_machineTool.repository()->addPoint(qArguments);
     }
     else
     {
-        emit updatePointsCoordinates(qArguments, m_pointNumber);
+        m_machineTool.repository()->updatePoint(qArguments, m_pointNumber);
     }
 }
 
@@ -66,14 +64,14 @@ void AddPointDialog::setupFields()
     ui->addPointArgumentsTableWidget->setColumnCount(qColumnsHeaders.size());
     ui->addPointArgumentsTableWidget->setHorizontalHeaderLabels(qColumnsHeaders);
 
-    QStringList qRowHeaders = m_machineTool.getAxisesNames();
+    QStringList qRowHeaders = m_machineTool.repository()->getAxisesNames();
     ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
     ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
 
     QStringList pointCoordinates;
     if(m_Edit)
     {
-        pointCoordinates = m_machineTool.getPoint(m_pointNumber);
+        pointCoordinates = m_machineTool.repository()->getPoint(m_pointNumber);
     }
 
     for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)

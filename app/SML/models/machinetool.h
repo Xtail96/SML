@@ -7,6 +7,7 @@
 #include "models/types/server/smlserver.h"
 
 #include "models/services/connections/connectionsmonitor.h"
+#include "models/services/points/pointsmonitor.h"
 
 
 /*!
@@ -30,11 +31,14 @@ public:
       */
     ~MachineTool();
 
+    Repository* repository();
+
 protected:
     QScopedPointer<Repository> m_repository;
     QScopedPointer<SMLServer> m_server;
 
     QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
+    QScopedPointer<PointsMonitor> m_pointsMonitor;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();
@@ -47,6 +51,8 @@ signals:
     void u1Disconnected();
     void u1Error(int code);
     void sensorStateChanged(QString sensorName, QColor color);
+
+    void pointsUpdated();
 
 public slots:
     void onSensorMonitor_StateChanged(QString sensorName, bool state);
@@ -72,20 +78,13 @@ protected slots:
     void onConnectionMonitor_U1Disconnected();
     void onConnectionMonitor_U1Error(int code);
 
+    void onPointsMonitor_PointsUpdated();
+
 
 /////////////////////////////////////////////////////////////
 
 
 public slots:
-    /// Производит добавление точки
-    void addPoint(QStringList coordinates);
-
-    /// Производит обновление точки
-    void updatePoint(QStringList coordinates, unsigned int number);
-
-    /// Производит удаление точки
-    void deletePoint(unsigned int number);
-
     //void deleteCommand(unsigned int number);
     //std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
 

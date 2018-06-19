@@ -167,6 +167,7 @@ void MainWindow::setupConnections()
     QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
 
+    QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
     QObject::connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
@@ -1021,12 +1022,12 @@ void MainWindow::on_pointsAmountPushButton_clicked()
 
 void MainWindow::on_pointAddPushButton_clicked()
 {
-    //addPoint();
+    addPoint();
 }
 
 void MainWindow::on_pointDeletePushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -1050,12 +1051,12 @@ void MainWindow::on_pointDeletePushButton_clicked()
     {
         QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
         deletePoints(selectedRowsIndexes);
-    }*/
+    }
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    /*SMLPointsTableWidget* currentTableWidget;
+    SMLPointsTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
     {
         currentTableWidget = ui->pointsTableWidget_2;
@@ -1074,12 +1075,12 @@ void MainWindow::on_pointCursorPushButton_clicked()
     if(currentTableWidget->rowCount() > 0)
     {
         ToSelectionPointDialog(currentTableWidget, this).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointEditPushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -1103,12 +1104,12 @@ void MainWindow::on_pointEditPushButton_clicked()
     else
     {
          QMessageBox(QMessageBox::Information, "Сообщение", QString("Точка не выбрана")).exec();
-    }*/
+    }
 }
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
-    /*QItemSelectionModel *select;
+    QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
         select = ui->pointsTableWidget_2->selectionModel();
@@ -1132,14 +1133,14 @@ void MainWindow::on_pointCopyPushButton_clicked()
 
         for(auto row : selectedRowsIndexes)
         {
-            QStringList pointsArguments = m_machineTool->getPoint(row.row());
-            m_machineTool->addPoint(pointsArguments);
+            QStringList pointsArguments = m_machineTool->repository()->getPoint(row.row());
+            m_machineTool->repository()->addPoint(pointsArguments);
         }
     }
     else
     {
         return;
-    }*/
+    }
 }
 
 void MainWindow::updateEdgesControlStatus()
@@ -1160,27 +1161,59 @@ void MainWindow::updateEdgesControlStatus()
 
 void MainWindow::addPoint()
 {
-    //AddPointDialog(*(m_machineTool.data()), this).exec();
+    AddPointDialog(*(m_machineTool.data()), this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
-    /*try
+    try
     {
         AddPointDialog(*(m_machineTool.data()), index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
+    }
 }
 
 void MainWindow::deletePoints(QModelIndexList indexes)
 {
-    /*for(int i = indexes.size() - 1; i >= 0; i--)
+    for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        m_machineTool->deletePoint(indexes[i].row());
-    }*/
+        m_machineTool.data()->repository()->deletePoint(indexes[i].row());
+    }
+}
+
+void MainWindow::onPointsUpdated()
+{
+    QList<QStringList> points = m_machineTool->repository()->getPoints();
+    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QStringList axisesLabels = m_machineTool->repository()->getAxisesNames();
+
+    for(auto field : fields)
+    {
+        field->clear();
+        field->setColumnCount(axisesLabels.size());
+        field->setHorizontalHeaderLabels(axisesLabels);
+        field->setRowCount(points.size());
+
+        for(int i = 0; i < points.size(); i++)
+        {
+            for(int j = 0; j < points[i].size(); j++)
+            {
+                field->setItem(i, j, new QTableWidgetItem(points[i][j]));
+            }
+        }
+    }
+
+    // растянуть таблицу с координатами редактора точек
+    for(auto field : fields)
+    {
+        for (int i = 0; i < field->columnCount(); i++)
+        {
+            field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        }
+    }
 }
 
 void MainWindow::on_open_action_triggered()

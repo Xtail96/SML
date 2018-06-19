@@ -9,7 +9,7 @@
 #include "models/types/sensor/sensor.h"
 #include "models/types/sensor/sensorsbuffer.h"
 #include "models/types/settingsmanager/settingsmanager.h"
-#include "models/types/point/point.h"
+#include "models/types/point/pointsmanager.h"
 #include "models/types/connection/connection.h"
 #include "models/types/gcodes/filesreader/filesreader.h"
 
@@ -67,13 +67,17 @@ public:
     /// Возвращает нащвания подключенных опций
     QStringList getOptionsNames();
 
-    QSharedPointer<Point> findPoint(size_t idx);
+    void addPoint(QStringList coordinates);
 
     /// Возвращает список точек
     QList<QStringList> getPoints();
 
     /// Возвращает координаты точки по ее индексу
     QStringList getPoint(unsigned int number);
+
+    void deletePoint(unsigned int number);
+
+    void updatePoint(QStringList coordinates, unsigned int number);
 
     /// Возвращает путь до открытого файла
     QString getFilePath(QString type = "gcodes");
@@ -126,7 +130,7 @@ protected:
     QString m_gCodesFileContent;
 
     /// Точки
-    QList< QSharedPointer<Point> > m_points;
+    QScopedPointer<PointsManager> m_pointsManager;
 
     void loadSettigs();
     void loadServerSettings();

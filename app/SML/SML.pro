@@ -66,7 +66,7 @@ SOURCES += main.cpp\
     #gui/gcodeswebviewdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
     gui/logdialog.cpp \
-    #gui/addpointdialog.cpp \
+    gui/addpointdialog.cpp \
     gui/toselectionpointdialog.cpp \
     gui/smlconsoledialog.cpp \
     libs/candlevisualizer/glwidget.cpp \
@@ -105,7 +105,9 @@ SOURCES += main.cpp\
     models/types/device/devicesbuffer.cpp \
     models/types/connection/connection.cpp \
     models/services/connections/connectionsmonitor.cpp \
-    models/types/gcodes/filesreader/filesreader.cpp
+    models/types/gcodes/filesreader/filesreader.cpp \
+    models/types/point/pointsmanager.cpp \
+    models/services/points/pointsmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -120,7 +122,7 @@ HEADERS  += gui/mainwindow.h \
     #gui/gcodeswebviewdialog.h \
     gui/gcodessyntaxhighlighter.h \
     gui/logdialog.h \
-    #gui/addpointdialog.h \
+    gui/addpointdialog.h \
     gui/toselectionpointdialog.h \
     gui/smlconsoledialog.h \
     libs/candlevisualizer/glwidget.h \
@@ -163,10 +165,12 @@ HEADERS  += gui/mainwindow.h \
     models/types/server/u1state.h \
     models/types/connection/connection.h \
     models/services/connections/connectionsmonitor.h \
-    models/types/gcodes/filesreader/filesreader.h
+    models/types/gcodes/filesreader/filesreader.h \
+    models/types/point/pointsmanager.h \
+    models/services/points/pointsmonitor.h
 
 FORMS    += gui/mainwindow.ui \
-    #gui/addpointdialog.ui \
+    gui/addpointdialog.ui \
     gui/toselectionpointdialog.ui \
     gui/logdialog.ui \
     gui/gcodeswebviewdialog.ui \
