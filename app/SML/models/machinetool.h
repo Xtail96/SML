@@ -34,6 +34,12 @@ public:
 
     Repository* repository();
 
+    /// Производит запуск сервера
+    void startServer();
+
+    /// Производит остановку сервера
+    void stopServer();
+
 protected:
     QScopedPointer<Repository> m_repository;
     QScopedPointer<SMLServer> m_server;
@@ -57,36 +63,32 @@ signals:
     void pointsUpdated();
 
 public slots:
-    void onSensorMonitor_StateChanged(QString sensorName, bool state);
 
-    /// Производит запуск сервера
-    void startServer();
-
-    /// Производит остановку сервера
-    void stopServer();
-
-    /// Включает устройство
-    void switchSpindelOn(QString spindelName, size_t rotations);
-    void switchSpindelOff(QString spindelName);
 protected slots:
     /// пишем даные в репозиторий
-    void onServer_U1Connected();
-    void onServer_U1Disconnected();
-    void onServer_U1Error(int errorCode);
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
+    void on_Server_U1Connected();
+    void on_Server_U1Disconnected();
+    void on_Server_U1Error(int errorCode);
+    void on_Server_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
 
     /// обрабатываем данные от монитора
-    void onConnectionMonitor_U1Connected();
-    void onConnectionMonitor_U1Disconnected();
-    void onConnectionMonitor_U1Error(int code);
+    void on_ConnectionMonitor_U1Connected();
+    void on_ConnectionMonitor_U1Disconnected();
+    void on_ConnectionMonitor_U1LastErrorChanged(int code);
 
-    void onPointsMonitor_PointsUpdated();
+    void on_PointsMonitor_PointsUpdated();
 
+    void on_SensorMonitor_StateChanged(QString sensorName, bool state);
 
 /////////////////////////////////////////////////////////////
 
 
 public slots:
+
+    /// Включает устройство
+    void switchSpindelOn(QString spindelName, size_t rotations);
+    void switchSpindelOff(QString spindelName);
+
     //void deleteCommand(unsigned int number);
     //std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
 

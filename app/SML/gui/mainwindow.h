@@ -93,6 +93,12 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 
+    /// Подключает необходимые слоты к полям и сигналам
+    void setupConnections();
+
+    /// Отключает слоты от полей и сигналов
+    void resetConnections();
+
     /// Методы для настройки работы горячих клавиш движения по осям станка
     void disableMovementButtonsShortcutsAutoRepeat();
     void enableMovementButtonsShortcutsAutoRepeat();
@@ -100,27 +106,30 @@ private:
     void setMovementButtonsRepeatAutoRepeat(bool state);
 
 private slots:
+    /// Слоты для отображения поддержки/отсутсвия связи со станком
+    void on_MachineTool_U1Connected();
+    void on_MachineTool_U1Disconnected();
+
+    void on_MachineTool_U2Connected();
+    void on_MachineTool_U2Disconnected();
+
+    /// Слоты для обработки ошибок станка
+    void on_MachineTool_U1Error(int errorCode);
+
+    /// слот для обновления дисплея датчиков
+    void on_MachineTool_SensorStateChanged(QString name, QColor color);
+
     /// Слоты для начальной настройки виджетов
     void setupWidgets();
 
     /// слот для инициализации дисплея датчиков
     void setupSensorsDisplay();
 
-    /// слот для обновления дисплея датчиков
-    void onMachineTool_SensorStateChanged(QString name, QColor color);
-
     /// слот для инициализации таблицы настроек датчиков
     void setupSensorsSettingsBoard();
 
-
     void setupSpindelsControlPanel();
     void updateSpindelsControlPanel();
-
-    /// Подключает необходимые слоты к полям и сигналам
-    void setupConnections();
-
-    /// Отключает слоты от полей и сигналов
-    void resetConnections();
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();
@@ -187,17 +196,6 @@ private slots:
     //void commandsPasteSlot();
     //void commandsUndoSlot();
     //void deleteSelectedCommands(QModelIndexList indexes);
-
-    /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onU1Connected();
-    void onU1Disconnected();
-
-    void onU2Connected();
-    void onU2Disconnected();
-
-
-    /// Слоты для обработки ошибок станка
-    void onMachineToolError(int errorCode);
 
     /// Слоты для прямого взаимодействия с элеменами интерфейса
     void on_discreteRadioButton_1_clicked();

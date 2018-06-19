@@ -8,11 +8,11 @@ Device::Device(QString name,
                QObject *parent) :
     QObject(parent),
     m_name(name),
-    m_label(label),
     m_index(index),
+    m_label(label),
     m_activeState(activeState),
-    m_mask(mask),
-    m_currentState(!m_activeState)
+    m_currentState(!m_activeState),
+    m_mask(mask)
 {
 
 }

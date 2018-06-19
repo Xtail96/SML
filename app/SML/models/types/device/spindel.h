@@ -29,9 +29,9 @@ public:
     size_t getCurrentRotations() const;
 
 protected:
-    size_t m_currentRotations;
     size_t m_upperBound;
     size_t m_lowerBound;
+    size_t m_currentRotations;
 };
 
 #endif // SPINDEL_H

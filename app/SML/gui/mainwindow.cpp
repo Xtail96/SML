@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateU1Displays();
     //updateU2Displays();
 
-    onU1Disconnected();
-    onU2Disconnected();
+    on_MachineTool_U1Disconnected();
+    on_MachineTool_U2Disconnected();
 }
 
 MainWindow::~MainWindow()
@@ -115,7 +115,7 @@ void MainWindow::setupSensorsDisplay()
     }
 }
 
-void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
+void MainWindow::on_MachineTool_SensorStateChanged(QString name, QColor color)
 {
     ui->sensorsDisplayWidget->updateSensorState(name, color);
 }
@@ -164,11 +164,12 @@ void MainWindow::setupSensorsSettingsBoard()
 void MainWindow::setupConnections()
 {
 
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(on_MachineTool_U1Connected()));
+    QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(on_MachineTool_U1Disconnected()));
+    QObject::connect(m_machineTool.data(), SIGNAL(u1Error(int)), this, SLOT(on_MachineTool_U1Error(int)));
 
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(on_MachineTool_SensorStateChanged(QString,QColor)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -239,11 +240,12 @@ void MainWindow::setupConnections()
 
 void MainWindow::resetConnections()
 {
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(on_MachineTool_U1Connected()));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(on_MachineTool_U1Disconnected()));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Error(int)), this, SLOT(on_MachineTool_U1Error(int)));
 
     QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(on_MachineTool_SensorStateChanged(QString,QColor)));
 
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
@@ -589,7 +591,7 @@ void MainWindow::hideWidgets()
     ui->commandsToolsListWidget->setEnabled(false);
 }
 
-void MainWindow::onU1Connected()
+void MainWindow::on_MachineTool_U1Connected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
@@ -607,7 +609,7 @@ void MainWindow::onU1Connected()
     ui->spindelsListWidget->setEnabled(true);
 }
 
-void MainWindow::onU1Disconnected()
+void MainWindow::on_MachineTool_U1Disconnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
@@ -624,7 +626,7 @@ void MainWindow::onU1Disconnected()
     ui->spindelsListWidget->setEnabled(false);
 }
 
-void MainWindow::onU2Connected()
+void MainWindow::on_MachineTool_U2Connected()
 {
     ui->currentCoordinatesListWidget->setEnabled(true);
     ui->baseCoordinatesListWidget->setEnabled(true);
@@ -680,7 +682,7 @@ void MainWindow::onU2Connected()
     ui->stopCommandLinkButton->setEnabled(true);
 }
 
-void MainWindow::onU2Disconnected()
+void MainWindow::on_MachineTool_U2Disconnected()
 {
     ui->currentCoordinatesListWidget->setEnabled(false);
     ui->baseCoordinatesListWidget->setEnabled(false);
@@ -736,10 +738,10 @@ void MainWindow::onU2Disconnected()
     ui->stopCommandLinkButton->setEnabled(false);
 }
 
-void MainWindow::onMachineToolError(int errorCode)
+void MainWindow::on_MachineTool_U1Error(int errorCode)
 {
-    //QString errorString = QStringLiteral("Machine Tool error is occured ") + QString::number(errorCode);
-    //ui->statusBar->showMessage(errorString);
+    QString errorString = QStringLiteral("Machine Tool u1 error is occured ") + QString::number(errorCode);
+    ui->statusBar->showMessage(errorString);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
