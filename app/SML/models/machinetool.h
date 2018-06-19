@@ -49,7 +49,7 @@ signals:
     void sensorStateChanged(QString sensorName, QColor color);
 
 public slots:
-    void onSensorStateChanged(QString sensorName, bool state);
+    void onSensorMonitor_StateChanged(QString sensorName, bool state);
 
     /// Производит запуск сервера
     void startServer();
@@ -119,91 +119,7 @@ public slots:
     /// Производит импорт настроек станка из *.ini файла
     void importSettings();
 
-    /// set-еры и get-еры
-
-    QStringList getSensorNames();
-    QMap<QString, QString> getSensorSettings(QString name);
-
-    /// Устанавливает текущее значение G-Codes
-    void setGCodes(const QString &data);
-    /// Возвращает текущее значение G-Codes
-    QString getGCodesProgram();
-
-    /// Возвращает содержимое файла G-Codes
-    QString getGCodesFileContent();
-
-    /// Возвращает текущие координаты станка
-    QList<Point> getMachineToolCoordinates();
-
-    /// Вовращает значения настроей подключенных датчиков
-    QStringList getSensorsSettings();
-
-    /// Возвращает список подключенных устройств
-    QStringList getDevicesNames();
-
-    /// Возвращает список названий параметров устройств
-    QStringList getDevicesParametrsNames();
-
-    /// Возвращает настройки подключенных устройств
-    QList<QStringList> getDevicesSettings();
-
-    /// Возвращает список устройств, необходимых для отображения в Наладке
-    QStringList getOnScreenDevicesNames();
-
-    /// Возвращает список состояний подулюченных устройств
-    /// true = устройство включено, false = устройство выключено
-    QList<bool> getOnScreenDevicesStates();
-
-    /// Возвращает названия активных осей координат
-    QStringList getAxisesNames();
-
-    /// Возвращает настройки активных осей координат
-    QStringList getAxisesSettings();
-
-    /// Возвращает нащвания подключенных опций
-    QStringList getOptionsNames();
-
-    /// Возвращает список точек
-    QList<QStringList> getPoints();
-
-    /// Возвращает координаты точки по ее индексу
-    QStringList getPoint(unsigned int number);
-
-    /// Возвращает путь до открытого файла
-    QString getFilePath(QString type = "gcodes");
-
-    /// Возвращает текущее значение скорости
-    size_t getFeedrate() const;
-
-    /// Возвращает текущее значение оборотов шпинделя
-    size_t getSpindelRotations() const;
-
-    /// Включает или отключает контроль габаритов
-    void setSoftLimitsMode(bool enable);
-
-    /// Возвращает список текущих подключений
-    QStringList getCurrentConnections();
-
-    /// Возвращает порт, на котором сервер принимает подключения
-    QString getServerPort();
-
-    /// Возвращает размер буфера датчиков
-    QString getSensorsBufferSize();
-
-    /// Возвращает размер буфера устройств
-    QString getDevicesBufferSize();
-
-    QList<Spindel *> getSpindels();
-
 protected slots:
-
-
-    /// Обрабатывает событие изменения состояния U1
-    void updateU1State();
-
-    /// Обрабатывает ошибки в работе станка
-    void handleMachineToolErrors(int errorCode);
-
     /// Обрабатывает событие окончания загрузки файла G-Codes
     void onGCodesLoaded();
 };

@@ -104,7 +104,8 @@ SOURCES += main.cpp\
     models/types/sensor/sensorsbuffer.cpp \
     models/types/device/devicesbuffer.cpp \
     models/types/connection/connection.cpp \
-    models/services/connections/connectionsmonitor.cpp
+    models/services/connections/connectionsmonitor.cpp \
+    models/types/gcodes/filesreader/filesreader.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -161,7 +162,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/device/devicesbuffer.h \
     models/types/server/u1state.h \
     models/types/connection/connection.h \
-    models/services/connections/connectionsmonitor.h
+    models/services/connections/connectionsmonitor.h \
+    models/types/gcodes/filesreader/filesreader.h
 
 FORMS    += gui/mainwindow.ui \
     #gui/addpointdialog.ui \

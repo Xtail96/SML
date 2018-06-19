@@ -235,3 +235,325 @@ Device &Repository::findDevice(size_t index)
     std::string errorString = "device not found";
     throw std::invalid_argument(errorString);
 }
+
+QStringList Repository::getAllDevicesNames()
+{
+    QStringList names;
+    for(auto device : m_spindels)
+    {
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
+    {
+        names.push_back(device->getLabel());
+    }
+    return names;
+}
+
+QList<QStringList> Repository::getAllDevicesSettings()
+{
+    QList<QStringList> devicesSettings;
+    for(auto device : m_spindels)
+    {
+        QStringList deviceSettings =
+        {
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+
+    for(auto device : m_supportDevices)
+    {
+        QStringList deviceSettings =
+        {
+            QString::number(device->getActiveState()),
+            QString::number(device->getMask(), 2)
+        };
+        devicesSettings.push_back(deviceSettings);
+    }
+    return devicesSettings;
+}
+
+QStringList Repository::getOnScreenDevicesNames()
+{
+    QStringList names;
+    for(auto device : m_spindels)
+    {
+        names.push_back(device->getLabel());
+    }
+    for(auto device : m_supportDevices)
+    {
+        names.push_back(device->getLabel());
+    }
+    return names;
+}
+
+QList<bool> Repository::getOnScreenDevicesStates()
+{
+    QList<bool> devicesStates;
+    for(auto device : m_spindels)
+    {
+        devicesStates.push_back(device->isEnable());
+    }
+    for(auto device : m_supportDevices)
+    {
+        devicesStates.push_back(device->isEnable());
+    }
+    return devicesStates;
+}
+
+Sensor* Repository::findSensor(QString name)
+{
+    for(auto sensor : m_sensors)
+    {
+        if(sensor->getName() == name)
+        {
+            return sensor.data();
+            break;
+        }
+    }
+
+    throw std::invalid_argument("sensor with name " + name.toStdString() + " is not exists");
+}
+
+QStringList Repository::getSensorNames()
+{
+    QStringList names;
+    for(auto sensor : m_sensors)
+    {
+        names.push_back(sensor->getName());
+    }
+    return names;
+}
+
+QMap<QString, QString> Repository::getSensorSettings(QString name)
+{
+    try
+    {
+        QMap<QString, QString> sensorsSettingsMap;
+        QString settingsString = findSensor(name)->getSettings();
+        QStringList settingsList = settingsString.split(";");
+
+        for(auto setting : settingsList)
+        {
+            QStringList item = setting.split(":");
+            if(item.size() == 2)
+            {
+                sensorsSettingsMap.insert(item.at(0), item.at(1));
+            }
+        }
+        return sensorsSettingsMap;
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Get Sensor Settings Error", e.what()).exec();
+    }
+}
+
+
+QStringList Repository::getSensorsSettings()
+{
+    QStringList settings;
+    for(auto sensor : m_sensors)
+    {
+        settings.push_back(sensor->getSettings());
+    }
+    return settings;
+}
+
+void Repository::setGCodes(const QString &data)
+{
+    m_gcodes = data;
+}
+
+QString Repository::getGCodesProgram()
+{
+    return m_gcodes;
+}
+
+QString Repository::getGCodesFileContent()
+{
+    return m_gCodesFileContent;
+}
+
+QList<Point> Repository::getMachineToolCoordinates()
+{
+    QList<Point> machineToolCoordinates;
+    machineToolCoordinates.push_back(getCurrentCoordinatesFromZero());
+    machineToolCoordinates.push_back(getCurrentCoordinatesFromBase());
+    machineToolCoordinates.push_back(m_parkCoordinates);
+    return machineToolCoordinates;
+}
+
+Point Repository::getCurrentCoordinatesFromBase()
+{
+    QList<double> axisesCoordinates;
+    for(auto axis : m_axises)
+    {
+        axisesCoordinates.push_back(axis->currentPosition());
+    }
+    return Point(axisesCoordinates.toVector().toStdVector());
+}
+
+Point Repository::getCurrentCoordinatesFromZero()
+{
+    Point currentFromZero(m_axises.size());
+    Point p = getCurrentCoordinatesFromBase();
+
+    if(p.size() == m_zeroCoordinates.size())
+    {
+        currentFromZero = p.operator -=(m_zeroCoordinates);
+    }
+
+    return currentFromZero;
+}
+
+QStringList Repository::getAxisesNames()
+{
+    QStringList names;
+    for(auto axis : m_axises)
+    {
+        names.push_back(axis->name());
+    }
+    return names;
+}
+
+QStringList Repository::getAxisesSettings()
+{
+    QStringList axisesSettings;
+
+    for(auto axis : m_axises)
+    {
+        axisesSettings.push_back(axis->axisSettings());
+    }
+    return axisesSettings;
+}
+
+QStringList Repository::getOptionsNames()
+{
+    /// todo: переписать метод через модель
+    QStringList optionsNames =
+    {
+        "Кабриоль",
+        "Датчик вылета инструмента",
+        "Станция автоматической смазки"
+    };
+    return optionsNames;
+}
+
+QSharedPointer<Point> Repository::findPoint(size_t idx)
+{
+    if (idx < (size_t) m_points.size())
+    {
+        return m_points[idx];
+    }
+    else
+    {
+        std::string errMsg = "Нет точки с номером " + std::to_string(idx);
+        errMsg += " (Всего " + std::to_string(m_points.size()) + " точек)";
+
+        throw std::out_of_range(errMsg);
+    }
+}
+
+QList<QStringList> Repository::getPoints()
+{
+    QList<QStringList> points;
+    for(auto point : m_points)
+    {
+        QStringList coordinates;
+        unsigned int coordinatesCount = point.data()->size();
+        for(unsigned int j = 0; j < coordinatesCount; j++)
+        {
+            QString coordinate;
+            try
+            {
+                coordinate = QString::number(point.data()->operator [](j));
+            }
+            catch(std::out_of_range e)
+            {
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+                break;
+            }
+            coordinates.push_back(coordinate);
+        }
+        points.push_back(coordinates);
+    }
+}
+
+QStringList Repository::getPoint(unsigned int number)
+{
+    QStringList coordinates;
+    try
+    {
+        QSharedPointer<Point> p = findPoint(number);
+        unsigned int coordinatesCount = p.data()->size();
+        for(unsigned int j = 0; j < coordinatesCount; j++)
+        {
+            QString coordinate;
+            coordinate = QString::number(p.data()->operator [](j));
+            coordinates.push_back(coordinate);
+        }
+    }
+    catch(std::out_of_range e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+    return coordinates;
+}
+
+QString Repository::getFilePath(QString type)
+{
+    QString path = "";
+    if(type == "gcodes")
+    {
+        path = m_gCodesFilePath;
+    }
+    else
+    {
+        if(type == "sml")
+        {
+            path = "sml file path";
+        }
+    }
+    return path;
+}
+
+void Repository::setSoftLimitsMode(bool enable)
+{
+    for(auto axis : m_axises)
+    {
+        axis->setSoftLimitsEnable(enable);
+    }
+}
+
+QStringList Repository::getCurrentConnections()
+{
+    return QStringList();
+}
+
+QString Repository::getServerPort()
+{
+    return QString::number(m_port);
+}
+
+QString Repository::getSensorsBufferSize()
+{
+    return "16";
+}
+
+QString Repository::getDevicesBufferSize()
+{
+    return "3";
+}
+
+QList<Spindel *> Repository::getSpindels()
+{
+    QList<Spindel *> spindels;
+    for(auto spindel : m_spindels)
+    {
+        spindels.push_back(spindel.data());
+    }
+    return spindels;
+}
