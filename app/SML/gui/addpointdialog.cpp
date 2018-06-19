@@ -1,25 +1,25 @@
 #include "addpointdialog.h"
 #include "ui_addpointdialog.h"
 
-AddPointDialog::AddPointDialog(MachineTool &machineTool, QWidget *parent) :
+AddPointDialog::AddPointDialog(Repository &repository, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
-    m_machineTool(machineTool),
+    m_repository(repository),
     m_Edit(false)
 {
     setupFields();
 }
 
-AddPointDialog::AddPointDialog(MachineTool &machineTool, unsigned int _pointNumber, QWidget *parent) :
+AddPointDialog::AddPointDialog(Repository &repository, unsigned int pointNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddPointDialog),
-    m_machineTool(machineTool),
+    m_repository(repository),
     m_Edit(true),
-    m_pointNumber(_pointNumber)
+    m_pointNumber(pointNumber)
 {
     setupFields();
     setWindowTitle("Редактировать точку");
-    ui->addPointTitleLabel->setText("Точка №" + QString::fromStdString(std::to_string(_pointNumber+1)));
+    ui->addPointTitleLabel->setText("Точка №" + QString::number(m_pointNumber+1));
 }
 
 AddPointDialog::~AddPointDialog()
@@ -46,11 +46,11 @@ void AddPointDialog::on_buttonBox_accepted()
 
     if(!m_Edit)
     {
-        m_machineTool.repository()->addPoint(qArguments);
+        m_repository.addPoint(qArguments);
     }
     else
     {
-        m_machineTool.repository()->updatePoint(qArguments, m_pointNumber);
+        m_repository.updatePoint(qArguments, m_pointNumber);
     }
 }
 
@@ -64,14 +64,14 @@ void AddPointDialog::setupFields()
     ui->addPointArgumentsTableWidget->setColumnCount(qColumnsHeaders.size());
     ui->addPointArgumentsTableWidget->setHorizontalHeaderLabels(qColumnsHeaders);
 
-    QStringList qRowHeaders = m_machineTool.repository()->getAxisesNames();
+    QStringList qRowHeaders = m_repository.getAxisesNames();
     ui->addPointArgumentsTableWidget->setRowCount(qRowHeaders.size());
     ui->addPointArgumentsTableWidget->setVerticalHeaderLabels(qRowHeaders);
 
     QStringList pointCoordinates;
     if(m_Edit)
     {
-        pointCoordinates = m_machineTool.repository()->getPoint(m_pointNumber);
+        pointCoordinates = m_repository.getPoint(m_pointNumber);
     }
 
     for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)

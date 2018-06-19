@@ -150,11 +150,6 @@ private slots:
 
     void updateServerPanel();
 
-    /// Слот для обновления таблиц редактора точек
-    void updatePointsEditorWidgets();
-    void updatePointsEditorFields();
-    void updatePointsEditorButtons();
-
     /// Слот для обновления дерева SML-команд
     void updateGCodesEditorWidget();
     void updateFilePath();
@@ -183,7 +178,6 @@ private slots:
     void addPoint();
     void editPoint(QModelIndex index);
     void deletePoints(QModelIndexList indexes);
-
     void onPointsUpdated();
 
 

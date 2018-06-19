@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "models/machinetool.h"
+#include "models/repository/repository.h"
 
 namespace Ui {
 class AddPointDialog;
@@ -14,12 +14,10 @@ class AddPointDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddPointDialog(MachineTool &machineTool, QWidget *parent = 0);
-    explicit AddPointDialog(MachineTool &machineTool, unsigned int _pointNumber, QWidget *parent);
+    explicit AddPointDialog(Repository &repository, QWidget *parent = 0);
+    explicit AddPointDialog(Repository &repository, unsigned int pointNumber, QWidget *parent);
     ~AddPointDialog();
 signals:
-    void newPoint(QStringList coordinates);
-    void updatePointsCoordinates(QStringList coordinates, unsigned int number);
 
 private slots:
     void on_buttonBox_accepted();
@@ -28,7 +26,7 @@ private:
     Ui::AddPointDialog *ui;
     void setupFields();
 
-    MachineTool& m_machineTool;
+    Repository& m_repository;
 
     bool m_Edit;
     unsigned int m_pointNumber;

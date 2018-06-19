@@ -198,7 +198,7 @@ void MainWindow::setupConnections()
         m_axisesShortcuts.push_back(shortcut);
     }
 
-    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
     QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
@@ -214,7 +214,7 @@ void MainWindow::setupConnections()
     QObject::connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
     // настройка кнопок работы с файлами
-    QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    /*QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
     QObject::connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
     QObject::connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
@@ -258,7 +258,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 
-    QObject::disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));
+    QObject::disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
     QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
@@ -274,7 +274,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
     // настройка кнопок работы с файлами
-    QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    /*QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
     QObject::disconnect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
     QObject::disconnect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
@@ -410,12 +410,6 @@ void MainWindow::updateServerPanel()
     ui->devicesBufferSizeLcdNumber->display(m_machineTool->getDevicesBufferSize());*/
 }
 
-void MainWindow::updatePointsEditorWidgets()
-{
-    //updatePointsEditorFields();
-    //updatePointsEditorButtons();
-}
-
 void MainWindow::updateU1Displays()
 {
     //updateBatteryStatusDisplay();
@@ -526,68 +520,6 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
     }*/
 }
 
-void MainWindow::updatePointsEditorFields()
-{
-    /*QList<QStringList> points = m_machineTool->getPoints();
-    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
-    QStringList axisesLabels = m_machineTool->getAxisesNames();
-
-    for(auto field : fields)
-    {
-        field->clear();
-        field->setColumnCount(axisesLabels.size());
-        field->setHorizontalHeaderLabels(axisesLabels);
-        field->setRowCount(points.size());
-
-        for(int i = 0; i < points.size(); i++)
-        {
-            for(int j = 0; j < points[i].size(); j++)
-            {
-                field->setItem(i, j, new QTableWidgetItem(points[i][j]));
-            }
-        }
-    }
-
-    // растянуть таблицу с координатами редактора точек
-    for(auto field : fields)
-    {
-        for (int i = 0; i < field->columnCount(); i++)
-        {
-            field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-        }
-    }*/
-}
-
-void MainWindow::updatePointsEditorButtons()
-{
-    /*QList<QPushButton*> pointsActionsButtons =
-    {
-        ui->pointDeletePushButton,
-        ui->pointDeletePushButton_2,
-        ui->pointEditPushButton,
-        ui->pointCopyPushButton,
-        ui->pointCopyPushButton_2,
-        ui->pointCursorPushButton,
-        ui->pointCursorPushButton_2,
-        ui->pointTransitionPushButton
-    };
-
-    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
-    {
-        for(auto button : pointsActionsButtons)
-        {
-            button->setEnabled(true);
-        }
-    }
-    else
-    {
-        for(auto button : pointsActionsButtons)
-        {
-            button->setEnabled(false);
-        }
-    }*/
-}
-
 void MainWindow::updateGCodesEditorWidget()
 {
     /*QString data = m_machineTool->getGCodesFileContent();
@@ -689,7 +621,7 @@ void MainWindow::onU1Disconnected()
 
 void MainWindow::onU2Connected()
 {
-    /*ui->currentCoordinatesListWidget->setEnabled(true);
+    ui->currentCoordinatesListWidget->setEnabled(true);
     ui->baseCoordinatesListWidget->setEnabled(true);
     ui->parkCoordinatesListWidget->setEnabled(true);
     ui->edgesControlCheckBox->setEnabled(true);
@@ -740,12 +672,12 @@ void MainWindow::onU2Connected()
     ui->parkPushButton->setEnabled(true);
 
     ui->runCommandLinkButton->setEnabled(true);
-    ui->stopCommandLinkButton->setEnabled(true);*/
+    ui->stopCommandLinkButton->setEnabled(true);
 }
 
 void MainWindow::onU2Disconnected()
 {
-    /*ui->currentCoordinatesListWidget->setEnabled(false);
+    ui->currentCoordinatesListWidget->setEnabled(false);
     ui->baseCoordinatesListWidget->setEnabled(false);
     ui->parkCoordinatesListWidget->setEnabled(false);
     ui->edgesControlCheckBox->setEnabled(false);
@@ -796,7 +728,7 @@ void MainWindow::onU2Disconnected()
     ui->parkPushButton->setEnabled(false);
 
     ui->runCommandLinkButton->setEnabled(false);
-    ui->stopCommandLinkButton->setEnabled(false);*/
+    ui->stopCommandLinkButton->setEnabled(false);
 }
 
 void MainWindow::onMachineToolError(int errorCode)
@@ -1161,14 +1093,14 @@ void MainWindow::updateEdgesControlStatus()
 
 void MainWindow::addPoint()
 {
-    AddPointDialog(*(m_machineTool.data()), this).exec();
+    AddPointDialog(*(m_machineTool->repository()), this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
     try
     {
-        AddPointDialog(*(m_machineTool.data()), index.row(), this).exec();
+        AddPointDialog(*(m_machineTool->repository()), index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -1212,6 +1144,33 @@ void MainWindow::onPointsUpdated()
         for (int i = 0; i < field->columnCount(); i++)
         {
             field->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        }
+    }
+
+    QList<QPushButton*> pointsActionsButtons =
+    {
+        ui->pointDeletePushButton,
+        ui->pointDeletePushButton_2,
+        ui->pointEditPushButton,
+        ui->pointCopyPushButton,
+        ui->pointCopyPushButton_2,
+        ui->pointCursorPushButton,
+        ui->pointCursorPushButton_2,
+        ui->pointTransitionPushButton
+    };
+
+    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
+    {
+        for(auto button : pointsActionsButtons)
+        {
+            button->setEnabled(true);
+        }
+    }
+    else
+    {
+        for(auto button : pointsActionsButtons)
+        {
+            button->setEnabled(false);
         }
     }
 }
