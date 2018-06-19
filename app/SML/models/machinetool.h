@@ -8,6 +8,7 @@
 
 #include "models/services/connections/connectionsmonitor.h"
 #include "models/services/points/pointsmonitor.h"
+#include "models/services/sensors/sensorsmonitor.h"
 
 
 /*!
@@ -39,6 +40,7 @@ protected:
 
     QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
     QScopedPointer<PointsMonitor> m_pointsMonitor;
+    QScopedPointer<SensorsMonitor> m_sensorsMonitor;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();

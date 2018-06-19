@@ -105,6 +105,8 @@ protected:
 
     /// Сервер
     size_t m_port;
+    size_t m_sensorsBufferSize;
+    size_t m_devicesBufferSize;
 
     /// Подключения
     QScopedPointer<Connection> m_u1Connection;
@@ -112,7 +114,7 @@ protected:
 
     /// Датчики
     QList< QSharedPointer<Sensor> > m_sensors;
-    SensorsBuffer m_sensorsBuffer;
+    QScopedPointer<SensorsBuffer> m_sensorsBuffer;
 
     /// Устройства
     QList< QSharedPointer<Spindel> > m_spindels;

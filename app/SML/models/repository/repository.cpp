@@ -5,6 +5,7 @@ Repository::Repository(QObject *parent) :
     m_settingsManager(new SettingsManager()),
     m_u1Connection(new Connection(this)),
     m_u2Connection(new Connection(this)),
+    m_sensorsBuffer(new SensorsBuffer(this)),
     m_pointsManager(new PointsManager(this))
 {
     loadSettigs();
@@ -13,7 +14,7 @@ Repository::Repository(QObject *parent) :
 void Repository::loadSettigs()
 {
     loadServerSettings();
-    loadServerSettings();
+    loadSensorsSettings();
     loadDevicesSettings();
     loadAxisesSettings();
 }
@@ -64,8 +65,8 @@ void Repository::loadSensorsSettings()
             m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
 
-        size_t bufferSize = QVariant(m_settingsManager->get("MachineToolInformation", "SensorsBufferSize")).toUInt();
-        m_sensorsBuffer.resetBuffer(bufferSize);
+        m_sensorsBufferSize = QVariant(m_settingsManager->get("MachineToolInformation", "SensorsBufferSize")).toUInt();
+        m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
     }
     catch(std::invalid_argument e)
     {
@@ -167,10 +168,10 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
         currentSensorsState.push_back(port.toUInt());
     }
 
-    m_sensorsBuffer.updateBuffer(currentSensorsState);
+    m_sensorsBuffer->updateBuffer(currentSensorsState);
     for(auto sensor : m_sensors)
     {
-        bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(),
+        bool isVoltage = m_sensorsBuffer->getInputState(sensor->getBoardName(),
                                                        sensor->getPortNumber(),
                                                        sensor->getInputNumber());
         sensor->update(isVoltage);
@@ -330,9 +331,9 @@ QStringList Repository::getSensorNames()
 
 QMap<QString, QString> Repository::getSensorSettings(QString name)
 {
+    QMap<QString, QString> sensorsSettingsMap;
     try
     {
-        QMap<QString, QString> sensorsSettingsMap;
         QString settingsString = findSensor(name)->getSettings();
         QStringList settingsList = settingsString.split(";");
 
@@ -344,12 +345,12 @@ QMap<QString, QString> Repository::getSensorSettings(QString name)
                 sensorsSettingsMap.insert(item.at(0), item.at(1));
             }
         }
-        return sensorsSettingsMap;
     }
     catch(std::invalid_argument e)
     {
         QMessageBox(QMessageBox::Warning, "Get Sensor Settings Error", e.what()).exec();
     }
+    return sensorsSettingsMap;
 }
 
 
@@ -514,12 +515,12 @@ QString Repository::getServerPort()
 
 QString Repository::getSensorsBufferSize()
 {
-    return "16";
+    return QString::number(m_sensorsBufferSize);
 }
 
 QString Repository::getDevicesBufferSize()
 {
-    return "3";
+    return QString::number(m_devicesBufferSize);
 }
 
 QList<Spindel *> Repository::getSpindels()

@@ -7,13 +7,13 @@ SensorsBuffer::SensorsBuffer(QObject *parent) : QObject(parent)
 
 void SensorsBuffer::updateBuffer(byte_array value)
 {
-    if(value.size() >= m_buffer.size())
+    if(value.size() == m_buffer.size())
     {
         m_buffer = value;
     }
     else
     {
-        qDebug() << "can not update buffer" << m_buffer.size() << " > " << value.size();
+        qDebug() << "can not update buffer" << m_buffer.size() << " != " << value.size();
     }
 }
 

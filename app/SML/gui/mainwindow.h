@@ -107,7 +107,7 @@ private slots:
     void setupSensorsDisplay();
 
     /// слот для обновления дисплея датчиков
-    void updateSensorsDisplay(QString name, QColor color);
+    void onMachineTool_SensorStateChanged(QString name, QColor color);
 
     /// слот для инициализации таблицы настроек датчиков
     void setupSensorsSettingsBoard();

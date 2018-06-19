@@ -7,7 +7,8 @@ MachineTool::MachineTool(QObject *parent) :
     m_connectionMonitor(new ConnectionsMonitor(m_repository->m_u1Connection.data(),
                                                m_repository->m_u2Connection.data(),
                                                this)),
-    m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this))
+    m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this)),
+    m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this))
 {
     setupConnections();
     startServer();
@@ -35,6 +36,8 @@ void MachineTool::setupConnections()
     QObject::connect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
+    QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
+
 
     /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -61,6 +64,9 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1LastErrorChanged(int)), this, SLOT(onConnectionMonitor_U1Error(int)));
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
+    QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
+
+
     /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1State()));
@@ -101,12 +107,12 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
     {
         do somtething
     }*/
-    /*QColor led = QColor(SmlColors::white());
+    QColor led = QColor(SmlColors::white());
     if(state)
     {
-        led =  m_sensorsManager->findSensor(sensorName)->getColor();
+        led = m_repository->findSensor(sensorName)->getColor();
     }
-    emit sensorStateChanged(sensorName, led);*/
+    emit sensorStateChanged(sensorName, led);
 }
 
 void MachineTool::onServer_U1Error(int errorCode)

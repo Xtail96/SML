@@ -68,8 +68,8 @@ void MainWindow::setupWidgets()
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
-    //setupSensorsDisplay();
-    //setupSensorsSettingsBoard();
+    setupSensorsDisplay();
+    setupSensorsSettingsBoard();
     //setupSpindelsControlPanel();
 
     // настройка контроля габаритов
@@ -106,23 +106,23 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupSensorsDisplay()
 {
-    /*QStringList names = m_machineTool->getSensorNames();
+    QStringList names = m_machineTool->repository()->getSensorNames();
 
     for(auto name : names)
     {
-        QMap<QString, QString> parameters = m_machineTool->getSensorSettings(name);
+        QMap<QString, QString> parameters = m_machineTool->repository()->getSensorSettings(name);
         ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
-    }*/
+    }
 }
 
-void MainWindow::updateSensorsDisplay(QString name, QColor color)
+void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
 {
     ui->sensorsDisplayWidget->updateSensorState(name, color);
 }
 
 void MainWindow::setupSensorsSettingsBoard()
 {
-    /*QStringList sensorsSettings = m_machineTool->getSensorsSettings();
+    QStringList sensorsSettings = m_machineTool->repository()->getSensorsSettings();
 
     QStringList labels;
     QList< QPair<int, int> > positions;
@@ -158,7 +158,7 @@ void MainWindow::setupSensorsSettingsBoard()
     for(int i = 0; i < items.size(); i++)
     {
         ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
-    }*/
+    }
 }
 
 void MainWindow::setupConnections()
@@ -168,6 +168,8 @@ void MainWindow::setupConnections()
     QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
 
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
+    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
     QObject::connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
@@ -239,6 +241,9 @@ void MainWindow::resetConnections()
 {
     QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+
+    QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
 
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));

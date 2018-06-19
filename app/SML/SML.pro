@@ -107,7 +107,8 @@ SOURCES += main.cpp\
     models/services/connections/connectionsmonitor.cpp \
     models/types/gcodes/filesreader/filesreader.cpp \
     models/types/point/pointsmanager.cpp \
-    models/services/points/pointsmonitor.cpp
+    models/services/points/pointsmonitor.cpp \
+    models/services/sensors/sensorsmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -167,7 +168,8 @@ HEADERS  += gui/mainwindow.h \
     models/services/connections/connectionsmonitor.h \
     models/types/gcodes/filesreader/filesreader.h \
     models/types/point/pointsmanager.h \
-    models/services/points/pointsmonitor.h
+    models/services/points/pointsmonitor.h \
+    models/services/sensors/sensorsmonitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
