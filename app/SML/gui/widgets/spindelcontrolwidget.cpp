@@ -1,9 +1,10 @@
 #include "spindelcontrolwidget.h"
 
-SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindelName, size_t rotationsUpperBound, size_t rotationsLowerBound, size_t currentRotations, bool enable, QWidget *parent) :
+SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindelName, QString spindelIndex, size_t rotationsUpperBound, size_t rotationsLowerBound, size_t currentRotations, bool enable, QWidget *parent) :
     QWidget(parent),
     m_spindelLabel(spindelLabel),
     m_spindelName(spindelName),
+    m_spindelIndex(spindelIndex),
     m_rotationsUpperBound(rotationsUpperBound),
     m_rotationsLowerBound(rotationsLowerBound),
     m_currentRotations(currentRotations),
@@ -65,17 +66,17 @@ void SpindelControlWidget::onSwitchSpindelClicked()
 {
     if(!m_enable)
     {
-        emit switchOn(m_spindelName, m_currentRotations);
+        emit switchOn(m_spindelIndex, m_currentRotations);
     }
     else
     {
-        emit switchOff(m_spindelName);
+        emit switchOff(m_spindelIndex);
     }
 }
 
 void SpindelControlWidget::onWarmingSpindelUpClicked()
 {
-    emit switchOn(m_spindelName, m_rotationsLowerBound);
+    emit switchOn(m_spindelIndex, m_rotationsLowerBound);
 }
 
 void SpindelControlWidget::onRotationsSliderValueChanged(int value)

@@ -14,14 +14,14 @@ class SpindelControlWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SpindelControlWidget(QString spindelLabel, QString spindelName, size_t rotationsUpperBound, size_t rotationsLowerBound, size_t currentRotations, bool enable, QWidget *parent = nullptr);
+    explicit SpindelControlWidget(QString spindelLabel, QString spindelName, QString spindelIndex, size_t rotationsUpperBound, size_t rotationsLowerBound, size_t currentRotations, bool enable, QWidget *parent = nullptr);
 
     void updateControls(bool enable, size_t rotations);
 
 signals:
-    void switchOn(QString spindelName, size_t rotations);
-    void switchOff(QString spindelName);
-    void spindelRotationsChanged(QString spindelName, size_t rotations);
+    void switchOn(QString spindelIndex, size_t rotations);
+    void switchOff(QString spindelIndex);
+    void spindelRotationsChanged(QString spindelIndex, size_t rotations);
 
 protected slots:
     void onSwitchSpindelClicked();
@@ -31,6 +31,7 @@ protected slots:
 protected:
     QString m_spindelLabel;
     QString m_spindelName;
+    QString m_spindelIndex;
     size_t m_rotationsUpperBound;
     size_t m_rotationsLowerBound;
     size_t m_currentRotations;

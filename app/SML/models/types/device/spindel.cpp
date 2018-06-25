@@ -20,14 +20,18 @@ QStringList Spindel::getParams()
     return params;
 }
 
-void Spindel::setCurrentState(bool value, QMap<QString, QString> params)
+void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
 {
     if(m_currentState != value)
     {
         m_currentState = value;
 
-        size_t rotations = params["rotations"].toUInt();
-        setCurrentRotations(rotations);
+        if(!attributes["rotations"].isEmpty())
+        {
+            qDebug() << "attributes" << attributes;
+            size_t rotations = attributes["rotations"].toUInt();
+            setCurrentRotations(rotations);
+        }
 
         if(m_currentState == m_activeState)
         {
@@ -38,6 +42,13 @@ void Spindel::setCurrentState(bool value, QMap<QString, QString> params)
             emit stateChanged(m_index, false, m_currentRotations);
         }
     }
+}
+
+void Spindel::setCurrentState(bool value, size_t rotations)
+{
+    QMap<QString, QString> spindelAttributes;
+    spindelAttributes.insert(QStringLiteral("rotations"), QString::number(rotations));
+    setCurrentState(value, spindelAttributes);
 }
 
 void Spindel::setCurrentRotations(const size_t &rotations)

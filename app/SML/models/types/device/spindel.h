@@ -17,7 +17,9 @@ public:
     ~Spindel();
     QStringList getParams() override;
 
-    void setCurrentState(bool value, QMap<QString, QString> params) override;
+    void setCurrentState(bool value, QMap<QString, QString> attributes) override;
+
+    void setCurrentState(bool value, size_t rotations);
 
     void setCurrentRotations(const size_t &rotations);
 

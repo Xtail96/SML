@@ -178,32 +178,16 @@ void MachineTool::stopServer()
     m_server->stop();
 }
 
-void MachineTool::switchSpindelOn(QString spindelName, size_t rotations)
+void MachineTool::switchSpindelOn(QString index, size_t rotations)
 {
-    /*try
-    {
-        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
-        m_devicesManager->setSpindelRotations(spindel.getName(), rotations);
-        QStringList params = m_devicesManager->getSwitchSpindelParams(spindel.getName());
-        m_serverManager->switchDeviceOn(ServerManager::Spindel, spindel.getIndex(), params);
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
+    SwitchSpindel swithcer(index, true, rotations);
+    swithcer.start(m_server.data());
 }
 
-void MachineTool::switchSpindelOff(QString spindelName)
+void MachineTool::switchSpindelOff(QString index)
 {
-    /*try
-    {
-        Spindel &spindel = m_devicesManager->findSpindel(spindelName);
-        m_serverManager->switchDeviceOff(ServerManager::Spindel, spindel.getIndex());
-    }
-    catch(std::invalid_argument e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
-    }*/
+    SwitchSpindel switcher(index, false);
+    switcher.start(m_server.data());
 }
 
 void MachineTool::openGCodesFile()

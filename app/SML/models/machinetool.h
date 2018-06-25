@@ -11,6 +11,8 @@
 #include "models/services/sensors/sensorsmonitor.h"
 #include "models/services/devices/spindels/spindelsmonitor.h"
 
+#include "models/services/devices/spindels/switchspindel.h"
+
 
 /*!
  * \brief Класс Станок
@@ -66,6 +68,9 @@ signals:
     void pointsUpdated();
 
 public slots:
+    /// Включает устройство
+    void switchSpindelOn(QString index, size_t rotations);
+    void switchSpindelOff(QString index);
 
 protected slots:
     /// пишем даные в репозиторий
@@ -89,9 +94,6 @@ protected slots:
 
 public slots:
 
-    /// Включает устройство
-    void switchSpindelOn(QString spindelName, size_t rotations);
-    void switchSpindelOff(QString spindelName);
 
     //void deleteCommand(unsigned int number);
     //std::vector<std::shared_ptr<SMLCommand> > interpretCommands();

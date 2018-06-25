@@ -99,6 +99,10 @@ public:
 
     QList<Spindel *> getSpindels();
 
+    Spindel* findSpindel(QString index);
+
+    void setSpindelState(QString index, bool enable, size_t rotations);
+
 protected:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;

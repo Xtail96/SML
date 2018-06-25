@@ -196,6 +196,7 @@ void MainWindow::setupConnections()
 
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::connect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -242,6 +243,13 @@ void MainWindow::setupConnections()
     QObject::connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     QObject::connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
+    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
+    {
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
+        QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
+    }
+
     // настройка кнопок работы с файлами
     /*QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
@@ -272,6 +280,7 @@ void MainWindow::resetConnections()
 
     QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
 
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
@@ -306,6 +315,13 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     QObject::disconnect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
+    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
+    {
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+        QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
+        QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
+    }
+
     // настройка кнопок работы с файлами
     /*QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
@@ -336,6 +352,7 @@ void MainWindow::setupSpindelsControlPanel()
     {
         SpindelControlWidget* widget = new SpindelControlWidget(spindel->getLabel(),
                                                                 spindel->getName(),
+                                                                spindel->getIndex(),
                                                                 spindel->getUpperBound(),
                                                                 spindel->getLowerBound(),
                                                                 spindel->getCurrentRotations(),

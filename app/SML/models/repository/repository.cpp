@@ -532,3 +532,29 @@ QList<Spindel *> Repository::getSpindels()
     }
     return spindels;
 }
+
+Spindel *Repository::findSpindel(QString index)
+{
+    for(auto spindel : m_spindels)
+    {
+        if(spindel->getIndex() == index)
+        {
+            return spindel.data();
+        }
+    }
+
+    throw std::invalid_argument("spindel with index " + index.toStdString() + " is not exists");
+}
+
+void Repository::setSpindelState(QString index, bool enable, size_t rotations)
+{
+    try
+    {
+        Spindel* spindel = findSpindel(index);
+        spindel->setCurrentState(enable, rotations);
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+    }
+}
