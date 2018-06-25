@@ -25,15 +25,13 @@ void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
     if(m_currentState != value)
     {
         m_currentState = value;
-
-        if(!attributes["rotations"].isEmpty())
-        {
-            size_t rotations = attributes["rotations"].toUInt();
-            setCurrentRotations(rotations);
-        }
-
         if(m_currentState == m_activeState)
         {
+            if(!attributes["rotations"].isEmpty())
+            {
+                size_t rotations = attributes["rotations"].toUInt();
+                setCurrentRotations(rotations);
+            }
             emit stateChanged(m_index, true, m_currentRotations);
         }
         else
