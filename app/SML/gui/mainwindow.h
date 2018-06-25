@@ -220,7 +220,6 @@ private slots:
     void on_movementAPositivePushButton_clicked();
     void on_movementANegativePushButton_clicked();
     void on_feedrateScrollBar_valueChanged(int value);
-    void on_rotationsScrollBar_valueChanged(int value);
     void on_exit_action_triggered();
     void on_pointsAmountPushButton_clicked();
     void on_pointAddPushButton_clicked();

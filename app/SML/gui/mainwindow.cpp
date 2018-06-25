@@ -622,14 +622,6 @@ void MainWindow::onMachineTool_U1Connected()
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
 
-    ui->devicesButtonsListWidget->setEnabled(true);
-    ui->devicesLedsListWidget->setEnabled(true);
-
-    //ui->sensorsTableWidget->setEnabled(true);
-
-    ui->rotationsScrollBar->setEnabled(true);
-    ui->rotationsLcdNumber->setEnabled(true);
-
     ui->optionsListWidget->setEnabled(true);
 
     ui->spindelsListWidget->setEnabled(true);
@@ -639,13 +631,6 @@ void MainWindow::onMachineTool_U1Disconnected()
 {
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
-
-    ui->devicesButtonsListWidget->setEnabled(false);
-    ui->devicesLedsListWidget->setEnabled(false);
-    //ui->sensorsTableWidget->setEnabled(false);
-
-    ui->rotationsScrollBar->setEnabled(false);
-    ui->rotationsLcdNumber->setEnabled(false);
 
     ui->optionsListWidget->setEnabled(false);
 
@@ -967,12 +952,6 @@ void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
     //m_machineTool->updateVelocity(value);
     //updateVelocityPanel();
-}
-
-void MainWindow::on_rotationsScrollBar_valueChanged(int value)
-{
-    //m_machineTool->updateSpindelRotations(value);
-    //updateSpindelRotationsPanel();
 }
 
 void MainWindow::on_exit_action_triggered()
