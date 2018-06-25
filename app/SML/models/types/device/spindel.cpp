@@ -28,7 +28,6 @@ void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
 
         if(!attributes["rotations"].isEmpty())
         {
-            qDebug() << "attributes" << attributes;
             size_t rotations = attributes["rotations"].toUInt();
             setCurrentRotations(rotations);
         }
