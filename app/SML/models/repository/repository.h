@@ -13,7 +13,7 @@
 #include "models/types/settingsmanager/settingsmanager.h"
 #include "models/types/point/pointsmanager.h"
 #include "models/types/connection/connection.h"
-#include "models/types/gcodes/filesreader/filesreader.h"
+#include "models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h"
 
 class MachineTool;
 class Repository : public QObject
@@ -37,9 +37,6 @@ public:
     void setGCodes(const QString &data);
     /// Возвращает текущее значение G-Codes
     QString getGCodesProgram();
-
-    /// Возвращает содержимое файла G-Codes
-    QString getGCodesFileContent();
 
     /// Возвращает текущие координаты станка
     QList<Point> getMachineToolCoordinates();
@@ -111,11 +108,32 @@ public:
     /// Производит импорт настроек станка из *.ini файла
     void importSettings();
 
+    /// Производит открытие файла G-Codes
+    void openGCodesFile();
+
+    /// Производит сохранение G-Codes в том же файле
+    void saveGCodesFile(const QString data);
+
+    /// Производит сохранение G-Codes в другом файла
+    void saveGCodesFileAs(const QString data);
+
+    /// Производит инициализацию файла G-Codes
+    void newGCodesFile();
+
+    /// Производит добавление содержимого файлв G-Codes к существующей УП
+    void addGCodesFile(const QString data);
+
 protected:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;
 
-    /// Сервер
+    /// Точки
+    QScopedPointer<PointsManager> m_pointsManager;
+
+    /// G-Codes
+    QScopedPointer<GCodesFilesManager> m_gcodesFilesManager;
+
+    /// Настройки сервера
     size_t m_port;
     size_t m_sensorsBufferSize;
     size_t m_devicesBufferSize;
@@ -137,15 +155,6 @@ protected:
     Point m_zeroCoordinates;
     Point m_parkCoordinates;
 
-    /// G-Codes
-    QString m_gcodes;
-
-    QString m_gCodesFilePath;
-    QString m_gCodesFileContent;
-
-    /// Точки
-    QScopedPointer<PointsManager> m_pointsManager;
-
     void loadSettigs();
     void loadServerSettings();
     void loadSensorsSettings();
@@ -160,6 +169,8 @@ protected:
 signals:
 
 public slots:
+
+protected slots:
 };
 
 #endif // REPOSITORY_H

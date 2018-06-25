@@ -13,7 +13,7 @@ public:
 signals:
     void stateChanged(QString index, bool enable, size_t rotations);
 
-public slots:
+protected slots:
     void onSpindel_StateChanged(QString index, bool enable, size_t rotations);
 };
 

@@ -3,10 +3,11 @@
 Repository::Repository(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
+    m_pointsManager(new PointsManager(this)),
+    m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_u1Connection(new Connection(this)),
     m_u2Connection(new Connection(this)),
-    m_sensorsBuffer(new SensorsBuffer(this)),
-    m_pointsManager(new PointsManager(this))
+    m_sensorsBuffer(new SensorsBuffer(this))
 {
     loadSettigs();
 }
@@ -366,17 +367,12 @@ QStringList Repository::getSensorsSettings()
 
 void Repository::setGCodes(const QString &data)
 {
-    m_gcodes = data;
+    m_gcodesFilesManager->setFileContent(data);
 }
 
 QString Repository::getGCodesProgram()
 {
-    return m_gcodes;
-}
-
-QString Repository::getGCodesFileContent()
-{
-    return m_gCodesFileContent;
+    return m_gcodesFilesManager->getContent();
 }
 
 QList<Point> Repository::getMachineToolCoordinates()
@@ -483,7 +479,7 @@ QString Repository::getFilePath(QString type)
     QString path = "";
     if(type == "gcodes")
     {
-        path = m_gCodesFilePath;
+        path = m_gcodesFilesManager->getFilePath();
     }
     else
     {
@@ -569,4 +565,32 @@ void Repository::importSettings()
 {
     QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
     m_settingsManager->importSettings(path);
+}
+
+void Repository::openGCodesFile()
+{
+    m_gcodesFilesManager->openGCodesFile();
+}
+
+void Repository::saveGCodesFile(const QString data)
+{
+    m_gcodesFilesManager->setFileContent(data);
+    m_gcodesFilesManager->saveGCodesFile();
+}
+
+void Repository::saveGCodesFileAs(const QString data)
+{
+    m_gcodesFilesManager->setFileContent(data);
+    m_gcodesFilesManager->saveGCodesFileAs();
+}
+
+void Repository::newGCodesFile()
+{
+    m_gcodesFilesManager->newGCodesFile();
+}
+
+void Repository::addGCodesFile(const QString data)
+{
+    saveGCodesFile(data);
+    m_gcodesFilesManager->addGCodesFile();
 }

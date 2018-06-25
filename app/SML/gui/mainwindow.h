@@ -164,8 +164,8 @@ private slots:
     void updateServerPanel();
 
     /// Слот для обновления дерева SML-команд
-    void updateGCodesEditorWidget();
-    void updateFilePath();
+    void onMachineTool_GCodesFileContentUpdated(QString data);
+    void onMachineTool_GCodesFilePathUpdated(QString path);
 
     /// Слот для обновления статуса базировки станка
     void updateBaseStatus();

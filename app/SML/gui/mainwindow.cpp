@@ -197,6 +197,8 @@ void MainWindow::setupConnections()
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
     QObject::connect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
+    QObject::connect(m_machineTool.data(), SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
+    QObject::connect(m_machineTool.data(), SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -255,21 +257,12 @@ void MainWindow::setupConnections()
     QObject::connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 
     // настройка кнопок работы с файлами
-    /*QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
     QObject::connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
     QObject::connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     QObject::connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
     QObject::connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
-
-    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
-    {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
-        QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
-    }
-
-    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));*/
 }
 
 void MainWindow::resetConnections()
@@ -281,7 +274,8 @@ void MainWindow::resetConnections()
     QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
     QObject::disconnect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
-
+    QObject::disconnect(m_machineTool.data(), SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -328,21 +322,12 @@ void MainWindow::resetConnections()
 
 
     // настройка кнопок работы с файлами
-    /*QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
+    QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
     QObject::disconnect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
     QObject::disconnect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     QObject::disconnect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
     QObject::disconnect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
-
-    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
-    {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-        QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
-        QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
-    }
-
-    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(updateSensorsDisplay(QString,QColor)));*/
 }
 
 void MainWindow::setupSpindelsControlPanel()
@@ -554,21 +539,18 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
     }*/
 }
 
-void MainWindow::updateGCodesEditorWidget()
+void MainWindow::onMachineTool_GCodesFileContentUpdated(QString data)
 {
-    /*QString data = m_machineTool->getGCodesFileContent();
-
     //QStringList content = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
     // fix!
     //ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
-    ui->gcodesEditorPlainTextEdit->setPlainText(data);*/
+    ui->gcodesEditorPlainTextEdit->setPlainText(data);
 }
 
-void MainWindow::updateFilePath()
+void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
 {
-    //QString filePath = m_machineTool->getFilePath("gcodes");
-    //ui->filePathLineEdit->setText(filePath);
+    ui->filePathLineEdit->setText(path);
 }
 
 void MainWindow::updateBatteryStatusDisplay()
@@ -1190,7 +1172,7 @@ void MainWindow::onPointsUpdated()
 
 void MainWindow::on_open_action_triggered()
 {
-    /*if(ui->smlEditorTab->isVisible())
+    if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->openSMLFile();
     }
@@ -1198,9 +1180,9 @@ void MainWindow::on_open_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->openGCodesFile();
+            m_machineTool->repository()->openGCodesFile();
         }
-    }*/
+    }
 }
 
 void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
@@ -1217,12 +1199,6 @@ void MainWindow::on_savesettings_action_triggered()
 {
     m_machineTool->repository()->exportSettings();
 }
-
-/*void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)
-{
-    QString deviceName = index.data().toString();
-    m_machineTool->switchDevice(deviceName);
-}*/
 
 void MainWindow::on_add_action_triggered()
 {
@@ -1241,7 +1217,7 @@ void MainWindow::on_add_action_triggered()
 
 void MainWindow::on_create_action_triggered()
 {
-    /*if(ui->smlEditorTab->isVisible())
+    if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->newSMLFile();
     }
@@ -1249,14 +1225,14 @@ void MainWindow::on_create_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->newGCodesFile();
+            m_machineTool->repository()->newGCodesFile();
         }
-    }*/
+    }
 }
 
 void MainWindow::on_save_action_triggered()
 {
-    /*if(ui->smlEditorTab->isVisible())
+    if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->saveSMLFile();
     }
@@ -1264,14 +1240,14 @@ void MainWindow::on_save_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
+            m_machineTool->repository()->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
-    }*/
+    }
 }
 
 void MainWindow::on_saveas_action_triggered()
 {
-    /*if(ui->smlEditorTab->isVisible())
+    if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->saveSMLFileAs();
     }
@@ -1279,9 +1255,9 @@ void MainWindow::on_saveas_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
+            m_machineTool->repository()->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
-    }*/
+    }
 }
 
 void MainWindow::on_runCommandLinkButton_clicked()
@@ -1293,12 +1269,9 @@ void MainWindow::on_runCommandLinkButton_clicked()
 
 void MainWindow::on_view_action_triggered()
 {
-    /*m_machineTool->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
+    m_machineTool->repository()->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
-    //ProgramVisualizeWindow(mainWindowController, this).exec();
-    //GCodesWebViewDialog(this).exec();
-
-    CandleVisualizerDialog(m_machineTool->getFilePath(), this).exec();*/
+    CandleVisualizerDialog(m_machineTool->repository()->getFilePath(), this).exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

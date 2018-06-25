@@ -9,7 +9,8 @@ MachineTool::MachineTool(QObject *parent) :
                                                this)),
     m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this)),
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
-    m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this))
+    m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
+    m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this))
 {
     setupConnections();
     startServer();
@@ -40,6 +41,9 @@ void MachineTool::setupConnections()
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
     QObject::connect(m_spindelsMonitor.data(), SIGNAL(stateChanged(QString,bool,size_t)), this, SLOT(onSpindelsMonitor_StateChanged(QString,bool,size_t)));
 
+    QObject::connect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
+    QObject::connect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QString)), this, SLOT(onGCodesMonitor_FileContentUpdated(QString)));
+
 
     /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::connect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -68,6 +72,9 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
     QObject::disconnect(m_spindelsMonitor.data(), SIGNAL(stateChanged(QString,bool,size_t)), this, SLOT(onSpindelsMonitor_StateChanged(QString,bool,size_t)));
+
+    QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
+    QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QString)), this, SLOT(onGCodesMonitor_FileContentUpdated(QString)));
 
     /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -122,6 +129,16 @@ void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size
     emit spindelStateChanged(index, state, rotations);
 }
 
+void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
+{
+    emit gcodesFilePathUpdated(path);
+}
+
+void MachineTool::onGCodesMonitor_FileContentUpdated(QString content)
+{
+    emit gcodesFileContentUpdated(content);
+}
+
 void MachineTool::onServer_U1Error(int errorCode)
 {
     m_repository->setU1Error(errorCode);
@@ -135,17 +152,6 @@ void MachineTool::onServer_U1Connected()
 void MachineTool::onServer_U1Disconnected()
 {
     m_repository->setU1Connected(false);
-}
-
-void MachineTool::onGCodesLoaded()
-{
-    //emit gcodesUpdated();
-    //emit filePathUpdated();
-}
-
-void MachineTool::parseGCodes()
-{
-    //m_gcodesManager->updateGCodesProgram();
 }
 
 void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error)
@@ -175,43 +181,4 @@ void MachineTool::switchSpindelOff(QString index)
 {
     SwitchSpindel switcher(index, false);
     switcher.start(m_server.data());
-}
-
-void MachineTool::openGCodesFile()
-{
-    /*connect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));
-
-    m_gcodesFilesManager->openGCodesFile();
-
-    disconnect(m_gcodesFilesManager.data(), SIGNAL(loadedFile()), this, SLOT(onGCodesLoaded()));*/
-}
-
-void MachineTool::saveGCodesFile(const QString data)
-{
-
-    /*m_gcodesFilesManager->setFileContent(data);
-    m_gcodesFilesManager->saveGCodesFile();
-    emit filePathUpdated();*/
-}
-
-void MachineTool::saveGCodesFileAs(const QString data)
-{
-    /*m_gcodesFilesManager->setFileContent(data);
-    m_gcodesFilesManager->saveGCodesFileAs();
-    emit filePathUpdated();*/
-}
-
-void MachineTool::newGCodesFile()
-{
-    /*m_gcodesFilesManager->newGCodesFile();
-    emit gcodesUpdated();
-    emit filePathUpdated();*/
-}
-
-void MachineTool::addGCodesFile(const QString data)
-{
-    /*saveGCodesFile(data);
-    m_gcodesFilesManager->addGCodesFile();
-    emit gcodesUpdated();
-    emit filePathUpdated();*/
 }

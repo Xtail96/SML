@@ -12,14 +12,14 @@
 #include <QThread>
 #include <QProgressDialog>
 
-#include "models/filesmanager/gcodesfilesmanager/filesreader.h"
+#include "models/types/gcodes/filesreader/filesreader.h"
 
 class GCodesFilesManager : public QObject
 {
     Q_OBJECT
 protected:
-    QString filePath;
-    QString fileContent;
+    QString m_filePath;
+    QString m_fileContent;
 
     QThread* m_readerThread;
 
@@ -43,6 +43,9 @@ public:
 
 signals:
     void loadedFile();
+
+    void filePathUpdated(QString path);
+    void fileContentUpdated(QString data);
 
 public slots:
     void onFileLoaded(QString content);

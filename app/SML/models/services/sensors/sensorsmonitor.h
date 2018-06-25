@@ -13,7 +13,7 @@ public:
 signals:
     void stateChanged(QString sensorName, bool state);
 
-public slots:
+protected slots:
     void onSensor_StateChanged(QString name, bool enable);
 };
 

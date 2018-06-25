@@ -13,7 +13,7 @@ public:
 signals:
     void pointsUpdated();
 
-public slots:
+protected slots:
     void onPointsUpdated();
 };
 

@@ -2,8 +2,8 @@
 
 GCodesFilesManager::GCodesFilesManager(QObject *parent) :
     QObject(parent),
-    filePath(""),
-    fileContent(""),
+    m_filePath(""),
+    m_fileContent(""),
     m_readerThread(new QThread(this))
 {
     m_readerThread->setObjectName("ReaderThread");
@@ -30,7 +30,7 @@ void GCodesFilesManager::openGCodesFile()
 
 void GCodesFilesManager::openGCodesFile(QString path)
 {
-    filePath = path;
+    m_filePath = path;
     readFileInfo(path);
 }
 
@@ -57,9 +57,9 @@ void GCodesFilesManager::readFileInfo(QString path)
 void GCodesFilesManager::saveGCodesFile()
 {
 
-    if(QFileInfo::exists(filePath))
+    if(QFileInfo::exists(m_filePath))
     {
-        QFile file(filePath);
+        QFile file(m_filePath);
 
         if(!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
         {
@@ -67,7 +67,7 @@ void GCodesFilesManager::saveGCodesFile()
         }
         else
         {
-            file.write(fileContent.toUtf8());
+            file.write(m_fileContent.toUtf8());
             file.close();
         }
     }
@@ -85,13 +85,13 @@ void GCodesFilesManager::saveGCodesFileAs()
         createGCodesFile(filename);
         if(QFileInfo::exists(filename))
         {
-            filePath = filename;
+            m_filePath = filename;
             saveGCodesFile();
-            openGCodesFile(filePath);
+            openGCodesFile(m_filePath);
         }
         else
         {
-            filePath = "";
+            m_filePath = "";
             QMessageBox(QMessageBox::Warning, "Ошибка", "Файл не удалось создать").exec();
         }
     }
@@ -114,6 +114,9 @@ void GCodesFilesManager::newGCodesFile()
 {
     setFilePath("");
     setFileContent("");
+
+    emit filePathUpdated(m_filePath);
+    emit fileContentUpdated(m_fileContent);
 }
 
 void GCodesFilesManager::addGCodesFile()
@@ -131,30 +134,31 @@ void GCodesFilesManager::addGCodesFile()
 
 QString GCodesFilesManager::getContent() const
 {
-    return fileContent;
+    return m_fileContent;
 }
 
 QString GCodesFilesManager::getFilePath() const
 {
-    return filePath;
+    return m_filePath;
 }
 
 void GCodesFilesManager::setFilePath(const QString &value)
 {
-    filePath = value;
+    m_filePath = value;
 }
 
 void GCodesFilesManager::setFileContent(const QString &value)
 {
-    fileContent = value;
+    m_fileContent = value;
 }
 
 void GCodesFilesManager::onFileLoaded(QString content)
 {
-    fileContent = content;
+    m_fileContent = content;
     m_readerThread->quit();
     m_readerThread->wait();
     qDebug() << "gcodes file loaded";
-    emit loadedFile();
+    emit filePathUpdated(m_filePath);
+    emit fileContentUpdated(m_fileContent);
 }
 

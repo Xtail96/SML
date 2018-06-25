@@ -110,7 +110,9 @@ SOURCES += main.cpp\
     models/services/points/pointsmonitor.cpp \
     models/services/sensors/sensorsmonitor.cpp \
     models/services/devices/spindels/spindelsmonitor.cpp \
-    models/services/devices/spindels/switchspindel.cpp
+    models/services/devices/spindels/switchspindel.cpp \
+    models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.cpp \
+    models/services/gcodes/gcodesmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     libs/jsonparser/json.h \
@@ -173,7 +175,9 @@ HEADERS  += gui/mainwindow.h \
     models/services/points/pointsmonitor.h \
     models/services/sensors/sensorsmonitor.h \
     models/services/devices/spindels/spindelsmonitor.h \
-    models/services/devices/spindels/switchspindel.h
+    models/services/devices/spindels/switchspindel.h \
+    models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
+    models/services/gcodes/gcodesmonitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

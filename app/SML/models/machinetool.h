@@ -10,8 +10,8 @@
 #include "models/services/points/pointsmonitor.h"
 #include "models/services/sensors/sensorsmonitor.h"
 #include "models/services/devices/spindels/spindelsmonitor.h"
-
 #include "models/services/devices/spindels/switchspindel.h"
+#include "models/services/gcodes/gcodesmonitor.h"
 
 
 /*!
@@ -51,6 +51,7 @@ protected:
     QScopedPointer<PointsMonitor> m_pointsMonitor;
     QScopedPointer<SensorsMonitor> m_sensorsMonitor;
     QScopedPointer<SpindelsMonitor> m_spindelsMonitor;
+    QScopedPointer<GCodesMonitor> m_gcodesMonitor;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();
@@ -64,8 +65,9 @@ signals:
     void u1Error(int code);
     void sensorStateChanged(QString sensorName, QColor color);
     void spindelStateChanged(QString index, bool enable, size_t currentRotations);
-
     void pointsUpdated();
+    void gcodesFilePathUpdated(QString path);
+    void gcodesFileContentUpdated(QString content);
 
 public slots:
     /// Включает устройство
@@ -89,6 +91,9 @@ protected slots:
     void onSensorMonitor_StateChanged(QString sensorName, bool state);
     void onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations);
 
+    void onGCodesMonitor_FilePathUpdated(QString path);
+    void onGCodesMonitor_FileContentUpdated(QString content);
+
 /////////////////////////////////////////////////////////////
 
 
@@ -103,28 +108,6 @@ public slots:
     void saveSMLFile();
     void saveSMLFileAs();
     void addSMLFile();*/
-
-    /// Производит открытие файла G-Codes
-    void openGCodesFile();
-
-    /// Производит сохранение G-Codes в том же файле
-    void saveGCodesFile(const QString data);
-
-    /// Производит сохранение G-Codes в другом файла
-    void saveGCodesFileAs(const QString data);
-
-    /// Производит инициализацию файла G-Codes
-    void newGCodesFile();
-
-    /// Производит добавление содержимого файлв G-Codes к существующей УП
-    void addGCodesFile(const QString data);
-
-    /// Производит парсинг G-Codes
-    void parseGCodes();
-
-protected slots:
-    /// Обрабатывает событие окончания загрузки файла G-Codes
-    void onGCodesLoaded();
 };
 
 #endif // MACHINETOOL_H
