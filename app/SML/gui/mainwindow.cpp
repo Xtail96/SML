@@ -250,6 +250,10 @@ void MainWindow::setupConnections()
         QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 
+    // настройка импорта и экспорта настроек
+    QObject::connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
+    QObject::connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
+
     // настройка кнопок работы с файлами
     /*QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
@@ -257,10 +261,6 @@ void MainWindow::setupConnections()
     QObject::connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     QObject::connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
     QObject::connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
-
-    // настройка импорта и экспорта настроек
-    QObject::connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
-    QObject::connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 
     for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
     {
@@ -322,6 +322,11 @@ void MainWindow::resetConnections()
         QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
     }
 
+    // настройка импорта и экспорта настроек
+    QObject::disconnect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
+    QObject::disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
+
+
     // настройка кнопок работы с файлами
     /*QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
     QObject::disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
@@ -329,10 +334,6 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
     QObject::disconnect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
     QObject::disconnect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
-
-    // настройка импорта и экспорта настроек
-    QObject::disconnect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
-    QObject::disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
 
     for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
     {
@@ -1209,12 +1210,12 @@ void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 
 void MainWindow::on_importsettings_action_triggered()
 {
-    //m_machineTool->importSettings();
+    m_machineTool->repository()->importSettings();
 }
 
 void MainWindow::on_savesettings_action_triggered()
 {
-    //m_machineTool->exportSettings();
+    m_machineTool->repository()->exportSettings();
 }
 
 /*void MainWindow::on_devicesButtonsListWidget_clicked(const QModelIndex &index)

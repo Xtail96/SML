@@ -558,3 +558,15 @@ void Repository::setSpindelState(QString index, bool enable, size_t rotations)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
 }
+
+void Repository::exportSettings()
+{
+    QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
+    m_settingsManager->exportSettings(path);
+}
+
+void Repository::importSettings()
+{
+    QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
+    m_settingsManager->importSettings(path);
+}

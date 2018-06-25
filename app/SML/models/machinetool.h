@@ -122,12 +122,6 @@ public slots:
     /// Производит парсинг G-Codes
     void parseGCodes();
 
-    /// Производит экспорт настроек станка в *.ini файл
-    void exportSettings();
-
-    /// Производит импорт настроек станка из *.ini файла
-    void importSettings();
-
 protected slots:
     /// Обрабатывает событие окончания загрузки файла G-Codes
     void onGCodesLoaded();

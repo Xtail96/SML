@@ -2,6 +2,8 @@
 #define REPOSITORY_H
 
 #include <QObject>
+#include <QFile>
+#include <QFileDialog>
 
 #include "models/types/axis/axis.h"
 #include "models/types/device/spindel.h"
@@ -102,6 +104,12 @@ public:
     Spindel* findSpindel(QString index);
 
     void setSpindelState(QString index, bool enable, size_t rotations);
+
+    /// Производит экспорт настроек станка в *.ini файл
+    void exportSettings();
+
+    /// Производит импорт настроек станка из *.ini файла
+    void importSettings();
 
 protected:
     /// Менеджер настроек
