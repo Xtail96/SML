@@ -113,7 +113,7 @@ protected:
     QColor m_color;
 
 signals:
-    void stateChanged(QString name, bool state);
+    void stateChanged(QString name, bool enable);
 
 public slots:
     void update(bool state);

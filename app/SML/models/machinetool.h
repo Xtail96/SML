@@ -9,6 +9,7 @@
 #include "models/services/connections/connectionsmonitor.h"
 #include "models/services/points/pointsmonitor.h"
 #include "models/services/sensors/sensorsmonitor.h"
+#include "models/services/devices/spindels/spindelsmonitor.h"
 
 
 /*!
@@ -47,6 +48,7 @@ protected:
     QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
     QScopedPointer<PointsMonitor> m_pointsMonitor;
     QScopedPointer<SensorsMonitor> m_sensorsMonitor;
+    QScopedPointer<SpindelsMonitor> m_spindelsMonitor;
 
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();
@@ -59,6 +61,7 @@ signals:
     void u1Disconnected();
     void u1Error(int code);
     void sensorStateChanged(QString sensorName, QColor color);
+    void spindelStateChanged(QString index, bool enable, size_t currentRotations);
 
     void pointsUpdated();
 
@@ -79,6 +82,7 @@ protected slots:
     void onPointsMonitor_PointsUpdated();
 
     void onSensorMonitor_StateChanged(QString sensorName, bool state);
+    void onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations);
 
 /////////////////////////////////////////////////////////////
 

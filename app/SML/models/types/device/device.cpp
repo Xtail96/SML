@@ -22,11 +22,24 @@ Device::~Device()
 
 }
 
-void Device::updateCurrentState(bool value)
+void Device::setCurrentState(bool value, QMap<QString, QString> params)
 {
+    params = QMap<QString, QString>();
+
     if(m_currentState != value)
     {
         m_currentState = value;
+
+        if(m_currentState == m_activeState)
+        {
+            qDebug() << "state changed";
+            emit currentStateChanged(true);
+        }
+        else
+        {
+            qDebug() << "state changed";
+            emit currentStateChanged(false);
+        }
     }
 }
 

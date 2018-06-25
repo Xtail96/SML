@@ -93,6 +93,18 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 
+    /// Проводит начальную настройку виджетов
+    void setupWidgets();
+
+    /// Проводит инициализацию дисплея датчиков
+    void setupSensorsDisplay();
+
+    /// Проводит инициализацию таблицы настроек датчиков
+    void setupSensorsSettingsBoard();
+
+    /// Проводит инициализацию панели шпинделей
+    void setupSpindelsControlPanel();
+
     /// Подключает необходимые слоты к полям и сигналам
     void setupConnections();
 
@@ -119,17 +131,9 @@ private slots:
     /// слот для обновления дисплея датчиков
     void onMachineTool_SensorStateChanged(QString name, QColor color);
 
-    /// Слоты для начальной настройки виджетов
-    void setupWidgets();
+    void onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations);
 
-    /// слот для инициализации дисплея датчиков
-    void setupSensorsDisplay();
-
-    /// слот для инициализации таблицы настроек датчиков
-    void setupSensorsSettingsBoard();
-
-    void setupSpindelsControlPanel();
-    void updateSpindelsControlPanel();
+    ///////////////////////////////////////////
 
     /// Слоты для обновления дисплеев
     void updateU1Displays();

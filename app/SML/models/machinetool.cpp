@@ -8,7 +8,8 @@ MachineTool::MachineTool(QObject *parent) :
                                                m_repository->m_u2Connection.data(),
                                                this)),
     m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this)),
-    m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this))
+    m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
+    m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this))
 {
     setupConnections();
     startServer();
@@ -37,6 +38,7 @@ void MachineTool::setupConnections()
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
+    QObject::connect(m_spindelsMonitor.data(), SIGNAL(stateChanged(QString,bool,size_t)), this, SLOT(onSpindelsMonitor_StateChanged(QString,bool,size_t)));
 
 
     /*QObject::connect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
@@ -65,7 +67,7 @@ void MachineTool::resetConnections()
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
-
+    QObject::disconnect(m_spindelsMonitor.data(), SIGNAL(stateChanged(QString,bool,size_t)), this, SLOT(onSpindelsMonitor_StateChanged(QString,bool,size_t)));
 
     /*QObject::disconnect(m_serverManager.data(), SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
     QObject::disconnect(m_serverManager.data(), SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
@@ -113,6 +115,11 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
         led = m_repository->findSensor(sensorName)->getColor();
     }
     emit sensorStateChanged(sensorName, led);
+}
+
+void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations)
+{
+    emit spindelStateChanged(index, state, rotations);
 }
 
 void MachineTool::onServer_U1Error(int errorCode)

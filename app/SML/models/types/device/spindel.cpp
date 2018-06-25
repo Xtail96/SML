@@ -20,9 +20,43 @@ QStringList Spindel::getParams()
     return params;
 }
 
+void Spindel::setCurrentState(bool value, QMap<QString, QString> params)
+{
+    if(m_currentState != value)
+    {
+        m_currentState = value;
+
+        size_t rotations = params["rotations"].toUInt();
+        setCurrentRotations(rotations);
+
+        if(m_currentState == m_activeState)
+        {
+            emit stateChanged(m_index, true, m_currentRotations);
+        }
+        else
+        {
+            emit stateChanged(m_index, false, m_currentRotations);
+        }
+    }
+}
+
 void Spindel::setCurrentRotations(const size_t &rotations)
 {
-    m_currentRotations = rotations;
+    if(rotations >= m_lowerBound)
+    {
+        if(rotations <= m_upperBound)
+        {
+            m_currentRotations = rotations;
+        }
+        else
+        {
+            m_currentRotations = m_upperBound;
+        }
+    }
+    else
+    {
+        m_currentRotations = m_lowerBound;
+    }
 }
 
 void Spindel::setUpperBound(const size_t &upperBound)
@@ -48,4 +82,12 @@ size_t Spindel::getLowerBound() const
 size_t Spindel::getCurrentRotations() const
 {
     return m_currentRotations;
+}
+
+void Spindel::update(bool state, size_t rotations)
+{
+    QMap<QString, QString> params;
+    params.insert(QStringLiteral("rotations"), QString::number(rotations));
+
+    setCurrentState(state, params);
 }

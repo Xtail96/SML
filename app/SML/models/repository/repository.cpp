@@ -193,13 +193,13 @@ void Repository::setU1Devices(QList<QVariant> devices)
             Device& device = findDevice(i);
             if(currentDevicesState[i] == 0x01)
             {
-                device.updateCurrentState(device.getActiveState());
+                device.setCurrentState(device.getActiveState(), QMap<QString, QString>());
             }
             else
             {
                 if(currentDevicesState[i] == 0x00)
                 {
-                    device.updateCurrentState(!device.getActiveState());
+                    device.setCurrentState(!device.getActiveState(), QMap<QString, QString>());
                 }
             }
         }

@@ -18,7 +18,7 @@ public:
 
     virtual bool isEnable() const;
 
-    virtual void updateCurrentState(bool value);
+    virtual void setCurrentState(bool value, QMap<QString, QString> params);
 
     virtual QStringList getParams() = 0;
 
@@ -53,6 +53,9 @@ protected:
 
     /// Маска, включающее устройство
     byte m_mask;
+
+signals:
+    void currentStateChanged(bool on);
 };
 
 #endif // DEVICE_H

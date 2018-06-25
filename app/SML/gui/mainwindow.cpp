@@ -70,7 +70,7 @@ void MainWindow::setupWidgets()
 
     setupSensorsDisplay();
     setupSensorsSettingsBoard();
-    //setupSpindelsControlPanel();
+    setupSpindelsControlPanel();
 
     // настройка контроля габаритов
     //updateEdgesControlStatus();
@@ -118,6 +118,33 @@ void MainWindow::setupSensorsDisplay()
 void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
 {
     ui->sensorsDisplayWidget->updateSensorState(name, color);
+}
+
+void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations)
+{
+    bool ok = false;
+
+    size_t spindelIndex = index.toUInt(&ok);
+
+    if(ok)
+    {
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(spindelIndex)));
+        widget->updateControls(enable, rotations);
+    }
+
+    /*QList<Spindel* > spindels = m_machineTool->getSpindels();
+    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
+
+
+    if(spindelsWidgetsCount >= (size_t) spindels.size())
+    {
+        for(size_t i = 0; i < spindelsWidgetsCount; i++)
+        {
+            //qDebug() << spindels[i].isEnable();
+            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
+        }
+    }*/
 }
 
 void MainWindow::setupSensorsSettingsBoard()
@@ -303,8 +330,8 @@ void MainWindow::resetConnections()
 
 void MainWindow::setupSpindelsControlPanel()
 {
-    /*ui->spindelsListWidget->clear();
-    QList<Spindel*> spindels = m_machineTool->getSpindels();
+    ui->spindelsListWidget->clear();
+    QList<Spindel*> spindels = m_machineTool->repository()->getSpindels();
     for(auto spindel : spindels)
     {
         SpindelControlWidget* widget = new SpindelControlWidget(spindel->getLabel(),
@@ -320,24 +347,7 @@ void MainWindow::setupSpindelsControlPanel()
 
         ui->spindelsListWidget->addItem(item);
         ui->spindelsListWidget->setItemWidget(item, widget);
-    }*/
-}
-
-void MainWindow::updateSpindelsControlPanel()
-{
-    /*QList<Spindel* > spindels = m_machineTool->getSpindels();
-    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
-
-
-    if(spindelsWidgetsCount >= (size_t) spindels.size())
-    {
-        for(size_t i = 0; i < spindelsWidgetsCount; i++)
-        {
-            //qDebug() << spindels[i].isEnable();
-            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
-        }
-    }*/
+    }
 }
 
 void MainWindow::updateSettingsBoards()
