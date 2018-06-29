@@ -171,6 +171,16 @@ void MachineTool::stopServer()
     m_server->stop();
 }
 
+QStringList MachineTool::getCurrentConnections()
+{
+    return m_server->currentAdapters();
+}
+
+QString MachineTool::getServerPort()
+{
+    return QString::number(m_server->port());
+}
+
 void MachineTool::switchSpindelOn(QString index, size_t rotations)
 {
     SwitchSpindel swithcer(index, true, rotations);

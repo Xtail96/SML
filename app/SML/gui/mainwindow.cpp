@@ -608,6 +608,12 @@ void MainWindow::onMachineTool_U1Connected()
     ui->optionsListWidget->setEnabled(true);
 
     ui->spindelsListWidget->setEnabled(true);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->currentConnectionsListWidget->clear();
+    ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
 void MainWindow::onMachineTool_U1Disconnected()
@@ -618,6 +624,12 @@ void MainWindow::onMachineTool_U1Disconnected()
     ui->optionsListWidget->setEnabled(false);
 
     ui->spindelsListWidget->setEnabled(false);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->currentConnectionsListWidget->clear();
+    ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
 void MainWindow::onMachineTool_U2Connected()
@@ -674,6 +686,12 @@ void MainWindow::onMachineTool_U2Connected()
 
     ui->runCommandLinkButton->setEnabled(true);
     ui->stopCommandLinkButton->setEnabled(true);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->currentConnectionsListWidget->clear();
+    ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
 void MainWindow::onMachineTool_U2Disconnected()
@@ -730,12 +748,24 @@ void MainWindow::onMachineTool_U2Disconnected()
 
     ui->runCommandLinkButton->setEnabled(false);
     ui->stopCommandLinkButton->setEnabled(false);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->currentConnectionsListWidget->clear();
+    ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
 void MainWindow::onMachineTool_U1Error(int errorCode)
 {
     QString errorString = QStringLiteral("Machine Tool u1 error is occured ") + QString::number(errorCode);
     ui->statusBar->showMessage(errorString);
+
+    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->currentConnectionsListWidget->clear();
+    ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()

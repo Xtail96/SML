@@ -516,7 +516,7 @@ QString Repository::getSensorsBufferSize()
 
 QString Repository::getDevicesBufferSize()
 {
-    return QString::number(m_devicesBufferSize);
+    return QString::number(m_spindels.size() + m_supportDevices.size());
 }
 
 QList<Spindel *> Repository::getSpindels()

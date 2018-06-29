@@ -43,6 +43,9 @@ public:
     /// Производит остановку сервера
     void stopServer();
 
+    QStringList getCurrentConnections();
+    QString getServerPort();
+
 protected:
     QScopedPointer<Repository> m_repository;
     QScopedPointer<SMLServer> m_server;
