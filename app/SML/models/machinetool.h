@@ -96,21 +96,6 @@ protected slots:
 
     void onGCodesMonitor_FilePathUpdated(QString path);
     void onGCodesMonitor_FileContentUpdated(QString content);
-
-/////////////////////////////////////////////////////////////
-
-
-public slots:
-
-
-    //void deleteCommand(unsigned int number);
-    //std::vector<std::shared_ptr<SMLCommand> > interpretCommands();
-
-    /*void newSMLFile();
-    void openSMLFile();
-    void saveSMLFile();
-    void saveSMLFileAs();
-    void addSMLFile();*/
 };
 
 #endif // MACHINETOOL_H

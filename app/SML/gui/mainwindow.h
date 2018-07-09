@@ -44,13 +44,7 @@
 #include "commands/smlcommentdialog.h"
 #include "commands/splinedialog.h"
 #include "commands/ttttsplinedialog.h"
-#include "commands/smlvariabledialog.h"
-
-/// Подключение окна визуализации УП
-#include "programvisualizewindow.h"*/
-
-/// Подключение журнала
-#include "logdialog.h"
+#include "commands/smlvariabledialog.h"*/
 
 /// Подключение подсветки синтаксиса G-кодов
 #include "gcodessyntaxhighlighter.h"
@@ -59,9 +53,6 @@
 /*#include "gui/options/kabriolwindow.h"
 #include "gui/options/toollengthsensorwindow.h"
 #include "gui/options/lubricationsystemwindow.h"*/
-
-/// Подключение файла с библиотечными зависимостями
-//#include "dependencies.h"
 
 #include "models/machinetool.h"
 
@@ -105,6 +96,18 @@ private:
     /// Проводит инициализацию панели шпинделей
     void setupSpindelsControlPanel();
 
+    /// Настраивает панель опций
+    void setupOptionsPanel();
+
+    /// Проводит инициализацию таблицы настроек устройств
+    void setupDevicesBoard();
+
+    /// Проводит инициализацию списка настроек осей
+    void setupAxisesBoard();
+
+    /// Блокирует и скрывает виджеты, которые не нужны в данной сборке, но нужны в принципе
+    void hideWidgets();
+
     /// Подключает необходимые слоты к полям и сигналам
     void setupConnections();
 
@@ -133,66 +136,23 @@ private slots:
 
     void onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations);
 
-    ///////////////////////////////////////////
-
-    /// Слоты для обновления дисплеев
-    void updateU1Displays();
-    void updateU2Displays();
-
     /// Слот для обновления дисплея координат
     void updateCoordinatesDisplays();
     void showCoordinates(QListWidget* display, Point coordinates);
 
-    /// Слот для обновления дисплея датчиков
-    //void updateSensorsDisplay();
-
     /// Слот для обновления дисплея заряда батареи
     void updateBatteryStatusDisplay();
 
-    /// Слот для обновления настроек
-    void updateSettingsBoards();
-
-    /// Слот для обновления "доски" настроек датчиков
-    //void updateSensorsBoard();
-
-    /// Слот для обновления "доски" настроек устройств
-    void updateDevicesBoard();
-
-    /// Слот для обновления "доски" настроек осей
-    void updateAxisesBoard();
-
-    void updateServerPanel();
-
-    /// Слот для обновления дерева SML-команд
     void onMachineTool_GCodesFileContentUpdated(QString data);
     void onMachineTool_GCodesFilePathUpdated(QString path);
 
-    /// Слот для обновления статуса базировки станка
-    void updateBaseStatus();
-
-    /// Слот для обновления панели устройств
-    void updateDevicesPanel();
-    void updateDevicesLeds();
-
-    /// Слот для обновления скорости
-    void updateVelocityPanel();
-
-    /// Слот для обновления оборотов шпинделя
-    void updateSpindelRotationsPanel();
-
-    /// Слот для обновления панели опций
-    void updateOptionsPanel();
-
-    void hideWidgets();
-
-    // to do исправить слот
-    void updateEdgesControlStatus();
+    // слот пока не используется
+    void onMachineTool_EdgesControlStatusChanged(bool state);
 
     void addPoint();
     void editPoint(QModelIndex index);
     void deletePoints(QModelIndexList indexes);
     void onPointsUpdated();
-
 
     /// Слоты для обработки сигналов виджета дерева SML-команд
     //void commandsCopySlot();

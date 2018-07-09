@@ -8,26 +8,12 @@ QT       += core gui
 QT += opengl
 QT += websockets
 
-#unix {
-#    QT += webenginewidgets
-#}
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = SML
 TEMPLATE = app
 
 CONFIG += c++11
-
-win32 {
-  LIBS += -lglu32 -lopengl32
-}
-macx {
-  LIBS += -framework OpenGl
-}
-unix {
-}
-
 
 # from candle project
 DEFINES += sNan=\"65536\"
@@ -54,25 +40,21 @@ contains(QT_CONFIG, opengles.) {
 
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
-    libs/jsonparser/json.cpp \
-    libs/gpr/gcode_program.cpp \
-    libs/gpr/parser.cpp \
     gui/widgets/console.cpp \
     gui/widgets/gcodeseditorwidget.cpp \
-    gui/widgets/gcodesviewwidget.cpp \
     gui/widgets/smlcommandslistwidget.cpp \
     gui/widgets/smleditortreewidget.cpp \
     gui/widgets/smlpointstablewidget.cpp \
-    #gui/gcodeswebviewdialog.cpp \
     gui/gcodessyntaxhighlighter.cpp \
-    gui/logdialog.cpp \
     gui/addpointdialog.cpp \
     gui/toselectionpointdialog.cpp \
     gui/smlconsoledialog.cpp \
-    libs/candlevisualizer/glwidget.cpp \
-    libs/candlevisualizer/drawers/shaderdrawable.cpp \
-    libs/candlevisualizer/drawers/tooldrawer.cpp \
     gui/candlevisualizerdialog.cpp \
+    gui/widgets/spindelcontrolwidget.cpp \
+    gui/widgets/sensorsdisplaywidget.cpp \
+    libs/jsonparser/json.cpp \
+    libs/gpr/gcode_program.cpp \
+    libs/gpr/parser.cpp \
     libs/candlevisualizer/drawers/gcodedrawer.cpp \
     libs/candlevisualizer/drawers/heightmapborderdrawer.cpp \
     libs/candlevisualizer/drawers/heightmapgriddrawer.cpp \
@@ -88,8 +70,9 @@ SOURCES += main.cpp\
     libs/candlevisualizer/tables/gcodetablemodel.cpp \
     libs/candlevisualizer/tables/heightmaptablemodel.cpp \
     libs/simpleqtlogger/simpleQtLogger.cpp \
-    gui/widgets/spindelcontrolwidget.cpp \
-    gui/widgets/sensorsdisplaywidget.cpp \
+    libs/candlevisualizer/glwidget.cpp \
+    libs/candlevisualizer/drawers/shaderdrawable.cpp \
+    libs/candlevisualizer/drawers/tooldrawer.cpp \
     models/repository/repository.cpp \
     models/machinetool.cpp \
     models/types/settingsmanager/settingsmanager.cpp \
@@ -115,27 +98,26 @@ SOURCES += main.cpp\
     models/services/gcodes/gcodesmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
-    libs/jsonparser/json.h \
-    libs/gpr/gcode_program.h \
-    libs/gpr/parser.h \
     gui/widgets/console.h \
     gui/widgets/gcodeseditorwidget.h \
-    gui/widgets/gcodesviewwidget.h \
     gui/widgets/smlcommandslistwidget.h \
     gui/widgets/smleditortreewidget.h \
     gui/widgets/smlpointstablewidget.h \
-    #gui/gcodeswebviewdialog.h \
     gui/gcodessyntaxhighlighter.h \
-    gui/logdialog.h \
     gui/addpointdialog.h \
     gui/toselectionpointdialog.h \
     gui/smlconsoledialog.h \
+    gui/candlevisualizerdialog.h \
+    gui/widgets/spindelcontrolwidget.h \
+    gui/widgets/sensorsdisplaywidget.h \
+    libs/jsonparser/json.h \
+    libs/gpr/gcode_program.h \
+    libs/gpr/parser.h \
     libs/candlevisualizer/glwidget.h \
     libs/candlevisualizer/drawers/shaderdrawable.h \
     libs/candlevisualizer/utils/interpolation.h \
     libs/candlevisualizer/utils/util.h \
     libs/candlevisualizer/drawers/tooldrawer.h \
-    gui/candlevisualizerdialog.h \
     libs/candlevisualizer/drawers/gcodedrawer.h \
     libs/candlevisualizer/drawers/heightmapborderdrawer.h \
     libs/candlevisualizer/drawers/heightmapgriddrawer.h \
@@ -151,8 +133,6 @@ HEADERS  += gui/mainwindow.h \
     libs/candlevisualizer/tables/gcodetablemodel.h \
     libs/candlevisualizer/tables/heightmaptablemodel.h \
     libs/simpleqtlogger/simpleQtLogger.h \
-    gui/widgets/spindelcontrolwidget.h \
-    gui/widgets/sensorsdisplaywidget.h \
     models/repository/repository.h \
     models/machinetool.h \
     models/types/structs.h \
@@ -182,8 +162,6 @@ HEADERS  += gui/mainwindow.h \
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
     gui/toselectionpointdialog.ui \
-    gui/logdialog.ui \
-    gui/gcodeswebviewdialog.ui \
     gui/smlconsoledialog.ui \
     gui/candlevisualizerdialog.ui \
     options/toollengthsensorwindow.ui \
@@ -194,7 +172,6 @@ win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/applicationOSX.icns
 
 RESOURCES += \
-    gui/resources/pages.qrc \
     gui/resources/images.qrc \
     libs/candlevisualizer/shaders.qrc
 

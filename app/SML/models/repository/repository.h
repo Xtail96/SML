@@ -123,6 +123,9 @@ public:
     /// Производит добавление содержимого файлв G-Codes к существующей УП
     void addGCodesFile(const QString data);
 
+    double getVelocity() const;
+    void setVelocity(double velocity);
+
 protected:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;
@@ -154,6 +157,8 @@ protected:
     QList< QSharedPointer<Axis> > m_axises;
     Point m_zeroCoordinates;
     Point m_parkCoordinates;
+
+    double m_velocity;
 
     void loadSettigs();
     void loadServerSettings();

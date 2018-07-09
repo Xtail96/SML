@@ -19,18 +19,18 @@ SMLConsoleDialog::~SMLConsoleDialog()
 
 void SMLConsoleDialog::setup()
 {
-    connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
-    connect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
-    connect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    connect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
+    QObject::connect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onU1SensorStateChanged(QString,QColor)));
+    QObject::connect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::connect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
 }
 
 void SMLConsoleDialog::reset()
 {
-    disconnect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
-    disconnect(&m_machineTool, SIGNAL(u1StateIsChanged()), this, SLOT(onU1StateChanged()));
-    disconnect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    disconnect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
+    QObject::disconnect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onU1SensorStateChanged(QString,QColor)));
+    QObject::disconnect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
+    QObject::disconnect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
 }
 
 void SMLConsoleDialog::setupWidgets()
@@ -43,6 +43,7 @@ void SMLConsoleDialog::setupWidgets()
 
 void SMLConsoleDialog::sendCommang(QString cmd)
 {
+    ui->monitorPlainTextEdit->setPlainText(cmd);
     //m_machineTool->sendBinaryMessageToServer(cmd.toUtf8());
 }
 
@@ -79,33 +80,8 @@ void SMLConsoleDialog::onU1Disconnected()
     showMachineToolState("U1 Disconnected");
 }
 
-/*void SMLConsoleDialog::onU1StateChanged()
+void SMLConsoleDialog::onU1SensorStateChanged(QString name, QColor led)
 {
-    QString u1State = "";
-
-    QPair< QStringList, QList<QColor> > sensors;
-    sensors.first = m_machineTool.getSensorsLabels();
-    sensors.second = m_machineTool.getSensorsLeds();
-
-    u1State.push_back(QStringLiteral("---Sensors---") + QStringLiteral("\n"));
-
-    for(int i = 0; i < sensors.first.size(); i++)
-    {
-        QString tmp = sensors.first[i] + QStringLiteral(":") + QString::number(sensors.second[i].value()) + QStringLiteral("\n");
-        u1State.push_back(tmp);
-    }
-
-    u1State.push_back(QStringLiteral("---Devices---") + QStringLiteral("\n"));
-
-    QPair< QStringList, QList<bool> > devices;
-    devices.first = m_machineTool.getOnScreenDevicesNames();
-    devices.second = m_machineTool.getOnScreenDevicesStates();
-
-    for(int i = 0; i < devices.first.size(); i++)
-    {
-        QString tmp = devices.first[i] + QStringLiteral(":") + QString::number(devices.second[i]) + QStringLiteral("\n");
-        u1State.push_back(tmp);
-    }
-
+    QString u1State = name + QStringLiteral(":") + led.name();
     showMachineToolState(u1State);
-}*/
+}

@@ -71,6 +71,7 @@ void MainWindow::setupWidgets()
     setupSensorsDisplay();
     setupSensorsSettingsBoard();
     setupSpindelsControlPanel();
+    setupOptionsPanel();
 
     // настройка контроля габаритов
     //updateEdgesControlStatus();
@@ -353,46 +354,13 @@ void MainWindow::setupSpindelsControlPanel()
     }
 }
 
-void MainWindow::updateSettingsBoards()
+void MainWindow::setupAxisesBoard()
 {
-    //updateAxisesBoard();
-    //updateSensorsBoard();
-    //updateDevicesBoard();
+    QStringList axisesSettings = m_machineTool->repository()->getAxisesSettings();
+    ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
-void MainWindow::updateAxisesBoard()
-{
-    //QStringList axisesSettings = m_machineTool->getAxisesSettings();
-    //ui->axisesSettingsListWidget->addItems(axisesSettings);
-}
-
-/*void MainWindow::updateSensorsBoard()
-{
-    QStringList sensorsNames = m_machineTool->getSensorsLabels();
-    QStringList sensorsParametrsNames = m_machineTool->getSensorParametrLabels();
-    QList<QStringList> sensorsSettings = m_machineTool->getSensorsSettings();
-
-    ui->sensorsSettingsTableWidget->clear();
-    ui->sensorsSettingsTableWidget->setRowCount(sensorsNames.size());
-    ui->sensorsSettingsTableWidget->setVerticalHeaderLabels(sensorsNames);
-    ui->sensorsSettingsTableWidget->setColumnCount(sensorsParametrsNames.size());
-    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(sensorsParametrsNames);
-
-    for(int i = 0; i < ui->sensorsSettingsTableWidget->columnCount(); i++)
-    {
-        ui->sensorsSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
-    for (int i = 0; i < ui->sensorsSettingsTableWidget->rowCount(); i++)
-    {
-        for(int j = 0; j < ui->sensorsSettingsTableWidget->columnCount(); j++)
-        {
-            ui->sensorsSettingsTableWidget->setItem(i, j, new QTableWidgetItem(sensorsSettings[i][j]));
-        }
-    }
-}*/
-
-void MainWindow::updateDevicesBoard()
+void MainWindow::setupDevicesBoard()
 {
     /*QStringList devicesNames = m_machineTool->getDevicesNames();
     QStringList devicesParametrsNames = m_machineTool->getDevicesParametrsNames();
@@ -418,103 +386,9 @@ void MainWindow::updateDevicesBoard()
     }*/
 }
 
-void MainWindow::updateServerPanel()
-{
-    /*ui->currentConnectionsListWidget->clear();
-    QStringList connections = m_machineTool->getCurrentConnections();
-    ui->currentConnectionsListWidget->addItems(connections);
-
-    ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->getDevicesBufferSize());*/
-}
-
-void MainWindow::updateU1Displays()
-{
-    //updateBatteryStatusDisplay();
-    //updateSensorsDisplay();
-    //updateDevicesLeds();
-    //updateSpindelsControlPanel();
-}
-
-/*void MainWindow::updateSensorsDisplay()
-{
-    QPair< QStringList, QList<QColor> > sensors;
-    sensors.first = m_machineTool->getSensorsLabels();
-    sensors.second = m_machineTool->getSensorsLeds();
-
-    ui->sensorsTableWidget->clear();
-    ui->sensorsTableWidget->setRowCount(sensors.first.size());
-    ui->sensorsTableWidget->setVerticalHeaderLabels(sensors.first);
-    ui->sensorsTableWidget->setColumnCount(1);
-
-    int size = qMin(sensors.first.size(), sensors.second.size());
-    for(int i = 0; i < size; i++)
-    {
-        ui->sensorsTableWidget->verticalHeader()->setSectionResizeMode(i, QHeaderView::Fixed);
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setBackground(sensors.second[i]);
-        ui->sensorsTableWidget->setItem(i, 0, item);
-    }
-}*/
-
-void MainWindow::updateDevicesPanel()
-{
-    /*QPair< QStringList, QList<bool> > devices;
-    devices.first = m_machineTool->getOnScreenDevicesNames();
-    devices.second = m_machineTool->getOnScreenDevicesStates();
-
-    ui->devicesLedsListWidget->clear();
-    ui->devicesButtonsListWidget->clear();
-
-    int size = qMin(devices.first.size(), devices.second.size());
-    for(int i = 0; i < size; i++)
-    {
-        QListWidgetItem* button = new QListWidgetItem();
-        QListWidgetItem* led = new QListWidgetItem();
-        button->setText(devices.first[i]);
-        if(devices.second[i])
-        {
-            led->setBackgroundColor(SmlColors::red());
-        }
-        else
-        {
-            led->setBackgroundColor(SmlColors::white());
-        }
-        ui->devicesButtonsListWidget->addItem(button);
-        ui->devicesLedsListWidget->addItem(led);
-    }*/
-}
-
-void MainWindow::updateDevicesLeds()
-{
-    /*QList<bool> onScreenDevicesStates = m_machineTool->getOnScreenDevicesStates();
-
-    ui->devicesLedsListWidget->clear();
-
-    for(int i = 0; i < onScreenDevicesStates.size(); i++)
-    {
-        QListWidgetItem* led = new QListWidgetItem();
-        if(onScreenDevicesStates[i])
-        {
-            led->setBackgroundColor(SmlColors::red());
-        }
-        else
-        {
-            led->setBackgroundColor(SmlColors::white());
-        }
-        ui->devicesLedsListWidget->addItem(led);
-    }*/
-}
-
-void MainWindow::updateU2Displays()
-{
-    //updateCoordinatesDisplays();
-}
-
 void MainWindow::updateCoordinatesDisplays()
 {
-    /*QList<Point> machineToolCoordinates = m_machineTool->getMachineToolCoordinates();
+    QList<Point> machineToolCoordinates = m_machineTool->repository()->getMachineToolCoordinates();
 
     if(machineToolCoordinates.length() >= 3)
     {
@@ -525,26 +399,24 @@ void MainWindow::updateCoordinatesDisplays()
         showCoordinates(ui->currentCoordinatesListWidget, currentCoordinates);
         showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
         showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
-    }*/
+    }
 }
 
 void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
 {
-    /*display->clear();
+    display->clear();
     for(size_t i = 0; i < coordinates.size(); i++)
     {
         QString axisKey = SML_AXISES_NAMES.getNameByKey(i);
         QString axisLabel = axisKey + QString(": ") + QString::number(coordinates[i], 'f', 3);
         display->addItem(axisLabel);
-    }*/
+    }
 }
 
 void MainWindow::onMachineTool_GCodesFileContentUpdated(QString data)
 {
-    //QStringList content = data.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 
-    // fix!
-    //ui->gcodesEditorPlainTextEdit->document()->setPlainText(data);
+    // fix! should works more quick
     ui->gcodesEditorPlainTextEdit->setPlainText(data);
 }
 
@@ -569,29 +441,10 @@ void MainWindow::updateBatteryStatusDisplay()
 #endif
 }
 
-void MainWindow::updateBaseStatus()
+void MainWindow::setupOptionsPanel()
 {
-
-}
-
-void MainWindow::updateVelocityPanel()
-{
-    /*int velocity = m_machineTool->getFeedrate();
-    ui->feedrateLcdNumber->display(QString::number(velocity));
-    ui->feedrateScrollBar->setValue(velocity);*/
-}
-
-void MainWindow::updateSpindelRotationsPanel()
-{
-    /*int rotations = m_machineTool->getSpindelRotations();
-    ui->rotationsLcdNumber->display(QString::number(rotations));
-    ui->rotationsScrollBar->setValue(rotations);*/
-}
-
-void MainWindow::updateOptionsPanel()
-{
-    /*QStringList optionsNames = m_machineTool->getOptionsNames();
-    ui->optionsListWidget->addItems(optionsNames);*/
+    QStringList optionsNames = m_machineTool->repository()->getOptionsNames();
+    ui->optionsListWidget->addItems(optionsNames);
 }
 
 void MainWindow::hideWidgets()
@@ -780,13 +633,13 @@ void MainWindow::enableMovementButtonsShortcutsAutoRepeat()
 
 void MainWindow::setMovementButtonsShortcutsAutoRepeat(bool state)
 {
-    /*for (auto i = m_axisesShortcuts.begin(); i != m_axisesShortcuts.end(); i++)
-        (*i)->setAutoRepeat(state);*/
+    for (auto i = m_axisesShortcuts.begin(); i != m_axisesShortcuts.end(); i++)
+        (*i)->setAutoRepeat(state);
 }
 
 void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
 {
-    /*std::vector<QPushButton*> movementButtons = {
+    std::vector<QPushButton*> movementButtons = {
         ui->movementXPositivePushButton,
         ui->movementXNegativePushButton,
         ui->movementYPositivePushButton,
@@ -805,7 +658,7 @@ void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
     };
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
-        (*i)->setAutoRepeat(state);*/
+        (*i)->setAutoRepeat(state);
 }
 
 void MainWindow::on_discreteRadioButton_1_clicked()
@@ -963,8 +816,7 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    //m_machineTool->updateVelocity(value);
-    //updateVelocityPanel();
+    m_machineTool->repository()->setVelocity(value);
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -1100,8 +952,9 @@ void MainWindow::on_pointCopyPushButton_clicked()
     }
 }
 
-void MainWindow::updateEdgesControlStatus()
+void MainWindow::onMachineTool_EdgesControlStatusChanged(bool state)
 {
+    ui->edgesControlCheckBox->setChecked(state);
     if(ui->edgesControlCheckBox->isChecked())
     {
         ui->currentCoordinatesListWidget->setStyleSheet("border: 2px solid #2E8B57");
@@ -1306,7 +1159,7 @@ void MainWindow::on_view_action_triggered()
 
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
-    //SMLConsoleDialog(*(m_machineTool.data()), this).exec();
+    SMLConsoleDialog(*(m_machineTool.data()), this).exec();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
@@ -1457,5 +1310,5 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
-    //m_machineTool->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+    m_machineTool->repository()->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
 }

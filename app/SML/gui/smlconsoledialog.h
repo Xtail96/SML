@@ -33,7 +33,7 @@ protected slots:
 
     void onU1Connected();
     void onU1Disconnected();
-    //void onU1StateChanged();
+    void onU1SensorStateChanged(QString name, QColor led);
 };
 
 #endif // SMLCONSOLEDIALOG_H

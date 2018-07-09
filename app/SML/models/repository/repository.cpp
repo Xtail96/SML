@@ -594,3 +594,13 @@ void Repository::addGCodesFile(const QString data)
     saveGCodesFile(data);
     m_gcodesFilesManager->addGCodesFile();
 }
+
+double Repository::getVelocity() const
+{
+    return m_velocity;
+}
+
+void Repository::setVelocity(double velocity)
+{
+    m_velocity = velocity;
+}
