@@ -41,23 +41,27 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
     connect(m_rotationsSlider, SIGNAL(valueChanged(int)), this, SLOT(onRotationsSliderValueChanged(int)));
     container->layout()->addWidget(m_rotationsSlider);
 
+    QFrame* buttonsFrame = new QFrame(container);
+    buttonsFrame->setLayout(new QHBoxLayout(buttonsFrame));
+    //buttonsFrame->layout()->setSpacing(1);
+    buttonsFrame->layout()->setContentsMargins(0, 0, 0, 0);
+        m_switchPushButton = new QPushButton(buttonsFrame);
+        m_switchPushButton->setObjectName("switchPushButton");
+        if(!m_enable)
+        {
+            m_switchPushButton->setText("Включить");
+        }
+        else
+        {
+            m_switchPushButton->setText("Выключить");
+        }
+        connect(m_switchPushButton, SIGNAL(clicked(bool)), this, SLOT(onSwitchSpindelClicked()));
+        buttonsFrame->layout()->addWidget(m_switchPushButton);
 
-    m_switchPushButton = new QPushButton(container);
-    m_switchPushButton->setObjectName("switchPushButton");
-    if(!m_enable)
-    {
-        m_switchPushButton->setText("Включить");
-    }
-    else
-    {
-        m_switchPushButton->setText("Выключить");
-    }
-    connect(m_switchPushButton, SIGNAL(clicked(bool)), this, SLOT(onSwitchSpindelClicked()));
-    container->layout()->addWidget(m_switchPushButton);
-
-    m_warmingUpPushButton = new QPushButton("Прогреть", container);
-    connect(m_warmingUpPushButton, SIGNAL(clicked(bool)), this, SLOT(onWarmingSpindelUpClicked()));
-    container->layout()->addWidget(m_warmingUpPushButton);
+        m_warmingUpPushButton = new QPushButton("Прогреть", buttonsFrame);
+        connect(m_warmingUpPushButton, SIGNAL(clicked(bool)), this, SLOT(onWarmingSpindelUpClicked()));
+        buttonsFrame->layout()->addWidget(m_warmingUpPushButton);
+    container->layout()->addWidget(buttonsFrame);
 
     this->layout()->addWidget(container);
 }
