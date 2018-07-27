@@ -110,7 +110,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("SensorsCount", 8);
         settings->setValue("SpindelsCount", 3);
         settings->setValue("SupportDevicesCount", 0);
-        settings->setValue("SensorsBufferSize", 16);
+        settings->setValue("SensorsBufferSize", 2);
         settings->setValue("DevicesBufferSize", 3);
     settings->endGroup();
 
