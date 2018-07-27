@@ -102,7 +102,7 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 
 void SettingsManager::generateDefaultSettings()
 {
-    settings->beginGroup("MachineToolInformation");
+    settings->beginGroup("General");
         //settings->setValue("VendorId", 0x10c4);
         //settings->setValue("ProductId", 0xea61);
         //settings->setValue("Name", "semil");
