@@ -792,14 +792,14 @@
                  <property name="iconSize">
                   <size>
                    <width>16</width>
-                   <height>16</height>
+                   <height>32</height>
                   </size>
                  </property>
                  <property name="shortcut">
                   <string>+</string>
                  </property>
                  <property name="flat">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -826,14 +826,14 @@
                  <property name="iconSize">
                   <size>
                    <width>16</width>
-                   <height>16</height>
+                   <height>32</height>
                   </size>
                  </property>
                  <property name="shortcut">
                   <string>-</string>
                  </property>
                  <property name="flat">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -857,11 +857,17 @@
                   <iconset resource="resources/images.qrc">
                    <normaloff>:/new/prefix1/images/Find.png</normaloff>:/new/prefix1/images/Find.png</iconset>
                  </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>16</width>
+                   <height>32</height>
+                  </size>
+                 </property>
                  <property name="shortcut">
                   <string>Shift+K</string>
                  </property>
                  <property name="flat">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -885,11 +891,17 @@
                   <iconset resource="resources/images.qrc">
                    <normaloff>:/new/prefix1/images/Copy.png</normaloff>:/new/prefix1/images/Copy.png</iconset>
                  </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>16</width>
+                   <height>32</height>
+                  </size>
+                 </property>
                  <property name="shortcut">
                   <string>Shift+Return</string>
                  </property>
                  <property name="flat">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
