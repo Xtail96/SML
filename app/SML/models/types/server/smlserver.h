@@ -28,6 +28,16 @@ protected:
     QList< QWebSocket* > m_unregistered;
 
     bool m_debug;
+
+    void setupConnections();
+    void resetConnections();
+
+    void registerConnection(QWebSocket *connection, int type);
+
+    void byteMessageReceived(QByteArray message);
+
+    U1State parseU1BinaryMessage(QByteArray message);
+
 signals:
     void newConnection();
 
@@ -38,8 +48,6 @@ signals:
     void u2Connected();
     void u2Disconnected();
 
-    void byteMessageReceived(QByteArray message);
-
 public slots:
     void start();
     void stop();
@@ -49,18 +57,13 @@ public slots:
     size_t port() const;
 
 protected slots:
-    void setupConnections();
-    void resetConnections();
 
-    void onServerClosed();
-    void onNewConnection();
-    void onTextMessage(QString message);
-    void onBinaryMessage(QByteArray message);
+    void onQWebSocketServer_Closed();
+    void onQWebSocketServer_NewConnection();
 
-    U1State parseU1BinaryMessage(QByteArray message);
-
-    void socketDisconnected();
-    void registerConnection(QWebSocket *connection, int type);
+    void onQWebSocket_TextMessageReceived(QString message);
+    void onQWebSocket_BinaryMessageReceived(QByteArray message);
+    void onQWebSocket_Disconnected();
 };
 
 #endif // SMLRSERVER_H
