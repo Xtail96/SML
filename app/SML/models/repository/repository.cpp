@@ -36,7 +36,7 @@ void Repository::loadSensorsSettings()
 {
     try
     {
-        unsigned int sensorsCount = QVariant(m_settingsManager->get("General", "SensorsCount")).toUInt();
+        unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
 
         std::vector<QString> sensorsCodes;
         for(unsigned int i = 0; i < sensorsCount; i++)
@@ -66,7 +66,7 @@ void Repository::loadSensorsSettings()
             m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
 
-        m_sensorsBufferSize = QVariant(m_settingsManager->get("General", "SensorsBufferSize")).toUInt();
+        m_sensorsBufferSize = QVariant(m_settingsManager->get("Main", "SensorsBufferSize")).toUInt();
         m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
     }
     catch(std::invalid_argument e)
@@ -79,8 +79,8 @@ void Repository::loadDevicesSettings()
 {
     try
     {
-        unsigned int spindelsCount = QVariant(m_settingsManager->get("General", "SpindelsCount")).toUInt();
-        unsigned int supportDevicesCount = QVariant(m_settingsManager->get("General", "SupportDevicesCount")).toUInt();
+        unsigned int spindelsCount = QVariant(m_settingsManager->get("Main", "SpindelsCount")).toUInt();
+        unsigned int supportDevicesCount = QVariant(m_settingsManager->get("Main", "SupportDevicesCount")).toUInt();
 
         for(unsigned int i = 0; i < spindelsCount; i++)
         {
@@ -132,7 +132,7 @@ void Repository::loadAxisesSettings()
 {
     try
     {
-         size_t axisesCount = m_settingsManager->get("General", "AxisesCount").toUInt();
+         size_t axisesCount = m_settingsManager->get("Main", "AxisesCount").toUInt();
          for(size_t i = 0; i < axisesCount; i++)
          {
              QString name = SML_AXISES_NAMES.getNameByKey(i);
