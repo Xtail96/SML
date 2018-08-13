@@ -167,12 +167,22 @@ void MachineTool::setLastError(int value)
 
 void MachineTool::switchSpindelOn(QString index, size_t rotations)
 {
+    if(m_lastError != 0)
+    {
+        return;
+    }
+
     SwitchSpindel swithcer(m_server.data(), index, true, rotations);
     swithcer.execute();
 }
 
 void MachineTool::switchSpindelOff(QString index)
 {
+    if(m_lastError != 0)
+    {
+        return;
+    }
+
     SwitchSpindel switcher(m_server.data(), index, false);
     switcher.execute();
 }
