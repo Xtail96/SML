@@ -9,7 +9,7 @@ SwitchSpindel::SwitchSpindel(QString index, bool enable, size_t rotations, QObje
 
 }
 
-void SwitchSpindel::start(SMLServer *server)
+void SwitchSpindel::execute(SMLServer *server)
 {
     if(m_enable)
     {

@@ -184,11 +184,11 @@ QString MachineTool::getServerPort()
 void MachineTool::switchSpindelOn(QString index, size_t rotations)
 {
     SwitchSpindel swithcer(index, true, rotations);
-    swithcer.start(m_server.data());
+    swithcer.execute(m_server.data());
 }
 
 void MachineTool::switchSpindelOff(QString index)
 {
     SwitchSpindel switcher(index, false);
-    switcher.start(m_server.data());
+    switcher.execute(m_server.data());
 }

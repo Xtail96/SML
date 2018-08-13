@@ -87,15 +87,15 @@ SOURCES += main.cpp\
     models/types/sensor/sensorsbuffer.cpp \
     models/types/device/devicesbuffer.cpp \
     models/types/connection/connection.cpp \
-    models/services/connections/connectionsmonitor.cpp \
+    models/services/connections/monitor/connectionsmonitor.cpp \
     models/types/gcodes/filesreader/filesreader.cpp \
     models/types/point/pointsmanager.cpp \
-    models/services/points/pointsmonitor.cpp \
-    models/services/sensors/sensorsmonitor.cpp \
-    models/services/devices/spindels/spindelsmonitor.cpp \
-    models/services/devices/spindels/switchspindel.cpp \
+    models/services/points/monitor/pointsmonitor.cpp \
+    models/services/sensors/monitor/sensorsmonitor.cpp \
+    models/services/devices/spindels/monitor/spindelsmonitor.cpp \
+    models/services/devices/spindels/switch/switchspindel.cpp \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    models/services/gcodes/gcodesmonitor.cpp
+    models/services/gcodes/monitor/gcodesmonitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -149,15 +149,15 @@ HEADERS  += gui/mainwindow.h \
     models/types/device/devicesbuffer.h \
     models/types/server/u1state.h \
     models/types/connection/connection.h \
-    models/services/connections/connectionsmonitor.h \
+    models/services/connections/monitor/connectionsmonitor.h \
     models/types/gcodes/filesreader/filesreader.h \
     models/types/point/pointsmanager.h \
-    models/services/points/pointsmonitor.h \
-    models/services/sensors/sensorsmonitor.h \
-    models/services/devices/spindels/spindelsmonitor.h \
-    models/services/devices/spindels/switchspindel.h \
+    models/services/points/monitor/pointsmonitor.h \
+    models/services/sensors/monitor/sensorsmonitor.h \
+    models/services/devices/spindels/monitor/spindelsmonitor.h \
+    models/services/devices/spindels/switch/switchspindel.h \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
-    models/services/gcodes/gcodesmonitor.h
+    models/services/gcodes/monitor/gcodesmonitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

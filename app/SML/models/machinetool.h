@@ -6,12 +6,12 @@
 #include "models/repository/repository.h"
 #include "models/types/server/smlserver.h"
 
-#include "models/services/connections/connectionsmonitor.h"
-#include "models/services/points/pointsmonitor.h"
-#include "models/services/sensors/sensorsmonitor.h"
-#include "models/services/devices/spindels/spindelsmonitor.h"
-#include "models/services/devices/spindels/switchspindel.h"
-#include "models/services/gcodes/gcodesmonitor.h"
+#include "models/services/connections/monitor/connectionsmonitor.h"
+#include "models/services/points/monitor/pointsmonitor.h"
+#include "models/services/sensors/monitor/sensorsmonitor.h"
+#include "models/services/devices/spindels/monitor/spindelsmonitor.h"
+#include "models/services/devices/spindels/switch/switchspindel.h"
+#include "models/services/gcodes/monitor/gcodesmonitor.h"
 
 
 /*!

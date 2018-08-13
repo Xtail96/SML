@@ -10,7 +10,7 @@ class SwitchSpindel : public QObject
     Q_OBJECT
 public:
     explicit SwitchSpindel(QString index, bool enable, size_t rotations = 0, QObject *parent = nullptr);
-    void start(SMLServer* server);
+    void execute(SMLServer* server);
 
 protected:
     QString m_index;
