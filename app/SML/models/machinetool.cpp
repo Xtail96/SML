@@ -150,6 +150,11 @@ QString MachineTool::getServerPort()
     return QString::number(m_server->port());
 }
 
+int MachineTool::getLastError()
+{
+    return m_lastError;
+}
+
 void MachineTool::setLastError(int value)
 {
     m_lastError = value;

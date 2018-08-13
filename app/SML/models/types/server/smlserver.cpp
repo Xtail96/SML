@@ -216,6 +216,10 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
             u1.errorCode = u1State["LastError"].toInt();
             return u1;
         }
+        else
+        {
+            throw std::invalid_argument("empty u1 message");
+        }
     }
     else
     {

@@ -46,6 +46,7 @@ public:
     QStringList getCurrentConnections();
     QString getServerPort();
 
+    int getLastError();
     void setLastError(int value);
 
 protected:
