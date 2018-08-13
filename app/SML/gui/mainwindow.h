@@ -129,7 +129,7 @@ private slots:
     void onMachineTool_U2Disconnected();
 
     /// Слоты для обработки ошибок станка
-    void onMachineTool_U1Error(int errorCode);
+    void onMachineTool_ErrorOccured(int errorCode);
 
     /// слот для обновления дисплея датчиков
     void onMachineTool_SensorStateChanged(QString name, QColor color);

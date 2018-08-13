@@ -25,7 +25,6 @@ public:
     void setU1Connected(bool connected);
     void setU1Sensors(QList<QVariant> sensors);
     void setU1Devices(QList<QVariant> devices);
-    void setU1Error(int code);
 
     Device& findDevice(size_t index);
 

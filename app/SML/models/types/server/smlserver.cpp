@@ -185,9 +185,14 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
             try
             {
                 U1State u1 = parseU1BinaryMessage(message);
-                emit u1StateChanged(u1.sensors, u1.devices, u1.error);
+                if(u1.errorCode != 0)
+                {
+                    emit errorOccured(u1.errorCode);
+                    return;
+                }
+                emit u1StateChanged(u1.sensors, u1.devices);
             }
-            catch(std::runtime_error e)
+            catch(std::invalid_argument e)
             {
                 qDebug() << e.what();
             }
@@ -208,17 +213,13 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
             U1State u1;
             u1.sensors = u1State["SensorsState"].toList();
             u1.devices = u1State["DevicesState"].toList();
-            u1.error = u1State["LastError"].toInt();
+            u1.errorCode = u1State["LastError"].toInt();
             return u1;
-        }
-        else
-        {
-            throw std::runtime_error("u1 state is empty");
         }
     }
     else
     {
-        throw std::runtime_error("an error is occured during parsing json" + QString::fromUtf8(message).toStdString());
+        throw std::invalid_argument("an error is occured during parsing json" + QString::fromUtf8(message).toStdString());
     }
 }
 

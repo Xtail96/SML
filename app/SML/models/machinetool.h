@@ -46,6 +46,8 @@ public:
     QStringList getCurrentConnections();
     QString getServerPort();
 
+    void setLastError(int value);
+
 protected:
     QScopedPointer<Repository> m_repository;
     QScopedPointer<SMLServer> m_server;
@@ -56,6 +58,8 @@ protected:
     QScopedPointer<SpindelsMonitor> m_spindelsMonitor;
     QScopedPointer<GCodesMonitor> m_gcodesMonitor;
 
+    int m_lastError;
+
     /// Подключает нужные слоты к полям и сигналам класса
     void setupConnections();
 
@@ -65,7 +69,7 @@ protected:
 signals:
     void u1Connected();
     void u1Disconnected();
-    void u1Error(int code);
+    void errorOccured(int code);
     void sensorStateChanged(QString sensorName, QColor color);
     void spindelStateChanged(QString index, bool enable, size_t currentRotations);
     void pointsUpdated();
@@ -81,13 +85,12 @@ protected slots:
     /// пишем даные в репозиторий
     void onServer_U1Connected();
     void onServer_U1Disconnected();
-    void onServer_U1Error(int errorCode);
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
+    void onServer_ErrorOccured(int errorCode);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices);
 
     /// обрабатываем данные от монитора
     void onConnectionMonitor_U1Connected();
     void onConnectionMonitor_U1Disconnected();
-    void onConnectionMonitor_U1LastErrorChanged(int code);
 
     void onPointsMonitor_PointsUpdated();
 

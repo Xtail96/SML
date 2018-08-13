@@ -7,7 +7,7 @@ struct U1State
 {
     QList<QVariant> sensors;
     QList<QVariant> devices;
-    int error;
+    int errorCode;
 };
 
 #endif // U1STATE_H

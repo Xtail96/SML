@@ -43,10 +43,12 @@ signals:
 
     void u1Connected();
     void u1Disconnected();
-    void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int error);
+    void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices);
 
     void u2Connected();
     void u2Disconnected();
+
+    void errorOccured(int code);
 
 public slots:
     void start();

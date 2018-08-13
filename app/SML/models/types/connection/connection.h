@@ -12,16 +12,11 @@ public:
     bool connected() const;
     void setConnected(bool connected);
 
-    int lastError() const;
-    void setLastError(int lastError);
-
 protected:
     bool m_connected;
-    int m_lastError;
 
 signals:
     void connectionStateChanged(bool connected);
-    void lastErrorChanged(int lastError);
 
 public slots:
 };

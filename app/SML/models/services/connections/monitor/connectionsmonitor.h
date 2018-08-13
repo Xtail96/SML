@@ -17,18 +17,13 @@ protected:
 signals:
     void u1Connected();
     void u1Disconnected();
-    void u1LastErrorChanged(int code);
 
     void u2Connected();
     void u2Disconnected();
-    void u2LastErrorChanged(int code);
 
 protected slots:
     void onU1_ConnectionStateChanged(bool state);
-    void onU1_LastErrorChanged(int code);
-
     void onU2_ConnectionStateChanged(bool state);
-    void onU2_LastErrorChanged(int code);
 };
 
 #endif // CONNECTIONSMONITOR_H

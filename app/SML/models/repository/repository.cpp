@@ -212,11 +212,6 @@ void Repository::setU1Devices(QList<QVariant> devices)
 
 }
 
-void Repository::setU1Error(int code)
-{
-    m_u1Connection->setLastError(code);
-}
-
 Device &Repository::findDevice(size_t index)
 {
     for(auto device : m_spindels)

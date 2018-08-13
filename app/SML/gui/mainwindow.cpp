@@ -193,7 +193,7 @@ void MainWindow::setupConnections()
 {
     QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
     QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Error(int)), this, SLOT(onMachineTool_U1Error(int)));
+    QObject::connect(m_machineTool.data(), SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -270,7 +270,7 @@ void MainWindow::resetConnections()
 {
     QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Error(int)), this, SLOT(onMachineTool_U1Error(int)));
+    QObject::disconnect(m_machineTool.data(), SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -609,16 +609,19 @@ void MainWindow::onMachineTool_U2Disconnected()
     ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
 }
 
-void MainWindow::onMachineTool_U1Error(int errorCode)
+void MainWindow::onMachineTool_ErrorOccured(int errorCode)
 {
-    QString errorString = QStringLiteral("Machine Tool u1 error is occured ") + QString::number(errorCode);
-    ui->statusBar->showMessage(errorString);
-
     ui->serverPortLcdNumber->display(m_machineTool->getServerPort());
     ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
     ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
     ui->currentConnectionsListWidget->addItems(m_machineTool->getCurrentConnections());
+
+    onMachineTool_U1Disconnected();
+    onMachineTool_U2Disconnected();
+
+    QString errorString = QStringLiteral("Error code #") + QString::number(errorCode);
+    ui->statusBar->showMessage(errorString);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
