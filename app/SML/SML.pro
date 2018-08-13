@@ -157,7 +157,8 @@ HEADERS  += gui/mainwindow.h \
     models/services/devices/spindels/monitor/spindelsmonitor.h \
     models/services/devices/spindels/switch/switchspindel.h \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
-    models/services/gcodes/monitor/gcodesmonitor.h
+    models/services/gcodes/monitor/gcodesmonitor.h \
+    models/types/base/interactor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
