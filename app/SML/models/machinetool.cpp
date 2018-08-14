@@ -126,8 +126,16 @@ void MachineTool::onServer_U1Disconnected()
 
 void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices)
 {
-    m_repository->setU1Sensors(sensors);
-    m_repository->setU1Devices(devices);
+    try
+    {
+        this->m_repository->setU1Sensors(sensors);
+        this->m_repository->setU1Devices(devices);
+    }
+    catch(SynchronizeStateException e)
+    {
+        qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
+        this->setLastError(-255);
+    }
 }
 
 void MachineTool::startServer()
@@ -160,8 +168,8 @@ void MachineTool::setLastError(int value)
     m_lastError = value;
     if(m_lastError != 0)
     {
-        emit errorOccured(m_lastError);
         // вызов интерактора-обработчика
+        emit errorOccured(m_lastError);
     }
 }
 

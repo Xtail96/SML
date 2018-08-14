@@ -163,33 +163,41 @@ void Repository::setU1Connected(bool connected)
 
 void Repository::setU1Sensors(QList<QVariant> sensors)
 {
-    byte_array currentSensorsState;
-    for(auto port : sensors)
+    try
     {
-        currentSensorsState.push_back(port.toUInt());
-    }
+        byte_array currentSensorsState;
+        for(auto port : sensors)
+        {
+            currentSensorsState.push_back(port.toUInt());
+        }
 
-    m_sensorsBuffer->updateBuffer(currentSensorsState);
-    for(auto sensor : m_sensors)
+        m_sensorsBuffer->updateBuffer(currentSensorsState);
+        for(auto sensor : m_sensors)
+        {
+            bool isVoltage = m_sensorsBuffer->getInputState(sensor->getBoardName(),
+                                                            sensor->getPortNumber(),
+                                                            sensor->getInputNumber());
+            sensor->update(isVoltage);
+        }
+    }
+    catch(SynchronizeStateException e)
     {
-        bool isVoltage = m_sensorsBuffer->getInputState(sensor->getBoardName(),
-                                                       sensor->getPortNumber(),
-                                                       sensor->getInputNumber());
-        sensor->update(isVoltage);
+        qDebug() << QStringLiteral("Repository::setU1Sensors:") << e.message();
+        throw;
     }
 }
 
 void Repository::setU1Devices(QList<QVariant> devices)
 {
-    byte_array currentDevicesState;
-    for(auto device : devices)
+    try
     {
-        currentDevicesState.push_back(device.toUInt());
-    }
+        byte_array currentDevicesState;
+        for(auto device : devices)
+        {
+            currentDevicesState.push_back(device.toUInt());
+        }
 
-    for(size_t i = 0; i < currentDevicesState.size(); i++)
-    {
-        try
+        for(size_t i = 0; i < currentDevicesState.size(); i++)
         {
             Device& device = findDevice(i);
             if(currentDevicesState[i] == 0x01)
@@ -204,10 +212,11 @@ void Repository::setU1Devices(QList<QVariant> devices)
                 }
             }
         }
-        catch(std::invalid_argument e)
-        {
-            qDebug() << e.what() << i;
-        }
+    }
+    catch (SynchronizeStateException e)
+    {
+        qDebug() << QStringLiteral("Repository::setU1Devices:") << e.message();
+        throw;
     }
 
 }
@@ -230,8 +239,11 @@ Device &Repository::findDevice(size_t index)
         }
     }
 
-    std::string errorString = "device not found";
-    throw std::invalid_argument(errorString);
+    QString message =
+            QStringLiteral("device not found ") +
+            QString::number(index);
+
+    throw SynchronizeStateException(message);
 }
 
 QStringList Repository::getAllDevicesNames()

@@ -95,7 +95,8 @@ SOURCES += main.cpp\
     models/services/devices/spindels/monitor/spindelsmonitor.cpp \
     models/services/devices/spindels/switch/switchspindel.cpp \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    models/services/gcodes/monitor/gcodesmonitor.cpp
+    models/services/gcodes/monitor/gcodesmonitor.cpp \
+    models/types/exceptions/synchronizestateexception.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -158,7 +159,8 @@ HEADERS  += gui/mainwindow.h \
     models/services/devices/spindels/switch/switchspindel.h \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
     models/services/gcodes/monitor/gcodesmonitor.h \
-    models/types/base/interactor.h
+    models/types/base/interactor.h \
+    models/types/exceptions/synchronizestateexception.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

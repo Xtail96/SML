@@ -2,7 +2,9 @@
 #define SENSORSBUFFER_H
 
 #include <QObject>
+
 #include "models/types/structs.h"
+#include "models/types/exceptions/synchronizestateexception.h"
 
 class SensorsBuffer : public QObject
 {
