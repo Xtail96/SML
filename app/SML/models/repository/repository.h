@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QFileDialog>
 
+#include "models/types/exceptions/invalidargumentexception.h"
+
 #include "models/types/axis/axis.h"
 #include "models/types/device/spindel.h"
 #include "models/types/device/supportdevice.h"

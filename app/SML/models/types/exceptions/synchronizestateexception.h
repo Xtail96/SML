@@ -11,7 +11,7 @@ public:
     SynchronizeStateException *clone() const;
     QString message() const;
 
-private:
+protected:
     QString m_message;
 };
 

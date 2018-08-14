@@ -26,9 +26,11 @@ void Repository::loadServerSettings()
     {
         m_port = m_settingsManager->get("ServerSettings", "ServerPort").toUInt();
     }
-    catch(std::invalid_argument e)
+    catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации порта сервера") + QString(e.what())).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации порта сервера") + QString(e.message())).exec();
+        qDebug() << QStringLiteral("Repository::loadServerSettings:") << e.message();
+        qApp->exit(0);
     }
 }
 
@@ -38,7 +40,7 @@ void Repository::loadSensorsSettings()
     {
         unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
 
-        std::vector<QString> sensorsCodes;
+        QList<QString> sensorsCodes;
         for(unsigned int i = 0; i < sensorsCount; i++)
         {
             QString sensorString = QString("Sensor") + QString::number(i);
@@ -69,9 +71,11 @@ void Repository::loadSensorsSettings()
         m_sensorsBufferSize = QVariant(m_settingsManager->get("Main", "SensorsBufferSize")).toUInt();
         m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
     }
-    catch(std::invalid_argument e)
+    catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера датчиков", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера датчиков", e.message()).exec();
+        qDebug() << QStringLiteral("Repository::loadSensorsSettings:") << e.message();
+        qApp->exit(0);
     }
 }
 
@@ -122,9 +126,11 @@ void Repository::loadDevicesSettings()
             m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
         }
     }
-    catch(std::invalid_argument e)
+    catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера устройств", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера устройств", e.message()).exec();
+        qDebug() << QStringLiteral("Repository::loadDevicesSettings:") << e.message();
+        qApp->exit(0);
     }
 }
 
@@ -150,9 +156,11 @@ void Repository::loadAxisesSettings()
          m_zeroCoordinates = Point(m_axises.size());
          m_parkCoordinates = Point(m_axises.size());
     }
-    catch(std::invalid_argument e)
+    catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.what())).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.message())).exec();
+        qDebug() << QStringLiteral("Repository::loadAxisesSettings:") << e.message();
+        qApp->exit(0);
     }
 }
 
@@ -218,7 +226,6 @@ void Repository::setU1Devices(QList<QVariant> devices)
         qDebug() << QStringLiteral("Repository::setU1Devices:") << e.message();
         throw;
     }
-
 }
 
 Device &Repository::findDevice(size_t index)
@@ -243,7 +250,7 @@ Device &Repository::findDevice(size_t index)
             QStringLiteral("device not found ") +
             QString::number(index);
 
-    throw SynchronizeStateException(message);
+    throw InvalidArgumentException(message);
 }
 
 QStringList Repository::getAllDevicesNames()
@@ -324,7 +331,11 @@ Sensor* Repository::findSensor(QString name)
         }
     }
 
-    throw std::invalid_argument("sensor with name " + name.toStdString() + " is not exists");
+    QString message =
+            QStringLiteral("sensor with name ") +
+            name +
+            QStringLiteral(" is not exists");
+    throw InvalidArgumentException(message);
 }
 
 QStringList Repository::getSensorNames()
@@ -354,9 +365,9 @@ QMap<QString, QString> Repository::getSensorSettings(QString name)
             }
         }
     }
-    catch(std::invalid_argument e)
+    catch(InvalidArgumentException e)
     {
-        QMessageBox(QMessageBox::Warning, "Get Sensor Settings Error", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Get Sensor Settings Error", e.message()).exec();
     }
     return sensorsSettingsMap;
 }
@@ -546,7 +557,11 @@ Spindel *Repository::findSpindel(QString index)
         }
     }
 
-    throw std::invalid_argument("spindel with index " + index.toStdString() + " is not exists");
+    QString message =
+            QStringLiteral("spindel with inde ") +
+            index +
+            QStringLiteral(" is not exists");
+    throw InvalidArgumentException(message);
 }
 
 void Repository::setSpindelState(QString index, bool enable, size_t rotations)
@@ -556,9 +571,9 @@ void Repository::setSpindelState(QString index, bool enable, size_t rotations)
         Spindel* spindel = findSpindel(index);
         spindel->setCurrentState(enable, rotations);
     }
-    catch(std::invalid_argument e)
+    catch(InvalidArgumentException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
     }
 }
 

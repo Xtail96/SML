@@ -69,7 +69,7 @@ void PointsManager::updatePoint(QStringList coordinates, unsigned int number)
         }
         emit pointsUpdated();
     }
-    catch(std::out_of_range e)
+    catch(OutOfRangeException e)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
     }
@@ -97,10 +97,14 @@ std::shared_ptr<Point>& PointsManager::operator[](size_t idx)
     }
     else
     {
-        std::string errMsg = "Нет точки с номером " + std::to_string(idx);
-        errMsg += " (Всего " + std::to_string(pointCount()) + " точек)";
+        QString message =
+                QStringLiteral("Нет точки с номером ") +
+                QString::number(idx) +
+                QStringLiteral(" (Всего ") +
+                QString::number(pointCount()) +
+                QStringLiteral(" точек");
 
-        throw std::out_of_range(errMsg);
+        throw OutOfRangeException(message);
     }
 }
 
@@ -155,9 +159,9 @@ QList<QStringList> PointsManager::points()
             {
                 coordinate = QString::number(point.get()->operator [](j));
             }
-            catch(std::out_of_range e)
+            catch(OutOfRangeException e)
             {
-                QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+                QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
                 break;
             }
             coordinates.push_back(coordinate);
@@ -205,9 +209,9 @@ QStringList PointsManager::point(unsigned int number)
             coordinates.push_back(coordinate);
         }
     }
-    catch(std::out_of_range e)
+    catch(OutOfRangeException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
     }
     return coordinates;
 }

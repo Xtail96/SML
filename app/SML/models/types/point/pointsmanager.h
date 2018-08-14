@@ -6,6 +6,8 @@
 #include <QMessageBox>
 #include "models/types/point/point.h"
 
+#include "models/types/exceptions/outofrangeexception.h"
+
 /**
  * @brief Класс Менеджер точек
  * Взаимодействие с точками происходит через этот класс
