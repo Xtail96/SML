@@ -14,7 +14,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_lastError(0)
 {
     setupConnections();
-    startServer();
+    startAdapterServer();
 }
 
 MachineTool::~MachineTool()
@@ -138,22 +138,22 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
     }
 }
 
-void MachineTool::startServer()
+void MachineTool::startAdapterServer()
 {
     m_server->start();
 }
 
-void MachineTool::stopServer()
+void MachineTool::stopAdapterServer()
 {
     m_server->stop();
 }
 
-QStringList MachineTool::getCurrentConnections()
+QStringList MachineTool::getConnectedAdapters()
 {
     return m_server->currentAdapters();
 }
 
-QString MachineTool::getServerPort()
+QString MachineTool::getAdapterServerPort()
 {
     return QString::number(m_server->port());
 }

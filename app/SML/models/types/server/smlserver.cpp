@@ -125,12 +125,12 @@ void SMLServer::sendMessageToU1(QByteArray message)
             }
             else
             {
-                throw std::runtime_error("WebSocket is invalid");
+                throw SynchronizeStateException("WebSocket is invalid");
             }
         }
         else
         {
-            throw std::runtime_error("WebSocket is null");
+            throw SynchronizeStateException("WebSocket is null");
         }
     }
 }
@@ -164,9 +164,10 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
             registerConnection(pSender, SMLServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
-        catch(std::invalid_argument e)
+        catch(SynchronizeStateException e)
         {
-            qDebug() << e.what();
+            qDebug() << e.message();
+            emit this->errorOccured(-2);
         }
     }
     else
@@ -177,9 +178,10 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
             {
                 registerConnection(pSender, SMLServer::U2Adapter);
             }
-            catch(std::invalid_argument e)
+            catch(SynchronizeStateException e)
             {
-                qDebug() << e.what();
+                qDebug() << e.message();
+                emit this->errorOccured(-2);
             }
         }
         else
@@ -212,9 +214,10 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
             }
             emit u1StateChanged(u1.sensors, u1.devices);
         }
-        catch(std::invalid_argument e)
+        catch(SynchronizeStateException e)
         {
-            qDebug() << e.what();
+            qDebug() << e.message();
+            emit errorOccured(-3);
         }
     }
 }
@@ -237,12 +240,12 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
         }
         else
         {
-            throw std::invalid_argument("empty u1 message");
+            throw SynchronizeStateException("empty u1 message");
         }
     }
     else
     {
-        throw std::invalid_argument("an error is occured during parsing json" + QString::fromUtf8(message).toStdString());
+        throw SynchronizeStateException("an error is occured during parsing json" + QString::fromUtf8(message));
     }
 }
 
@@ -280,7 +283,7 @@ void SMLServer::onQWebSocket_Disconnected()
 void SMLServer::registerConnection(QWebSocket* connection, int type)
 {
     if (connection == nullptr)
-        throw std::invalid_argument("Try to Register invalid socket");
+        throw SynchronizeStateException("Try to Register invalid socket");
 
     switch (type) {
     case SMLServer::U1Adapter:

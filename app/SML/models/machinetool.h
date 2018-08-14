@@ -13,68 +13,167 @@
 #include "models/services/devices/spindels/switch/switchspindel.h"
 #include "models/services/gcodes/monitor/gcodesmonitor.h"
 
+// сделать класс синглтоном?
 
-/*!
- * \brief Класс Станок
- * Является классом модели верхнего уровня: презентеры ведут взаимодействие с этим классом.
- * Управляет всеми менеджерами, подготавивает данные для вывода в интерфейс.
+/**
+ * @brief Класс станок
+ *
+ * Корневой класс моделей в системе.
+ * Основная задача класса: обеспечение взаимодействия компомнентов системы между собой.
+ *
+ * Все взаимодействие между компонентами происходит через этот класс.
+ *
+ * В каждый момент времени позволяет получить текущее состояние любой системы станка.
+ *
+ * Содержит набор сигналов, подписавшись на которые
+ * можно следить за изменениями в определенной компоненте станка в режиме реального времени.
+ *
+ * Запускает сценарии бизнес-логики, реализованные по средствам интеракторов.
  */
 class MachineTool : public QObject
 {
     Q_OBJECT
 
 public:
-    /*!
-     * \brief Конструктор класса Станок
-     * \param parent - указатель на объект (по умолчанию равен nullptr)
+    /**
+     * @brief Создает объект класса станок
+     * @param parent - родительский объект
      */
     explicit MachineTool(QObject *parent = nullptr);
 
-    /*!
-      * \brief Деструктор класса Станок
+    /**
+      * @brief Деструктор класса Станок
       */
     ~MachineTool();
 
+    /**
+     * @brief Предоставляет доступ к репозиторию, где хранится текущее состояние станка
+     * @return
+     */
     Repository* repository();
 
-    /// Производит запуск сервера
-    void startServer();
+    /**
+     * @brief Производит запуск WebSocket сервера для подключения адаптеров
+     */
+    void startAdapterServer();
 
-    /// Производит остановку сервера
-    void stopServer();
+    /**
+     * @brief Производит остановку WebSocket сервера для подключения адаптеров
+     */
+    void stopAdapterServer();
 
-    QStringList getCurrentConnections();
-    QString getServerPort();
+    /**
+     * @brief Возвращает список подключенных адаптеров
+     * @return Список подключенных авдптеов в формате списка строк
+     */
+    QStringList getConnectedAdapters();
 
+    /**
+     * @brief Возвращает номер порта, на котором запущен WebSocket сервер для подключения
+     * адаптеров
+     * @return номер порта, на котором запущен WebSocket сервер для подключения
+     * адаптеров
+     */
+    QString getAdapterServerPort();
+
+    /**
+     * @brief Возвращает код последней ошибки
+     * @return код ошибки
+     */
     int getLastError();
+
+    /**
+     * @brief Устанавливает значение последней ошибки
+     * @param value код ошибки
+     */
     void setLastError(int value);
 
 protected:
-    QScopedPointer<Repository> m_repository;
-    QScopedPointer<SMLServer> m_server;
 
+    /// Репозиторий, хранящий текущее состояние систем станка
+    QScopedPointer<Repository> m_repository;
+
+    /// Сервер для подключения адаптеров
+    QScopedPointer<SMLServer> m_adapterServer;
+
+    /// Монитор текущих подключений к серверу адаптеров
     QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
+
+    /// Монитор текущего состояния точек
     QScopedPointer<PointsMonitor> m_pointsMonitor;
+
+    /// Монитор текущего состояния датчиков
     QScopedPointer<SensorsMonitor> m_sensorsMonitor;
+
+    /// Монитор текущего состояния шпинделей
     QScopedPointer<SpindelsMonitor> m_spindelsMonitor;
+
+    /// Монитор текущего состояния G-кодов
     QScopedPointer<GCodesMonitor> m_gcodesMonitor;
 
+    /// Код последней возникшей ошибки
+    /// Данную переменную необходимо проверять, при отправке данных на станок.
+    /// 0 - ошибок нет.
+    /// [-255;0) (0;255] - коды ошибок. Чем больше по модулю от нуля, тем ошибка критичнее.
     int m_lastError;
 
-    /// Подключает нужные слоты к полям и сигналам класса
+    /**
+     * @brief Подключет слоты к сигналам полей класса
+     */
     void setupConnections();
 
-    /// Отключает слоты от полей и сигналов класса
+    /**
+     * @brief Отключает слоты от сигналов полей класса
+     */
     void resetConnections();
 
 signals:
+    /**
+     * @brief Сигнал подключения адаптера U1
+     */
     void u1Connected();
+
+    /**
+     * @brief Сигнал отключения адаптера U1
+     */
     void u1Disconnected();
+
+    /**
+     * @brief Сигнал возникновения ошибки в работе станка
+     * @param code - код возникшей ошибки
+     */
     void errorOccured(int code);
+
+    /**
+     * @brief Сигнал изменения состояния датчика
+     * @param sensorName уникальный идентификатор датчика
+     * @param color цвет текущего состояния датчика (переписать на bool параметр)
+     */
     void sensorStateChanged(QString sensorName, QColor color);
+
+    /**
+     * @brief Сигнал изменения состояния шпинделя
+     * @param index уникальный индекс устройства
+     * @param enable состояния вкл (true) / выкл (false)
+     * @param currentRotations текущее значение оборотов
+     */
     void spindelStateChanged(QString index, bool enable, size_t currentRotations);
+
+    /**
+     * @brief Сигнал обновления состояния точек
+     */
     void pointsUpdated();
+
+    /**
+     * @brief Сигнал обновления пути до файла G-кодов
+     * @param path обновленный путь к файлу (включая имя файла)
+     */
     void gcodesFilePathUpdated(QString path);
+
+    /**
+     * @brief Сигнал обновления содержимого фала G-кодов
+     * @param content содержимое файла G-кодов в формате строки
+     */
     void gcodesFileContentUpdated(QString content);
 
 public slots:
