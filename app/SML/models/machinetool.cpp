@@ -3,7 +3,7 @@
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_repository(new Repository(this)),
-    m_server(new SMLServer(m_repository->m_port, this)),
+    m_adapterServer(new SMLServer(m_repository->m_port, this)),
     m_connectionMonitor(new ConnectionsMonitor(m_repository->m_u1Connection.data(),
                                                m_repository->m_u2Connection.data(),
                                                this)),
@@ -29,11 +29,11 @@ Repository *MachineTool::repository()
 
 void MachineTool::setupConnections()
 {
-    QObject::connect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
-    QObject::connect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::connect(m_server.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
-    QObject::connect(m_server.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
     QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
     QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
@@ -48,11 +48,11 @@ void MachineTool::setupConnections()
 
 void MachineTool::resetConnections()
 {
-    QObject::disconnect(m_server.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
-    QObject::disconnect(m_server.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::disconnect(m_server.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
-    QObject::connect(m_server.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
     QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
     QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
@@ -140,22 +140,22 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
 
 void MachineTool::startAdapterServer()
 {
-    m_server->start();
+    m_adapterServer->start();
 }
 
 void MachineTool::stopAdapterServer()
 {
-    m_server->stop();
+    m_adapterServer->stop();
 }
 
 QStringList MachineTool::getConnectedAdapters()
 {
-    return m_server->currentAdapters();
+    return m_adapterServer->currentAdapters();
 }
 
 QString MachineTool::getAdapterServerPort()
 {
-    return QString::number(m_server->port());
+    return QString::number(m_adapterServer->port());
 }
 
 int MachineTool::getLastError()
@@ -180,7 +180,7 @@ void MachineTool::switchSpindelOn(QString index, size_t rotations)
         return;
     }
 
-    SwitchSpindel swithcer(m_server.data(), index, true, rotations);
+    SwitchSpindel swithcer(m_adapterServer.data(), index, true, rotations);
     swithcer.execute();
 }
 
@@ -191,6 +191,6 @@ void MachineTool::switchSpindelOff(QString index)
         return;
     }
 
-    SwitchSpindel switcher(m_server.data(), index, false);
+    SwitchSpindel switcher(m_adapterServer.data(), index, false);
     switcher.execute();
 }
