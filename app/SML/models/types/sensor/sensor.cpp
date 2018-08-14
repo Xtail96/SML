@@ -22,79 +22,81 @@ Sensor::Sensor(QString name,
 
 void Sensor::update(bool state)
 {
-    setCurrentState(state);
+    this->setCurrentState(state);
 }
 
 bool Sensor::getCurrentState() const
 {
-    return m_currentState;
+    return this->m_currentState;
 }
 
 void Sensor::setCurrentState(bool value)
 {
-    if(m_currentState != value)
+    if(this->m_currentState != value)
     {
-        m_currentState = value;
+        this->m_currentState = value;
 
-        if(m_currentState == m_activeState)
+        if(this->isEnable())
         {
-            emit stateChanged(m_name, true);
+            emit this->stateChanged(this->m_name, true);
         }
         else
         {
-            emit stateChanged(m_name, false);
+            emit this->stateChanged(this->m_name, false);
         }
     }
 }
 
 unsigned int Sensor::getPortNumber() const
 {
-    return m_portNumber;
+    return this->m_portNumber;
 }
 
 unsigned int Sensor::getInputNumber() const
 {
-    return m_inputNumber;
+    return this->m_inputNumber;
 }
 
 QString Sensor::getName() const
 {
-    return m_name;
+    return this->m_name;
 }
 
 QString Sensor::getBoardName() const
 {
-    return m_boardName;
+    return this->m_boardName;
 }
 
 bool Sensor::getActiveState() const
 {
-    return m_activeState;
+    return this->m_activeState;
 }
 
 QColor Sensor::getColor() const
 {
-    return m_color;
+    return this->m_color;
 }
 
 bool Sensor::isEnable()
 {
-    return (m_activeState == m_currentState);
+    return (this->m_activeState == this->m_currentState);
 }
 
 QString Sensor::getLabel() const
 {
-    return m_label;
+    return this->m_label;
 }
 
 QString Sensor::getSettings()
 {
-    QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
-            QStringLiteral("Name:") + m_name + QStringLiteral(";") +
-            QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
-            QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
-            QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
-            QStringLiteral("ActiveState:") + QString::number(m_activeState) + QStringLiteral(";") +
-            QStringLiteral("LedColor:") + QString::number(m_color.red()) + QStringLiteral(",") + QString::number(m_color.green()) + QStringLiteral(",") + QString::number(m_color.blue());
+    QString sensorSettings = QStringLiteral("Label:") + this->m_label + QStringLiteral(";") +
+            QStringLiteral("Name:") + this->m_name + QStringLiteral(";") +
+            QStringLiteral("Board:") + this->m_boardName + QStringLiteral(";") +
+            QStringLiteral("Port:") + QString::number(this->m_portNumber) + QStringLiteral(";") +
+            QStringLiteral("Input:") + QString::number(this->m_inputNumber) + QStringLiteral(";") +
+            QStringLiteral("ActiveState:") + QString::number(this->m_activeState) + QStringLiteral(";") +
+            QStringLiteral("LedColor:") + QString::number(this->m_color.red()) +
+                QStringLiteral(",") + QString::number(this->m_color.green()) +
+                QStringLiteral(",") + QString::number(this->m_color.blue());
     return sensorSettings;
 }

@@ -8,13 +8,13 @@ class SensorsBuffer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SensorsBuffer(QObject *parent = nullptr);
+    explicit SensorsBuffer(size_t bufferSize = 16, QObject *parent = nullptr);
 
     /*!
-     * \brief Обновляет состояние буфера обмена данными
-     * \param value - новое значение буфера
+     * \brief Заполняет буфер нулями
+     * \param size - необходимый размер буфера
      */
-    void updateBuffer(byte_array value);
+    void resetBuffer(size_t size);
 
     /*!
      * \brief Проверяет изменилось ли состояние порта
@@ -25,6 +25,12 @@ public:
     bool isPortStateChanged(byte currentState, byte newState);
 
     /*!
+     * \brief Обновляет состояние буфера обмена данными
+     * \param value - новое значение буфера
+     */
+    void updateBuffer(byte_array value);
+
+    /*!
      * \brief Проверяет активен ли вход
      * \param plateName - имя платы, к которой подключен датчик (Доступные имена: "u1", "u2", "portal")
      * \param portNumber - номер порта, к которому подключен датчик
@@ -32,13 +38,6 @@ public:
      * \return true, если есть напряжение на входе, false - иначе
      */
     bool getInputState(QString plateName, unsigned int portNumber, unsigned int inputNumber) const;
-
-
-    /*!
-     * \brief Заполняет буфер нулями
-     * \param size - необходимый размер буфера
-     */
-    void resetBuffer(size_t size);
 
 protected:
     /*!

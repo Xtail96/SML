@@ -7,7 +7,7 @@ Repository::Repository(QObject *parent) :
     m_gcodesFilesManager(new GCodesFilesManager(this)),
     m_u1Connection(new Connection(this)),
     m_u2Connection(new Connection(this)),
-    m_sensorsBuffer(new SensorsBuffer(this))
+    m_sensorsBuffer(new SensorsBuffer(16, this))
 {
     loadSettigs();
 }
