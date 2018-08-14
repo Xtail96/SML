@@ -30,7 +30,7 @@ double& Point::operator[](size_t idx)
     if (idx < coordinates.size())
         return coordinates[idx];
     else
-        throw std::out_of_range("Координаты с номером " + std::to_string(idx) + " не существует.");
+        throw OutOfRangeException("Координаты с номером " + QString::number(idx) + " не существует.");
 }
 
 double& Point::operator[](QString name)

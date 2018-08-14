@@ -478,12 +478,12 @@ void Repository::deletePoint(unsigned int number)
 {
     try
     {
-        std::shared_ptr<Point> p = m_pointsManager->operator [](number);
+        QSharedPointer<Point> p = m_pointsManager->operator [](number);
         m_pointsManager->deletePoint(p);
     }
-    catch(std::out_of_range e)
+    catch(OutOfRangeException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.what()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
     }
 }
 

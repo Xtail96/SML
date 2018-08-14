@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include "models/types/point/point.h"
 
-#include "models/types/exceptions/outofrangeexception.h"
+#include "models/types/exceptions/exceptions.h"
 
 /**
  * @brief Класс Менеджер точек
@@ -61,7 +61,7 @@ public:
      * @brief Удаляет точку из списка точек
      * @param p умный указатель на удаляемую точку
      */
-    void deletePoint(const std::shared_ptr<Point> &p);
+    void deletePoint(const QSharedPointer<Point> &p);
 
     /**
      * @brief Удаляет точку из списка точек
@@ -95,10 +95,10 @@ public:
      * @return ссылка на умный указатель на точку
      * \warning Если заданный номер превышает число точек, бросает исключение out_of_range
      */
-    std::shared_ptr<Point>& operator[](size_t idx);
+    QSharedPointer<Point>& operator[](size_t idx);
 
     Point3D getPoint3D(QString idx);
-    static Point3D toPoint3D(std::shared_ptr<Point> origin);
+    static Point3D toPoint3D(QSharedPointer<Point> origin);
 
     /**
      * \brief Возвращает все точки в виде списка для вывода на экран
@@ -122,7 +122,7 @@ public:
 
 protected:
     /// Список всех точек
-    std::vector< std::shared_ptr<Point> > m_points;
+    QList< QSharedPointer<Point> > m_points;
 
 signals:
     void pointsUpdated();

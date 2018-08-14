@@ -166,7 +166,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/exceptions/synchronizestateexception.h \
     models/types/exceptions/invalidconfigurationexception.h \
     models/types/exceptions/invalidargumentexception.h \
-    models/types/exceptions/outofrangeexception.h
+    models/types/exceptions/outofrangeexception.h \
+    models/types/exceptions/exceptions.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
