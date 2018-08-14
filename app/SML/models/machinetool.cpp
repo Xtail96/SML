@@ -17,6 +17,16 @@ MachineTool::MachineTool(QObject *parent) :
     startAdapterServer();
 }
 
+MachineTool &MachineTool::getInstance()
+{
+    static QScopedPointer<MachineTool> m_instance;
+    if(m_instance.data() == 0)
+    {
+        m_instance.reset( new MachineTool() );
+    }
+    return *m_instance;
+}
+
 MachineTool::~MachineTool()
 {
     resetConnections();

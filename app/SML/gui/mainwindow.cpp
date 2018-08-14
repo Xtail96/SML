@@ -4,7 +4,6 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_machineTool(new MachineTool(this)),
     m_hightlighter(new GCodesSyntaxHighlighter(this))
 {
     ui->setupUi(this);
@@ -107,11 +106,13 @@ void MainWindow::setupWidgets()
 
 void MainWindow::setupSensorsDisplay()
 {
-    QStringList names = m_machineTool->repository()->getSensorNames();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList names = machineTool.repository()->getSensorNames();
 
     for(auto name : names)
     {
-        QMap<QString, QString> parameters = m_machineTool->repository()->getSensorSettings(name);
+        QMap<QString, QString> parameters = machineTool.repository()->getSensorSettings(name);
         ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
     }
 }
@@ -150,7 +151,9 @@ void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, s
 
 void MainWindow::setupSensorsSettingsBoard()
 {
-    QStringList sensorsSettings = m_machineTool->repository()->getSensorsSettings();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList sensorsSettings = machineTool.repository()->getSensorsSettings();
 
     QStringList labels;
     QList< QPair<int, int> > positions;
@@ -191,15 +194,17 @@ void MainWindow::setupSensorsSettingsBoard()
 
 void MainWindow::setupConnections()
 {
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+    MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::connect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
-    QObject::connect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
-    QObject::connect(m_machineTool.data(), SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::connect(m_machineTool.data(), SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
+    QObject::connect(&machineTool, SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
+    QObject::connect(&machineTool, SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
+    QObject::connect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+
+    QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
+    QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
+    QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
+    QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -249,8 +254,8 @@ void MainWindow::setupConnections()
     for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
     {
         SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
-        QObject::connect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
+        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
+        QObject::connect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
     }
 
     // настройка импорта и экспорта настроек
@@ -268,15 +273,17 @@ void MainWindow::setupConnections()
 
 void MainWindow::resetConnections()
 {
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+    MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
+    QObject::disconnect(&machineTool, SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
+    QObject::disconnect(&machineTool, SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
+    QObject::disconnect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+
+    QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
+    QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
+    QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
+    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -313,8 +320,8 @@ void MainWindow::resetConnections()
     for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
     {
         SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-        QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), m_machineTool.data(), SLOT(switchSpindelOn(QString,size_t)));
-        QObject::disconnect(widget, SIGNAL(switchOff(QString)), m_machineTool.data(), SLOT(switchSpindelOff(QString)));
+        QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
+        QObject::disconnect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
     }
 
     // настройка импорта и экспорта настроек
@@ -333,8 +340,10 @@ void MainWindow::resetConnections()
 
 void MainWindow::setupSpindelsControlPanel()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     ui->spindelsListWidget->clear();
-    QList<Spindel*> spindels = m_machineTool->repository()->getSpindels();
+    QList<Spindel*> spindels = machineTool.repository()->getSpindels();
     for(auto spindel : spindels)
     {
         SpindelControlWidget* widget = new SpindelControlWidget(spindel->getLabel(),
@@ -356,7 +365,9 @@ void MainWindow::setupSpindelsControlPanel()
 
 void MainWindow::setupAxisesBoard()
 {
-    QStringList axisesSettings = m_machineTool->repository()->getAxisesSettings();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList axisesSettings = machineTool.repository()->getAxisesSettings();
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
@@ -388,7 +399,9 @@ void MainWindow::setupDevicesBoard()
 
 void MainWindow::updateCoordinatesDisplays()
 {
-    QList<Point> machineToolCoordinates = m_machineTool->repository()->getMachineToolCoordinates();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QList<Point> machineToolCoordinates = machineTool.repository()->getMachineToolCoordinates();
 
     if(machineToolCoordinates.length() >= 3)
     {
@@ -443,7 +456,9 @@ void MainWindow::updateBatteryStatusDisplay()
 
 void MainWindow::setupOptionsPanel()
 {
-    QStringList optionsNames = m_machineTool->repository()->getOptionsNames();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList optionsNames = machineTool.repository()->getOptionsNames();
     ui->optionsListWidget->addItems(optionsNames);
 }
 
@@ -455,6 +470,8 @@ void MainWindow::hideWidgets()
 
 void MainWindow::onMachineTool_U1Connected()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
 
@@ -462,15 +479,17 @@ void MainWindow::onMachineTool_U1Connected()
 
     ui->spindelsListWidget->setEnabled(true);
 
-    ui->serverPortLcdNumber->display(m_machineTool->getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(machineTool.repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(machineTool.repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(m_machineTool->getConnectedAdapters());
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 }
 
 void MainWindow::onMachineTool_U1Disconnected()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
     ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
 
@@ -478,15 +497,17 @@ void MainWindow::onMachineTool_U1Disconnected()
 
     ui->spindelsListWidget->setEnabled(false);
 
-    ui->serverPortLcdNumber->display(m_machineTool->getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(machineTool.repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(machineTool.repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(m_machineTool->getConnectedAdapters());
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 }
 
 void MainWindow::onMachineTool_U2Connected()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     ui->currentCoordinatesListWidget->setEnabled(true);
     ui->baseCoordinatesListWidget->setEnabled(true);
     ui->parkCoordinatesListWidget->setEnabled(true);
@@ -540,15 +561,17 @@ void MainWindow::onMachineTool_U2Connected()
     ui->runCommandLinkButton->setEnabled(true);
     ui->stopCommandLinkButton->setEnabled(true);
 
-    ui->serverPortLcdNumber->display(m_machineTool->getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(machineTool.repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(machineTool.repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(m_machineTool->getConnectedAdapters());
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 }
 
 void MainWindow::onMachineTool_U2Disconnected()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     ui->currentCoordinatesListWidget->setEnabled(false);
     ui->baseCoordinatesListWidget->setEnabled(false);
     ui->parkCoordinatesListWidget->setEnabled(false);
@@ -602,20 +625,22 @@ void MainWindow::onMachineTool_U2Disconnected()
     ui->runCommandLinkButton->setEnabled(false);
     ui->stopCommandLinkButton->setEnabled(false);
 
-    ui->serverPortLcdNumber->display(m_machineTool->getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(machineTool.repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(machineTool.repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(m_machineTool->getConnectedAdapters());
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 }
 
 void MainWindow::onMachineTool_ErrorOccured(int errorCode)
 {
-    ui->serverPortLcdNumber->display(m_machineTool->getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(m_machineTool->repository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(m_machineTool->repository()->getDevicesBufferSize());
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
+    ui->sensorsBufferSizeLcdNumber->display(machineTool.repository()->getSensorsBufferSize());
+    ui->devicesBufferSizeLcdNumber->display(machineTool.repository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(m_machineTool->getConnectedAdapters());
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 
     onMachineTool_U1Disconnected();
     onMachineTool_U2Disconnected();
@@ -819,7 +844,8 @@ void MainWindow::on_movementANegativePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    m_machineTool->repository()->setVelocity(value);
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.repository()->setVelocity(value);
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -921,6 +947,8 @@ void MainWindow::on_pointEditPushButton_clicked()
 
 void MainWindow::on_pointCopyPushButton_clicked()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
     {
@@ -945,8 +973,8 @@ void MainWindow::on_pointCopyPushButton_clicked()
 
         for(auto row : selectedRowsIndexes)
         {
-            QStringList pointsArguments = m_machineTool->repository()->getPoint(row.row());
-            m_machineTool->repository()->addPoint(pointsArguments);
+            QStringList pointsArguments = machineTool.repository()->getPoint(row.row());
+            machineTool.repository()->addPoint(pointsArguments);
         }
     }
     else
@@ -974,14 +1002,17 @@ void MainWindow::onMachineTool_EdgesControlStatusChanged(bool state)
 
 void MainWindow::addPoint()
 {
-    AddPointDialog(*(m_machineTool->repository()), this).exec();
+    MachineTool& machineTool = MachineTool::getInstance();
+    AddPointDialog(*(machineTool.repository()), this).exec();
 }
 
 void MainWindow::editPoint(QModelIndex index)
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     try
     {
-        AddPointDialog(*(m_machineTool->repository()), index.row(), this).exec();
+        AddPointDialog(*(machineTool.repository()), index.row(), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -991,17 +1022,21 @@ void MainWindow::editPoint(QModelIndex index)
 
 void MainWindow::deletePoints(QModelIndexList indexes)
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        m_machineTool.data()->repository()->deletePoint(indexes[i].row());
+        machineTool.repository()->deletePoint(indexes[i].row());
     }
 }
 
 void MainWindow::onPointsUpdated()
 {
-    QList<QStringList> points = m_machineTool->repository()->getPoints();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QList<QStringList> points = machineTool.repository()->getPoints();
     QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
-    QStringList axisesLabels = m_machineTool->repository()->getAxisesNames();
+    QStringList axisesLabels = machineTool.repository()->getAxisesNames();
 
     for(auto field : fields)
     {
@@ -1058,6 +1093,8 @@ void MainWindow::onPointsUpdated()
 
 void MainWindow::on_open_action_triggered()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->openSMLFile();
@@ -1066,7 +1103,7 @@ void MainWindow::on_open_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->repository()->openGCodesFile();
+            machineTool.repository()->openGCodesFile();
         }
     }
 }
@@ -1078,12 +1115,16 @@ void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 
 void MainWindow::on_importsettings_action_triggered()
 {
-    m_machineTool->repository()->importSettings();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    machineTool.repository()->importSettings();
 }
 
 void MainWindow::on_savesettings_action_triggered()
 {
-    m_machineTool->repository()->exportSettings();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    machineTool.repository()->exportSettings();
 }
 
 void MainWindow::on_add_action_triggered()
@@ -1103,6 +1144,8 @@ void MainWindow::on_add_action_triggered()
 
 void MainWindow::on_create_action_triggered()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->newSMLFile();
@@ -1111,13 +1154,15 @@ void MainWindow::on_create_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->repository()->newGCodesFile();
+            machineTool.repository()->newGCodesFile();
         }
     }
 }
 
 void MainWindow::on_save_action_triggered()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->saveSMLFile();
@@ -1126,13 +1171,15 @@ void MainWindow::on_save_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->repository()->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
+            machineTool.repository()->saveGCodesFile(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
 
 void MainWindow::on_saveas_action_triggered()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+
     if(ui->smlEditorTab->isVisible())
     {
         //mainWindowController->saveSMLFileAs();
@@ -1141,7 +1188,7 @@ void MainWindow::on_saveas_action_triggered()
     {
         if(ui->gcodesEditorTab->isVisible())
         {
-            m_machineTool->repository()->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
+            machineTool.repository()->saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
 }
@@ -1155,14 +1202,18 @@ void MainWindow::on_runCommandLinkButton_clicked()
 
 void MainWindow::on_view_action_triggered()
 {
-    m_machineTool->repository()->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    machineTool.repository()->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
     on_save_action_triggered();
-    CandleVisualizerDialog(m_machineTool->repository()->getFilePath(), this).exec();
+    CandleVisualizerDialog(machineTool.repository()->getFilePath(), this).exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()
 {
-    SMLConsoleDialog(*(m_machineTool.data()), this).exec();
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    SMLConsoleDialog(machineTool, this).exec();
 }
 
 /*void MainWindow::deleteSelectedCommands(QModelIndexList indexes)
@@ -1313,5 +1364,7 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
-    m_machineTool->repository()->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    machineTool.repository()->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
 }

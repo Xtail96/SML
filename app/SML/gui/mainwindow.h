@@ -75,8 +75,6 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QScopedPointer<MachineTool> m_machineTool;
-
     /// Горячие клавиши кнопок для перемещения по осям станка
     QList< std::tuple<const char*, QPushButton*, const char*> > m_shortcutsMap;
     QList<QShortcut*> m_axisesShortcuts;

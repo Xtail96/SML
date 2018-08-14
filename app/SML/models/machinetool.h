@@ -35,11 +35,7 @@ class MachineTool : public QObject
     Q_OBJECT
 
 public:
-    /**
-     * @brief Создает объект класса станок
-     * @param parent - родительский объект
-     */
-    explicit MachineTool(QObject *parent = nullptr);
+    static MachineTool& getInstance();
 
     /**
       * @brief Деструктор класса Станок
@@ -88,6 +84,9 @@ public:
      */
     void setLastError(int value);
 
+    MachineTool(MachineTool const&) = delete;
+    MachineTool& operator =(MachineTool const&) = delete;
+
 protected:
 
     /// Репозиторий, хранящий текущее состояние систем станка
@@ -126,6 +125,15 @@ protected:
      * @brief Отключает слоты от сигналов полей класса
      */
     void resetConnections();
+
+private:
+    /**
+     * @brief Создает объект класса станок
+     * @param parent - родительский объект
+     */
+    MachineTool(QObject *parent = nullptr);
+    //MachineTool(MachineTool const&); // Don't Implement
+    //void operator=(MachineTool const&); // Don't implement
 
 signals:
     /**
