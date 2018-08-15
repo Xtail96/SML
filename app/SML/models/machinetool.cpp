@@ -75,79 +75,6 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QString)), this, SLOT(onGCodesMonitor_FileContentUpdated(QString)));
 }
 
-void MachineTool::onConnectionMonitor_U1Connected()
-{
-    emit u1Connected();
-}
-
-void MachineTool::onConnectionMonitor_U1Disconnected()
-{
-    emit u1Disconnected();
-}
-
-void MachineTool::onPointsMonitor_PointsUpdated()
-{
-    emit pointsUpdated();
-}
-
-void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
-{
-    /*if(sensorName == "name")
-    {
-        do somtething
-    }*/
-    QColor led = QColor(SmlColors::white());
-    if(state)
-    {
-        led = m_repository->findSensor(sensorName)->getColor();
-    }
-    emit sensorStateChanged(sensorName, led);
-}
-
-void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations)
-{
-    emit spindelStateChanged(index, state, rotations);
-}
-
-void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
-{
-    emit gcodesFilePathUpdated(path);
-}
-
-void MachineTool::onGCodesMonitor_FileContentUpdated(QString content)
-{
-    emit gcodesFileContentUpdated(content);
-}
-
-void MachineTool::onServer_ErrorOccured(int errorCode)
-{
-    this->setLastError(errorCode);
-}
-
-void MachineTool::onServer_U1Connected()
-{
-    m_repository->setU1Connected(true);
-}
-
-void MachineTool::onServer_U1Disconnected()
-{
-    m_repository->setU1Connected(false);
-}
-
-void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices)
-{
-    try
-    {
-        this->m_repository->setU1Sensors(sensors);
-        this->m_repository->setU1Devices(devices);
-    }
-    catch(SynchronizeStateException e)
-    {
-        qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
-        this->setLastError(-255);
-    }
-}
-
 void MachineTool::startAdapterServer()
 {
     m_adapterServer->start();
@@ -203,4 +130,78 @@ void MachineTool::switchSpindelOff(QString index)
 
     SwitchSpindel switcher(m_adapterServer.data(), index, false);
     switcher.execute();
+}
+
+void MachineTool::onServer_U1Connected()
+{
+    m_repository->setU1Connected(true);
+}
+
+
+void MachineTool::onServer_U1Disconnected()
+{
+    m_repository->setU1Connected(false);
+}
+
+void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices)
+{
+    try
+    {
+        this->m_repository->setU1Sensors(sensors);
+        this->m_repository->setU1Devices(devices);
+    }
+    catch(SynchronizeStateException e)
+    {
+        qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
+        this->setLastError(-255);
+    }
+}
+
+void MachineTool::onServer_ErrorOccured(int errorCode)
+{
+    this->setLastError(errorCode);
+}
+
+void MachineTool::onConnectionMonitor_U1Connected()
+{
+    emit u1Connected();
+}
+
+void MachineTool::onConnectionMonitor_U1Disconnected()
+{
+    emit u1Disconnected();
+}
+
+void MachineTool::onPointsMonitor_PointsUpdated()
+{
+    emit pointsUpdated();
+}
+
+void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
+{
+    /*if(sensorName == "name")
+    {
+        do somtething
+    }*/
+    QColor led = QColor(SmlColors::white());
+    if(state)
+    {
+        led = m_repository->findSensor(sensorName)->getColor();
+    }
+    emit sensorStateChanged(sensorName, led);
+}
+
+void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations)
+{
+    emit spindelStateChanged(index, state, rotations);
+}
+
+void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
+{
+    emit gcodesFilePathUpdated(path);
+}
+
+void MachineTool::onGCodesMonitor_FileContentUpdated(QString content)
+{
+    emit gcodesFileContentUpdated(content);
 }
