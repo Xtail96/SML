@@ -13,12 +13,12 @@
 #include "models/services/devices/spindels/switch/switchspindel.h"
 #include "models/services/gcodes/monitor/gcodesmonitor.h"
 
-// сделать класс синглтоном?
-
 /**
  * @brief Класс станок
  *
- * Корневой класс моделей в системе.
+ * @warning Реализует паттерн Singleton
+ *
+ * Единая точка доступа к дереву моделей в системе.
  * Основная задача класса: обеспечение взаимодействия компомнентов системы между собой.
  *
  * Все взаимодействие между компонентами происходит через этот класс.
@@ -35,6 +35,10 @@ class MachineTool : public QObject
     Q_OBJECT
 
 public:
+    /**
+     * @brief Предоставляет доступ к объекту класса
+     * @return ссылка на объект класса
+     */
     static MachineTool& getInstance();
 
     /**
@@ -84,7 +88,14 @@ public:
      */
     void setLastError(int value);
 
+    /**
+     * @brief Запрещаем копи-конструктор
+     */
     MachineTool(MachineTool const&) = delete;
+
+    /**
+     * @brief Запрещаем operator =
+     */
     MachineTool& operator =(MachineTool const&) = delete;
 
 protected:
@@ -132,8 +143,6 @@ private:
      * @param parent - родительский объект
      */
     MachineTool(QObject *parent = nullptr);
-    //MachineTool(MachineTool const&); // Don't Implement
-    //void operator=(MachineTool const&); // Don't implement
 
 signals:
     /**
@@ -185,27 +194,100 @@ signals:
     void gcodesFileContentUpdated(QString content);
 
 public slots:
-    /// Включает устройство
+    /**
+     * @brief Запускает сценарий включения шпинделя
+     * @param index уникальный идентификатор устройства
+     * @param rotations частота вращения (обороты в минуту)
+     */
     void switchSpindelOn(QString index, size_t rotations);
+
+    /**
+     * @brief Запускает сценарий выключения шпинделя
+     * @param index уникальный идентификатор устройства
+     */
     void switchSpindelOff(QString index);
 
 protected slots:
-    /// пишем даные в репозиторий
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
+     * (запись данных в репозитоий)
+     */
     void onServer_U1Connected();
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U1
+     * (запись данных в репозиторий)
+     */
     void onServer_U1Disconnected();
-    void onServer_ErrorOccured(int errorCode);
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U1
+     * (запись данных в репозиторий)
+     * @param sensors обновленное состояние датчиков
+     * @param devices обновленное состояние устройств
+     */
     void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices);
 
-    /// обрабатываем данные от монитора
+    /**
+     * @brief Обрабатывает сигнал об ошибке станка
+     * 1) Устанавливает значение переменной, хранящей код ошибки.
+     * 2) Вызывает сценарий обработки ошибки.
+     * 3) Испускает сигнал о возникновении ошибки.
+     * @param errorCode код ошибки
+     */
+    void onServer_ErrorOccured(int errorCode);
+
+    /**
+     * @brief Обрабатывает сигнал от монитора подключений о подключении адаптера U1
+     * (испускает сигнал о том, что адаптер U1 подключен)
+     */
     void onConnectionMonitor_U1Connected();
+
+    /**
+     * @brief Обрабатывает сигнал от монитора подключений об отключении адаптера U1
+     * (испускает сигнал о том, что адаптер U1 отключен)
+     */
     void onConnectionMonitor_U1Disconnected();
 
+    /**
+     * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек
+     * (испускает сигнал о том, что состояние точек изменилось)
+     */
     void onPointsMonitor_PointsUpdated();
 
+    /**
+     * @brief Обрабатывает сигнал от монитора датчиков об изменении состояния датчика
+     * (испускает сигнал о том, что состояние датчика изменилось)
+     *
+     * @param sensorName уникальный идентификатор датчика
+     * @param state обновленное состояние датчика, true = on / false = off
+     */
     void onSensorMonitor_StateChanged(QString sensorName, bool state);
+
+    /**
+     * @brief Обрабатывает сигнал от монитора шпинделей об изменении состояния шпинделя
+     * (испускает сигнал о том, что состояние шпинделя изменилось)
+     *
+     * @param index уникальный идентификатор устройства
+     * @param state обновленное состояние шпинделя, true = on / false = off
+     * @param rotations частота вращения шпинделя (обороты в минуту)
+     */
     void onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations);
 
+    /**
+     * @brief Обрабатывает сигнал от монитора G-кодов об изменении пути к текущему файлу
+     * (испускает сигнал о том, что обновился путь к текущему файлу)
+     *
+     * @param path обновленный путь к файлу (включая имя файла)
+     */
     void onGCodesMonitor_FilePathUpdated(QString path);
+
+    /**
+     * @brief Обрабатывает сигнал от монитора G-кодов об изменении содержимого файла
+     * (испускает сигнал о том, что обновилось содержимое файла)
+     *
+     * @param content содержимое файла в формате строки
+     */
     void onGCodesMonitor_FileContentUpdated(QString content);
 };
 
