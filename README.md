@@ -16,14 +16,17 @@
 
 ### Linux ###
 
-* simple `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_9_2_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
+* Simple `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_9_2_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
 
-* with .desktop file `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
+* With .desktop file
+
+provide this directory structure
 
 ```
+releases/linux
 └── usr
     ├── bin
-    │   └── SML.app
+    │   └── SML_bianry
     ├── lib
     └── share
         ├── applications
@@ -34,6 +37,13 @@
                     └── apps 
                         └── SMLImage.png
 ```
+
+1. Add empty `lib` folder to `releases/linux/usr/`
+1. Add `bin` folder to `releases/linux/usr`
+1. Add new `SML` binary file to `releases/linux/usr/bin`
+1. Update icons and desktop file if it neccessary.
+1. Run `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
+
 
 
 ### MacOS ###
