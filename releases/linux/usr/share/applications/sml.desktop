@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=SML
-Comment=Acacia
+Comment=Cnc system SML 1.0.0:Acacia
 Exec=SML
-Icon=applicationLinux
+Icon=sml_logo
 Categories=Office;

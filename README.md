@@ -26,23 +26,23 @@ provide this directory structure
 releases/linux
 └── usr
     ├── bin
-    │   └── SML_bianry
+    │   └── sml_bianry
     ├── lib
     └── share
         ├── applications
-        │   └── SML.desktop
+        │   └── sml.desktop
         └── icons
             └── hicolor
                 └── 256x256 
                     └── apps 
-                        └── SMLImage.png
+                        └── sml_logo.png
 ```
 
 1. Add empty `lib` folder to `releases/linux/usr/`
 1. Add `bin` folder to `releases/linux/usr`
 1. Add new `SML` binary file to `releases/linux/usr/bin`
 1. Update icons and desktop file if it neccessary.
-1. Run `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
+1. Run `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/sml.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
 
 ### MacOS ###
 `./macdeployqt /Users/Xtail/Projects/SML/SML-Qt/app/build-SML-Desktop_Qt_5_10_1_clang_64bit-Release/SML.app/ -dmg`
