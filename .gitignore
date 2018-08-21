@@ -45,6 +45,7 @@ CMakeLists.txt.user*
 *releases/linux/usr/lib*
 *releases/linux/usr/share/doc*
 *releases/linux/usr/translations*
+*releases/linux/usr/plugins*
 *releases/linux/*.png
 *releases/linux/*.desktop
 *releases/linux/AppRun
