@@ -16,9 +16,23 @@
 
 ### Linux ###
 
- * simple './linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_9_2_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage'
+* simple './linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_9_2_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage'
 
- * with *.desktop file './linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage'
+* with .desktop file './linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage'
+
+'└── usr
+    ├── bin
+    │   └── SML.app
+    ├── lib
+    └── share
+        ├── applications
+        │   └── SML.desktop
+        └── icons
+            └── hicolor
+                └── 256x256 
+                    └── apps 
+                        └── SMLImage.png'
+
 
 ### MacOS ###
 ./macdeployqt /Users/Xtail/Projects/SML/SML-Qt/app/build-SML-Desktop_Qt_5_10_1_clang_64bit-Release/SML.app/ -dmg
