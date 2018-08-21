@@ -39,3 +39,12 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
+
+# linuxdeployqt
+*releases/linux/usr/bin*
+*releases/linux/usr/lib*
+*releases/linux/usr/share/doc*
+*releases/linux/usr/translations*
+*releases/linux/*.png
+*releases/linux/*.desktop
+*releases/linux/AppRun
