@@ -179,7 +179,7 @@ FORMS    += gui/mainwindow.ui \
     options/kabriolwindow.ui
 
 win32:RC_FILE = application.rc
-macx:ICON = $${PWD}/applicationOSX.icns
+macx:ICON = $${PWD}/sml_logo.icns
 
 RESOURCES += \
     gui/resources/images.qrc \
@@ -187,6 +187,6 @@ RESOURCES += \
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
-    applicationOSX.icns \
+    sml_logo.icns \
     libs/candlevisualizer/shaders/fshader.glsl \
     libs/candlevisualizer/shaders/vshader.glsl
