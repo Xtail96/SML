@@ -8,7 +8,7 @@
 
 ## Контакты ##
 
-* EMail: xtails1996@yandex.ru;
+* EMail: xtail1996@yandex.ru;
 * Skype: xtail1996;
 * Phone number/Telegram: +7(911)209-75-27;
 
@@ -43,8 +43,6 @@ releases/linux
 1. Add new `SML` binary file to `releases/linux/usr/bin`
 1. Update icons and desktop file if it neccessary.
 1. Run `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/SML.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
-
-
 
 ### MacOS ###
 `./macdeployqt /Users/Xtail/Projects/SML/SML-Qt/app/build-SML-Desktop_Qt_5_10_1_clang_64bit-Release/SML.app/ -dmg`
