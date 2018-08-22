@@ -25,7 +25,7 @@ MachineTool::~MachineTool()
 MachineTool &MachineTool::getInstance()
 {
     static QScopedPointer<MachineTool> m_instance;
-    if(m_instance.data() == 0)
+    if(m_instance.data() == nullptr)
     {
         m_instance.reset( new MachineTool() );
     }
