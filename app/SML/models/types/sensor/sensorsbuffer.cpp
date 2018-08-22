@@ -155,6 +155,15 @@ bool SensorsBuffer::checkPortalSensorState(unsigned int portNumber, unsigned int
         throw SynchronizeStateException(message);
     }
 
+    if (inputNumber > 7)
+    {
+        QString message =
+                QStringLiteral("invalid input number. ") +
+                QString::number(inputNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
+    }
+
     try
     {
         bool voltage = false;
@@ -218,6 +227,15 @@ bool SensorsBuffer::checkU1SensorState(unsigned int portNumber, unsigned int inp
         QString message =
                 QStringLiteral("invalid port number. ") +
                 QString::number(portNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
+    }
+
+    if (inputNumber > 7)
+    {
+        QString message =
+                QStringLiteral("invalid input number. ") +
+                QString::number(inputNumber) +
                 QStringLiteral(" > 7");
         throw SynchronizeStateException(message);
     }

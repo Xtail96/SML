@@ -106,6 +106,7 @@ protected:
      * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
      *
      * @warning Не определяет включен датчик или выключен!
+     * @warning Бросает исключение SynchronizeStateException, если номер входа > 7.
      *
      * Применима, если номер входа датчика = номеру бита в байте, кодирующем состояние группы датчиков.
      * Нумерация в байте порта должна идти с младшего разряда и, начинаться, с нуля.
@@ -125,6 +126,7 @@ protected:
      * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
      *
      * @warning Не определяет включен датчик или выключен!
+     * @warning Бросает исключение SynchronizeStateException, если номер порта > 7 или номер входа > 7.
      */
     bool checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber) const;
 
@@ -138,6 +140,7 @@ protected:
      * Проверяет только наличие напряжения на входе. Т.е. true - напряжение есть. false - напряжения нет.
      *
      * @warning Не определяет включен датчик или выключен!
+     * @warning Бросает исключение SynchronizeStateException, если номер порта > 7 или номер входа > 7.
      */
     bool checkU1SensorState(unsigned int portNumber, unsigned int inputNumber) const;
 
