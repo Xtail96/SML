@@ -5,7 +5,7 @@ Sensor::Sensor(QString name,
                size_t portNumber,
                size_t inputNumber,
                QString boardName,
-               bool activeState,
+               bool inputActiveState,
                QColor color,
                QObject *parent) :
     QObject(parent),
@@ -14,89 +14,89 @@ Sensor::Sensor(QString name,
     m_boardName(boardName),
     m_portNumber(portNumber),
     m_inputNumber(inputNumber),
-    m_activeState(activeState),
-    m_currentState(!m_activeState),
+    m_inputActiveState(inputActiveState),
+    m_inputCurrentState(!m_inputActiveState),
     m_color(color)
 {
 }
 
-void Sensor::update(bool state)
+void Sensor::updateInputState(bool state)
 {
-    this->setCurrentState(state);
+    setInputCurrentState(state);
 }
 
-bool Sensor::getCurrentState() const
+bool Sensor::getInputCurrentState() const
 {
-    return this->m_currentState;
+    return m_inputCurrentState;
 }
 
-void Sensor::setCurrentState(bool value)
+void Sensor::setInputCurrentState(bool value)
 {
-    if(this->m_currentState != value)
+    if(m_inputCurrentState != value)
     {
-        this->m_currentState = value;
+        m_inputCurrentState = value;
 
-        if(this->isEnable())
+        if(isEnable())
         {
-            emit this->stateChanged(this->m_name, true);
+            emit stateChanged(m_name, true);
         }
         else
         {
-            emit this->stateChanged(this->m_name, false);
+            emit stateChanged(m_name, false);
         }
     }
 }
 
-unsigned int Sensor::getPortNumber() const
+size_t Sensor::getPortNumber() const
 {
-    return this->m_portNumber;
+    return m_portNumber;
 }
 
-unsigned int Sensor::getInputNumber() const
+size_t Sensor::getInputNumber() const
 {
-    return this->m_inputNumber;
+    return m_inputNumber;
 }
 
 QString Sensor::getName() const
 {
-    return this->m_name;
+    return m_name;
 }
 
 QString Sensor::getBoardName() const
 {
-    return this->m_boardName;
+    return m_boardName;
 }
 
-bool Sensor::getActiveState() const
+bool Sensor::getInputActiveState() const
 {
-    return this->m_activeState;
+    return m_inputActiveState;
 }
 
 QColor Sensor::getColor() const
 {
-    return this->m_color;
+    return m_color;
 }
 
 bool Sensor::isEnable()
 {
-    return (this->m_activeState == this->m_currentState);
+    return (m_inputActiveState == m_inputCurrentState);
 }
 
 QString Sensor::getLabel() const
 {
-    return this->m_label;
+    return m_label;
 }
 
 QString Sensor::getSettings()
 {
-    QString sensorSettings = QStringLiteral("Label:") + this->m_label + QStringLiteral(";") +
-            QStringLiteral("Name:") + this->m_name + QStringLiteral(";") +
-            QStringLiteral("Board:") + this->m_boardName + QStringLiteral(";") +
-            QStringLiteral("Port:") + QString::number(this->m_portNumber) + QStringLiteral(";") +
-            QStringLiteral("Input:") + QString::number(this->m_inputNumber) + QStringLiteral(";") +
-            QStringLiteral("ActiveState:") + QString::number(this->m_activeState) + QStringLiteral(";") +
-            QStringLiteral("LedColor:") + QString::number(this->m_color.red()) +
-                QStringLiteral(",") + QString::number(this->m_color.green()) +
-                QStringLiteral(",") + QString::number(this->m_color.blue());
+    QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
+            QStringLiteral("Name:") + m_name + QStringLiteral(";") +
+            QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
+            QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
+            QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
+            QStringLiteral("ActiveState:") + QString::number(m_inputActiveState) + QStringLiteral(";") +
+            QStringLiteral("LedColor:") + QString::number(m_color.red()) +
+                QStringLiteral(",") + QString::number(m_color.green()) +
+                QStringLiteral(",") + QString::number(m_color.blue());
     return sensorSettings;
 }

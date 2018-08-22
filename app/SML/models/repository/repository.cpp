@@ -185,7 +185,7 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
             bool isVoltage = m_sensorsBuffer->getInputState(sensor->getBoardName(),
                                                             sensor->getPortNumber(),
                                                             sensor->getInputNumber());
-            sensor->update(isVoltage);
+            sensor->updateInputState(isVoltage);
         }
     }
     catch(SynchronizeStateException e)
