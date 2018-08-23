@@ -207,7 +207,7 @@ void Repository::setU1Devices(QList<QVariant> devices)
 
         for(size_t i = 0; i < currentDevicesState.size(); i++)
         {
-            Device& device = findDevice(i);
+            Device& device = getDevice(i);
             if(currentDevicesState[i] == 0x01)
             {
                 device.setCurrentState(device.getActiveState(), QMap<QString, QString>());
@@ -228,7 +228,7 @@ void Repository::setU1Devices(QList<QVariant> devices)
     }
 }
 
-Device &Repository::findDevice(size_t index)
+Device &Repository::getDevice(size_t index)
 {
     for(auto device : m_spindels)
     {
@@ -320,7 +320,7 @@ QList<bool> Repository::getOnScreenDevicesStates()
     return devicesStates;
 }
 
-Sensor* Repository::findSensor(QString name)
+Sensor* Repository::getSensor(QString name)
 {
     for(auto sensor : m_sensors)
     {
@@ -353,7 +353,7 @@ QMap<QString, QString> Repository::getSensorSettings(QString name)
     QMap<QString, QString> sensorsSettingsMap;
     try
     {
-        QString settingsString = findSensor(name)->getSettings();
+        QString settingsString = getSensor(name)->getSettings();
         QStringList settingsList = settingsString.split(";");
 
         for(auto setting : settingsList)
@@ -547,7 +547,7 @@ QList<Spindel *> Repository::getSpindels()
     return spindels;
 }
 
-Spindel *Repository::findSpindel(QString index)
+Spindel *Repository::getSpindel(QString index)
 {
     for(auto spindel : m_spindels)
     {
@@ -568,7 +568,7 @@ void Repository::setSpindelState(QString index, bool enable, size_t rotations)
 {
     try
     {
-        Spindel* spindel = findSpindel(index);
+        Spindel* spindel = getSpindel(index);
         spindel->setCurrentState(enable, rotations);
     }
     catch(InvalidArgumentException e)

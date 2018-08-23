@@ -32,7 +32,7 @@ MachineTool &MachineTool::getInstance()
     return *m_instance;
 }
 
-Repository *MachineTool::repository()
+Repository *MachineTool::getRepository()
 {
     return m_repository.data();
 }
@@ -186,7 +186,7 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
     QColor led = QColor(SmlColors::white());
     if(state)
     {
-        led = m_repository->findSensor(sensorName)->getColor();
+        led = m_repository->getSensor(sensorName)->getColor();
     }
     emit sensorStateChanged(sensorName, led);
 }

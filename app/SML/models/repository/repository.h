@@ -26,9 +26,9 @@ public:
     void setU1Sensors(QList<QVariant> sensors);
     void setU1Devices(QList<QVariant> devices);
 
-    Device& findDevice(size_t index);
+    Device& getDevice(size_t index);
 
-    Sensor* findSensor(QString name);
+    Sensor* getSensor(QString name);
     QStringList getSensorNames();
     QMap<QString, QString> getSensorSettings(QString name);
 
@@ -97,7 +97,7 @@ public:
 
     QList<Spindel *> getSpindels();
 
-    Spindel* findSpindel(QString index);
+    Spindel* getSpindel(QString index);
 
     void setSpindelState(QString index, bool enable, size_t rotations);
 
