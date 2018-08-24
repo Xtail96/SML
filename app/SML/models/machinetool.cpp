@@ -147,19 +147,19 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
 {
     try
     {
-        this->m_repository->setU1Sensors(sensors);
-        this->m_repository->setU1Devices(devices);
+        m_repository->setU1Sensors(sensors);
+        m_repository->setU1Devices(devices);
     }
     catch(SynchronizeStateException e)
     {
         qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
-        this->setLastError(-255);
+        setLastError(-255);
     }
 }
 
 void MachineTool::onServer_ErrorOccured(int errorCode)
 {
-    this->setLastError(errorCode);
+    setLastError(errorCode);
 }
 
 void MachineTool::onConnectionMonitor_U1Connected()
