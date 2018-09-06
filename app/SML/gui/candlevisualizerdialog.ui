@@ -48,7 +48,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/fit_frame_to_image.png</normaloff>:/new/prefix1/images/fit_frame_to_image.png</iconset>
+          <normaloff>:/aist/images/aist/center.png</normaloff>:/aist/images/aist/center.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -65,7 +65,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/cotton/images/cotton/orthogonal_view.png</normaloff>:/cotton/images/cotton/orthogonal_view.png</iconset>
+          <normaloff>:/aist/images/aist/perspective.png</normaloff>:/aist/images/aist/perspective.png</iconset>
         </property>
         <property name="iconSize">
          <size>

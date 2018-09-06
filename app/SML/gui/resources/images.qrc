@@ -101,5 +101,7 @@
         <file>images/aist/top.png</file>
         <file>images/aist/view.png</file>
         <file>images/aist/open.png</file>
+        <file>images/aist/center.png</file>
+        <file>images/aist/perspective.png</file>
     </qresource>
 </RCC>
