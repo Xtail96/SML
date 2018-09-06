@@ -189,7 +189,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
+               <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -4492,7 +4492,7 @@
   <action name="open_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
+     <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
    </property>
    <property name="text">
     <string>Открыть</string>
@@ -4519,7 +4519,7 @@
   <action name="import_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
+     <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
    </property>
    <property name="text">
     <string>Импорт</string>

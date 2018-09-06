@@ -100,5 +100,6 @@
         <file>images/aist/save.png</file>
         <file>images/aist/top.png</file>
         <file>images/aist/view.png</file>
+        <file>images/aist/open.png</file>
     </qresource>
 </RCC>
