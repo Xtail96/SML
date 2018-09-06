@@ -79,6 +79,12 @@
       <property name="currentIndex">
        <number>1</number>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
       </property>
@@ -149,7 +155,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
+               <normaloff>:/cotton/images/cotton/new.png</normaloff>:/cotton/images/cotton/new.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -183,7 +189,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
+               <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -230,7 +236,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
+               <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -247,7 +253,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
+               <normaloff>:/cotton/images/cotton/view.png</normaloff>:/cotton/images/cotton/view.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -942,7 +948,7 @@
       <widget class="QWidget" name="adjustmentTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/Dashboard.png</normaloff>:/new/prefix1/images/Dashboard.png</iconset>
+         <normaloff>:/cotton/images/cotton/dashboard.png</normaloff>:/cotton/images/cotton/dashboard.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Наладка</string>
@@ -4376,7 +4382,7 @@
      <x>0</x>
      <y>0</y>
      <width>1578</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">

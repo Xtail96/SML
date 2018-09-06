@@ -60,4 +60,11 @@
         <file>images/Ok.png</file>
         <file>images/Remove.png</file>
     </qresource>
+    <qresource prefix="/cotton">
+        <file>images/cotton/add.png</file>
+        <file>images/cotton/dashboard.png</file>
+        <file>images/cotton/new.png</file>
+        <file>images/cotton/open.png</file>
+        <file>images/cotton/view.png</file>
+    </qresource>
 </RCC>
