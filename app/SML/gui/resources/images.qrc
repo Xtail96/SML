@@ -66,5 +66,29 @@
         <file>images/cotton/new.png</file>
         <file>images/cotton/open.png</file>
         <file>images/cotton/view.png</file>
+        <file>images/cotton/code.png</file>
+        <file>images/cotton/copy.png</file>
+        <file>images/cotton/editor_alt_1.png</file>
+        <file>images/cotton/editor_alt_2.png</file>
+        <file>images/cotton/editor.png</file>
+        <file>images/cotton/erase_alt.png</file>
+        <file>images/cotton/erase.png</file>
+        <file>images/cotton/save_alt.png</file>
+        <file>images/cotton/save_as.png</file>
+        <file>images/cotton/save.png</file>
+        <file>images/cotton/search.png</file>
+        <file>images/cotton/settings_alt_1.png</file>
+        <file>images/cotton/settings_alt_2.png</file>
+        <file>images/cotton/settings.png</file>
+        <file>images/cotton/synchronize.png</file>
+        <file>images/cotton/trash_alt.png</file>
+        <file>images/cotton/trash.png</file>
+        <file>images/cotton/cursor_to_point.png</file>
+        <file>images/cotton/exit.png</file>
+        <file>images/cotton/home.png</file>
+        <file>images/cotton/move_to_point.png</file>
+        <file>images/cotton/points_count.png</file>
+        <file>images/cotton/timer.png</file>
+        <file>images/cotton/orthogonal_view.png</file>
     </qresource>
 </RCC>

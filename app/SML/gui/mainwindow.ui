@@ -103,7 +103,7 @@
       <widget class="QWidget" name="editorTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/Editor.png</normaloff>:/new/prefix1/images/Editor.png</iconset>
+         <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Редактор</string>
@@ -172,7 +172,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
+               <normaloff>:/cotton/images/cotton/save.png</normaloff>:/cotton/images/cotton/save.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -219,7 +219,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
+               <normaloff>:/cotton/images/cotton/save_as.png</normaloff>:/cotton/images/cotton/save_as.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -805,11 +805,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
+                   <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -839,11 +839,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Minus.png</normaloff>:/new/prefix1/images/Minus.png</iconset>
+                   <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -873,11 +873,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Find.png</normaloff>:/new/prefix1/images/Find.png</iconset>
+                   <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -907,11 +907,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Copy.png</normaloff>:/new/prefix1/images/Copy.png</iconset>
+                   <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -2232,6 +2232,16 @@
                     <property name="text">
                      <string>Добавить точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>32</width>
+                      <height>16</height>
+                     </size>
+                    </property>
                     <property name="shortcut">
                      <string>+</string>
                     </property>
@@ -2255,6 +2265,10 @@
                     </property>
                     <property name="text">
                      <string>Удалить точку</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>-</string>
@@ -2280,6 +2294,10 @@
                     <property name="text">
                      <string>Редактировать точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>=</string>
                     </property>
@@ -2303,6 +2321,10 @@
                     </property>
                     <property name="text">
                      <string>Курсор на точку</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>Shift+K</string>
@@ -2328,6 +2350,10 @@
                     <property name="text">
                      <string>Копирование точки</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>Shift+Return</string>
                     </property>
@@ -2352,6 +2378,10 @@
                     <property name="text">
                      <string>Переход на точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/move_to_point.png</normaloff>:/cotton/images/cotton/move_to_point.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>Shift+F3</string>
                     </property>
@@ -2375,6 +2405,10 @@
                     </property>
                     <property name="text">
                      <string>Количество точек</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/points_count.png</normaloff>:/cotton/images/cotton/points_count.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>Shift+M</string>
@@ -3970,6 +4004,16 @@
                 <property name="text">
                  <string>Время выполнения</string>
                 </property>
+                <property name="icon">
+                 <iconset resource="resources/images.qrc">
+                  <normaloff>:/cotton/images/cotton/timer.png</normaloff>:/cotton/images/cotton/timer.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
                 <property name="shortcut">
                  <string>F11</string>
                 </property>
@@ -4015,7 +4059,7 @@
       <widget class="QWidget" name="settingsTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/ImportSettings.png</normaloff>:/new/prefix1/images/ImportSettings.png</iconset>
+         <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Настройки</string>
@@ -4437,66 +4481,118 @@
    </property>
   </widget>
   <action name="create_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/new.png</normaloff>:/cotton/images/cotton/new.png</iconset>
+   </property>
    <property name="text">
     <string>Создать</string>
    </property>
   </action>
   <action name="open_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
+   </property>
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
   <action name="save_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/save.png</normaloff>:/cotton/images/cotton/save.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
   <action name="saveas_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/save_as.png</normaloff>:/cotton/images/cotton/save_as.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить как</string>
    </property>
   </action>
   <action name="import_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/open.png</normaloff>:/cotton/images/cotton/open.png</iconset>
+   </property>
    <property name="text">
     <string>Импорт</string>
    </property>
   </action>
   <action name="view_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/view.png</normaloff>:/cotton/images/cotton/view.png</iconset>
+   </property>
    <property name="text">
     <string>Просмотр</string>
    </property>
   </action>
   <action name="add_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+   </property>
    <property name="text">
     <string>Добавить</string>
    </property>
   </action>
   <action name="savesettings_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/settings_alt_2.png</normaloff>:/cotton/images/cotton/settings_alt_2.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить настройки станка</string>
    </property>
   </action>
   <action name="importsettings_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
+   </property>
    <property name="text">
     <string>Импортировать настройки станка</string>
    </property>
   </action>
   <action name="exit_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/exit.png</normaloff>:/cotton/images/cotton/exit.png</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>
   </action>
   <action name="setnumberofpoints_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/synchronize.png</normaloff>:/cotton/images/cotton/synchronize.png</iconset>
+   </property>
    <property name="text">
     <string>Установить количество точек</string>
    </property>
   </action>
   <action name="removeunusedpoints_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/trash_alt.png</normaloff>:/cotton/images/cotton/trash_alt.png</iconset>
+   </property>
    <property name="text">
     <string>Удалить неиспользуемые точки</string>
    </property>
   </action>
   <action name="about_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/home.png</normaloff>:/cotton/images/cotton/home.png</iconset>
+   </property>
    <property name="text">
     <string>О программе</string>
    </property>

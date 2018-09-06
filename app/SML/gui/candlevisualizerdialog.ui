@@ -63,6 +63,10 @@
         <property name="text">
          <string>Изометрия</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources/images.qrc">
+          <normaloff>:/cotton/images/cotton/orthogonal_view.png</normaloff>:/cotton/images/cotton/orthogonal_view.png</iconset>
+        </property>
         <property name="iconSize">
          <size>
           <width>32</width>
