@@ -82,7 +82,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Top.png</normaloff>:/new/prefix1/images/Top.png</iconset>
+          <normaloff>:/aist/images/aist/top.png</normaloff>:/aist/images/aist/top.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -99,7 +99,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Front.png</normaloff>:/new/prefix1/images/Front.png</iconset>
+          <normaloff>:/aist/images/aist/front.png</normaloff>:/aist/images/aist/front.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -116,7 +116,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Side.png</normaloff>:/new/prefix1/images/Side.png</iconset>
+          <normaloff>:/aist/images/aist/right.png</normaloff>:/aist/images/aist/right.png</iconset>
         </property>
         <property name="iconSize">
          <size>

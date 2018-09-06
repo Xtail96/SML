@@ -155,7 +155,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/new.png</normaloff>:/cotton/images/cotton/new.png</iconset>
+               <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -172,7 +172,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/save.png</normaloff>:/cotton/images/cotton/save.png</iconset>
+               <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -219,7 +219,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/save_as.png</normaloff>:/cotton/images/cotton/save_as.png</iconset>
+               <normaloff>:/aist/images/aist/save_as.png</normaloff>:/aist/images/aist/save_as.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -236,7 +236,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+               <normaloff>:/aist/images/aist/add_file.png</normaloff>:/aist/images/aist/add_file.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -253,7 +253,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/cotton/images/cotton/view.png</normaloff>:/cotton/images/cotton/view.png</iconset>
+               <normaloff>:/aist/images/aist/view.png</normaloff>:/aist/images/aist/view.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -4483,7 +4483,7 @@
   <action name="create_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/new.png</normaloff>:/cotton/images/cotton/new.png</iconset>
+     <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
    </property>
    <property name="text">
     <string>Создать</string>
@@ -4501,7 +4501,7 @@
   <action name="save_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/save.png</normaloff>:/cotton/images/cotton/save.png</iconset>
+     <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
    </property>
    <property name="text">
     <string>Сохранить</string>
@@ -4510,7 +4510,7 @@
   <action name="saveas_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/save_as.png</normaloff>:/cotton/images/cotton/save_as.png</iconset>
+     <normaloff>:/aist/images/aist/save_as.png</normaloff>:/aist/images/aist/save_as.png</iconset>
    </property>
    <property name="text">
     <string>Сохранить как</string>
@@ -4528,7 +4528,7 @@
   <action name="view_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/view.png</normaloff>:/cotton/images/cotton/view.png</iconset>
+     <normaloff>:/aist/images/aist/view.png</normaloff>:/aist/images/aist/view.png</iconset>
    </property>
    <property name="text">
     <string>Просмотр</string>
@@ -4537,7 +4537,7 @@
   <action name="add_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+     <normaloff>:/aist/images/aist/add_file.png</normaloff>:/aist/images/aist/add_file.png</iconset>
    </property>
    <property name="text">
     <string>Добавить</string>

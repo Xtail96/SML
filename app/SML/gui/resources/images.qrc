@@ -91,4 +91,14 @@
         <file>images/cotton/timer.png</file>
         <file>images/cotton/orthogonal_view.png</file>
     </qresource>
+    <qresource prefix="/aist">
+        <file>images/aist/add_file.png</file>
+        <file>images/aist/file.png</file>
+        <file>images/aist/front.png</file>
+        <file>images/aist/right.png</file>
+        <file>images/aist/save_as.png</file>
+        <file>images/aist/save.png</file>
+        <file>images/aist/top.png</file>
+        <file>images/aist/view.png</file>
+    </qresource>
 </RCC>
