@@ -134,13 +134,13 @@ void MachineTool::switchSpindelOff(QString index)
 
 void MachineTool::onServer_U1Connected()
 {
-    m_repository->setU1Connected(true);
+    m_repository->setU1ConnectState(true);
 }
 
 
 void MachineTool::onServer_U1Disconnected()
 {
-    m_repository->setU1Connected(false);
+    m_repository->setU1ConnectState(false);
 }
 
 void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices)
@@ -186,7 +186,7 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
     QColor led = QColor(SmlColors::white());
     if(state)
     {
-        led = m_repository->getSensor(sensorName)->getColor();
+        led = m_repository->getSensor(sensorName).getColor();
     }
     emit sensorStateChanged(sensorName, led);
 }

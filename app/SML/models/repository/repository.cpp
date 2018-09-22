@@ -164,7 +164,7 @@ void Repository::loadAxisesSettings()
     }
 }
 
-void Repository::setU1Connected(bool connected)
+void Repository::setU1ConnectState(bool connected)
 {
     m_u1Connection->setConnected(connected);
 }
@@ -320,14 +320,13 @@ QList<bool> Repository::getOnScreenDevicesStates()
     return devicesStates;
 }
 
-Sensor* Repository::getSensor(QString name)
+Sensor &Repository::getSensor(QString name)
 {
     for(auto sensor : m_sensors)
     {
         if(sensor->getName() == name)
         {
-            return sensor.data();
-            break;
+            return *(sensor.data());
         }
     }
 
@@ -353,7 +352,7 @@ QMap<QString, QString> Repository::getSensorSettings(QString name)
     QMap<QString, QString> sensorsSettingsMap;
     try
     {
-        QString settingsString = getSensor(name)->getSettings();
+        QString settingsString = getSensor(name).getSettings();
         QStringList settingsList = settingsString.split(";");
 
         for(auto setting : settingsList)

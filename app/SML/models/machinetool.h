@@ -140,7 +140,7 @@ protected:
 private:
     /**
      * @brief Создает объект класса станок
-     * @param parent - родительский объект
+     * @param parent родительский объект
      */
     MachineTool(QObject *parent = nullptr);
 

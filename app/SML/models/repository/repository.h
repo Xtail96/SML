@@ -16,19 +16,57 @@
 #include "models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h"
 
 class MachineTool;
+
+/**
+ * @brief Класс Репозиторий
+ *
+ * Предназначен для хранения всей оперативной информации о станке:
+ * подключения, список устройств и датчиков и их состояния, состояния осей,
+ * текущие координаты и прочее
+ */
 class Repository : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Конструктор класса
+     * @param parent родительский объект
+     */
     explicit Repository(QObject *parent = nullptr);
 
-    void setU1Connected(bool connected);
+    /**
+     * @brief Устанавливает состояния подключения адаптера U1
+     * @param connected состояние подключения адаптера. подключен (true) / отключен (false)
+     */
+    void setU1ConnectState(bool connected);
+
+    /**
+     * @brief Устанавливает значение состояния датчиков
+     * @param sensors обновленное состояние датчиков
+     */
     void setU1Sensors(QList<QVariant> sensors);
+
+    /**
+     * @brief Устанавливает значение состояния устройств
+     * @param devices обновленное состояние устройств
+     */
     void setU1Devices(QList<QVariant> devices);
 
+    /**
+     * @brief Возвращает ссылку на устройство
+     * @param index уникальный индекс устройства
+     * @return ссылка на устройство
+     */
     Device& getDevice(size_t index);
 
-    Sensor* getSensor(QString name);
+    /**
+     * @brief Возвращает ссылку на датчик
+     * @param name уникальное имя датчика
+     * @return ссылка на датчик
+     */
+    Sensor& getSensor(QString name);
+
+
     QStringList getSensorNames();
     QMap<QString, QString> getSensorSettings(QString name);
 
