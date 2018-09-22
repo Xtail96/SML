@@ -92,7 +92,7 @@ void Repository::loadDevicesSettings()
             QString label = QVariant(m_settingsManager->get(name, "Label")).toString();
             QString index = QVariant(m_settingsManager->get(name, "Index")).toString();
             bool activeState = QVariant(m_settingsManager->get(name, "ActiveState")).toBool();
-            int mask = QVariant(m_settingsManager->get(name, "Mask")).toUInt();
+            byte mask = static_cast<byte>(QVariant(m_settingsManager->get(name, "Mask")).toChar().toLatin1());
             size_t upperBound = QVariant(m_settingsManager->get(name, "UpperBound")).toULongLong();
             size_t lowerBound = QVariant(m_settingsManager->get(name, "LowerBound")).toULongLong();
 
@@ -114,7 +114,7 @@ void Repository::loadDevicesSettings()
             QString label = QVariant(m_settingsManager->get(name, "Label")).toString();
             QString index = QVariant(m_settingsManager->get(name, "Index")).toString();
             bool activeState = QVariant(m_settingsManager->get(name, "ActiveState")).toBool();
-            int mask = QVariant(m_settingsManager->get(name, "Mask")).toUInt();
+            byte mask = static_cast<byte>(QVariant(m_settingsManager->get(name, "Mask")).toChar().toLatin1());
 
 
             SupportDevice* device = new SupportDevice(name,
@@ -176,7 +176,7 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
         byte_array currentSensorsState;
         for(auto port : sensors)
         {
-            currentSensorsState.push_back(port.toUInt());
+            currentSensorsState.push_back(static_cast<byte>(port.toUInt()));
         }
 
         m_sensorsBuffer->updateBuffer(currentSensorsState);
@@ -202,12 +202,12 @@ void Repository::setU1Devices(QList<QVariant> devices)
         byte_array currentDevicesState;
         for(auto device : devices)
         {
-            currentDevicesState.push_back(device.toUInt());
+            currentDevicesState.push_back(static_cast<byte>(device.toUInt()));
         }
 
-        for(size_t i = 0; i < currentDevicesState.size(); i++)
+        for(int i = 0; i < currentDevicesState.size(); i++)
         {
-            Device& device = getDevice(i);
+            Device& device = getDevice(static_cast<size_t>(i));
             if(currentDevicesState[i] == 0x01)
             {
                 device.setCurrentState(device.getActiveState(), QMap<QString, QString>());
@@ -557,7 +557,7 @@ Spindel *Repository::getSpindel(QString index)
     }
 
     QString message =
-            QStringLiteral("spindel with inde ") +
+            QStringLiteral("spindel with index ") +
             index +
             QStringLiteral(" is not exists");
     throw InvalidArgumentException(message);
@@ -578,13 +578,13 @@ void Repository::setSpindelState(QString index, bool enable, size_t rotations)
 
 void Repository::exportSettings()
 {
-    QString path = QFileDialog::getSaveFileName(0, "Выберите путь до файла", "", "*.ini");
+    QString path = QFileDialog::getSaveFileName(nullptr, "Выберите путь до файла", "", "*.ini");
     m_settingsManager->exportSettings(path);
 }
 
 void Repository::importSettings()
 {
-    QString path = QFileDialog::getOpenFileName(0, "Выберите файл с настройками", "", "*.ini");
+    QString path = QFileDialog::getOpenFileName(nullptr, "Выберите файл с настройками", "", "*.ini");
     m_settingsManager->importSettings(path);
 }
 

@@ -8,7 +8,11 @@ SensorsBuffer::SensorsBuffer(size_t bufferSize, QObject *parent) :
 
 void SensorsBuffer::resetBuffer(size_t size)
 {
-    m_buffer = byte_array(size, 0x00);
+    m_buffer.clear();
+    for(size_t i = 0; i < size; i++)
+    {
+        m_buffer.push_back(0x00);
+    }
 }
 
 void SensorsBuffer::updateBuffer(byte_array value)
@@ -42,7 +46,7 @@ bool SensorsBuffer::standardInputStateCheck(size_t inputNumber, byte portState) 
 
     byte tmp = portState;
     // сдвигаем все биты влево, чтобы исключить все биты слева, а нужный бит стоял в старшем разряде
-    tmp = tmp << (7 - inputNumber);
+    tmp = static_cast<byte>(tmp << (7 - inputNumber));
 
     // сдвигаем все биты вправо, чтобы все биты слева стали нулями, а нужный бит находился в младшем разряде
     tmp = tmp >> 7;
@@ -82,9 +86,9 @@ bool SensorsBuffer::isPortStateChanged(byte currentState, byte newState)
     return portStateChanged;
 }
 
-bool SensorsBuffer::getInputState(QString plateName, unsigned int portNumber, unsigned int inputNumber) const
+bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t inputNumber) const
 {
-    if (portNumber > m_buffer.size())
+    if (portNumber > static_cast<size_t>(m_buffer.size()))
     {
         QString message =
                 QStringLiteral("Invalid port.") +
@@ -144,7 +148,7 @@ bool SensorsBuffer::getInputState(QString plateName, unsigned int portNumber, un
     }
 }
 
-bool SensorsBuffer::checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber) const
+bool SensorsBuffer::checkPortalSensorState(size_t portNumber, size_t inputNumber) const
 {
     if (portNumber > 7)
     {
@@ -220,7 +224,7 @@ bool SensorsBuffer::checkPortalSensorState(unsigned int portNumber, unsigned int
     }
 }
 
-bool SensorsBuffer::checkU1SensorState(unsigned int portNumber, unsigned int inputNumber) const
+bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) const
 {
     if (portNumber > 7)
     {

@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QFileDialog>
 
+#include "models/types/structs.h"
 #include "models/types/axis/axis.h"
 #include "models/types/device/spindel.h"
 #include "models/types/device/supportdevice.h"

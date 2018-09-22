@@ -10,7 +10,7 @@ public:
             QString label,
             QString index,
             bool activeState,
-            int mask,
+            byte mask,
             size_t lowerBound,
             size_t upperBound,
             QObject *parent = nullptr);

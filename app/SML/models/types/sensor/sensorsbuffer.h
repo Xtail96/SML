@@ -62,7 +62,7 @@ public:
      * @warning Состояние входа == сырое состояние датчика (для определения того, сработал датчик или нет, необходимо знать при каком состоянии входа датчик считается активным)
      * @warning Бросает исключение SynchronizeStateException, если номер порта превышает размер буфера или номер входа > 7 (В порте всего 8 входов с номерами 0-7).
      */
-    bool getInputState(QString plateName, unsigned int portNumber, unsigned int inputNumber) const;
+    bool getInputState(QString plateName, size_t portNumber, size_t inputNumber) const;
 
 protected:
     /**
@@ -128,7 +128,7 @@ protected:
      * @warning Не определяет включен датчик или выключен!
      * @warning Бросает исключение SynchronizeStateException, если номер порта > 7 или номер входа > 7.
      */
-    bool checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber) const;
+    bool checkPortalSensorState(size_t portNumber, size_t inputNumber) const;
 
     /**
      * @brief Проверяет состояние датчика, подключенного к U1
@@ -142,7 +142,7 @@ protected:
      * @warning Не определяет включен датчик или выключен!
      * @warning Бросает исключение SynchronizeStateException, если номер порта > 7 или номер входа > 7.
      */
-    bool checkU1SensorState(unsigned int portNumber, unsigned int inputNumber) const;
+    bool checkU1SensorState(size_t portNumber, size_t inputNumber) const;
 
 signals:
 

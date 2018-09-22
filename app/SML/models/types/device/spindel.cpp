@@ -1,6 +1,6 @@
 #include "spindel.h"
 
-Spindel::Spindel(QString name, QString label, QString index, bool activeState, int mask, size_t lowerBound, size_t upperBound, QObject *parent) :
+Spindel::Spindel(QString name, QString label, QString index, bool activeState, byte mask, size_t lowerBound, size_t upperBound, QObject *parent) :
     Device(name, label, index, activeState, mask, parent),
     m_upperBound(upperBound),
     m_lowerBound(lowerBound),
