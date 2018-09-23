@@ -1,7 +1,7 @@
 #include "supportdevice.h"
 
-SupportDevice::SupportDevice(QString name, QString label, QString index, bool activeState, byte mask, QObject *parent) :
-    Device(name, label, index, activeState, mask, parent)
+SupportDevice::SupportDevice(QString settingsUid, QString label, QString uid, bool activeState, byte mask, QObject *parent) :
+    Device(settingsUid, label, uid, activeState, mask, parent)
 {
 
 }

@@ -6,9 +6,9 @@
 class SupportDevice : public Device
 {
 public:
-    SupportDevice(QString name,
+    SupportDevice(QString settingsUid,
                   QString label,
-                  QString index,
+                  QString uid,
                   bool activeState,
                   byte mask,
                   QObject *parent = nullptr);

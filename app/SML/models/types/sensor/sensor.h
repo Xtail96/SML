@@ -16,7 +16,7 @@ class Sensor : public QObject
 public:
     /**
      * @brief Конструктор класса Датчик
-     * @param name уникальный идентификатор (имя) датчика
+     * @param uid уникальный идентификатор (имя) датчика
      * @param label подпись датчика для вывода в интерфейс
      * @param portNumber номер порта, к которому подключен датчик
      * @param inputNumber номер входа, к которому подключен датчик
@@ -25,7 +25,7 @@ public:
      * @param color цвет индикатора датчика
      * @param parent родительский объект
      */
-    Sensor(QString name,
+    Sensor(QString uid,
            QString label,
            size_t portNumber,
            size_t inputNumber,
@@ -64,7 +64,7 @@ public:
      * @brief Возвращает уникальный идентификатор датчика
      * @return уникальный идентификатор (имя) датчика
      */
-    QString getName() const;
+    QString getUid() const;
 
     /**
      * @brief Возвращает имя платы, к которой подключен датчик
@@ -111,9 +111,9 @@ public:
 
 protected:
     /// Уникальный идентификатор (имя) датчика
-    QString m_name;
+    QString m_uid;
 
-    /// Подпись датчика для отображения в итнтерфейсе
+    /// Пользовательское имя датчика
     QString m_label;
 
     /// Имя платы, к которой подключен датчик (u1 / u2 / portal)

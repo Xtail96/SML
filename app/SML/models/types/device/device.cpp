@@ -1,14 +1,14 @@
 #include "device.h"
 
-Device::Device(QString name,
+Device::Device(QString settingsUid,
                QString label,
-               QString index,
+               QString uid,
                bool activeState,
                byte mask,
                QObject *parent) :
     QObject(parent),
-    m_name(name),
-    m_index(index),
+    m_settingsUid(settingsUid),
+    m_uid(uid),
     m_label(label),
     m_activeState(activeState),
     m_currentState(!m_activeState),
@@ -68,12 +68,12 @@ byte Device::getMask() const
     return m_mask;
 }
 
-QString Device::getName() const
+QString Device::getSettingsUId() const
 {
-    return m_name;
+    return m_settingsUid;
 }
 
-QString Device::getIndex() const
+QString Device::getUid() const
 {
-    return m_index;
+    return m_uid;
 }
