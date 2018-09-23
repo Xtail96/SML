@@ -12,7 +12,7 @@ public:
     /*!
      * \brief Конструктор класса "Устрйоство"
      */
-    Device(QString name, QString label, QString index, bool activeState, byte mask, QObject *parent = nullptr);
+    Device(QString settingsUid, QString label, QString uid, bool activeState, byte mask, QObject *parent = nullptr);
 
     virtual ~Device();
 
@@ -30,19 +30,19 @@ public:
 
     byte getMask() const;
 
-    QString getName() const;
+    QString getSettingsUId() const;
 
-    QString getIndex() const;
+    QString getUid() const;
 
 protected:
 
     /// Код устройства для получения информации из файла настроек
-    QString m_name;
+    QString m_settingsUid;
 
-    /// Индекс устройства = номер байта, в котором лежит состояние устройства
-    QString m_index;
+    /// Уникальный идентификатор устройства = номер байта, в котором лежит состояние устройства
+    QString m_uid;
 
-    /// Имя устройства
+    /// Пользовательское устройства
     QString m_label;
 
     /// Активное состояние устройства (устройство включено)

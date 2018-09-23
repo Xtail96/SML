@@ -1,7 +1,7 @@
 #include "spindel.h"
 
-Spindel::Spindel(QString name, QString label, QString index, bool activeState, byte mask, size_t lowerBound, size_t upperBound, QObject *parent) :
-    Device(name, label, index, activeState, mask, parent),
+Spindel::Spindel(QString settingsUid, QString label, QString uid, bool activeState, byte mask, size_t lowerBound, size_t upperBound, QObject *parent) :
+    Device(settingsUid, label, uid, activeState, mask, parent),
     m_upperBound(upperBound),
     m_lowerBound(lowerBound),
     m_currentRotations(m_lowerBound)
@@ -32,11 +32,11 @@ void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
                 size_t rotations = attributes["rotations"].toUInt();
                 setCurrentRotations(rotations);
             }
-            emit stateChanged(m_index, true, m_currentRotations);
+            emit stateChanged(m_uid, true, m_currentRotations);
         }
         else
         {
-            emit stateChanged(m_index, false, m_currentRotations);
+            emit stateChanged(m_uid, false, m_currentRotations);
         }
     }
 }

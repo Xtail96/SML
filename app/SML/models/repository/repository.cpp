@@ -232,7 +232,7 @@ Device &Repository::getDevice(size_t index)
 {
     for(auto device : m_spindels)
     {
-        if(device->getIndex().toUInt() == index)
+        if(device->getUid().toUInt() == index)
         {
             return *device;
         }
@@ -240,7 +240,7 @@ Device &Repository::getDevice(size_t index)
 
     for(auto device : m_supportDevices)
     {
-        if(device->getIndex().toUInt() == index)
+        if(device->getUid().toUInt() == index)
         {
             return *device;
         }
@@ -253,7 +253,7 @@ Device &Repository::getDevice(size_t index)
     throw InvalidArgumentException(message);
 }
 
-QStringList Repository::getAllDevicesNames()
+QStringList Repository::getAllDevicesLabels()
 {
     QStringList names;
     for(auto device : m_spindels)
@@ -292,7 +292,7 @@ QList<QStringList> Repository::getAllDevicesSettings()
     return devicesSettings;
 }
 
-QStringList Repository::getOnScreenDevicesNames()
+QStringList Repository::getAllOnScreenDevicesLabels()
 {
     QStringList names;
     for(auto device : m_spindels)
@@ -306,25 +306,25 @@ QStringList Repository::getOnScreenDevicesNames()
     return names;
 }
 
-QList<bool> Repository::getOnScreenDevicesStates()
+QMap<QString, bool> Repository::getAllOnScreenDevicesStates()
 {
-    QList<bool> devicesStates;
+    QMap<QString, bool> onScreenDevices;
     for(auto device : m_spindels)
     {
-        devicesStates.push_back(device->isEnable());
+        onScreenDevices.insert(device->getUid(), device->isEnable());
     }
     for(auto device : m_supportDevices)
     {
-        devicesStates.push_back(device->isEnable());
+        onScreenDevices.insert(device->getUid(), device->isEnable());
     }
-    return devicesStates;
+    return onScreenDevices;
 }
 
-Sensor &Repository::getSensor(QString name)
+Sensor &Repository::getSensor(QString uid)
 {
     for(auto sensor : m_sensors)
     {
-        if(sensor->getName() == name)
+        if(sensor->getUid() == uid)
         {
             return *(sensor.data());
         }
@@ -332,17 +332,17 @@ Sensor &Repository::getSensor(QString name)
 
     QString message =
             QStringLiteral("sensor with name ") +
-            name +
+            uid +
             QStringLiteral(" is not exists");
     throw InvalidArgumentException(message);
 }
 
-QStringList Repository::getSensorNames()
+QStringList Repository::getAllSensorsNames()
 {
     QStringList names;
     for(auto sensor : m_sensors)
     {
-        names.push_back(sensor->getName());
+        names.push_back(sensor->getUid());
     }
     return names;
 }
@@ -372,7 +372,7 @@ QMap<QString, QString> Repository::getSensorSettings(QString name)
 }
 
 
-QStringList Repository::getSensorsSettings()
+QStringList Repository::getAllSensorsSettings()
 {
     QStringList settings;
     for(auto sensor : m_sensors)
@@ -445,7 +445,7 @@ QStringList Repository::getAxisesSettings()
     return axisesSettings;
 }
 
-QStringList Repository::getOptionsNames()
+QStringList Repository::getOptionsLabels()
 {
     /// todo: переписать метод через модель
     QStringList optionsNames =
@@ -468,16 +468,16 @@ QList<QStringList> Repository::getPoints()
     return m_pointsManager->points();
 }
 
-QStringList Repository::getPoint(unsigned int number)
+QStringList Repository::getPoint(unsigned int index)
 {
-    return m_pointsManager->point(number);
+    return m_pointsManager->point(index);
 }
 
-void Repository::deletePoint(unsigned int number)
+void Repository::deletePoint(unsigned int index)
 {
     try
     {
-        QSharedPointer<Point> p = m_pointsManager->operator [](number);
+        QSharedPointer<Point> p = m_pointsManager->operator [](index);
         m_pointsManager->deletePoint(p);
     }
     catch(OutOfRangeException e)
@@ -486,9 +486,9 @@ void Repository::deletePoint(unsigned int number)
     }
 }
 
-void Repository::updatePoint(QStringList coordinates, unsigned int number)
+void Repository::updatePoint(QStringList coordinates, unsigned int index)
 {
-    m_pointsManager->updatePoint(coordinates, number);
+    m_pointsManager->updatePoint(coordinates, index);
 }
 
 QString Repository::getFilePath(QString type)
@@ -516,11 +516,6 @@ void Repository::setSoftLimitsMode(bool enable)
     }
 }
 
-QStringList Repository::getCurrentConnections()
-{
-    return QStringList();
-}
-
 QString Repository::getServerPort()
 {
     return QString::number(m_port);
@@ -546,29 +541,29 @@ QList<Spindel *> Repository::getSpindels()
     return spindels;
 }
 
-Spindel *Repository::getSpindel(QString index)
+Spindel &Repository::getSpindel(QString uid)
 {
     for(auto spindel : m_spindels)
     {
-        if(spindel->getIndex() == index)
+        if(spindel->getUid() == uid)
         {
-            return spindel.data();
+            return *(spindel.data());
         }
     }
 
     QString message =
             QStringLiteral("spindel with index ") +
-            index +
+            uid +
             QStringLiteral(" is not exists");
     throw InvalidArgumentException(message);
 }
 
-void Repository::setSpindelState(QString index, bool enable, size_t rotations)
+void Repository::setSpindelState(QString uid, bool enable, size_t rotations)
 {
     try
     {
-        Spindel* spindel = getSpindel(index);
-        spindel->setCurrentState(enable, rotations);
+        Spindel& spindel = getSpindel(uid);
+        spindel.setCurrentState(enable, rotations);
     }
     catch(InvalidArgumentException e)
     {

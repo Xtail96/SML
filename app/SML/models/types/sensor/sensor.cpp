@@ -1,6 +1,6 @@
 #include "sensor.h"
 
-Sensor::Sensor(QString name,
+Sensor::Sensor(QString uid,
                QString label,
                size_t portNumber,
                size_t inputNumber,
@@ -9,7 +9,7 @@ Sensor::Sensor(QString name,
                QColor color,
                QObject *parent) :
     QObject(parent),
-    m_name(name),
+    m_uid(uid),
     m_label(label),
     m_boardName(boardName),
     m_portNumber(portNumber),
@@ -38,11 +38,11 @@ void Sensor::setInputCurrentState(bool value)
 
         if(isEnable())
         {
-            emit stateChanged(m_name, true);
+            emit stateChanged(m_uid, true);
         }
         else
         {
-            emit stateChanged(m_name, false);
+            emit stateChanged(m_uid, false);
         }
     }
 }
@@ -57,9 +57,9 @@ size_t Sensor::getInputNumber() const
     return m_inputNumber;
 }
 
-QString Sensor::getName() const
+QString Sensor::getUid() const
 {
-    return m_name;
+    return m_uid;
 }
 
 QString Sensor::getBoardName() const
@@ -90,7 +90,7 @@ QString Sensor::getLabel() const
 QString Sensor::getSettings()
 {
     QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
-            QStringLiteral("Name:") + m_name + QStringLiteral(";") +
+            QStringLiteral("Name:") + m_uid + QStringLiteral(";") +
             QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +

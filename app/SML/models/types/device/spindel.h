@@ -6,15 +6,15 @@ class Spindel : public Device
 {
     Q_OBJECT
 public:
-    Spindel(QString name,
+    Spindel(QString settingsUid,
             QString label,
-            QString index,
+            QString uid,
             bool activeState,
             byte mask,
             size_t lowerBound,
             size_t upperBound,
             QObject *parent = nullptr);
-    ~Spindel();
+    ~Spindel() override;
     QStringList getParams() override;
 
     void setCurrentState(bool value, QMap<QString, QString> attributes) override;

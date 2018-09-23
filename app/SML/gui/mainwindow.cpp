@@ -108,7 +108,7 @@ void MainWindow::setupSensorsDisplay()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QStringList names = machineTool.getRepository()->getSensorNames();
+    QStringList names = machineTool.getRepository()->getAllSensorsNames();
 
     for(auto name : names)
     {
@@ -130,7 +130,7 @@ void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, s
 
     if(ok)
     {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(spindelIndex)));
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(spindelIndex))));
         widget->updateControls(enable, rotations);
     }
 
@@ -153,7 +153,7 @@ void MainWindow::setupSensorsSettingsBoard()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QStringList sensorsSettings = machineTool.getRepository()->getSensorsSettings();
+    QStringList sensorsSettings = machineTool.getRepository()->getAllSensorsSettings();
 
     QStringList labels;
     QList< QPair<int, int> > positions;
@@ -251,9 +251,9 @@ void MainWindow::setupConnections()
     QObject::connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     QObject::connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
-    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
+    for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(i))));
         QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
         QObject::connect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
     }
@@ -317,9 +317,9 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
     QObject::disconnect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
 
-    for(size_t i = 0; i < (size_t) ui->spindelsListWidget->count(); i++)
+    for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(i))));
         QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
         QObject::disconnect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
     }
@@ -343,12 +343,12 @@ void MainWindow::setupSpindelsControlPanel()
     MachineTool& machineTool = MachineTool::getInstance();
 
     ui->spindelsListWidget->clear();
-    QList<Spindel*> spindels = machineTool.getRepository()->getSpindels();
+    auto spindels = machineTool.getRepository()->getSpindels();
     for(auto spindel : spindels)
     {
         SpindelControlWidget* widget = new SpindelControlWidget(spindel->getLabel(),
-                                                                spindel->getName(),
-                                                                spindel->getIndex(),
+                                                                spindel->getSettingsUId(),
+                                                                spindel->getUid(),
                                                                 spindel->getUpperBound(),
                                                                 spindel->getLowerBound(),
                                                                 spindel->getCurrentRotations(),
@@ -458,7 +458,7 @@ void MainWindow::setupOptionsPanel()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QStringList optionsNames = machineTool.getRepository()->getOptionsNames();
+    QStringList optionsNames = machineTool.getRepository()->getOptionsLabels();
     ui->optionsListWidget->addItems(optionsNames);
 }
 
@@ -973,7 +973,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
 
         for(auto row : selectedRowsIndexes)
         {
-            QStringList pointsArguments = machineTool.getRepository()->getPoint(row.row());
+            QStringList pointsArguments = machineTool.getRepository()->getPoint(static_cast<unsigned int>(row.row()));
             machineTool.getRepository()->addPoint(pointsArguments);
         }
     }
@@ -1012,7 +1012,7 @@ void MainWindow::editPoint(QModelIndex index)
 
     try
     {
-        AddPointDialog(*(machineTool.getRepository()), index.row(), this).exec();
+        AddPointDialog(*(machineTool.getRepository()), static_cast<unsigned int>(index.row()), this).exec();
     }
     catch(std::out_of_range e)
     {
@@ -1026,7 +1026,7 @@ void MainWindow::deletePoints(QModelIndexList indexes)
 
     for(int i = indexes.size() - 1; i >= 0; i--)
     {
-        machineTool.getRepository()->deletePoint(indexes[i].row());
+        machineTool.getRepository()->deletePoint(static_cast<unsigned int>(indexes[i].row()));
     }
 }
 
