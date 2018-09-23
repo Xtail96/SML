@@ -103,7 +103,7 @@
       <widget class="QWidget" name="editorTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
+         <normaloff>:/aist/images/aist/pencil.png</normaloff>:/aist/images/aist/pencil.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Редактор</string>
@@ -805,7 +805,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+                   <normaloff>:/aist/images/aist/point_add.png</normaloff>:/aist/images/aist/point_add.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -839,7 +839,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
+                   <normaloff>:/aist/images/aist/point_remove.png</normaloff>:/aist/images/aist/point_remove.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -907,7 +907,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
+                   <normaloff>:/aist/images/aist/point_copy.png</normaloff>:/aist/images/aist/point_copy.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -2234,7 +2234,7 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+                      <normaloff>:/aist/images/aist/point_add.png</normaloff>:/aist/images/aist/point_add.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -2268,7 +2268,7 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
+                      <normaloff>:/aist/images/aist/point_remove.png</normaloff>:/aist/images/aist/point_remove.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>-</string>
@@ -2296,7 +2296,7 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
+                      <normaloff>:/aist/images/aist/pencil.png</normaloff>:/aist/images/aist/pencil.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>=</string>
@@ -2352,7 +2352,7 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
+                      <normaloff>:/aist/images/aist/point_copy.png</normaloff>:/aist/images/aist/point_copy.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>Shift+Return</string>
@@ -4137,7 +4137,7 @@
         <item row="1" column="0">
          <widget class="QTabWidget" name="settingsTabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="machineToolSettingsTab">
            <attribute name="title">
@@ -4218,7 +4218,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/SystemTests.png</normaloff>:/new/prefix1/images/SystemTests.png</iconset>
+                   <normaloff>:/aist/images/aist/bug.png</normaloff>:/aist/images/aist/bug.png</iconset>
                  </property>
                 </widget>
                </item>
@@ -4591,7 +4591,7 @@
   <action name="about_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/home.png</normaloff>:/cotton/images/cotton/home.png</iconset>
+     <normaloff>:/aist/images/aist/about.png</normaloff>:/aist/images/aist/about.png</iconset>
    </property>
    <property name="text">
     <string>О программе</string>
