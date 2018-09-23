@@ -103,5 +103,11 @@
         <file>images/aist/open.png</file>
         <file>images/aist/center.png</file>
         <file>images/aist/perspective.png</file>
+        <file>images/aist/about.png</file>
+        <file>images/aist/bug.png</file>
+        <file>images/aist/pencil.png</file>
+        <file>images/aist/point_add.png</file>
+        <file>images/aist/point_copy.png</file>
+        <file>images/aist/point_remove.png</file>
     </qresource>
 </RCC>
