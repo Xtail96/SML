@@ -35,11 +35,19 @@ public:
      */
     explicit Repository(QObject *parent = nullptr);
 
+    // Settings
+
+    /**
+     * @brief Экспортирует настройки станка в *.ini файл
+     */
+    void exportSettings();
+
+    /**
+     * @brief Импортирует настройки станка из *.ini файла
+     */
+    void importSettings();
+
     // Connections
-    // Sensors
-    // Devices
-    // Points
-    // G-Codes
 
     /**
      * @brief Устанавливает состояния подключения адаптера U1
@@ -48,24 +56,18 @@ public:
     void setU1ConnectState(bool connected);
 
     /**
+     * @brief Возвращает порт, на котором работает сервер
+     * @return строковое представления номера порта
+     */
+    QString getServerPort();
+
+    // Sensors
+
+    /**
      * @brief Устанавливает значение состояния датчиков
      * @param sensors обновленное состояние датчиков
      */
     void setU1Sensors(QList<QVariant> sensors);
-
-    /**
-     * @brief Устанавливает значение состояния устройств
-     * @param devices обновленное состояние устройств
-     */
-    void setU1Devices(QList<QVariant> devices);
-
-    /**
-     * @brief Возвращает ссылку на устройство
-     * @param index уникальный индекс устройства
-     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
-     * @return ссылка на устройство
-     */
-    Device& getDevice(size_t index);
 
     /**
      * @brief Возвращает ссылку на датчик
@@ -89,31 +91,32 @@ public:
     QMap<QString, QString> getSensorSettings(QString name);
 
     /**
-     * @brief Устанавливает текущее значение УП в G-Codes
-     * @param data УП в G-Codes
-     */
-    void setGCodes(const QString &data);
-
-    /**
-     * @brief Возвращает текущую УП в G-Codes
-     * @return УП в G-Codes
-     */
-    QString getGCodesProgram();
-
-    /**
-     * @brief Возвращает текущие координаты станка
-     * [0] элемент списка содержит текущие координаты относительно Нуля,
-     * [1] элемент списка содержит текущие координаты относительно Базы,
-     * [2] элемент списка содержит текущие координаты точки Парк.
-     * @return координаты станка
-     */
-    QList<Point> getMachineToolCoordinates();
-
-    /**
      * @brief Возвращает текущие настройки всех доступных датчиков
      * @return настройки всех доступных датчиков
      */
     QStringList getAllSensorsSettings();
+
+    /**
+     * @brief Возвращает размер буфера датчиков
+     * @return размер буфера датчиков
+     */
+    QString getSensorsBufferSize();
+
+    // Devices
+
+    /**
+     * @brief Устанавливает значение состояния устройств
+     * @param devices обновленное состояние устройств
+     */
+    void setU1Devices(QList<QVariant> devices);
+
+    /**
+     * @brief Возвращает ссылку на устройство
+     * @param index уникальный индекс устройства
+     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
+     * @return ссылка на устройство
+     */
+    Device& getDevice(size_t index);
 
     /**
      * @brief Возвращает список всех доступных устройств
@@ -143,22 +146,35 @@ public:
     QMap<QString, bool> getAllOnScreenDevicesStates();
 
     /**
-     * @brief Возвращает названия всех доступных осей координат
-     * @return список доступных осей координат
+     * @brief Возвращает размер буфера устройств
+     * @return размер буфера устройств
      */
-    QStringList getAxisesNames();
+    QString getDevicesBufferSize();
 
     /**
-     * @brief Возвращает настройки доступных осей координат
-     * @return настройки всех доступных осей координат
+     * @brief Возвращает список доступных шпинделей
+     * @return список доступных шпинделей
      */
-    QStringList getAxisesSettings();
+    QList<Spindel *> getSpindels();
 
     /**
-     * @brief Возвращает список доступных опций
-     * @return список доступных опций
+     * @brief Возвращает ссылку на шпиндель
+     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
+     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
+     * @return ссылка на шпиндель
      */
-    QStringList getOptionsLabels();
+    Spindel& getSpindel(QString uid);
+
+    /**
+     * @brief Устанавливает обновленное значение шпинделя
+     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
+     * @param enable состояние шпинделя, вкл (true) / выкл (false)
+     * @param rotations число оборотов в минуту
+     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
+     */
+    void setSpindelState(QString uid, bool enable, size_t rotations);
+
+    // Points
 
     /**
      * @brief Добавляет точку
@@ -192,69 +208,26 @@ public:
      */
     void updatePoint(QStringList coordinates, unsigned int index);
 
+    // Programm
+
+    /**
+     * @brief Устанавливает текущее значение УП в G-Codes
+     * @param data УП в G-Codes
+     */
+    void setGCodes(const QString &data);
+
+    /**
+     * @brief Возвращает текущую УП в G-Codes
+     * @return УП в G-Codes
+     */
+    QString getGCodesProgram();
+
     /**
      * @brief Возвращает путь до открытого файла
      * @param type тип файла (gcodes / sml. По умолчанию gcodes)
      * @return путь до текущего файла
      */
     QString getFilePath(QString type = "gcodes");
-
-    /**
-     * @brief Включает / Отключает контроль габаритов
-     * @param enable вкл (true) / выкл (false)
-     */
-    void setSoftLimitsMode(bool enable);
-
-    /**
-     * @brief Возвращает порт, на котором работает сервер
-     * @return строковое представления номера порта
-     */
-    QString getServerPort();
-
-    /**
-     * @brief Возвращает размер буфера датчиков
-     * @return размер буфера датчиков
-     */
-    QString getSensorsBufferSize();
-
-    /**
-     * @brief Возвращает размер буфера устройств
-     * @return размер буфера устройств
-     */
-    QString getDevicesBufferSize();
-
-    /**
-     * @brief Возвращает список доступных шпинделей
-     * @return список доступных шпинделей
-     */
-    QList<Spindel *> getSpindels();
-
-    /**
-     * @brief Возвращает ссылку на шпиндель
-     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
-     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
-     * @return ссылка на шпиндель
-     */
-    Spindel& getSpindel(QString uid);
-
-    /**
-     * @brief Устанавливает обновленное значение шпинделя
-     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
-     * @param enable состояние шпинделя, вкл (true) / выкл (false)
-     * @param rotations число оборотов в минуту
-     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
-     */
-    void setSpindelState(QString uid, bool enable, size_t rotations);
-
-    /**
-     * @brief Экспортирует настройки станка в *.ini файл
-     */
-    void exportSettings();
-
-    /**
-     * @brief Импортирует настройки станка из *.ini файла
-     */
-    void importSettings();
 
     /**
      * @brief Открывает файл с УП в G-Codes
@@ -284,6 +257,35 @@ public:
      */
     void addGCodesFile(const QString data);
 
+    // Axises
+
+    /**
+     * @brief Возвращает текущие координаты станка
+     * [0] элемент списка содержит текущие координаты относительно Нуля,
+     * [1] элемент списка содержит текущие координаты относительно Базы,
+     * [2] элемент списка содержит текущие координаты точки Парк.
+     * @return координаты станка
+     */
+    QList<Point> getMachineToolCoordinates();
+
+    /**
+     * @brief Возвращает названия всех доступных осей координат
+     * @return список доступных осей координат
+     */
+    QStringList getAxisesNames();
+
+    /**
+     * @brief Возвращает настройки доступных осей координат
+     * @return настройки всех доступных осей координат
+     */
+    QStringList getAxisesSettings();
+
+    /**
+     * @brief Включает / Отключает контроль габаритов
+     * @param enable вкл (true) / выкл (false)
+     */
+    void setSoftLimitsMode(bool enable);
+
     /**
      * @brief Возвращает текущее значение верхнего предела скорости перемещения
      * @return максимальная скорость перемещения
@@ -295,6 +297,14 @@ public:
      * @param velocity максимальная скорость перемещения
      */
     void setVelocity(double velocity);
+
+    // Options
+
+    /**
+     * @brief Возвращает список доступных опций
+     * @return список доступных опций
+     */
+    QStringList getOptionsLabels();
 
 protected:
     /// Менеджер настроек
