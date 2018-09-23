@@ -85,7 +85,9 @@ QVariant SettingsManager::get(QString group, QString key) const
     else
     {
         settings->endGroup();
-        throw std::invalid_argument("Отсутствует ключ " + key.toStdString());
+
+        QString message = QStringLiteral("Отсутствует ключ ") + key;
+        throw InvalidConfigurationException(message);
     }
 
     settings->endGroup();

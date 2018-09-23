@@ -7,6 +7,8 @@
 
 #include "models/types/structs.h"
 
+#include "models/types/exceptions/exceptions.h"
+
 /**
  * @brief Класс "Точка"
  *

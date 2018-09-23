@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <memory>
 
+#include "models/types/exceptions/invalidconfigurationexception.h"
+
 #define DEFAULT_SETTINGS_DIR ""
 #define DEFAULT_SETTINGS_FILE "SMLSettings.ini"
 #define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE

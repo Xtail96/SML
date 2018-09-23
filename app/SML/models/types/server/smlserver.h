@@ -7,6 +7,8 @@
 
 #include "libs/jsonparser/json.h"
 
+#include "models/types/exceptions/exceptions.h"
+
 #include "models/types/structs.h"
 #include "models/types/server/u1state.h"
 

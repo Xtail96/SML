@@ -95,7 +95,11 @@ SOURCES += main.cpp\
     models/services/devices/spindels/monitor/spindelsmonitor.cpp \
     models/services/devices/spindels/switch/switchspindel.cpp \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    models/services/gcodes/monitor/gcodesmonitor.cpp
+    models/services/gcodes/monitor/gcodesmonitor.cpp \
+    models/types/exceptions/synchronizestateexception.cpp \
+    models/types/exceptions/invalidconfigurationexception.cpp \
+    models/types/exceptions/invalidargumentexception.cpp \
+    models/types/exceptions/outofrangeexception.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -158,7 +162,12 @@ HEADERS  += gui/mainwindow.h \
     models/services/devices/spindels/switch/switchspindel.h \
     models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
     models/services/gcodes/monitor/gcodesmonitor.h \
-    models/types/base/interactor.h
+    models/types/base/interactor.h \
+    models/types/exceptions/synchronizestateexception.h \
+    models/types/exceptions/invalidconfigurationexception.h \
+    models/types/exceptions/invalidargumentexception.h \
+    models/types/exceptions/outofrangeexception.h \
+    models/types/exceptions/exceptions.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \
@@ -170,7 +179,7 @@ FORMS    += gui/mainwindow.ui \
     options/kabriolwindow.ui
 
 win32:RC_FILE = application.rc
-macx:ICON = $${PWD}/applicationOSX.icns
+macx:ICON = $${PWD}/sml_logo.icns
 
 RESOURCES += \
     gui/resources/images.qrc \
@@ -178,6 +187,6 @@ RESOURCES += \
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
-    applicationOSX.icns \
+    sml_logo.icns \
     libs/candlevisualizer/shaders/fshader.glsl \
     libs/candlevisualizer/shaders/vshader.glsl

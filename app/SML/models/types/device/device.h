@@ -12,7 +12,7 @@ public:
     /*!
      * \brief Конструктор класса "Устрйоство"
      */
-    Device(QString name, QString label, QString index, bool activeState, int mask, QObject *parent = nullptr);
+    Device(QString name, QString label, QString index, bool activeState, byte mask, QObject *parent = nullptr);
 
     virtual ~Device();
 

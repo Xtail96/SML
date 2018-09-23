@@ -123,6 +123,14 @@ void SMLServer::sendMessageToU1(QByteArray message)
             {
                 socket->sendBinaryMessage(message);
             }
+            else
+            {
+                throw SynchronizeStateException("WebSocket is invalid");
+            }
+        }
+        else
+        {
+            throw SynchronizeStateException("WebSocket is null");
         }
     }
 }
@@ -141,61 +149,75 @@ void SMLServer::onQWebSocketServer_Closed()
 
 void SMLServer::onQWebSocket_TextMessageReceived(QString message)
 {
-    QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (m_debug)
     {
         qDebug() << "Message received:" << message;
     }
 
-    if (pSender)
+    QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
+    if (!pSender) return;
+
+    if(message == "@SML-U1Adapter@")
     {
-        if(message == "@SML-U1Adapter@")
+        try
         {
             registerConnection(pSender, SMLServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
-        else
+        catch(SynchronizeStateException e)
         {
-            if(message == "@SML-U2Adapter@")
+            qDebug() << e.message();
+            emit this->errorOccured(-2);
+        }
+    }
+    else
+    {
+        if(message == "@SML-U2Adapter@")
+        {
+            try
             {
                 registerConnection(pSender, SMLServer::U2Adapter);
             }
-            else
+            catch(SynchronizeStateException e)
             {
-                pSender->sendTextMessage("Connection aborted");
-                pSender->close();
+                qDebug() << e.message();
+                emit this->errorOccured(-2);
             }
         }
-
+        else
+        {
+            pSender->sendTextMessage("Connection aborted");
+            pSender->close();
+        }
     }
 }
 
 void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
 {
-    QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
-    if (pSender)
+    if(m_debug)
     {
-        if(m_debug)
-        {
-            qDebug() << "Binary Message received:" << message;
-        }
+        qDebug() << "Binary Message received:" << message;
+    }
 
-        if(m_u1Connections.contains(pSender))
+    QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
+    if (!pSender) return;
+
+    if(m_u1Connections.contains(pSender))
+    {
+        try
         {
-            try
+            U1State u1 = parseU1BinaryMessage(message);
+            if(u1.errorCode != 0)
             {
-                U1State u1 = parseU1BinaryMessage(message);
-                if(u1.errorCode != 0)
-                {
-                    emit errorOccured(u1.errorCode);
-                    return;
-                }
-                emit u1StateChanged(u1.sensors, u1.devices);
+                emit errorOccured(u1.errorCode);
+                return;
             }
-            catch(std::invalid_argument e)
-            {
-                qDebug() << e.what();
-            }
+            emit u1StateChanged(u1.sensors, u1.devices);
+        }
+        catch(SynchronizeStateException e)
+        {
+            qDebug() << e.message();
+            emit errorOccured(-3);
         }
     }
 }
@@ -218,67 +240,69 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
         }
         else
         {
-            throw std::invalid_argument("empty u1 message");
+            throw SynchronizeStateException("empty u1 message");
         }
     }
     else
     {
-        throw std::invalid_argument("an error is occured during parsing json" + QString::fromUtf8(message).toStdString());
+        throw SynchronizeStateException("an error is occured during parsing json" + QString::fromUtf8(message));
     }
 }
 
 void SMLServer::onQWebSocket_Disconnected()
 {
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
-    if (pSender)
-    {
-        if (m_debug)
-        {
-            qDebug() << "socketDisconnected:" << pSender;
-        }
+    if (!pSender) return;
 
-        if(m_u1Connections.contains(pSender))
+    if (m_debug)
+    {
+        qDebug() << "socketDisconnected:" << pSender;
+    }
+
+    if(m_u1Connections.contains(pSender))
+    {
+        m_u1Connections.removeAll(pSender);
+        emit u1Disconnected();
+    }
+    else
+    {
+        if(m_u2Connections.contains(pSender))
         {
-            m_u1Connections.removeAll(pSender);
-            emit u1Disconnected();
+            m_u2Connections.removeAll(pSender);
+            emit u2Disconnected();
         }
         else
         {
-            if(m_u2Connections.contains(pSender))
-            {
-                m_u2Connections.removeAll(pSender);
-                emit u2Disconnected();
-            }
-            else
-            {
-                m_unregistered.removeAll(pSender);
-            }
+            m_unregistered.removeAll(pSender);
         }
-
-        pSender->deleteLater();
     }
+
+    pSender->deleteLater();
 }
 
 void SMLServer::registerConnection(QWebSocket* connection, int type)
 {
+    if (connection == nullptr)
+        throw SynchronizeStateException("Try to Register invalid socket");
+
     switch (type) {
     case SMLServer::U1Adapter:
         m_u1Connections.push_back(connection);
         m_unregistered.removeAll(connection);
-        emit u1Connected();
         if(m_debug)
         {
             qDebug() << "U1Adapter registered:" << connection;
         }
+        emit u1Connected();
         break;
     case SMLServer::U2Adapter:
         m_u2Connections.push_back(connection);
         m_unregistered.removeAll(connection);
-        emit u2Connected();
         if(m_debug)
         {
             qDebug() << "U2Adapter registered:" << connection;
         }
+        emit u2Connected();
         break;
     default:
         break;

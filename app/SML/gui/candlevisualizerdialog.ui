@@ -48,7 +48,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/fit_frame_to_image.png</normaloff>:/new/prefix1/images/fit_frame_to_image.png</iconset>
+          <normaloff>:/aist/images/aist/center.png</normaloff>:/aist/images/aist/center.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -62,6 +62,10 @@
        <widget class="QToolButton" name="isometricToolButton">
         <property name="text">
          <string>Изометрия</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources/images.qrc">
+          <normaloff>:/aist/images/aist/perspective.png</normaloff>:/aist/images/aist/perspective.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -78,7 +82,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Top.png</normaloff>:/new/prefix1/images/Top.png</iconset>
+          <normaloff>:/aist/images/aist/top.png</normaloff>:/aist/images/aist/top.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -95,7 +99,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Front.png</normaloff>:/new/prefix1/images/Front.png</iconset>
+          <normaloff>:/aist/images/aist/front.png</normaloff>:/aist/images/aist/front.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -112,7 +116,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources/images.qrc">
-          <normaloff>:/new/prefix1/images/Side.png</normaloff>:/new/prefix1/images/Side.png</iconset>
+          <normaloff>:/aist/images/aist/right.png</normaloff>:/aist/images/aist/right.png</iconset>
         </property>
         <property name="iconSize">
          <size>

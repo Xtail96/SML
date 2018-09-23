@@ -6,8 +6,10 @@
 
 #include <QDebug>
 
+#include "models/types/exceptions/exceptions.h"
+
 typedef unsigned char byte;
-typedef std::vector<byte> byte_array;
+typedef QList<byte> byte_array;
 
 /*!
  * \brief Объект "Имена осей"
@@ -22,7 +24,7 @@ typedef std::vector<byte> byte_array;
 struct
 {
     /// \details Словарь имен всех осей в формате <ключ, значение> = <индекс оси, имя оси>
-    std::map<unsigned int, QString> axisesNames =
+    std::map<size_t, QString> axisesNames =
     {
         {0, "X"},
         {1, "Y"},
@@ -38,7 +40,7 @@ struct
     };
 
     /// \details Получение имени оси(значения) по ключу(индексу);
-    QString getNameByKey(const unsigned int &value)
+    QString getNameByKey(const size_t &value)
     {
         if(value < axisesNames.size())
         {
@@ -46,30 +48,22 @@ struct
         }
         else
         {
-            throw std::invalid_argument("Axis does not exist");
+            throw InvalidArgumentException("Axis does not exist");
         }
     }
 
     /// \details Получение индекса(ключа) по имени оси(значению);
-    int getKeyByName(const QString &s) const
+    size_t getKeyByName(const QString &s) const
     {
-        int axisNumber = -1;
         for(auto it : axisesNames)
         {
             if(it.second == s)
             {
-                axisNumber =  it.first;
-                break;
+                return it.first;
             }
         }
-        if(axisNumber != -1)
-        {
-            return axisNumber;
-        }
-        else
-        {
-            throw std::invalid_argument("Unknown Axis");
-        }
+
+        throw InvalidArgumentException("Unknown Axis");
     }
 } SML_AXISES_NAMES;
 

@@ -79,6 +79,12 @@
       <property name="currentIndex">
        <number>1</number>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
       </property>
@@ -97,7 +103,7 @@
       <widget class="QWidget" name="editorTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/Editor.png</normaloff>:/new/prefix1/images/Editor.png</iconset>
+         <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Редактор</string>
@@ -149,7 +155,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileNew.png</normaloff>:/new/prefix1/images/FileNew.png</iconset>
+               <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -166,7 +172,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/Save.png</normaloff>:/new/prefix1/images/Save.png</iconset>
+               <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -183,7 +189,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/FileOpen.png</normaloff>:/new/prefix1/images/FileOpen.png</iconset>
+               <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -213,7 +219,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/SaveAs.png</normaloff>:/new/prefix1/images/SaveAs.png</iconset>
+               <normaloff>:/aist/images/aist/save_as.png</normaloff>:/aist/images/aist/save_as.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -230,7 +236,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
+               <normaloff>:/aist/images/aist/add_file.png</normaloff>:/aist/images/aist/add_file.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -247,7 +253,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/new/prefix1/images/View.png</normaloff>:/new/prefix1/images/View.png</iconset>
+               <normaloff>:/aist/images/aist/view.png</normaloff>:/aist/images/aist/view.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -643,6 +649,18 @@
             <string>G-Коды</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item row="1" column="0" colspan="2">
              <widget class="GCodesEditorWidget" name="gcodesEditorPlainTextEdit">
               <property name="frameShape">
@@ -715,16 +733,16 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <property name="leftMargin">
-             <number>5</number>
+             <number>0</number>
             </property>
             <property name="topMargin">
-             <number>5</number>
+             <number>0</number>
             </property>
             <property name="rightMargin">
-             <number>5</number>
+             <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>5</number>
+             <number>0</number>
             </property>
             <item>
              <widget class="SMLPointsTableWidget" name="pointsTableWidget_2">
@@ -787,11 +805,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Plus.png</normaloff>:/new/prefix1/images/Plus.png</iconset>
+                   <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -821,11 +839,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Minus.png</normaloff>:/new/prefix1/images/Minus.png</iconset>
+                   <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -855,11 +873,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Find.png</normaloff>:/new/prefix1/images/Find.png</iconset>
+                   <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -889,11 +907,11 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/new/prefix1/images/Copy.png</normaloff>:/new/prefix1/images/Copy.png</iconset>
+                   <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>16</width>
+                   <width>32</width>
                    <height>32</height>
                   </size>
                  </property>
@@ -930,7 +948,7 @@
       <widget class="QWidget" name="adjustmentTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/Dashboard.png</normaloff>:/new/prefix1/images/Dashboard.png</iconset>
+         <normaloff>:/cotton/images/cotton/dashboard.png</normaloff>:/cotton/images/cotton/dashboard.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Наладка</string>
@@ -2054,16 +2072,16 @@
               </attribute>
               <layout class="QHBoxLayout" name="horizontalLayout_5">
                <property name="leftMargin">
-                <number>5</number>
+                <number>0</number>
                </property>
                <property name="topMargin">
-                <number>5</number>
+                <number>0</number>
                </property>
                <property name="rightMargin">
-                <number>5</number>
+                <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>5</number>
+                <number>0</number>
                </property>
                <item>
                 <widget class="QListWidget" name="spindelsListWidget">
@@ -2072,6 +2090,9 @@
                    <horstretch>2</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="editTriggers">
                   <set>QAbstractItemView::NoEditTriggers</set>
@@ -2089,6 +2110,29 @@
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Муфта</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Тормоз</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Лазер</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>САС</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
               </layout>
@@ -2098,10 +2142,22 @@
                <string>Опции</string>
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout_17">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item>
                 <widget class="QListWidget" name="optionsListWidget">
                  <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="alternatingRowColors">
                   <bool>true</bool>
@@ -2118,6 +2174,18 @@
                <string>Редактор точек</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_12">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item row="1" column="1">
                 <widget class="QFrame" name="pointsActionsButtonsFrame">
                  <property name="sizePolicy">
@@ -2164,6 +2232,16 @@
                     <property name="text">
                      <string>Добавить точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/add.png</normaloff>:/cotton/images/cotton/add.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>32</width>
+                      <height>16</height>
+                     </size>
+                    </property>
                     <property name="shortcut">
                      <string>+</string>
                     </property>
@@ -2187,6 +2265,10 @@
                     </property>
                     <property name="text">
                      <string>Удалить точку</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/erase.png</normaloff>:/cotton/images/cotton/erase.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>-</string>
@@ -2212,6 +2294,10 @@
                     <property name="text">
                      <string>Редактировать точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/editor_alt_1.png</normaloff>:/cotton/images/cotton/editor_alt_1.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>=</string>
                     </property>
@@ -2235,6 +2321,10 @@
                     </property>
                     <property name="text">
                      <string>Курсор на точку</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>Shift+K</string>
@@ -2260,6 +2350,10 @@
                     <property name="text">
                      <string>Копирование точки</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/copy.png</normaloff>:/cotton/images/cotton/copy.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>Shift+Return</string>
                     </property>
@@ -2284,6 +2378,10 @@
                     <property name="text">
                      <string>Переход на точку</string>
                     </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/move_to_point.png</normaloff>:/cotton/images/cotton/move_to_point.png</iconset>
+                    </property>
                     <property name="shortcut">
                      <string>Shift+F3</string>
                     </property>
@@ -2307,6 +2405,10 @@
                     </property>
                     <property name="text">
                      <string>Количество точек</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources/images.qrc">
+                      <normaloff>:/cotton/images/cotton/points_count.png</normaloff>:/cotton/images/cotton/points_count.png</iconset>
                     </property>
                     <property name="shortcut">
                      <string>Shift+M</string>
@@ -2341,7 +2443,7 @@
                   </sizepolicy>
                  </property>
                  <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="alternatingRowColors">
                   <bool>true</bool>
@@ -2412,7 +2514,7 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <property name="spacing">
-               <number>-1</number>
+               <number>6</number>
               </property>
               <property name="leftMargin">
                <number>5</number>
@@ -3902,6 +4004,16 @@
                 <property name="text">
                  <string>Время выполнения</string>
                 </property>
+                <property name="icon">
+                 <iconset resource="resources/images.qrc">
+                  <normaloff>:/cotton/images/cotton/timer.png</normaloff>:/cotton/images/cotton/timer.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
                 <property name="shortcut">
                  <string>F11</string>
                 </property>
@@ -3947,7 +4059,7 @@
       <widget class="QWidget" name="settingsTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/new/prefix1/images/ImportSettings.png</normaloff>:/new/prefix1/images/ImportSettings.png</iconset>
+         <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Настройки</string>
@@ -4171,8 +4283,17 @@
                </item>
                <item row="1" column="1">
                 <widget class="QLCDNumber" name="sensorsBufferSizeLcdNumber">
+                 <property name="font">
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
                  </property>
                  <property name="smallDecimalPoint">
                   <bool>false</bool>
@@ -4360,66 +4481,118 @@
    </property>
   </widget>
   <action name="create_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
+   </property>
    <property name="text">
     <string>Создать</string>
    </property>
   </action>
   <action name="open_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
+   </property>
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
   <action name="save_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
   <action name="saveas_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/save_as.png</normaloff>:/aist/images/aist/save_as.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить как</string>
    </property>
   </action>
   <action name="import_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
+   </property>
    <property name="text">
     <string>Импорт</string>
    </property>
   </action>
   <action name="view_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/view.png</normaloff>:/aist/images/aist/view.png</iconset>
+   </property>
    <property name="text">
     <string>Просмотр</string>
    </property>
   </action>
   <action name="add_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/add_file.png</normaloff>:/aist/images/aist/add_file.png</iconset>
+   </property>
    <property name="text">
     <string>Добавить</string>
    </property>
   </action>
   <action name="savesettings_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/settings_alt_2.png</normaloff>:/cotton/images/cotton/settings_alt_2.png</iconset>
+   </property>
    <property name="text">
     <string>Сохранить настройки станка</string>
    </property>
   </action>
   <action name="importsettings_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
+   </property>
    <property name="text">
     <string>Импортировать настройки станка</string>
    </property>
   </action>
   <action name="exit_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/exit.png</normaloff>:/cotton/images/cotton/exit.png</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>
   </action>
   <action name="setnumberofpoints_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/synchronize.png</normaloff>:/cotton/images/cotton/synchronize.png</iconset>
+   </property>
    <property name="text">
     <string>Установить количество точек</string>
    </property>
   </action>
   <action name="removeunusedpoints_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/trash_alt.png</normaloff>:/cotton/images/cotton/trash_alt.png</iconset>
+   </property>
    <property name="text">
     <string>Удалить неиспользуемые точки</string>
    </property>
   </action>
   <action name="about_action">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/cotton/images/cotton/home.png</normaloff>:/cotton/images/cotton/home.png</iconset>
+   </property>
    <property name="text">
     <string>О программе</string>
    </property>

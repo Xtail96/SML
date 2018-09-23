@@ -4,7 +4,7 @@ Device::Device(QString name,
                QString label,
                QString index,
                bool activeState,
-               int mask,
+               byte mask,
                QObject *parent) :
     QObject(parent),
     m_name(name),

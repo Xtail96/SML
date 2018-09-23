@@ -1,8 +1,18 @@
 #include "sensorsbuffer.h"
 
-SensorsBuffer::SensorsBuffer(QObject *parent) : QObject(parent)
+SensorsBuffer::SensorsBuffer(size_t bufferSize, QObject *parent) :
+    QObject(parent)
 {
+    resetBuffer(bufferSize);
+}
 
+void SensorsBuffer::resetBuffer(size_t size)
+{
+    m_buffer.clear();
+    for(size_t i = 0; i < size; i++)
+    {
+        m_buffer.push_back(0x00);
+    }
 }
 
 void SensorsBuffer::updateBuffer(byte_array value)
@@ -13,56 +23,30 @@ void SensorsBuffer::updateBuffer(byte_array value)
     }
     else
     {
-        qDebug() << "can not update buffer" << m_buffer.size() << " != " << value.size();
+        QString message = QStringLiteral("invalid buffer size. ") +
+                QString::number(m_buffer.size()) +
+                " != " + QString::number(value.size());
+        throw SynchronizeStateException(message);
     }
-}
-
-bool SensorsBuffer::isPortStateChanged(byte currentState, byte newState)
-{
-    bool sensorsStateChanged = false;
-    if(currentState != newState)
-    {
-        sensorsStateChanged = true;
-    }
-    return sensorsStateChanged;
-}
-
-bool SensorsBuffer::getInputState(QString plateName, unsigned int portNumber, unsigned int inputNumber) const
-{
-    bool voltage = false;
-    if(plateName == "portal")
-    {
-        voltage = checkPortalSensorState(portNumber, inputNumber);
-    }
-    else
-    {
-        if(plateName == "u1")
-        {
-            voltage = checkU1SensorState(portNumber, inputNumber);
-        }
-        else
-        {
-            if(plateName == "u2")
-            {
-                // todo
-            }
-        }
-    }
-    return voltage;
-}
-
-void SensorsBuffer::resetBuffer(size_t size)
-{
-    m_buffer = byte_array(size, 0);
 }
 
 bool SensorsBuffer::standardInputStateCheck(size_t inputNumber, byte portState) const
 {
+    if (inputNumber > 7)
+    {
+        QString message =
+                QStringLiteral("Invalid input number. ") +
+                QString::number(inputNumber) +
+                QStringLiteral(" > 7");
+
+        throw SynchronizeStateException(message);
+    }
+
     bool voltage = true;
 
     byte tmp = portState;
     // сдвигаем все биты влево, чтобы исключить все биты слева, а нужный бит стоял в старшем разряде
-    tmp = tmp << (7-inputNumber);
+    tmp = static_cast<byte>(tmp << (7 - inputNumber));
 
     // сдвигаем все биты вправо, чтобы все биты слева стали нулями, а нужный бит находился в младшем разряде
     tmp = tmp >> 7;
@@ -77,109 +61,242 @@ bool SensorsBuffer::standardInputStateCheck(size_t inputNumber, byte portState) 
         {
             voltage = true;
         }
+        else
+        {
+            QString message =
+                    QStringLiteral("an error has occured during analyze sensor ") +
+                    QString::number(inputNumber) +
+                    QStringLiteral(" ") +
+                    QString(portState);
+
+            throw SynchronizeStateException(message);
+        }
     }
 
     return voltage;
 }
 
-bool SensorsBuffer::checkPortalSensorState(unsigned int portNumber, unsigned int inputNumber) const
+bool SensorsBuffer::isPortStateChanged(byte currentState, byte newState)
 {
-    bool voltage = true;
-
-    switch(portNumber) {
-    case 0:
+    bool portStateChanged = false;
+    if(currentState != newState)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[0]);
-        break;
+        portStateChanged = true;
     }
-    case 1:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
-        break;
-    }
-    case 2:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
-        break;
-    }
-    case 3:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
-        break;
-    }
-    case 4:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
-        break;
-    }
-    case 5:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
-        break;
-    }
-    case 6:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
-        break;
-    }
-    case 7:
-    {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
-        break;
-    }
-    default:
-        break;
-    }
-    return voltage;
+    return portStateChanged;
 }
 
-bool SensorsBuffer::checkU1SensorState(unsigned int portNumber, unsigned int inputNumber) const
+bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t inputNumber) const
 {
-    bool voltage = true;
+    if (portNumber > static_cast<size_t>(m_buffer.size()))
+    {
+        QString message =
+                QStringLiteral("Invalid port.") +
+                QStringLiteral(" ") +
+                QString::number(portNumber) +
+                QStringLiteral(" >= ") +
+                QString::number(m_buffer.size());
 
-    switch(portNumber) {
-    case 0:
+        throw SynchronizeStateException(message);
+    }
+
+    if(inputNumber > 7)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
-        break;
+        QString message =
+                QStringLiteral("Invalid input.") +
+                QStringLiteral(" ") +
+                QString::number(inputNumber) +
+                QStringLiteral(" > 7");
+
+        throw SynchronizeStateException(message);
     }
-    case 1:
+
+    try
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
-        break;
+        bool voltage = false;
+        if(plateName == "portal")
+        {
+            voltage = checkPortalSensorState(portNumber, inputNumber);
+        }
+        else
+        {
+            if(plateName == "u1")
+            {
+                voltage = checkU1SensorState(portNumber, inputNumber);
+            }
+            else
+            {
+                if(plateName == "u2")
+                {
+                    // todo
+                }
+                else
+                {
+                    QString message =
+                            QStringLiteral("Unknown plateName = ") +
+                            plateName;
+                    throw SynchronizeStateException(message);
+                }
+            }
+        }
+        return voltage;
     }
-    case 2:
+    catch(SynchronizeStateException e)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
-        break;
+        qDebug() << QStringLiteral("SensorsBuffer::getInputState:") << e.message();
+        throw;
     }
-    case 3:
+}
+
+bool SensorsBuffer::checkPortalSensorState(size_t portNumber, size_t inputNumber) const
+{
+    if (portNumber > 7)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
-        break;
+        QString message =
+                QStringLiteral("invalid port number. ") +
+                QString::number(portNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
     }
-    case 4:
+
+    if (inputNumber > 7)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
-        break;
+        QString message =
+                QStringLiteral("invalid input number. ") +
+                QString::number(inputNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
     }
-    case 5:
+
+    try
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
-        break;
+        bool voltage = false;
+        switch(portNumber) {
+        case 0:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[0]);
+            break;
+        }
+        case 1:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
+            break;
+        }
+        case 2:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
+            break;
+        }
+        case 3:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
+            break;
+        }
+        case 4:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
+            break;
+        }
+        case 5:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
+            break;
+        }
+        case 6:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
+            break;
+        }
+        case 7:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
+            break;
+        }
+        default:
+            break;
+        }
+        return voltage;
     }
-    case 6:
+    catch(SynchronizeStateException e)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
-        break;
+        qDebug() << "SensorsBuffer::checkPortalSensorState:" << e.message();
+        throw;
     }
-    case 7:
+}
+
+bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) const
+{
+    if (portNumber > 7)
     {
-        voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
-        break;
+        QString message =
+                QStringLiteral("invalid port number. ") +
+                QString::number(portNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
     }
-    default:
-        break;
+
+    if (inputNumber > 7)
+    {
+        QString message =
+                QStringLiteral("invalid input number. ") +
+                QString::number(inputNumber) +
+                QStringLiteral(" > 7");
+        throw SynchronizeStateException(message);
     }
-    return voltage;
+
+    try
+    {
+        bool voltage = false;
+
+        switch(portNumber) {
+        case 0:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
+            break;
+        }
+        case 1:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
+            break;
+        }
+        case 2:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
+            break;
+        }
+        case 3:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
+            break;
+        }
+        case 4:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
+            break;
+        }
+        case 5:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
+            break;
+        }
+        case 6:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
+            break;
+        }
+        case 7:
+        {
+            voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
+            break;
+        }
+        default:
+            break;
+        }
+        return voltage;
+    }
+    catch(SynchronizeStateException e)
+    {
+        qDebug() << "SensorsBuffer::checkU1SensorState:" << e.message();
+        throw;
+    }
 }
