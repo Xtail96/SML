@@ -127,6 +127,23 @@
        </widget>
       </item>
       <item>
+       <widget class="QToolButton" name="printToolButton">
+        <property name="text">
+         <string>Print</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources/images.qrc">
+          <normaloff>:/aist/images/aist/printer.png</normaloff>:/aist/images/aist/printer.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

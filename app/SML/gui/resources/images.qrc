@@ -115,5 +115,9 @@
         <file>images/aist/dashboard.png</file>
         <file>images/aist/gear.png</file>
         <file>images/aist/timer.png</file>
+        <file>images/aist/bucket.png</file>
+        <file>images/aist/exit.png</file>
+        <file>images/aist/key.png</file>
+        <file>images/aist/printer.png</file>
     </qresource>
 </RCC>

@@ -4147,7 +4147,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
+               <normaloff>:/aist/images/aist/key.png</normaloff>:/aist/images/aist/key.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -4617,7 +4617,7 @@
   <action name="importsettings_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
+     <normaloff>:/aist/images/aist/key.png</normaloff>:/aist/images/aist/key.png</iconset>
    </property>
    <property name="text">
     <string>Импортировать настройки станка</string>
@@ -4626,7 +4626,7 @@
   <action name="exit_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/exit.png</normaloff>:/cotton/images/cotton/exit.png</iconset>
+     <normaloff>:/aist/images/aist/exit.png</normaloff>:/aist/images/aist/exit.png</iconset>
    </property>
    <property name="text">
     <string>Выход</string>
@@ -4644,7 +4644,7 @@
   <action name="removeunusedpoints_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/trash_alt.png</normaloff>:/cotton/images/cotton/trash_alt.png</iconset>
+     <normaloff>:/aist/images/aist/bucket.png</normaloff>:/aist/images/aist/bucket.png</iconset>
    </property>
    <property name="text">
     <string>Удалить неиспользуемые точки</string>
