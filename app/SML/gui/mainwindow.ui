@@ -948,7 +948,7 @@
       <widget class="QWidget" name="adjustmentTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/cotton/images/cotton/dashboard.png</normaloff>:/cotton/images/cotton/dashboard.png</iconset>
+         <normaloff>:/aist/images/aist/dashboard.png</normaloff>:/aist/images/aist/dashboard.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Наладка</string>
@@ -4042,7 +4042,7 @@
                 </property>
                 <property name="icon">
                  <iconset resource="resources/images.qrc">
-                  <normaloff>:/cotton/images/cotton/timer.png</normaloff>:/cotton/images/cotton/timer.png</iconset>
+                  <normaloff>:/aist/images/aist/timer.png</normaloff>:/aist/images/aist/timer.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -4095,7 +4095,7 @@
       <widget class="QWidget" name="settingsTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/cotton/images/cotton/settings.png</normaloff>:/cotton/images/cotton/settings.png</iconset>
+         <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Настройки</string>
@@ -4145,12 +4145,32 @@
              <property name="text">
               <string>Импортировать настройки станка</string>
              </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="exportSettingsPushButton">
              <property name="text">
               <string>Экспортировать настройки станка</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -4255,6 +4275,12 @@
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
                    <normaloff>:/aist/images/aist/bug.png</normaloff>:/aist/images/aist/bug.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
                  </property>
                 </widget>
                </item>
@@ -4582,7 +4608,7 @@
   <action name="savesettings_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/settings_alt_2.png</normaloff>:/cotton/images/cotton/settings_alt_2.png</iconset>
+     <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
    </property>
    <property name="text">
     <string>Сохранить настройки станка</string>
@@ -4609,7 +4635,7 @@
   <action name="setnumberofpoints_action">
    <property name="icon">
     <iconset resource="resources/images.qrc">
-     <normaloff>:/cotton/images/cotton/synchronize.png</normaloff>:/cotton/images/cotton/synchronize.png</iconset>
+     <normaloff>:/aist/images/aist/points_count.png</normaloff>:/aist/images/aist/points_count.png</iconset>
    </property>
    <property name="text">
     <string>Установить количество точек</string>

@@ -112,5 +112,8 @@
         <file>images/aist/cursor_to_point.png</file>
         <file>images/aist/go_to_point.png</file>
         <file>images/aist/points_count.png</file>
+        <file>images/aist/dashboard.png</file>
+        <file>images/aist/gear.png</file>
+        <file>images/aist/timer.png</file>
     </qresource>
 </RCC>
