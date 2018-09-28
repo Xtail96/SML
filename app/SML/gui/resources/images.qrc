@@ -109,5 +109,8 @@
         <file>images/aist/point_add.png</file>
         <file>images/aist/point_copy.png</file>
         <file>images/aist/point_remove.png</file>
+        <file>images/aist/cursor_to_point.png</file>
+        <file>images/aist/go_to_point.png</file>
+        <file>images/aist/points_count.png</file>
     </qresource>
 </RCC>

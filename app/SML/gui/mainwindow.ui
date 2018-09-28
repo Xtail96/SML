@@ -873,7 +873,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="resources/images.qrc">
-                   <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
+                   <normaloff>:/aist/images/aist/cursor_to_point.png</normaloff>:/aist/images/aist/cursor_to_point.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -2064,7 +2064,7 @@
               </font>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="devicesTab">
               <attribute name="title">
@@ -2238,8 +2238,8 @@
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>32</width>
-                      <height>16</height>
+                      <width>24</width>
+                      <height>24</height>
                      </size>
                     </property>
                     <property name="shortcut">
@@ -2270,6 +2270,12 @@
                      <iconset resource="resources/images.qrc">
                       <normaloff>:/aist/images/aist/point_remove.png</normaloff>:/aist/images/aist/point_remove.png</iconset>
                     </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
+                    </property>
                     <property name="shortcut">
                      <string>-</string>
                     </property>
@@ -2298,6 +2304,12 @@
                      <iconset resource="resources/images.qrc">
                       <normaloff>:/aist/images/aist/pencil.png</normaloff>:/aist/images/aist/pencil.png</iconset>
                     </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
+                    </property>
                     <property name="shortcut">
                      <string>=</string>
                     </property>
@@ -2324,7 +2336,13 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/search.png</normaloff>:/cotton/images/cotton/search.png</iconset>
+                      <normaloff>:/aist/images/aist/cursor_to_point.png</normaloff>:/aist/images/aist/cursor_to_point.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
                     </property>
                     <property name="shortcut">
                      <string>Shift+K</string>
@@ -2354,6 +2372,12 @@
                      <iconset resource="resources/images.qrc">
                       <normaloff>:/aist/images/aist/point_copy.png</normaloff>:/aist/images/aist/point_copy.png</iconset>
                     </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
+                    </property>
                     <property name="shortcut">
                      <string>Shift+Return</string>
                     </property>
@@ -2380,7 +2404,13 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/move_to_point.png</normaloff>:/cotton/images/cotton/move_to_point.png</iconset>
+                      <normaloff>:/aist/images/aist/go_to_point.png</normaloff>:/aist/images/aist/go_to_point.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
                     </property>
                     <property name="shortcut">
                      <string>Shift+F3</string>
@@ -2408,7 +2438,13 @@
                     </property>
                     <property name="icon">
                      <iconset resource="resources/images.qrc">
-                      <normaloff>:/cotton/images/cotton/points_count.png</normaloff>:/cotton/images/cotton/points_count.png</iconset>
+                      <normaloff>:/aist/images/aist/points_count.png</normaloff>:/aist/images/aist/points_count.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
                     </property>
                     <property name="shortcut">
                      <string>Shift+M</string>
