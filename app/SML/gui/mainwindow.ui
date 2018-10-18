@@ -668,6 +668,13 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QCheckBox" name="syntaxHighlightingCheckBox">
+              <property name="text">
+               <string>Подсвтека синтаксиса</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>

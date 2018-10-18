@@ -200,6 +200,7 @@ private slots:
     void on_view_action_triggered();
     void on_consoleOpenPushButton_clicked();
     void on_edgesControlCheckBox_clicked();
+    void on_syntaxHighlightingCheckBox_clicked();
 };
 
 

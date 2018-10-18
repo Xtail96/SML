@@ -91,10 +91,6 @@ void MainWindow::setupWidgets()
     ui->parkCoordinatesListWidget->clear();
     ui->parkCoordinatesListWidget->addItems(axisesLabels);*/
 
-    // настройка подсветки синтаксиса
-    //m_hightlighter->setDocument(ui->gcodesEditorPlainTextEdit->document());
-    //m_hightlighter->setPattern();
-
     // настройка редактора точек
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -428,14 +424,7 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
 
 void MainWindow::onMachineTool_GCodesFileContentUpdated(QString data)
 {
-    //m_hightlighter->setDocument(nullptr);
-    //m_hightlighter->setPattern();
-
-    // fix! should works more quick
     ui->gcodesEditorPlainTextEdit->setPlainText(data);
-
-    //m_hightlighter->setDocument(ui->gcodesEditorPlainTextEdit->document());
-    //m_hightlighter->setPattern();
 }
 
 void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
@@ -1372,4 +1361,19 @@ void MainWindow::on_edgesControlCheckBox_clicked()
     MachineTool& machineTool = MachineTool::getInstance();
 
     machineTool.getRepository()->setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+}
+
+void MainWindow::on_syntaxHighlightingCheckBox_clicked()
+{
+    if(ui->syntaxHighlightingCheckBox->isChecked())
+    {
+        // настройка подсветки синтаксиса
+        m_hightlighter->setDocument(ui->gcodesEditorPlainTextEdit->document());
+        m_hightlighter->setPattern();
+    }
+    else
+    {
+        m_hightlighter->setDocument(nullptr);
+        m_hightlighter->setPattern();
+    }
 }
