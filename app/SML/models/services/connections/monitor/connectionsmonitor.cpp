@@ -8,24 +8,10 @@ ConnectionsMonitor::ConnectionsMonitor(Connection* u1, Connection* u2, QObject *
 
 void ConnectionsMonitor::onU1_ConnectionStateChanged(bool state)
 {
-    if(state)
-    {
-        emit u1Connected();
-    }
-    else
-    {
-        emit u1Disconnected();
-    }
+    emit u1StateChanged(state);
 }
 
 void ConnectionsMonitor::onU2_ConnectionStateChanged(bool state)
 {
-    if(state)
-    {
-        emit u2Connected();
-    }
-    else
-    {
-        emit u2Disconnected();
-    }
+    emit u2StateChanged(state);
 }

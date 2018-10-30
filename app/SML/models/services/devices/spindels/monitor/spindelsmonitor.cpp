@@ -8,7 +8,7 @@ SpindelsMonitor::SpindelsMonitor(QList<QSharedPointer<Spindel> > spindels, QObje
     }
 }
 
-void SpindelsMonitor::onSpindel_StateChanged(QString index, bool enable, size_t rotations)
+void SpindelsMonitor::onSpindel_StateChanged(QString uid, bool enable, size_t rotations)
 {
-    emit stateChanged(index, enable, rotations);
+    emit stateChanged(uid, enable, rotations);
 }

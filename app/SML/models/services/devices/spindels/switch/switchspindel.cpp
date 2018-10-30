@@ -1,9 +1,9 @@
 #include "switchspindel.h"
 
-SwitchSpindel::SwitchSpindel(SMLServer *server, QString index, bool enable, size_t rotations, QObject *parent) :
+SwitchSpindel::SwitchSpindel(SMLServer *server, QString uid, bool enable, size_t rotations, QObject *parent) :
     QObject(parent),
     m_server(server),
-    m_index(index),
+    m_uid(uid),
     m_rotations(rotations),
     m_enable(enable)
 {
@@ -27,7 +27,7 @@ void SwitchSpindel::switchOn()
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
-    device["Index"] = m_index;
+    device["Index"] = m_uid;
     device["Target"] = "On";
     device["Type"] = "Spindel";
     device["Rotations"] = QVariant::fromValue(m_rotations);
@@ -48,7 +48,7 @@ void SwitchSpindel::switchOff()
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
-    device["Index"] = m_index;
+    device["Index"] = m_uid;
     device["Target"] = "Off";
     device["Type"] = "Spindel";
     u1Message["SwitchDevice"] = device;

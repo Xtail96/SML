@@ -238,16 +238,10 @@ protected slots:
     void onServer_ErrorOccured(int errorCode);
 
     /**
-     * @brief Обрабатывает сигнал от монитора подключений о подключении адаптера U1
-     * (испускает сигнал о том, что адаптер U1 подключен)
+     * @brief Обрабатывает сигнал от монитора подключений об изменнии сотояния подключения адаптера U1
+     * @param connected обновленное состояние подключения. True - адаптер подключен. False - адаптер отключен
      */
-    void onConnectionMonitor_U1Connected();
-
-    /**
-     * @brief Обрабатывает сигнал от монитора подключений об отключении адаптера U1
-     * (испускает сигнал о том, что адаптер U1 отключен)
-     */
-    void onConnectionMonitor_U1Disconnected();
+    void onConnectionMonitor_U1StateChanged(bool connected);
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек

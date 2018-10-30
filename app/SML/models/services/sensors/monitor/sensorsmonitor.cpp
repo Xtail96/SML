@@ -8,7 +8,7 @@ SensorsMonitor::SensorsMonitor(QList<QSharedPointer<Sensor> > &sensors, QObject 
     }
 }
 
-void SensorsMonitor::onSensor_StateChanged(QString name, bool enable)
+void SensorsMonitor::onSensor_StateChanged(QString uid, bool enable)
 {
-    emit stateChanged(name, enable);
+    emit stateChanged(uid, enable);
 }

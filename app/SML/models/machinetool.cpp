@@ -45,8 +45,7 @@ void MachineTool::setupConnections()
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
-    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
-    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
+    QObject::connect(m_connectionMonitor.data(), SIGNAL(u1StateChanged(bool)), this, SLOT(onConnectionMonitor_U1StateChanged(bool)));
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -64,8 +63,7 @@ void MachineTool::resetConnections()
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
-    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Connected()), this, SLOT(onConnectionMonitor_U1Connected()));
-    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1Disconnected()), this, SLOT(onConnectionMonitor_U1Disconnected()));
+    QObject::disconnect(m_connectionMonitor.data(), SIGNAL(u1StateChanged(bool)), this, SLOT(onConnectionMonitor_U1StateChanged(bool)));
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -162,14 +160,16 @@ void MachineTool::onServer_ErrorOccured(int errorCode)
     setLastError(errorCode);
 }
 
-void MachineTool::onConnectionMonitor_U1Connected()
+void MachineTool::onConnectionMonitor_U1StateChanged(bool connected)
 {
-    emit u1Connected();
-}
-
-void MachineTool::onConnectionMonitor_U1Disconnected()
-{
-    emit u1Disconnected();
+    if(connected)
+    {
+        emit u1Connected();
+    }
+    else
+    {
+        emit u1Disconnected();
+    }
 }
 
 void MachineTool::onPointsMonitor_PointsUpdated()
