@@ -169,6 +169,16 @@ void Repository::setU1ConnectState(bool connected)
     m_u1Adapter->setConnected(connected);
 }
 
+void Repository::setU1WorkflowState(int state)
+{
+    m_u1Adapter->setWorkflowState(state);
+}
+
+void Repository::setU1Error(int errorCode)
+{
+    m_u1Adapter->setErrorCode(errorCode);
+}
+
 void Repository::setU1Sensors(QList<QVariant> sensors)
 {
     try

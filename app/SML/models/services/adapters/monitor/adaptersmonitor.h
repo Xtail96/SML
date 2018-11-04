@@ -17,7 +17,7 @@ public:
 
     /**
      * @brief Конструктор класса
-     * Связывает каждое подключение с функциями обработчкиками (onU1Adapter_ConnectionStateChanged и onU2Adapter_ConnectionStateChanged).
+     * Связывает каждое подключение с функциями обработчкиками.
      *
      * @param u1 указатель на подключение адаптера контроллера u1, состояние которого требуется отслеживать
      * @param u2 указатель на подключение адаптера контроллера u2, состояние которого требуется отслеживать
@@ -40,6 +40,18 @@ signals:
      */
     void u2AdapterConnectionStateChanged(bool state);
 
+    /**
+     * @brief Сигнал об изменнеии состояния заданий на адаптере u1
+     * @param state обновленный код состояния выполнения заданий
+     */
+    void u1AdapterWorkflowStateChanged(int state);
+
+    /**
+     * @brief Сигнал о возникновении ошибки работы адаптера u1
+     * @param errorCode код возникшей ошибки
+     */
+    void u1AdapterErrorIsOccured(int errorCode);
+
 protected slots:
 
     /**
@@ -53,6 +65,18 @@ protected slots:
      * @param state обновленное состояние подключения
      */
     void onU2Adapter_ConnectionStateChanged(bool state);
+
+    /**
+     * @brief Испускает сигнал об изменении состояния выполенния заданий адаптера u1
+     * @param state обновленный код состояния выполнения заданий
+     */
+    void onU1Adapter_WorkflowStateChanged(int state);
+
+    /**
+     * @brief Испускает сигнал о возникновении ошибки работы адаптера u1
+     * @param errorCode код ошибки
+     */
+    void onU1Adapter_ErrorIsOccured(int errorCode);
 };
 
 #endif // CONNECTIONSMONITOR_H
