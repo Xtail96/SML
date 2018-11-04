@@ -46,12 +46,6 @@ signals:
      */
     void u1AdapterWorkflowStateChanged(int state);
 
-    /**
-     * @brief Сигнал о возникновении ошибки работы адаптера u1
-     * @param errorCode код возникшей ошибки
-     */
-    void u1AdapterErrorIsOccured(int errorCode);
-
 protected slots:
 
     /**
@@ -71,12 +65,6 @@ protected slots:
      * @param state обновленный код состояния выполнения заданий
      */
     void onU1Adapter_WorkflowStateChanged(int state);
-
-    /**
-     * @brief Испускает сигнал о возникновении ошибки работы адаптера u1
-     * @param errorCode код ошибки
-     */
-    void onU1Adapter_ErrorIsOccured(int errorCode);
 };
 
 #endif // CONNECTIONSMONITOR_H

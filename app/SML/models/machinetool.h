@@ -226,7 +226,7 @@ protected slots:
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
      */
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int workflowState, int lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка
@@ -248,12 +248,6 @@ protected slots:
      * @param state обновленное состояние выпоелнения заданий адаптера U1
      */
     void onAdaptersMonitor_U1AdapterWorkflowStateChanged(int state);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора адаптеров о возникновении ошибки адаптера U1
-     * @param errorCode код ошибки
-     */
-    void onAdaptersMonitor_U1AdapterErrorIsOccured(int errorCode);
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек

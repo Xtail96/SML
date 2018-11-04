@@ -62,12 +62,6 @@ public:
     void setU1WorkflowState(int state);
 
     /**
-     * @brief Устанавливает новое состояние ошибки адаптера U1
-     * @param errorCode код ошибки
-     */
-    void setU1Error(int errorCode);
-
-    /**
      * @brief Возвращает порт, на котором работает сервер
      * @return строковое представления номера порта
      */

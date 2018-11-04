@@ -41,13 +41,12 @@ void MachineTool::setupConnections()
 {
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, int, int)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, int, int)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(u1AdapterConnectionStateChanged(bool)), this, SLOT(onAdaptersMonitor_U1AdapterConnectionStateChanged(bool)));
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(u1AdapterWorkflowStateChanged(int)), this, SLOT(onAdaptersMonitor_U1AdapterWorkflowStateChanged(int)));
-    QObject::connect(m_adaptersMonitor.data(), SIGNAL(u1AdapterErrorIsOccured(int)), this, SLOT(onAdaptersMonitor_U1AdapterErrorIsOccured(int)));
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -61,13 +60,12 @@ void MachineTool::resetConnections()
 {
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, int, int)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, int, int)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(u1AdapterConnectionStateChanged(bool)), this, SLOT(onAdaptersMonitor_U1AdapterConnectionStateChanged(bool)));
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(u1AdapterWorkflowStateChanged(int)), this, SLOT(onAdaptersMonitor_U1AdapterWorkflowStateChanged(int)));
-    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(u1AdapterErrorIsOccured(int)), this, SLOT(onAdaptersMonitor_U1AdapterErrorIsOccured(int)));
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -145,14 +143,17 @@ void MachineTool::onServer_U1Disconnected()
     m_repository->setU1ConnectState(false);
 }
 
-void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices)
+void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int workflowState, int lastError)
 {
     try
     {
         m_repository->setU1Sensors(sensors);
         m_repository->setU1Devices(devices);
-        m_repository->setU1WorkflowState(0);
-        m_repository->setU1Error(0);
+        m_repository->setU1WorkflowState(workflowState);
+        if(lastError != 0)
+        {
+            setLastError(lastError);
+        }
     }
     catch(SynchronizeStateException e)
     {
@@ -181,12 +182,6 @@ void MachineTool::onAdaptersMonitor_U1AdapterConnectionStateChanged(bool connect
 void MachineTool::onAdaptersMonitor_U1AdapterWorkflowStateChanged(int state)
 {
     qDebug() << "Workflow state of u1 adapter is" << state << "now";
-}
-
-void MachineTool::onAdaptersMonitor_U1AdapterErrorIsOccured(int errorCode)
-{
-    qDebug() << "ErrorState ot u1 adapter is" << errorCode << "now";
-    setLastError(errorCode);
 }
 
 void MachineTool::onPointsMonitor_PointsUpdated()
