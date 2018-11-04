@@ -86,8 +86,7 @@ SOURCES += main.cpp\
     models/types/point/point.cpp \
     models/types/sensor/sensorsbuffer.cpp \
     models/types/device/devicesbuffer.cpp \
-    models/types/connection/connection.cpp \
-    models/services/connections/monitor/connectionsmonitor.cpp \
+    models/services/adapters/monitor/adaptersmonitor.cpp \
     models/types/gcodes/filesreader/filesreader.cpp \
     models/types/point/pointsmanager.cpp \
     models/services/points/monitor/pointsmonitor.cpp \
@@ -99,7 +98,8 @@ SOURCES += main.cpp\
     models/types/exceptions/synchronizestateexception.cpp \
     models/types/exceptions/invalidconfigurationexception.cpp \
     models/types/exceptions/invalidargumentexception.cpp \
-    models/types/exceptions/outofrangeexception.cpp
+    models/types/exceptions/outofrangeexception.cpp \
+    models/types/adapter/adapter.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -152,8 +152,7 @@ HEADERS  += gui/mainwindow.h \
     models/types/sensor/sensorsbuffer.h \
     models/types/device/devicesbuffer.h \
     models/types/server/u1state.h \
-    models/types/connection/connection.h \
-    models/services/connections/monitor/connectionsmonitor.h \
+    models/services/adapters/monitor/adaptersmonitor.h \
     models/types/gcodes/filesreader/filesreader.h \
     models/types/point/pointsmanager.h \
     models/services/points/monitor/pointsmonitor.h \
@@ -167,7 +166,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/exceptions/invalidconfigurationexception.h \
     models/types/exceptions/invalidargumentexception.h \
     models/types/exceptions/outofrangeexception.h \
-    models/types/exceptions/exceptions.h
+    models/types/exceptions/exceptions.h \
+    models/types/adapter/adapter.h
 
 FORMS    += gui/mainwindow.ui \
     gui/addpointdialog.ui \

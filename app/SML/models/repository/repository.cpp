@@ -5,8 +5,8 @@ Repository::Repository(QObject *parent) :
     m_settingsManager(new SettingsManager()),
     m_pointsManager(new PointsManager(this)),
     m_gcodesFilesManager(new GCodesFilesManager(this)),
-    m_u1Connection(new Connection(this)),
-    m_u2Connection(new Connection(this)),
+    m_u1Adapter(new Adapter(this)),
+    m_u2Adapter(new Adapter(this)),
     m_sensorsBuffer(new SensorsBuffer(16, this))
 {
     loadSettigs();
@@ -166,7 +166,7 @@ void Repository::loadAxisesSettings()
 
 void Repository::setU1ConnectState(bool connected)
 {
-    m_u1Connection->setConnected(connected);
+    m_u1Adapter->setConnected(connected);
 }
 
 void Repository::setU1Sensors(QList<QVariant> sensors)

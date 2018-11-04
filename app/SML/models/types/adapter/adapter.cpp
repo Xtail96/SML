@@ -1,11 +1,11 @@
-#include "connection.h"
+#include "adapter.h"
 
-Connection::Connection(QObject *parent) : QObject(parent)
+Adapter::Adapter(QObject *parent) : QObject(parent)
 {
     m_connected = false;
 }
 
-void Connection::setConnected(bool connected)
+void Adapter::setConnected(bool connected)
 {
     if(m_connected != connected)
     {

@@ -6,7 +6,7 @@
 #include "models/repository/repository.h"
 #include "models/types/server/smlserver.h"
 
-#include "models/services/connections/monitor/connectionsmonitor.h"
+#include "models/services/adapters/monitor/adaptersmonitor.h"
 #include "models/services/points/monitor/pointsmonitor.h"
 #include "models/services/sensors/monitor/sensorsmonitor.h"
 #include "models/services/devices/spindels/monitor/spindelsmonitor.h"
@@ -107,7 +107,7 @@ protected:
     QScopedPointer<SMLServer> m_adapterServer;
 
     /// Монитор текущих подключений к серверу адаптеров
-    QScopedPointer<ConnectionsMonitor> m_connectionMonitor;
+    QScopedPointer<AdaptersMonitor> m_adaptersMonitor;
 
     /// Монитор текущего состояния точек
     QScopedPointer<PointsMonitor> m_pointsMonitor;
@@ -241,7 +241,7 @@ protected slots:
      * @brief Обрабатывает сигнал от монитора подключений об изменнии сотояния подключения адаптера U1
      * @param connected обновленное состояние подключения. True - адаптер подключен. False - адаптер отключен
      */
-    void onConnectionMonitor_U1StateChanged(bool connected);
+    void onAdaptersMonitor_U1AdapterConnectionStateChanged(bool connected);
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек

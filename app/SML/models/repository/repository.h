@@ -13,7 +13,7 @@
 #include "models/types/sensor/sensorsbuffer.h"
 #include "models/types/settingsmanager/settingsmanager.h"
 #include "models/types/point/pointsmanager.h"
-#include "models/types/connection/connection.h"
+#include "models/types/adapter/adapter.h"
 #include "models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h"
 
 class MachineTool;
@@ -47,7 +47,7 @@ public:
      */
     void importSettings();
 
-    // Connections
+    // Adapters
 
     /**
      * @brief Устанавливает состояния подключения адаптера U1
@@ -328,10 +328,10 @@ protected:
 
     // Подключения
     /// Адаптер контроллера U1
-    QScopedPointer<Connection> m_u1Connection;
+    QScopedPointer<Adapter> m_u1Adapter;
 
     /// Адаптер контроллера U2
-    QScopedPointer<Connection> m_u2Connection;
+    QScopedPointer<Adapter> m_u2Adapter;
 
     // Датчики
     /// Список доступных датчиков

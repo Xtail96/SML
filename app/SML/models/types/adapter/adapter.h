@@ -3,11 +3,11 @@
 
 #include <QObject>
 
-class Connection : public QObject
+class Adapter : public QObject
 {
     Q_OBJECT
 public:
-    explicit Connection(QObject *parent = nullptr);
+    explicit Adapter(QObject *parent = nullptr);
 
     bool connected() const;
     void setConnected(bool connected);
