@@ -8,6 +8,7 @@ struct U1State
     QList<QVariant> sensors;
     QList<QVariant> devices;
     int errorCode;
+    int workflowState;
 };
 
 #endif // U1STATE_H

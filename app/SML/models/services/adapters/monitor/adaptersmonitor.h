@@ -2,7 +2,7 @@
 #define CONNECTIONSMONITOR_H
 
 #include <QObject>
-#include "models/types/connection/connection.h"
+#include "models/types/adapter/adapter.h"
 
 
 /**
@@ -10,19 +10,19 @@
  *
  * Предназначен для отслеживания состояния подключений в режиме реального времени.
  */
-class ConnectionsMonitor : public QObject
+class AdaptersMonitor : public QObject
 {
     Q_OBJECT
 public:
 
     /**
      * @brief Конструктор класса
-     * Связывает каждое подключение с функциями обработчкиками (onU1_ConnectionStateChanged и onU2_ConnectionStateChanged).
+     * Связывает каждое подключение с функциями обработчкиками.
      *
      * @param u1 указатель на подключение адаптера контроллера u1, состояние которого требуется отслеживать
      * @param u2 указатель на подключение адаптера контроллера u2, состояние которого требуется отслеживать
      */
-    explicit ConnectionsMonitor(Connection* u1, Connection* u2, QObject *parent = nullptr);
+    explicit AdaptersMonitor(Adapter* u1, Adapter* u2, QObject *parent = nullptr);
 
 protected:
 
@@ -32,13 +32,19 @@ signals:
      * @brief Сигнал об изменнии состояния подключения адптера u1
      * @param state обновленное состояние подключения
      */
-    void u1StateChanged(bool state);
+    void u1AdapterConnectionStateChanged(bool state);
 
     /**
      * @brief Сигнал об изменнии состояния подключения адптера u2
      * @param state обновленное состояние подключения
      */
-    void u2StateChanged(bool state);
+    void u2AdapterConnectionStateChanged(bool state);
+
+    /**
+     * @brief Сигнал об изменнеии состояния заданий на адаптере u1
+     * @param state обновленный код состояния выполнения заданий
+     */
+    void u1AdapterWorkflowStateChanged(int state);
 
 protected slots:
 
@@ -46,13 +52,19 @@ protected slots:
      * @brief Испускает сигнал об изменении состояния подключения адаптера u1
      * @param state обновленное состояние подключения
      */
-    void onU1_ConnectionStateChanged(bool state);
+    void onU1Adapter_ConnectionStateChanged(bool state);
 
     /**
      * @brief Испускает сигнал об изменении состояния подключения адаптера u2
      * @param state обновленное состояние подключения
      */
-    void onU2_ConnectionStateChanged(bool state);
+    void onU2Adapter_ConnectionStateChanged(bool state);
+
+    /**
+     * @brief Испускает сигнал об изменении состояния выполенния заданий адаптера u1
+     * @param state обновленный код состояния выполнения заданий
+     */
+    void onU1Adapter_WorkflowStateChanged(int state);
 };
 
 #endif // CONNECTIONSMONITOR_H
