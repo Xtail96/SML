@@ -10,6 +10,11 @@ SwitchSpindel::SwitchSpindel(SMLServer *server, QString uid, bool enable, size_t
 
 }
 
+SwitchSpindel::~SwitchSpindel()
+{
+
+}
+
 void SwitchSpindel::execute()
 {
     if(m_enable)

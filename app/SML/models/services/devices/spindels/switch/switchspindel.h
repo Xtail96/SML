@@ -25,6 +25,7 @@ public:
      * @param parent родительский объект в дереве объектов
      */
     explicit SwitchSpindel(SMLServer* server, QString uid, bool enable, size_t rotations = 0, QObject *parent = nullptr);
+    ~SwitchSpindel();
 
     /**
      * @brief Запускает процесс включения/отключения шпинделя

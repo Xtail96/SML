@@ -125,6 +125,10 @@ protected:
     QList< QSharedPointer<Point> > m_points;
 
 signals:
+
+    /**
+     * @brief Состояние точек обновилось
+     */
     void pointsUpdated();
 };
 
