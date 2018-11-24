@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QProgressDialog>
+#include <QCloseEvent>
 
 #include "libs/candlevisualizer/parser/gcodeviewparse.h"
 #include "libs/candlevisualizer/drawers/origindrawer.h"
@@ -59,6 +60,8 @@ private:
     SelectionDrawer m_selectionDrawer;
 
     GCodeTableModel m_programModel;
+
+    void closeEvent(QCloseEvent *e);
 };
 
 #endif // CANDLEVISUALIZERDIALOG_H

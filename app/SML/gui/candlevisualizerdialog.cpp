@@ -218,3 +218,9 @@ void CandleVisualizerDialog::on_isometricToolButton_clicked()
     ui->glwVisualizer->setIsometricView();
     ui->glwVisualizer->update();
 }
+
+void CandleVisualizerDialog::closeEvent(QCloseEvent* e)
+{
+    e->ignore();
+    this->accept();
+}
