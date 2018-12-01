@@ -8,13 +8,13 @@
 #include "models/types/structs.h"
 #include "models/types/axis/axis.h"
 #include "models/types/device/spindel.h"
-#include "models/types/device/supportdevice.h"
+#include "models/types/device/support_device.h"
 #include "models/types/sensor/sensor.h"
-#include "models/types/sensor/sensorsbuffer.h"
-#include "models/types/settingsmanager/settingsmanager.h"
-#include "models/types/point/pointsmanager.h"
+#include "models/types/sensor/sensors_buffer.h"
+#include "models/settings_manager/settings_manager.h"
+#include "models/types/point/points_manager.h"
 #include "models/types/adapter/adapter.h"
-#include "models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h"
+#include "models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
 class MachineTool;
 
@@ -320,7 +320,7 @@ protected:
     QScopedPointer<PointsManager> m_pointsManager;
 
     /// Менеджер файлов G-Codes
-    QScopedPointer<GCodesFilesManager> m_gcodesFilesManager;
+    QScopedPointer<GCodesFileManager> m_gcodesFilesManager;
 
     // Настройки сервера
     /// Номер порта сервера

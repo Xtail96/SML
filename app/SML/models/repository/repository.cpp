@@ -4,7 +4,7 @@ Repository::Repository(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
     m_pointsManager(new PointsManager(this)),
-    m_gcodesFilesManager(new GCodesFilesManager(this)),
+    m_gcodesFilesManager(new GCodesFileManager(this)),
     m_u1Adapter(new Adapter(this)),
     m_u2Adapter(new Adapter(this)),
     m_sensorsBuffer(new SensorsBuffer(16, this))

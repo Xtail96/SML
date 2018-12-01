@@ -41,152 +41,152 @@ contains(QT_CONFIG, opengles.) {
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
     gui/widgets/console.cpp \
-    gui/widgets/gcodeseditorwidget.cpp \
-    gui/widgets/smlcommandslistwidget.cpp \
-    gui/widgets/smleditortreewidget.cpp \
-    gui/widgets/smlpointstablewidget.cpp \
-    gui/gcodessyntaxhighlighter.cpp \
-    gui/addpointdialog.cpp \
-    gui/toselectionpointdialog.cpp \
-    gui/smlconsoledialog.cpp \
-    gui/candlevisualizerdialog.cpp \
-    gui/widgets/spindelcontrolwidget.cpp \
-    gui/widgets/sensorsdisplaywidget.cpp \
-    libs/jsonparser/json.cpp \
+    gui/candle_visualizer_dialog.cpp \
+    libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    libs/candlevisualizer/drawers/gcodedrawer.cpp \
-    libs/candlevisualizer/drawers/heightmapborderdrawer.cpp \
-    libs/candlevisualizer/drawers/heightmapgriddrawer.cpp \
-    libs/candlevisualizer/drawers/heightmapinterpolationdrawer.cpp \
-    libs/candlevisualizer/drawers/origindrawer.cpp \
-    libs/candlevisualizer/drawers/selectiondrawer.cpp \
-    libs/candlevisualizer/parser/arcproperties.cpp \
-    libs/candlevisualizer/parser/gcodeparser.cpp \
-    libs/candlevisualizer/parser/gcodepreprocessorutils.cpp \
-    libs/candlevisualizer/parser/gcodeviewparse.cpp \
-    libs/candlevisualizer/parser/linesegment.cpp \
-    libs/candlevisualizer/parser/pointsegment.cpp \
-    libs/candlevisualizer/tables/gcodetablemodel.cpp \
-    libs/candlevisualizer/tables/heightmaptablemodel.cpp \
-    libs/simpleqtlogger/simpleQtLogger.cpp \
-    libs/candlevisualizer/glwidget.cpp \
-    libs/candlevisualizer/drawers/shaderdrawable.cpp \
-    libs/candlevisualizer/drawers/tooldrawer.cpp \
+    libs/candle_visualizer/drawers/gcodedrawer.cpp \
+    libs/candle_visualizer/drawers/heightmapborderdrawer.cpp \
+    libs/candle_visualizer/drawers/heightmapgriddrawer.cpp \
+    libs/candle_visualizer/drawers/heightmapinterpolationdrawer.cpp \
+    libs/candle_visualizer/drawers/origindrawer.cpp \
+    libs/candle_visualizer/drawers/selectiondrawer.cpp \
+    libs/candle_visualizer/parser/arcproperties.cpp \
+    libs/candle_visualizer/parser/gcodeparser.cpp \
+    libs/candle_visualizer/parser/gcodepreprocessorutils.cpp \
+    libs/candle_visualizer/parser/gcodeviewparse.cpp \
+    libs/candle_visualizer/parser/linesegment.cpp \
+    libs/candle_visualizer/parser/pointsegment.cpp \
+    libs/candle_visualizer/tables/gcodetablemodel.cpp \
+    libs/candle_visualizer/tables/heightmaptablemodel.cpp \
+    libs/simple_qt_logger/simpleQtLogger.cpp \
+    libs/candle_visualizer/glwidget.cpp \
+    libs/candle_visualizer/drawers/shaderdrawable.cpp \
+    libs/candle_visualizer/drawers/tooldrawer.cpp \
     models/repository/repository.cpp \
-    models/machinetool.cpp \
-    models/types/settingsmanager/settingsmanager.cpp \
-    models/types/server/smlserver.cpp \
     models/types/sensor/sensor.cpp \
-    models/types/device/supportdevice.cpp \
     models/types/device/spindel.cpp \
     models/types/device/device.cpp \
     models/types/axis/axis.cpp \
-    models/types/point/pointsbuilder.cpp \
     models/types/point/point.cpp \
-    models/types/sensor/sensorsbuffer.cpp \
-    models/types/device/devicesbuffer.cpp \
-    models/services/adapters/monitor/adaptersmonitor.cpp \
-    models/types/gcodes/filesreader/filesreader.cpp \
-    models/types/point/pointsmanager.cpp \
-    models/services/points/monitor/pointsmonitor.cpp \
-    models/services/sensors/monitor/sensorsmonitor.cpp \
-    models/services/devices/spindels/monitor/spindelsmonitor.cpp \
-    models/services/devices/spindels/switch/switchspindel.cpp \
-    models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.cpp \
-    models/services/gcodes/monitor/gcodesmonitor.cpp \
-    models/types/exceptions/synchronizestateexception.cpp \
-    models/types/exceptions/invalidconfigurationexception.cpp \
-    models/types/exceptions/invalidargumentexception.cpp \
-    models/types/exceptions/outofrangeexception.cpp \
-    models/types/adapter/adapter.cpp
+    models/types/gcodes/file_reader/file_reader.cpp \
+    models/types/gcodes/gcodes_file_manager/gcodes_file_manager.cpp \
+    models/types/adapter/adapter.cpp \
+    gui/widgets/gcodes_editor_widget.cpp \
+    gui/widgets/sensors_display_widget.cpp \
+    gui/widgets/sml_commands_list_widget.cpp \
+    gui/widgets/sml_editor_tree_widget.cpp \
+    gui/widgets/points_table_widget.cpp \
+    gui/widgets/spindel_control_widget.cpp \
+    gui/add_point_dialog.cpp \
+    gui/gcodes_syntax_highlighter.cpp \
+    gui/sml_console_dialog.cpp \
+    gui/to_selection_point_dialog.cpp \
+    models/server/sml_server.cpp \
+    models/services/adapters/monitor/adapters_monitor.cpp \
+    models/services/devices/spindels/monitor/spindels_monitor.cpp \
+    models/services/devices/spindels/switch/switch_spindel.cpp \
+    models/services/gcodes/monitor/gcodes_monitor.cpp \
+    models/services/points/monitor/points_monitor.cpp \
+    models/services/sensors/monitor/sensors_monitor.cpp \
+    models/settings_manager/settings_manager.cpp \
+    models/types/device/devices_buffer.cpp \
+    models/types/device/support_device.cpp \
+    models/types/exceptions/invalid_argument_exception.cpp \
+    models/types/exceptions/invalid_configuration_exception.cpp \
+    models/types/exceptions/out_of_range_exception.cpp \
+    models/types/exceptions/synchronize_state_exception.cpp \
+    models/types/point/points_builder.cpp \
+    models/types/point/points_manager.cpp \
+    models/types/sensor/sensors_buffer.cpp \
+    models/machine_tool.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
-    gui/widgets/gcodeseditorwidget.h \
-    gui/widgets/smlcommandslistwidget.h \
-    gui/widgets/smleditortreewidget.h \
-    gui/widgets/smlpointstablewidget.h \
-    gui/gcodessyntaxhighlighter.h \
-    gui/addpointdialog.h \
-    gui/toselectionpointdialog.h \
-    gui/smlconsoledialog.h \
-    gui/candlevisualizerdialog.h \
-    gui/widgets/spindelcontrolwidget.h \
-    gui/widgets/sensorsdisplaywidget.h \
-    libs/jsonparser/json.h \
+    libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    libs/candlevisualizer/glwidget.h \
-    libs/candlevisualizer/drawers/shaderdrawable.h \
-    libs/candlevisualizer/utils/interpolation.h \
-    libs/candlevisualizer/utils/util.h \
-    libs/candlevisualizer/drawers/tooldrawer.h \
-    libs/candlevisualizer/drawers/gcodedrawer.h \
-    libs/candlevisualizer/drawers/heightmapborderdrawer.h \
-    libs/candlevisualizer/drawers/heightmapgriddrawer.h \
-    libs/candlevisualizer/drawers/heightmapinterpolationdrawer.h \
-    libs/candlevisualizer/drawers/origindrawer.h \
-    libs/candlevisualizer/drawers/selectiondrawer.h \
-    libs/candlevisualizer/parser/arcproperties.h \
-    libs/candlevisualizer/parser/gcodeparser.h \
-    libs/candlevisualizer/parser/gcodepreprocessorutils.h \
-    libs/candlevisualizer/parser/gcodeviewparse.h \
-    libs/candlevisualizer/parser/linesegment.h \
-    libs/candlevisualizer/parser/pointsegment.h \
-    libs/candlevisualizer/tables/gcodetablemodel.h \
-    libs/candlevisualizer/tables/heightmaptablemodel.h \
-    libs/simpleqtlogger/simpleQtLogger.h \
+    libs/candle_visualizer/glwidget.h \
+    libs/candle_visualizer/drawers/shaderdrawable.h \
+    libs/candle_visualizer/utils/interpolation.h \
+    libs/candle_visualizer/utils/util.h \
+    libs/candle_visualizer/drawers/tooldrawer.h \
+    libs/candle_visualizer/drawers/gcodedrawer.h \
+    libs/candle_visualizer/drawers/heightmapborderdrawer.h \
+    libs/candle_visualizer/drawers/heightmapgriddrawer.h \
+    libs/candle_visualizer/drawers/heightmapinterpolationdrawer.h \
+    libs/candle_visualizer/drawers/origindrawer.h \
+    libs/candle_visualizer/drawers/selectiondrawer.h \
+    libs/candle_visualizer/parser/arcproperties.h \
+    libs/candle_visualizer/parser/gcodeparser.h \
+    libs/candle_visualizer/parser/gcodepreprocessorutils.h \
+    libs/candle_visualizer/parser/gcodeviewparse.h \
+    libs/candle_visualizer/parser/linesegment.h \
+    libs/candle_visualizer/parser/pointsegment.h \
+    libs/candle_visualizer/tables/gcodetablemodel.h \
+    libs/candle_visualizer/tables/heightmaptablemodel.h \
+    libs/simple_qt_logger/simpleQtLogger.h \
     models/repository/repository.h \
-    models/machinetool.h \
     models/types/structs.h \
-    models/types/settingsmanager/settingsmanager.h \
-    models/types/server/smlserver.h \
     models/types/sensor/sensor.h \
-    models/types/device/supportdevice.h \
     models/types/device/spindel.h \
     models/types/device/device.h \
     models/types/axis/axis.h \
-    models/types/point/pointsbuilder.h \
     models/types/point/point.h \
-    models/types/sensor/sensorsbuffer.h \
-    models/types/device/devicesbuffer.h \
-    models/types/server/u1state.h \
-    models/services/adapters/monitor/adaptersmonitor.h \
-    models/types/gcodes/filesreader/filesreader.h \
-    models/types/point/pointsmanager.h \
-    models/services/points/monitor/pointsmonitor.h \
-    models/services/sensors/monitor/sensorsmonitor.h \
-    models/services/devices/spindels/monitor/spindelsmonitor.h \
-    models/services/devices/spindels/switch/switchspindel.h \
-    models/types/gcodes/gcodesfilesmanager/gcodesfilesmanager.h \
-    models/services/gcodes/monitor/gcodesmonitor.h \
     models/types/base/interactor.h \
-    models/types/exceptions/synchronizestateexception.h \
-    models/types/exceptions/invalidconfigurationexception.h \
-    models/types/exceptions/invalidargumentexception.h \
-    models/types/exceptions/outofrangeexception.h \
     models/types/exceptions/exceptions.h \
-    models/types/adapter/adapter.h
+    models/types/adapter/adapter.h \
+    gui/widgets/gcodes_editor_widget.h \
+    gui/widgets/sensors_display_widget.h \
+    gui/widgets/sml_editor_tree_widget.h \
+    gui/widgets/points_table_widget.h \
+    gui/widgets/spindel_control_widget.h \
+    gui/widgets/sml_commands_list_widget.h \
+    gui/add_point_dialog.h \
+    gui/candle_visualizer_dialog.h \
+    gui/gcodes_syntax_highlighter.h \
+    gui/sml_console_dialog.h \
+    gui/to_selection_point_dialog.h \
+    models/services/adapters/monitor/adapters_monitor.h \
+    models/services/devices/spindels/monitor/spindels_monitor.h \
+    models/services/devices/spindels/switch/switch_spindel.h \
+    models/services/gcodes/monitor/gcodes_monitor.h \
+    models/services/points/monitor/points_monitor.h \
+    models/services/sensors/monitor/sensors_monitor.h \
+    models/machine_tool.h \
+    models/settings_manager/settings_manager.h \
+    models/server/sml_server.h \
+    models/types/device/devices_buffer.h \
+    models/types/device/support_device.h \
+    models/types/exceptions/invalid_argument_exception.h \
+    models/types/exceptions/invalid_configuration_exception.h \
+    models/types/exceptions/out_of_range_exception.h \
+    models/types/exceptions/synchronize_state_exception.h \
+    models/types/sensor/sensors_buffer.h \
+    models/types/point/points_manager.h \
+    models/types/point/points_builder.h \
+    models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h \
+    models/types/gcodes/file_reader/file_reader.h \
+    models/server/u1_state.h
 
 FORMS    += gui/mainwindow.ui \
-    gui/addpointdialog.ui \
-    gui/toselectionpointdialog.ui \
-    gui/smlconsoledialog.ui \
-    gui/candlevisualizerdialog.ui \
-    options/toollengthsensorwindow.ui \
-    options/lubricationsystemwindow.ui \
-    options/kabriolwindow.ui
+    gui/candle_visualizer_dialog.ui \
+    gui/add_point_dialog.ui \
+    gui/sml_console_dialog.ui \
+    gui/to_selection_point_dialog.ui \
+    options/kabriol_window.ui \
+    options/lubrication_system_window.ui \
+    options/tool_length_sensor_window.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/sml_logo.icns
 
 RESOURCES += \
     gui/resources/images.qrc \
-    libs/candlevisualizer/shaders.qrc
+    libs/candle_visualizer/shaders.qrc
 
 DISTFILES += \
     machinetool/components/movementController/about.txt \
     sml_logo.icns \
-    libs/candlevisualizer/shaders/fshader.glsl \
-    libs/candlevisualizer/shaders/vshader.glsl
+    libs/candle_visualizer/shaders/fshader.glsl \
+    libs/candle_visualizer/shaders/vshader.glsl

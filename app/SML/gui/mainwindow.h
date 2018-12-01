@@ -19,8 +19,8 @@
 #endif
 
 /// Подключение диалогов редактора точек
-#include "gui/addpointdialog.h"
-#include "gui/toselectionpointdialog.h"
+#include "gui/add_point_dialog.h"
+#include "gui/to_selection_point_dialog.h"
 
 /// Подключение диалогов команд
 /*#include "commands/linedialog.h"
@@ -47,18 +47,18 @@
 #include "commands/smlvariabledialog.h"*/
 
 /// Подключение подсветки синтаксиса G-кодов
-#include "gcodessyntaxhighlighter.h"
+#include "gcodes_syntax_highlighter.h"
 
 /// Подключение диалогов опций
 /*#include "gui/options/kabriolwindow.h"
 #include "gui/options/toollengthsensorwindow.h"
 #include "gui/options/lubricationsystemwindow.h"*/
 
-#include "models/machinetool.h"
+#include "models/machine_tool.h"
 
-#include "gui/candlevisualizerdialog.h"
-#include "gui/smlconsoledialog.h"
-#include "gui/widgets/spindelcontrolwidget.h"
+#include "gui/candle_visualizer_dialog.h"
+#include "gui/sml_console_dialog.h"
+#include "gui/widgets/spindel_control_widget.h"
 
 namespace Ui {
 class MainWindow;

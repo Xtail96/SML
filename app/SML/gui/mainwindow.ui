@@ -752,7 +752,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="SMLPointsTableWidget" name="pointsTableWidget_2">
+             <widget class="PointsTableWidget" name="pointsTableWidget_2">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -2481,7 +2481,7 @@
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="SMLPointsTableWidget" name="pointsTableWidget">
+                <widget class="PointsTableWidget" name="pointsTableWidget">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>3</horstretch>
@@ -4675,27 +4675,27 @@
   <customwidget>
    <class>GCodesEditorWidget</class>
    <extends>QPlainTextEdit</extends>
-   <header>gui/widgets/gcodeseditorwidget.h</header>
+   <header>gui/widgets/gcodes_editor_widget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLCommandsListWidget</class>
    <extends>QListWidget</extends>
-   <header>gui/widgets/smlcommandslistwidget.h</header>
+   <header>gui/widgets/sml_commands_list_widget.h</header>
   </customwidget>
   <customwidget>
    <class>SMLEditorTreeWidget</class>
    <extends>QTreeWidget</extends>
-   <header>gui/widgets/smleditortreewidget.h</header>
+   <header>gui/widgets/sml_editor_tree_widget.h</header>
   </customwidget>
   <customwidget>
-   <class>SMLPointsTableWidget</class>
+   <class>PointsTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>gui/widgets/smlpointstablewidget.h</header>
+   <header>gui/widgets/points_table_widget.h</header>
   </customwidget>
   <customwidget>
    <class>SensorsDisplayWidget</class>
    <extends>QWidget</extends>
-   <header>gui/widgets/sensorsdisplaywidget.h</header>
+   <header>gui/widgets/sensors_display_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

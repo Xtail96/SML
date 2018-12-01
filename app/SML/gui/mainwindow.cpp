@@ -235,7 +235,7 @@ void MainWindow::setupConnections()
     QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
-    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<PointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
         QObject::connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
@@ -301,7 +301,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
-    QList<SMLPointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<PointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
@@ -881,14 +881,14 @@ void MainWindow::on_pointDeletePushButton_clicked()
 
     if(selectedItemsIndexes.size() > 0)
     {
-        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
+        QModelIndexList selectedRowsIndexes = PointsTableWidget::getRowsIndexes(selectedItemsIndexes);
         deletePoints(selectedRowsIndexes);
     }
 }
 
 void MainWindow::on_pointCursorPushButton_clicked()
 {
-    SMLPointsTableWidget* currentTableWidget;
+    PointsTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
     {
         currentTableWidget = ui->pointsTableWidget_2;
@@ -963,7 +963,7 @@ void MainWindow::on_pointCopyPushButton_clicked()
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
     {
-        QModelIndexList selectedRowsIndexes = SMLPointsTableWidget::getRowsIndexes(selectedItemsIndexes);
+        QModelIndexList selectedRowsIndexes = PointsTableWidget::getRowsIndexes(selectedItemsIndexes);
 
         for(auto row : selectedRowsIndexes)
         {
@@ -1029,7 +1029,7 @@ void MainWindow::onPointsUpdated()
     MachineTool& machineTool = MachineTool::getInstance();
 
     QList<QStringList> points = machineTool.getRepository()->getPoints();
-    QList<SMLPointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QList<PointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
     QStringList axisesLabels = machineTool.getRepository()->getAxisesNames();
 
     for(auto field : fields)
