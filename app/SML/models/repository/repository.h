@@ -403,6 +403,7 @@ protected:
      */
     Point getCurrentCoordinatesFromZero();
 
+private:
     /// Класс-друг!
     friend class MachineTool;
 
