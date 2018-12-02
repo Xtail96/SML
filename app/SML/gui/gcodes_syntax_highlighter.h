@@ -1,5 +1,6 @@
 #ifndef GCODESSYNTAXHIGHLIGHTER_H
 #define GCODESSYNTAXHIGHLIGHTER_H
+
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 #include <QString>
