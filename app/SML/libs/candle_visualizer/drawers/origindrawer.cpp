@@ -4,6 +4,11 @@ OriginDrawer::OriginDrawer()
 {
 }
 
+OriginDrawer::~OriginDrawer()
+{
+
+}
+
 bool OriginDrawer::updateData()
 {
     m_lines = {

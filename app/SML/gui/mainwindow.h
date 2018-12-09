@@ -47,7 +47,7 @@
 #include "commands/smlvariabledialog.h"*/
 
 /// Подключение подсветки синтаксиса G-кодов
-#include "gcodes_syntax_highlighter.h"
+#include "gui/utils/gcodes_syntax_highlighter.h"
 
 /// Подключение диалогов опций
 /*#include "gui/options/kabriolwindow.h"

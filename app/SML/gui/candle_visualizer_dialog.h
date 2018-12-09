@@ -7,18 +7,7 @@
 #include <QProgressDialog>
 #include <QCloseEvent>
 
-#include "libs/candle_visualizer/parser/gcodeviewparse.h"
-#include "libs/candle_visualizer/drawers/origindrawer.h"
-#include "libs/candle_visualizer/drawers/gcodedrawer.h"
-#include "libs/candle_visualizer/drawers/tooldrawer.h"
-#include "libs/candle_visualizer/drawers/heightmapborderdrawer.h"
-#include "libs/candle_visualizer/drawers/heightmapgriddrawer.h"
-#include "libs/candle_visualizer/drawers/heightmapinterpolationdrawer.h"
-#include "libs/candle_visualizer/drawers/shaderdrawable.h"
-#include "libs/candle_visualizer/drawers/selectiondrawer.h"
-#include "libs/candle_visualizer/tables/gcodetablemodel.h"
-#include "libs/candle_visualizer/tables/heightmaptablemodel.h"
-#include "libs/candle_visualizer/utils/interpolation.h"
+#include "gui/utils/gcodes_visualizer.h"
 
 namespace Ui {
 class CandleVisualizerDialog;
@@ -33,7 +22,6 @@ public:
     ~CandleVisualizerDialog();
 
     void loadFile(QStringList data);
-    QTime updateProgramEstimatedTime(QList<LineSegment*> lines);
 
 private slots:
     void on_topToolButton_clicked();
@@ -47,18 +35,7 @@ private slots:
 private:
     Ui::CandleVisualizerDialog *ui;
 
-    QString m_programFileName;
-    GcodeViewParse m_viewParser;
-    GcodeViewParse m_probeParser;
-    OriginDrawer *m_originDrawer;
-    GcodeDrawer *m_codeDrawer;
-    GcodeDrawer *m_probeDrawer;
-    GcodeDrawer *m_currentDrawer;
-
-    ToolDrawer m_toolDrawer;
-    SelectionDrawer m_selectionDrawer;
-
-    GCodeTableModel m_programModel;
+    GCodesVisualizer* m_gcodesVisualizer;
 
     void closeEvent(QCloseEvent *e);
 };

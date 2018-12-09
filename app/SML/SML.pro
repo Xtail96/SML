@@ -79,7 +79,7 @@ SOURCES += main.cpp\
     gui/widgets/points_table_widget.cpp \
     gui/widgets/spindel_control_widget.cpp \
     gui/add_point_dialog.cpp \
-    gui/gcodes_syntax_highlighter.cpp \
+    gui/utils/gcodes_syntax_highlighter.cpp \
     gui/sml_console_dialog.cpp \
     gui/to_selection_point_dialog.cpp \
     models/server/sml_server.cpp \
@@ -99,7 +99,8 @@ SOURCES += main.cpp\
     models/types/point/points_builder.cpp \
     models/types/point/points_manager.cpp \
     models/types/sensor/sensors_buffer.cpp \
-    models/machine_tool.cpp
+    models/machine_tool.cpp \
+    gui/utils/gcodes_visualizer.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -144,7 +145,7 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/sml_commands_list_widget.h \
     gui/add_point_dialog.h \
     gui/candle_visualizer_dialog.h \
-    gui/gcodes_syntax_highlighter.h \
+    gui/utils/gcodes_syntax_highlighter.h \
     gui/sml_console_dialog.h \
     gui/to_selection_point_dialog.h \
     models/services/adapters/monitor/adapters_monitor.h \
@@ -167,7 +168,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/point/points_builder.h \
     models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/types/gcodes/file_reader/file_reader.h \
-    models/server/u1_state.h
+    models/server/u1_state.h \
+    gui/utils/gcodes_visualizer.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \
