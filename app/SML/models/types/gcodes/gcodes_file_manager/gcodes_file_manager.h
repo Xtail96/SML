@@ -11,6 +11,7 @@
 #include <QTime>
 #include <QThread>
 #include <QProgressDialog>
+#include <QRegularExpression>
 
 #include "models/types/gcodes/file_reader/file_reader.h"
 
@@ -19,7 +20,7 @@ class GCodesFileManager : public QObject
     Q_OBJECT
 protected:
     QString m_filePath;
-    QString m_fileContent;
+    QStringList m_fileContent;
 
     QThread* m_readerThread;
 
@@ -36,7 +37,7 @@ public:
     void newGCodesFile();
     void addGCodesFile();
 
-    QString getContent() const;
+    QStringList getContent() const;
     QString getFilePath() const;
     void setFilePath(const QString &value);
     void setFileContent(const QString &value);
@@ -45,7 +46,7 @@ signals:
     void loadedFile();
 
     void filePathUpdated(QString path);
-    void fileContentUpdated(QString data);
+    void fileContentUpdated(QStringList data);
 
 public slots:
     void onFileLoaded(QString content);

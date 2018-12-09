@@ -53,7 +53,7 @@ void MachineTool::setupConnections()
     QObject::connect(m_spindelsMonitor.data(), SIGNAL(stateChanged(QString,bool,size_t)), this, SLOT(onSpindelsMonitor_StateChanged(QString,bool,size_t)));
 
     QObject::connect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
-    QObject::connect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QString)), this, SLOT(onGCodesMonitor_FileContentUpdated(QString)));
+    QObject::connect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
 }
 
 void MachineTool::resetConnections()
@@ -213,7 +213,7 @@ void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
     emit gcodesFilePathUpdated(path);
 }
 
-void MachineTool::onGCodesMonitor_FileContentUpdated(QString content)
+void MachineTool::onGCodesMonitor_FileContentUpdated(QStringList content)
 {
     emit gcodesFileContentUpdated(content);
 }

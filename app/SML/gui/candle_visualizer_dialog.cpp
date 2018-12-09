@@ -14,7 +14,7 @@
 #define PROGRESSMINLINES 10000
 #define PROGRESSSTEP     1000
 
-CandleVisualizerDialog::CandleVisualizerDialog(QString fileName, QWidget *parent) :
+CandleVisualizerDialog::CandleVisualizerDialog(QStringList program, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CandleVisualizerDialog)
 {
@@ -35,7 +35,7 @@ CandleVisualizerDialog::CandleVisualizerDialog(QString fileName, QWidget *parent
     ui->glwVisualizer->addDrawable(&m_selectionDrawer);
     ui->glwVisualizer->fitDrawable();
 
-    loadFile(fileName);
+    loadFile(program);
 }
 
 CandleVisualizerDialog::~CandleVisualizerDialog()
@@ -63,7 +63,7 @@ void CandleVisualizerDialog::loadFile(QStringList data)
 
     // Reset tableview
     QByteArray headerState = ui->tblProgram->horizontalHeader()->saveState();
-    ui->tblProgram->setModel(NULL);
+    ui->tblProgram->setModel(nullptr);
 
     // Prepare parser
     GcodeParser gp;
@@ -144,29 +144,6 @@ void CandleVisualizerDialog::loadFile(QStringList data)
 
     //resetHeightmap();
     //updateControlsState();
-}
-
-void CandleVisualizerDialog::loadFile(QString fileName)
-{
-    QFile file(fileName);
-
-    if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::critical(this, this->windowTitle(), tr("Can't open file:\n") + fileName);
-        return;
-    }
-
-    // Set filename
-    m_programFileName = fileName;
-
-    // Prepare text stream
-    QTextStream textStream(&file);
-
-    // Read lines
-    QList<QString> data;
-    while (!textStream.atEnd()) data.append(textStream.readLine());
-
-    // Load lines
-    loadFile(data);
 }
 
 QTime CandleVisualizerDialog::updateProgramEstimatedTime(QList<LineSegment *> lines)

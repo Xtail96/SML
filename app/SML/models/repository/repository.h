@@ -226,7 +226,7 @@ public:
      * @brief Возвращает текущую УП в G-Codes
      * @return УП в G-Codes
      */
-    QString getGCodesProgram();
+    QStringList getGCodesProgram();
 
     /**
      * @brief Возвращает путь до открытого файла

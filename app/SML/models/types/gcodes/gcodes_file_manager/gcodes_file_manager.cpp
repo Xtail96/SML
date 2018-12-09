@@ -67,7 +67,7 @@ void GCodesFileManager::saveGCodesFile()
         }
         else
         {
-            file.write(m_fileContent.toUtf8());
+            file.write(m_fileContent.join('\n').toUtf8());
             file.close();
         }
     }
@@ -132,7 +132,7 @@ void GCodesFileManager::addGCodesFile()
     filePath = originPath;*/
 }
 
-QString GCodesFileManager::getContent() const
+QStringList GCodesFileManager::getContent() const
 {
     return m_fileContent;
 }
@@ -149,12 +149,12 @@ void GCodesFileManager::setFilePath(const QString &value)
 
 void GCodesFileManager::setFileContent(const QString &value)
 {
-    m_fileContent = value;
+    m_fileContent = value.split(QRegularExpression{R"-((\r\n?|\n))-"});
 }
 
 void GCodesFileManager::onFileLoaded(QString content)
 {
-    m_fileContent = content;
+    setFileContent(content);
     m_readerThread->quit();
     m_readerThread->wait();
     qDebug() << "gcodes file loaded";

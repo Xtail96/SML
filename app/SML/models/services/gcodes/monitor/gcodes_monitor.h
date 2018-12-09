@@ -36,7 +36,7 @@ signals:
      * @brief Сигнал об изменении содержимого файла с G-кодом
      * @param data обновленное содержимое файла
      */
-    void fileContentUpdated(QString data);
+    void fileContentUpdated(QStringList data);
 
 protected slots:
 
@@ -50,7 +50,7 @@ protected slots:
      * @brief Испускает сигнал об изменении содержимого файла с G-кодом
      * @param data обновленное содержимое файла
      */
-    void onGCodesManager_FileContentUpdated(QString data);
+    void onGCodesManager_FileContentUpdated(QStringList data);
 };
 
 #endif // GCODESMONITOR_H

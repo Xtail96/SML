@@ -29,11 +29,10 @@ class CandleVisualizerDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CandleVisualizerDialog(QString fileName, QWidget *parent = 0);
+    explicit CandleVisualizerDialog(QStringList program, QWidget *parent = nullptr);
     ~CandleVisualizerDialog();
 
     void loadFile(QStringList data);
-    void loadFile(QString fileName);
     QTime updateProgramEstimatedTime(QList<LineSegment*> lines);
 
 private slots:

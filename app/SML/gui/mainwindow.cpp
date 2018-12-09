@@ -200,7 +200,7 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
     QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
+    QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -279,7 +279,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
     QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QString)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QString)));
+    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -422,9 +422,9 @@ void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
     }
 }
 
-void MainWindow::onMachineTool_GCodesFileContentUpdated(QString data)
+void MainWindow::onMachineTool_GCodesFileContentUpdated(QStringList data)
 {
-    ui->gcodesEditorPlainTextEdit->setPlainText(data);
+    ui->gcodesEditorPlainTextEdit->setPlainText(data.join('\n'));
 }
 
 void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
@@ -1199,8 +1199,7 @@ void MainWindow::on_view_action_triggered()
     MachineTool& machineTool = MachineTool::getInstance();
 
     machineTool.getRepository()->setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
-    on_save_action_triggered();
-    CandleVisualizerDialog(machineTool.getRepository()->getFilePath(), this).exec();
+    CandleVisualizerDialog(machineTool.getRepository()->getGCodesProgram(), this).exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

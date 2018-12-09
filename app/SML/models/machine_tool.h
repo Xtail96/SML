@@ -189,9 +189,9 @@ signals:
 
     /**
      * @brief Сигнал обновления содержимого фала G-кодов
-     * @param content содержимое файла G-кодов в формате строки
+     * @param content содержимое файла G-кодов в формате списка строк
      */
-    void gcodesFileContentUpdated(QString content);
+    void gcodesFileContentUpdated(QStringList content);
 
 public slots:
     /**
@@ -286,9 +286,9 @@ protected slots:
      * @brief Обрабатывает сигнал от монитора G-кодов об изменении содержимого файла
      * (испускает сигнал о том, что обновилось содержимое файла)
      *
-     * @param content содержимое файла в формате строки
+     * @param content содержимое файла в формате списка строк
      */
-    void onGCodesMonitor_FileContentUpdated(QString content);
+    void onGCodesMonitor_FileContentUpdated(QStringList content);
 };
 
 #endif // MACHINETOOL_H

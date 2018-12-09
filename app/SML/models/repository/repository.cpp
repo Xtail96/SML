@@ -392,7 +392,7 @@ void Repository::setGCodes(const QString &data)
     m_gcodesFilesManager->setFileContent(data);
 }
 
-QString Repository::getGCodesProgram()
+QStringList Repository::getGCodesProgram()
 {
     return m_gcodesFilesManager->getContent();
 }

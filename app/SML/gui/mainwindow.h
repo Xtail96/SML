@@ -141,7 +141,7 @@ private slots:
     /// Слот для обновления дисплея заряда батареи
     void updateBatteryStatusDisplay();
 
-    void onMachineTool_GCodesFileContentUpdated(QString data);
+    void onMachineTool_GCodesFileContentUpdated(QStringList data);
     void onMachineTool_GCodesFilePathUpdated(QString path);
 
     // слот пока не используется
