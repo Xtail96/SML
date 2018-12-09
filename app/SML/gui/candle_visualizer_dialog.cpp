@@ -35,6 +35,8 @@ CandleVisualizerDialog::CandleVisualizerDialog(QStringList program, QWidget *par
     ui->glwVisualizer->addDrawable(&m_selectionDrawer);
     ui->glwVisualizer->fitDrawable();
 
+    ui->tblProgram->hide();
+
     loadFile(program);
 }
 
