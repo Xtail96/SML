@@ -205,8 +205,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor0");
+        settings->setValue("Uid", "SensorAxisX");
         settings->setValue("Label", "Датчик оси X");
-        settings->setValue("Name", "SensorAxisX");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 0);
         settings->setValue("BoardName", "portal");
@@ -215,8 +215,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor1");
+        settings->setValue("Uid", "SensorAxisY");
         settings->setValue("Label", "Датчик оси Y");
-        settings->setValue("Name", "SensorAxisY");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 1);
         settings->setValue("BoardName", "portal");
@@ -225,8 +225,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor2");
+        settings->setValue("Uid", "SensorAxisZ");
         settings->setValue("Label", "Датчик оси Z");
-        settings->setValue("Name", "SensorAxisZ");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 2);
         settings->setValue("BoardName", "portal");
@@ -235,8 +235,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor3");
+        settings->setValue("Uid", "SensorAxisA");
         settings->setValue("Label", "Датчик оси A");
-        settings->setValue("Name", "SensorAxisA");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 3);
         settings->setValue("BoardName", "portal");
@@ -245,8 +245,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor4");
+        settings->setValue("Uid", "SensorAxisB");
         settings->setValue("Label", "Датчик оси B");
-        settings->setValue("Name", "SensorAxisB");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 4);
         settings->setValue("BoardName", "portal");
@@ -255,8 +255,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor5");
+        settings->setValue("Uid", "SensorAxisC");
         settings->setValue("Label", "Датчик оси C");
-        settings->setValue("Name", "SensorAxisC");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 5);
         settings->setValue("BoardName", "portal");
@@ -265,8 +265,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor6");
+        settings->setValue("Uid", "SensorAxisD");
         settings->setValue("Label", "Датчик оси D");
-        settings->setValue("Name", "SensorAxisD");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 6);
         settings->setValue("BoardName", "portal");
@@ -275,8 +275,8 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Sensor7");
+        settings->setValue("Uid", "SensorZero");
         settings->setValue("Label", "Датчик Ноля");
-        settings->setValue("Name", "SensorZero");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 0);
         settings->setValue("BoardName", "portal");
@@ -285,65 +285,44 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("Spindel0");
-        settings->setValue("Index", 0);
+        settings->setValue("Uid", 0);
         settings->setValue("Label", "Фрезер");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("OutputNumber", 3);
-        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 24000);
         settings->setValue("LowerBound", 2000);
     settings->endGroup();
 
     settings->beginGroup("Spindel1");
-        settings->setValue("Index", 1);
+        settings->setValue("Uid", 1);
         settings->setValue("Label", "Фрезер 2");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("OutputNumber", 7);
-        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 12000);
         settings->setValue("LowerBound", 8000);
     settings->endGroup();
 
     settings->beginGroup("Spindel2");
-        settings->setValue("Index", 2);
+        settings->setValue("Uid", 2);
         settings->setValue("Label", "Шпиндель R");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("OutputNumber", 3);
-        settings->setValue("InvertOutputNumber", 2);
-        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0x01);
         settings->setValue("UpperBound", 2000);
         settings->setValue("LowerBound", 0);
     settings->endGroup();
 
     settings->beginGroup("SupportDevice0");
-        settings->setValue("Index", 3);
+        settings->setValue("Uid", 3);
         settings->setValue("Label", "Муфта");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("OutputNumber", 5);
-        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", true);
-        settings->setValue("Mask", 0x01);
     settings->endGroup();
 
     settings->beginGroup("SupportDevice1");
-        settings->setValue("Index", 4);
+        settings->setValue("Uid", 4);
         settings->setValue("Label", "САС");
-        settings->setValue("PortNumber", 2);
-        settings->setValue("OutputNumber", 0);
-        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("NeedToDisplay", false);
-        settings->setValue("Mask", 0x01);
     settings->endGroup();
 
     // применяем изменения

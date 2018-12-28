@@ -1,7 +1,7 @@
 #include "spindel.h"
 
-Spindel::Spindel(QString settingsUid, QString label, QString uid, bool activeState, byte mask, size_t lowerBound, size_t upperBound, QObject *parent) :
-    Device(settingsUid, label, uid, activeState, mask, parent),
+Spindel::Spindel(QString settingsUid, QString label, QString uid, bool activeState, size_t lowerBound, size_t upperBound, QObject *parent) :
+    Device(settingsUid, label, uid, activeState, parent),
     m_upperBound(upperBound),
     m_lowerBound(lowerBound),
     m_currentRotations(m_lowerBound)

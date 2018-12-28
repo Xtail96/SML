@@ -90,7 +90,7 @@ QString Sensor::getLabel() const
 QString Sensor::getSettings()
 {
     QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
-            QStringLiteral("Name:") + m_uid + QStringLiteral(";") +
+            QStringLiteral("Uid:") + m_uid + QStringLiteral(";") +
             QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +

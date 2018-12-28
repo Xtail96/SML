@@ -84,10 +84,10 @@ public:
     Sensor& getSensor(QString uid);
 
     /**
-     * @brief Возвращает список имен всех датчиков
+     * @brief Возвращает список уникальных имен всех доступных датчиков
      * @return список уникальных имен всех доступных датчиков
      */
-    QStringList getAllSensorsNames();
+    QStringList getAllSensorsUids();
 
     /**
      * @brief Возвращает текущие настройки датчика по его имени
@@ -135,7 +135,7 @@ public:
      * @brief Возвращает настройки всех доступных устройств
      * @return настройки для всех доступных устройств
      */
-    QList<QStringList> getAllDevicesSettings();
+    QStringList getAllDevicesSettings();
 
     /**
      * @brief Возвращает список устройств, необходимых для отображения в Наладке

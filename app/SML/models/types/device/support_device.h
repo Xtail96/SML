@@ -10,7 +10,6 @@ public:
                   QString label,
                   QString uid,
                   bool activeState,
-                  byte mask,
                   QObject *parent = nullptr);
     QStringList getParams() override;
 };

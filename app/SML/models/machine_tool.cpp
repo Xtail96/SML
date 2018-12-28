@@ -110,25 +110,25 @@ void MachineTool::setLastError(int value)
     }
 }
 
-void MachineTool::switchSpindelOn(QString index, size_t rotations)
+void MachineTool::switchSpindelOn(QString uid, size_t rotations)
 {
     if(m_lastError != 0)
     {
         return;
     }
 
-    SwitchSpindel swithcer(m_adapterServer.data(), index, true, rotations);
+    SwitchSpindel swithcer(m_adapterServer.data(), uid, true, rotations);
     swithcer.execute();
 }
 
-void MachineTool::switchSpindelOff(QString index)
+void MachineTool::switchSpindelOff(QString uid)
 {
     if(m_lastError != 0)
     {
         return;
     }
 
-    SwitchSpindel switcher(m_adapterServer.data(), index, false);
+    SwitchSpindel switcher(m_adapterServer.data(), uid, false);
     switcher.execute();
 }
 

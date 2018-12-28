@@ -69,7 +69,10 @@ void MainWindow::setupWidgets()
 
     setupSensorsDisplay();
     setupSensorsSettingsBoard();
+
+    setupDevicesSettingsBoard();
     setupSpindelsControlPanel();
+
     setupOptionsPanel();
 
     // настройка контроля габаритов
@@ -98,94 +101,6 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     hideWidgets();
-}
-
-void MainWindow::setupSensorsDisplay()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    QStringList names = machineTool.getRepository()->getAllSensorsNames();
-
-    for(auto name : names)
-    {
-        QMap<QString, QString> parameters = machineTool.getRepository()->getSensorSettings(name);
-        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
-    }
-}
-
-void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
-{
-    ui->sensorsDisplayWidget->updateSensorState(name, color);
-}
-
-void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations)
-{
-    bool ok = false;
-
-    size_t spindelIndex = index.toUInt(&ok);
-
-    if(ok)
-    {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(spindelIndex))));
-        widget->updateControls(enable, rotations);
-    }
-
-    /*QList<Spindel* > spindels = m_machineTool->getSpindels();
-    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
-
-
-    if(spindelsWidgetsCount >= (size_t) spindels.size())
-    {
-        for(size_t i = 0; i < spindelsWidgetsCount; i++)
-        {
-            //qDebug() << spindels[i].isEnable();
-            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
-        }
-    }*/
-}
-
-void MainWindow::setupSensorsSettingsBoard()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    QStringList sensorsSettings = machineTool.getRepository()->getAllSensorsSettings();
-
-    QStringList labels;
-    QList< QPair<int, int> > positions;
-    QList<QTableWidgetItem*> items;
-
-    // rows
-    for(int i = 0; i < sensorsSettings.size(); i++)
-    {
-        QStringList sensorSettings = sensorsSettings.at(i).split(";");
-        // columns
-        for(int j = 0; j < sensorSettings.size(); j++)
-        {
-            QStringList pair = sensorSettings[j].split(":");
-            //qDebug() << pair;
-            if(pair.size() == 2)
-            {
-                if(!labels.contains(pair.at(0)))
-                {
-                    labels.push_back(pair.at(0));
-                }
-
-                QTableWidgetItem* item = new QTableWidgetItem(pair.at(1));
-                items.push_back(item);
-                positions.push_back(QPair<int, int>(i, j));
-            }
-        }
-    }
-
-    ui->sensorsSettingsTableWidget->setColumnCount(labels.size());
-    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(labels);
-
-    ui->sensorsSettingsTableWidget->setRowCount(sensorsSettings.size());
-    for(int i = 0; i < items.size(); i++)
-    {
-        ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
-    }
 }
 
 void MainWindow::setupConnections()
@@ -334,6 +249,94 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
 }
 
+void MainWindow::setupSensorsDisplay()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList names = machineTool.getRepository()->getAllSensorsUids();
+
+    for(auto name : names)
+    {
+        QMap<QString, QString> parameters = machineTool.getRepository()->getSensorSettings(name);
+        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
+    }
+}
+
+void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
+{
+    ui->sensorsDisplayWidget->updateSensorState(name, color);
+}
+
+void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations)
+{
+    bool ok = false;
+
+    size_t spindelIndex = index.toUInt(&ok);
+
+    if(ok)
+    {
+        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(spindelIndex))));
+        widget->updateControls(enable, rotations);
+    }
+
+    /*QList<Spindel* > spindels = m_machineTool->getSpindels();
+    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
+
+
+    if(spindelsWidgetsCount >= (size_t) spindels.size())
+    {
+        for(size_t i = 0; i < spindelsWidgetsCount; i++)
+        {
+            //qDebug() << spindels[i].isEnable();
+            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
+            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
+        }
+    }*/
+}
+
+void MainWindow::setupSensorsSettingsBoard()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    QStringList sensorsSettings = machineTool.getRepository()->getAllSensorsSettings();
+
+    QStringList labels;
+    QList< QPair<int, int> > positions;
+    QList<QTableWidgetItem*> items;
+
+    // rows
+    for(int i = 0; i < sensorsSettings.size(); i++)
+    {
+        QStringList sensorSettings = sensorsSettings.at(i).split(";");
+        // columns
+        for(int j = 0; j < sensorSettings.size(); j++)
+        {
+            QStringList pair = sensorSettings[j].split(":");
+            //qDebug() << pair;
+            if(pair.size() == 2)
+            {
+                if(!labels.contains(pair.at(0)))
+                {
+                    labels.push_back(pair.at(0));
+                }
+
+                QTableWidgetItem* item = new QTableWidgetItem(pair.at(1));
+                items.push_back(item);
+                positions.push_back(QPair<int, int>(i, j));
+            }
+        }
+    }
+
+    ui->sensorsSettingsTableWidget->setColumnCount(labels.size());
+    ui->sensorsSettingsTableWidget->setHorizontalHeaderLabels(labels);
+
+    ui->sensorsSettingsTableWidget->setRowCount(sensorsSettings.size());
+    for(int i = 0; i < items.size(); i++)
+    {
+        ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
+    }
+}
+
 void MainWindow::setupSpindelsControlPanel()
 {
     MachineTool& machineTool = MachineTool::getInstance();
@@ -359,6 +362,48 @@ void MainWindow::setupSpindelsControlPanel()
     }
 }
 
+void MainWindow::setupDevicesSettingsBoard()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    QStringList devicesSettings = machineTool.getRepository()->getAllDevicesSettings();
+
+    QStringList labels;
+    QList< QPair<int, int> > positions;
+    QList<QTableWidgetItem*> items;
+
+    // rows
+    for(int i = 0; i < devicesSettings.size(); i++)
+    {
+        QStringList deviceSettings = devicesSettings.at(i).split(";");
+        // columns
+        for(int j = 0; j < deviceSettings.size(); j++)
+        {
+            QStringList pair = deviceSettings[j].split(":");
+            //qDebug() << pair;
+            if(pair.size() == 2)
+            {
+                if(!labels.contains(pair.at(0)))
+                {
+                    labels.push_back(pair.at(0));
+                }
+
+                QTableWidgetItem* item = new QTableWidgetItem(pair.at(1));
+                items.push_back(item);
+                positions.push_back(QPair<int, int>(i, j));
+            }
+        }
+    }
+
+    ui->devicesSettingsTableWidget->setColumnCount(labels.size());
+    ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(labels);
+
+    ui->devicesSettingsTableWidget->setRowCount(devicesSettings.size());
+    for(int i = 0; i < items.size(); i++)
+    {
+        ui->devicesSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
+    }
+}
+
 void MainWindow::setupAxisesBoard()
 {
     MachineTool& machineTool = MachineTool::getInstance();
@@ -367,31 +412,6 @@ void MainWindow::setupAxisesBoard()
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
-void MainWindow::setupDevicesBoard()
-{
-    /*QStringList devicesNames = m_machineTool->getDevicesNames();
-    QStringList devicesParametrsNames = m_machineTool->getDevicesParametrsNames();
-    QList<QStringList> devicesSettings = m_machineTool->getDevicesSettings();
-
-    ui->devicesSettingsTableWidget->clear();
-    ui->devicesSettingsTableWidget->setRowCount(devicesNames.size());
-    ui->devicesSettingsTableWidget->setVerticalHeaderLabels(devicesNames);
-    ui->devicesSettingsTableWidget->setColumnCount(devicesParametrsNames.size());
-    ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(devicesParametrsNames);
-
-    for(int i = 0; i < ui->devicesSettingsTableWidget->columnCount(); i++)
-    {
-        ui->devicesSettingsTableWidget->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-    }
-
-    for (int i = 0; i < ui->devicesSettingsTableWidget->rowCount(); i++)
-    {
-        for(int j = 0; j < ui->devicesSettingsTableWidget->columnCount(); j++)
-        {
-            ui->devicesSettingsTableWidget->setItem(i, j, new QTableWidgetItem(devicesSettings[i][j]));
-        }
-    }*/
-}
 
 void MainWindow::updateCoordinatesDisplays()
 {

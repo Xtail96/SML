@@ -10,11 +10,12 @@ public:
             QString label,
             QString uid,
             bool activeState,
-            byte mask,
             size_t lowerBound,
             size_t upperBound,
             QObject *parent = nullptr);
+
     ~Spindel() override;
+
     QStringList getParams() override;
 
     void setCurrentState(bool value, QMap<QString, QString> attributes) override;
@@ -35,7 +36,9 @@ public:
 
 protected:
     size_t m_upperBound;
+
     size_t m_lowerBound;
+
     size_t m_currentRotations;
 
 signals:

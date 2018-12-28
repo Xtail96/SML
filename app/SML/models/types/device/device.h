@@ -12,7 +12,11 @@ public:
     /*!
      * \brief Конструктор класса "Устрйоство"
      */
-    Device(QString settingsUid, QString label, QString uid, bool activeState, byte mask, QObject *parent = nullptr);
+    Device(QString settingsUid,
+           QString uid,
+           QString label,
+           bool activeState,
+           QObject *parent = nullptr);
 
     virtual ~Device();
 
@@ -28,11 +32,16 @@ public:
 
     bool getCurrentState() const;
 
-    byte getMask() const;
-
     QString getSettingsUId() const;
 
     QString getUid() const;
+
+    /**
+     * @brief Возвращает актуальные настройки устройства
+     * @return настройки устройства в виде строки, формата
+     * "setting1_key:setting1_value;setting2_key:setting2_value"
+     */
+    QString getSettings();
 
 protected:
 
@@ -50,9 +59,6 @@ protected:
 
     /// Текущее состояние устройства (true или false стоит на соответсвующем выходе)
     bool m_currentState;
-
-    /// Маска, включающее устройство
-    byte m_mask;
 
 signals:
     void currentStateChanged(bool on);

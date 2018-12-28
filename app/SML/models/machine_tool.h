@@ -196,16 +196,16 @@ signals:
 public slots:
     /**
      * @brief Запускает сценарий включения шпинделя
-     * @param index уникальный идентификатор устройства
+     * @param uid уникальный идентификатор устройства
      * @param rotations частота вращения (обороты в минуту)
      */
-    void switchSpindelOn(QString index, size_t rotations);
+    void switchSpindelOn(QString uid, size_t rotations);
 
     /**
      * @brief Запускает сценарий выключения шпинделя
-     * @param index уникальный идентификатор устройства
+     * @param uid уникальный идентификатор устройства
      */
-    void switchSpindelOff(QString index);
+    void switchSpindelOff(QString uid);
 
 protected slots:
     /**

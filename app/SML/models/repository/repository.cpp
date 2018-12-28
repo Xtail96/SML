@@ -40,24 +40,24 @@ void Repository::loadSensorsSettings()
     {
         unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
 
-        QList<QString> sensorsCodes;
+        QList<QString> sensorsSettingCodes;
         for(unsigned int i = 0; i < sensorsCount; i++)
         {
-            QString sensorString = QString("Sensor") + QString::number(i);
-            sensorsCodes.push_back(sensorString);
+            QString sensorSettingCode = QString("Sensor") + QString::number(i);
+            sensorsSettingCodes.push_back(sensorSettingCode);
         }
 
-        for(auto code : sensorsCodes)
+        for(auto settingCode : sensorsSettingCodes)
         {
-            QString name  = QVariant(m_settingsManager->get(code, "Name")).toString();
-            QString label = QVariant(m_settingsManager->get(code, "Label")).toString();
-            size_t portNumber = QVariant(m_settingsManager->get(code, "PortNumber")).toUInt();
-            size_t inputNumber = QVariant(m_settingsManager->get(code, "InputNumber")).toUInt();
-            QString boardName = QVariant(m_settingsManager->get(code, "BoardName")).toString();
-            bool activeState = QVariant(m_settingsManager->get(code, "ActiveState")).toBool();
-            QColor color = QColor(QVariant(m_settingsManager->get(code, "Color")).toString());
+            QString uid  = QVariant(m_settingsManager->get(settingCode, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingCode, "Label")).toString();
+            size_t portNumber = QVariant(m_settingsManager->get(settingCode, "PortNumber")).toUInt();
+            size_t inputNumber = QVariant(m_settingsManager->get(settingCode, "InputNumber")).toUInt();
+            QString boardName = QVariant(m_settingsManager->get(settingCode, "BoardName")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingCode, "ActiveState")).toBool();
+            QColor color = QColor(QVariant(m_settingsManager->get(settingCode, "Color")).toString());
 
-            Sensor* sensor = new Sensor(name,
+            Sensor* sensor = new Sensor(uid,
                                         label,
                                         portNumber,
                                         inputNumber,
@@ -73,7 +73,7 @@ void Repository::loadSensorsSettings()
     }
     catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера датчиков", e.message()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек датчиков", e.message()).exec();
         qDebug() << QStringLiteral("Repository::loadSensorsSettings:") << e.message();
         qApp->exit(0);
     }
@@ -88,20 +88,18 @@ void Repository::loadDevicesSettings()
 
         for(unsigned int i = 0; i < spindelsCount; i++)
         {
-            QString name = QString("Spindel") + QString::number(i);
-            QString label = QVariant(m_settingsManager->get(name, "Label")).toString();
-            QString index = QVariant(m_settingsManager->get(name, "Index")).toString();
-            bool activeState = QVariant(m_settingsManager->get(name, "ActiveState")).toBool();
-            byte mask = static_cast<byte>(QVariant(m_settingsManager->get(name, "Mask")).toChar().toLatin1());
-            size_t upperBound = QVariant(m_settingsManager->get(name, "UpperBound")).toULongLong();
-            size_t lowerBound = QVariant(m_settingsManager->get(name, "LowerBound")).toULongLong();
+            QString settingName = QString("Spindel") + QString::number(i);
+            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
+            size_t upperBound = QVariant(m_settingsManager->get(settingName, "UpperBound")).toULongLong();
+            size_t lowerBound = QVariant(m_settingsManager->get(settingName, "LowerBound")).toULongLong();
 
 
-            Spindel* spindel = new Spindel(name,
+            Spindel* spindel = new Spindel(settingName,
+                                           uid,
                                            label,
-                                           index,
                                            activeState,
-                                           mask,
                                            lowerBound,
                                            upperBound,
                                            this);
@@ -110,25 +108,22 @@ void Repository::loadDevicesSettings()
 
         for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
-            QString name = QString("SupportDevice") + QString::number(i);
-            QString label = QVariant(m_settingsManager->get(name, "Label")).toString();
-            QString index = QVariant(m_settingsManager->get(name, "Index")).toString();
-            bool activeState = QVariant(m_settingsManager->get(name, "ActiveState")).toBool();
-            byte mask = static_cast<byte>(QVariant(m_settingsManager->get(name, "Mask")).toChar().toLatin1());
+            QString settingName = QString("SupportDevice") + QString::number(i);
+            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
 
-
-            SupportDevice* device = new SupportDevice(name,
+            SupportDevice* device = new SupportDevice(settingName,
+                                                      uid,
                                                       label,
-                                                      index,
                                                       activeState,
-                                                      mask,
                                                       this);
             m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
         }
     }
     catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка настройки менеджера устройств", e.message()).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек устройств", e.message()).exec();
         qDebug() << QStringLiteral("Repository::loadDevicesSettings:") << e.message();
         qApp->exit(0);
     }
@@ -158,7 +153,7 @@ void Repository::loadAxisesSettings()
     }
     catch(InvalidConfigurationException e)
     {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации менеджера осей!") + QString(e.message())).exec();
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек осей", QString(e.message())).exec();
         qDebug() << QStringLiteral("Repository::loadAxisesSettings:") << e.message();
         qApp->exit(0);
     }
@@ -272,27 +267,17 @@ QStringList Repository::getAllDevicesLabels()
     return names;
 }
 
-QList<QStringList> Repository::getAllDevicesSettings()
+QStringList Repository::getAllDevicesSettings()
 {
-    QList<QStringList> devicesSettings;
+    QStringList devicesSettings;
     for(auto device : m_spindels)
     {
-        QStringList deviceSettings =
-        {
-            QString::number(device->getActiveState()),
-            QString::number(device->getMask(), 2)
-        };
-        devicesSettings.push_back(deviceSettings);
+        devicesSettings.push_back(device->getSettings());
     }
 
     for(auto device : m_supportDevices)
     {
-        QStringList deviceSettings =
-        {
-            QString::number(device->getActiveState()),
-            QString::number(device->getMask(), 2)
-        };
-        devicesSettings.push_back(deviceSettings);
+        devicesSettings.push_back(device->getSettings());
     }
     return devicesSettings;
 }
@@ -342,14 +327,14 @@ Sensor &Repository::getSensor(QString uid)
     throw InvalidArgumentException(message);
 }
 
-QStringList Repository::getAllSensorsNames()
+QStringList Repository::getAllSensorsUids()
 {
-    QStringList names;
+    QStringList uids;
     for(auto sensor : m_sensors)
     {
-        names.push_back(sensor->getUid());
+        uids.push_back(sensor->getUid());
     }
-    return names;
+    return uids;
 }
 
 QMap<QString, QString> Repository::getSensorSettings(QString name)
