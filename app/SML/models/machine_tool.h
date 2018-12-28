@@ -146,14 +146,14 @@ private:
 
 signals:
     /**
-     * @brief Сигнал подключения адаптера U1
+     * @brief Сигнал подключения адаптеров
      */
-    void u1Connected();
+    void adaptersConnected();
 
     /**
      * @brief Сигнал отключения адаптера U1
      */
-    void u1Disconnected();
+    //void u1Disconnected();
 
     /**
      * @brief Сигнал возникновения ошибки в работе станка
@@ -239,15 +239,17 @@ protected slots:
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптера U1
-     * @param connected обновленное состояние подключения. True - адаптер подключен. False - адаптер отключен
+     * @param u1 обновленное состояние подключения адаптера U1. True - адаптер подключен. False - адаптер отключен
+     * @param u2 обновленное состояние подключения адаптера U2. True - адаптер подключен. False - адаптер отключен
      */
-    void onAdaptersMonitor_U1AdapterConnectionStateChanged(bool connected);
+    void onAdaptersMonitor_AdaptersConnectionStateChanged(bool u1, bool u2);
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния выполнения заданий адаптера U1
-     * @param state обновленное состояние выпоелнения заданий адаптера U1
+     * @param u1 обновленное состояние выполнения заданий адаптера U1
+     * @param u2 обновленное состояние выполнения заданий адаптера U2
      */
-    void onAdaptersMonitor_U1AdapterWorkflowStateChanged(int state);
+    void onAdaptersMonitor_AdaptersWorkflowStateChanged(int u1, int u2);
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек

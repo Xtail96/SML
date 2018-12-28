@@ -43,8 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateU1Displays();
     //updateU2Displays();
 
-    onMachineTool_U1Disconnected();
-    onMachineTool_U2Disconnected();
+    //onMachineTool_U1Disconnected();
+    //onMachineTool_U2Disconnected();
+
+    onMachineTool_ErrorOccured(-3);
 }
 
 MainWindow::~MainWindow()
@@ -107,8 +109,7 @@ void MainWindow::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(&machineTool, SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
-    QObject::connect(&machineTool, SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
+    QObject::connect(&machineTool, SIGNAL(adaptersConnected()), this, SLOT(onMachineTool_AdaptersConnected()));
     QObject::connect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
@@ -186,8 +187,7 @@ void MainWindow::resetConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::disconnect(&machineTool, SIGNAL(u1Connected()), this, SLOT(onMachineTool_U1Connected()));
-    QObject::disconnect(&machineTool, SIGNAL(u1Disconnected()), this, SLOT(onMachineTool_U1Disconnected()));
+    QObject::disconnect(&machineTool, SIGNAL(adaptersConnected()), this, SLOT(onMachineTool_AdaptersConnected()));
     QObject::disconnect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
@@ -278,20 +278,6 @@ void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, s
         SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(spindelIndex))));
         widget->updateControls(enable, rotations);
     }
-
-    /*QList<Spindel* > spindels = m_machineTool->getSpindels();
-    size_t spindelsWidgetsCount = ui->spindelsListWidget->count();
-
-
-    if(spindelsWidgetsCount >= (size_t) spindels.size())
-    {
-        for(size_t i = 0; i < spindelsWidgetsCount; i++)
-        {
-            //qDebug() << spindels[i].isEnable();
-            SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(i)));
-            widget->updateControls(spindels[i]->isEnable(), spindels[i]->getCurrentRotations());
-        }
-    }*/
 }
 
 void MainWindow::setupSensorsSettingsBoard()
@@ -482,14 +468,11 @@ void MainWindow::hideWidgets()
     ui->commandsToolsListWidget->setEnabled(false);
 }
 
-void MainWindow::onMachineTool_U1Connected()
+void MainWindow::onMachineTool_AdaptersConnected()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-    ui->statusBar->showMessage("Связь с контроллером датчиков и устройств установлена");
-
-    ui->optionsListWidget->setEnabled(true);
+    /*ui->optionsListWidget->setEnabled(true);
 
     ui->spindelsListWidget->setEnabled(true);
 
@@ -497,153 +480,9 @@ void MainWindow::onMachineTool_U1Connected()
     ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository()->getSensorsBufferSize());
     ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository()->getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
-}
+    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());*/
 
-void MainWindow::onMachineTool_U1Disconnected()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-    ui->statusBar->showMessage("Отсутсвует связь с контролером датчиков и устройств");
-
-    ui->optionsListWidget->setEnabled(false);
-
-    ui->spindelsListWidget->setEnabled(false);
-
-    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository()->getDevicesBufferSize());
-    ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
-}
-
-void MainWindow::onMachineTool_U2Connected()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    ui->currentCoordinatesListWidget->setEnabled(true);
-    ui->baseCoordinatesListWidget->setEnabled(true);
-    ui->parkCoordinatesListWidget->setEnabled(true);
-    ui->edgesControlCheckBox->setEnabled(true);
-
-    ui->movementXNegativePushButton->setEnabled(true);
-    ui->movementXPositivePushButton->setEnabled(true);
-    ui->movementXNegativeYNegativePushButton->setEnabled(true);
-    ui->movementXNegativeYPositivePushButton->setEnabled(true);
-    ui->movementXPositiveYNegativePushButton->setEnabled(true);
-    ui->movementXPositiveYPositivePushButton->setEnabled(true);
-    ui->movementYNegativePushButton->setEnabled(true);
-    ui->movementYPositivePushButton->setEnabled(true);
-
-    ui->movementZNegativePushButton->setEnabled(true);
-    ui->movementZPositivePushButton->setEnabled(true);
-
-    ui->movementANegativePushButton->setEnabled(true);
-    ui->movementAPositivePushButton->setEnabled(true);
-
-    ui->movementBNegativePushButton->setEnabled(true);
-    ui->movementBPositivePushButton->setEnabled(true);
-
-    ui->movementCNegativePushButton->setEnabled(true);
-    ui->movementCPositivePushButton->setEnabled(true);
-
-    ui->movementDNegativePushButton->setEnabled(true);
-    ui->movementDPositivePushButton->setEnabled(true);
-
-    for(auto shortcut : m_axisesShortcuts)
-    {
-        shortcut->setEnabled(true);
-    }
-
-    ui->discreteRadioButton_1->setEnabled(true);
-    ui->discreteRadioButton_2->setEnabled(true);
-    ui->discreteRadioButton_3->setEnabled(true);
-    ui->discreteRadioButton_4->setEnabled(true);
-    ui->discreteRadioButton_5->setEnabled(true);
-
-    ui->feedrateScrollBar->setEnabled(true);
-    ui->feedrateLcdNumber->setEnabled(true);
-
-    ui->toBasePushButton->setEnabled(true);
-    ui->toZeroPushButton->setEnabled(true);
-    ui->toParkPushButton->setEnabled(true);
-    ui->zeroPushButton->setEnabled(true);
-    ui->zeroSensorPushButton->setEnabled(true);
-    ui->parkPushButton->setEnabled(true);
-
-    ui->runCommandLinkButton->setEnabled(true);
-    ui->stopCommandLinkButton->setEnabled(true);
-
-    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository()->getDevicesBufferSize());
-    ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
-}
-
-void MainWindow::onMachineTool_U2Disconnected()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    ui->currentCoordinatesListWidget->setEnabled(false);
-    ui->baseCoordinatesListWidget->setEnabled(false);
-    ui->parkCoordinatesListWidget->setEnabled(false);
-    ui->edgesControlCheckBox->setEnabled(false);
-
-    ui->movementXNegativePushButton->setEnabled(false);
-    ui->movementXPositivePushButton->setEnabled(false);
-    ui->movementXNegativeYNegativePushButton->setEnabled(false);
-    ui->movementXNegativeYPositivePushButton->setEnabled(false);
-    ui->movementXPositiveYNegativePushButton->setEnabled(false);
-    ui->movementXPositiveYPositivePushButton->setEnabled(false);
-    ui->movementYNegativePushButton->setEnabled(false);
-    ui->movementYPositivePushButton->setEnabled(false);
-
-    ui->movementZNegativePushButton->setEnabled(false);
-    ui->movementZPositivePushButton->setEnabled(false);
-
-    ui->movementANegativePushButton->setEnabled(false);
-    ui->movementAPositivePushButton->setEnabled(false);
-
-    ui->movementBNegativePushButton->setEnabled(false);
-    ui->movementBPositivePushButton->setEnabled(false);
-
-    ui->movementCNegativePushButton->setEnabled(false);
-    ui->movementCPositivePushButton->setEnabled(false);
-
-    ui->movementDNegativePushButton->setEnabled(false);
-    ui->movementDPositivePushButton->setEnabled(false);
-
-    for(auto shortcut : m_axisesShortcuts)
-    {
-        shortcut->setEnabled(false);
-    }
-
-    ui->discreteRadioButton_1->setEnabled(false);
-    ui->discreteRadioButton_2->setEnabled(false);
-    ui->discreteRadioButton_3->setEnabled(false);
-    ui->discreteRadioButton_4->setEnabled(false);
-    ui->discreteRadioButton_5->setEnabled(false);
-
-    ui->feedrateScrollBar->setEnabled(false);
-    ui->feedrateLcdNumber->setEnabled(false);
-
-    ui->toBasePushButton->setEnabled(false);
-    ui->toZeroPushButton->setEnabled(false);
-    ui->toParkPushButton->setEnabled(false);
-    ui->zeroPushButton->setEnabled(false);
-    ui->zeroSensorPushButton->setEnabled(false);
-    ui->parkPushButton->setEnabled(false);
-
-    ui->runCommandLinkButton->setEnabled(false);
-    ui->stopCommandLinkButton->setEnabled(false);
-
-    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository()->getDevicesBufferSize());
-    ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
+    this->onMachineTool_ErrorOccured(machineTool.getLastError());
 }
 
 void MainWindow::onMachineTool_ErrorOccured(int errorCode)
@@ -656,11 +495,70 @@ void MainWindow::onMachineTool_ErrorOccured(int errorCode)
     ui->currentConnectionsListWidget->clear();
     ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 
-    onMachineTool_U1Disconnected();
-    onMachineTool_U2Disconnected();
+    bool enableWidgets = false;
+    if(errorCode == 0)
+    {
+        enableWidgets = true;
+        ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+        ui->statusBar->showMessage("Adapters connected");
+    }
+    else
+    {
+        ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+        QString errorString = QStringLiteral("Error code #") + QString::number(errorCode);
+        ui->statusBar->showMessage(errorString);
+    }
 
-    QString errorString = QStringLiteral("Error code #") + QString::number(errorCode);
-    ui->statusBar->showMessage(errorString);
+    ui->optionsListWidget->setEnabled(enableWidgets);
+    ui->spindelsListWidget->setEnabled(enableWidgets);
+
+    ui->currentCoordinatesListWidget->setEnabled(enableWidgets);
+    ui->baseCoordinatesListWidget->setEnabled(enableWidgets);
+    ui->parkCoordinatesListWidget->setEnabled(enableWidgets);
+    ui->edgesControlCheckBox->setEnabled(enableWidgets);
+
+    ui->movementXNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXPositivePushButton->setEnabled(enableWidgets);
+    ui->movementXNegativeYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXNegativeYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementXPositiveYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXPositiveYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementZNegativePushButton->setEnabled(enableWidgets);
+    ui->movementZPositivePushButton->setEnabled(enableWidgets);
+    ui->movementANegativePushButton->setEnabled(enableWidgets);
+    ui->movementAPositivePushButton->setEnabled(enableWidgets);
+    ui->movementBNegativePushButton->setEnabled(enableWidgets);
+    ui->movementBPositivePushButton->setEnabled(enableWidgets);
+    ui->movementCNegativePushButton->setEnabled(enableWidgets);
+    ui->movementCPositivePushButton->setEnabled(enableWidgets);
+    ui->movementDNegativePushButton->setEnabled(enableWidgets);
+    ui->movementDPositivePushButton->setEnabled(enableWidgets);
+
+    for(auto shortcut : m_axisesShortcuts)
+    {
+        shortcut->setEnabled(enableWidgets);
+    }
+
+    ui->discreteRadioButton_1->setEnabled(enableWidgets);
+    ui->discreteRadioButton_2->setEnabled(enableWidgets);
+    ui->discreteRadioButton_3->setEnabled(enableWidgets);
+    ui->discreteRadioButton_4->setEnabled(enableWidgets);
+    ui->discreteRadioButton_5->setEnabled(enableWidgets);
+
+    ui->feedrateScrollBar->setEnabled(enableWidgets);
+    ui->feedrateLcdNumber->setEnabled(enableWidgets);
+
+    ui->toBasePushButton->setEnabled(enableWidgets);
+    ui->toZeroPushButton->setEnabled(enableWidgets);
+    ui->toParkPushButton->setEnabled(enableWidgets);
+    ui->zeroPushButton->setEnabled(enableWidgets);
+    ui->zeroSensorPushButton->setEnabled(enableWidgets);
+    ui->parkPushButton->setEnabled(enableWidgets);
+
+    ui->runCommandLinkButton->setEnabled(enableWidgets);
+    ui->stopCommandLinkButton->setEnabled(enableWidgets);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()

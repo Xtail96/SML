@@ -120,11 +120,7 @@ private:
 
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onMachineTool_U1Connected();
-    void onMachineTool_U1Disconnected();
-
-    void onMachineTool_U2Connected();
-    void onMachineTool_U2Disconnected();
+    void onMachineTool_AdaptersConnected();
 
     /// Слоты для обработки ошибок станка
     void onMachineTool_ErrorOccured(int errorCode);

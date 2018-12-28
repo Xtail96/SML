@@ -1,17 +1,25 @@
 #include "adapter.h"
 
-Adapter::Adapter(QObject *parent) : QObject(parent)
+Adapter::Adapter(Type type, QObject *parent) :
+    QObject(parent),
+    m_type(type),
+    m_connected(false),
+    m_workflowState(0)
 {
-    m_connected = false;
-    m_workflowState = 0;
+
 }
 
-void Adapter::setConnected(bool connected)
+bool Adapter::connectionState() const
+{
+    return m_connected;
+}
+
+void Adapter::setConnectionState(bool connected)
 {
     if(m_connected != connected)
     {
         m_connected = connected;
-        emit connectionStateChanged(m_connected);
+        emit connectionStateChanged(m_type, m_connected);
     }
 }
 
@@ -25,6 +33,6 @@ void Adapter::setWorkflowState(int workflowState)
     if(m_workflowState != workflowState)
     {
         m_workflowState = workflowState;
-        emit workflowStateChanged(m_workflowState);
+        emit workflowStateChanged(m_type, m_workflowState);
     }
 }

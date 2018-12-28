@@ -15,17 +15,19 @@ class Adapter : public QObject
     Q_OBJECT
 public:
 
+    enum Type {U1, U2};
+
     /**
      * @brief Конструктор класса
      * @param parent родительский объект в дереве объектов
      */
-    explicit Adapter(QObject *parent = nullptr);
+    explicit Adapter(Type type, QObject *parent = nullptr);
 
     /**
      * @brief Возвращает текущее значение состояния подключения
      * @return текущее состояние подключения (true - адаптер подключен. false - адаптер не подключен)
      */
-    bool connected() const;
+    bool connectionState() const;
 
     /**
      * @brief Устанавливает значение состояния подключения
@@ -34,7 +36,7 @@ public:
      * При смене состояния испускается соответсвующий сигнал.
      * @param connected обновленное состояние подключения
      */
-    void setConnected(bool connected);
+    void setConnectionState(bool connectionState);
 
     /**
      * @brief Возвращает текущее значение выполенения задания
@@ -53,6 +55,9 @@ public:
 
 protected:
 
+    /// Тип адаптера (U1 или U2)
+    Type m_type;
+
     /// Состояние подключения адптера (true - адаптер подключен. false - адаптер не подключен)
     bool m_connected;
 
@@ -64,14 +69,16 @@ signals:
     /**
      * @brief Состояние подключения изменилось
      * @param connected обновленное состояние подключения
+     * @param type тип адаптера (U1 или U2)
      */
-    void connectionStateChanged(bool connected);
+    void connectionStateChanged(Adapter::Type type, bool connectionState);
 
     /**
      * @brief Состояние выполения заданий изменилось
      * @param state обновленное состояние выполенния задний
+     * @param type тип адаптера (U1 или U2)
      */
-    void workflowStateChanged(int state);
+    void workflowStateChanged(Adapter::Type type, int state);
 
 public slots:
 };
