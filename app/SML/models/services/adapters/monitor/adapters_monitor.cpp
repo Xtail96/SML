@@ -3,19 +3,19 @@
 AdaptersMonitor::AdaptersMonitor(Adapter* u1, Adapter* u2, QObject *parent) :
     QObject(parent)
 {
-    QObject::connect(u1, SIGNAL(connectionStateChanged(Adapter::Type, bool)), this, SLOT(onAdapter_ConnectionStateChanged(Adapter::Type, bool)));
-    QObject::connect(u1, SIGNAL(workflowStateChanged(Adapter::Type, int)), this, SLOT(onAdapter_WorkflowStateChanged(Adapter::Type, int)));
+    QObject::connect(u1, SIGNAL(connectionStateChanged()), this, SLOT(onAdapter_ConnectionStateChanged()));
+    QObject::connect(u1, SIGNAL(workflowStateChanged()), this, SLOT(onAdapter_WorkflowStateChanged()));
 
-    QObject::connect(u2, SIGNAL(connectionStateChanged(Adapter::Type, bool)), this, SLOT(onAdapter_ConnectionStateChanged(Adapter::Type, bool)));
-    QObject::connect(u2, SIGNAL(workflowStateChanged(Adapter::Type, int)), this, SLOT(onAdapter_WorkflowStateChanged(Adapter::Type, int)));
+    QObject::connect(u2, SIGNAL(connectionStateChanged()), this, SLOT(onAdapter_ConnectionStateChanged()));
+    QObject::connect(u2, SIGNAL(workflowStateChanged()), this, SLOT(onAdapter_WorkflowStateChanged()));
 }
 
-void AdaptersMonitor::onAdapter_ConnectionStateChanged(Adapter::Type type, bool state)
+void AdaptersMonitor::onAdapter_ConnectionStateChanged()
 {
-    emit AdapterConnectionStateChanged(type, state);
+    emit AdapterConnectionStateChanged();
 }
 
-void AdaptersMonitor::onAdapter_WorkflowStateChanged(Adapter::Type type, int state)
+void AdaptersMonitor::onAdapter_WorkflowStateChanged()
 {
-    emit AdapterWorkflowStateChanged(type, state);
+    emit AdapterWorkflowStateChanged();
 }

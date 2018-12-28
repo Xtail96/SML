@@ -53,6 +53,12 @@ public:
      */
     void setWorkflowState(int workflowState);
 
+    /**
+     * @brief Возвращает тип адаптера
+     * @return тип адаптера (U1 или U2).
+     */
+    Adapter::Type type() const;
+
 protected:
 
     /// Тип адаптера (U1 или U2)
@@ -68,17 +74,13 @@ signals:
 
     /**
      * @brief Состояние подключения изменилось
-     * @param connected обновленное состояние подключения
-     * @param type тип адаптера (U1 или U2)
      */
-    void connectionStateChanged(Adapter::Type type, bool connectionState);
+    void connectionStateChanged();
 
     /**
      * @brief Состояние выполения заданий изменилось
-     * @param state обновленное состояние выполенния задний
-     * @param type тип адаптера (U1 или U2)
      */
-    void workflowStateChanged(Adapter::Type type, int state);
+    void workflowStateChanged();
 
 public slots:
 };

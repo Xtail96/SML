@@ -30,33 +30,27 @@ signals:
 
     /**
      * @brief Сигнал об изменнии состояния подключения адптера
-     * @param type тип адаптера (U1 или U2).
-     * @param state обновленное состояние подключения адаптера.
      */
-    void AdapterConnectionStateChanged(Adapter::Type type, bool state);
+    void AdapterConnectionStateChanged();
 
     /**
      * @brief Сигнал об изменнеии состояния заданий на адаптере
-     * @param type тип адаптера (U1 или U2).
-     * @param state обновленный код состояния выполнения заданий на адаптере.
      */
-    void AdapterWorkflowStateChanged(Adapter::Type type, int state);
+    void AdapterWorkflowStateChanged();
 
 protected slots:
 
     /**
      * @brief Обрабатывает согнал об изменении состояния подключения любого из подключенных адаптеров
      * Испускает сигнал об изменении состояния подключения адаптеров.
-     * @param state обновленное состояние подключения любого из адаптеров
      */
-    void onAdapter_ConnectionStateChanged(Adapter::Type type, bool state);
+    void onAdapter_ConnectionStateChanged();
 
     /**
      * @brief Обрабатывает согнал об изменении состояния выполнения заданий любого из подключенных адаптеров
-     * Испускает сигнал об изменении состояния выполенния заданий на адаптерах
-     * @param state обновленный код состояния выполнения заданий
+     * Испускает сигнал об изменении состояния выполенния заданий на адаптерах.
      */
-    void onAdapter_WorkflowStateChanged(Adapter::Type type, int state);
+    void onAdapter_WorkflowStateChanged();
 };
 
 #endif // CONNECTIONSMONITOR_H

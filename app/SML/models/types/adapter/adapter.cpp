@@ -19,7 +19,7 @@ void Adapter::setConnectionState(bool connected)
     if(m_connected != connected)
     {
         m_connected = connected;
-        emit connectionStateChanged(m_type, m_connected);
+        emit connectionStateChanged();
     }
 }
 
@@ -33,6 +33,11 @@ void Adapter::setWorkflowState(int workflowState)
     if(m_workflowState != workflowState)
     {
         m_workflowState = workflowState;
-        emit workflowStateChanged(m_type, m_workflowState);
+        emit workflowStateChanged();
     }
+}
+
+Adapter::Type Adapter::type() const
+{
+    return m_type;
 }
