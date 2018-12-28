@@ -100,7 +100,6 @@ private:
     /// Настраивает панель опций
     void setupOptionsPanel();
 
-
     /// Проводит инициализацию списка настроек осей
     void setupAxisesBoard();
 

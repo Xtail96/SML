@@ -321,7 +321,7 @@ Sensor &Repository::getSensor(QString uid)
     }
 
     QString message =
-            QStringLiteral("sensor with name ") +
+            QStringLiteral("sensor with uid = ") +
             uid +
             QStringLiteral(" is not exists");
     throw InvalidArgumentException(message);
@@ -337,12 +337,12 @@ QStringList Repository::getAllSensorsUids()
     return uids;
 }
 
-QMap<QString, QString> Repository::getSensorSettings(QString name)
+QMap<QString, QString> Repository::getSensorSettings(QString uid)
 {
     QMap<QString, QString> sensorsSettingsMap;
     try
     {
-        QString settingsString = getSensor(name).getSettings();
+        QString settingsString = getSensor(uid).getSettings();
         QStringList settingsList = settingsString.split(";");
 
         for(auto setting : settingsList)

@@ -258,7 +258,7 @@ void MainWindow::setupSensorsDisplay()
     for(auto name : names)
     {
         QMap<QString, QString> parameters = machineTool.getRepository()->getSensorSettings(name);
-        ui->sensorsDisplayWidget->addSensor(parameters["Name"], parameters["Label"], QColor(SmlColors::white()));
+        ui->sensorsDisplayWidget->addSensor(parameters["Uid"], parameters["Label"], QColor(SmlColors::white()));
     }
 }
 

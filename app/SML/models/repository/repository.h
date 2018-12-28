@@ -94,7 +94,7 @@ public:
      * @param name уникальное имя датчика
      * @return список текущих настроек датчика
      */
-    QMap<QString, QString> getSensorSettings(QString name);
+    QMap<QString, QString> getSensorSettings(QString uid);
 
     /**
      * @brief Возвращает текущие настройки всех доступных датчиков
