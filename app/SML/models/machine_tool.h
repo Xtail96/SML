@@ -238,18 +238,18 @@ protected slots:
     void onServer_ErrorOccured(int errorCode);
 
     /**
-     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптера U1
-     * @param u1 обновленное состояние подключения адаптера U1. True - адаптер подключен. False - адаптер отключен
-     * @param u2 обновленное состояние подключения адаптера U2. True - адаптер подключен. False - адаптер отключен
+     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптера
+     * @param type тип адаптера (U1 или U2).
+     * @param state обновленное состояние подключения адаптера. True - адаптер подключен. False - адаптер отключен.
      */
-    void onAdaptersMonitor_AdaptersConnectionStateChanged(bool u1, bool u2);
+    void onAdaptersMonitor_AdapterConnectionStateChanged(Adapter::Type type, bool state);
 
     /**
-     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния выполнения заданий адаптера U1
+     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния выполнения заданий адаптера
      * @param u1 обновленное состояние выполнения заданий адаптера U1
-     * @param u2 обновленное состояние выполнения заданий адаптера U2
+     * @param u2 обновленное состояние выполнения заданий адаптера.
      */
-    void onAdaptersMonitor_AdaptersWorkflowStateChanged(int u1, int u2);
+    void onAdaptersMonitor_AdapterWorkflowStateChanged(Adapter::Type type, int state);
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек

@@ -45,8 +45,8 @@ void MachineTool::setupConnections()
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, int, int)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
-    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdaptersConnectionStateChanged(bool, bool)), this, SLOT(onAdaptersMonitor_AdaptersConnectionStateChanged(bool, bool)));
-    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdaptersWorkflowStateChanged(int, int)), this, SLOT(onAdaptersMonitor_AdaptersWorkflowStateChanged(int, int)));
+    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged(Adapter::Type, bool)), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged(Adapter::Type, bool)));
+    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged(Adapter::Type, int)), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged(Adapter::Type, int)));
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -64,8 +64,8 @@ void MachineTool::resetConnections()
                      this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, int, int)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccured(int)), this, SLOT(onServer_ErrorOccured(int)));
 
-    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdaptersConnectionStateChanged(bool, bool)), this, SLOT(onAdaptersMonitor_AdaptersConnectionStateChanged(bool, bool)));
-    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdaptersWorkflowStateChanged(int, int)), this, SLOT(onAdaptersMonitor_AdaptersWorkflowStateChanged(int, int)));
+    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged(Adapter::Type, bool)), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged(Adapter::Type, bool)));
+    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged(Adapter::Type, int)), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged(Adapter::Type, int)));
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -167,8 +167,11 @@ void MachineTool::onServer_ErrorOccured(int errorCode)
     setLastError(errorCode);
 }
 
-void MachineTool::onAdaptersMonitor_AdaptersConnectionStateChanged(bool u1, bool u2)
+void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged(Adapter::Type type, bool state)
 {
+    bool u1 = m_repository->m_u1Adapter->connectionState();
+    bool u2 = true;
+
     if(u1 && u2)
     {
         setLastError(0);
@@ -196,9 +199,9 @@ void MachineTool::onAdaptersMonitor_AdaptersConnectionStateChanged(bool u1, bool
     }
 }
 
-void MachineTool::onAdaptersMonitor_AdaptersWorkflowStateChanged(int u1, int u2)
+void MachineTool::onAdaptersMonitor_AdapterWorkflowStateChanged(Adapter::Type type, int state)
 {
-    qDebug() << "Workflow state of u1 adapters is u1 = " << u1 << "and u2 = "<< u2 << "now";
+    qDebug() << "Workflow state of u1 adapters is u1 = " << type << "and u2 = "<< state << "now";
 }
 
 void MachineTool::onPointsMonitor_PointsUpdated()
