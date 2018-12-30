@@ -120,9 +120,6 @@ private:
 
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onMachineTool_AdaptersConnected();
-
-    /// Слоты для обработки ошибок станка
     void onMachineTool_ErrorOccured(int errorCode);
 
     /// слот для обновления дисплея датчиков

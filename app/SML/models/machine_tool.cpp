@@ -105,9 +105,9 @@ void MachineTool::setLastError(int value)
     m_lastError = value;
     if(m_lastError != 0)
     {
-        // вызов интерактора-обработчика
-        emit errorOccured(m_lastError);
+        // вызов интерактора-обработчика    
     }
+    emit errorOccured(m_lastError);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
@@ -175,7 +175,6 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
     if(u1 && u2)
     {
         setLastError(0);
-        emit adaptersConnected();
     }
     else
     {

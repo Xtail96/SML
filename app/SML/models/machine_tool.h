@@ -146,18 +146,8 @@ private:
 
 signals:
     /**
-     * @brief Сигнал подключения адаптеров
-     */
-    void adaptersConnected();
-
-    /**
-     * @brief Сигнал отключения адаптера U1
-     */
-    //void u1Disconnected();
-
-    /**
-     * @brief Сигнал возникновения ошибки в работе станка
-     * @param code - код возникшей ошибки
+     * @brief Сигнал изменения состояния ошибки в работе станка
+     * @param code - код ошибки
      */
     void errorOccured(int code);
 

@@ -40,13 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateDevicesPanel();
     //updateServerPanel();
 
-    //updateU1Displays();
-    //updateU2Displays();
-
-    //onMachineTool_U1Disconnected();
-    //onMachineTool_U2Disconnected();
-
-    onMachineTool_ErrorOccured(-3);
+    MachineTool& machineTool = MachineTool::getInstance();
+    onMachineTool_ErrorOccured(machineTool.getLastError());
 }
 
 MainWindow::~MainWindow()
@@ -109,7 +104,6 @@ void MainWindow::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(&machineTool, SIGNAL(adaptersConnected()), this, SLOT(onMachineTool_AdaptersConnected()));
     QObject::connect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
@@ -187,7 +181,6 @@ void MainWindow::resetConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::disconnect(&machineTool, SIGNAL(adaptersConnected()), this, SLOT(onMachineTool_AdaptersConnected()));
     QObject::disconnect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
 
     QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
@@ -466,23 +459,6 @@ void MainWindow::hideWidgets()
 {
     ui->smlEditorTreeWidget->setEnabled(false);
     ui->commandsToolsListWidget->setEnabled(false);
-}
-
-void MainWindow::onMachineTool_AdaptersConnected()
-{
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    /*ui->optionsListWidget->setEnabled(true);
-
-    ui->spindelsListWidget->setEnabled(true);
-
-    ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository()->getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository()->getDevicesBufferSize());
-    ui->currentConnectionsListWidget->clear();
-    ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());*/
-
-    this->onMachineTool_ErrorOccured(machineTool.getLastError());
 }
 
 void MainWindow::onMachineTool_ErrorOccured(int errorCode)
