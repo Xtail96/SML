@@ -476,14 +476,14 @@ void MainWindow::onMachineTool_ErrorOccured(int errorCode)
     {
         enableWidgets = true;
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-        ui->statusBar->showMessage("Adapters connected");
     }
     else
     {
         ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-        QString errorString = QStringLiteral("Error code #") + QString::number(errorCode);
-        ui->statusBar->showMessage(errorString);
     }
+
+    QString errorString = QStringLiteral("Error code #") + QString::number(errorCode);
+    ui->statusBar->showMessage(errorString);
 
     ui->optionsListWidget->setEnabled(enableWidgets);
     ui->spindelsListWidget->setEnabled(enableWidgets);
