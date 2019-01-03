@@ -164,7 +164,7 @@ void Repository::setU1ConnectState(bool connected)
     m_u1Adapter->setConnectionState(connected);
 }
 
-void Repository::setU1WorkflowState(int state)
+void Repository::setU1WorkflowState(unsigned int state)
 {
     m_u1Adapter->setWorkflowState(state);
 }

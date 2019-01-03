@@ -23,12 +23,12 @@ void Adapter::setConnectionState(bool connected)
     }
 }
 
-int Adapter::workflowState() const
+unsigned int Adapter::workflowState() const
 {
     return m_workflowState;
 }
 
-void Adapter::setWorkflowState(int workflowState)
+void Adapter::setWorkflowState(unsigned int workflowState)
 {
     if(m_workflowState != workflowState)
     {

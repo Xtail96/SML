@@ -42,7 +42,7 @@ public:
      * @brief Возвращает текущее значение выполенения задания
      * @return код выполенения работ адаптером
      */
-    int workflowState() const;
+    unsigned int workflowState() const;
 
     /**
      * @brief Устанавливает новое значение выполения задания
@@ -51,7 +51,7 @@ public:
      * При смене состояния испускается соответсвующий сигнал.
      * @param workflowState код выполнения задания
      */
-    void setWorkflowState(int workflowState);
+    void setWorkflowState(unsigned int workflowState);
 
     /**
      * @brief Возвращает тип адаптера
@@ -68,7 +68,7 @@ protected:
     bool m_connected;
 
     /// Состояние выполения задания адаптера (0 - адаптер совободен. 1 - адаптер занят. >= 2 - ошибка выполеннеия задания)
-    int m_workflowState;
+    unsigned int m_workflowState;
 
 signals:
 

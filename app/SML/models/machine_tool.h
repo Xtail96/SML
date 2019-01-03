@@ -216,7 +216,7 @@ protected slots:
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
      */
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, int workflowState, int lastError);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, int lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка
