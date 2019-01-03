@@ -161,7 +161,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
     {
         try
         {
-            registerConnection(pSender, SMLServer::U1Adapter);
+            registerClient(pSender, SMLServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
         catch(SynchronizeStateException e)
@@ -176,7 +176,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         {
             try
             {
-                registerConnection(pSender, SMLServer::U2Adapter);
+                registerClient(pSender, SMLServer::U2Adapter);
             }
             catch(SynchronizeStateException e)
             {
@@ -276,27 +276,27 @@ void SMLServer::onQWebSocket_Disconnected()
     pSender->deleteLater();
 }
 
-void SMLServer::registerConnection(QWebSocket* connection, int type)
+void SMLServer::registerClient(QWebSocket* client, int type)
 {
-    if (connection == nullptr)
+    if (client == nullptr)
         throw SynchronizeStateException("Try to Register invalid socket");
 
     switch (type) {
     case SMLServer::U1Adapter:
-        m_u1Connections.push_back(connection);
-        m_unregistered.removeAll(connection);
+        m_u1Connections.push_back(client);
+        m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U1Adapter registered:" << connection;
+            qDebug() << "U1Adapter registered:" << client;
         }
         emit u1Connected();
         break;
     case SMLServer::U2Adapter:
-        m_u2Connections.push_back(connection);
-        m_unregistered.removeAll(connection);
+        m_u2Connections.push_back(client);
+        m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U2Adapter registered:" << connection;
+            qDebug() << "U2Adapter registered:" << client;
         }
         emit u2Connected();
         break;
