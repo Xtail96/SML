@@ -96,7 +96,6 @@ SOURCES += main.cpp\
     models/types/exceptions/invalid_configuration_exception.cpp \
     models/types/exceptions/out_of_range_exception.cpp \
     models/types/exceptions/synchronize_state_exception.cpp \
-    models/types/point/points_builder.cpp \
     models/types/point/points_manager.cpp \
     models/types/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
@@ -165,7 +164,6 @@ HEADERS  += gui/mainwindow.h \
     models/types/exceptions/synchronize_state_exception.h \
     models/types/sensor/sensors_buffer.h \
     models/types/point/points_manager.h \
-    models/types/point/points_builder.h \
     models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/types/gcodes/file_reader/file_reader.h \
     models/server/u1_state.h \
