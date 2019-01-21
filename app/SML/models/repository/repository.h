@@ -312,7 +312,7 @@ public:
      */
     QStringList getOptionsLabels();
 
-protected:
+private:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;
 
@@ -403,7 +403,6 @@ protected:
      */
     Point getCurrentCoordinatesFromZero();
 
-private:
     /// Класс-друг!
     friend class MachineTool;
 
@@ -411,7 +410,7 @@ signals:
 
 public slots:
 
-protected slots:
+private slots:
 };
 
 #endif // REPOSITORY_H

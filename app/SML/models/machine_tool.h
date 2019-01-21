@@ -88,17 +88,7 @@ public:
      */
     void setLastError(int value);
 
-    /**
-     * @brief Запрещаем копи-конструктор
-     */
-    MachineTool(MachineTool const&) = delete;
-
-    /**
-     * @brief Запрещаем operator =
-     */
-    MachineTool& operator =(MachineTool const&) = delete;
-
-protected:
+private:
 
     /// Репозиторий, хранящий текущее состояние систем станка
     QScopedPointer<Repository> m_repository;
@@ -128,6 +118,22 @@ protected:
     int m_lastError;
 
     /**
+     * @brief Создает объект класса станок
+     * @param parent родительский объект
+     */
+    MachineTool(QObject *parent = nullptr);
+
+    /**
+     * @brief Запрещаем копи-конструктор
+     */
+    MachineTool(MachineTool const&) = delete;
+
+    /**
+     * @brief Запрещаем operator =
+     */
+    MachineTool& operator =(MachineTool const&) = delete;
+
+    /**
      * @brief Подключет слоты к сигналам полей класса
      */
     void setupConnections();
@@ -136,13 +142,6 @@ protected:
      * @brief Отключает слоты от сигналов полей класса
      */
     void resetConnections();
-
-private:
-    /**
-     * @brief Создает объект класса станок
-     * @param parent родительский объект
-     */
-    MachineTool(QObject *parent = nullptr);
 
 signals:
     /**
@@ -197,7 +196,7 @@ public slots:
      */
     void switchSpindelOff(QString uid);
 
-protected slots:
+private slots:
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
      * (запись данных в репозитоий)
