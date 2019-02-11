@@ -11,7 +11,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
-    m_lastError(-3) // нет связи со станком
+    m_lastError(U1_AND_U2_DISCONNECTED) // нет связи со станком
 {
     setupConnections();
     startAdapterServer();
@@ -77,22 +77,53 @@ void MachineTool::resetConnections()
 
 void MachineTool::startAdapterServer()
 {
-    m_adapterServer->start();
+    try
+    {
+        m_adapterServer->start();
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 void MachineTool::stopAdapterServer()
 {
-    m_adapterServer->stop();
+    try
+    {
+        m_adapterServer->stop();
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 QStringList MachineTool::getConnectedAdapters()
 {
-    return m_adapterServer->currentAdapters();
+    try
+    {
+        return m_adapterServer->currentAdapters();
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+        return QStringList();
+    }
 }
 
 QString MachineTool::getAdapterServerPort()
 {
-    return QString::number(m_adapterServer->port());
+    try
+    {
+        return QString::number(m_adapterServer->port());
+    }
+    catch (...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+        return QString();
+    }
+
 }
 
 int MachineTool::getLastError()
@@ -103,44 +134,80 @@ int MachineTool::getLastError()
 void MachineTool::setLastError(int value)
 {
     m_lastError = value;
-    if(m_lastError != 0)
+
+    // вызов интерактора-обработчика
+    switch (value)
     {
-        // вызов интерактора-обработчика    
+        case OK: break;
+        case U1_ADAPTER_DISCONNECTED: break;
+        case U2_ADAPTER_DISCONNECTED: break;
+        case U1_AND_U2_DISCONNECTED: break;
+        case UNEXPECTED_ERROR: break;
+        case SYNCHRONISATION_ERROR: break;
     }
+
     emit errorOccured(m_lastError);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
 {
-    if(m_lastError != 0)
+    try
     {
-        return;
-    }
+        if(m_lastError != OK)
+        {
+            return;
+        }
 
-    SwitchSpindel swithcer(m_adapterServer.data(), uid, true, rotations);
-    swithcer.execute();
+        SwitchSpindel swithcer(m_adapterServer.data(), uid, true, rotations);
+        swithcer.execute();
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 void MachineTool::switchSpindelOff(QString uid)
 {
-    if(m_lastError != 0)
+    try
     {
-        return;
-    }
+        if(m_lastError != OK)
+        {
+            return;
+        }
 
-    SwitchSpindel switcher(m_adapterServer.data(), uid, false);
-    switcher.execute();
+        SwitchSpindel switcher(m_adapterServer.data(), uid, false);
+        switcher.execute();
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 void MachineTool::onServer_U1Connected()
 {
-    m_repository->setU1ConnectState(true);
+    try
+    {
+        m_repository->setU1ConnectState(true);
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 
 void MachineTool::onServer_U1Disconnected()
 {
-    m_repository->setU1ConnectState(false);
+    try
+    {
+        m_repository->setU1ConnectState(false);
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, int lastError)
@@ -158,42 +225,53 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
     catch(SynchronizeStateException e)
     {
         qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
-        setLastError(-255);
+        setLastError(SYNCHRONISATION_ERROR);
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
     }
 }
 
 void MachineTool::onServer_ErrorOccured(int errorCode)
 {
-    setLastError(errorCode);
+    setLastError(SERVER_ERROR);
 }
 
 void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
 {
-    bool u1 = m_repository->m_u1Adapter->connectionState();
-    bool u2 = true;
+    try
+    {
+        bool u1 = m_repository->m_u1Adapter->connectionState();
+        bool u2 = true;
 
-    if(u1 && u2)
-    {
-        setLastError(0);
-    }
-    else
-    {
-        if(!u1 && !u2)
+        if(u1 && u2)
         {
-            setLastError(-3);
+            setLastError(OK);
         }
         else
         {
-            if(u1 == false)
+            if(!u1 && !u2)
             {
-                setLastError(-1);
+                setLastError(U1_AND_U2_DISCONNECTED);
             }
-
-            if(u2 == false)
+            else
             {
-                setLastError(-2);
+                if(u1 == false)
+                {
+                    setLastError(U1_ADAPTER_DISCONNECTED);
+                }
+
+                if(u2 == false)
+                {
+                    setLastError(U2_ADAPTER_DISCONNECTED);
+                }
             }
         }
+    }
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
     }
 }
 
@@ -210,16 +288,23 @@ void MachineTool::onPointsMonitor_PointsUpdated()
 
 void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
 {
-    /*if(sensorName == "name")
+    try
     {
-        do somtething
-    }*/
-    QColor led = QColor(SmlColors::white());
-    if(state)
-    {
-        led = m_repository->getSensor(sensorName).getColor();
+        /*if(sensorName == "name")
+        {
+            do somtething
+        }*/
+        QColor led = QColor(SmlColors::white());
+        if(state)
+        {
+            led = m_repository->getSensor(sensorName).getColor();
+        }
+        emit sensorStateChanged(sensorName, led);
     }
-    emit sensorStateChanged(sensorName, led);
+    catch(...)
+    {
+        setLastError(UNEXPECTED_ERROR);
+    }
 }
 
 void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations)

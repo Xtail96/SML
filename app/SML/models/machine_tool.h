@@ -5,6 +5,7 @@
 
 #include "models/repository/repository.h"
 #include "models/server/sml_server.h"
+#include "models/utils/error_codes/error_codes.h"
 
 #include "models/services/adapters/monitor/adapters_monitor.h"
 #include "models/services/points/monitor/points_monitor.h"

@@ -167,7 +167,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/types/gcodes/file_reader/file_reader.h \
     models/server/u1_state.h \
-    gui/utils/gcodes_visualizer.h
+    gui/utils/gcodes_visualizer.h \
+    models/utils/error_codes/error_codes.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \
