@@ -13,13 +13,13 @@ MachineTool::MachineTool(QObject *parent) :
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
     m_lastError(DISCONNECTED) // нет связи со станком
 {
-    setupConnections();
-    startAdapterServer();
+    this->setupConnections();
+    this->startAdapterServer();
 }
 
 MachineTool::~MachineTool()
 {
-    resetConnections();
+    this->resetConnections();
 }
 
 MachineTool &MachineTool::getInstance()
@@ -87,7 +87,8 @@ void MachineTool::startAdapterServer()
     }
     catch(...)
     {
-        setLastError(SERVER_ERROR);
+        qDebug() << QStringLiteral("MachineTool::startAdapterServer: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
@@ -99,35 +100,43 @@ void MachineTool::stopAdapterServer()
     }
     catch(...)
     {
-        setLastError(SERVER_ERROR);
+        qDebug() << QStringLiteral("MachineTool::stopAdapterServer: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
 QStringList MachineTool::getConnectedAdapters()
 {
+    QStringList result = {};
+
     try
     {
-        return m_adapterServer->currentAdapters();
+        result = m_adapterServer->currentAdapters();
     }
     catch(...)
     {
-        setLastError(SERVER_ERROR);
-        return QStringList();
+        qDebug() << QStringLiteral("MachineTool::getConnectedAdapters: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
+
+    return result;
 }
 
 QString MachineTool::getAdapterServerPort()
 {
+    QString result = QString();
+
     try
     {
-        return QString::number(m_adapterServer->port());
+        result = QString::number(m_adapterServer->port());
     }
     catch (...)
     {
-        setLastError(SERVER_ERROR);
-        return QString();
+        qDebug() << QStringLiteral("MachineTool::getAdapterServerPort: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 
+    return result;
 }
 
 int MachineTool::getLastError()
@@ -139,16 +148,24 @@ void MachineTool::setLastError(ERROR_CODE value)
 {
     m_lastError = value;
 
-    // вызов интерактора-обработчика
     switch (value)
     {
         case OK:
+            /*
+             * toDo: вызов метода для проверки всех систем,
+             * чтобы убедиться, что все действительно ОК
+             */
+            break;
+        case REPOSITORY_ERROR:
+            /*
+             * toDo: вызов интерактора (обработчика ошибки такого класса)
+             */
             break;
         default:
             break;
     }
 
-    emit errorOccured(m_lastError);
+    emit this->errorOccured(m_lastError);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
@@ -165,7 +182,8 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
     }
     catch(...)
     {
-        setLastError(UNKNOWN_ERROR);
+        qDebug() << QStringLiteral("MachineTool::switchSpindelOn: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
@@ -183,20 +201,20 @@ void MachineTool::switchSpindelOff(QString uid)
     }
     catch(...)
     {
-        setLastError(UNKNOWN_ERROR);
+        qDebug() << QStringLiteral("MachineTool::switchSpindelOff: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
 void MachineTool::onRepository_ErrorOccured(ERROR_CODE code)
 {
-    setLastError(code);
+    this->setLastError(code);
 }
 
 void MachineTool::onServer_U1Connected()
 {
     m_repository->setU1ConnectState(true);
 }
-
 
 void MachineTool::onServer_U1Disconnected()
 {
@@ -205,7 +223,7 @@ void MachineTool::onServer_U1Disconnected()
 
 void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
-    setLastError(lastError);
+    this->setLastError(lastError);
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
     m_repository->setU1WorkflowState(workflowState);
@@ -213,7 +231,7 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
 
 void MachineTool::onServer_ErrorOccured(ERROR_CODE errorCode)
 {
-    setLastError(errorCode);
+    this->setLastError(errorCode);
 }
 
 void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
@@ -225,31 +243,32 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
 
         if(u1 && u2)
         {
-            setLastError(OK);
+            this->setLastError(OK);
         }
         else
         {
             if(!u1 && !u2)
             {
-                setLastError(DISCONNECTED);
+                this->setLastError(DISCONNECTED);
             }
             else
             {
                 if(u1 == false)
                 {
-                    setLastError(DISCONNECTED);
+                    this->setLastError(DISCONNECTED);
                 }
 
                 if(u2 == false)
                 {
-                    setLastError(DISCONNECTED);
+                    this->setLastError(DISCONNECTED);
                 }
             }
         }
     }
     catch(...)
     {
-        setLastError(UNKNOWN_ERROR);
+        qDebug() << QStringLiteral("MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
@@ -261,10 +280,10 @@ void MachineTool::onAdaptersMonitor_AdapterWorkflowStateChanged()
 
 void MachineTool::onPointsMonitor_PointsUpdated()
 {
-    emit pointsUpdated();
+    emit this->pointsUpdated();
 }
 
-void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
+void MachineTool::onSensorMonitor_StateChanged(QString sensorUid, bool state)
 {
     try
     {
@@ -275,27 +294,28 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
         QColor led = QColor(SmlColors::white());
         if(state)
         {
-            led = m_repository->getSensor(sensorName).getColor();
+            led = m_repository->getSensor(sensorUid).getColor();
         }
-        emit sensorStateChanged(sensorName, led);
+        emit this->sensorStateChanged(sensorUid, led);
     }
     catch(...)
     {
-        setLastError(UNKNOWN_ERROR);
+        qDebug() << QStringLiteral("MachineTool::onSensorMonitor_StateChanged: unknown error");
+        this->setLastError(ROUTER_ERROR);
     }
 }
 
 void MachineTool::onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations)
 {
-    emit spindelStateChanged(index, state, rotations);
+    emit this->spindelStateChanged(index, state, rotations);
 }
 
 void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
 {
-    emit gcodesFilePathUpdated(path);
+    emit this->gcodesFilePathUpdated(path);
 }
 
 void MachineTool::onGCodesMonitor_FileContentUpdated(QStringList content)
 {
-    emit gcodesFileContentUpdated(content);
+    emit this->gcodesFileContentUpdated(content);
 }

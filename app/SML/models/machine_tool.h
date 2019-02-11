@@ -248,10 +248,10 @@ private slots:
      * @brief Обрабатывает сигнал от монитора датчиков об изменении состояния датчика
      * (испускает сигнал о том, что состояние датчика изменилось)
      *
-     * @param sensorName уникальный идентификатор датчика
+     * @param sensorUid уникальный идентификатор датчика
      * @param state обновленное состояние датчика, true = on / false = off
      */
-    void onSensorMonitor_StateChanged(QString sensorName, bool state);
+    void onSensorMonitor_StateChanged(QString sensorUid, bool state);
 
     /**
      * @brief Обрабатывает сигнал от монитора шпинделей об изменении состояния шпинделя
