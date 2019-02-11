@@ -105,7 +105,7 @@ signals:
      * @param workflowState статус выполнения заданий контроллера U1 (0 - свободен. 1 - занят. >= 2 -  ошибка выполнения задания.)
      * @param lastError код последней ошибки, возникшей в процесе работы контроллера (0 - ошибок нет. Чем сильнее модуль кода ошибки отличается от 0, тем ошибка критичнее.)
      */
-    void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, int lastError);
+    void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Сигнал подключения адаптера контроллера U1

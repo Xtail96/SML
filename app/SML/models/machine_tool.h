@@ -86,7 +86,7 @@ public:
      * @brief Устанавливает значение последней ошибки
      * @param value код ошибки
      */
-    void setLastError(int value);
+    void setLastError(ERROR_CODE value);
 
 private:
 
@@ -217,7 +217,7 @@ private slots:
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
      */
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, int lastError);
+    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка

@@ -11,7 +11,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
-    m_lastError(U1_AND_U2_DISCONNECTED) // нет связи со станком
+    m_lastError(DISCONNECTED) // нет связи со станком
 {
     setupConnections();
     startAdapterServer();
@@ -43,8 +43,8 @@ void MachineTool::setupConnections()
 
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, int)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, int)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccured(ERROR_CODE)), this, SLOT(onServer_ErrorOccured(ERROR_CODE)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -64,8 +64,8 @@ void MachineTool::resetConnections()
 
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, int)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, int)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
+                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccured(ERROR_CODE)), this, SLOT(onServer_ErrorOccured(ERROR_CODE)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -87,7 +87,7 @@ void MachineTool::startAdapterServer()
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(SERVER_ERROR);
     }
 }
 
@@ -99,7 +99,7 @@ void MachineTool::stopAdapterServer()
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(SERVER_ERROR);
     }
 }
 
@@ -111,7 +111,7 @@ QStringList MachineTool::getConnectedAdapters()
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(SERVER_ERROR);
         return QStringList();
     }
 }
@@ -124,7 +124,7 @@ QString MachineTool::getAdapterServerPort()
     }
     catch (...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(SERVER_ERROR);
         return QString();
     }
 
@@ -135,19 +135,17 @@ int MachineTool::getLastError()
     return m_lastError;
 }
 
-void MachineTool::setLastError(int value)
+void MachineTool::setLastError(ERROR_CODE value)
 {
     m_lastError = value;
 
     // вызов интерактора-обработчика
     switch (value)
     {
-        case OK: break;
-        case U1_ADAPTER_DISCONNECTED: break;
-        case U2_ADAPTER_DISCONNECTED: break;
-        case U1_AND_U2_DISCONNECTED: break;
-        case UNEXPECTED_ERROR: break;
-        case SYNCHRONISATION_ERROR: break;
+        case OK:
+            break;
+        default:
+            break;
     }
 
     emit errorOccured(m_lastError);
@@ -167,7 +165,7 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(UNKNOWN_ERROR);
     }
 }
 
@@ -185,7 +183,7 @@ void MachineTool::switchSpindelOff(QString uid)
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(UNKNOWN_ERROR);
     }
 }
 
@@ -196,50 +194,21 @@ void MachineTool::onRepository_ErrorOccured(ERROR_CODE code)
 
 void MachineTool::onServer_U1Connected()
 {
-    try
-    {
-        m_repository->setU1ConnectState(true);
-    }
-    catch(...)
-    {
-        setLastError(UNEXPECTED_ERROR);
-    }
+    m_repository->setU1ConnectState(true);
 }
 
 
 void MachineTool::onServer_U1Disconnected()
 {
-    try
-    {
-        m_repository->setU1ConnectState(false);
-    }
-    catch(...)
-    {
-        setLastError(UNEXPECTED_ERROR);
-    }
+    m_repository->setU1ConnectState(false);
 }
 
-void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, int lastError)
+void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
-    try
-    {
-        m_repository->setU1Sensors(sensors);
-        m_repository->setU1Devices(devices);
-        m_repository->setU1WorkflowState(workflowState);
-        if(lastError != 0)
-        {
-            setLastError(lastError);
-        }
-    }
-    catch(SynchronizeStateException e)
-    {
-        qDebug() << "MachineTool::onServer_U1StateChanged:" << e.message();
-        setLastError(SYNCHRONISATION_ERROR);
-    }
-    catch(...)
-    {
-        setLastError(UNEXPECTED_ERROR);
-    }
+    setLastError(lastError);
+    m_repository->setU1Sensors(sensors);
+    m_repository->setU1Devices(devices);
+    m_repository->setU1WorkflowState(workflowState);
 }
 
 void MachineTool::onServer_ErrorOccured(ERROR_CODE errorCode)
@@ -262,25 +231,25 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
         {
             if(!u1 && !u2)
             {
-                setLastError(U1_AND_U2_DISCONNECTED);
+                setLastError(DISCONNECTED);
             }
             else
             {
                 if(u1 == false)
                 {
-                    setLastError(U1_ADAPTER_DISCONNECTED);
+                    setLastError(DISCONNECTED);
                 }
 
                 if(u2 == false)
                 {
-                    setLastError(U2_ADAPTER_DISCONNECTED);
+                    setLastError(DISCONNECTED);
                 }
             }
         }
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(UNKNOWN_ERROR);
     }
 }
 
@@ -312,7 +281,7 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorName, bool state)
     }
     catch(...)
     {
-        setLastError(UNEXPECTED_ERROR);
+        setLastError(UNKNOWN_ERROR);
     }
 }
 

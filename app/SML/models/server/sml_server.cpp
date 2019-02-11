@@ -167,7 +167,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit this->errorOccured(SYNCHRONISATION_ERROR);
+            emit this->errorOccured(SERVER_ERROR);
         }
     }
     else
@@ -181,7 +181,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
             catch(SynchronizeStateException e)
             {
                 qDebug() << e.message();
-                emit this->errorOccured(SYNCHRONISATION_ERROR);
+                emit this->errorOccured(SERVER_ERROR);
             }
         }
         else
@@ -207,12 +207,12 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
         try
         {
             U1State u1 = parseU1BinaryMessage(message);
-            emit u1StateChanged(u1.sensors, u1.devices, u1.workflowState, u1.errorCode);
+            emit u1StateChanged(u1.sensors, u1.devices, u1.workflowState, ERROR_CODE(u1.errorCode));
         }
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit errorOccured(SYNCHRONISATION_ERROR);
+            emit errorOccured(SERVER_ERROR);
         }
     }
 }
