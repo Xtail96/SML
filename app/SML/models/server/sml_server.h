@@ -11,6 +11,7 @@
 
 #include "models/types/structs.h"
 #include "models/server/u1_state.h"
+#include "models/utils/error_codes/error_codes.h"
 
 /**
  * @brief Класс SML-сервер
@@ -120,7 +121,7 @@ signals:
      * @brief Сигнал изменения состояния ошибки, возникшей в работе сервера
      * @param code код ошибки (аналогичен коду ошибки, возникшей во время работы станка)
      */
-    void errorOccured(int code);
+    void errorOccured(ERROR_CODE code);
 
 public slots:
 

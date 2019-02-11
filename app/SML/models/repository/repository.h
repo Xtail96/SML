@@ -16,6 +16,8 @@
 #include "models/types/adapter/adapter.h"
 #include "models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
+#include "models/utils/error_codes/error_codes.h"
+
 class MachineTool;
 
 /**
@@ -407,6 +409,7 @@ private:
     friend class MachineTool;
 
 signals:
+    void errorOccured(ERROR_CODE code);
 
 public slots:
 

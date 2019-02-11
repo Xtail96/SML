@@ -5,7 +5,6 @@
 
 #include "models/repository/repository.h"
 #include "models/server/sml_server.h"
-#include "models/utils/error_codes/error_codes.h"
 
 #include "models/services/adapters/monitor/adapters_monitor.h"
 #include "models/services/points/monitor/points_monitor.h"
@@ -198,6 +197,8 @@ public slots:
     void switchSpindelOff(QString uid);
 
 private slots:
+    void onRepository_ErrorOccured(ERROR_CODE code);
+
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
      * (запись данных в репозитоий)
@@ -225,7 +226,7 @@ private slots:
      * 3) Испускает сигнал о возникновении ошибки.
      * @param errorCode код ошибки
      */
-    void onServer_ErrorOccured(int errorCode);
+    void onServer_ErrorOccured(ERROR_CODE errorCode);
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптеров

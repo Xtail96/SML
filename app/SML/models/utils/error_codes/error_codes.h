@@ -1,7 +1,7 @@
 #ifndef ERROR_CODES_H
 #define ERROR_CODES_H
 
-enum ERROR_CODES
+enum ERROR_CODE
 {
     OK,
     U1_ADAPTER_DISCONNECTED,
