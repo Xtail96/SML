@@ -120,7 +120,7 @@ private:
 
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onMachineTool_ErrorOccured(int errorCode);
+    void onMachineTool_ErrorOccurred(ERROR_CODE errorCode);
 
     /// слот для обновления дисплея датчиков
     void onMachineTool_SensorStateChanged(QString name, QColor color);

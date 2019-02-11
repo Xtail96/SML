@@ -1,18 +1,18 @@
 #include "sml_server.h"
 
-SMLServer::SMLServer(size_t port, QObject *parent) :
+SMLServer::SMLServer(qint16 port, QObject *parent) :
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
     m_port(port),
     m_debug(false)
 {
-    setupConnections();
+    this->setupConnections();
 }
 
 SMLServer::~SMLServer()
 {
-    stop();
-    resetConnections();
+    this->stop();
+    this->resetConnections();
 
     for(auto socket : m_u1Connections)
     {
@@ -143,8 +143,8 @@ void SMLServer::onQWebSocketServer_Closed()
         qDebug() << m_server->error();
         qDebug() << m_server->errorString();
     }
-    emit u1Disconnected();
-    emit u2Disconnected();
+    emit this->u1Disconnected();
+    emit this->u2Disconnected();
 }
 
 void SMLServer::onQWebSocket_TextMessageReceived(QString message)
@@ -161,13 +161,13 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
     {
         try
         {
-            registerClient(pSender, SMLServer::U1Adapter);
+            this->registerClient(pSender, SMLServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit this->errorOccured(SERVER_ERROR);
+            emit this->errorOccurred(SERVER_ERROR);
         }
     }
     else
@@ -181,7 +181,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
             catch(SynchronizeStateException e)
             {
                 qDebug() << e.message();
-                emit this->errorOccured(SERVER_ERROR);
+                emit this->errorOccurred(SERVER_ERROR);
             }
         }
         else
@@ -207,12 +207,12 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
         try
         {
             U1State u1 = parseU1BinaryMessage(message);
-            emit u1StateChanged(u1.sensors, u1.devices, u1.workflowState, ERROR_CODE(u1.errorCode));
+            emit this->u1StateChanged(u1.sensors, u1.devices, u1.workflowState, ERROR_CODE(u1.errorCode));
         }
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit errorOccured(SERVER_ERROR);
+            emit this->errorOccurred(SERVER_ERROR);
         }
     }
 }
@@ -241,7 +241,7 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
     }
     else
     {
-        throw SynchronizeStateException("an error is occured during parsing json" + QString::fromUtf8(message));
+        throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
     }
 }
 
@@ -258,14 +258,14 @@ void SMLServer::onQWebSocket_Disconnected()
     if(m_u1Connections.contains(pSender))
     {
         m_u1Connections.removeAll(pSender);
-        emit u1Disconnected();
+        emit this->u1Disconnected();
     }
     else
     {
         if(m_u2Connections.contains(pSender))
         {
             m_u2Connections.removeAll(pSender);
-            emit u2Disconnected();
+            emit this->u2Disconnected();
         }
         else
         {
@@ -289,7 +289,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         {
             qDebug() << "U1Adapter registered:" << client;
         }
-        emit u1Connected();
+        emit this->u1Connected();
         break;
     case SMLServer::U2Adapter:
         m_u2Connections.push_back(client);
@@ -298,7 +298,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         {
             qDebug() << "U2Adapter registered:" << client;
         }
-        emit u2Connected();
+        emit this->u2Connected();
         break;
     default:
         break;

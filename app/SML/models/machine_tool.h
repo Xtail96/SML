@@ -80,7 +80,7 @@ public:
      * @brief Возвращает код последней ошибки
      * @return код ошибки
      */
-    int getLastError();
+    ERROR_CODE getLastError();
 
     /**
      * @brief Устанавливает значение последней ошибки
@@ -114,8 +114,8 @@ private:
     /// Код последней возникшей ошибки
     /// Данную переменную необходимо проверять, при отправке данных на станок.
     /// 0 - ошибок нет.
-    /// [-255;0) (0;255] - коды ошибок. Чем больше по модулю от нуля, тем ошибка критичнее.
-    int m_lastError;
+    /// (0;255] - коды ошибок. Описаны в соотвествующем файле.
+    ERROR_CODE m_lastError;
 
     /**
      * @brief Создает объект класса станок
@@ -148,7 +148,7 @@ signals:
      * @brief Сигнал изменения состояния ошибки в работе станка
      * @param code - код ошибки
      */
-    void errorOccured(int code);
+    void errorOccurred(ERROR_CODE code);
 
     /**
      * @brief Сигнал изменения состояния датчика
@@ -197,7 +197,7 @@ public slots:
     void switchSpindelOff(QString uid);
 
 private slots:
-    void onRepository_ErrorOccured(ERROR_CODE code);
+    void onRepository_ErrorOccurred(ERROR_CODE code);
 
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
@@ -226,7 +226,7 @@ private slots:
      * 3) Испускает сигнал о возникновении ошибки.
      * @param errorCode код ошибки
      */
-    void onServer_ErrorOccured(ERROR_CODE errorCode);
+    void onServer_ErrorOccurred(ERROR_CODE errorCode);
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптеров

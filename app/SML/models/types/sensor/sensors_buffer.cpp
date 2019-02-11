@@ -3,7 +3,7 @@
 SensorsBuffer::SensorsBuffer(size_t bufferSize, QObject *parent) :
     QObject(parent)
 {
-    resetBuffer(bufferSize);
+    this->resetBuffer(bufferSize);
 }
 
 void SensorsBuffer::resetBuffer(size_t size)
@@ -116,13 +116,13 @@ bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t i
         bool voltage = false;
         if(plateName == "portal")
         {
-            voltage = checkPortalSensorState(portNumber, inputNumber);
+            voltage = this->checkPortalSensorState(portNumber, inputNumber);
         }
         else
         {
             if(plateName == "u1")
             {
-                voltage = checkU1SensorState(portNumber, inputNumber);
+                voltage = this->checkU1SensorState(portNumber, inputNumber);
             }
             else
             {
@@ -174,42 +174,42 @@ bool SensorsBuffer::checkPortalSensorState(size_t portNumber, size_t inputNumber
         switch(portNumber) {
         case 0:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[0]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[0]);
             break;
         }
         case 1:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[1]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[1]);
             break;
         }
         case 2:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[2]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[2]);
             break;
         }
         case 3:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[3]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[3]);
             break;
         }
         case 4:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[4]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[4]);
             break;
         }
         case 5:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[5]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[5]);
             break;
         }
         case 6:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[6]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[6]);
             break;
         }
         case 7:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[7]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[7]);
             break;
         }
         default:
@@ -251,42 +251,42 @@ bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) co
         switch(portNumber) {
         case 0:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[8]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[8]);
             break;
         }
         case 1:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[9]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[9]);
             break;
         }
         case 2:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[10]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[10]);
             break;
         }
         case 3:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[11]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[11]);
             break;
         }
         case 4:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[12]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[12]);
             break;
         }
         case 5:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[13]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[13]);
             break;
         }
         case 6:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[14]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[14]);
             break;
         }
         case 7:
         {
-            voltage = standardInputStateCheck(inputNumber, m_buffer[15]);
+            voltage = this->standardInputStateCheck(inputNumber, m_buffer[15]);
             break;
         }
         default:

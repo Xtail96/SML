@@ -302,7 +302,7 @@ private:
 
     // Настройки сервера
     /// Номер порта сервера
-    size_t m_port;
+    qint16 m_port;
 
     /// Величина буфера датчиков
     size_t m_sensorsBufferSize;
@@ -409,7 +409,7 @@ private:
     friend class MachineTool;
 
 signals:
-    void errorOccured(ERROR_CODE code);
+    void errorOccurred(ERROR_CODE code);
 
 public slots:
 

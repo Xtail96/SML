@@ -28,7 +28,7 @@ public:
      * @param port порт сервера
      * @param parent родительский виджет в дереве объектов
      */
-    explicit SMLServer(size_t port, QObject *parent = nullptr);
+    explicit SMLServer(qint16 port, QObject *parent = nullptr);
 
     /**
       * @brief Деструктор класса
@@ -121,7 +121,7 @@ signals:
      * @brief Сигнал изменения состояния ошибки, возникшей в работе сервера
      * @param code код ошибки (аналогичен коду ошибки, возникшей во время работы станка)
      */
-    void errorOccured(ERROR_CODE code);
+    void errorOccurred(ERROR_CODE code);
 
 public slots:
 

@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
     m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
 
-    setupWidgets();
-    setupConnections();
+    this->setupWidgets();
+    this->setupConnections();
 
     //updateAxisesBoard();
     //updateDevicesBoard();
@@ -41,12 +41,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateServerPanel();
 
     MachineTool& machineTool = MachineTool::getInstance();
-    onMachineTool_ErrorOccured(machineTool.getLastError());
+    this->onMachineTool_ErrorOccurred(machineTool.getLastError());
 }
 
 MainWindow::~MainWindow()
 {
-    resetConnections();
+    this->resetConnections();
+
     // удаляем горячие клавиши
     while (m_axisesShortcuts.size() > 0)
     {
@@ -64,13 +65,13 @@ void MainWindow::setupWidgets()
     ui->statusBar->setFont(QFont("Consolas", 14));
     ui->statusBar->showMessage(tr("State: ready 0123456789"));
 
-    setupSensorsDisplay();
-    setupSensorsSettingsBoard();
+    this->setupSensorsDisplay();
+    this->setupSensorsSettingsBoard();
 
-    setupDevicesSettingsBoard();
-    setupSpindelsControlPanel();
+    this->setupDevicesSettingsBoard();
+    this->setupSpindelsControlPanel();
 
-    setupOptionsPanel();
+    this->setupOptionsPanel();
 
     // настройка контроля габаритов
     //updateEdgesControlStatus();
@@ -97,14 +98,14 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    hideWidgets();
+    this->hideWidgets();
 }
 
 void MainWindow::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+    QObject::connect(&machineTool, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onMachineTool_ErrorOccurred(ERROR_CODE)));
 
     QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -181,7 +182,7 @@ void MainWindow::resetConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::disconnect(&machineTool, SIGNAL(errorOccured(int)), this, SLOT(onMachineTool_ErrorOccured(int)));
+    QObject::disconnect(&machineTool, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onMachineTool_ErrorOccurred(ERROR_CODE)));
 
     QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -461,7 +462,7 @@ void MainWindow::hideWidgets()
     ui->commandsToolsListWidget->setEnabled(false);
 }
 
-void MainWindow::onMachineTool_ErrorOccured(int errorCode)
+void MainWindow::onMachineTool_ErrorOccurred(ERROR_CODE errorCode)
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
@@ -472,7 +473,7 @@ void MainWindow::onMachineTool_ErrorOccured(int errorCode)
     ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 
     bool enableWidgets = false;
-    if(errorCode == 0)
+    if(errorCode == OK)
     {
         enableWidgets = true;
         ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");

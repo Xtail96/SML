@@ -22,7 +22,7 @@ Sensor::Sensor(QString uid,
 
 void Sensor::updateInputState(bool state)
 {
-    setInputCurrentState(state);
+    this->setInputCurrentState(state);
 }
 
 bool Sensor::getInputCurrentState() const
@@ -36,13 +36,13 @@ void Sensor::setInputCurrentState(bool value)
     {
         m_inputCurrentState = value;
 
-        if(isEnable())
+        if(this->isEnable())
         {
-            emit stateChanged(m_uid, true);
+            emit this->stateChanged(m_uid, true);
         }
         else
         {
-            emit stateChanged(m_uid, false);
+            emit this->stateChanged(m_uid, false);
         }
     }
 }
