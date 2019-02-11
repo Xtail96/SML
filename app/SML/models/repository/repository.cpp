@@ -12,157 +12,6 @@ Repository::Repository(QObject *parent) :
     loadSettigs();
 }
 
-void Repository::loadSettigs()
-{
-    loadServerSettings();
-    loadSensorsSettings();
-    loadDevicesSettings();
-    loadAxisesSettings();
-}
-
-void Repository::loadServerSettings()
-{
-    try
-    {
-        m_port = m_settingsManager->get("ServerSettings", "ServerPort").toUInt();
-    }
-    catch(InvalidConfigurationException e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации порта сервера") + QString(e.message())).exec();
-        qDebug() << QStringLiteral("Repository::loadServerSettings:") << e.message();
-        emit errorOccured(SETTINGS_ERROR);
-        //qApp->exit(0);
-    }
-}
-
-void Repository::loadSensorsSettings()
-{
-    try
-    {
-        unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
-
-        QList<QString> sensorsSettingCodes;
-        for(unsigned int i = 0; i < sensorsCount; i++)
-        {
-            QString sensorSettingCode = QString("Sensor") + QString::number(i);
-            sensorsSettingCodes.push_back(sensorSettingCode);
-        }
-
-        for(auto settingCode : sensorsSettingCodes)
-        {
-            QString uid  = QVariant(m_settingsManager->get(settingCode, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingCode, "Label")).toString();
-            size_t portNumber = QVariant(m_settingsManager->get(settingCode, "PortNumber")).toUInt();
-            size_t inputNumber = QVariant(m_settingsManager->get(settingCode, "InputNumber")).toUInt();
-            QString boardName = QVariant(m_settingsManager->get(settingCode, "BoardName")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingCode, "ActiveState")).toBool();
-            QColor color = QColor(QVariant(m_settingsManager->get(settingCode, "Color")).toString());
-
-            Sensor* sensor = new Sensor(uid,
-                                        label,
-                                        portNumber,
-                                        inputNumber,
-                                        boardName,
-                                        activeState,
-                                        color,
-                                        this);
-            m_sensors.push_back(QSharedPointer<Sensor>(sensor));
-        }
-
-        m_sensorsBufferSize = QVariant(m_settingsManager->get("Main", "SensorsBufferSize")).toUInt();
-        m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
-    }
-    catch(InvalidConfigurationException e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настроек датчиков", e.message()).exec();
-        qDebug() << QStringLiteral("Repository::loadSensorsSettings:") << e.message();
-        emit errorOccured(SETTINGS_ERROR);
-        //qApp->exit(0);
-    }
-}
-
-void Repository::loadDevicesSettings()
-{
-    try
-    {
-        unsigned int spindelsCount = QVariant(m_settingsManager->get("Main", "SpindelsCount")).toUInt();
-        unsigned int supportDevicesCount = QVariant(m_settingsManager->get("Main", "SupportDevicesCount")).toUInt();
-
-        for(unsigned int i = 0; i < spindelsCount; i++)
-        {
-            QString settingName = QString("Spindel") + QString::number(i);
-            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
-            size_t upperBound = QVariant(m_settingsManager->get(settingName, "UpperBound")).toULongLong();
-            size_t lowerBound = QVariant(m_settingsManager->get(settingName, "LowerBound")).toULongLong();
-
-
-            Spindel* spindel = new Spindel(settingName,
-                                           uid,
-                                           label,
-                                           activeState,
-                                           lowerBound,
-                                           upperBound,
-                                           this);
-            m_spindels.push_back(QSharedPointer<Spindel> (spindel));
-        }
-
-        for(unsigned int i = 0; i < supportDevicesCount; i++)
-        {
-            QString settingName = QString("SupportDevice") + QString::number(i);
-            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
-
-            SupportDevice* device = new SupportDevice(settingName,
-                                                      uid,
-                                                      label,
-                                                      activeState,
-                                                      this);
-            m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
-        }
-    }
-    catch(InvalidConfigurationException e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настроек устройств", e.message()).exec();
-        qDebug() << QStringLiteral("Repository::loadDevicesSettings:") << e.message();
-        emit errorOccured(SETTINGS_ERROR);
-        //qApp->exit(0);
-    }
-}
-
-void Repository::loadAxisesSettings()
-{
-    try
-    {
-         size_t axisesCount = m_settingsManager->get("Main", "AxisesCount").toUInt();
-         for(size_t i = 0; i < axisesCount; i++)
-         {
-             QString name = SML_AXISES_NAMES.getNameByKey(i);
-
-             QString fullAxisName = QString("Axis") + name;
-
-             double length = m_settingsManager->get("TableSize", QString("Size" + name)).toDouble();
-             double step = m_settingsManager->get(fullAxisName, "Step").toDouble();
-             bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
-             double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
-
-             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed));
-             m_axises.push_back(axis);
-         }
-         m_zeroCoordinates = Point(m_axises.size());
-         m_parkCoordinates = Point(m_axises.size());
-    }
-    catch(InvalidConfigurationException e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка настроек осей", QString(e.message())).exec();
-        qDebug() << QStringLiteral("Repository::loadAxisesSettings:") << e.message();
-        emit errorOccured(SETTINGS_ERROR);
-        //qApp->exit(0);
-    }
-}
-
 void Repository::setU1ConnectState(bool connected)
 {
     try
@@ -246,32 +95,6 @@ void Repository::setU1Devices(QList<QVariant> devices)
         qDebug() << QStringLiteral("Repository::setU1Devices:") << e.message();
         emit errorOccured(REPOSITORY_ERROR);
     }
-}
-
-Device &Repository::getDevice(size_t index)
-{
-    for(auto device : m_spindels)
-    {
-        if(device->getUid().toUInt() == index)
-        {
-            return *device;
-        }
-    }
-
-    for(auto device : m_supportDevices)
-    {
-        if(device->getUid().toUInt() == index)
-        {
-            return *device;
-        }
-    }
-
-    QString message =
-            QStringLiteral("device not found ") +
-            QString::number(index);
-    qDebug() << QStringLiteral("Repository::getDevice:") << message;
-
-    throw InvalidArgumentException(message);
 }
 
 QStringList Repository::getAllDevicesLabels()
@@ -369,24 +192,6 @@ QMap<QString, bool> Repository::getAllOnScreenDevicesStates()
     }
 
     return onScreenDevices;
-}
-
-Sensor &Repository::getSensor(QString uid)
-{
-    for(auto sensor : m_sensors)
-    {
-        if(sensor->getUid() == uid)
-        {
-            return *(sensor.data());
-        }
-    }
-
-    QString message =
-            QStringLiteral("sensor with uid = ") +
-            uid +
-            QStringLiteral(" is not exists");
-    qDebug() << QStringLiteral("Repository::getSensor:") << message;
-    throw InvalidArgumentException(message);
 }
 
 QStringList Repository::getAllSensorsUids()
@@ -502,53 +307,6 @@ QList<Point> Repository::getMachineToolCoordinates()
     }
 
     return machineToolCoordinates;
-}
-
-Point Repository::getCurrentCoordinatesFromBase()
-{
-    Point result = Point();
-
-    try
-    {
-        QList<double> axisesCoordinates;
-        for(auto axis : m_axises)
-        {
-            axisesCoordinates.push_back(axis->currentPosition());
-        }
-        result = Point(axisesCoordinates.toVector().toStdVector());
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromBase: unknown error");
-        emit errorOccured(REPOSITORY_ERROR);
-    }
-
-    return result;
-}
-
-Point Repository::getCurrentCoordinatesFromZero()
-{
-    Point result = Point();
-
-    try
-    {
-        Point currentFromZero(m_axises.size());
-        Point p = getCurrentCoordinatesFromBase();
-
-        if(p.size() == m_zeroCoordinates.size())
-        {
-            currentFromZero = p.operator -=(m_zeroCoordinates);
-        }
-
-        result = currentFromZero;
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromZero: unknown error");
-        emit errorOccured(REPOSITORY_ERROR);
-    }
-
-    return result;
 }
 
 QStringList Repository::getAxisesNames()
@@ -799,25 +557,6 @@ QList<Spindel *> Repository::getSpindels()
     return spindels;
 }
 
-Spindel &Repository::getSpindel(QString uid)
-{
-    for(auto spindel : m_spindels)
-    {
-        if(spindel->getUid() == uid)
-        {
-            return *(spindel.data());
-        }
-    }
-
-    QString message =
-            QStringLiteral("spindel with index ") +
-            uid +
-            QStringLiteral(" is not exists");
-    qDebug() << QStringLiteral("Repository::getSpindel") << message;
-
-    throw InvalidArgumentException(message);
-}
-
 void Repository::setSpindelState(QString uid, bool enable, size_t rotations)
 {
     try
@@ -946,4 +685,267 @@ void Repository::setVelocity(double velocity)
         qDebug() << QStringLiteral("Repository::setVelocity: unknown error");
         emit errorOccured(REPOSITORY_ERROR);
     }
+}
+
+// private
+
+void Repository::loadSettigs()
+{
+    loadServerSettings();
+    loadSensorsSettings();
+    loadDevicesSettings();
+    loadAxisesSettings();
+}
+
+void Repository::loadServerSettings()
+{
+    try
+    {
+        m_port = m_settingsManager->get("ServerSettings", "ServerPort").toUInt();
+    }
+    catch(InvalidConfigurationException e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации порта сервера") + QString(e.message())).exec();
+        qDebug() << QStringLiteral("Repository::loadServerSettings:") << e.message();
+        emit errorOccured(SETTINGS_ERROR);
+        //qApp->exit(0);
+    }
+}
+
+void Repository::loadSensorsSettings()
+{
+    try
+    {
+        unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
+
+        QList<QString> sensorsSettingCodes;
+        for(unsigned int i = 0; i < sensorsCount; i++)
+        {
+            QString sensorSettingCode = QString("Sensor") + QString::number(i);
+            sensorsSettingCodes.push_back(sensorSettingCode);
+        }
+
+        for(auto settingCode : sensorsSettingCodes)
+        {
+            QString uid  = QVariant(m_settingsManager->get(settingCode, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingCode, "Label")).toString();
+            size_t portNumber = QVariant(m_settingsManager->get(settingCode, "PortNumber")).toUInt();
+            size_t inputNumber = QVariant(m_settingsManager->get(settingCode, "InputNumber")).toUInt();
+            QString boardName = QVariant(m_settingsManager->get(settingCode, "BoardName")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingCode, "ActiveState")).toBool();
+            QColor color = QColor(QVariant(m_settingsManager->get(settingCode, "Color")).toString());
+
+            Sensor* sensor = new Sensor(uid,
+                                        label,
+                                        portNumber,
+                                        inputNumber,
+                                        boardName,
+                                        activeState,
+                                        color,
+                                        this);
+            m_sensors.push_back(QSharedPointer<Sensor>(sensor));
+        }
+
+        m_sensorsBufferSize = QVariant(m_settingsManager->get("Main", "SensorsBufferSize")).toUInt();
+        m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
+    }
+    catch(InvalidConfigurationException e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек датчиков", e.message()).exec();
+        qDebug() << QStringLiteral("Repository::loadSensorsSettings:") << e.message();
+        emit errorOccured(SETTINGS_ERROR);
+        //qApp->exit(0);
+    }
+}
+
+void Repository::loadDevicesSettings()
+{
+    try
+    {
+        unsigned int spindelsCount = QVariant(m_settingsManager->get("Main", "SpindelsCount")).toUInt();
+        unsigned int supportDevicesCount = QVariant(m_settingsManager->get("Main", "SupportDevicesCount")).toUInt();
+
+        for(unsigned int i = 0; i < spindelsCount; i++)
+        {
+            QString settingName = QString("Spindel") + QString::number(i);
+            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
+            size_t upperBound = QVariant(m_settingsManager->get(settingName, "UpperBound")).toULongLong();
+            size_t lowerBound = QVariant(m_settingsManager->get(settingName, "LowerBound")).toULongLong();
+
+
+            Spindel* spindel = new Spindel(settingName,
+                                           uid,
+                                           label,
+                                           activeState,
+                                           lowerBound,
+                                           upperBound,
+                                           this);
+            m_spindels.push_back(QSharedPointer<Spindel> (spindel));
+        }
+
+        for(unsigned int i = 0; i < supportDevicesCount; i++)
+        {
+            QString settingName = QString("SupportDevice") + QString::number(i);
+            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
+
+            SupportDevice* device = new SupportDevice(settingName,
+                                                      uid,
+                                                      label,
+                                                      activeState,
+                                                      this);
+            m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
+        }
+    }
+    catch(InvalidConfigurationException e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек устройств", e.message()).exec();
+        qDebug() << QStringLiteral("Repository::loadDevicesSettings:") << e.message();
+        emit errorOccured(SETTINGS_ERROR);
+        //qApp->exit(0);
+    }
+}
+
+void Repository::loadAxisesSettings()
+{
+    try
+    {
+         size_t axisesCount = m_settingsManager->get("Main", "AxisesCount").toUInt();
+         for(size_t i = 0; i < axisesCount; i++)
+         {
+             QString name = SML_AXISES_NAMES.getNameByKey(i);
+
+             QString fullAxisName = QString("Axis") + name;
+
+             double length = m_settingsManager->get("TableSize", QString("Size" + name)).toDouble();
+             double step = m_settingsManager->get(fullAxisName, "Step").toDouble();
+             bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
+             double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
+
+             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed));
+             m_axises.push_back(axis);
+         }
+         m_zeroCoordinates = Point(m_axises.size());
+         m_parkCoordinates = Point(m_axises.size());
+    }
+    catch(InvalidConfigurationException e)
+    {
+        QMessageBox(QMessageBox::Warning, "Ошибка настроек осей", QString(e.message())).exec();
+        qDebug() << QStringLiteral("Repository::loadAxisesSettings:") << e.message();
+        emit errorOccured(SETTINGS_ERROR);
+        //qApp->exit(0);
+    }
+}
+
+Point Repository::getCurrentCoordinatesFromBase()
+{
+    Point result = Point();
+
+    try
+    {
+        QList<double> axisesCoordinates;
+        for(auto axis : m_axises)
+        {
+            axisesCoordinates.push_back(axis->currentPosition());
+        }
+        result = Point(axisesCoordinates.toVector().toStdVector());
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromBase: unknown error");
+        emit errorOccured(REPOSITORY_ERROR);
+    }
+
+    return result;
+}
+
+Point Repository::getCurrentCoordinatesFromZero()
+{
+    Point result = Point();
+
+    try
+    {
+        Point currentFromZero(m_axises.size());
+        Point p = getCurrentCoordinatesFromBase();
+
+        if(p.size() == m_zeroCoordinates.size())
+        {
+            currentFromZero = p.operator -=(m_zeroCoordinates);
+        }
+
+        result = currentFromZero;
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromZero: unknown error");
+        emit errorOccured(REPOSITORY_ERROR);
+    }
+
+    return result;
+}
+
+Sensor &Repository::getSensor(QString uid)
+{
+    for(auto sensor : m_sensors)
+    {
+        if(sensor->getUid() == uid)
+        {
+            return *(sensor.data());
+        }
+    }
+
+    QString message =
+            QStringLiteral("sensor with uid = ") +
+            uid +
+            QStringLiteral(" is not exists");
+    qDebug() << QStringLiteral("Repository::getSensor:") << message;
+    throw InvalidArgumentException(message);
+}
+
+Device &Repository::getDevice(size_t index)
+{
+    for(auto device : m_spindels)
+    {
+        if(device->getUid().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
+    for(auto device : m_supportDevices)
+    {
+        if(device->getUid().toUInt() == index)
+        {
+            return *device;
+        }
+    }
+
+    QString message =
+            QStringLiteral("device not found ") +
+            QString::number(index);
+    qDebug() << QStringLiteral("Repository::getDevice:") << message;
+
+    throw InvalidArgumentException(message);
+}
+
+Spindel &Repository::getSpindel(QString uid)
+{
+    for(auto spindel : m_spindels)
+    {
+        if(spindel->getUid() == uid)
+        {
+            return *(spindel.data());
+        }
+    }
+
+    QString message =
+            QStringLiteral("spindel with index ") +
+            uid +
+            QStringLiteral(" is not exists");
+    qDebug() << QStringLiteral("Repository::getSpindel") << message;
+
+    throw InvalidArgumentException(message);
 }

@@ -78,14 +78,6 @@ public:
     void setU1Sensors(QList<QVariant> sensors);
 
     /**
-     * @brief Возвращает ссылку на датчик
-     * @param name уникальный идетификатор датчика
-     * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
-     * @return ссылка на датчик
-     */
-    Sensor& getSensor(QString uid);
-
-    /**
      * @brief Возвращает список уникальных имен всех доступных датчиков
      * @return список уникальных имен всех доступных датчиков
      */
@@ -117,14 +109,6 @@ public:
      * @param devices обновленное состояние устройств
      */
     void setU1Devices(QList<QVariant> devices);
-
-    /**
-     * @brief Возвращает ссылку на устройство
-     * @param index уникальный индекс устройства
-     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
-     * @return ссылка на устройство
-     */
-    Device& getDevice(size_t index);
 
     /**
      * @brief Возвращает список всех доступных устройств
@@ -164,14 +148,6 @@ public:
      * @return список доступных шпинделей
      */
     QList<Spindel *> getSpindels();
-
-    /**
-     * @brief Возвращает ссылку на шпиндель
-     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
-     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
-     * @return ссылка на шпиндель
-     */
-    Spindel& getSpindel(QString uid);
 
     /**
      * @brief Устанавливает обновленное значение шпинделя
@@ -404,6 +380,30 @@ private:
      * @return текущие координаты станка в относительной системе координат
      */
     Point getCurrentCoordinatesFromZero();
+
+    /**
+     * @brief Возвращает ссылку на датчик
+     * @param name уникальный идетификатор датчика
+     * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
+     * @return ссылка на датчик
+     */
+    Sensor& getSensor(QString uid);
+
+    /**
+     * @brief Возвращает ссылку на устройство
+     * @param index уникальный индекс устройства
+     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
+     * @return ссылка на устройство
+     */
+    Device& getDevice(size_t index);
+
+    /**
+     * @brief Возвращает ссылку на шпиндель
+     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
+     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
+     * @return ссылка на шпиндель
+     */
+    Spindel& getSpindel(QString uid);
 
     /// Класс-друг!
     friend class MachineTool;
