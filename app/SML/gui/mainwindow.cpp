@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateServerPanel();
 
     MachineTool& machineTool = MachineTool::getInstance();
-    this->onMachineTool_ErrorOccurred(machineTool.getLastError());
+    this->onMachineTool_ErrorStateChanged(machineTool.getLastError());
 }
 
 MainWindow::~MainWindow()
@@ -105,7 +105,7 @@ void MainWindow::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(&machineTool, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onMachineTool_ErrorOccurred(ERROR_CODE)));
+    QObject::connect(&machineTool, SIGNAL(errorStateChanged(ERROR_CODE)), this, SLOT(onMachineTool_ErrorStateChanged(ERROR_CODE)));
 
     QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -182,7 +182,7 @@ void MainWindow::resetConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::disconnect(&machineTool, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onMachineTool_ErrorOccurred(ERROR_CODE)));
+    QObject::disconnect(&machineTool, SIGNAL(errorStateChanged(ERROR_CODE)), this, SLOT(onMachineTool_ErrorStateChanged(ERROR_CODE)));
 
     QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
     QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
@@ -462,7 +462,7 @@ void MainWindow::hideWidgets()
     ui->commandsToolsListWidget->setEnabled(false);
 }
 
-void MainWindow::onMachineTool_ErrorOccurred(ERROR_CODE errorCode)
+void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
 {
     MachineTool& machineTool = MachineTool::getInstance();
 

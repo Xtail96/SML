@@ -146,6 +146,11 @@ ERROR_CODE MachineTool::getLastError()
 
 void MachineTool::setLastError(ERROR_CODE value)
 {
+    if(m_lastError == value)
+    {
+        return;
+    }
+
     m_lastError = value;
 
     switch (value)
@@ -165,7 +170,7 @@ void MachineTool::setLastError(ERROR_CODE value)
             break;
     }
 
-    emit this->errorOccurred(m_lastError);
+    emit this->errorStateChanged(m_lastError);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
@@ -247,22 +252,7 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
         }
         else
         {
-            if(!u1 && !u2)
-            {
-                this->setLastError(DISCONNECTED);
-            }
-            else
-            {
-                if(u1 == false)
-                {
-                    this->setLastError(DISCONNECTED);
-                }
-
-                if(u2 == false)
-                {
-                    this->setLastError(DISCONNECTED);
-                }
-            }
+            this->setLastError(DISCONNECTED);
         }
     }
     catch(...)

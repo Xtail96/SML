@@ -148,7 +148,7 @@ signals:
      * @brief Сигнал изменения состояния ошибки в работе станка
      * @param code - код ошибки
      */
-    void errorOccurred(ERROR_CODE code);
+    void errorStateChanged(ERROR_CODE code);
 
     /**
      * @brief Сигнал изменения состояния датчика
