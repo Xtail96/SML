@@ -153,7 +153,7 @@ void MachineTool::setLastError(ERROR_CODE value)
 
     m_lastError = value;
 
-    switch (value)
+    switch (m_lastError)
     {
         case OK:
             /*
