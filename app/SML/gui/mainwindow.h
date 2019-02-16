@@ -94,8 +94,11 @@ private:
     /// Проводит инициализацию панели шпинделей
     void setupSpindelsControlPanel();
 
-    /// Проводит инициализацию таблицы настроек устройств
-    void setupDevicesSettingsBoard();
+    /// Проводит инициализацию таблицы настроек шпинделей
+    void setupSpindelsSettingsBoard();
+
+    /// Проводит инициализацию таблицы настроек сопуствующих устройств
+    void setupSupportDevicesSettingsBoard();
 
     /// Настраивает панель опций
     void setupOptionsPanel();

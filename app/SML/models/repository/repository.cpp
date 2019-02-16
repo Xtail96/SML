@@ -131,29 +131,44 @@ QStringList Repository::getAllDevicesLabels()
     return names;
 }
 
-QStringList Repository::getAllDevicesSettings()
+QStringList Repository::getAllSpindelsSettings()
 {
-    QStringList devicesSettings = {};
+    QStringList spindelsSettings = {};
 
     try
     {
-        for(auto device : m_spindels)
+        for(auto spindel : m_spindels)
         {
-            devicesSettings.push_back(device->getSettings());
-        }
-
-        for(auto device : m_supportDevices)
-        {
-            devicesSettings.push_back(device->getSettings());
+            spindelsSettings.push_back(spindel->getSettings());
         }
     }
     catch(...)
     {
-        qDebug() << QStringLiteral("Repository::getAllDevicesSettings: unknown error");
+        qDebug() << QStringLiteral("Repository::getAllSpindelsSettings: unknown error");
         emit this->errorOccurred(REPOSITORY_ERROR);
     }
 
-    return devicesSettings;
+    return spindelsSettings;
+}
+
+QStringList Repository::getAllSupportDeviceSettings()
+{
+    QStringList supportDevicesSettings = {};
+
+    try
+    {
+        for(auto supportDevice : m_supportDevices)
+        {
+            supportDevicesSettings.push_back(supportDevice->getSettings());
+        }
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::supportDevicesSettings: unknown error");
+        emit this->errorOccurred(REPOSITORY_ERROR);
+    }
+
+    return supportDevicesSettings;
 }
 
 QStringList Repository::getAllOnScreenDevicesLabels()

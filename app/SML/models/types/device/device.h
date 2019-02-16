@@ -41,7 +41,7 @@ public:
      * @return настройки устройства в виде строки, формата
      * "setting1_key:setting1_value;setting2_key:setting2_value"
      */
-    QString getSettings();
+    virtual QString getSettings();
 
 protected:
 

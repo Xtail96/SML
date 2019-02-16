@@ -118,10 +118,16 @@ public:
     QStringList getAllDevicesLabels();
 
     /**
-     * @brief Возвращает настройки всех доступных устройств
-     * @return настройки для всех доступных устройств
+     * @brief Возвращает настройки всех доступных шпинделей
+     * @return настройки для всех доступных шпинделей
      */
-    QStringList getAllDevicesSettings();
+    QStringList getAllSpindelsSettings();
+
+    /**
+     * @brief Возвращает настройки всех доступных сопутствующих устройств
+     * @return настройки для всех доступных сопутствующих устройств
+     */
+    QStringList getAllSupportDeviceSettings();
 
     /**
      * @brief Возвращает список устройств, необходимых для отображения в Наладке

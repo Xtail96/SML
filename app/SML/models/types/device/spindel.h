@@ -18,6 +18,8 @@ public:
 
     QStringList getParams() override;
 
+    QString getSettings() override;
+
     void setCurrentState(bool value, QMap<QString, QString> attributes) override;
 
     void setCurrentState(bool value, size_t rotations);

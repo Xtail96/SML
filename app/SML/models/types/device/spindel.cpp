@@ -20,6 +20,16 @@ QStringList Spindel::getParams()
     return params;
 }
 
+QString Spindel::getSettings()
+{
+    QString deviceSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
+            QStringLiteral("Uid:") + m_uid + QStringLiteral(";") +
+            QStringLiteral("ActiveState:") + QString::number(m_activeState) + QStringLiteral(";") +
+            QStringLiteral("LowerBound:") + QString::number(m_lowerBound) + QStringLiteral(";") +
+            QStringLiteral("UpperBound:") + QString::number(m_upperBound);
+    return deviceSettings;
+}
+
 void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
 {
     if(m_currentState != value)

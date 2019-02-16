@@ -68,7 +68,8 @@ void MainWindow::setupWidgets()
     this->setupSensorsDisplay();
     this->setupSensorsSettingsBoard();
 
-    this->setupDevicesSettingsBoard();
+    this->setupSpindelsSettingsBoard();
+    this->setupSupportDevicesSettingsBoard();
     this->setupSpindelsControlPanel();
 
     this->setupOptionsPanel();
@@ -342,23 +343,23 @@ void MainWindow::setupSpindelsControlPanel()
     }
 }
 
-void MainWindow::setupDevicesSettingsBoard()
+void MainWindow::setupSpindelsSettingsBoard()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    QStringList devicesSettings = machineTool.getRepository()->getAllDevicesSettings();
+    QStringList spindelsSettings = machineTool.getRepository()->getAllSpindelsSettings();
 
     QStringList labels;
     QList< QPair<int, int> > positions;
     QList<QTableWidgetItem*> items;
 
     // rows
-    for(int i = 0; i < devicesSettings.size(); i++)
+    for(int i = 0; i < spindelsSettings.size(); i++)
     {
-        QStringList deviceSettings = devicesSettings.at(i).split(";");
+        QStringList spindelSettings = spindelsSettings.at(i).split(";");
         // columns
-        for(int j = 0; j < deviceSettings.size(); j++)
+        for(int j = 0; j < spindelSettings.size(); j++)
         {
-            QStringList pair = deviceSettings[j].split(":");
+            QStringList pair = spindelSettings[j].split(":");
             //qDebug() << pair;
             if(pair.size() == 2)
             {
@@ -374,13 +375,55 @@ void MainWindow::setupDevicesSettingsBoard()
         }
     }
 
-    ui->devicesSettingsTableWidget->setColumnCount(labels.size());
-    ui->devicesSettingsTableWidget->setHorizontalHeaderLabels(labels);
+    ui->spindelsSettingsTableWidget->setColumnCount(labels.size());
+    ui->spindelsSettingsTableWidget->setHorizontalHeaderLabels(labels);
 
-    ui->devicesSettingsTableWidget->setRowCount(devicesSettings.size());
+    ui->spindelsSettingsTableWidget->setRowCount(spindelsSettings.size());
     for(int i = 0; i < items.size(); i++)
     {
-        ui->devicesSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
+        ui->spindelsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
+    }
+}
+
+void MainWindow::setupSupportDevicesSettingsBoard()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    QStringList supportDevicesSettings = machineTool.getRepository()->getAllSupportDeviceSettings();
+
+    QStringList labels;
+    QList< QPair<int, int> > positions;
+    QList<QTableWidgetItem*> items;
+
+    // rows
+    for(int i = 0; i < supportDevicesSettings.size(); i++)
+    {
+        QStringList supportDeviceSettings = supportDevicesSettings.at(i).split(";");
+        // columns
+        for(int j = 0; j < supportDeviceSettings.size(); j++)
+        {
+            QStringList pair = supportDeviceSettings[j].split(":");
+            //qDebug() << pair;
+            if(pair.size() == 2)
+            {
+                if(!labels.contains(pair.at(0)))
+                {
+                    labels.push_back(pair.at(0));
+                }
+
+                QTableWidgetItem* item = new QTableWidgetItem(pair.at(1));
+                items.push_back(item);
+                positions.push_back(QPair<int, int>(i, j));
+            }
+        }
+    }
+
+    ui->supportDevicesSettingsTableWidget->setColumnCount(labels.size());
+    ui->supportDevicesSettingsTableWidget->setHorizontalHeaderLabels(labels);
+
+    ui->supportDevicesSettingsTableWidget->setRowCount(supportDevicesSettings.size());
+    for(int i = 0; i < items.size(); i++)
+    {
+        ui->supportDevicesSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
     }
 }
 
