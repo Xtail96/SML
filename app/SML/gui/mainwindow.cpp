@@ -735,6 +735,7 @@ void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
     MachineTool& machineTool = MachineTool::getInstance();
     machineTool.getRepository()->setVelocity(value);
+    ui->feedrateLcdNumber->display(QString::number(machineTool.getRepository()->getVelocity()));
 }
 
 void MainWindow::on_exit_action_triggered()
