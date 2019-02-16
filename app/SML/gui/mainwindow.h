@@ -100,11 +100,14 @@ private:
     /// Проводит инициализацию таблицы настроек сопуствующих устройств
     void setupSupportDevicesSettingsBoard();
 
+    /// Проводит настройку дисплеев координат
+    void setupCoordinatesDisplays();
+
+    /// Проводит инициализацию таблицы настроек осей
+    void setupAxisesSettingsBoard();
+
     /// Настраивает панель опций
     void setupOptionsPanel();
-
-    /// Проводит инициализацию списка настроек осей
-    void setupAxisesBoard();
 
     /// Блокирует и скрывает виджеты, которые не нужны в данной сборке, но нужны в принципе
     void hideWidgets();

@@ -322,15 +322,15 @@ QStringList Repository::getGCodesProgram()
     return result;
 }
 
-QList<Point> Repository::getMachineToolCoordinates()
+QList<Point> Repository::getCurrentCoordinates()
 {
-    QList<Point> machineToolCoordinates = {};
+    QList<Point> currentCoordinates = {};
 
     try
     {
-        machineToolCoordinates.push_back(this->getCurrentCoordinatesFromZero());
-        machineToolCoordinates.push_back(this->getCurrentCoordinatesFromBase());
-        machineToolCoordinates.push_back(m_parkCoordinates);
+        currentCoordinates.push_back(this->getCurrentCoordinatesFromZero());
+        currentCoordinates.push_back(this->getCurrentCoordinatesFromBase());
+        currentCoordinates.push_back(m_parkCoordinates);
     }
     catch(...)
     {
@@ -338,7 +338,7 @@ QList<Point> Repository::getMachineToolCoordinates()
         emit this->errorOccurred(REPOSITORY_ERROR);
     }
 
-    return machineToolCoordinates;
+    return currentCoordinates;
 }
 
 QStringList Repository::getAxisesNames()
@@ -901,7 +901,7 @@ Point Repository::getCurrentCoordinatesFromZero()
     try
     {
         Point currentFromZero(m_axises.size());
-        Point p = getCurrentCoordinatesFromBase();
+        Point p = this->getCurrentCoordinatesFromBase();
 
         if(p.size() == m_zeroCoordinates.size())
         {

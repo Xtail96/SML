@@ -72,6 +72,9 @@ void MainWindow::setupWidgets()
     this->setupSupportDevicesSettingsBoard();
     this->setupSpindelsControlPanel();
 
+    this->setupCoordinatesDisplays();
+    this->setupAxisesSettingsBoard();
+
     this->setupOptionsPanel();
 
     // настройка контроля габаритов
@@ -427,7 +430,12 @@ void MainWindow::setupSupportDevicesSettingsBoard()
     }
 }
 
-void MainWindow::setupAxisesBoard()
+void MainWindow::setupCoordinatesDisplays()
+{
+    this->updateCoordinatesDisplays();
+}
+
+void MainWindow::setupAxisesSettingsBoard()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
@@ -435,22 +443,21 @@ void MainWindow::setupAxisesBoard()
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
-
 void MainWindow::updateCoordinatesDisplays()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QList<Point> machineToolCoordinates = machineTool.getRepository()->getMachineToolCoordinates();
+    QList<Point> currentCoordinates = machineTool.getRepository()->getCurrentCoordinates();
 
-    if(machineToolCoordinates.length() >= 3)
+    if(currentCoordinates.length() == 3)
     {
-        Point currentCoordinates(machineToolCoordinates[0]);
-        Point currentCoordinatesFromBase(machineToolCoordinates[1]);
-        Point parkCoordinates(machineToolCoordinates[2]);
+        Point currentCoordinatesFromZero(currentCoordinates[0]);
+        Point currentCoordinatesFromBase(currentCoordinates[1]);
+        Point parkCoordinates(currentCoordinates[2]);
 
-        showCoordinates(ui->currentCoordinatesListWidget, currentCoordinates);
-        showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
-        showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
+        this->showCoordinates(ui->currentCoordinatesListWidget, currentCoordinatesFromZero);
+        this->showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
+        this->showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
     }
 }
 

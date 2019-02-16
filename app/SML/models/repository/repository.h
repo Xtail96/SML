@@ -256,7 +256,7 @@ public:
      * [2] элемент списка содержит текущие координаты точки Парк.
      * @return координаты станка
      */
-    QList<Point> getMachineToolCoordinates();
+    QList<Point> getCurrentCoordinates();
 
     /**
      * @brief Возвращает названия всех доступных осей координат
