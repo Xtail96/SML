@@ -2,27 +2,43 @@
 
 ## Описание ##
 
-* SML - это систему управления для станков с ЧПУ. Запуск и тестирование системы производится на станках с ЧПУ "КАМЕЯ" и "РОБОР" производства [НПФ "СЕМИЛ"](https://semil.ru/).
-* SML 1.0.0:Acacia;
-* [Сайт проекта](https://appsforgeinc.bitbucket.io/);
+![SML_logo](./readme_files/sml_logo_mini.png)
+
+SML - это система управления фрезерными и токарно-фрезерными станками ЧПУ. Система не привязана к определенному железу. Вместо этого коммуникации с контроллерами (управляющими ШД, сервоприводами, датчиками, шпинделями, прочими устройствами) реализована с помощью механизма адаптеров.
+
+Адаптер - это специальная программа, работающая в фоне и обеспечивающая конвертацию команд, поступающих от системы SML в интерфейс управляющего контроллера и наоборот. Таким образом, имея навыки программирования, можно написать такой адаптер для интересующего Вас контроллера и использовать систему SML для управления им. Адаптеры можно релизовывать на любом языке программирования, в библиотеках к которому есть поддержка технологии Web-Socket и коммуникаций с внешними устройствами по требуемому интерфейсу подключения (USB, SerialPort, Ethernet, Bluetooth, Wifi и т.д.).
+
+В рамках проекта реализуются адаптеры для слеующих контроллеров управления (U1 - управление датчиками и внешними устройствами. U2 - управление ШД или сервоприводами):
+
+1. Arduino (U1) - в разработке. [Код скетча](https://bitbucket.org/applications-forge/arduinou1/src/master/). [Код адаптера](https://bitbucket.org/applications-forge/u1serialadapter/src/master/).
+2. SiLabs (U1) - в разработке. [Код адаптера](https://bitbucket.org/applications-forge/usbxpressadapter/src/master/).
+3. KFLOP (U2) - в разработке. Разработка еще не началась.
+4. Mach3 (U1 + U2) - в разработке. Разработка еще не началась.
+
+Этот репозиторий содержит только ядро системы управления - клиентское приложение для управления станком. Примеры реализации адаптеров приведены в [другом репозитории](https://appsforgeinc.bitbucket.io/).
+Тестирование системы производится на станках с ЧПУ "КАМЕЯ" и "РОБОР" производства [НПФ "СЕМИЛ"](https://semil.ru/).
+
+Актуальная версия системы: SML 0.0.1:Acacia.
 
 ## Контакты ##
 
 * EMail: xtail1996@yandex.ru;
 * Skype: xtail1996;
 * Phone number/Telegram: +7(911)209-75-27;
+* [Project website](https://appsforgeinc.bitbucket.io/).
 
-## Releases ##
+## Release Building Instructions ##
 
 ### Linux ###
 
 #### Requrements ####
 
-* Qt 5.10.1
+* Qt 5.10.1 <=
+* [linuxdeployqt](https://github.com/probonopd/linuxdeployqt) или [linuxdeployqt fork](https://github.com/ApplicationsForge/linuxdeployqt)
 
 #### Intructions ####
 
-* Simple `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_10_1_GCC_64bit2-Release/SML -qmake=/home/xtail/Qt/5.10.1/gcc_64/bin/qmake -appimage`
+* Simple example `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_10_1_GCC_64bit2-Release/SML -qmake=/home/xtail/Qt/5.10.1/gcc_64/bin/qmake -appimage`
 
 * With .desktop file
 
@@ -39,8 +55,8 @@ releases/linux
         │   └── sml.desktop
         └── icons
             └── hicolor
-                └── 256x256 
-                    └── apps 
+                └── 256x256
+                    └── apps
                         └── sml_logo.png
 ```
 
