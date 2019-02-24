@@ -19,23 +19,23 @@ void SwitchSpindel::execute()
 {
     if(m_enable)
     {
-        switchOn();
+        this->switchOn(m_uid, m_rotations, m_server);
     }
     else
     {
-        switchOff();
+        this->switchOff(m_uid, m_server);
     }
 }
 
-void SwitchSpindel::switchOn()
+void SwitchSpindel::switchOn(QString uid, size_t rotations, SMLServer* server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
-    device["Index"] = m_uid;
+    device["Index"] = uid;
     device["Target"] = "On";
     device["Type"] = "Spindel";
-    device["Rotations"] = QVariant::fromValue(m_rotations);
+    device["Rotations"] = QVariant::fromValue(rotations);
     u1Message["SwitchDevice"] = device;
     generalMessage["MessageToU1"] = u1Message;
 
@@ -44,16 +44,16 @@ void SwitchSpindel::switchOn()
     qDebug() << "Try to switch on device =" << message;
     if(ok)
     {
-        m_server->sendMessageToU1(message);
+        server->sendMessageToU1(message);
     }
 }
 
-void SwitchSpindel::switchOff()
+void SwitchSpindel::switchOff(QString uid, SMLServer* server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
     QtJson::JsonObject device;
-    device["Index"] = m_uid;
+    device["Index"] = uid;
     device["Target"] = "Off";
     device["Type"] = "Spindel";
     u1Message["SwitchDevice"] = device;
@@ -64,6 +64,6 @@ void SwitchSpindel::switchOff()
     qDebug() << "Try to switch off device =" << message;
     if(ok)
     {
-        m_server->sendMessageToU1(message);
+        server->sendMessageToU1(message);
     }
 }

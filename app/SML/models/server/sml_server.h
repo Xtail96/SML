@@ -84,7 +84,7 @@ private:
      * @param message сообщение от адаптера контроллера U1
      * @return структура, описывающая состояние контроллера U1
      */
-    U1State parseU1BinaryMessage(QByteArray message);
+    static U1State parseU1BinaryMessage(QByteArray message);
 
 signals:
 
