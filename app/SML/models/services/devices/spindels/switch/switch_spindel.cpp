@@ -19,11 +19,11 @@ void SwitchSpindel::execute()
 {
     if(m_enable)
     {
-        this->switchOn(m_uid, m_rotations, m_server);
+        switchOn(m_uid, m_rotations, m_server);
     }
     else
     {
-        this->switchOff(m_uid, m_server);
+        switchOff(m_uid, m_server);
     }
 }
 
