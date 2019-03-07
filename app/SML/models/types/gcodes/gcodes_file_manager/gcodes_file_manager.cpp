@@ -82,7 +82,7 @@ void GCodesFileManager::saveGCodesFileAs()
     QString filename = QFileDialog::getSaveFileName(0, "Выберите место сохранения прогрммы", "", "*.txt");
     if(filename.length() > 0)
     {
-        createGCodesFile(filename);
+        GCodesFileManager::createGCodesFile(filename);
         if(QFileInfo::exists(filename))
         {
             m_filePath = filename;

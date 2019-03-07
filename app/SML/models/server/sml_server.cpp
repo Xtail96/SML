@@ -206,7 +206,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
     {
         try
         {
-            U1State u1 = parseU1BinaryMessage(message);
+            U1State u1 = SMLServer::parseU1BinaryMessage(message);
             emit this->u1StateChanged(u1.sensors, u1.devices, u1.workflowState, ERROR_CODE(u1.errorCode));
         }
         catch(SynchronizeStateException e)
