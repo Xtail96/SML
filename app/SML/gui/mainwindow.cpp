@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
 
     this->setupWidgets();
+    this->hideWidgets();
     this->setupConnections();
 
     //updateAxisesBoard();
@@ -101,8 +102,6 @@ void MainWindow::setupWidgets()
     ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    this->hideWidgets();
 }
 
 void MainWindow::setupConnections()
@@ -508,8 +507,7 @@ void MainWindow::setupOptionsPanel()
 
 void MainWindow::hideWidgets()
 {
-    ui->smlEditorTreeWidget->setEnabled(false);
-    ui->commandsToolsListWidget->setEnabled(false);
+    ui->smlEditorTab->setEnabled(false);
 }
 
 void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
