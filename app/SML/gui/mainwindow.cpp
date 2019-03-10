@@ -508,6 +508,7 @@ void MainWindow::setupOptionsPanel()
 void MainWindow::hideWidgets()
 {
     ui->smlEditorTab->setEnabled(false);
+    //ui->programEditorTabWidget->removeTab(0);
 }
 
 void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)

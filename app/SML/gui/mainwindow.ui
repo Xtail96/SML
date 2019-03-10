@@ -267,7 +267,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QTabWidget" name="programsEditorTabWidget">
+         <widget class="QTabWidget" name="programEditorTabWidget">
           <property name="enabled">
            <bool>true</bool>
           </property>
