@@ -66,7 +66,7 @@ void SensorsDisplayWidget::update()
 void SensorsDisplayWidget::addSensor(QString name, QString label, QColor led)
 {
     m_sensors.push_back(QSharedPointer<SensorWidget>(new SensorWidget(name, label, led)));
-    update();
+    this->update();
 }
 
 void SensorsDisplayWidget::removeSensor(QString name)
@@ -74,7 +74,7 @@ void SensorsDisplayWidget::removeSensor(QString name)
     try
     {
         m_sensors.removeAll(findSensor(name));
-        update();
+        this->update();
     }
     catch(std::invalid_argument e)
     {
@@ -86,8 +86,8 @@ void SensorsDisplayWidget::updateSensorState(QString name, QColor led)
 {
     try
     {
-        findSensor(name)->led = led;
-        update();
+        this->findSensor(name)->led = led;
+        this->update();
     }
     catch(std::invalid_argument e)
     {
