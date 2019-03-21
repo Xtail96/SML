@@ -4236,18 +4236,21 @@
               <property name="title">
                <string>Настройки осей</string>
               </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_7">
                <property name="leftMargin">
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <item>
                 <widget class="QListWidget" name="axisesSettingsListWidget">
@@ -4276,18 +4279,21 @@
               <property name="title">
                <string>Настройки датчиков</string>
               </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <property name="leftMargin">
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <item>
                 <widget class="QTableWidget" name="sensorsSettingsTableWidget">
@@ -4316,18 +4322,21 @@
               <property name="title">
                <string>Настройки шпинделей</string>
               </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <property name="leftMargin">
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <item>
                 <widget class="QTableWidget" name="spindelsSettingsTableWidget">
@@ -4356,18 +4365,24 @@
               <property name="title">
                <string>Настройки сопуствующих устройств</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_13">
                <property name="leftMargin">
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>0</number>
+                <number>5</number>
                </property>
                <item>
                 <widget class="QTableWidget" name="supportDevicesSettingsTableWidget"/>
