@@ -11,6 +11,7 @@ SettingsManager::SettingsManager(QString settingsFile)
 #else
     QString settingsPath = DEFAULT_SETTINGS_DIR + settingsFile;
 #endif
+
     // проверка на существование файла с настройками
     if (!QFileInfo::exists(settingsPath))
     {
