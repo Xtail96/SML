@@ -13,7 +13,6 @@
 
 #define DEFAULT_SETTINGS_DIR ""
 #define DEFAULT_SETTINGS_FILE "SMLSettings.ini"
-#define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE
 
 /**
  * @brief Класс для работы с настройками станка
@@ -40,7 +39,7 @@ public:
      * @brief Импортирует настройки из заданного файла
      * @param settingsPath путь к файлу с настройками
      */
-    SettingsManager(QString settingsPath);
+    SettingsManager(QString settingsFile);
 
     ~SettingsManager();
 
