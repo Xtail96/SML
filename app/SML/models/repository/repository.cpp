@@ -5,9 +5,19 @@ Repository::Repository(QObject *parent) :
     m_settingsManager(new SettingsManager()),
     m_pointsManager(new PointsManager(this)),
     m_gcodesFilesManager(new GCodesFileManager(this)),
+    m_port(1234),
+    m_sensorsBufferSize(2),
+    m_devicesBufferSize(1),
     m_u1Adapter(new Adapter(Adapter::U1, this)),
     m_u2Adapter(new Adapter(Adapter::U2, this)),
-    m_sensorsBuffer(new SensorsBuffer(16, this))
+    m_sensors(QList< QSharedPointer<Sensor> >()),
+    m_sensorsBuffer(new SensorsBuffer(16, this)),
+    m_spindels(QList< QSharedPointer<Spindel> >()),
+    m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
+    m_axises(QList< QSharedPointer<Axis> >()),
+    m_zeroCoordinates(Point()),
+    m_parkCoordinates(Point()),
+    m_velocity(0)
 {
     this->loadSettigs();
 }
