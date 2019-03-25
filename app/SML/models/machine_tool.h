@@ -50,7 +50,7 @@ public:
      * @brief Предоставляет доступ к репозиторию, где хранится текущее состояние станка
      * @return
      */
-    Repository* getRepository();
+    Repository& getRepository();
 
     /**
      * @brief Производит запуск WebSocket сервера для подключения адаптеров

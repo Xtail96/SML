@@ -32,9 +32,9 @@ MachineTool &MachineTool::getInstance()
     return *m_instance;
 }
 
-Repository *MachineTool::getRepository()
+Repository &MachineTool::getRepository()
 {
-    return m_repository.data();
+    return *m_repository.data();
 }
 
 void MachineTool::setupConnections()
