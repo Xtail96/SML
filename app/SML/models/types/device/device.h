@@ -20,6 +20,16 @@ public:
 
     virtual ~Device();
 
+    /**
+     * @brief Оператор меньше для порядковой сортировки устройств
+     */
+    bool operator<(const Device &device);
+
+    /**
+     * @brief Оператор равенства для сравнения устройств
+     */
+    bool operator==(const Device &device);
+
     virtual bool isEnable() const;
 
     virtual void setCurrentState(bool value, QMap<QString, QString> params);

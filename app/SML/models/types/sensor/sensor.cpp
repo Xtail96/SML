@@ -20,6 +20,16 @@ Sensor::Sensor(QString uid,
 {
 }
 
+bool Sensor::operator<(const Sensor &sensor)
+{
+    return this->m_uid < sensor.getUid();
+}
+
+bool Sensor::operator==(const Sensor &sensor)
+{
+    return this->m_uid == sensor.getUid();
+}
+
 void Sensor::updateInputState(bool state)
 {
     this->setInputCurrentState(state);

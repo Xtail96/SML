@@ -20,6 +20,16 @@ Device::~Device()
 
 }
 
+bool Device::operator<(const Device &device)
+{
+    return this->m_uid < device.getUid();
+}
+
+bool Device::operator==(const Device &device)
+{
+    return this->m_uid == device.getUid();
+}
+
 void Device::setCurrentState(bool value, QMap<QString, QString> params)
 {
     params = QMap<QString, QString>();
