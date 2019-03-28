@@ -178,12 +178,12 @@ private slots:
     void on_movementANegativePushButton_clicked();
     void on_feedrateScrollBar_valueChanged(int value);
     void on_exit_action_triggered();
-    void on_pointsAmountPushButton_clicked();
-    void on_pointAddPushButton_clicked();
-    void on_pointDeletePushButton_clicked();
-    void on_pointCursorPushButton_clicked();
-    void on_pointEditPushButton_clicked();
-    void on_pointCopyPushButton_clicked();
+    void on_pointsAmountToolButton_clicked();
+    void on_pointAddToolButton_clicked();
+    void on_pointDeleteToolButton_clicked();
+    void on_pointCursorToolButton_clicked();
+    void on_pointEditToolButton_clicked();
+    void on_pointCopyToolButton_clicked();
     void on_open_action_triggered();
     void on_gcodesEditorPlainTextEdit_textChanged();
     void on_importsettings_action_triggered();

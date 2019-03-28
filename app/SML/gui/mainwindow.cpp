@@ -156,10 +156,10 @@ void MainWindow::setupConnections()
         QObject::connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
         QObject::connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
     }
-    QObject::connect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
-    QObject::connect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
-    QObject::connect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    QObject::connect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+    QObject::connect(ui->pointAddToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddToolButton_clicked()));
+    QObject::connect(ui->pointDeleteToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeleteToolButton_clicked()));
+    QObject::connect(ui->pointCursorToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorToolButton_clicked()));
+    QObject::connect(ui->pointCopyToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyToolButton_clicked()));
 
     for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
@@ -220,10 +220,10 @@ void MainWindow::resetConnections()
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
     }
-    QObject::disconnect(ui->pointAddPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddPushButton_clicked()));
-    QObject::disconnect(ui->pointDeletePushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeletePushButton_clicked()));
-    QObject::disconnect(ui->pointCursorPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorPushButton_clicked()));
-    QObject::disconnect(ui->pointCopyPushButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyPushButton_clicked()));
+    QObject::disconnect(ui->pointAddToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddToolButton_clicked()));
+    QObject::disconnect(ui->pointDeleteToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeleteToolButton_clicked()));
+    QObject::disconnect(ui->pointCursorToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorToolButton_clicked()));
+    QObject::disconnect(ui->pointCopyToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyToolButton_clicked()));
 
     for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
@@ -792,17 +792,17 @@ void MainWindow::on_exit_action_triggered()
     exit(0);
 }
 
-void MainWindow::on_pointsAmountPushButton_clicked()
+void MainWindow::on_pointsAmountToolButton_clicked()
 {
     QMessageBox(QMessageBox::Information, "Количество точек", QString::number(ui->pointsTableWidget->rowCount())).exec();
 }
 
-void MainWindow::on_pointAddPushButton_clicked()
+void MainWindow::on_pointAddToolButton_clicked()
 {
     addPoint();
 }
 
-void MainWindow::on_pointDeletePushButton_clicked()
+void MainWindow::on_pointDeleteToolButton_clicked()
 {
     QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
@@ -831,7 +831,7 @@ void MainWindow::on_pointDeletePushButton_clicked()
     }
 }
 
-void MainWindow::on_pointCursorPushButton_clicked()
+void MainWindow::on_pointCursorToolButton_clicked()
 {
     PointsTableWidget* currentTableWidget;
     if(ui->editorTab->isVisible())
@@ -855,7 +855,7 @@ void MainWindow::on_pointCursorPushButton_clicked()
     }
 }
 
-void MainWindow::on_pointEditPushButton_clicked()
+void MainWindow::on_pointEditToolButton_clicked()
 {
     QItemSelectionModel *select;
     if(ui->editorTab->isVisible())
@@ -884,7 +884,7 @@ void MainWindow::on_pointEditPushButton_clicked()
     }
 }
 
-void MainWindow::on_pointCopyPushButton_clicked()
+void MainWindow::on_pointCopyToolButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
@@ -1002,16 +1002,16 @@ void MainWindow::onPointsUpdated()
         }
     }
 
-    QList<QPushButton*> pointsActionsButtons =
+    QList<QToolButton*> pointsActionsButtons =
     {
-        ui->pointDeletePushButton,
-        ui->pointDeletePushButton_2,
-        ui->pointEditPushButton,
-        ui->pointCopyPushButton,
-        ui->pointCopyPushButton_2,
-        ui->pointCursorPushButton,
-        ui->pointCursorPushButton_2,
-        ui->pointTransitionPushButton
+        ui->pointDeleteToolButton,
+        ui->pointDeleteToolButton_2,
+        ui->pointEditToolButton,
+        ui->pointCopyToolButton,
+        ui->pointCopyToolButton_2,
+        ui->pointCursorToolButton,
+        ui->pointCursorToolButton_2,
+        ui->pointTransitionToolButton
     };
 
     if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
