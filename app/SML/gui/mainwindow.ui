@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1317</width>
-    <height>792</height>
+    <height>677</height>
    </rect>
   </property>
   <property name="palette">
@@ -3551,7 +3551,7 @@
               <enum>QTabWidget::North</enum>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="devicesTab">
               <attribute name="title">
