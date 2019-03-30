@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // окно на весь экран
-    QMainWindow::showMaximized();
+    // QMainWindow::showMaximized();
 
     m_shortcutsMap.push_back(std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())));
     m_shortcutsMap.push_back(std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())));
