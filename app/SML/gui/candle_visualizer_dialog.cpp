@@ -9,7 +9,7 @@ CandleVisualizerDialog::CandleVisualizerDialog(QStringList program, QWidget *par
 
     m_gcodesVisualizer = new GCodesVisualizer(ui->gcodesPreviewGLWidget, this);
 
-    loadFile(program);
+    this->loadFile(program);
 }
 
 CandleVisualizerDialog::~CandleVisualizerDialog()
