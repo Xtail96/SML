@@ -64,17 +64,17 @@ void SensorsDisplayWidget::update()
     }
 }
 
-void SensorsDisplayWidget::addSensor(QString name, QString label, bool state, QColor led)
+void SensorsDisplayWidget::addSensor(QString uid, QString label, bool state, QColor activeStateLedColor)
 {
-    m_sensors.push_back(QSharedPointer<SensorWidget>(new SensorWidget(name, label, state, led)));
+    m_sensors.push_back(QSharedPointer<SensorWidget>(new SensorWidget(uid, label, state, activeStateLedColor)));
     this->update();
 }
 
-void SensorsDisplayWidget::removeSensor(QString name)
+void SensorsDisplayWidget::removeSensor(QString uid)
 {
     try
     {
-        m_sensors.removeAll(findSensor(name));
+        m_sensors.removeAll(findSensor(uid));
         this->update();
     }
     catch(std::invalid_argument e)
@@ -83,11 +83,14 @@ void SensorsDisplayWidget::removeSensor(QString name)
     }
 }
 
-void SensorsDisplayWidget::updateSensorState(QString name, bool state)
+void SensorsDisplayWidget::updateSensorData(QString uid, QString label, bool state, QColor activeStateLedColor)
 {
     try
     {
-        this->findSensor(name)->state = state;
+        QSharedPointer<SensorWidget> sensor = this->findSensor(uid);
+        sensor->label = label;
+        sensor->state = state;
+        sensor->activeStateLedColor = activeStateLedColor;
         this->update();
     }
     catch(std::invalid_argument e)
@@ -96,15 +99,28 @@ void SensorsDisplayWidget::updateSensorState(QString name, bool state)
     }
 }
 
-QSharedPointer<SensorsDisplayWidget::SensorWidget> SensorsDisplayWidget::findSensor(QString name)
+void SensorsDisplayWidget::updateSensorState(QString uid, bool state)
+{
+    try
+    {
+        this->findSensor(uid)->state = state;
+        this->update();
+    }
+    catch(std::invalid_argument e)
+    {
+        QMessageBox(QMessageBox::Warning, "SensorDisplayWidget error", e.what());
+    }
+}
+
+QSharedPointer<SensorsDisplayWidget::SensorWidget> SensorsDisplayWidget::findSensor(QString uid)
 {
     for(auto sensor : m_sensors)
     {
-        if(sensor->name == name)
+        if(sensor->uid == uid)
         {
             return sensor;
         }
     }
 
-    throw std::invalid_argument("can not find sensor with name" + name.toStdString());
+    throw std::invalid_argument("can not find sensor with name" + uid.toStdString());
 }

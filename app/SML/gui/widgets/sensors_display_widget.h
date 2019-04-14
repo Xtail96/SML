@@ -16,20 +16,22 @@ class SensorsDisplayWidget : public QWidget
     Q_OBJECT
 public:
     explicit SensorsDisplayWidget(QWidget *parent = nullptr);
-    void addSensor(QString name, QString label, bool state, QColor led);
-    void removeSensor(QString name);
-    void updateSensorState(QString name, bool state);
+    void addSensor(QString uid, QString label, bool state, QColor activeStateLedColor);
+    void removeSensor(QString uid);
+    void updateSensorData(QString uid, QString label, bool state, QColor activeStateLedColor);
+    void updateSensorState(QString uid, bool state);
     void update();
-protected:
+
+private:
 
     struct SensorWidget{
-        QString name;
+        QString uid;
         QString label;
         bool state;
         QColor activeStateLedColor;
         QColor inactiveStateLedColor;
-        SensorWidget(QString _name, QString _label, bool _state, QColor _activeStateLedColor) :
-            name(_name),
+        SensorWidget(QString _uid, QString _label, bool _state, QColor _activeStateLedColor) :
+            uid(_uid),
             label(_label),
             state(_state),
             activeStateLedColor(_activeStateLedColor),
@@ -39,7 +41,7 @@ protected:
     QList< QSharedPointer<SensorWidget> > m_sensors;
     QTableWidget* m_sensorsTable;
 
-    QSharedPointer<SensorWidget> findSensor(QString name);
+    QSharedPointer<SensorWidget> findSensor(QString uid);
 
 signals:
 
