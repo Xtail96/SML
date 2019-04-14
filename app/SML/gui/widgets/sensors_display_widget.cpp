@@ -40,7 +40,8 @@ void SensorsDisplayWidget::update()
     {
         labels.push_back(sensor->label);
         QTableWidgetItem *item = new QTableWidgetItem();
-        item->setBackgroundColor(sensor->led);
+        (sensor->state) ? item->setBackgroundColor(sensor->activeStateLedColor)
+                        : item->setBackgroundColor(sensor->inactiveStateLedColor);
         item->setFlags(Qt::ItemIsEnabled);
         items.push_back(item);
     }
@@ -63,9 +64,9 @@ void SensorsDisplayWidget::update()
     }
 }
 
-void SensorsDisplayWidget::addSensor(QString name, QString label, QColor led)
+void SensorsDisplayWidget::addSensor(QString name, QString label, bool state, QColor led)
 {
-    m_sensors.push_back(QSharedPointer<SensorWidget>(new SensorWidget(name, label, led)));
+    m_sensors.push_back(QSharedPointer<SensorWidget>(new SensorWidget(name, label, state, led)));
     this->update();
 }
 
@@ -82,11 +83,11 @@ void SensorsDisplayWidget::removeSensor(QString name)
     }
 }
 
-void SensorsDisplayWidget::updateSensorState(QString name, QColor led)
+void SensorsDisplayWidget::updateSensorState(QString name, bool state)
 {
     try
     {
-        this->findSensor(name)->led = led;
+        this->findSensor(name)->state = state;
         this->update();
     }
     catch(std::invalid_argument e)

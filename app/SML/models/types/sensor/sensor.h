@@ -95,7 +95,7 @@ public:
      * В системе, для наглядности, у каждого датчика задается цвет индикатора, который необходимо выводить
      * в интерфейс при срабатывании датчика.
      */
-    QColor getColor() const;
+    QColor getActiveStateLedColor() const;
 
     /**
      * @brief Проверяет сработал ли датчик
@@ -148,7 +148,7 @@ protected:
     bool m_inputCurrentState;
 
     /// Цвет индикатора датчика
-    QColor m_color;
+    QColor m_activeStateLedColor;
 
 signals:
     /**

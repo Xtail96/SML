@@ -281,12 +281,7 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorUid, bool state)
         {
             do somtething
         }*/
-        QColor led = QColor(SmlColors::white());
-        if(state)
-        {
-            led = m_repository->getSensor(sensorUid).getColor();
-        }
-        emit this->sensorStateChanged(sensorUid, led);
+        emit this->sensorStateChanged(sensorUid, state);
     }
     catch(...)
     {

@@ -153,9 +153,10 @@ signals:
     /**
      * @brief Сигнал изменения состояния датчика
      * @param sensorName уникальный идентификатор датчика
-     * @param color цвет текущего состояния датчика (переписать на bool параметр)
+     * @param state состояние сенсора
+     * @param color цвет текущего состояния датчика
      */
-    void sensorStateChanged(QString sensorName, QColor color);
+    void sensorStateChanged(QString sensorName, bool state);
 
     /**
      * @brief Сигнал изменения состояния шпинделя

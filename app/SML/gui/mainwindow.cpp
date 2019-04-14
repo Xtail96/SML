@@ -111,7 +111,7 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(errorStateChanged(ERROR_CODE)), this, SLOT(onMachineTool_ErrorStateChanged(ERROR_CODE)));
 
     QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
     QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
@@ -188,7 +188,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(errorStateChanged(ERROR_CODE)), this, SLOT(onMachineTool_ErrorStateChanged(ERROR_CODE)));
 
     QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onMachineTool_SensorStateChanged(QString,QColor)));
+    QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
     QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
@@ -255,13 +255,17 @@ void MainWindow::setupSensorsDisplay()
     for(auto name : names)
     {
         QMap<QString, QString> parameters = machineTool.getRepository().getSensorSettings(name);
-        ui->sensorsDisplayWidget->addSensor(parameters["Uid"], parameters["Label"], QColor(SmlColors::white()));
+        ui->sensorsDisplayWidget->addSensor(
+                    parameters["Uid"],
+                    parameters["Label"],
+                    parameters["CurrentState"].toInt(),
+                    parameters["ActiveStateLedColor"]);
     }
 }
 
-void MainWindow::onMachineTool_SensorStateChanged(QString name, QColor color)
+void MainWindow::onMachineTool_SensorStateChanged(QString name, bool state)
 {
-    ui->sensorsDisplayWidget->updateSensorState(name, color);
+    ui->sensorsDisplayWidget->updateSensorState(name, state);
 }
 
 void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations)

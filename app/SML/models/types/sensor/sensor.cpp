@@ -16,7 +16,7 @@ Sensor::Sensor(QString uid,
     m_inputNumber(inputNumber),
     m_inputActiveState(inputActiveState),
     m_inputCurrentState(!m_inputActiveState),
-    m_color(color)
+    m_activeStateLedColor(color)
 {
 }
 
@@ -82,9 +82,9 @@ bool Sensor::getInputActiveState() const
     return m_inputActiveState;
 }
 
-QColor Sensor::getColor() const
+QColor Sensor::getActiveStateLedColor() const
 {
-    return m_color;
+    return m_activeStateLedColor;
 }
 
 bool Sensor::isEnable()
@@ -105,8 +105,7 @@ QString Sensor::getSettings()
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
             QStringLiteral("ActiveState:") + QString::number(m_inputActiveState) + QStringLiteral(";") +
-            QStringLiteral("LedColor:") + QString::number(m_color.red()) +
-                QStringLiteral(",") + QString::number(m_color.green()) +
-                QStringLiteral(",") + QString::number(m_color.blue());
+            QStringLiteral("CurrentState:") + m_inputCurrentState + QStringLiteral(";") +
+            QStringLiteral("ActiveStateLedColor:") + m_activeStateLedColor.name();
     return sensorSettings;
 }

@@ -129,7 +129,7 @@ private slots:
     void onMachineTool_ErrorStateChanged(ERROR_CODE errorCode);
 
     /// слот для обновления дисплея датчиков
-    void onMachineTool_SensorStateChanged(QString name, QColor color);
+    void onMachineTool_SensorStateChanged(QString name, bool state);
 
     void onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations);
 

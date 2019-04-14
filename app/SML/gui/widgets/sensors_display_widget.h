@@ -16,20 +16,24 @@ class SensorsDisplayWidget : public QWidget
     Q_OBJECT
 public:
     explicit SensorsDisplayWidget(QWidget *parent = nullptr);
-    void addSensor(QString name, QString label, QColor led);
+    void addSensor(QString name, QString label, bool state, QColor led);
     void removeSensor(QString name);
-    void updateSensorState(QString name, QColor led);
+    void updateSensorState(QString name, bool state);
     void update();
 protected:
 
     struct SensorWidget{
         QString name;
         QString label;
-        QColor led;
-        SensorWidget(QString _name, QString _label, QColor _led) :
+        bool state;
+        QColor activeStateLedColor;
+        QColor inactiveStateLedColor;
+        SensorWidget(QString _name, QString _label, bool _state, QColor _activeStateLedColor) :
             name(_name),
             label(_label),
-            led(_led){}
+            state(_state),
+            activeStateLedColor(_activeStateLedColor),
+            inactiveStateLedColor(Qt::white) {}
     };
 
     QList< QSharedPointer<SensorWidget> > m_sensors;
