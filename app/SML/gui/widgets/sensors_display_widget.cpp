@@ -6,7 +6,7 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
     this->setLayout(mainLayout);
     this->layout()->setContentsMargins(0, 0, 0, 5);
 
-    QFrame* container = new QFrame(this);
+    QWidget* container = new QWidget(this);
     container->setLayout(new QVBoxLayout(container));
     container->layout()->setSpacing(0);
     container->layout()->setContentsMargins(0, 0, 0, 0);
@@ -27,6 +27,7 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
 
     m_sensorsTable->setLayoutDirection(Qt::RightToLeft);
     m_sensorsTable->setShowGrid(true);
+    //m_sensorsTable->
 
     container->layout()->addWidget(m_sensorsTable);
 
