@@ -14,12 +14,15 @@ SensorsDisplayWidget::SensorsDisplayWidget(QWidget *parent) : QWidget(parent)
     m_sensorsTable = new QTableWidget(container);
 #ifdef Q_OS_MACOS
     m_sensorsTable->setMinimumWidth(110);
+    m_sensorsTable->setMaximumWidth(110);
 #endif
 #ifdef Q_OS_LINUX
     m_sensorsTable->setMinimumWidth(150);
+    m_sensorsTable->setMaximumWidth(150);
 #endif
 #ifdef Q_OS_WIN
     m_sensorsTable->setMinimumWidth(150);
+    m_sensorsTable->setMaximumWidth(150);
 #endif
 
     m_sensorsTable->setLayoutDirection(Qt::RightToLeft);
