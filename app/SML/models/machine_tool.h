@@ -203,13 +203,13 @@ private slots:
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
      * (запись данных в репозитоий)
      */
-    void onServer_U1Connected();
+    void onAdapterServer_U1Connected();
 
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U1
      * (запись данных в репозиторий)
      */
-    void onServer_U1Disconnected();
+    void onAdapterServer_U1Disconnected();
 
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U1
@@ -217,7 +217,7 @@ private slots:
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
      */
-    void onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
+    void onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка
@@ -226,7 +226,7 @@ private slots:
      * 3) Испускает сигнал о возникновении ошибки.
      * @param errorCode код ошибки
      */
-    void onServer_ErrorOccurred(ERROR_CODE errorCode);
+    void onAdapterServer_ErrorOccurred(ERROR_CODE errorCode);
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптеров

@@ -41,11 +41,11 @@ void MachineTool::setupConnections()
 {
     QObject::connect(m_repository.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onRepository_ErrorOccurred(ERROR_CODE)));
 
-    QObject::connect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
-    QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onAdapterServer_U1Connected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
-    QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onServer_ErrorOccurred(ERROR_CODE)));
+                     this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
@@ -62,11 +62,11 @@ void MachineTool::resetConnections()
 {  
     QObject::disconnect(m_repository.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onRepository_ErrorOccurred(ERROR_CODE)));
 
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onServer_U1Connected()));
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onServer_U1Disconnected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Connected()), this, SLOT(onAdapterServer_U1Connected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
-                     this, SLOT(onServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onServer_ErrorOccurred(ERROR_CODE)));
+                     this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
@@ -216,17 +216,17 @@ void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
     this->setLastError(code);
 }
 
-void MachineTool::onServer_U1Connected()
+void MachineTool::onAdapterServer_U1Connected()
 {
     m_repository->setU1ConnectState(true);
 }
 
-void MachineTool::onServer_U1Disconnected()
+void MachineTool::onAdapterServer_U1Disconnected()
 {
     m_repository->setU1ConnectState(false);
 }
 
-void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
+void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
     this->setLastError(lastError);
     m_repository->setU1Sensors(sensors);
@@ -234,7 +234,7 @@ void MachineTool::onServer_U1StateChanged(QList<QVariant> sensors, QList<QVarian
     m_repository->setU1WorkflowState(workflowState);
 }
 
-void MachineTool::onServer_ErrorOccurred(ERROR_CODE errorCode)
+void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
 {
     this->setLastError(errorCode);
 }
