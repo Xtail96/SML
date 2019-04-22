@@ -99,9 +99,7 @@ void MainWindow::setupWidgets()
 
     // настройка редактора точек
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->pointsTableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->pointsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->pointsTableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void MainWindow::setupConnections()
@@ -149,17 +147,13 @@ void MainWindow::setupConnections()
     QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
-    QList<PointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
         QObject::connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
         QObject::connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
         QObject::connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
     }
-    QObject::connect(ui->pointAddToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddToolButton_clicked()));
-    QObject::connect(ui->pointDeleteToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeleteToolButton_clicked()));
-    QObject::connect(ui->pointCursorToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorToolButton_clicked()));
-    QObject::connect(ui->pointCopyToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyToolButton_clicked()));
 
     for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
@@ -213,17 +207,13 @@ void MainWindow::resetConnections()
     QObject::disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
 
-    QList<PointsTableWidget*> pointsEditorTableWidgets = {ui->pointsTableWidget, ui->pointsTableWidget_2};
+    QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
         QObject::disconnect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
     }
-    QObject::disconnect(ui->pointAddToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointAddToolButton_clicked()));
-    QObject::disconnect(ui->pointDeleteToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointDeleteToolButton_clicked()));
-    QObject::disconnect(ui->pointCursorToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCursorToolButton_clicked()));
-    QObject::disconnect(ui->pointCopyToolButton_2, SIGNAL(clicked(bool)), this, SLOT(on_pointCopyToolButton_clicked()));
 
     for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
@@ -808,24 +798,7 @@ void MainWindow::on_pointAddToolButton_clicked()
 
 void MainWindow::on_pointDeleteToolButton_clicked()
 {
-    QItemSelectionModel *select;
-    if(ui->editorTab->isVisible())
-    {
-        select = ui->pointsTableWidget_2->selectionModel();
-    }
-    else
-    {
-        if(ui->adjustmentTab->isVisible())
-        {
-            select = ui->pointsTableWidget->selectionModel();
-        }
-        else
-        {
-            return;
-        }
-    }
-
-
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();;
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
 
     if(selectedItemsIndexes.size() > 0)
@@ -837,22 +810,7 @@ void MainWindow::on_pointDeleteToolButton_clicked()
 
 void MainWindow::on_pointCursorToolButton_clicked()
 {
-    PointsTableWidget* currentTableWidget;
-    if(ui->editorTab->isVisible())
-    {
-        currentTableWidget = ui->pointsTableWidget_2;
-    }
-    else
-    {
-        if(ui->adjustmentTab->isVisible())
-        {
-            currentTableWidget = ui->pointsTableWidget;
-        }
-        else
-        {
-            return;
-        }
-    }
+    PointsTableWidget* currentTableWidget = ui->pointsTableWidget;
     if(currentTableWidget->rowCount() > 0)
     {
         ToSelectionPointDialog(currentTableWidget, this).exec();
@@ -861,23 +819,7 @@ void MainWindow::on_pointCursorToolButton_clicked()
 
 void MainWindow::on_pointEditToolButton_clicked()
 {
-    QItemSelectionModel *select;
-    if(ui->editorTab->isVisible())
-    {
-        select = ui->pointsTableWidget_2->selectionModel();
-    }
-    else
-    {
-        if(ui->adjustmentTab->isVisible())
-        {
-            select = ui->pointsTableWidget->selectionModel();
-        }
-        else
-        {
-            return;
-        }
-    }
-
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     if(select->hasSelection())
     {
          editPoint(select->currentIndex());
@@ -892,23 +834,7 @@ void MainWindow::on_pointCopyToolButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QItemSelectionModel *select;
-    if(ui->editorTab->isVisible())
-    {
-        select = ui->pointsTableWidget_2->selectionModel();
-    }
-    else
-    {
-        if(ui->adjustmentTab->isVisible())
-        {
-            select = ui->pointsTableWidget->selectionModel();
-        }
-        else
-        {
-            return;
-        }
-    }
-
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
     if(selectedItemsIndexes.size() > 0)
     {
@@ -978,7 +904,7 @@ void MainWindow::onPointsUpdated()
     MachineTool& machineTool = MachineTool::getInstance();
 
     QList<QStringList> points = machineTool.getRepository().getPoints();
-    QList<PointsTableWidget*> fields = { ui->pointsTableWidget, ui->pointsTableWidget_2 };
+    QList<PointsTableWidget*> fields = { ui->pointsTableWidget };
     QStringList axisesLabels = machineTool.getRepository().getAxisesNames();
 
     for(auto field : fields)
@@ -1009,16 +935,13 @@ void MainWindow::onPointsUpdated()
     QList<QToolButton*> pointsActionsButtons =
     {
         ui->pointDeleteToolButton,
-        ui->pointDeleteToolButton_2,
         ui->pointEditToolButton,
         ui->pointCopyToolButton,
-        ui->pointCopyToolButton_2,
         ui->pointCursorToolButton,
-        ui->pointCursorToolButton_2,
         ui->pointTransitionToolButton
     };
 
-    if((ui->pointsTableWidget->rowCount() > 0) || (ui->pointsTableWidget_2->rowCount() > 0))
+    if(ui->pointsTableWidget->rowCount() > 0)
     {
         for(auto button : pointsActionsButtons)
         {
