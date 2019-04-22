@@ -397,8 +397,8 @@ QStringList Repository::getOptionsLabels()
     QStringList optionsNames =
     {
         "Кабриоль",
-        "Датчик вылета инструмента",
-        "Станция автоматической смазки"
+        "ДВИ",
+        "САС"
     };
     return optionsNames;
 }

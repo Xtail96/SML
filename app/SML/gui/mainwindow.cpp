@@ -503,7 +503,15 @@ void MainWindow::setupOptionsPanel()
     MachineTool& machineTool = MachineTool::getInstance();
 
     QStringList optionsNames = machineTool.getRepository().getOptionsLabels();
-    ui->optionsListWidget->addItems(optionsNames);
+
+    for(auto optionName : optionsNames)
+    {
+        QPushButton* itemWidget = new QPushButton(optionName, ui->optionsListWidget);
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setSizeHint(itemWidget->sizeHint());
+        ui->optionsListWidget->addItem(item);
+        ui->optionsListWidget->setItemWidget(item, itemWidget);
+    }
 
     ui->optionsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
