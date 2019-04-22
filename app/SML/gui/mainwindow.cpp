@@ -147,7 +147,6 @@ void MainWindow::setupConnections()
 
     QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
-
     QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
@@ -226,7 +225,6 @@ void MainWindow::resetConnections()
     // настройка импорта и экспорта настроек
     QObject::disconnect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
     QObject::disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
-
 
     // настройка кнопок работы с файлами
     QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
@@ -386,6 +384,16 @@ void MainWindow::setupSpindelsSettingsBoard()
 void MainWindow::setupSupportDevicesControlPanel()
 {
     ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
+
+    QStringList supportDevices = { "Муфта", "Тормоз", "Лазер" };
+    for(auto supportDevice : supportDevices)
+    {
+        QPushButton* itemWidget = new QPushButton(supportDevice, ui->supportDevicesListWidget);
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setSizeHint(itemWidget->sizeHint());
+        ui->supportDevicesListWidget->addItem(item);
+        ui->supportDevicesListWidget->setItemWidget(item, itemWidget);
+    }
 }
 
 void MainWindow::setupSupportDevicesSettingsBoard()
@@ -548,6 +556,7 @@ void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
 
     ui->optionsListWidget->setEnabled(enableWidgets);
     ui->spindelsListWidget->setEnabled(enableWidgets);
+    ui->supportDevicesListWidget->setEnabled(enableWidgets);
 
     ui->currentCoordinatesListWidget->setEnabled(enableWidgets);
     ui->baseCoordinatesListWidget->setEnabled(enableWidgets);

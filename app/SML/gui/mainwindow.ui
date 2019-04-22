@@ -2145,26 +2145,9 @@
                 <property name="alternatingRowColors">
                  <bool>false</bool>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>Муфта</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Тормоз</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Лазер</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>САС</string>
-                 </property>
-                </item>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
