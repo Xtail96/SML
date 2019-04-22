@@ -1075,90 +1075,6 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item row="2" column="0">
-            <widget class="QWidget" name="runWidget" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>1</verstretch>
-              </sizepolicy>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>5</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>5</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="timerPushButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Время выполнения</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="resources/images.qrc">
-                  <normaloff>:/aist/images/aist/timer.png</normaloff>:/aist/images/aist/timer.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="shortcut">
-                 <string>F11</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCommandLinkButton" name="runCommandLinkButton">
-                <property name="text">
-                 <string>Пуск/Продолжить</string>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-                <property name="shortcut">
-                 <string>F10</string>
-                </property>
-                <property name="checkable">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCommandLinkButton" name="stopCommandLinkButton">
-                <property name="text">
-                 <string>Остановить</string>
-                </property>
-                <property name="shortcut">
-                 <string>Space</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QWidget" name="controlButtonsWidget" native="true">
              <property name="sizePolicy">
@@ -1313,40 +1229,16 @@
                </widget>
               </item>
               <item>
-               <widget class="QGroupBox" name="groupBox">
-                <property name="title">
-                 <string>Опции</string>
+               <widget class="QListWidget" name="optionsListWidget">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="alternatingRowColors">
+                 <bool>false</bool>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_21">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QListWidget" name="optionsListWidget">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
-                   <property name="uniformItemSizes">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <property name="uniformItemSizes">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -1361,6 +1253,51 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="timerPushButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Время выполнения</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources/images.qrc">
+                  <normaloff>:/aist/images/aist/timer.png</normaloff>:/aist/images/aist/timer.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="shortcut">
+                 <string>F11</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="runPushButton">
+                <property name="text">
+                 <string>Пуск/Продолжить</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pausePushButton">
+                <property name="text">
+                 <string>Пауза</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>

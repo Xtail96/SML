@@ -497,6 +497,8 @@ void MainWindow::setupOptionsPanel()
 
     QStringList optionsNames = machineTool.getRepository().getOptionsLabels();
     ui->optionsListWidget->addItems(optionsNames);
+
+    ui->optionsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
 
 void MainWindow::hideWidgets()
@@ -577,8 +579,8 @@ void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
     ui->zeroSensorPushButton->setEnabled(enableWidgets);
     ui->parkPushButton->setEnabled(enableWidgets);
 
-    ui->runCommandLinkButton->setEnabled(enableWidgets);
-    ui->stopCommandLinkButton->setEnabled(enableWidgets);
+    ui->runPushButton->setEnabled(enableWidgets);
+    ui->pausePushButton->setEnabled(enableWidgets);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
@@ -1057,13 +1059,6 @@ void MainWindow::on_saveas_action_triggered()
             machineTool.getRepository().saveGCodesFileAs(ui->gcodesEditorPlainTextEdit->toPlainText());
         }
     }
-}
-
-void MainWindow::on_runCommandLinkButton_clicked()
-{
-    /*QString content = ui->gcodesEditorPlainTextEdit->toPlainText();
-    m_machineTool->setGCodes(content);
-    m_machineTool->parseGCodes();*/
 }
 
 void MainWindow::on_view_action_triggered()

@@ -195,7 +195,6 @@ private slots:
     void on_create_action_triggered();
     void on_save_action_triggered();
     void on_saveas_action_triggered();
-    void on_runCommandLinkButton_clicked();
     void on_view_action_triggered();
     void on_consoleOpenPushButton_clicked();
     void on_edgesControlCheckBox_clicked();
