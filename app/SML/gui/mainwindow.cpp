@@ -72,6 +72,7 @@ void MainWindow::setupWidgets()
     this->setupSpindelsSettingsBoard();
     this->setupSupportDevicesSettingsBoard();
     this->setupSpindelsControlPanel();
+    this->setupSupportDevicesControlPanel();
 
     this->setupCoordinatesDisplays();
     this->setupAxisesSettingsBoard();
@@ -337,6 +338,7 @@ void MainWindow::setupSpindelsControlPanel()
         ui->spindelsListWidget->addItem(item);
         ui->spindelsListWidget->setItemWidget(item, widget);
     }
+    ui->spindelsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
 
 void MainWindow::setupSpindelsSettingsBoard()
@@ -379,6 +381,11 @@ void MainWindow::setupSpindelsSettingsBoard()
     {
         ui->spindelsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
     }
+}
+
+void MainWindow::setupSupportDevicesControlPanel()
+{
+    ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
 
 void MainWindow::setupSupportDevicesSettingsBoard()

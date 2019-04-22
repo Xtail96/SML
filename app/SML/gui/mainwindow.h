@@ -98,6 +98,9 @@ private:
     void setupSpindelsSettingsBoard();
 
     /// Проводит инициализацию таблицы настроек сопуствующих устройств
+    void setupSupportDevicesControlPanel();
+
+    /// Проводит инициализацию таблицы настроек сопуствующих устройств
     void setupSupportDevicesSettingsBoard();
 
     /// Проводит настройку дисплеев координат
