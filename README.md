@@ -34,6 +34,8 @@ SML - это система управления фрезерными и ток�
 #### Requrements ####
 
 * Qt 5.10.1 <=
+* opengl
+* g++ and gcc
 * [linuxdeployqt](https://github.com/probonopd/linuxdeployqt) или [linuxdeployqt fork](https://github.com/ApplicationsForge/linuxdeployqt)
 
 #### Intructions ####
