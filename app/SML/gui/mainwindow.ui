@@ -3049,6 +3049,12 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="baseSize">
+    <size>
+     <width>320</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
@@ -3062,6 +3068,12 @@
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dashboardDockWidgetContents">
+    <property name="baseSize">
+     <size>
+      <width>320</width>
+      <height>0</height>
+     </size>
+    </property>
     <layout class="QGridLayout" name="gridLayout_8">
      <property name="leftMargin">
       <number>5</number>
@@ -3088,7 +3100,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>130</width>
+         <width>0</width>
          <height>0</height>
         </size>
        </property>
