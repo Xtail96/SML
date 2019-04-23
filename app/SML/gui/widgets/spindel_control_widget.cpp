@@ -12,12 +12,12 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     this->setLayout(mainLayout);
-    this->layout()->setContentsMargins(0, 5, 0, 5);
+    this->layout()->setContentsMargins(0, 1, 0, 1);
 
-    QWidget* container = new QWidget(this);
+    QGroupBox* container = new QGroupBox(this);
     container->setLayout(new QVBoxLayout(container));
     container->layout()->setSpacing(0);
-    container->layout()->setContentsMargins(0, 0, 0, 0);
+    container->layout()->setContentsMargins(5, 5, 5, 5);
 
     QWidget* topContainerWidget = new QWidget(container);
     topContainerWidget->setLayout(new QHBoxLayout(topContainerWidget));

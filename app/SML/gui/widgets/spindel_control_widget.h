@@ -9,6 +9,7 @@
 #include <QLCDNumber>
 #include <QSlider>
 #include <QDebug>
+#include <QGroupBox>
 
 class SpindelControlWidget : public QWidget
 {
