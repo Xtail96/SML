@@ -61,6 +61,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupWidgets()
 {
+    // удаляет TitleBar для DockWidget
     ui->dashboardDockWidget->setTitleBarWidget(new QWidget(ui->dashboardDockWidget));
 
     // установка оформления statusBar
