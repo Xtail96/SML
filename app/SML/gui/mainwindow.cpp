@@ -388,7 +388,7 @@ void MainWindow::setupSupportDevicesControlPanel()
 {
     ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 
-    QStringList supportDevices = { "Муфта", "Тормоз", "Лазер" };
+    QStringList supportDevices = { "Муфта1", "Тормоз1", "Лазер", "Муфта2", "Муфта3", "Тормоз2", "Тормоз3" };
     for(auto supportDevice : supportDevices)
     {
         QPushButton* itemWidget = new QPushButton(supportDevice, ui->supportDevicesListWidget);
