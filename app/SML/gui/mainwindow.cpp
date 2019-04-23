@@ -61,6 +61,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupWidgets()
 {
+    ui->dashboardDockWidget->setTitleBarWidget(new QWidget(ui->dashboardDockWidget));
+
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
