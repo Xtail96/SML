@@ -3055,6 +3055,10 @@
      <height>0</height>
     </size>
    </property>
+   <property name="windowIcon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/dashboard.png</normaloff>:/aist/images/aist/dashboard.png</iconset>
+   </property>
    <property name="features">
     <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
