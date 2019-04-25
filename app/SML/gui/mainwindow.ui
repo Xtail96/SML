@@ -1074,7 +1074,7 @@
       <widget class="QWidget" name="adjustmentTab">
        <attribute name="icon">
         <iconset resource="resources/images.qrc">
-         <normaloff>:/aist/images/aist/dashboard.png</normaloff>:/aist/images/aist/dashboard.png</iconset>
+         <normaloff>:/aist/images/aist/key.png</normaloff>:/aist/images/aist/key.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Наладка</string>
@@ -3030,10 +3030,6 @@
              <property name="text">
               <string>Импортировать настройки станка</string>
              </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/key.png</normaloff>:/aist/images/aist/key.png</iconset>
-             </property>
              <property name="iconSize">
               <size>
                <width>24</width>
@@ -3046,10 +3042,6 @@
             <widget class="QPushButton" name="exportSettingsPushButton">
              <property name="text">
               <string>Экспортировать настройки станка</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -3155,7 +3147,7 @@
     </size>
    </property>
    <property name="features">
-    <set>QDockWidget::NoDockWidgetFeatures</set>
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea</set>
