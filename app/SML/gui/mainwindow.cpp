@@ -61,15 +61,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupWidgets()
 {
-    // удаляет TitleBar для DockWidget
+    // изменяет TitleBar для DockWidget
     //ui->dashboardDockWidget->setTitleBarWidget(new QWidget(ui->dashboardDockWidget));
-    QToolButton* button = new QToolButton(ui->dashboardDockWidget);
-    button->setIcon(QIcon(":/aist/images/aist/dashboard.png"));
-    button->setIconSize(QSize(24, 24));
-    QObject::connect(button, &QToolButton::clicked, this, [=](){
+    QToolButton* dashboardTitleBarButton = new QToolButton(ui->dashboardDockWidget);
+    dashboardTitleBarButton->setIcon(QIcon(":/aist/images/aist/dashboard.png"));
+    dashboardTitleBarButton->setIconSize(QSize(24, 24));
+    QObject::connect(dashboardTitleBarButton, &QToolButton::clicked, this, [=](){
         ui->dashboardDockWidget->setFloating(!ui->dashboardDockWidget->isFloating());
     });
-    ui->dashboardDockWidget->setTitleBarWidget(button);
+    ui->dashboardDockWidget->setTitleBarWidget(dashboardTitleBarButton);
 
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
