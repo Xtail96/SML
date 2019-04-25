@@ -4562,7 +4562,7 @@
      <normaloff>:/aist/images/aist/point_copy.png</normaloff>:/aist/images/aist/point_copy.png</iconset>
    </property>
    <property name="text">
-    <string>Сохранить координаты</string>
+    <string>Сохранить координаты станка</string>
    </property>
    <property name="shortcut">
     <string>Shift+Return</string>
