@@ -4437,6 +4437,9 @@
    <property name="text">
     <string>Создать</string>
    </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="open_action">
    <property name="icon">
@@ -4544,6 +4547,12 @@
    </property>
    <property name="text">
     <string>О программе</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>true</bool>
    </property>
   </action>
  </widget>
