@@ -63,13 +63,21 @@ void MainWindow::setupWidgets()
 {
     // изменяет TitleBar для DockWidget
     //ui->dashboardDockWidget->setTitleBarWidget(new QWidget(ui->dashboardDockWidget));
-    QToolButton* dashboardTitleBarButton = new QToolButton(ui->dashboardDockWidget);
-    dashboardTitleBarButton->setIcon(QIcon(":/aist/images/aist/dashboard.png"));
-    dashboardTitleBarButton->setIconSize(QSize(24, 24));
-    QObject::connect(dashboardTitleBarButton, &QToolButton::clicked, this, [=](){
-        ui->dashboardDockWidget->setFloating(!ui->dashboardDockWidget->isFloating());
-    });
-    ui->dashboardDockWidget->setTitleBarWidget(dashboardTitleBarButton);
+    QWidget* dashboardTitleBarWidet = new QWidget(ui->dashboardDockWidget);
+    dashboardTitleBarWidet->setLayout(new QHBoxLayout(dashboardTitleBarWidet));
+    dashboardTitleBarWidet->layout()->setContentsMargins(0, 0, 0, 0);
+        QToolButton* dashboardTitleBarButton = new QToolButton(ui->dashboardDockWidget);
+        dashboardTitleBarButton->setIcon(QIcon(":/aist/images/aist/dashboard.png"));
+        dashboardTitleBarButton->setIconSize(QSize(24, 24));
+        QObject::connect(dashboardTitleBarButton, &QToolButton::clicked, this, [=](){
+            ui->dashboardDockWidget->setFloating(!ui->dashboardDockWidget->isFloating());
+        });
+        dashboardTitleBarWidet->layout()->addWidget(dashboardTitleBarButton);
+        QLabel* dashboardTitleBarLabel = new QLabel("Dashboard", dashboardTitleBarWidet);
+        dashboardTitleBarLabel->setAlignment(Qt::AlignCenter);
+        dashboardTitleBarLabel->setStyleSheet("QLabel { font-weight: bold; }");
+        dashboardTitleBarWidet->layout()->addWidget(dashboardTitleBarLabel);
+    ui->dashboardDockWidget->setTitleBarWidget(dashboardTitleBarWidet);
 
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
