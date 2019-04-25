@@ -3106,6 +3106,7 @@
     </property>
     <addaction name="setnumberofpoints_action"/>
     <addaction name="removeunusedpoints_action"/>
+    <addaction name="saveCurrentCoordinatesAction"/>
    </widget>
    <widget class="QMenu" name="reference_menu">
     <property name="title">
@@ -4547,6 +4548,24 @@
    </property>
    <property name="text">
     <string>О программе</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="saveCurrentCoordinatesAction">
+   <property name="icon">
+    <iconset resource="resources/images.qrc">
+     <normaloff>:/aist/images/aist/point_copy.png</normaloff>:/aist/images/aist/point_copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сохранить координаты</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Return</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
