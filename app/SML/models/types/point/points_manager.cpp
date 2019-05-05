@@ -8,6 +8,7 @@ PointsManager::PointsManager(QObject *parent) :
 }
 
 PointsManager::PointsManager(const PointsManager &object) :
+    QObject (object.parent()),
     m_points(object.m_points)
 {
 

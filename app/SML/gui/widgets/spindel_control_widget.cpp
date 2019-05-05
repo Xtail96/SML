@@ -12,40 +12,40 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     this->setLayout(mainLayout);
-    this->layout()->setContentsMargins(0, 5, 0, 5);
+    this->layout()->setContentsMargins(0, 0, 0, 0);
 
-    QFrame* container = new QFrame(this);
+    QGroupBox* container = new QGroupBox(this);
     container->setLayout(new QVBoxLayout(container));
     container->layout()->setSpacing(0);
-    container->layout()->setContentsMargins(0, 0, 0, 0);
+    container->layout()->setContentsMargins(5, 5, 5, 5);
 
-    QFrame* topFrame = new QFrame(container);
-    topFrame->setLayout(new QHBoxLayout(topFrame));
-    topFrame->layout()->setSpacing(0);
-    topFrame->layout()->setContentsMargins(0, 0, 0, 0);
+    QWidget* topContainerWidget = new QWidget(container);
+    topContainerWidget->setLayout(new QHBoxLayout(topContainerWidget));
+    topContainerWidget->layout()->setSpacing(0);
+    topContainerWidget->layout()->setContentsMargins(0, 0, 0, 0);
         m_titleLabel = new QLabel(m_spindelLabel, container);
         m_titleLabel->setStyleSheet("font-weight: bold; border: 1px solid transparent; background-color: transparent;");
-        topFrame->layout()->addWidget(m_titleLabel);
+        topContainerWidget->layout()->addWidget(m_titleLabel);
 
         m_rotationsLCDNumber = new QLCDNumber(container);
         m_rotationsLCDNumber->display(QString::number(m_currentRotations));
         m_rotationsLCDNumber->setSegmentStyle(QLCDNumber::Flat);
         m_rotationsLCDNumber->setFrameShape(QFrame::NoFrame);
-        topFrame->layout()->addWidget(m_rotationsLCDNumber);
-    container->layout()->addWidget(topFrame);
+        topContainerWidget->layout()->addWidget(m_rotationsLCDNumber);
+    container->layout()->addWidget(topContainerWidget);
 
     m_rotationsSlider = new QSlider(Qt::Horizontal, container);
-    m_rotationsSlider->setMaximum(m_rotationsUpperBound);
-    m_rotationsSlider->setMinimum(m_rotationsLowerBound);
-    m_rotationsSlider->setValue(m_currentRotations);
+    m_rotationsSlider->setMaximum(int(m_rotationsUpperBound));
+    m_rotationsSlider->setMinimum(int(m_rotationsLowerBound));
+    m_rotationsSlider->setValue(int(m_currentRotations));
     connect(m_rotationsSlider, SIGNAL(valueChanged(int)), this, SLOT(onRotationsSliderValueChanged(int)));
     container->layout()->addWidget(m_rotationsSlider);
 
-    QFrame* buttonsFrame = new QFrame(container);
-    buttonsFrame->setLayout(new QHBoxLayout(buttonsFrame));
-    //buttonsFrame->layout()->setSpacing(1);
-    buttonsFrame->layout()->setContentsMargins(0, 0, 0, 0);
-        m_switchPushButton = new QPushButton(buttonsFrame);
+    QWidget* buttonsContainerWidget = new QWidget(container);
+    buttonsContainerWidget->setLayout(new QHBoxLayout(buttonsContainerWidget));
+    //buttonsContainerWidget->layout()->setSpacing(1);
+    buttonsContainerWidget->layout()->setContentsMargins(0, 0, 0, 0);
+        m_switchPushButton = new QPushButton(buttonsContainerWidget);
         m_switchPushButton->setObjectName("switchPushButton");
         if(!m_enable)
         {
@@ -56,12 +56,12 @@ SpindelControlWidget::SpindelControlWidget(QString spindelLabel, QString spindel
             m_switchPushButton->setText("Выключить");
         }
         connect(m_switchPushButton, SIGNAL(clicked(bool)), this, SLOT(onSwitchSpindelClicked()));
-        buttonsFrame->layout()->addWidget(m_switchPushButton);
+        buttonsContainerWidget->layout()->addWidget(m_switchPushButton);
 
-        m_warmingUpPushButton = new QPushButton("Прогреть", buttonsFrame);
+        m_warmingUpPushButton = new QPushButton("Прогреть", buttonsContainerWidget);
         connect(m_warmingUpPushButton, SIGNAL(clicked(bool)), this, SLOT(onWarmingSpindelUpClicked()));
-        buttonsFrame->layout()->addWidget(m_warmingUpPushButton);
-    container->layout()->addWidget(buttonsFrame);
+        buttonsContainerWidget->layout()->addWidget(m_warmingUpPushButton);
+    container->layout()->addWidget(buttonsContainerWidget);
 
     this->layout()->addWidget(container);
 }
@@ -85,7 +85,7 @@ void SpindelControlWidget::onWarmingSpindelUpClicked()
 
 void SpindelControlWidget::onRotationsSliderValueChanged(int value)
 {
-    m_currentRotations = value;
+    m_currentRotations = size_t(value);
     m_rotationsLCDNumber->display(QString::number(m_currentRotations));
 }
 
@@ -104,7 +104,7 @@ void SpindelControlWidget::updateControls(bool enable, size_t rotations)
         m_currentRotations = rotations;
         m_switchPushButton->setText("Выключить");
         m_rotationsSlider->setEnabled(false);
-        m_rotationsSlider->setValue(m_currentRotations);
+        m_rotationsSlider->setValue(int(m_currentRotations));
         m_rotationsLCDNumber->display(QString::number(m_currentRotations));
     }
 }

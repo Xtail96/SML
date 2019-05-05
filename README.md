@@ -34,11 +34,13 @@ SML - это система управления фрезерными и ток�
 #### Requrements ####
 
 * Qt 5.10.1 <=
+* opengl
+* g++ and gcc
 * [linuxdeployqt](https://github.com/probonopd/linuxdeployqt) или [linuxdeployqt fork](https://github.com/ApplicationsForge/linuxdeployqt)
 
 #### Intructions ####
 
-* Simple example `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/app/build-SML-Desktop_Qt_5_10_1_GCC_64bit2-Release/SML -qmake=/home/xtail/Qt/5.10.1/gcc_64/bin/qmake -appimage`
+* Simple example `./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage`
 
 * With .desktop file
 
