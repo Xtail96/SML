@@ -50,7 +50,7 @@ void SensorsDisplayWidget::update()
     m_sensorsTable->setRowCount(labels.size());
     m_sensorsTable->setVerticalHeaderLabels(labels);
 
-    QHeaderView*horizontalHeader = m_sensorsTable->horizontalHeader();
+    QHeaderView* horizontalHeader = m_sensorsTable->horizontalHeader();
     horizontalHeader->setVisible(false);
     horizontalHeader->setSectionResizeMode(QHeaderView::Stretch);
 
