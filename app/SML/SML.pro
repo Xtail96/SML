@@ -85,7 +85,6 @@ SOURCES += main.cpp\
     models/server/sml_server.cpp \
     models/services/adapters/monitor/adapters_monitor.cpp \
     models/services/devices/spindels/monitor/spindels_monitor.cpp \
-    models/services/devices/spindels/switch/switch_spindel.cpp \
     models/services/gcodes/monitor/gcodes_monitor.cpp \
     models/services/points/monitor/points_monitor.cpp \
     models/services/sensors/monitor/sensors_monitor.cpp \
@@ -99,7 +98,8 @@ SOURCES += main.cpp\
     models/types/point/points_manager.cpp \
     models/types/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
-    gui/utils/gcodes_visualizer.cpp
+    gui/utils/gcodes_visualizer.cpp \
+    models/services/devices/spindels/switch/switch_spindel_interactor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -133,7 +133,6 @@ HEADERS  += gui/mainwindow.h \
     models/types/device/device.h \
     models/types/axis/axis.h \
     models/types/point/point.h \
-    models/types/base/interactor.h \
     models/types/exceptions/exceptions.h \
     models/types/adapter/adapter.h \
     gui/widgets/gcodes_editor_widget.h \
@@ -149,7 +148,6 @@ HEADERS  += gui/mainwindow.h \
     gui/to_selection_point_dialog.h \
     models/services/adapters/monitor/adapters_monitor.h \
     models/services/devices/spindels/monitor/spindels_monitor.h \
-    models/services/devices/spindels/switch/switch_spindel.h \
     models/services/gcodes/monitor/gcodes_monitor.h \
     models/services/points/monitor/points_monitor.h \
     models/services/sensors/monitor/sensors_monitor.h \
@@ -168,7 +166,8 @@ HEADERS  += gui/mainwindow.h \
     models/types/gcodes/file_reader/file_reader.h \
     models/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
-    models/utils/error_codes/error_codes.h
+    models/utils/error_codes/error_codes.h \
+    models/services/devices/spindels/switch/switch_spindel_interactor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \

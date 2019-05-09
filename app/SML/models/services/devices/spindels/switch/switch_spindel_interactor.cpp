@@ -1,33 +1,28 @@
-#include "switch_spindel.h"
+#include "switch_spindel_interactor.h"
 
-SwitchSpindel::SwitchSpindel(SMLServer *server, QString uid, bool enable, size_t rotations, QObject *parent) :
-    QObject(parent),
-    m_server(server),
-    m_uid(uid),
-    m_rotations(rotations),
-    m_enable(enable)
+SwitchSpindelInteractor::SwitchSpindelInteractor()
 {
 
 }
 
-SwitchSpindel::~SwitchSpindel()
+SwitchSpindelInteractor::~SwitchSpindelInteractor()
 {
 
 }
 
-void SwitchSpindel::execute()
+void SwitchSpindelInteractor::execute(SMLServer *server, QString uid, bool enable, size_t rotations)
 {
-    if(m_enable)
+    if(enable)
     {
-        SwitchSpindel::switchOn(m_uid, m_rotations, m_server);
+        SwitchSpindelInteractor::switchOn(uid, rotations, server);
     }
     else
     {
-        SwitchSpindel::switchOff(m_uid, m_server);
+        SwitchSpindelInteractor::switchOff(uid, server);
     }
 }
 
-void SwitchSpindel::switchOn(QString uid, size_t rotations, SMLServer* server)
+void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLServer* server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
@@ -48,7 +43,7 @@ void SwitchSpindel::switchOn(QString uid, size_t rotations, SMLServer* server)
     }
 }
 
-void SwitchSpindel::switchOff(QString uid, SMLServer* server)
+void SwitchSpindelInteractor::switchOff(QString uid, SMLServer* server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;

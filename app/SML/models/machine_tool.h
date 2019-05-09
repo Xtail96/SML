@@ -10,7 +10,7 @@
 #include "models/services/points/monitor/points_monitor.h"
 #include "models/services/sensors/monitor/sensors_monitor.h"
 #include "models/services/devices/spindels/monitor/spindels_monitor.h"
-#include "models/services/devices/spindels/switch/switch_spindel.h"
+#include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
 
 /**
