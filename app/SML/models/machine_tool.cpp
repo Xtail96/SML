@@ -182,7 +182,7 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
             return;
         }
 
-        SwitchSpindelInteractor::execute(m_adapterServer.data(), uid, true, rotations);
+        SwitchSpindelInteractor::execute(*(m_adapterServer.data()), uid, true, rotations);
     }
     catch(...)
     {
@@ -200,7 +200,7 @@ void MachineTool::switchSpindelOff(QString uid)
             return;
         }
 
-        SwitchSpindelInteractor::execute(m_adapterServer.data(), uid, false);
+        SwitchSpindelInteractor::execute(*(m_adapterServer.data()), uid, false);
     }
     catch(...)
     {

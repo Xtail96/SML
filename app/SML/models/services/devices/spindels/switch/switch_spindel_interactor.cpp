@@ -10,7 +10,7 @@ SwitchSpindelInteractor::~SwitchSpindelInteractor()
 
 }
 
-void SwitchSpindelInteractor::execute(SMLServer *server, QString uid, bool enable, size_t rotations)
+void SwitchSpindelInteractor::execute(SMLServer &server, QString uid, bool enable, size_t rotations)
 {
     if(enable)
     {
@@ -22,7 +22,7 @@ void SwitchSpindelInteractor::execute(SMLServer *server, QString uid, bool enabl
     }
 }
 
-void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLServer* server)
+void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLServer& server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
@@ -39,11 +39,11 @@ void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLServer*
     qDebug() << "Try to switch on device =" << message;
     if(ok)
     {
-        server->sendMessageToU1(message);
+        server.sendMessageToU1(message);
     }
 }
 
-void SwitchSpindelInteractor::switchOff(QString uid, SMLServer* server)
+void SwitchSpindelInteractor::switchOff(QString uid, SMLServer& server)
 {
     QtJson::JsonObject generalMessage;
     QtJson::JsonObject u1Message;
@@ -59,6 +59,6 @@ void SwitchSpindelInteractor::switchOff(QString uid, SMLServer* server)
     qDebug() << "Try to switch off device =" << message;
     if(ok)
     {
-        server->sendMessageToU1(message);
+        server.sendMessageToU1(message);
     }
 }
