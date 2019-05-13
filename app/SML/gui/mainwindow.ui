@@ -799,7 +799,7 @@
            </font>
           </property>
           <property name="title">
-           <string>Редактор окружения</string>
+           <string>Редактор рабочего пространства</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <property name="leftMargin">
