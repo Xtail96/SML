@@ -19,6 +19,18 @@
    <string>Курсор на точку</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>12</number>
+   </property>
+   <property name="topMargin">
+    <number>12</number>
+   </property>
+   <property name="rightMargin">
+    <number>12</number>
+   </property>
+   <property name="bottomMargin">
+    <number>12</number>
+   </property>
    <item row="1" column="0">
     <widget class="QLabel" name="toPointNumberLabel">
      <property name="sizePolicy">
@@ -42,8 +54,8 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
