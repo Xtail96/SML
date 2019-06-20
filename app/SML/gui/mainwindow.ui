@@ -1363,7 +1363,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
+                     <normaloff>:/aist/images/aist/play.png</normaloff>:/aist/images/aist/play.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1383,7 +1383,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/aist/images/aist/gear.png</normaloff>:/aist/images/aist/gear.png</iconset>
+                     <normaloff>:/aist/images/aist/pause.png</normaloff>:/aist/images/aist/pause.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>

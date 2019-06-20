@@ -119,5 +119,7 @@
         <file>images/aist/exit.png</file>
         <file>images/aist/key.png</file>
         <file>images/aist/printer.png</file>
+        <file>images/aist/pause.png</file>
+        <file>images/aist/play.png</file>
     </qresource>
 </RCC>
