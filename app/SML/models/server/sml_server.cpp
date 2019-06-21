@@ -204,7 +204,8 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         {
             try
             {
-                registerClient(pSender, SMLServer::U2Adapter);
+                this->registerClient(pSender, SMLServer::U2Adapter);
+                pSender->sendTextMessage("Registered!");
             }
             catch(SynchronizeStateException e)
             {
@@ -412,7 +413,7 @@ QStringList SMLServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U1Adapter] ") +
+                QString("Name [U2Adapter] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);
@@ -424,7 +425,7 @@ QStringList SMLServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U1Adapter] ") +
+                QString("Name [Unregistered] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);

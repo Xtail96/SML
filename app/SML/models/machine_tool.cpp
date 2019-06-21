@@ -46,6 +46,10 @@ void MachineTool::setupConnections()
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2StateChanged(unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -67,6 +71,10 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2StateChanged(unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -161,6 +169,7 @@ void MachineTool::setLastError(ERROR_CODE value)
 {
     if(m_lastError == value)
     {
+        emit this->errorStateChanged(m_lastError);
         return;
     }
     qDebug() << "MachineTool::setLastError: NEW_ERROR_CODE =" << value;
