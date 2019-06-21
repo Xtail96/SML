@@ -212,7 +212,9 @@ public slots:
      */
     void switchSpindelOff(QString uid);
 
-    void executeProgram();
+    void startProgramProcessing();
+    void pauseProgramProcessing();
+    void resumeProgramProcessing();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE code);

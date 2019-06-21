@@ -234,7 +234,7 @@ void MachineTool::switchSpindelOff(QString uid)
     }
 }
 
-void MachineTool::executeProgram()
+void MachineTool::startProgramProcessing()
 {
     if(m_lastError == ERROR_CODE::OK)
     {
@@ -258,9 +258,19 @@ void MachineTool::executeProgram()
         {
             qDebug() << QString::fromUtf8(item);
         }*/
-        QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
-        this->sendNextCommand();
+        this->resumeProgramProcessing();
     }
+}
+
+void MachineTool::pauseProgramProcessing()
+{
+    QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+}
+
+void MachineTool::resumeProgramProcessing()
+{
+    QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    this->sendNextCommand();
 }
 
 void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)

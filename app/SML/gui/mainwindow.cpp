@@ -1279,5 +1279,12 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
 
 void MainWindow::on_runPushButton_clicked()
 {
+    MachineTool& machineTool = MachineTool::getInstance();
+    if(machineTool.getRepository().getGCodesProgram().length() <= 0)
+    {
+        QMessageBox(QMessageBox::Information, "Отсутствует управляющая программа", "Отсутствует управляющая программа для выполнения").exec();
+        return;
+    }
+
     ProgramProcessingDialog(this).exec();
 }

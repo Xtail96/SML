@@ -18,6 +18,8 @@ public:
     explicit ProgramProcessingDialog(QWidget *parent = nullptr);
     ~ProgramProcessingDialog();
 
+    void startProgramProcessing();
+
 private:
     Ui::ProgramProcessingDialog *ui;
 
@@ -27,6 +29,8 @@ private:
 
 private slots:
     void onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State);
+    void on_pausePushButton_clicked();
+    void on_resumePushButton_clicked();
 };
 
 #endif // PROGRAM_PROCESSING_DIALOG_H
