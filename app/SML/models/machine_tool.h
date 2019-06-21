@@ -192,7 +192,7 @@ signals:
      */
     void gcodesFileContentUpdated(QStringList content);
 
-    void workflowStateChanged(bool u1Free, bool u2Free);
+    void workflowStateChanged(unsigned int u1Free, unsigned int u2Free);
 
     void programCompletedSuccesfully();
 
@@ -327,10 +327,10 @@ private slots:
 
     /**
      * @brief Обрабатывает изменение workflow статуса адаптеров
-     * @param u1Free контроллер U1 свободен (true/false)
-     * @param u2Free контроллер U2 свободен (true/false)
+     * @param u1State состояние выполнения работ на контроллере U1
+     * @param u2State состояние выполнения работ на контроллере U2
      */
-    void onMachineTool_WorkflowStateChanged(bool u1Free, bool u2Free);
+    void onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State);
 };
 
 #endif // MACHINETOOL_H

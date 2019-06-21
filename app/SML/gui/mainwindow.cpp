@@ -117,6 +117,7 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
+    QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -188,7 +189,8 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
     QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
+    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));  
+    QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 

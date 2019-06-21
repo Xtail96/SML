@@ -64,11 +64,15 @@ void U2SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
         QString target = result["target"].toString();
         if(target.toLower() == "u2")
         {
-            for(int i = 0; i < 10; i++)
+            qDebug() << "start processing";
+            for(int i = 0; i < 1000; i++)
             {
-                QThread::sleep(1000);
+                qDebug() << i;
+                QThread::msleep(10);
+                qDebug() << "send state";
                 this->sendCurrentStateToServer(U2State(0, 1));
             }
+            qDebug() << "finissh processing";
             this->sendCurrentStateToServer(U2State(0, 0));
         }
         else

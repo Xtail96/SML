@@ -183,6 +183,9 @@ void MachineTool::setLastError(ERROR_CODE value)
              * toDo: вызов интерактора (обработчика ошибки такого класса)
              */
             break;
+        case DISCONNECTED:
+            m_executionQueue.clear();
+            break;
         default:
             break;
     }
@@ -255,7 +258,7 @@ void MachineTool::executeProgram()
         {
             qDebug() << QString::fromUtf8(item);
         }*/
-        QObject::connect(this, SIGNAL(workflowStateChanged(bool, bool)), this, SLOT(onMachineTool_WorkflowStateChanged(bool, bool)));
+        QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
         this->sendNextCommand();
     }
 }
@@ -279,8 +282,8 @@ void MachineTool::onAdapterServer_U1Disconnected()
 
 void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
-    qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
-             << lastError << sensors << devices << workflowState;
+    //qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
+    //         << lastError << sensors << devices << workflowState;
     this->setLastError(lastError);
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
@@ -301,8 +304,8 @@ void MachineTool::onAdapterServer_U2Disconnected()
 
 void MachineTool::onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError)
 {
-    qDebug() << "MachineTool::onAdapterServer_U2StateChanged"
-             << lastError << workflowState;
+    //qDebug() << "MachineTool::onAdapterServer_U2StateChanged"
+    //         << lastError << workflowState;
     this->setLastError(lastError);
     m_repository->setU2WorkflowState(workflowState);
 }
@@ -384,18 +387,21 @@ void MachineTool::sendNextCommand()
 {
     if(m_executionQueue.isEmpty())
     {
-        QObject::disconnect(this, SIGNAL(workflowStateChanged(bool, bool)), this, SLOT(onMachineTool_WorkflowStateChanged(bool, bool)));
+        qDebug() << "MachineTool::sendNextCommand: queue is empty, program complete successfully";
+        QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
         emit this->programCompletedSuccesfully();
         return;
     }
 
     QByteArray message = m_executionQueue.dequeue();
+    qDebug() << "MachineTool::sendNextCommand:" << QString::fromUtf8(message);
     m_adapterServer->sendMessage(message);
 }
 
-void MachineTool::onMachineTool_WorkflowStateChanged(bool u1Free, bool u2Free)
+void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State)
 {
-    if(u1Free && u2Free)
+    //qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1State << u2State;
+    if((u1State == 0) && (u2State == 0))
     {
         this->sendNextCommand();
     }
