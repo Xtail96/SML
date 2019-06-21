@@ -48,6 +48,32 @@ void Repository::setU1WorkflowState(unsigned int state)
     }
 }
 
+void Repository::setU2ConnectState(bool connected)
+{
+    try
+    {
+        m_u2Adapter->setConnectionState(connected);
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::setU2ConnectState: unknown error");
+        emit this->errorOccurred(REPOSITORY_ERROR);
+    }
+}
+
+void Repository::setU2WorkflowState(unsigned int state)
+{
+    try
+    {
+        m_u2Adapter->setWorkflowState(state);
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::setU2WorkflowState: unknown error");
+        emit this->errorOccurred(REPOSITORY_ERROR);
+    }
+}
+
 void Repository::setU1Sensors(QList<QVariant> sensors)
 {
     try

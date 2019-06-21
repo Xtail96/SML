@@ -11,6 +11,7 @@
 
 #include "models/types/structs.h"
 #include "models/server/u1_state.h"
+#include "models/server/u2_state.h"
 #include "models/utils/error_codes/error_codes.h"
 
 /**
@@ -86,6 +87,13 @@ private:
      */
     static U1State parseU1BinaryMessage(QByteArray message);
 
+    /**
+     * @brief Преобразует бинарное сообщение от адаптера контроллера U2 в состояние контроллера U2
+     * @param message сообщение от адаптера контроллера U2
+     * @return структура, описывающая состояние контроллера U2
+     */
+    static U2State parseU2BinaryMessage(QByteArray message);
+
 signals:
 
     /**
@@ -103,19 +111,26 @@ signals:
      * @param sensors датчики, подключенные к контроллеру U1
      * @param devices устройства, подключенные к контроллеру U1
      * @param workflowState статус выполнения заданий контроллера U1 (0 - свободен. 1 - занят. >= 2 -  ошибка выполнения задания.)
-     * @param lastError код последней ошибки, возникшей в процесе работы контроллера (0 - ошибок нет. Чем сильнее модуль кода ошибки отличается от 0, тем ошибка критичнее.)
+     * @param lastError код последней ошибки, возникшей в процесе работы контроллера
      */
     void u1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
-     * @brief Сигнал подключения адаптера контроллера U1
+     * @brief Сигнал подключения адаптера контроллера U2
      */
     void u2Connected();
 
     /**
-     * @brief Сигнал отключения адаптера контроллера U1
+     * @brief Сигнал отключения адаптера контроллера U2
      */
     void u2Disconnected();
+
+    /**
+     * @brief Сигнал изменения состояния контроллера U2
+     * @param workflowState статус выполнения заданий контроллера U2 (0 - свободен. 1 - занят. >= 2 -  ошибка выполнения задания.)
+     * @param lastError код последней ошибки, возникшей в процесе работы контроллера
+     */
+    void u2StateChanged(unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Сигнал изменения состояния ошибки, возникшей в работе сервера

@@ -64,6 +64,18 @@ public:
     void setU1WorkflowState(unsigned int state);
 
     /**
+     * @brief Устанавливает состояние подключения адаптера U2
+     * @param connected обновленное состояние подключения адаптера. подключен (true) / отключен (false)
+     */
+    void setU2ConnectState(bool connected);
+
+    /**
+     * @brief Устанавливает новое состоние выполенния работ адаптера U2
+     * @param state обновленное состояние выполенения работ адаптера U1 (0 - заданий нет, 1 - контроллер занят, >= 2 - ошибка)
+     */
+    void setU2WorkflowState(unsigned int state);
+
+    /**
      * @brief Возвращает порт, на котором работает сервер
      * @return строковое представления номера порта
      */

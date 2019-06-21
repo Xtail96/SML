@@ -169,7 +169,8 @@ HEADERS  += gui/mainwindow.h \
     gui/utils/gcodes_visualizer.h \
     models/utils/error_codes/error_codes.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
-    models/services/program/prepare_execution_queue_interactor.h
+    models/services/program/prepare_execution_queue_interactor.h \
+    models/server/u2_state.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \

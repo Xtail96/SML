@@ -234,8 +234,31 @@ private slots:
      * (запись данных в репозиторий)
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
+     * @param workflowState состояние выполнения работ
+     * @param lastError код ошибки
      */
     void onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U2
+     * (запись данных в репозитоий)
+     */
+    void onAdapterServer_U2Connected();
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U2
+     * (запись данных в репозиторий)
+     */
+    void onAdapterServer_U2Disconnected();
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U2
+     * (запись данных в репозиторий)
+     * @param workflowState состояние выполнения работ
+     * @param lastError код ошибки
+     */
+    void onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError);
+
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка

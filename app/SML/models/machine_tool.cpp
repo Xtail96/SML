@@ -163,6 +163,7 @@ void MachineTool::setLastError(ERROR_CODE value)
     {
         return;
     }
+    qDebug() << "MachineTool::setLastError: NEW_ERROR_CODE =" << value;
 
     switch (value)
     {
@@ -275,6 +276,26 @@ void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
     m_repository->setU1WorkflowState(workflowState);
+}
+
+void MachineTool::onAdapterServer_U2Connected()
+{
+    qDebug() << "MachineTool::onAdapterServer_U2Connected";
+    m_repository->setU2ConnectState(true);
+}
+
+void MachineTool::onAdapterServer_U2Disconnected()
+{
+    qDebug() << "MachineTool::onAdapterServer_U2Disconnected";
+    m_repository->setU2ConnectState(false);
+}
+
+void MachineTool::onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError)
+{
+    qDebug() << "MachineTool::onAdapterServer_U2StateChanged"
+             << lastError << workflowState;
+    this->setLastError(lastError);
+    m_repository->setU2WorkflowState(workflowState);
 }
 
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)

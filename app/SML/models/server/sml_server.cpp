@@ -242,6 +242,22 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
             qDebug() << e.message();
             emit this->errorOccurred(SERVER_ERROR);
         }
+        return;
+    }
+
+    if(m_u2Connections.contains(pSender))
+    {
+        try
+        {
+            U2State u2 = SMLServer::parseU2BinaryMessage(message);
+            emit this->u2StateChanged(u2.workflowState, ERROR_CODE(u2.errorCode));
+        }
+        catch(SynchronizeStateException e)
+        {
+            qDebug() << e.message();
+            emit this->errorOccurred(SERVER_ERROR);
+        }
+        return;
     }
 }
 
@@ -265,6 +281,32 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
         else
         {
             throw SynchronizeStateException("empty u1 message");
+        }
+    }
+    else
+    {
+        throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
+    }
+}
+
+U2State SMLServer::parseU2BinaryMessage(QByteArray message)
+{
+    bool ok;
+    QString json = QString::fromUtf8(message);
+    QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
+    if(ok)
+    {
+        QtJson::JsonObject u2State = result["U2State"].toMap();
+        if(!u2State.isEmpty())
+        {
+            U2State u2;
+            u2.errorCode = u2State["LastError"].toInt();
+            u2.workflowState = u2State["WorkflowState"].toUInt();
+            return u2;
+        }
+        else
+        {
+            throw SynchronizeStateException("empty u2 message");
         }
     }
     else
@@ -315,7 +357,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U1Adapter registered:" << client;
+            qDebug() << "SMLServer::registerClient: U1Adapter registered =" << client;
         }
         emit this->u1Connected();
         break;
@@ -324,7 +366,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U2Adapter registered:" << client;
+            qDebug() << "SMLServer::registerClient: U2Adapter registered =" << client;
         }
         emit this->u2Connected();
         break;
