@@ -80,6 +80,18 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
 }
 
+ERROR_CODE MachineTool::checkMachineToolState()
+{
+    if(!this->checkAdapterConnections()) return ERROR_CODE::DISCONNECTED;
+
+    return ERROR_CODE::OK;
+}
+
+bool MachineTool::checkAdapterConnections()
+{
+    return (m_repository->m_u1Adapter->connectionState() && m_repository->m_u2Adapter->connectionState());
+}
+
 void MachineTool::startAdapterServer()
 {
     try
@@ -152,15 +164,9 @@ void MachineTool::setLastError(ERROR_CODE value)
         return;
     }
 
-    m_lastError = value;
-
-    switch (m_lastError)
+    switch (value)
     {
         case OK:
-            /*
-             * toDo: вызов метода для проверки всех систем,
-             * чтобы убедиться, что все действительно ОК
-             */
             break;
         case REPOSITORY_ERROR:
             /*
@@ -171,6 +177,11 @@ void MachineTool::setLastError(ERROR_CODE value)
             break;
     }
 
+    // вызов метода для проверки всех систем станка,
+    // чтобы убедиться какой код ошибки нужно выставить в действительности
+    qDebug() << "MachineTool::setLastError: checkMachineToolState started";
+    m_lastError = this->checkMachineToolState();
+    qDebug() << "MachineTool::setLastError: checkMachineToolState finished with ERROR_CODE =" << m_lastError;
     emit this->errorStateChanged(m_lastError);
 }
 
@@ -246,16 +257,20 @@ void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
 
 void MachineTool::onAdapterServer_U1Connected()
 {
+    qDebug() << "MachineTool::onAdapterServer_U1Connected";
     m_repository->setU1ConnectState(true);
 }
 
 void MachineTool::onAdapterServer_U1Disconnected()
 {
+    qDebug() << "MachineTool::onAdapterServer_U1Disconnected";
     m_repository->setU1ConnectState(false);
 }
 
 void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
+    qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
+             << lastError << sensors << devices << workflowState;
     this->setLastError(lastError);
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
@@ -264,6 +279,7 @@ void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<
 
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
 {
+    qDebug() << "MachineTool::onAdapterServer_ErrorOccurred" << errorCode;
     this->setLastError(errorCode);
 }
 
@@ -272,14 +288,16 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
     try
     {
         bool u1 = m_repository->m_u1Adapter->connectionState();
-        bool u2 = true;
+        bool u2 = m_repository->m_u2Adapter->connectionState();
 
         if(u1 && u2)
         {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: CONNECTED";
             this->setLastError(OK);
         }
         else
         {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: DISCONNECTED";
             this->setLastError(DISCONNECTED);
         }
     }

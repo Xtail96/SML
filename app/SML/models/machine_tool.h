@@ -148,6 +148,10 @@ private:
      */
     void resetConnections();
 
+    ERROR_CODE checkMachineToolState();
+
+    bool checkAdapterConnections();
+
 signals:
     /**
      * @brief Сигнал изменения состояния ошибки в работе станка
