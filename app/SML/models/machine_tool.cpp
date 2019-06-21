@@ -11,7 +11,8 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
-    m_lastError(DISCONNECTED) // нет связи со станком
+    m_lastError(DISCONNECTED), // нет связи со станком
+    m_executionQueue(QQueue<QByteArray>())
 {
     this->setupConnections();
     this->startAdapterServer();
@@ -209,6 +210,35 @@ void MachineTool::switchSpindelOff(QString uid)
     }
 }
 
+void MachineTool::executeProgram()
+{
+    if(m_lastError == ERROR_CODE::OK)
+    {
+        m_executionQueue.clear();
+        try
+        {
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(m_repository->getGCodesProgram());
+        }
+        catch(InvalidArgumentException e)
+        {
+            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::executeProgram:" <<  e.what();
+        }
+        catch(...)
+        {
+            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::executeProgram: unknown error";
+        }
+
+        /*for(auto item : m_executionQueue)
+        {
+            qDebug() << QString::fromUtf8(item);
+        }*/
+        QObject::connect(this, SIGNAL(workflowStateChanged(bool, bool)), this, SLOT(onMachineTool_WorkflowStateChanged(bool, bool)));
+        this->sendNextCommand();
+    }
+}
+
 void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
 {
     this->setLastError(code);
@@ -262,8 +292,7 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
 
 void MachineTool::onAdaptersMonitor_AdapterWorkflowStateChanged()
 {
-    qDebug() << "Workflow state of u1 adapters is u1 = " << m_repository->m_u1Adapter->workflowState()
-             << "and u2 = "<< m_repository->m_u2Adapter->workflowState() << "now";
+    emit this->workflowStateChanged(m_repository->m_u1Adapter->workflowState(), m_repository->m_u2Adapter->workflowState());
 }
 
 void MachineTool::onPointsMonitor_PointsUpdated()
@@ -301,4 +330,25 @@ void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
 void MachineTool::onGCodesMonitor_FileContentUpdated(QStringList content)
 {
     emit this->gcodesFileContentUpdated(content);
+}
+
+void MachineTool::sendNextCommand()
+{
+    if(m_executionQueue.isEmpty())
+    {
+        QObject::disconnect(this, SIGNAL(workflowStateChanged(bool, bool)), this, SLOT(onMachineTool_WorkflowStateChanged(bool, bool)));
+        emit this->programCompletedSuccesfully();
+        return;
+    }
+
+    QByteArray message = m_executionQueue.dequeue();
+    m_adapterServer->sendMessage(message);
+}
+
+void MachineTool::onMachineTool_WorkflowStateChanged(bool u1Free, bool u2Free)
+{
+    if(u1Free && u2Free)
+    {
+        this->sendNextCommand();
+    }
 }

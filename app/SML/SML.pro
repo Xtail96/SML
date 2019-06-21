@@ -99,7 +99,8 @@ SOURCES += main.cpp\
     models/types/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
     gui/utils/gcodes_visualizer.cpp \
-    models/services/devices/spindels/switch/switch_spindel_interactor.cpp
+    models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
+    models/services/program/prepare_execution_queue_interactor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -167,7 +168,8 @@ HEADERS  += gui/mainwindow.h \
     models/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
     models/utils/error_codes/error_codes.h \
-    models/services/devices/spindels/switch/switch_spindel_interactor.h
+    models/services/devices/spindels/switch/switch_spindel_interactor.h \
+    models/services/program/prepare_execution_queue_interactor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \

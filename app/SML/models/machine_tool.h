@@ -2,6 +2,7 @@
 #define MACHINETOOL_H
 
 #include <QObject>
+#include <QQueue>
 
 #include "models/repository/repository.h"
 #include "models/server/sml_server.h"
@@ -12,6 +13,7 @@
 #include "models/services/devices/spindels/monitor/spindels_monitor.h"
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
+#include "models/services/program/prepare_execution_queue_interactor.h"
 
 /**
  * @brief Класс станок
@@ -117,6 +119,9 @@ private:
     /// (0;255] - коды ошибок. Описаны в соотвествующем файле.
     ERROR_CODE m_lastError;
 
+    /// Очередь сообщений, ожидающих отправки.
+    QQueue<QByteArray> m_executionQueue;
+
     /**
      * @brief Создает объект класса станок
      * @param parent родительский объект
@@ -183,6 +188,12 @@ signals:
      */
     void gcodesFileContentUpdated(QStringList content);
 
+    void workflowStateChanged(bool u1Free, bool u2Free);
+
+    void programCompletedSuccesfully();
+
+    void positionChanged();
+
 public slots:
     /**
      * @brief Запускает сценарий включения шпинделя
@@ -196,6 +207,8 @@ public slots:
      * @param uid уникальный идентификатор устройства
      */
     void switchSpindelOff(QString uid);
+
+    void executeProgram();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE code);
@@ -279,6 +292,18 @@ private slots:
      * @param content содержимое файла в формате списка строк
      */
     void onGCodesMonitor_FileContentUpdated(QStringList content);
+
+    /**
+     * @brief Отправляет следующую команду в очереди на исполнение
+     */
+    void sendNextCommand();
+
+    /**
+     * @brief Обрабатывает изменение workflow статуса адаптеров
+     * @param u1Free контроллер U1 свободен (true/false)
+     * @param u2Free контроллер U2 свободен (true/false)
+     */
+    void onMachineTool_WorkflowStateChanged(bool u1Free, bool u2Free);
 };
 
 #endif // MACHINETOOL_H

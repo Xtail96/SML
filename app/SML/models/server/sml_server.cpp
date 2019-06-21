@@ -135,6 +135,34 @@ void SMLServer::sendMessageToU1(QByteArray message)
     }
 }
 
+void SMLServer::sendMessageToU2(QByteArray message)
+{
+    for(auto socket : m_u2Connections)
+    {
+        if(socket)
+        {
+            if(socket->isValid())
+            {
+                socket->sendBinaryMessage(message);
+            }
+            else
+            {
+                throw SynchronizeStateException("WebSocket is invalid");
+            }
+        }
+        else
+        {
+            throw SynchronizeStateException("WebSocket is null");
+        }
+    }
+}
+
+void SMLServer::sendMessage(QByteArray message)
+{
+    this->sendMessageToU1(message);
+    this->sendMessageToU2(message);
+}
+
 void SMLServer::onQWebSocketServer_Closed()
 {
     if(m_debug)

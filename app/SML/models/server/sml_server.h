@@ -142,6 +142,19 @@ public slots:
     void sendMessageToU1(QByteArray message);
 
     /**
+     * @brief Осуществляет передачу собщения всем подключенным адаптерам контроллеров U2
+     * @param message сериализованное сообщение для отправки
+     */
+    void sendMessageToU2(QByteArray message);
+
+    /**
+     * @brief Осуществляет передачу собщения всем подключенным адаптерам
+     * @param message сериализованное сообщение для отправки
+     */
+    void sendMessage(QByteArray message);
+
+
+    /**
      * @brief Возвращает список подключенных адаптеров контроллеров U1
      * @return список подключенных адаптеров контроллеров U1 в данный момент времени
      */

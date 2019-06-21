@@ -146,6 +146,8 @@ private slots:
     void onMachineTool_GCodesFileContentUpdated(QStringList data);
     void onMachineTool_GCodesFilePathUpdated(QString path);
 
+    void onMachineTool_ProgramCompletedSuccesfully();
+
     // слот пока не используется
     void onMachineTool_EdgesControlStatusChanged(bool state);
 
@@ -202,6 +204,7 @@ private slots:
     void on_consoleOpenPushButton_clicked();
     void on_edgesControlCheckBox_clicked();
     void on_syntaxHighlightingCheckBox_clicked();
+    void on_runPushButton_clicked();
 };
 
 

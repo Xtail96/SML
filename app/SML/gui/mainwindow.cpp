@@ -493,6 +493,11 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
     ui->filePathLineEdit->setText(path);
 }
 
+void MainWindow::onMachineTool_ProgramCompletedSuccesfully()
+{
+    QMessageBox(QMessageBox::Information, "УП", "Выполнение УП успешно завершено").exec();
+}
+
 void MainWindow::updateBatteryStatusDisplay()
 {
 #ifdef Q_OS_WIN
@@ -1269,4 +1274,10 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
         m_hightlighter->setDocument(nullptr);
         m_hightlighter->setPattern();
     }
+}
+
+void MainWindow::on_runPushButton_clicked()
+{
+    MachineTool &machineTool = MachineTool::getInstance();
+    machineTool.executeProgram();
 }
