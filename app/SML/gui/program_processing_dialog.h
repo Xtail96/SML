@@ -29,6 +29,7 @@ private:
 
 private slots:
     void onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State);
+    void onMachineTool_NextCommandSent(QByteArray package);
     void on_pausePushButton_clicked();
     void on_resumePushButton_clicked();
 };

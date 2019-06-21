@@ -192,7 +192,9 @@ signals:
      */
     void gcodesFileContentUpdated(QStringList content);
 
-    void workflowStateChanged(unsigned int u1Free, unsigned int u2Free);
+    void workflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
+
+    void nextCommandSent(QByteArray package);
 
     void programCompletedSuccesfully();
 
@@ -215,6 +217,7 @@ public slots:
     void startProgramProcessing();
     void pauseProgramProcessing();
     void resumeProgramProcessing();
+    void stopProgramProcessing();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE code);
@@ -332,7 +335,7 @@ private slots:
      * @param u1State состояние выполнения работ на контроллере U1
      * @param u2State состояние выполнения работ на контроллере U2
      */
-    void onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State);
+    void onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
 };
 
 #endif // MACHINETOOL_H

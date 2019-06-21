@@ -43,6 +43,7 @@ void ProgramProcessingDialog::setupConnections()
     MachineTool& machineTool = MachineTool::getInstance();
     QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(close()));
     QObject::connect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    QObject::connect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
 }
 
 void ProgramProcessingDialog::resetConnections()
@@ -50,6 +51,7 @@ void ProgramProcessingDialog::resetConnections()
     MachineTool& machineTool = MachineTool::getInstance();
     QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(close()));
     QObject::disconnect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    QObject::disconnect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
 }
 
 void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State)
@@ -57,6 +59,14 @@ void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int u1
     ui->messagesTextEdit->appendPlainText("WorkflowStateChanged. U1State = " + QString::number(u1State) + ", U2State = " + QString::number(u2State));
     int currentProgress = ui->programProcessingProgressBar->value();
     ui->programProcessingProgressBar->setValue(currentProgress + 1);
+}
+
+void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
+{
+    QString packageStr = QString::fromUtf8(package);
+    QtJson::JsonObject message = QtJson::parse(packageStr).toMap();
+    QString frame = message["frame"].toString();
+    ui->messagesTextEdit->appendPlainText(frame);
 }
 
 void ProgramProcessingDialog::on_pausePushButton_clicked()

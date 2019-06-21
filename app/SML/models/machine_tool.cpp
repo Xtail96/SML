@@ -273,6 +273,11 @@ void MachineTool::resumeProgramProcessing()
     this->sendNextCommand();
 }
 
+void MachineTool::stopProgramProcessing()
+{
+    // kill adapter and terminate controller;
+}
+
 void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
 {
     this->setLastError(code);
@@ -406,12 +411,13 @@ void MachineTool::sendNextCommand()
     QByteArray message = m_executionQueue.dequeue();
     qDebug() << "MachineTool::sendNextCommand:" << QString::fromUtf8(message);
     m_adapterServer->sendMessage(message);
+    emit this->nextCommandSent(message);
 }
 
-void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State)
+void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState)
 {
     //qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1State << u2State;
-    if((u1State == 0) && (u2State == 0))
+    if((u1WorkflowState == 0) && (u2WorkflowState == 0))
     {
         this->sendNextCommand();
     }
