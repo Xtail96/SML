@@ -377,6 +377,16 @@ QList<Point> Repository::getCurrentCoordinates()
     return currentCoordinates;
 }
 
+void Repository::setCurrentCoordinates(Point absCoordinates)
+{
+    for(auto axis : m_axises)
+    {
+        auto index = SML_AXISES_NAMES.getKeyByName(axis->name());
+        auto absValue = absCoordinates.get(index);
+        axis->setCurrentPosition(absValue);
+    }
+}
+
 QStringList Repository::getAxisesNames()
 {
     QStringList names = {};

@@ -14,6 +14,7 @@
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
 #include "models/services/program/prepare_execution_queue_interactor.h"
+#include "models/services/axises/monitor/axises_monitor.h"
 
 /**
  * @brief Класс станок
@@ -113,6 +114,9 @@ private:
     /// Монитор текущего состояния G-кодов
     QScopedPointer<GCodesMonitor> m_gcodesMonitor;
 
+    /// Монитор осей координат
+    QScopedPointer<AxisesMonitor> m_axisesMonitor;
+
     /// Код последней возникшей ошибки
     /// Данную переменную необходимо проверять, при отправке данных на станок.
     /// 0 - ошибок нет.
@@ -198,7 +202,7 @@ signals:
 
     void programCompletedSuccesfully();
 
-    void positionChanged();
+    void currentCoordinatesChanged();
 
 public slots:
     /**
@@ -264,7 +268,6 @@ private slots:
      */
     void onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError);
 
-
     /**
      * @brief Обрабатывает сигнал об ошибке станка
      * 1) Устанавливает значение переменной, хранящей код ошибки.
@@ -324,6 +327,15 @@ private slots:
      * @param content содержимое файла в формате списка строк
      */
     void onGCodesMonitor_FileContentUpdated(QStringList content);
+
+    /**
+     * @brief Обрабатывает сигнал от монитора Осей об изменении текущей позиции оси
+     * (испускает сигнал о том, что изменились текущие координаты по оси)
+     *
+     * @param uid идентификатор оси (unused)
+     * @param position позиция по оси (unused)
+     */
+    void onAxisesMonitor_AxisCurrentPositionChanged(QString, double);
 
     /**
      * @brief Отправляет следующую команду в очереди на исполнение

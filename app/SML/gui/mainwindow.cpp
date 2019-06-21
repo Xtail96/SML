@@ -118,6 +118,7 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
     QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -191,6 +192,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));  
     QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::disconnect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -498,6 +500,11 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
 void MainWindow::onMachineTool_ProgramCompletedSuccesfully()
 {
     QMessageBox(QMessageBox::Information, "УП", "Выполнение УП успешно завершено").exec();
+}
+
+void MainWindow::onMachineTool_CurrentCoordinatesChanged()
+{
+    this->updateCoordinatesDisplays();
 }
 
 void MainWindow::updateBatteryStatusDisplay()

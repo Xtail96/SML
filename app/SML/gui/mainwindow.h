@@ -150,6 +150,8 @@ private slots:
 
     void onMachineTool_ProgramCompletedSuccesfully();
 
+    void onMachineTool_CurrentCoordinatesChanged();
+
     // слот пока не используется
     void onMachineTool_EdgesControlStatusChanged(bool state);
 

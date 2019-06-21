@@ -11,6 +11,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
+    m_axisesMonitor(new AxisesMonitor(m_repository->m_axises, this)),
     m_lastError(DISCONNECTED), // нет связи со станком
     m_executionQueue(QQueue<QByteArray>())
 {
@@ -61,6 +62,8 @@ void MachineTool::setupConnections()
 
     QObject::connect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
     QObject::connect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
+
+    QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
 }
 
 void MachineTool::resetConnections()
@@ -86,6 +89,8 @@ void MachineTool::resetConnections()
 
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
+
+    QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
 }
 
 ERROR_CODE MachineTool::checkMachineToolState()
@@ -319,10 +324,17 @@ void MachineTool::onAdapterServer_U2Disconnected()
 
 void MachineTool::onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError)
 {
-    //qDebug() << "MachineTool::onAdapterServer_U2StateChanged"
-    //         << lastError << workflowState;
     this->setLastError(lastError);
     m_repository->setU2WorkflowState(workflowState);
+
+    Point tmpPoint = {
+        static_cast<double>(rand() % 1000 + 1),
+        static_cast<double>(rand() % 1000 + 1),
+        static_cast<double>(rand() % 1000 + 1),
+        static_cast<double>(rand() % 1000 + 1),
+        static_cast<double>(rand() % 1000 + 1)
+    };
+    m_repository->setCurrentCoordinates(tmpPoint);
 }
 
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
@@ -396,6 +408,11 @@ void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
 void MachineTool::onGCodesMonitor_FileContentUpdated(QStringList content)
 {
     emit this->gcodesFileContentUpdated(content);
+}
+
+void MachineTool::onAxisesMonitor_AxisCurrentPositionChanged(QString, double)
+{
+    emit this->currentCoordinatesChanged();
 }
 
 void MachineTool::sendNextCommand()

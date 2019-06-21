@@ -210,7 +210,7 @@ public:
      */
     void updatePoint(QStringList coordinates, unsigned int index);
 
-    // Programm
+    // Program
 
     /**
      * @brief Устанавливает текущее значение УП в G-Codes
@@ -269,6 +269,8 @@ public:
      * @return координаты станка
      */
     QList<Point> getCurrentCoordinates();
+
+    void setCurrentCoordinates(Point absCoordinates);
 
     /**
      * @brief Возвращает названия всех доступных осей координат

@@ -30,7 +30,7 @@ void ProgramProcessingDialog::setupWidgets()
 {
     MachineTool &machineTool = MachineTool::getInstance();
     ui->programProcessingProgressBar->setMinimum(0);
-    auto queueSize = PrepareExecutionQueueInteractor::execute(machineTool.getRepository().getGCodesProgram()).size();
+    auto queueSize = machineTool.getRepository().getGCodesProgram().length(); //PrepareExecutionQueueInteractor::execute(machineTool.getRepository().getGCodesProgram()).size();
     ui->programProcessingProgressBar->setMaximum(2 * queueSize);
     ui->programProcessingProgressBar->setValue(0);
 

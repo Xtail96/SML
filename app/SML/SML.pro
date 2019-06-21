@@ -101,7 +101,8 @@ SOURCES += main.cpp\
     gui/utils/gcodes_visualizer.cpp \
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/program/prepare_execution_queue_interactor.cpp \
-    gui/program_processing_dialog.cpp
+    gui/program_processing_dialog.cpp \
+    models/services/axises/monitor/axises_monitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -172,7 +173,8 @@ HEADERS  += gui/mainwindow.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/program/prepare_execution_queue_interactor.h \
     models/server/u2_state.h \
-    gui/program_processing_dialog.h
+    gui/program_processing_dialog.h \
+    models/services/axises/monitor/axises_monitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \

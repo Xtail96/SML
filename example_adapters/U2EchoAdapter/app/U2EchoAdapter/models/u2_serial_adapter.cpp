@@ -68,7 +68,7 @@ void U2SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
             for(int i = 0; i < 1000; i++)
             {
                 qDebug() << i;
-                QThread::msleep(10);
+                //QThread::msleep(10);
                 qDebug() << "send state";
                 this->sendCurrentStateToServer(U2State(0, 1));
             }
