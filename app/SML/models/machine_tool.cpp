@@ -387,7 +387,7 @@ void MachineTool::sendNextCommand()
 {
     if(m_executionQueue.isEmpty())
     {
-        qDebug() << "MachineTool::sendNextCommand: queue is empty, program complete successfully";
+        qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
         QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
         emit this->programCompletedSuccesfully();
         return;

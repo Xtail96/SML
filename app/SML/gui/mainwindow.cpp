@@ -614,7 +614,6 @@ void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
     ui->parkPushButton->setEnabled(enableWidgets);
 
     ui->runPushButton->setEnabled(enableWidgets);
-    ui->pausePushButton->setEnabled(enableWidgets);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
@@ -1280,6 +1279,5 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
 
 void MainWindow::on_runPushButton_clicked()
 {
-    MachineTool &machineTool = MachineTool::getInstance();
-    machineTool.executeProgram();
+    ProgramProcessingDialog(this).exec();
 }

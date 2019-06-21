@@ -60,6 +60,8 @@
 #include "gui/sml_console_dialog.h"
 #include "gui/widgets/spindel_control_widget.h"
 
+#include "gui/program_processing_dialog.h"
+
 namespace Ui {
 class MainWindow;
 }

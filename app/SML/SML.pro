@@ -100,7 +100,8 @@ SOURCES += main.cpp\
     models/machine_tool.cpp \
     gui/utils/gcodes_visualizer.cpp \
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
-    models/services/program/prepare_execution_queue_interactor.cpp
+    models/services/program/prepare_execution_queue_interactor.cpp \
+    gui/program_processing_dialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -170,7 +171,8 @@ HEADERS  += gui/mainwindow.h \
     models/utils/error_codes/error_codes.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/program/prepare_execution_queue_interactor.h \
-    models/server/u2_state.h
+    models/server/u2_state.h \
+    gui/program_processing_dialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \
@@ -179,7 +181,8 @@ FORMS    += gui/mainwindow.ui \
     gui/to_selection_point_dialog.ui \
     options/kabriol_window.ui \
     options/lubrication_system_window.ui \
-    options/tool_length_sensor_window.ui
+    options/tool_length_sensor_window.ui \
+    gui/programprocessingdialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/sml_logo.icns
