@@ -20,6 +20,8 @@ public:
 
     void startProgramProcessing();
 
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     Ui::ProgramProcessingDialog *ui;
 

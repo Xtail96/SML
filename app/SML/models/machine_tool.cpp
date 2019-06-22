@@ -251,12 +251,12 @@ void MachineTool::startProgramProcessing()
         catch(InvalidArgumentException e)
         {
             this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::executeProgram:" <<  e.what();
+            qDebug() << "MachineTool::startProgramProcessing:" <<  e.what();
         }
         catch(...)
         {
             this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::executeProgram: unknown error";
+            qDebug() << "MachineTool::startProgramProcessing: unknown error";
         }
 
         /*for(auto item : m_executionQueue)

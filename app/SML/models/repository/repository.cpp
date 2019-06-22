@@ -903,7 +903,7 @@ void Repository::loadAxisesSettings()
              bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
              double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
 
-             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed));
+             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, this));
              m_axises.push_back(axis);
          }
          m_zeroCoordinates = Point(m_axises.size());

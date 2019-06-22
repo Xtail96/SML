@@ -21,8 +21,8 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
         QtJson::JsonObject detailedInfo = {};
 
         int blockSize = block.size();
-        if(blockSize <= 0)
-            throw InvalidArgumentException("gcodes block size <= 0");
+        if(blockSize <= 0) continue;
+            //throw InvalidArgumentException("gcodes block size <= 0");
 
         QPair<QString, double> myFirstChunk = PrepareExecutionQueueInteractor::chunkToKeyValuePair(block.get_chunk(0));
         if(((myFirstChunk.first.toLower() == "m") && (qFuzzyCompare(myFirstChunk.second, double(3)))) ||

@@ -184,7 +184,7 @@ FORMS    += gui/mainwindow.ui \
     options/kabriol_window.ui \
     options/lubrication_system_window.ui \
     options/tool_length_sensor_window.ui \
-    gui/programprocessingdialog.ui
+    gui/program_processing_dialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/sml_logo.icns

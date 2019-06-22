@@ -1,5 +1,5 @@
 #include "program_processing_dialog.h"
-#include "ui_programprocessingdialog.h"
+#include "ui_program_processing_dialog.h"
 
 ProgramProcessingDialog::ProgramProcessingDialog(QWidget *parent) :
     QDialog(parent),
@@ -36,6 +36,11 @@ void ProgramProcessingDialog::setupWidgets()
 
     ui->resumePushButton->setEnabled(false);
     ui->pausePushButton->setEnabled(true);
+
+    this->setWindowFlags(Qt::Window
+                         | Qt::WindowMinimizeButtonHint
+                         | Qt::WindowMaximizeButtonHint
+                         | Qt::CustomizeWindowHint);
 }
 
 void ProgramProcessingDialog::setupConnections()
@@ -86,3 +91,9 @@ void ProgramProcessingDialog::on_resumePushButton_clicked()
     ui->resumePushButton->setEnabled(false);
     ui->pausePushButton->setEnabled(true);
 }
+
+void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)
+ {
+    event->ignore();
+ }
+
