@@ -148,7 +148,7 @@ void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
     if(isStateChanged())
     {
         printState();
-        sendCurrentStateToServer(m_currentState);
+        this->sendStateToServer(*m_currentState);
         m_previousState->setLastError(m_currentState->getLastError());
         m_previousState->setDevicesState(m_currentState->getDevicesState());
         m_previousState->setSensorsState(m_currentState->getSensorsState());
@@ -180,10 +180,9 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
         break;
     }
 
-
-    if(type == "Spindel")
+    if(type.toLower() == "spindel")
     {
-        if(target == "On")
+        if(target.toLower() == "on")
         {
             QByteArray message;
             byte paramsByte = 0x00;
@@ -195,7 +194,7 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
         }
         else
         {
-            if(target == "Off")
+            if(target.toLower() == "off")
             {
                 QByteArray message;
                 byte paramsByte = 0x00;
@@ -209,28 +208,29 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
     }
 }
 
-void U1SerialAdapter::sendCurrentStateToServer(U1State *state)
+void U1SerialAdapter::sendStateToServer(U1State state)
 {
     QtJson::JsonObject message;
     QtJson::JsonObject u1State;
 
     QtJson::JsonArray sensorsState;
-    for(auto item : state->getSensorsState())
+    for(auto item : state.getSensorsState())
     {
         sensorsState.append(item);
     }
 
     QtJson::JsonArray devicesState;
-    for(byte item : state->getDevicesState())
+    for(byte item : state.getDevicesState())
     {
         devicesState.append(item);
     }
 
-    int lastError = state->getLastError();
+    int lastError = state.getLastError();
 
     u1State["sensors_state"] = sensorsState;
     u1State["devices_state"] = devicesState;
     u1State["last_error"] = lastError;
+    u1State["workflow_state"] = 0;
     message["u1_state"] = u1State;
 
     QByteArray data = QtJson::serialize(message);
@@ -241,19 +241,19 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
 {
     QString messageString = QString::fromUtf8(message);
     bool ok = false;
-    QtJson::JsonObject result = QtJson::parse(messageString, ok).toMap();
+    QtJson::JsonObject parsedMessage = QtJson::parse(messageString, ok).toMap();
     if(ok)
     {
-        QtJson::JsonObject u1Message = result["MessageToU1"].toMap();
-        if(!u1Message.empty())
+        QString target = parsedMessage["target"].toString();
+        if(target.toLower() == "u1")
         {
-            QtJson::JsonObject switchParams = u1Message["SwitchDevice"].toMap();
+            QtJson::JsonObject switchParams = parsedMessage["switch_device"].toMap();
             if(!switchParams.empty())
             {
-                size_t index = switchParams["Index"].toUInt();
-                QString target = switchParams["Target"].toString();
-                QString type = switchParams["Type"].toString();
-                switchDevice(index, target, type);
+                size_t index = switchParams["uid"].toUInt();
+                QString target = switchParams["target"].toString();
+                QString type = switchParams["type"].toString();
+                this->switchDevice(index, target, type);
                 /*byte_array data;
                 for(auto param : switchParams)
                 {
@@ -262,15 +262,15 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
                 switchDevice(data);*/
             }
 
-            QString directMessage = u1Message["DirectMessage"].toString();
+            /*QString directMessage = u1Message["DirectMessage"].toString();
             if(!directMessage.isEmpty())
             {
                 if(directMessage == "GetState")
                 {
                     qDebug() << "get state";
-                    sendCurrentStateToServer(m_currentState);
+                    this->sendStateToServer(*m_currentState);
                 }
-            }
+            }*/
 
         }
         else
@@ -282,13 +282,13 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
 
 void U1SerialAdapter::sendTestPackageToServer()
 {
-    sendCurrentStateToServer(m_currentState);
+    this->sendStateToServer(*m_currentState);
 }
 
 void U1SerialAdapter::onWebSocketHandler_Connected()
 {
     qDebug() << "Web socket is connected";
-    sendTestPackageToServer();
+    this->sendTestPackageToServer();
 }
 
 void U1SerialAdapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)

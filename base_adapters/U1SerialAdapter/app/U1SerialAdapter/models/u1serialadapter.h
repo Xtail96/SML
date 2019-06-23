@@ -122,7 +122,7 @@ protected slots:
     void onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message);
     void onWebSocketHandler_BinaryMessageReceived(QByteArray message);
 
-    void sendCurrentStateToServer(U1State *state);
+    void sendStateToServer(U1State state);
 
     void sendTestPackageToServer();
 };
