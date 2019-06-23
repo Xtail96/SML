@@ -55,6 +55,11 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
                 continue;
             }
 
+            if(key.toLower() == "e")
+            {
+                continue;
+            }
+
             axisesArguments.append(serializedChunk);
         }
         detailedInfo.insert("frame_id", myFirstChunk.first + QString::number(myFirstChunk.second));

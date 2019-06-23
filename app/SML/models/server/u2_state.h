@@ -1,6 +1,8 @@
 #ifndef U2_STATE_H
 #define U2_STATE_H
 
+#include <QMap>
+
 /**
  * @brief Состояние контроллера U2
  *
@@ -8,6 +10,8 @@
  */
 struct U2State
 {
+    QMap<QString, double> positions;
+
     /// Код ошибки
     int errorCode;
 

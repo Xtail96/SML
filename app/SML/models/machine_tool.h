@@ -263,10 +263,11 @@ private slots:
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U2
      * (запись данных в репозиторий)
+     * @param coordinates текущие координаты по осям
      * @param workflowState состояние выполнения работ
      * @param lastError код ошибки
      */
-    void onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError);
+    void onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка

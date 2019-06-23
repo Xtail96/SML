@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 #endif
 #ifdef Q_OS_MACOS
     //U1SerialAdapter u1SerialAdapter("cu.usbmodem1421");
-    U2SerialAdapter u2SerialAdapter("1234");
+    U2SerialAdapter u2SerialAdapter;
     Q_UNUSED(u2SerialAdapter);
 #endif
 

@@ -49,8 +49,8 @@ void MachineTool::setupConnections()
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
-    QObject::connect(m_adapterServer.data(), SIGNAL(u2StateChanged(unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U2StateChanged(unsigned int, ERROR_CODE)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -76,8 +76,8 @@ void MachineTool::resetConnections()
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
-    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2StateChanged(unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U2StateChanged(unsigned int, ERROR_CODE)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -322,17 +322,17 @@ void MachineTool::onAdapterServer_U2Disconnected()
     m_repository->setU2ConnectState(false);
 }
 
-void MachineTool::onAdapterServer_U2StateChanged(unsigned int workflowState, ERROR_CODE lastError)
+void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError)
 {
     this->setLastError(lastError);
     m_repository->setU2WorkflowState(workflowState);
 
     Point tmpPoint = {
-        static_cast<double>(rand() % 1000 + 1),
-        static_cast<double>(rand() % 1000 + 1),
-        static_cast<double>(rand() % 1000 + 1),
-        static_cast<double>(rand() % 1000 + 1),
-        static_cast<double>(rand() % 1000 + 1)
+        coordinates["X"],
+        coordinates["Y"],
+        coordinates["Z"],
+        coordinates["A"],
+        coordinates["B"]
     };
     m_repository->setCurrentCoordinates(tmpPoint);
 }

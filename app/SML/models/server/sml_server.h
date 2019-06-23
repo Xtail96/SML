@@ -127,10 +127,11 @@ signals:
 
     /**
      * @brief Сигнал изменения состояния контроллера U2
+     * @param coordinates текущие координаты по осям
      * @param workflowState статус выполнения заданий контроллера U2 (0 - свободен. 1 - занят. >= 2 -  ошибка выполнения задания.)
      * @param lastError код последней ошибки, возникшей в процесе работы контроллера
      */
-    void u2StateChanged(unsigned int workflowState, ERROR_CODE lastError);
+    void u2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Сигнал изменения состояния ошибки, возникшей в работе сервера

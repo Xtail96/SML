@@ -251,7 +251,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
         try
         {
             U2State u2 = SMLServer::parseU2BinaryMessage(message);
-            emit this->u2StateChanged(u2.workflowState, ERROR_CODE(u2.errorCode));
+            emit this->u2StateChanged(u2.positions, u2.workflowState, ERROR_CODE(u2.errorCode));
         }
         catch(SynchronizeStateException e)
         {
@@ -297,12 +297,22 @@ U2State SMLServer::parseU2BinaryMessage(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
     if(ok)
     {
-        QtJson::JsonObject u2State = result["U2State"].toMap();
+        QtJson::JsonObject u2State = result["u2_state"].toMap();
         if(!u2State.isEmpty())
         {
             U2State u2;
-            u2.errorCode = u2State["LastError"].toInt();
-            u2.workflowState = u2State["WorkflowState"].toUInt();
+            u2.errorCode = u2State["error_code"].toInt();
+            u2.workflowState = u2State["workflow_status"].toUInt();
+
+            QtJson::JsonArray axises = u2State["axises"].toList();
+            for(auto axis : axises)
+            {
+                QtJson::JsonObject axisObject = axis.toMap();
+                QString id = axisObject["id"].toString();
+                double value = axisObject["coordinate"].toDouble();
+                u2.positions.insert(id, value);
+            }
+
             return u2;
         }
         else

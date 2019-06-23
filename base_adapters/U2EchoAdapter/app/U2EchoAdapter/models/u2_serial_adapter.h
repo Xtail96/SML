@@ -15,11 +15,13 @@
 struct U2State
 {
 private:
+    QMap<QString, double> m_positions;
     int m_lastErrorCode;
     int m_workflowState;
 public:
     U2State(int errorCode, int workflowCode)
     {
+        m_positions = {};
         m_lastErrorCode = errorCode;
         m_workflowState = workflowCode;
     }
@@ -45,18 +47,60 @@ public:
     {
         m_workflowState = value;
     }
+
+    int getAxisesCount()
+    {
+        return m_positions.size();
+    }
+
+    QStringList getAxisesKeys()
+    {
+        return m_positions.keys();
+    }
+
+    double getAxisPosition(QString key)
+    {
+        if(!m_positions.contains(key))
+            throw std::invalid_argument("Unknown axis name " + key.toStdString());
+
+        return m_positions[key];
+    }
+
+    void setAxisPosition(QString key, double value)
+    {
+        if(!m_positions.contains(key))
+            throw std::invalid_argument("Unknown axis name " + key.toStdString());
+
+        this->removeAxisPosition(key);
+        this->addAxisPosition(key, value);
+    }
+
+    void addAxisPosition(QString key, double value)
+    {
+        m_positions.insert(key, value);
+    }
+
+    void removeAxisPosition(QString key)
+    {
+        if(!m_positions.contains(key))
+            throw std::invalid_argument("Unknown axis name " + key.toStdString());
+
+        m_positions.remove(key);
+    }
 };
 
 class U2SerialAdapter : public QObject
 {
     Q_OBJECT
 public:
-    explicit U2SerialAdapter(QString portName, QObject *parent = nullptr);
+    explicit U2SerialAdapter(QObject *parent = nullptr);
     ~U2SerialAdapter();
 
-protected:
+private:
     SettingsManager m_settingsManager;
     WebSocketHandler *m_socketHandler;
+
+    U2State m_currentState;
 
     void loadSettings();
 
