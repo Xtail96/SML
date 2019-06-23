@@ -50,7 +50,9 @@ public:
         }
         else
         {
-            qDebug() << "Попытка установить состояние датчиков неправильной длины";
+            qDebug() << "Попытка установить состояние датчиков неправильной длины."
+                     << "Исходная длина = " << m_sensorsState->size() << "."
+                     << "Новая длина = " << value.size();
         }
     }
 
@@ -70,7 +72,9 @@ public:
         }
         else
         {
-            qDebug() << "Попытка установить состояние устройств неправильной длины";
+            qDebug() << "Попытка установить состояние устройств неправильной длины."
+                     << "Исходная длина = " << m_devicesState->size() << "."
+                     << "Новая длина = " << value.size();
         }
     }
 
@@ -122,7 +126,7 @@ protected slots:
     void onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message);
     void onWebSocketHandler_BinaryMessageReceived(QByteArray message);
 
-    void sendStateToServer(U1State state);
+    void sendStateToServer(U1State *state);
 
     void sendTestPackageToServer();
 };

@@ -8,7 +8,7 @@ U1SerialAdapter::U1SerialAdapter(QString portName, QObject *parent) :
     //m_currentState(new U1State(2, 3)),
     //m_previousState(new U1State(2, 3))
 {
-    loadSettings();
+    this->loadSettings();
 
     m_serial->setBaudRate(9600);
     connect(m_serial, SIGNAL(readyRead()), this, SLOT(onQSerialPort_ReadyRead()));
@@ -56,6 +56,8 @@ void U1SerialAdapter::loadSettings()
 
         m_currentState = new U1State(sensorsPackageSize, devicesPackageSize);
         m_previousState = new U1State(sensorsPackageSize, devicesPackageSize);
+
+        this->printState();
     }
     catch(std::invalid_argument e)
     {
@@ -119,7 +121,7 @@ void U1SerialAdapter::onQSerialPort_ReadyRead()
 
 void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
 {
-    byte lastErrorCode = received[0];
+    byte lastErrorCode = byte(received[0]);
     m_currentState->setLastError(lastErrorCode);
 
     // todo: update sensors state
@@ -131,7 +133,7 @@ void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
 
     for(int i = 1; i < received.size() - 3; i++)
     {
-        sensorsTmp.push_back(received[i]);
+        sensorsTmp.push_back(byte(received[i]));
     }
 
 
@@ -148,7 +150,7 @@ void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
     if(isStateChanged())
     {
         printState();
-        this->sendStateToServer(*m_currentState);
+        this->sendStateToServer(m_currentState);
         m_previousState->setLastError(m_currentState->getLastError());
         m_previousState->setDevicesState(m_currentState->getDevicesState());
         m_previousState->setSensorsState(m_currentState->getSensorsState());
@@ -208,24 +210,24 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
     }
 }
 
-void U1SerialAdapter::sendStateToServer(U1State state)
+void U1SerialAdapter::sendStateToServer(U1State *state)
 {
     QtJson::JsonObject message;
     QtJson::JsonObject u1State;
 
     QtJson::JsonArray sensorsState;
-    for(auto item : state.getSensorsState())
+    for(auto item : state->getSensorsState())
     {
         sensorsState.append(item);
     }
 
     QtJson::JsonArray devicesState;
-    for(byte item : state.getDevicesState())
+    for(byte item : state->getDevicesState())
     {
         devicesState.append(item);
     }
 
-    int lastError = state.getLastError();
+    int lastError = state->getLastError();
 
     u1State["sensors_state"] = sensorsState;
     u1State["devices_state"] = devicesState;
@@ -282,7 +284,7 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
 
 void U1SerialAdapter::sendTestPackageToServer()
 {
-    this->sendStateToServer(*m_currentState);
+    this->sendStateToServer(m_currentState);
 }
 
 void U1SerialAdapter::onWebSocketHandler_Connected()
