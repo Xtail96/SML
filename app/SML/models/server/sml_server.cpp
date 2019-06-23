@@ -269,13 +269,13 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
     if(ok)
     {
-        QtJson::JsonObject u1State = result["U1State"].toMap();
+        QtJson::JsonObject u1State = result["u1_state"].toMap();
         if(!u1State.isEmpty())
         {
             U1State u1;
-            u1.sensors = u1State["SensorsState"].toList();
-            u1.devices = u1State["DevicesState"].toList();
-            u1.errorCode = u1State["LastError"].toInt();
+            u1.sensors = u1State["sensors_state"].toList();
+            u1.devices = u1State["devices_state"].toList();
+            u1.errorCode = u1State["last_error"].toInt();
             u1.workflowState = 0;
             return u1;
         }
@@ -301,15 +301,15 @@ U2State SMLServer::parseU2BinaryMessage(QByteArray message)
         if(!u2State.isEmpty())
         {
             U2State u2;
-            u2.errorCode = u2State["error_code"].toInt();
-            u2.workflowState = u2State["workflow_status"].toUInt();
+            u2.errorCode = u2State["last_error"].toInt();
+            u2.workflowState = u2State["workflow_state"].toUInt();
 
             QtJson::JsonArray axises = u2State["axises"].toList();
             for(auto axis : axises)
             {
                 QtJson::JsonObject axisObject = axis.toMap();
                 QString id = axisObject["id"].toString();
-                double value = axisObject["coordinate"].toDouble();
+                double value = axisObject["position"].toDouble();
                 u2.positions.insert(id, value);
             }
 

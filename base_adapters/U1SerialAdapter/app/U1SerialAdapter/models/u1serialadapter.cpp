@@ -228,10 +228,10 @@ void U1SerialAdapter::sendCurrentStateToServer(U1State *state)
 
     int lastError = state->getLastError();
 
-    u1State["SensorsState"] = sensorsState;
-    u1State["DevicesState"] = devicesState;
-    u1State["LastError"] = lastError;
-    message["U1State"] = u1State;
+    u1State["sensors_state"] = sensorsState;
+    u1State["devices_state"] = devicesState;
+    u1State["last_error"] = lastError;
+    message["u1_state"] = u1State;
 
     QByteArray data = QtJson::serialize(message);
     m_socketHandler->sendBinaryMessage(data);

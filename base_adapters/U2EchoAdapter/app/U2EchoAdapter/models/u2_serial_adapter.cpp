@@ -58,8 +58,8 @@ void U2SerialAdapter::sendCurrentStateToServer(U2State state)
 {
     QtJson::JsonObject message = {};
     QtJson::JsonObject u2State = {};
-    u2State["error_code"] = state.getLastError();
-    u2State["workflow_status"] = state.getWorkflowState();
+    u2State["last_error"] = state.getLastError();
+    u2State["workflow_state"] = state.getWorkflowState();
     u2State["axises_count"] = state.getAxisesCount();
     QtJson::JsonArray axises = {};
     QStringList axisesKeys = state.getAxisesKeys();
@@ -67,7 +67,7 @@ void U2SerialAdapter::sendCurrentStateToServer(U2State state)
     {
         QtJson::JsonObject axis = {};
         axis["id"] = key;
-        axis["coordinate"] = state.getAxisPosition(key);
+        axis["position"] = state.getAxisPosition(key);
         axises.append(axis);
     }
     u2State["axises"] = axises;
