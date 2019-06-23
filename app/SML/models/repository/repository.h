@@ -272,6 +272,8 @@ public:
 
     void setCurrentCoordinates(Point absCoordinates);
 
+    void setCurrentCoordinates(QMap<QString, double> absCoordinates);
+
     /**
      * @brief Возвращает названия всех доступных осей координат
      * @return список доступных осей координат

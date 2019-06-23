@@ -307,7 +307,6 @@ QMap<QString, QString> Repository::getSensorSettings(QString uid)
     return sensorsSettingsMap;
 }
 
-
 QStringList Repository::getAllSensorsSettings()
 {
     QStringList settings = {};
@@ -384,6 +383,19 @@ void Repository::setCurrentCoordinates(Point absCoordinates)
         auto index = SML_AXISES_NAMES.getKeyByName(axis->name());
         auto absValue = absCoordinates.get(index);
         axis->setCurrentPosition(absValue);
+    }
+}
+
+void Repository::setCurrentCoordinates(QMap<QString, double> absCoordinates)
+{
+    for(auto axis : m_axises)
+    {
+        QString currentAxisName = axis->name();
+        if(absCoordinates.contains(currentAxisName))
+        {
+            double axisPosition = absCoordinates[currentAxisName];
+            axis->setCurrentPosition(axisPosition);
+        }
     }
 }
 

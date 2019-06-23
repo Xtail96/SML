@@ -326,15 +326,7 @@ void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinat
 {
     this->setLastError(lastError);
     m_repository->setU2WorkflowState(workflowState);
-
-    Point tmpPoint = {
-        coordinates["X"],
-        coordinates["Y"],
-        coordinates["Z"],
-        coordinates["A"],
-        coordinates["B"]
-    };
-    m_repository->setCurrentCoordinates(tmpPoint);
+    m_repository->setCurrentCoordinates(coordinates);
 }
 
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
