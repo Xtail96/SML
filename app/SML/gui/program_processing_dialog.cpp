@@ -46,7 +46,8 @@ void ProgramProcessingDialog::setupWidgets()
 void ProgramProcessingDialog::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(close()));
+    QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(close()));
+    QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(close()));
     QObject::connect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
     QObject::connect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
 }
@@ -54,7 +55,8 @@ void ProgramProcessingDialog::setupConnections()
 void ProgramProcessingDialog::resetConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(close()));
+    QObject::disconnect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(close()));
+    QObject::disconnect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(close()));
     QObject::disconnect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
     QObject::disconnect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
 }

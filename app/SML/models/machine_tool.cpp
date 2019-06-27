@@ -409,11 +409,21 @@ void MachineTool::onAxisesMonitor_AxisCurrentPositionChanged(QString, double)
 
 void MachineTool::sendNextCommand()
 {
+    if(m_lastError != ERROR_CODE::OK)
+    {
+        qDebug() << "MachineTool::sendNextCommand: error is occured during program processing. Code =" << m_lastError;
+        m_executionQueue.clear();
+        QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+        this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        emit this->taskCompletedWithErrors();
+        return;
+    }
+
     if(m_executionQueue.isEmpty())
     {
         qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
         QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
-        emit this->programCompletedSuccesfully();
+        emit this->taskCompletedSuccesfully();
         return;
     }
 

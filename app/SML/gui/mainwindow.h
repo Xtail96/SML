@@ -148,7 +148,8 @@ private slots:
     void onMachineTool_GCodesFileContentUpdated(QStringList data);
     void onMachineTool_GCodesFilePathUpdated(QString path);
 
-    void onMachineTool_ProgramCompletedSuccesfully();
+    void onMachineTool_TaskCompletedSuccesfully();
+    void onMachineTool_TaskCompletedWithErrors();
 
     void onMachineTool_CurrentCoordinatesChanged();
 

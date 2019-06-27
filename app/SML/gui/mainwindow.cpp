@@ -117,7 +117,8 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
-    QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
+    QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
     QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
@@ -191,7 +192,8 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));  
-    QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::disconnect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
+    QObject::disconnect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
     QObject::disconnect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
@@ -497,9 +499,15 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
     ui->filePathLineEdit->setText(path);
 }
 
-void MainWindow::onMachineTool_ProgramCompletedSuccesfully()
+void MainWindow::onMachineTool_TaskCompletedSuccesfully()
 {
-    QMessageBox(QMessageBox::Information, "УП", "Выполнение УП успешно завершено").exec();
+    QMessageBox(QMessageBox::Information, "Успешное завершение работ", "Задание успешно выполнено").exec();
+}
+
+void MainWindow::onMachineTool_TaskCompletedWithErrors()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    QMessageBox(QMessageBox::Information, "Ошибка", "Выполнение задания завершено с ошибкой. Код ошибки = " + QString::number(machineTool.getLastError())).exec();
 }
 
 void MainWindow::onMachineTool_CurrentCoordinatesChanged()

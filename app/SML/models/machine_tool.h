@@ -200,7 +200,9 @@ signals:
 
     void nextCommandSent(QByteArray package);
 
-    void programCompletedSuccesfully();
+    void taskCompletedSuccesfully();
+
+    void taskCompletedWithErrors();
 
     void currentCoordinatesChanged();
 
