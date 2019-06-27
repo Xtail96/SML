@@ -135,6 +135,34 @@ void SMLServer::sendMessageToU1(QByteArray message)
     }
 }
 
+void SMLServer::sendMessageToU2(QByteArray message)
+{
+    for(auto socket : m_u2Connections)
+    {
+        if(socket)
+        {
+            if(socket->isValid())
+            {
+                socket->sendBinaryMessage(message);
+            }
+            else
+            {
+                throw SynchronizeStateException("WebSocket is invalid");
+            }
+        }
+        else
+        {
+            throw SynchronizeStateException("WebSocket is null");
+        }
+    }
+}
+
+void SMLServer::sendMessage(QByteArray message)
+{
+    this->sendMessageToU1(message);
+    this->sendMessageToU2(message);
+}
+
 void SMLServer::onQWebSocketServer_Closed()
 {
     if(m_debug)
@@ -176,7 +204,8 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         {
             try
             {
-                registerClient(pSender, SMLServer::U2Adapter);
+                this->registerClient(pSender, SMLServer::U2Adapter);
+                pSender->sendTextMessage("Registered!");
             }
             catch(SynchronizeStateException e)
             {
@@ -214,6 +243,22 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
             qDebug() << e.message();
             emit this->errorOccurred(SERVER_ERROR);
         }
+        return;
+    }
+
+    if(m_u2Connections.contains(pSender))
+    {
+        try
+        {
+            U2State u2 = SMLServer::parseU2BinaryMessage(message);
+            emit this->u2StateChanged(u2.positions, u2.workflowState, ERROR_CODE(u2.errorCode));
+        }
+        catch(SynchronizeStateException e)
+        {
+            qDebug() << e.message();
+            emit this->errorOccurred(SERVER_ERROR);
+        }
+        return;
     }
 }
 
@@ -224,19 +269,55 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
     if(ok)
     {
-        QtJson::JsonObject u1State = result["U1State"].toMap();
+        QtJson::JsonObject u1State = result["u1_state"].toMap();
         if(!u1State.isEmpty())
         {
             U1State u1;
-            u1.sensors = u1State["SensorsState"].toList();
-            u1.devices = u1State["DevicesState"].toList();
-            u1.errorCode = u1State["LastError"].toInt();
+            u1.sensors = u1State["sensors_state"].toList();
+            u1.devices = u1State["devices_state"].toList();
+            u1.errorCode = u1State["last_error"].toInt();
             u1.workflowState = 0;
             return u1;
         }
         else
         {
             throw SynchronizeStateException("empty u1 message");
+        }
+    }
+    else
+    {
+        throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
+    }
+}
+
+U2State SMLServer::parseU2BinaryMessage(QByteArray message)
+{
+    bool ok;
+    QString json = QString::fromUtf8(message);
+    QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
+    if(ok)
+    {
+        QtJson::JsonObject u2State = result["u2_state"].toMap();
+        if(!u2State.isEmpty())
+        {
+            U2State u2;
+            u2.errorCode = u2State["last_error"].toInt();
+            u2.workflowState = u2State["workflow_state"].toUInt();
+
+            QtJson::JsonArray axises = u2State["axises"].toList();
+            for(auto axis : axises)
+            {
+                QtJson::JsonObject axisObject = axis.toMap();
+                QString id = axisObject["id"].toString();
+                double value = axisObject["position"].toDouble();
+                u2.positions.insert(id, value);
+            }
+
+            return u2;
+        }
+        else
+        {
+            throw SynchronizeStateException("empty u2 message");
         }
     }
     else
@@ -287,7 +368,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U1Adapter registered:" << client;
+            qDebug() << "SMLServer::registerClient: U1Adapter registered =" << client;
         }
         emit this->u1Connected();
         break;
@@ -296,7 +377,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         m_unregistered.removeAll(client);
         if(m_debug)
         {
-            qDebug() << "U2Adapter registered:" << client;
+            qDebug() << "SMLServer::registerClient: U2Adapter registered =" << client;
         }
         emit this->u2Connected();
         break;
@@ -342,7 +423,7 @@ QStringList SMLServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U1Adapter] ") +
+                QString("Name [U2Adapter] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);
@@ -354,7 +435,7 @@ QStringList SMLServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U1Adapter] ") +
+                QString("Name [Unregistered] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);

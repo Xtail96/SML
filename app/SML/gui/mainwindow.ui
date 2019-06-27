@@ -1376,26 +1376,6 @@
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QPushButton" name="pausePushButton">
-                   <property name="text">
-                    <string>Пауза</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/images.qrc">
-                     <normaloff>:/aist/images/aist/pause.png</normaloff>:/aist/images/aist/pause.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Space</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
                </widget>
               </item>

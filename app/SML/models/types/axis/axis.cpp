@@ -4,7 +4,8 @@ Axis::Axis(QString name,
            double length,
            double step,
            bool invertDirection,
-           double basingVelocity) :
+           double basingVelocity, QObject *parent) :
+    QObject(parent),
     m_name(name),
     m_length(length),
     m_step(step),
@@ -60,6 +61,7 @@ double Axis::currentPosition() const
 void Axis::setCurrentPosition(double currentPosition)
 {
     m_currentPosition = currentPosition;
+    emit this->currentPositionChanged(m_name, m_currentPosition);
 }
 
 bool Axis::invertDirection() const

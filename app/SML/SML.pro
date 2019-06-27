@@ -99,7 +99,10 @@ SOURCES += main.cpp\
     models/types/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
     gui/utils/gcodes_visualizer.cpp \
-    models/services/devices/spindels/switch/switch_spindel_interactor.cpp
+    models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
+    models/services/program/prepare_execution_queue_interactor.cpp \
+    gui/program_processing_dialog.cpp \
+    models/services/axises/monitor/axises_monitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -167,7 +170,11 @@ HEADERS  += gui/mainwindow.h \
     models/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
     models/utils/error_codes/error_codes.h \
-    models/services/devices/spindels/switch/switch_spindel_interactor.h
+    models/services/devices/spindels/switch/switch_spindel_interactor.h \
+    models/services/program/prepare_execution_queue_interactor.h \
+    models/server/u2_state.h \
+    gui/program_processing_dialog.h \
+    models/services/axises/monitor/axises_monitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \
@@ -176,7 +183,8 @@ FORMS    += gui/mainwindow.ui \
     gui/to_selection_point_dialog.ui \
     options/kabriol_window.ui \
     options/lubrication_system_window.ui \
-    options/tool_length_sensor_window.ui
+    options/tool_length_sensor_window.ui \
+    gui/program_processing_dialog.ui
 
 win32:RC_FILE = application.rc
 macx:ICON = $${PWD}/sml_logo.icns

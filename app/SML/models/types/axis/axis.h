@@ -3,10 +3,13 @@
 
 #include <QString>
 
-class Axis
+#include <QObject>
+
+class Axis : public QObject
 {
+    Q_OBJECT
 public:
-    explicit Axis(QString name, double length, double step, bool invertDirection, double basingVelocity);
+    explicit Axis(QString name, double length, double step, bool invertDirection, double basingVelocity, QObject* parent = nullptr);
     ~Axis();
 
     QString name() const;
@@ -35,7 +38,7 @@ public:
 
     QString axisSettings() const;
 
-protected:
+private:
     QString m_name;
     double m_length;
     double m_step;
@@ -45,6 +48,9 @@ protected:
     double m_basingVelocity;
 
     bool m_softLimitsEnable;
+
+signals:
+    void currentPositionChanged(QString axisUid, double currentPosition);
 };
 
 #endif // AXIS_H

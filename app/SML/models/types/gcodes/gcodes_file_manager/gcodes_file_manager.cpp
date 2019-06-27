@@ -3,7 +3,7 @@
 GCodesFileManager::GCodesFileManager(QObject *parent) :
     QObject(parent),
     m_filePath(""),
-    m_fileContent(""),
+    m_fileContent(QStringList{}),
     m_readerThread(new QThread(this))
 {
     m_readerThread->setObjectName("ReaderThread");

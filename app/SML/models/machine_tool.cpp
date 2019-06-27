@@ -11,7 +11,9 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
-    m_lastError(DISCONNECTED) // нет связи со станком
+    m_axisesMonitor(new AxisesMonitor(m_repository->m_axises, this)),
+    m_lastError(DISCONNECTED), // нет связи со станком
+    m_executionQueue(QQueue<QByteArray>())
 {
     this->setupConnections();
     this->startAdapterServer();
@@ -45,6 +47,10 @@ void MachineTool::setupConnections()
     QObject::connect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::connect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
+    QObject::connect(m_adapterServer.data(), SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -56,6 +62,8 @@ void MachineTool::setupConnections()
 
     QObject::connect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
     QObject::connect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
+
+    QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
 }
 
 void MachineTool::resetConnections()
@@ -66,6 +74,10 @@ void MachineTool::resetConnections()
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
                      this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
+    QObject::disconnect(m_adapterServer.data(), SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
+                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
@@ -77,6 +89,20 @@ void MachineTool::resetConnections()
 
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(filePathUpdated(QString)), this, SLOT(onGCodesMonitor_FilePathUpdated(QString)));
     QObject::disconnect(m_gcodesMonitor.data(), SIGNAL(fileContentUpdated(QStringList)), this, SLOT(onGCodesMonitor_FileContentUpdated(QStringList)));
+
+    QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
+}
+
+ERROR_CODE MachineTool::checkMachineToolState()
+{
+    if(!this->checkAdapterConnections()) return ERROR_CODE::DISCONNECTED;
+
+    return ERROR_CODE::OK;
+}
+
+bool MachineTool::checkAdapterConnections()
+{
+    return (m_repository->m_u1Adapter->connectionState() && m_repository->m_u2Adapter->connectionState());
 }
 
 void MachineTool::startAdapterServer()
@@ -148,28 +174,32 @@ void MachineTool::setLastError(ERROR_CODE value)
 {
     if(m_lastError == value)
     {
+        emit this->errorStateChanged(m_lastError);
         return;
     }
+    qDebug() << "MachineTool::setLastError: NEW_ERROR_CODE =" << value;
 
-    m_lastError = value;
-
-    switch (m_lastError)
+    switch (value)
     {
         case OK:
-            /*
-             * toDo: вызов метода для проверки всех систем,
-             * чтобы убедиться, что все действительно ОК
-             */
             break;
         case REPOSITORY_ERROR:
             /*
              * toDo: вызов интерактора (обработчика ошибки такого класса)
              */
             break;
+        case DISCONNECTED:
+            m_executionQueue.clear();
+            break;
         default:
             break;
     }
 
+    // вызов метода для проверки всех систем станка,
+    // чтобы убедиться какой код ошибки нужно выставить в действительности
+    qDebug() << "MachineTool::setLastError: checkMachineToolState started";
+    m_lastError = this->checkMachineToolState();
+    qDebug() << "MachineTool::setLastError: checkMachineToolState finished with ERROR_CODE =" << m_lastError;
     emit this->errorStateChanged(m_lastError);
 }
 
@@ -209,6 +239,50 @@ void MachineTool::switchSpindelOff(QString uid)
     }
 }
 
+void MachineTool::startProgramProcessing()
+{
+    if(m_lastError == ERROR_CODE::OK)
+    {
+        m_executionQueue.clear();
+        try
+        {
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(m_repository->getGCodesProgram());
+        }
+        catch(InvalidArgumentException e)
+        {
+            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::startProgramProcessing:" <<  e.what();
+        }
+        catch(...)
+        {
+            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::startProgramProcessing: unknown error";
+        }
+
+        /*for(auto item : m_executionQueue)
+        {
+            qDebug() << QString::fromUtf8(item);
+        }*/
+        this->resumeProgramProcessing();
+    }
+}
+
+void MachineTool::pauseProgramProcessing()
+{
+    QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+}
+
+void MachineTool::resumeProgramProcessing()
+{
+    QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    this->sendNextCommand();
+}
+
+void MachineTool::stopProgramProcessing()
+{
+    // kill adapter and terminate controller;
+}
+
 void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
 {
     this->setLastError(code);
@@ -216,24 +290,48 @@ void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
 
 void MachineTool::onAdapterServer_U1Connected()
 {
+    qDebug() << "MachineTool::onAdapterServer_U1Connected";
     m_repository->setU1ConnectState(true);
 }
 
 void MachineTool::onAdapterServer_U1Disconnected()
 {
+    qDebug() << "MachineTool::onAdapterServer_U1Disconnected";
     m_repository->setU1ConnectState(false);
 }
 
 void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
 {
+    //qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
+    //         << lastError << sensors << devices << workflowState;
     this->setLastError(lastError);
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
     m_repository->setU1WorkflowState(workflowState);
 }
 
+void MachineTool::onAdapterServer_U2Connected()
+{
+    qDebug() << "MachineTool::onAdapterServer_U2Connected";
+    m_repository->setU2ConnectState(true);
+}
+
+void MachineTool::onAdapterServer_U2Disconnected()
+{
+    qDebug() << "MachineTool::onAdapterServer_U2Disconnected";
+    m_repository->setU2ConnectState(false);
+}
+
+void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError)
+{
+    this->setLastError(lastError);
+    m_repository->setU2WorkflowState(workflowState);
+    m_repository->setCurrentCoordinates(coordinates);
+}
+
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
 {
+    qDebug() << "MachineTool::onAdapterServer_ErrorOccurred" << errorCode;
     this->setLastError(errorCode);
 }
 
@@ -242,14 +340,16 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
     try
     {
         bool u1 = m_repository->m_u1Adapter->connectionState();
-        bool u2 = true;
+        bool u2 = m_repository->m_u2Adapter->connectionState();
 
         if(u1 && u2)
         {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: CONNECTED";
             this->setLastError(OK);
         }
         else
         {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: DISCONNECTED";
             this->setLastError(DISCONNECTED);
         }
     }
@@ -262,8 +362,7 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
 
 void MachineTool::onAdaptersMonitor_AdapterWorkflowStateChanged()
 {
-    qDebug() << "Workflow state of u1 adapters is u1 = " << m_repository->m_u1Adapter->workflowState()
-             << "and u2 = "<< m_repository->m_u2Adapter->workflowState() << "now";
+    emit this->workflowStateChanged(m_repository->m_u1Adapter->workflowState(), m_repository->m_u2Adapter->workflowState());
 }
 
 void MachineTool::onPointsMonitor_PointsUpdated()
@@ -301,4 +400,34 @@ void MachineTool::onGCodesMonitor_FilePathUpdated(QString path)
 void MachineTool::onGCodesMonitor_FileContentUpdated(QStringList content)
 {
     emit this->gcodesFileContentUpdated(content);
+}
+
+void MachineTool::onAxisesMonitor_AxisCurrentPositionChanged(QString, double)
+{
+    emit this->currentCoordinatesChanged();
+}
+
+void MachineTool::sendNextCommand()
+{
+    if(m_executionQueue.isEmpty())
+    {
+        qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
+        QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+        emit this->programCompletedSuccesfully();
+        return;
+    }
+
+    QByteArray message = m_executionQueue.dequeue();
+    qDebug() << "MachineTool::sendNextCommand:" << QString::fromUtf8(message);
+    m_adapterServer->sendMessage(message);
+    emit this->nextCommandSent(message);
+}
+
+void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState)
+{
+    //qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1State << u2State;
+    if((u1WorkflowState == 0) && (u2WorkflowState == 0))
+    {
+        this->sendNextCommand();
+    }
 }

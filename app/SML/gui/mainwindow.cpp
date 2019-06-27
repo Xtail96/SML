@@ -117,6 +117,8 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
     QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
+    QObject::connect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -188,7 +190,9 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
     QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
     QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
+    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));  
+    QObject::disconnect(&machineTool, SIGNAL(programCompletedSuccesfully()), this, SLOT(onMachineTool_ProgramCompletedSuccesfully()));
+    QObject::disconnect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -493,6 +497,16 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
     ui->filePathLineEdit->setText(path);
 }
 
+void MainWindow::onMachineTool_ProgramCompletedSuccesfully()
+{
+    QMessageBox(QMessageBox::Information, "УП", "Выполнение УП успешно завершено").exec();
+}
+
+void MainWindow::onMachineTool_CurrentCoordinatesChanged()
+{
+    this->updateCoordinatesDisplays();
+}
+
 void MainWindow::updateBatteryStatusDisplay()
 {
 #ifdef Q_OS_WIN
@@ -607,7 +621,6 @@ void MainWindow::onMachineTool_ErrorStateChanged(ERROR_CODE errorCode)
     ui->parkPushButton->setEnabled(enableWidgets);
 
     ui->runPushButton->setEnabled(enableWidgets);
-    ui->pausePushButton->setEnabled(enableWidgets);
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
@@ -1269,4 +1282,16 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
         m_hightlighter->setDocument(nullptr);
         m_hightlighter->setPattern();
     }
+}
+
+void MainWindow::on_runPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    if(machineTool.getRepository().getGCodesProgram().length() <= 0)
+    {
+        QMessageBox(QMessageBox::Information, "Отсутствует управляющая программа", "Отсутствует управляющая программа для выполнения").exec();
+        return;
+    }
+
+    ProgramProcessingDialog(this).exec();
 }

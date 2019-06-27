@@ -48,6 +48,32 @@ void Repository::setU1WorkflowState(unsigned int state)
     }
 }
 
+void Repository::setU2ConnectState(bool connected)
+{
+    try
+    {
+        m_u2Adapter->setConnectionState(connected);
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::setU2ConnectState: unknown error");
+        emit this->errorOccurred(REPOSITORY_ERROR);
+    }
+}
+
+void Repository::setU2WorkflowState(unsigned int state)
+{
+    try
+    {
+        m_u2Adapter->setWorkflowState(state);
+    }
+    catch(...)
+    {
+        qDebug() << QStringLiteral("Repository::setU2WorkflowState: unknown error");
+        emit this->errorOccurred(REPOSITORY_ERROR);
+    }
+}
+
 void Repository::setU1Sensors(QList<QVariant> sensors)
 {
     try
@@ -281,7 +307,6 @@ QMap<QString, QString> Repository::getSensorSettings(QString uid)
     return sensorsSettingsMap;
 }
 
-
 QStringList Repository::getAllSensorsSettings()
 {
     QStringList settings = {};
@@ -349,6 +374,29 @@ QList<Point> Repository::getCurrentCoordinates()
     }
 
     return currentCoordinates;
+}
+
+void Repository::setCurrentCoordinates(Point absCoordinates)
+{
+    for(auto axis : m_axises)
+    {
+        auto index = SML_AXISES_NAMES.getKeyByName(axis->name());
+        auto absValue = absCoordinates.get(index);
+        axis->setCurrentPosition(absValue);
+    }
+}
+
+void Repository::setCurrentCoordinates(QMap<QString, double> absCoordinates)
+{
+    for(auto axis : m_axises)
+    {
+        QString currentAxisName = axis->name();
+        if(absCoordinates.contains(currentAxisName))
+        {
+            double axisPosition = absCoordinates[currentAxisName];
+            axis->setCurrentPosition(axisPosition);
+        }
+    }
 }
 
 QStringList Repository::getAxisesNames()
@@ -867,7 +915,7 @@ void Repository::loadAxisesSettings()
              bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
              double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
 
-             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed));
+             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, this));
              m_axises.push_back(axis);
          }
          m_zeroCoordinates = Point(m_axises.size());

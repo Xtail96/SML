@@ -2,6 +2,7 @@
 #define MACHINETOOL_H
 
 #include <QObject>
+#include <QQueue>
 
 #include "models/repository/repository.h"
 #include "models/server/sml_server.h"
@@ -12,6 +13,8 @@
 #include "models/services/devices/spindels/monitor/spindels_monitor.h"
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
+#include "models/services/program/prepare_execution_queue_interactor.h"
+#include "models/services/axises/monitor/axises_monitor.h"
 
 /**
  * @brief Класс станок
@@ -111,11 +114,17 @@ private:
     /// Монитор текущего состояния G-кодов
     QScopedPointer<GCodesMonitor> m_gcodesMonitor;
 
+    /// Монитор осей координат
+    QScopedPointer<AxisesMonitor> m_axisesMonitor;
+
     /// Код последней возникшей ошибки
     /// Данную переменную необходимо проверять, при отправке данных на станок.
     /// 0 - ошибок нет.
     /// (0;255] - коды ошибок. Описаны в соотвествующем файле.
     ERROR_CODE m_lastError;
+
+    /// Очередь сообщений, ожидающих отправки.
+    QQueue<QByteArray> m_executionQueue;
 
     /**
      * @brief Создает объект класса станок
@@ -142,6 +151,10 @@ private:
      * @brief Отключает слоты от сигналов полей класса
      */
     void resetConnections();
+
+    ERROR_CODE checkMachineToolState();
+
+    bool checkAdapterConnections();
 
 signals:
     /**
@@ -183,6 +196,14 @@ signals:
      */
     void gcodesFileContentUpdated(QStringList content);
 
+    void workflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
+
+    void nextCommandSent(QByteArray package);
+
+    void programCompletedSuccesfully();
+
+    void currentCoordinatesChanged();
+
 public slots:
     /**
      * @brief Запускает сценарий включения шпинделя
@@ -196,6 +217,11 @@ public slots:
      * @param uid уникальный идентификатор устройства
      */
     void switchSpindelOff(QString uid);
+
+    void startProgramProcessing();
+    void pauseProgramProcessing();
+    void resumeProgramProcessing();
+    void stopProgramProcessing();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE code);
@@ -217,8 +243,31 @@ private slots:
      * (запись данных в репозиторий)
      * @param sensors обновленное состояние датчиков
      * @param devices обновленное состояние устройств
+     * @param workflowState состояние выполнения работ
+     * @param lastError код ошибки
      */
     void onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U2
+     * (запись данных в репозитоий)
+     */
+    void onAdapterServer_U2Connected();
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U2
+     * (запись данных в репозиторий)
+     */
+    void onAdapterServer_U2Disconnected();
+
+    /**
+     * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U2
+     * (запись данных в репозиторий)
+     * @param coordinates текущие координаты по осям
+     * @param workflowState состояние выполнения работ
+     * @param lastError код ошибки
+     */
+    void onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError);
 
     /**
      * @brief Обрабатывает сигнал об ошибке станка
@@ -279,6 +328,27 @@ private slots:
      * @param content содержимое файла в формате списка строк
      */
     void onGCodesMonitor_FileContentUpdated(QStringList content);
+
+    /**
+     * @brief Обрабатывает сигнал от монитора Осей об изменении текущей позиции оси
+     * (испускает сигнал о том, что изменились текущие координаты по оси)
+     *
+     * @param uid идентификатор оси (unused)
+     * @param position позиция по оси (unused)
+     */
+    void onAxisesMonitor_AxisCurrentPositionChanged(QString, double);
+
+    /**
+     * @brief Отправляет следующую команду в очереди на исполнение
+     */
+    void sendNextCommand();
+
+    /**
+     * @brief Обрабатывает изменение workflow статуса адаптеров
+     * @param u1State состояние выполнения работ на контроллере U1
+     * @param u2State состояние выполнения работ на контроллере U2
+     */
+    void onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
 };
 
 #endif // MACHINETOOL_H
