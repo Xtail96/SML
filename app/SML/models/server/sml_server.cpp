@@ -195,7 +195,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit this->errorOccurred(SERVER_ERROR);
+            emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
         }
     }
     else
@@ -210,7 +210,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
             catch(SynchronizeStateException e)
             {
                 qDebug() << e.message();
-                emit this->errorOccurred(SERVER_ERROR);
+                emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
             }
         }
         else
@@ -241,7 +241,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit this->errorOccurred(SERVER_ERROR);
+            emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
         }
         return;
     }
@@ -256,7 +256,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
         catch(SynchronizeStateException e)
         {
             qDebug() << e.message();
-            emit this->errorOccurred(SERVER_ERROR);
+            emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
         }
         return;
     }

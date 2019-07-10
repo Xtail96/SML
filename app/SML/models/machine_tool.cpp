@@ -18,6 +18,8 @@ MachineTool::MachineTool(QObject *parent) :
 {
     this->setupConnections();
     this->startAdapterServer();
+    this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
+    this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
 }
 
 MachineTool::~MachineTool()

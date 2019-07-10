@@ -2,7 +2,7 @@
 
 ErrorFlagsMonitor::ErrorFlagsMonitor(SmlErrorFlags *flags, QObject *parent) : QObject(parent)
 {
-    QObject::connect(flags, SIGNAL(stateChaged()), this, SLOT(onSmlErrorFlags_StateChaged()));
+    QObject::connect(flags, SIGNAL(stateChanged()), this, SLOT(onSmlErrorFlags_StateChaged()));
 }
 
 void ErrorFlagsMonitor::onSmlErrorFlags_StateChaged()
