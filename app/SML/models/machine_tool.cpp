@@ -4,6 +4,8 @@ MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_repository(new Repository(this)),
     m_adapterServer(new SMLServer(m_repository->m_port, this)),
+    m_errors(new SmlErrorFlags(this)),
+    m_errorFlagsMonitor(new ErrorFlagsMonitor(m_errors.data(), this)),
     m_adaptersMonitor(new AdaptersMonitor(m_repository->m_u1Adapter.data(),
                                                m_repository->m_u2Adapter.data(),
                                                this)),
@@ -12,7 +14,6 @@ MachineTool::MachineTool(QObject *parent) :
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
     m_axisesMonitor(new AxisesMonitor(m_repository->m_axises, this)),
-    m_lastError(DISCONNECTED), // нет связи со станком
     m_executionQueue(QQueue<QByteArray>())
 {
     this->setupConnections();
@@ -53,6 +54,8 @@ void MachineTool::setupConnections()
                      this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::connect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
+    QObject::connect(m_errorFlagsMonitor.data(), SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged()));
+
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
     QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
 
@@ -80,6 +83,8 @@ void MachineTool::resetConnections()
                      this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
     QObject::disconnect(m_adapterServer.data(), SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
 
+    QObject::disconnect(m_errorFlagsMonitor.data(), SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged()));
+
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
     QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
 
@@ -93,16 +98,32 @@ void MachineTool::resetConnections()
     QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
 }
 
-ERROR_CODE MachineTool::checkMachineToolState()
+void MachineTool::fixErrors()
 {
-    if(!this->checkAdapterConnections()) return ERROR_CODE::DISCONNECTED;
-
-    return ERROR_CODE::OK;
-}
-
-bool MachineTool::checkAdapterConnections()
-{
-    return (m_repository->m_u1Adapter->connectionState() && m_repository->m_u2Adapter->connectionState());
+    QList<ERROR_CODE> currentErrors = m_errors->getCurrentErrorFlags();
+    for(ERROR_CODE error : currentErrors)
+    {
+        switch (error)
+        {
+        case ERROR_CODE::INVALID_SETTINGS:
+            break;
+        case ERROR_CODE::OK:
+            break;
+        case ERROR_CODE::PROGRAM_EXECUTION_ERROR:
+            m_executionQueue.clear();
+            emit this->taskCompletedWithErrors();
+            this->removeErrorFlag(error);
+            break;
+        case ERROR_CODE::SYNC_STATE_ERROR:
+            break;
+        case ERROR_CODE::U1_DISCONNECTED:
+            break;
+        case ERROR_CODE::U2_DISCONNECTED:
+            break;
+        case ERROR_CODE::UNKNOWN_ERROR:
+            break;
+        }
+    }
 }
 
 void MachineTool::startAdapterServer()
@@ -114,7 +135,7 @@ void MachineTool::startAdapterServer()
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::startAdapterServer: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(UNKNOWN_ERROR);
     }
 }
 
@@ -127,7 +148,7 @@ void MachineTool::stopAdapterServer()
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::stopAdapterServer: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(UNKNOWN_ERROR);
     }
 }
 
@@ -142,7 +163,7 @@ QStringList MachineTool::getConnectedAdapters()
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::getConnectedAdapters: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(UNKNOWN_ERROR);
     }
 
     return result;
@@ -159,55 +180,34 @@ QString MachineTool::getAdapterServerPort()
     catch (...)
     {
         qDebug() << QStringLiteral("MachineTool::getAdapterServerPort: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(UNKNOWN_ERROR);
     }
 
     return result;
 }
 
-ERROR_CODE MachineTool::getLastError()
+QList<ERROR_CODE> MachineTool::getCurrentErrorFlags()
 {
-    return m_lastError;
+    return m_errors->getCurrentErrorFlags();
 }
 
-void MachineTool::setLastError(ERROR_CODE value)
+void MachineTool::setErrorFlag(ERROR_CODE code)
 {
-    if(m_lastError == value)
-    {
-        emit this->errorStateChanged(m_lastError);
-        return;
-    }
-    qDebug() << "MachineTool::setLastError: NEW_ERROR_CODE =" << value;
+    qDebug() << "MachineTool::setLastError: ERROR_CODE =" << code;
+    m_errors->insertErrorFlag(code);
+    this->fixErrors();
+}
 
-    switch (value)
-    {
-        case OK:
-            break;
-        case REPOSITORY_ERROR:
-            /*
-             * toDo: вызов интерактора (обработчика ошибки такого класса)
-             */
-            break;
-        case DISCONNECTED:
-            m_executionQueue.clear();
-            break;
-        default:
-            break;
-    }
-
-    // вызов метода для проверки всех систем станка,
-    // чтобы убедиться какой код ошибки нужно выставить в действительности
-    qDebug() << "MachineTool::setLastError: checkMachineToolState started";
-    m_lastError = this->checkMachineToolState();
-    qDebug() << "MachineTool::setLastError: checkMachineToolState finished with ERROR_CODE =" << m_lastError;
-    emit this->errorStateChanged(m_lastError);
+void MachineTool::removeErrorFlag(ERROR_CODE code)
+{
+    m_errors->dropErrorFlag(code);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
 {
     try
     {
-        if(m_lastError != OK)
+        if(m_errors->isSystemHasErrors())
         {
             return;
         }
@@ -217,7 +217,7 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::switchSpindelOn: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
     }
 }
 
@@ -225,7 +225,7 @@ void MachineTool::switchSpindelOff(QString uid)
 {
     try
     {
-        if(m_lastError != OK)
+        if(m_errors->isSystemHasErrors())
         {
             return;
         }
@@ -235,13 +235,13 @@ void MachineTool::switchSpindelOff(QString uid)
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::switchSpindelOff: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
     }
 }
 
 void MachineTool::startProgramProcessing()
 {
-    if(m_lastError == ERROR_CODE::OK)
+    if(!m_errors->isSystemHasErrors())
     {
         m_executionQueue.clear();
         try
@@ -250,12 +250,12 @@ void MachineTool::startProgramProcessing()
         }
         catch(InvalidArgumentException e)
         {
-            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
             qDebug() << "MachineTool::startProgramProcessing:" <<  e.what();
         }
         catch(...)
         {
-            this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
             qDebug() << "MachineTool::startProgramProcessing: unknown error";
         }
 
@@ -283,9 +283,14 @@ void MachineTool::stopProgramProcessing()
     // kill adapter and terminate controller;
 }
 
-void MachineTool::onRepository_ErrorOccurred(ERROR_CODE code)
+void MachineTool::onRepository_ErrorOccurred(ERROR_CODE flag)
 {
-    this->setLastError(code);
+    this->setErrorFlag(flag);
+}
+
+void MachineTool::onErrorFlagsMonitor_ErrorFlagsStateChanged()
+{
+    emit this->errorStateChanged(m_errors->getCurrentErrorFlags());
 }
 
 void MachineTool::onAdapterServer_U1Connected()
@@ -304,7 +309,7 @@ void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<
 {
     //qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
     //         << lastError << sensors << devices << workflowState;
-    this->setLastError(lastError);
+    this->setErrorFlag(lastError);
     m_repository->setU1Sensors(sensors);
     m_repository->setU1Devices(devices);
     m_repository->setU1WorkflowState(workflowState);
@@ -324,7 +329,7 @@ void MachineTool::onAdapterServer_U2Disconnected()
 
 void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError)
 {
-    this->setLastError(lastError);
+    this->setErrorFlag(lastError);
     m_repository->setU2WorkflowState(workflowState);
     m_repository->setCurrentCoordinates(coordinates);
 }
@@ -332,7 +337,7 @@ void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinat
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
 {
     qDebug() << "MachineTool::onAdapterServer_ErrorOccurred" << errorCode;
-    this->setLastError(errorCode);
+    this->setErrorFlag(errorCode);
 }
 
 void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
@@ -342,21 +347,32 @@ void MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged()
         bool u1 = m_repository->m_u1Adapter->connectionState();
         bool u2 = m_repository->m_u2Adapter->connectionState();
 
-        if(u1 && u2)
+        if(u1)
         {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: CONNECTED";
-            this->setLastError(OK);
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U1_DISCONNECTED = false";
+            this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED);
         }
         else
         {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: DISCONNECTED";
-            this->setLastError(DISCONNECTED);
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U1_DISCONNECTED = true";
+            this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
+        }
+
+        if(u2)
+        {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U2_DISCONNECTED = false";
+            this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+        }
+        else
+        {
+            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U2_DISCONNECTED = true";
+            this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
         }
     }
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -383,7 +399,7 @@ void MachineTool::onSensorMonitor_StateChanged(QString sensorUid, bool state)
     catch(...)
     {
         qDebug() << QStringLiteral("MachineTool::onSensorMonitor_StateChanged: unknown error");
-        this->setLastError(ROUTER_ERROR);
+        this->setErrorFlag(UNKNOWN_ERROR);
     }
 }
 
@@ -409,13 +425,11 @@ void MachineTool::onAxisesMonitor_AxisCurrentPositionChanged(QString, double)
 
 void MachineTool::sendNextCommand()
 {
-    if(m_lastError != ERROR_CODE::OK)
+    if(m_errors->isSystemHasErrors())
     {
-        qDebug() << "MachineTool::sendNextCommand: error is occured during program processing. Code =" << m_lastError;
-        m_executionQueue.clear();
+        qDebug() << "MachineTool::sendNextCommand: error is occured during program processing.";
         QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
-        this->setLastError(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-        emit this->taskCompletedWithErrors();
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
     }
 

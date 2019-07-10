@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //updateServerPanel();
 
     MachineTool& machineTool = MachineTool::getInstance();
-    this->onMachineTool_ErrorStateChanged(machineTool.getLastError());
+    this->onMachineTool_ErrorStateChanged(machineTool.getCurrentErrorFlags());
 }
 
 MainWindow::~MainWindow()
@@ -507,7 +507,7 @@ void MainWindow::onMachineTool_TaskCompletedSuccesfully()
 void MainWindow::onMachineTool_TaskCompletedWithErrors()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    QMessageBox(QMessageBox::Information, "Ошибка", "Выполнение задания завершено с ошибкой. Код ошибки = " + QString::number(machineTool.getLastError())).exec();
+    QMessageBox(QMessageBox::Information, "Ошибка", "Выполнение задания завершено с ошибкой. Код ошибки = " + QString::number(machineTool.getCurrentErrorFlags())).exec();
 }
 
 void MainWindow::onMachineTool_CurrentCoordinatesChanged()

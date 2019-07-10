@@ -102,7 +102,9 @@ SOURCES += main.cpp\
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/program/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
-    models/services/axises/monitor/axises_monitor.cpp
+    models/services/axises/monitor/axises_monitor.cpp \
+    models/types/errors/sml_error_flags.cpp \
+    models/services/errors/error_flags_monitor.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -169,12 +171,13 @@ HEADERS  += gui/mainwindow.h \
     models/types/gcodes/file_reader/file_reader.h \
     models/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
-    models/utils/error_codes/error_codes.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/program/prepare_execution_queue_interactor.h \
     models/server/u2_state.h \
     gui/program_processing_dialog.h \
-    models/services/axises/monitor/axises_monitor.h
+    models/services/axises/monitor/axises_monitor.h \
+    models/types/errors/sml_error_flags.h \
+    models/services/errors/error_flags_monitor.h
 
 FORMS    += gui/mainwindow.ui \
     gui/candle_visualizer_dialog.ui \

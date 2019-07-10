@@ -12,6 +12,23 @@ typedef unsigned char byte;
 typedef QList<byte> byte_array;
 
 /*!
+ * \brief Коды всех возможных ошибок
+ * (нужны для более строгой работы с ошибками, транслируются в SmlErrorFlags в
+ * MachineTool::setErrorFlag(ERROR_CODE e))
+ */
+enum ERROR_CODE
+{
+    OK,
+    INVALID_SETTINGS,
+    U1_DISCONNECTED,
+    U2_DISCONNECTED,
+    SYNC_STATE_ERROR,
+    PROGRAM_EXECUTION_ERROR,
+    UNKNOWN_ERROR
+};
+
+
+/*!
  * \brief Объект "Имена осей"
  * \brief Данная структура содержит список всех доступных осей и их имен для использования в системе управления.
  * \warning Имена оси - заглавне латинские буквы;

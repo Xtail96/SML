@@ -12,7 +12,6 @@
 #include "models/types/structs.h"
 #include "models/server/u1_state.h"
 #include "models/server/u2_state.h"
-#include "models/utils/error_codes/error_codes.h"
 
 /**
  * @brief Класс SML-сервер
