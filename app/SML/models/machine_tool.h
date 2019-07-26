@@ -234,6 +234,9 @@ public slots:
     void resumeProgramProcessing();
     void stopProgramProcessing();
 
+    void moveAlongAxis(QString axisUid, double distance);
+    void moveToPoint(Point point);
+
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE flag);
 

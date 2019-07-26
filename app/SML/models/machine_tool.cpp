@@ -302,6 +302,46 @@ void MachineTool::stopProgramProcessing()
     // kill adapter and terminate controller;
 }
 
+void MachineTool::moveAlongAxis(QString axisUid, double distance)
+{
+
+}
+
+void MachineTool::moveToPoint(Point pointFromBase)
+{
+    QString gcode = "G1 ";
+    for(size_t i = 0; i < pointFromBase.size(); i++)
+    {
+        gcode += SML_AXISES_NAMES.getNameByKey(i) + QString::number(pointFromBase.get(i)) + " ";
+    }
+    gcode += "F" + QString::number(m_repository->getVelocity());
+
+    if(!m_errors->isSystemHasErrors())
+    {
+        m_executionQueue.clear();
+        try
+        {
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(QStringList {gcode});
+        }
+        catch(InvalidArgumentException e)
+        {
+            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::moveToPoint:" <<  e.what();
+        }
+        catch(...)
+        {
+            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+            qDebug() << "MachineTool::moveToPoint: unknown error";
+        }
+
+        /*for(auto item : m_executionQueue)
+        {
+            qDebug() << QString::fromUtf8(item);
+        }*/
+        this->resumeProgramProcessing();
+    }
+}
+
 void MachineTool::onRepository_ErrorOccurred(ERROR_CODE flag)
 {
     this->setErrorFlag(flag);
