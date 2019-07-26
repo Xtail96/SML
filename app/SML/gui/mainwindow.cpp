@@ -120,6 +120,7 @@ void MainWindow::setupConnections()
     QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
     QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
     QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
+    QObject::connect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool)));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -195,6 +196,7 @@ void MainWindow::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
     QObject::disconnect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
     QObject::disconnect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
+    QObject::disconnect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool)));
 
     /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -276,6 +278,18 @@ void MainWindow::onMachineTool_SpindelStateChanged(QString index, bool enable, s
     {
         SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(spindelIndex))));
         widget->updateControls(enable, rotations);
+    }
+}
+
+void MainWindow::onMachineTool_BasingStateChanged(bool state)
+{
+    if(state)
+    {
+        this->enableMotionWidgets();
+    }
+    else
+    {
+        this->disableMotionWidgets();
     }
 }
 
@@ -599,47 +613,16 @@ void MainWindow::onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors)
     ui->parkCoordinatesListWidget->setEnabled(enableWidgets);
     ui->edgesControlCheckBox->setEnabled(enableWidgets);
 
-    ui->movementXNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXPositivePushButton->setEnabled(enableWidgets);
-    ui->movementXNegativeYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXNegativeYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementXPositiveYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXPositiveYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementZNegativePushButton->setEnabled(enableWidgets);
-    ui->movementZPositivePushButton->setEnabled(enableWidgets);
-    ui->movementANegativePushButton->setEnabled(enableWidgets);
-    ui->movementAPositivePushButton->setEnabled(enableWidgets);
-    ui->movementBNegativePushButton->setEnabled(enableWidgets);
-    ui->movementBPositivePushButton->setEnabled(enableWidgets);
-    ui->movementCNegativePushButton->setEnabled(enableWidgets);
-    ui->movementCPositivePushButton->setEnabled(enableWidgets);
-    ui->movementDNegativePushButton->setEnabled(enableWidgets);
-    ui->movementDPositivePushButton->setEnabled(enableWidgets);
-
-    for(auto shortcut : m_axisesShortcuts)
-    {
-        shortcut->setEnabled(enableWidgets);
-    }
-
-    ui->discreteRadioButton_1->setEnabled(enableWidgets);
-    ui->discreteRadioButton_2->setEnabled(enableWidgets);
-    ui->discreteRadioButton_3->setEnabled(enableWidgets);
-    ui->discreteRadioButton_4->setEnabled(enableWidgets);
-    ui->discreteRadioButton_5->setEnabled(enableWidgets);
-
-    ui->feedrateScrollBar->setEnabled(enableWidgets);
-    ui->feedrateLcdNumber->setEnabled(enableWidgets);
-
     ui->toBasePushButton->setEnabled(enableWidgets);
-    ui->toZeroPushButton->setEnabled(enableWidgets);
-    ui->toParkPushButton->setEnabled(enableWidgets);
-    ui->zeroPushButton->setEnabled(enableWidgets);
-    ui->zeroSensorPushButton->setEnabled(enableWidgets);
-    ui->parkPushButton->setEnabled(enableWidgets);
 
-    ui->runPushButton->setEnabled(enableWidgets);
+    if(enableWidgets && machineTool.getBased())
+    {
+        this->enableMotionWidgets();
+    }
+    else
+    {
+        this->disableMotionWidgets();
+    }
 }
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
@@ -680,6 +663,60 @@ void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
         (*i)->setAutoRepeat(state);
+}
+
+void MainWindow::enableMotionWidgets()
+{
+    this->setMotionWidgetsState(true);
+}
+
+void MainWindow::disableMotionWidgets()
+{
+    this->setMotionWidgetsState(false);
+}
+
+void MainWindow::setMotionWidgetsState(bool enableWidgets)
+{
+    ui->movementXNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXPositivePushButton->setEnabled(enableWidgets);
+    ui->movementXNegativeYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXNegativeYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementXPositiveYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementXPositiveYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementYNegativePushButton->setEnabled(enableWidgets);
+    ui->movementYPositivePushButton->setEnabled(enableWidgets);
+    ui->movementZNegativePushButton->setEnabled(enableWidgets);
+    ui->movementZPositivePushButton->setEnabled(enableWidgets);
+    ui->movementANegativePushButton->setEnabled(enableWidgets);
+    ui->movementAPositivePushButton->setEnabled(enableWidgets);
+    ui->movementBNegativePushButton->setEnabled(enableWidgets);
+    ui->movementBPositivePushButton->setEnabled(enableWidgets);
+    ui->movementCNegativePushButton->setEnabled(enableWidgets);
+    ui->movementCPositivePushButton->setEnabled(enableWidgets);
+    ui->movementDNegativePushButton->setEnabled(enableWidgets);
+    ui->movementDPositivePushButton->setEnabled(enableWidgets);
+
+    for(auto shortcut : m_axisesShortcuts)
+    {
+        shortcut->setEnabled(enableWidgets);
+    }
+
+    ui->discreteRadioButton_1->setEnabled(enableWidgets);
+    ui->discreteRadioButton_2->setEnabled(enableWidgets);
+    ui->discreteRadioButton_3->setEnabled(enableWidgets);
+    ui->discreteRadioButton_4->setEnabled(enableWidgets);
+    ui->discreteRadioButton_5->setEnabled(enableWidgets);
+
+    ui->feedrateScrollBar->setEnabled(enableWidgets);
+    ui->feedrateLcdNumber->setEnabled(enableWidgets);
+
+    ui->toZeroPushButton->setEnabled(enableWidgets);
+    ui->toParkPushButton->setEnabled(enableWidgets);
+    ui->zeroPushButton->setEnabled(enableWidgets);
+    ui->zeroSensorPushButton->setEnabled(enableWidgets);
+    ui->parkPushButton->setEnabled(enableWidgets);
+
+    ui->runPushButton->setEnabled(enableWidgets);
 }
 
 void MainWindow::on_discreteRadioButton_1_clicked()
@@ -1313,4 +1350,10 @@ void MainWindow::on_runPushButton_clicked()
     }
 
     ProgramProcessingDialog(this).exec();
+}
+
+void MainWindow::on_toBasePushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.setBased(true);
 }

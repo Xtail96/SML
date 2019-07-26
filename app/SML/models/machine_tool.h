@@ -94,6 +94,9 @@ public:
 
     void removeErrorFlag(ERROR_CODE code);
 
+    bool getBased() const;
+    void setBased(bool based);
+
 private:
 
     /// Репозиторий, хранящий текущее состояние систем станка
@@ -129,6 +132,9 @@ private:
 
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
+
+    /// Проводилась ли базировка станка (можно ли доверять координатам осей)
+    bool m_based;
 
     /**
      * @brief Создает объект класса станок
@@ -206,6 +212,8 @@ signals:
     void taskCompletedWithErrors();
 
     void currentCoordinatesChanged();
+
+    void basingStateChanged(bool m_state);
 
 public slots:
     /**

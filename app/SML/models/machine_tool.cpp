@@ -14,12 +14,14 @@ MachineTool::MachineTool(QObject *parent) :
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
     m_axisesMonitor(new AxisesMonitor(m_repository->m_axises, this)),
-    m_executionQueue(QQueue<QByteArray>())
+    m_executionQueue(QQueue<QByteArray>()),
+    m_based(false)
 {
     this->setupConnections();
     this->startAdapterServer();
     this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
     this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+    //this->setBased(false);
 }
 
 MachineTool::~MachineTool()
@@ -117,12 +119,15 @@ void MachineTool::fixErrors()
             this->removeErrorFlag(error);
             break;
         case ERROR_CODE::SYNC_STATE_ERROR:
+            this->setBased(false);
             break;
         case ERROR_CODE::U1_DISCONNECTED:
             break;
         case ERROR_CODE::U2_DISCONNECTED:
+            this->setBased(false);
             break;
         case ERROR_CODE::UNKNOWN_ERROR:
+            this->setBased(false);
             break;
         }
     }
@@ -195,14 +200,26 @@ QList<ERROR_CODE> MachineTool::getCurrentErrorFlags()
 
 void MachineTool::setErrorFlag(ERROR_CODE code)
 {
-    qDebug() << "MachineTool::setLastError: ERROR_CODE =" << code;
+    qDebug() << "MachineTool::setErrorFlag: ERROR_CODE =" << code;
     m_errors->insertErrorFlag(code);
     this->fixErrors();
 }
 
 void MachineTool::removeErrorFlag(ERROR_CODE code)
 {
+    qDebug() << "MachineTool::removeErrorFlag: ERROR_CODE =" << code;
     m_errors->dropErrorFlag(code);
+}
+
+bool MachineTool::getBased() const
+{
+    return m_based;
+}
+
+void MachineTool::setBased(bool based)
+{
+    m_based = based;
+    emit this->basingStateChanged(m_based);
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
@@ -440,6 +457,14 @@ void MachineTool::sendNextCommand()
         qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
         QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
         emit this->taskCompletedSuccesfully();
+        return;
+    }
+
+    if(!m_based)
+    {
+        qDebug() << "MachineTool::sendNextCommand: machine tool is not based";
+        QMessageBox(QMessageBox::Warning, "", "Базировка станка не проведена").exec();
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
     }
 
