@@ -31,7 +31,7 @@ void Repository::setU1ConnectState(bool connected)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU1ConnectState: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -44,7 +44,7 @@ void Repository::setU1WorkflowState(unsigned int state)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU1WorkflowState: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -57,7 +57,7 @@ void Repository::setU2ConnectState(bool connected)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU2ConnectState: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -70,7 +70,7 @@ void Repository::setU2WorkflowState(unsigned int state)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU2WorkflowState: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -96,12 +96,12 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
     catch(SynchronizeStateException e)
     {
         qDebug() << QStringLiteral("Repository::setU1Sensors:") << e.message();
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
     }
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU1Sensors: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -134,12 +134,12 @@ void Repository::setU1Devices(QList<QVariant> devices)
     catch (SynchronizeStateException e)
     {
         qDebug() << QStringLiteral("Repository::setU1Devices:") << e.message();
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::SYNC_STATE_ERROR);
     }
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setU1Devices: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -161,7 +161,7 @@ QStringList Repository::getAllDevicesLabels()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllDevicesLabels: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return names;
@@ -181,7 +181,7 @@ QStringList Repository::getAllSpindelsSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllSpindelsSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return spindelsSettings;
@@ -201,7 +201,7 @@ QStringList Repository::getAllSupportDeviceSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::supportDevicesSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return supportDevicesSettings;
@@ -225,7 +225,7 @@ QStringList Repository::getAllOnScreenDevicesLabels()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllOnScreenDevicesLabels: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return names;
@@ -249,7 +249,7 @@ QMap<QString, bool> Repository::getAllOnScreenDevicesStates()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllOnScreenDevicesStates: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return onScreenDevices;
@@ -269,7 +269,7 @@ QStringList Repository::getAllSensorsUids()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllSensorsUids: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return uids;
@@ -296,12 +296,12 @@ QMap<QString, QString> Repository::getSensorSettings(QString uid)
     catch(InvalidArgumentException e)
     {
         qDebug() << QStringLiteral("Repository::getSensorSettings:") << e.message();
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getSensorSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return sensorsSettingsMap;
@@ -321,7 +321,7 @@ QStringList Repository::getAllSensorsSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAllSensorsSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return settings;
@@ -336,7 +336,7 @@ void Repository::setGCodes(const QString &data)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setGCodes: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -351,7 +351,7 @@ QStringList Repository::getGCodesProgram()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getGCodesProgram: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -370,7 +370,7 @@ QList<Point> Repository::getCurrentCoordinates()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getMachineToolCoordinates: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return currentCoordinates;
@@ -413,7 +413,7 @@ QStringList Repository::getAxisesNames()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAxisesNames: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return names;
@@ -433,7 +433,7 @@ QStringList Repository::getAxisesSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getAxisesSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return axisesSettings;
@@ -462,7 +462,7 @@ void Repository::addPoint(QStringList coordinates)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", "Не удалось добавить точку").exec();
         qDebug() << QStringLiteral("Repository::addPoint: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -477,7 +477,7 @@ QList<QStringList> Repository::getPoints()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getPoints: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -494,7 +494,7 @@ QStringList Repository::getPoint(unsigned int index)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getPoint: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -511,12 +511,12 @@ void Repository::deletePoint(unsigned int index)
     {
         QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
         qDebug() << QStringLiteral("Repository::deletePoint:") << e.message();
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::deletePoint: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -529,7 +529,7 @@ void Repository::updatePoint(QStringList coordinates, unsigned int index)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::updatePoint: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -554,7 +554,7 @@ QString Repository::getFilePath(QString type)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getFilePath: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return path;
@@ -572,7 +572,7 @@ void Repository::setSoftLimitsMode(bool enable)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setSoftLimitsMode: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -587,7 +587,7 @@ QString Repository::getServerPort()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getServerPort: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -604,7 +604,7 @@ QString Repository::getSensorsBufferSize()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getSensorsBufferSize: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -621,7 +621,7 @@ QString Repository::getDevicesBufferSize()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getDevicesBufferSize: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -641,7 +641,7 @@ QList<Spindel *> Repository::getSpindels()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getSpindels: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return spindels;
@@ -659,7 +659,7 @@ void Repository::setSpindelState(QString uid, bool enable, size_t rotations)
         QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
         qDebug() << QStringLiteral("Repository::setSpindelState") << e.message();
 
-        emit errorOccurred(REPOSITORY_ERROR);
+        emit errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -673,7 +673,7 @@ void Repository::exportSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::exportSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -687,7 +687,7 @@ void Repository::importSettings()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::importSettings: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -700,7 +700,7 @@ void Repository::openGCodesFile()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::openGCodesFile: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -714,7 +714,7 @@ void Repository::saveGCodesFile(const QString data)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::saveGCodesFile: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -728,7 +728,7 @@ void Repository::saveGCodesFileAs(const QString data)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::saveGCodesFileAs: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -741,7 +741,7 @@ void Repository::newGCodesFile()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::newGCodesFile: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -755,7 +755,7 @@ void Repository::addGCodesFile(const QString data)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::addGCodesFile: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -773,7 +773,7 @@ void Repository::setVelocity(double velocity)
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::setVelocity: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 }
 
@@ -797,7 +797,7 @@ void Repository::loadServerSettings()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка инициализации", QString("Ошибка инициализации порта сервера") + QString(e.message())).exec();
         qDebug() << QStringLiteral("Repository::loadServerSettings:") << e.message();
-        emit this->errorOccurred(SETTINGS_ERROR);
+        emit this->errorOccurred(ERROR_CODE::INVALID_SETTINGS);
         //qApp->exit(0);
     }
 }
@@ -843,7 +843,7 @@ void Repository::loadSensorsSettings()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка настроек датчиков", e.message()).exec();
         qDebug() << QStringLiteral("Repository::loadSensorsSettings:") << e.message();
-        emit this->errorOccurred(SETTINGS_ERROR);
+        emit this->errorOccurred(ERROR_CODE::INVALID_SETTINGS);
         //qApp->exit(0);
     }
 }
@@ -894,7 +894,7 @@ void Repository::loadDevicesSettings()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка настроек устройств", e.message()).exec();
         qDebug() << QStringLiteral("Repository::loadDevicesSettings:") << e.message();
-        emit this->errorOccurred(SETTINGS_ERROR);
+        emit this->errorOccurred(ERROR_CODE::INVALID_SETTINGS);
         //qApp->exit(0);
     }
 }
@@ -925,7 +925,7 @@ void Repository::loadAxisesSettings()
     {
         QMessageBox(QMessageBox::Warning, "Ошибка настроек осей", QString(e.message())).exec();
         qDebug() << QStringLiteral("Repository::loadAxisesSettings:") << e.message();
-        emit this->errorOccurred(SETTINGS_ERROR);
+        emit this->errorOccurred(ERROR_CODE::INVALID_SETTINGS);
         //qApp->exit(0);
     }
 }
@@ -946,7 +946,7 @@ Point Repository::getCurrentCoordinatesFromBase()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromBase: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;
@@ -971,7 +971,7 @@ Point Repository::getCurrentCoordinatesFromZero()
     catch(...)
     {
         qDebug() << QStringLiteral("Repository::getCurrentCoordinatesFromZero: unknown error");
-        emit this->errorOccurred(REPOSITORY_ERROR);
+        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
     return result;

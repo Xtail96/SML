@@ -15,6 +15,7 @@
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
 #include "models/services/program/prepare_execution_queue_interactor.h"
 #include "models/services/axises/monitor/axises_monitor.h"
+#include "models/services/errors/error_flags_monitor.h"
 
 /**
  * @brief Класс станок
@@ -80,16 +81,21 @@ public:
     QString getAdapterServerPort();
 
     /**
-     * @brief Возвращает код последней ошибки
-     * @return код ошибки
+     * @brief Возвращает код ошибок
+     * @return код ошибок
      */
-    ERROR_CODE getLastError();
+    QList<ERROR_CODE> getCurrentErrorFlags();
 
     /**
-     * @brief Устанавливает значение последней ошибки
-     * @param value код ошибки
+     * @brief Устанавливает значение ошибки
+     * @param code код ошибки
      */
-    void setLastError(ERROR_CODE value);
+    void setErrorFlag(ERROR_CODE code);
+
+    void removeErrorFlag(ERROR_CODE code);
+
+    bool getBased() const;
+    void setBased(bool based);
 
 private:
 
@@ -98,6 +104,13 @@ private:
 
     /// Сервер для подключения адаптеров
     QScopedPointer<SMLServer> m_adapterServer;
+
+    /// Ошибки возникшие при работе системы
+    /// Данную переменную необходимо проверять, при отправке данных на станок.
+    QScopedPointer<SmlErrorFlags> m_errors;
+
+    /// Монитор ошибок
+    QScopedPointer<ErrorFlagsMonitor> m_errorFlagsMonitor;
 
     /// Монитор текущих подключений к серверу адаптеров
     QScopedPointer<AdaptersMonitor> m_adaptersMonitor;
@@ -117,14 +130,11 @@ private:
     /// Монитор осей координат
     QScopedPointer<AxisesMonitor> m_axisesMonitor;
 
-    /// Код последней возникшей ошибки
-    /// Данную переменную необходимо проверять, при отправке данных на станок.
-    /// 0 - ошибок нет.
-    /// (0;255] - коды ошибок. Описаны в соотвествующем файле.
-    ERROR_CODE m_lastError;
-
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
+
+    /// Проводилась ли базировка станка (можно ли доверять координатам осей)
+    bool m_based;
 
     /**
      * @brief Создает объект класса станок
@@ -152,16 +162,13 @@ private:
      */
     void resetConnections();
 
-    ERROR_CODE checkMachineToolState();
-
-    bool checkAdapterConnections();
+    void fixErrors();
 
 signals:
     /**
      * @brief Сигнал изменения состояния ошибки в работе станка
-     * @param code - код ошибки
      */
-    void errorStateChanged(ERROR_CODE code);
+    void errorStateChanged(QList<ERROR_CODE> errors);
 
     /**
      * @brief Сигнал изменения состояния датчика
@@ -206,6 +213,8 @@ signals:
 
     void currentCoordinatesChanged();
 
+    void basingStateChanged(bool m_state);
+
 public slots:
     /**
      * @brief Запускает сценарий включения шпинделя
@@ -226,7 +235,9 @@ public slots:
     void stopProgramProcessing();
 
 private slots:
-    void onRepository_ErrorOccurred(ERROR_CODE code);
+    void onRepository_ErrorOccurred(ERROR_CODE flag);
+
+    void onErrorFlagsMonitor_ErrorFlagsStateChanged();
 
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1

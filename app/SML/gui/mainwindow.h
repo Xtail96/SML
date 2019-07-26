@@ -129,14 +129,20 @@ private:
     void setMovementButtonsShortcutsAutoRepeat(bool state);
     void setMovementButtonsRepeatAutoRepeat(bool state);
 
+    void enableMotionWidgets();
+    void disableMotionWidgets();
+    void setMotionWidgetsState(bool enableWidgets);
+
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
-    void onMachineTool_ErrorStateChanged(ERROR_CODE errorCode);
+    void onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors);
 
     /// слот для обновления дисплея датчиков
     void onMachineTool_SensorStateChanged(QString name, bool state);
 
     void onMachineTool_SpindelStateChanged(QString index, bool enable, size_t rotations);
+
+    void onMachineTool_BasingStateChanged(bool state);
 
     /// Слот для обновления дисплея координат
     void updateCoordinatesDisplays();
@@ -210,6 +216,7 @@ private slots:
     void on_edgesControlCheckBox_clicked();
     void on_syntaxHighlightingCheckBox_clicked();
     void on_runPushButton_clicked();
+    void on_toBasePushButton_clicked();
 };
 
 
