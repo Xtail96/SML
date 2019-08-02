@@ -60,8 +60,8 @@ void MachineTool::setupConnections()
 
     QObject::connect(m_errorFlagsMonitor.data(), SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged()));
 
-    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
-    QObject::connect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
+    QObject::connect(m_adaptersMonitor.data(), SIGNAL(adapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
+    QObject::connect(m_adaptersMonitor.data(), SIGNAL(adapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
 
     QObject::connect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::connect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -89,8 +89,8 @@ void MachineTool::resetConnections()
 
     QObject::disconnect(m_errorFlagsMonitor.data(), SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged()));
 
-    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
-    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(AdapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
+    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(adapterConnectionStateChanged()), this, SLOT(onAdaptersMonitor_AdapterConnectionStateChanged()));
+    QObject::disconnect(m_adaptersMonitor.data(), SIGNAL(adapterWorkflowStateChanged()), this, SLOT(onAdaptersMonitor_AdapterWorkflowStateChanged()));
 
     QObject::disconnect(m_pointsMonitor.data(), SIGNAL(pointsUpdated()), this, SLOT(onPointsMonitor_PointsUpdated()));
     QObject::disconnect(m_sensorsMonitor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensorMonitor_StateChanged(QString,bool)));
@@ -260,44 +260,65 @@ void MachineTool::switchSpindelOff(QString uid)
 
 void MachineTool::startProgramProcessing()
 {
-    if(!m_errors->isSystemHasErrors())
+    try
     {
-        m_executionQueue.clear();
-        try
+        if(this->prepareExecutionQueue(m_repository->getGCodesProgram()))
         {
-            m_executionQueue = PrepareExecutionQueueInteractor::execute(m_repository->getGCodesProgram());
+            this->resumeExecutionQueueProcessing();
         }
-        catch(InvalidArgumentException e)
+        else
         {
+            QMessageBox(QMessageBox::Warning, "Ошибка подготовки УП", "Произошла ошибка при подготовке УП к исполнению.").exec();
             this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::startProgramProcessing:" <<  e.what();
         }
-        catch(...)
-        {
-            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::startProgramProcessing: unknown error";
-        }
-
-        /*for(auto item : m_executionQueue)
-        {
-            qDebug() << QString::fromUtf8(item);
-        }*/
-        this->resumeProgramProcessing();
+    }
+    catch(InvalidArgumentException e)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::startProgramProcessing:" <<  e.what();
+    }
+    catch(...)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::startProgramProcessing: unknown error";
     }
 }
 
-void MachineTool::pauseProgramProcessing()
+bool MachineTool::prepareExecutionQueue(QStringList gcodes)
+{
+    try
+    {
+        m_executionQueue.clear();
+        if(!m_errors->isSystemHasErrors())
+        {
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(gcodes);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    catch(...)
+    {
+        qDebug() << "MachineTool::prepareExecutionQueue: unknown error";
+        m_executionQueue.clear();
+        return false;
+    }
+}
+
+void MachineTool::pauseExecutionQueueProcessing()
 {
     QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
 }
 
-void MachineTool::resumeProgramProcessing()
+void MachineTool::resumeExecutionQueueProcessing()
 {
     QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
     this->sendNextCommand();
 }
 
-void MachineTool::stopProgramProcessing()
+void MachineTool::stopExecutionQueueProcessing()
 {
     // kill adapter and terminate controller;
 }
@@ -309,36 +330,29 @@ void MachineTool::moveAlongAxis(QString axisUid, double distance)
 
 void MachineTool::moveToPoint(Point pointFromBase)
 {
-    QString gcode = "G1 ";
-    for(size_t i = 0; i < pointFromBase.size(); i++)
+    try
     {
-        gcode += SML_AXISES_NAMES.getNameByKey(i) + QString::number(pointFromBase.get(i)) + " ";
+        QString gcode = "G1 ";
+        for(size_t i = 0; i < pointFromBase.size(); i++)
+        {
+            gcode += SML_AXISES_NAMES.getNameByKey(i) + QString::number(pointFromBase.get(i)) + " ";
+        }
+        gcode += "F" + QString::number(m_repository->getVelocity());
+
+        if(this->prepareExecutionQueue(QStringList {gcode}))
+        {
+            this->resumeExecutionQueueProcessing();
+        }
     }
-    gcode += "F" + QString::number(m_repository->getVelocity());
-
-    if(!m_errors->isSystemHasErrors())
+    catch(InvalidArgumentException e)
     {
-        m_executionQueue.clear();
-        try
-        {
-            m_executionQueue = PrepareExecutionQueueInteractor::execute(QStringList {gcode});
-        }
-        catch(InvalidArgumentException e)
-        {
-            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::moveToPoint:" <<  e.what();
-        }
-        catch(...)
-        {
-            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-            qDebug() << "MachineTool::moveToPoint: unknown error";
-        }
-
-        /*for(auto item : m_executionQueue)
-        {
-            qDebug() << QString::fromUtf8(item);
-        }*/
-        this->resumeProgramProcessing();
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::moveToPoint:" <<  e.what();
+    }
+    catch(...)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::moveToPoint: unknown error";
     }
 }
 

@@ -230,9 +230,10 @@ public slots:
     void switchSpindelOff(QString uid);
 
     void startProgramProcessing();
-    void pauseProgramProcessing();
-    void resumeProgramProcessing();
-    void stopProgramProcessing();
+    bool prepareExecutionQueue(QStringList gcodes);
+    void pauseExecutionQueueProcessing();
+    void resumeExecutionQueueProcessing();
+    void stopExecutionQueueProcessing();
 
     void moveAlongAxis(QString axisUid, double distance);
     void moveToPoint(Point pointFromBase);

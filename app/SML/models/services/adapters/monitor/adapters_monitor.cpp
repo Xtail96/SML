@@ -12,10 +12,10 @@ AdaptersMonitor::AdaptersMonitor(Adapter* u1, Adapter* u2, QObject *parent) :
 
 void AdaptersMonitor::onAdapter_ConnectionStateChanged()
 {
-    emit this->AdapterConnectionStateChanged();
+    emit this->adapterConnectionStateChanged();
 }
 
 void AdaptersMonitor::onAdapter_WorkflowStateChanged()
 {
-    emit this->AdapterWorkflowStateChanged();
+    emit this->adapterWorkflowStateChanged();
 }

@@ -79,7 +79,7 @@ void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
 void ProgramProcessingDialog::on_pausePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.pauseProgramProcessing();
+    machineTool.pauseExecutionQueueProcessing();
 
     ui->resumePushButton->setEnabled(true);
     ui->pausePushButton->setEnabled(false);
@@ -88,7 +88,7 @@ void ProgramProcessingDialog::on_pausePushButton_clicked()
 void ProgramProcessingDialog::on_resumePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.resumeProgramProcessing();
+    machineTool.resumeExecutionQueueProcessing();
 
     ui->resumePushButton->setEnabled(false);
     ui->pausePushButton->setEnabled(true);
