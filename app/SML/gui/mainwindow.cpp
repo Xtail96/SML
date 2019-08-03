@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     MachineTool& machineTool = MachineTool::getInstance();
     this->onMachineTool_ErrorStateChanged(machineTool.getCurrentErrorFlags());
+    this->on_discreteRadioButton_5_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -723,10 +724,10 @@ void MainWindow::stepMove(QMap<QString, double> axisesSteps)
 {
     try
     {
-        if(ui->discreteRadioButton_5->isChecked())
+        /*if(ui->discreteRadioButton_5->isChecked())
         {
             return;
-        }
+        }*/
 
         MachineTool &i = MachineTool::getInstance();
         Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
@@ -777,7 +778,8 @@ void MainWindow::on_discreteRadioButton_4_clicked()
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    MachineTool::getInstance().getRepository().setMovementStep(0);
+    //MachineTool::getInstance().getRepository().setMovementStep(0);
+    MachineTool::getInstance().getRepository().setMovementStep(1);
     this->enableMovementButtonsShortcutsAutoRepeat();
     this->setMovementButtonsRepeatAutoRepeat(true);
 }
