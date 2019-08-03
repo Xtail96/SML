@@ -133,6 +133,8 @@ private:
     void disableMotionWidgets();
     void setMotionWidgetsState(bool enableWidgets);
 
+    void stepMove(QMap<QString, double> axisesSteps);
+
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
     void onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors);

@@ -719,6 +719,34 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->runPushButton->setEnabled(enableWidgets);
 }
 
+void MainWindow::stepMove(QMap<QString, double> axisesSteps)
+{
+    try
+    {
+        if(ui->discreteRadioButton_5->isChecked())
+        {
+            return;
+        }
+
+        MachineTool &i = MachineTool::getInstance();
+        Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
+        Point increment = Point(int(currentCoordinatesFromBase.size()));
+
+        QStringList axises = axisesSteps.keys();
+        for(auto axis : axises)
+        {
+            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += axisesSteps[axis];
+        }
+
+        Point target = currentCoordinatesFromBase + increment;
+        i.moveToPoint(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
+}
+
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
     MachineTool::getInstance().getRepository().setMovementStep(0.01);
@@ -756,128 +784,102 @@ void MainWindow::on_discreteRadioButton_5_clicked()
 
 void MainWindow::on_movementXPositivePushButton_clicked()
 {
-    try
-    {
-        if(ui->discreteRadioButton_5->isChecked())
-        {
-            return;
-        }
-
-        MachineTool &i = MachineTool::getInstance();
-        Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
-        Point increment = Point(int(currentCoordinatesFromBase.size()));
-        increment.get(SML_AXISES_NAMES.getKeyByName("X")) += i.getRepository().getMovementStep();
-        Point target = currentCoordinatesFromBase + increment;
-        i.moveToPoint(target);
-    }
-    catch(InvalidArgumentException e)
-    {
-        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
-    }
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
-    v.x = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = -1;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = 1;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = -1;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = 1;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementZPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.z = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Z", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementZNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.z = -1;
-
-    i.stepMove(v);*/
-
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Z", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementAPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.a = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("A", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementANegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.a = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("A", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
