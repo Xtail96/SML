@@ -325,6 +325,12 @@ public:
     double getMovementStep() const;
     void setMovementStep(double movementStep);
 
+    Point getZeroCoordinates() const;
+    void setZeroCoordinates(const Point &zeroCoordinates);
+
+    Point getParkCoordinates() const;
+    void setParkCoordinates(const Point &parkCoordinates);
+
 private:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;

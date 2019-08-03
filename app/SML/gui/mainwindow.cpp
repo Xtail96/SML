@@ -720,7 +720,7 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->runPushButton->setEnabled(enableWidgets);
 }
 
-void MainWindow::stepMove(QMap<QString, double> axisesSteps)
+void MainWindow::stepMove(QMap<QString, double> axisesWithSteps)
 {
     try
     {
@@ -733,13 +733,26 @@ void MainWindow::stepMove(QMap<QString, double> axisesSteps)
         Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
         Point increment = Point(int(currentCoordinatesFromBase.size()));
 
-        QStringList axises = axisesSteps.keys();
+        QStringList axises = axisesWithSteps.keys();
         for(auto axis : axises)
         {
-            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += axisesSteps[axis];
+            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += axisesWithSteps[axis];
         }
 
         Point target = currentCoordinatesFromBase + increment;
+        this->moveTo(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindow::moveTo(Point target)
+{
+    try
+    {
+        MachineTool &i = MachineTool::getInstance();
         i.moveToPoint(target);
     }
     catch(InvalidArgumentException e)
@@ -1368,4 +1381,17 @@ void MainWindow::on_toBasePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
     machineTool.setBased(true);
+}
+
+void MainWindow::on_zeroPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    this->updateCoordinatesDisplays();
+}
+
+void MainWindow::on_toZeroPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    this->moveTo(machineTool.getRepository().getZeroCoordinates());
 }

@@ -462,6 +462,26 @@ void Repository::setMovementStep(double movementStep)
     m_movementStep = movementStep;
 }
 
+Point Repository::getZeroCoordinates() const
+{
+    return m_zeroCoordinates;
+}
+
+void Repository::setZeroCoordinates(const Point &zeroCoordinates)
+{
+    m_zeroCoordinates = zeroCoordinates;
+}
+
+Point Repository::getParkCoordinates() const
+{
+    return m_parkCoordinates;
+}
+
+void Repository::setParkCoordinates(const Point &parkCoordinates)
+{
+    m_parkCoordinates = parkCoordinates;
+}
+
 void Repository::addPoint(QStringList coordinates)
 {
     try
