@@ -139,6 +139,8 @@ void MainWindow::setupConnections()
     QObject::connect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 
+    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
+
     // задаем горячие клавиши
     for (auto i = m_shortcutsMap.begin(); i != m_shortcutsMap.end(); i++)
     {
@@ -151,8 +153,6 @@ void MainWindow::setupConnections()
 
         m_axisesShortcuts.push_back(shortcut);
     }
-
-    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
     QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
@@ -627,12 +627,12 @@ void MainWindow::onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors)
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
 {
-    //setMovementButtonsShortcutsAutoRepeat(false);
+    this->setMovementButtonsShortcutsAutoRepeat(false);
 }
 
 void MainWindow::enableMovementButtonsShortcutsAutoRepeat()
 {
-    //setMovementButtonsShortcutsAutoRepeat(true);
+    this->setMovementButtonsShortcutsAutoRepeat(true);
 }
 
 void MainWindow::setMovementButtonsShortcutsAutoRepeat(bool state)
