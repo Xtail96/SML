@@ -720,7 +720,7 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->runPushButton->setEnabled(enableWidgets);
 }
 
-void MainWindow::stepMove(QMap<QString, double> axisesWithSteps)
+void MainWindow::stepMove(QMap<QString, double> steps)
 {
     try
     {
@@ -733,10 +733,10 @@ void MainWindow::stepMove(QMap<QString, double> axisesWithSteps)
         Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
         Point increment = Point(int(currentCoordinatesFromBase.size()));
 
-        QStringList axises = axisesWithSteps.keys();
+        QStringList axises = steps.keys();
         for(auto axis : axises)
         {
-            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += axisesWithSteps[axis];
+            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += steps[axis];
         }
 
         Point target = currentCoordinatesFromBase + increment;

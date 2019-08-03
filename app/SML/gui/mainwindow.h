@@ -133,7 +133,7 @@ private:
     void disableMotionWidgets();
     void setMotionWidgetsState(bool enableWidgets);
 
-    void stepMove(QMap<QString, double> axisesWithSteps);
+    void stepMove(QMap<QString, double> steps);
     void moveTo(Point target);
 
 private slots:
