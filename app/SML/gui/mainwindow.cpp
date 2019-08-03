@@ -515,7 +515,7 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
 
 void MainWindow::onMachineTool_TaskCompletedSuccesfully()
 {
-    QMessageBox(QMessageBox::Information, "Успешное завершение работ", "Задание успешно выполнено").exec();
+    //QMessageBox(QMessageBox::Information, "Успешное завершение работ", "Задание успешно выполнено").exec();
 }
 
 void MainWindow::onMachineTool_TaskCompletedWithErrors()
@@ -721,51 +721,59 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
 
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0.01);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(0.01);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_2_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0.1);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(0.1);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_3_clicked()
 {
-    //MachineTool::Instance().setMovementStep(1);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(1);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_4_clicked()
 {
-    //MachineTool::Instance().setMovementStep(10);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(10);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0);
-
-    //enableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(true);
+    MachineTool::getInstance().getRepository().setMovementStep(0);
+    this->enableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(true);
 }
 
 void MainWindow::on_movementXPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
-    v.x = 1;
+    try
+    {
+        if(ui->discreteRadioButton_5->isChecked())
+        {
+            return;
+        }
 
-    i.stepMove(v);*/
+        MachineTool &i = MachineTool::getInstance();
+        Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
+        Point increment = Point(int(currentCoordinatesFromBase.size()));
+        increment.get(SML_AXISES_NAMES.getKeyByName("X")) += i.getRepository().getMovementStep();
+        Point target = currentCoordinatesFromBase + increment;
+        i.moveToPoint(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
 }
 
 void MainWindow::on_movementXNegativePushButton_clicked()

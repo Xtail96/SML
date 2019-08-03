@@ -17,7 +17,8 @@ Repository::Repository(QObject *parent) :
     m_axises(QList< QSharedPointer<Axis> >()),
     m_zeroCoordinates(Point()),
     m_parkCoordinates(Point()),
-    m_velocity(0)
+    m_velocity(0),
+    m_movementStep(0)
 {
     this->loadSettigs();
 }
@@ -449,6 +450,16 @@ QStringList Repository::getOptionsLabels()
         "САС"
     };
     return optionsNames;
+}
+
+double Repository::getMovementStep() const
+{
+    return m_movementStep;
+}
+
+void Repository::setMovementStep(double movementStep)
+{
+    m_movementStep = movementStep;
 }
 
 void Repository::addPoint(QStringList coordinates)

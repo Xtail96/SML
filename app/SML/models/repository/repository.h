@@ -268,6 +268,18 @@ public:
      */
     QList<Point> getCurrentCoordinates();
 
+    /**
+     * @brief Возвращает текущие координаты относительно Базы
+     * @return текущие координаты станка в абсолютной системе координат
+     */
+    Point getCurrentCoordinatesFromBase();
+
+    /**
+     * @brief Возвращает текущие координаты относительно точки Ноль
+     * @return текущие координаты станка в относительной системе координат
+     */
+    Point getCurrentCoordinatesFromZero();
+
     void setCurrentCoordinates(Point absCoordinates);
 
     void setCurrentCoordinates(QMap<QString, double> absCoordinates);
@@ -309,6 +321,9 @@ public:
      * @return список доступных опций
      */
     QStringList getOptionsLabels();
+
+    double getMovementStep() const;
+    void setMovementStep(double movementStep);
 
 private:
     /// Менеджер настроек
@@ -364,6 +379,9 @@ private:
     /// Максимальная скорость перемещения
     double m_velocity;
 
+    /// Дискретность перемещений из наладки
+    double m_movementStep;
+
     /**
      * @brief Последовательно загружает все настройки станка
      */
@@ -388,18 +406,6 @@ private:
      * @brief Загружает настройки координатных осей
      */
     void loadAxisesSettings();
-
-    /**
-     * @brief Возвращает текущие координаты относительно Базы
-     * @return текущие координаты станка в абсолютной системе координат
-     */
-    Point getCurrentCoordinatesFromBase();
-
-    /**
-     * @brief Возвращает текущие координаты относительно точки Ноль
-     * @return текущие координаты станка в относительной системе координат
-     */
-    Point getCurrentCoordinatesFromZero();
 
     /**
      * @brief Возвращает ссылку на датчик

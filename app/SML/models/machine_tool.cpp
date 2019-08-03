@@ -343,6 +343,10 @@ void MachineTool::moveToPoint(Point pointFromBase)
         {
             this->resumeExecutionQueueProcessing();
         }
+        else
+        {
+            QMessageBox(QMessageBox::Warning, "Ошибка", "Ошибка подготовки g-кода для перемещения").exec();
+        }
     }
     catch(InvalidArgumentException e)
     {
