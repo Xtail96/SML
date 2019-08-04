@@ -1395,3 +1395,16 @@ void MainWindow::on_toZeroPushButton_clicked()
     MachineTool& machineTool = MachineTool::getInstance();
     this->moveTo(machineTool.getRepository().getZeroCoordinates());
 }
+
+void MainWindow::on_parkPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    this->updateCoordinatesDisplays();
+}
+
+void MainWindow::on_toParkPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    this->moveTo(machineTool.getRepository().getParkCoordinates());
+}

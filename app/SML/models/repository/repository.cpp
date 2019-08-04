@@ -15,8 +15,8 @@ Repository::Repository(QObject *parent) :
     m_spindels(QList< QSharedPointer<Spindel> >()),
     m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
     m_axises(QList< QSharedPointer<Axis> >()),
-    m_zeroCoordinates(Point()),
-    m_parkCoordinates(Point()),
+    m_zeroCoordinates(Point(size_t(m_axises.size()))),
+    m_parkCoordinates(Point(size_t(m_axises.size()))),
     m_velocity(0),
     m_movementStep(0)
 {
@@ -989,7 +989,7 @@ Point Repository::getCurrentCoordinatesFromZero()
 
     try
     {
-        Point currentFromZero(m_axises.size());
+        Point currentFromZero(size_t(m_axises.size()));
         Point p = this->getCurrentCoordinatesFromBase();
 
         if(p.size() == m_zeroCoordinates.size())

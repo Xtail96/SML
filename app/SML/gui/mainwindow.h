@@ -222,6 +222,8 @@ private slots:
     void on_toBasePushButton_clicked();
     void on_zeroPushButton_clicked();
     void on_toZeroPushButton_clicked();
+    void on_parkPushButton_clicked();
+    void on_toParkPushButton_clicked();
 };
 
 

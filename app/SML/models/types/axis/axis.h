@@ -2,8 +2,8 @@
 #define AXIS_H
 
 #include <QString>
-
 #include <QObject>
+#include <QDebug>
 
 class Axis : public QObject
 {

@@ -60,6 +60,7 @@ double Axis::currentPosition() const
 
 void Axis::setCurrentPosition(double currentPosition)
 {
+    currentPosition = qRound(currentPosition * 1000.0) / 1000.0;
     m_currentPosition = currentPosition;
     emit this->currentPositionChanged(m_name, m_currentPosition);
 }
