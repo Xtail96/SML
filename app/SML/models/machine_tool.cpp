@@ -396,6 +396,7 @@ void MachineTool::moveToBase()
     try
     {
         this->setBased(false);
+        m_repository->setCurrentCoordinates(m_repository->getMaxPosition());
 
         QStringList axisesNames = m_repository->getAxisesNames();
         QStringList sensorUids = {};
@@ -404,7 +405,7 @@ void MachineTool::moveToBase()
             sensorUids.append("SensorAxis" + name);
         }
 
-        for (auto uid : sensorUids)
+        for(auto uid : sensorUids)
         {
             if(m_repository->sensorExists(uid))
             {
@@ -412,6 +413,7 @@ void MachineTool::moveToBase()
             }
         }
 
+        this->resetCurrentCoordinates();
         this->setBased(true);
     }
     catch(InvalidArgumentException e)
@@ -424,6 +426,21 @@ void MachineTool::moveToBase()
     {
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         qDebug() << "MachineTool::moveToBase: unknown error";
+        this->setBased(false);
+    }
+}
+
+void MachineTool::resetCurrentCoordinates()
+{
+    try
+    {
+        Point zeroPoint = Point(m_repository->getAxisesCount());
+        m_repository->setCurrentCoordinates(zeroPoint);
+    }
+    catch (...)
+    {
+        this->setErrorFlag(ERROR_CODE::SYNC_STATE_ERROR);
+        qDebug() << "MachineTool::resetCurrentCoordinates: unknown error";
         this->setBased(false);
     }
 }

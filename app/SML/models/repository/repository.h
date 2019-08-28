@@ -314,6 +314,8 @@ public:
      */
     void setVelocity(double velocity);
 
+    size_t getAxisesCount();
+
     // Options
 
     /**
@@ -443,6 +445,12 @@ private:
      * @return ссылка на шпиндель
      */
     Spindel& getSpindel(QString uid);
+
+    bool axisExists(QString uid);
+
+    Axis& getAxis(QString uid);
+
+    Point getMaxPosition();
 
     /// Класс-друг!
     friend class MachineTool;

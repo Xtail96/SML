@@ -808,14 +808,19 @@ void Repository::setVelocity(double velocity)
     }
 }
 
+size_t Repository::getAxisesCount()
+{
+    return size_t(m_axises.size());
+}
+
 // private
 
 void Repository::loadSettigs()
 {
     this->loadServerSettings();
+    this->loadAxisesSettings();
     this->loadSensorsSettings();
     this->loadDevicesSettings();
-    this->loadAxisesSettings();
 }
 
 void Repository::loadServerSettings()
@@ -855,6 +860,13 @@ void Repository::loadSensorsSettings()
             QString boardName = QVariant(m_settingsManager->get(settingCode, "BoardName")).toString();
             bool activeState = QVariant(m_settingsManager->get(settingCode, "ActiveState")).toBool();
             QColor color = QColor(QVariant(m_settingsManager->get(settingCode, "Color")).toString());
+            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager->get(settingCode, "Position").toMap());
+
+            QMap<QString, double> position = {};
+            for(auto i = rawPosition.begin(); i != rawPosition.end(); i++)
+            {
+                position.insert(i.key(), i.value().toDouble());
+            }
 
             Sensor* sensor = new Sensor(uid,
                                         label,
@@ -863,6 +875,7 @@ void Repository::loadSensorsSettings()
                                         boardName,
                                         activeState,
                                         color,
+                                        position,
                                         this);
             m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
@@ -945,12 +958,15 @@ void Repository::loadAxisesSettings()
              double step = m_settingsManager->get(fullAxisName, "Step").toDouble();
              bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
              double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
+             double lowerBound = m_settingsManager->get(fullAxisName, "LowerBound").toDouble();
+             double uppderBound = m_settingsManager->get(fullAxisName, "UpperBound").toDouble();
 
-             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, this));
+
+             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));
              m_axises.push_back(axis);
          }
-         m_zeroCoordinates = Point(m_axises.size());
-         m_parkCoordinates = Point(m_axises.size());
+         m_zeroCoordinates = Point(size_t(m_axises.size()));
+         m_parkCoordinates = Point(size_t(m_axises.size()));
     }
     catch(InvalidConfigurationException e)
     {
@@ -1082,4 +1098,50 @@ Spindel &Repository::getSpindel(QString uid)
     qDebug() << QStringLiteral("Repository::getSpindel") << message;
 
     throw InvalidArgumentException(message);
+}
+
+bool Repository::axisExists(QString uid)
+{
+    for(auto axis : m_axises)
+    {
+        if(axis->name() == uid)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+Axis &Repository::getAxis(QString uid)
+{
+    for(auto axis : m_axises)
+    {
+        if(axis->name() == uid)
+        {
+            return *(axis.data());
+        }
+    }
+
+    QString message =
+            QStringLiteral("axis with name ") +
+            uid +
+            QStringLiteral(" is not exists");
+    qDebug() << QStringLiteral("Repository::getAxis") << message;
+
+    throw InvalidArgumentException(message);
+}
+
+Point Repository::getMaxPosition()
+{
+    Point maxPosition = Point(this->getAxisesCount());
+    for(size_t i = 0; i < maxPosition.size(); i++)
+    {
+        QString uid = SML_AXISES_NAMES.getNameByKey(i);
+        if(this->axisExists(uid))
+        {
+            maxPosition[i] = this->getAxis(uid).upperBound();
+        }
+    }
+    return maxPosition;
 }

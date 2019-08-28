@@ -164,6 +164,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BazaSearchSpeed", 60);
         settings->setValue("Step", 0.05);
         settings->setValue("Invert", false);
+        settings->setValue("LowerBound", 0);
+        settings->setValue("UpperBound", 1000);
     settings->endGroup();
 
     settings->beginGroup("AxisY");
@@ -175,6 +177,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BazaSearchSpeed", 60);
         settings->setValue("Step", 0.05);
         settings->setValue("Invert", false);
+        settings->setValue("LowerBound", 0);
+        settings->setValue("UpperBound", 500);
     settings->endGroup();
 
     settings->beginGroup("AxisZ");
@@ -186,6 +190,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BazaSearchSpeed", 25);
         settings->setValue("Step", 0.05);
         settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -100);
+        settings->setValue("UpperBound", 0);
     settings->endGroup();
 
     settings->beginGroup("AxisA");
@@ -197,6 +203,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BazaSearchSpeed", 10);
         settings->setValue("Step", 0.05);
         settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisB");
@@ -208,6 +216,8 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BazaSearchSpeed", 40);
         settings->setValue("Step", 0.05);
         settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("Sensor0");
@@ -218,6 +228,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor1");
@@ -228,6 +245,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor2");
@@ -238,6 +262,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor3");
@@ -248,6 +279,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor4");
@@ -258,6 +296,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor5");
@@ -268,6 +313,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor6");
@@ -278,6 +330,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Sensor7");
@@ -288,6 +347,13 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "1000.0"),
+                               std::make_pair("AxisY", "500.0"),
+                               std::make_pair("AxisZ", "-50.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                           });
     settings->endGroup();
 
     settings->beginGroup("Spindel0");

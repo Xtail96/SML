@@ -240,6 +240,8 @@ public slots:
     void moveToSensor(QString sensorUid);
     void moveToBase();
 
+    void resetCurrentCoordinates();
+
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE flag);
 

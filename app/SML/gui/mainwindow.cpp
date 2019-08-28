@@ -259,7 +259,7 @@ void MainWindow::setupSensorsDisplay()
         ui->sensorsDisplayWidget->addSensor(
                     parameters["Uid"],
                     parameters["Label"],
-                    parameters["CurrentState"].toInt(),
+                    parameters["ActiveState"].toInt(),
                     parameters["ActiveStateLedColor"]);
     }
 }
@@ -335,6 +335,7 @@ void MainWindow::setupSensorsSettingsBoard()
     {
         ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
     }
+    ui->sensorsSettingsTableWidget->resizeColumnsToContents();
 }
 
 void MainWindow::setupSpindelsControlPanel()
