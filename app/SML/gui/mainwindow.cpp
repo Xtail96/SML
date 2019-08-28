@@ -1381,8 +1381,7 @@ void MainWindow::on_runPushButton_clicked()
 void MainWindow::on_toBasePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    //machineTool.moveToBase();
-    machineTool.setBased(true);
+    machineTool.moveToBase();
 }
 
 void MainWindow::on_zeroPushButton_clicked()

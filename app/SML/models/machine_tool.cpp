@@ -357,38 +357,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
 
 void MachineTool::moveToSensor(QString sensorUid)
 {
-    try
-    {
-        double velocity = m_repository->getVelocity();
-        Sensor& sensor = m_repository->getSensor(sensorUid);
-        // Point sensorPosition = sensor.getPosition();
-        Point sensorPosition = Point(size_t(m_repository->m_axises.size()));
-
-        m_repository->setVelocity(30);
-        while(!sensor.isEnable())
-        {
-            // move to sensor
-        }
-
-        m_repository->setVelocity(15);
-        while(sensor.isEnable())
-        {
-            // move from sensor
-        }
-
-        m_repository->setVelocity(5);
-        while(!sensor.isEnable())
-        {
-            // move to sensor
-        }
-
-        m_repository->setVelocity(velocity);
-    }
-    catch (...)
-    {
-        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-        qDebug() << "MachineTool::moveToSensorPosition: unknown error";
-    }
+    qDebug() << "MachineTool::moveToSensor(" + sensorUid + ")";
 }
 
 void MachineTool::moveToBase()
@@ -600,14 +569,6 @@ void MachineTool::sendNextCommand()
         qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
         QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
         emit this->taskCompletedSuccesfully();
-        return;
-    }
-
-    if(!m_based)
-    {
-        qDebug() << "MachineTool::sendNextCommand: machine tool is not based";
-        QMessageBox(QMessageBox::Warning, "", "Базировка станка не проведена").exec();
-        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
     }
 
