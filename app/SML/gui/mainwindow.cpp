@@ -731,7 +731,7 @@ void MainWindow::stepMove(QMap<QString, double> steps)
 
         MachineTool &i = MachineTool::getInstance();
         Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
-        Point increment = Point(int(currentCoordinatesFromBase.size()));
+        Point increment = Point(size_t(currentCoordinatesFromBase.size()));
 
         QStringList axises = steps.keys();
         for(auto axis : axises)
@@ -1380,6 +1380,7 @@ void MainWindow::on_runPushButton_clicked()
 void MainWindow::on_toBasePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.moveToBase();
     machineTool.setBased(true);
 }
 

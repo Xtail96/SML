@@ -323,11 +323,6 @@ void MachineTool::stopExecutionQueueProcessing()
     // kill adapter and terminate controller;
 }
 
-void MachineTool::moveAlongAxis(QString axisUid, double distance)
-{
-
-}
-
 void MachineTool::moveToPoint(Point pointFromBase)
 {
     try
@@ -357,6 +352,79 @@ void MachineTool::moveToPoint(Point pointFromBase)
     {
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         qDebug() << "MachineTool::moveToPoint: unknown error";
+    }
+}
+
+void MachineTool::moveToSensor(QString sensorUid)
+{
+    try
+    {
+        double velocity = m_repository->getVelocity();
+        Sensor& sensor = m_repository->getSensor(sensorUid);
+        // Point sensorPosition = sensor.getPosition();
+        Point sensorPosition = Point(size_t(m_repository->m_axises.size()));
+
+        m_repository->setVelocity(30);
+        while(!sensor.isEnable())
+        {
+            // move to sensor
+        }
+
+        m_repository->setVelocity(15);
+        while(sensor.isEnable())
+        {
+            // move from sensor
+        }
+
+        m_repository->setVelocity(5);
+        while(!sensor.isEnable())
+        {
+            // move to sensor
+        }
+
+        m_repository->setVelocity(velocity);
+    }
+    catch (...)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::moveToSensorPosition: unknown error";
+    }
+}
+
+void MachineTool::moveToBase()
+{
+    try
+    {
+        this->setBased(false);
+
+        QStringList axisesNames = m_repository->getAxisesNames();
+        QStringList sensorUids = {};
+        for(auto name : axisesNames)
+        {
+            sensorUids.append("SensorAxis" + name);
+        }
+
+        for (auto uid : sensorUids)
+        {
+            if(m_repository->sensorExists(uid))
+            {
+                this->moveToSensor(uid);
+            }
+        }
+
+        this->setBased(true);
+    }
+    catch(InvalidArgumentException e)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::moveToBase:" <<  e.what();
+        this->setBased(false);
+    }
+    catch (...)
+    {
+        this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
+        qDebug() << "MachineTool::moveToBase: unknown error";
+        this->setBased(false);
     }
 }
 

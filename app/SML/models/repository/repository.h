@@ -414,8 +414,15 @@ private:
     void loadAxisesSettings();
 
     /**
+     * @brief Проверяет наличие датчика в репозитории
+     * @param uid уникальный идентификатор датчика
+     * @return существует ли датчик с указанным идентификатором
+     */
+    bool sensorExists(QString uid);
+
+    /**
      * @brief Возвращает ссылку на датчик
-     * @param name уникальный идетификатор датчика
+     * @param uid уникальный идетификатор датчика
      * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
      * @return ссылка на датчик
      */

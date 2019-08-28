@@ -235,8 +235,10 @@ public slots:
     void resumeExecutionQueueProcessing();
     void stopExecutionQueueProcessing();
 
-    void moveAlongAxis(QString axisUid, double distance);
     void moveToPoint(Point pointFromBase);
+
+    void moveToSensor(QString sensorUid);
+    void moveToBase();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE flag);

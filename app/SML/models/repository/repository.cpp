@@ -961,6 +961,19 @@ void Repository::loadAxisesSettings()
     }
 }
 
+bool Repository::sensorExists(QString uid)
+{
+    for(auto sensor : m_sensors)
+    {
+        if(sensor->getUid() == uid)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 Point Repository::getCurrentCoordinatesFromBase()
 {
     Point result = Point();
