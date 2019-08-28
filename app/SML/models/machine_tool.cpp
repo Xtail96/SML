@@ -361,26 +361,92 @@ void MachineTool::moveToSensor(QString sensorUid)
     {
         double velocity = m_repository->getVelocity();
         Sensor& sensor = m_repository->getSensor(sensorUid);
-        // Point sensorPosition = sensor.getPosition();
-        Point sensorPosition = Point(size_t(m_repository->m_axises.size()));
+        QMap<QString, double> sensorPosition = sensor.getPosition();
+        double step = 0.01;
 
         m_repository->setVelocity(30);
         while(!sensor.isEnable())
         {
+            Point currentCoordinates = m_repository->getCurrentCoordinatesFromBase();
+            Point dest = currentCoordinates;
+            for(size_t i = 0; i < currentCoordinates.size(); i++)
+            {
+                QString axisName = SML_AXISES_NAMES.getNameByKey(i);
+                if(!sensorPosition.contains(axisName)) continue;
+
+                double sensorPositionByAxis = sensorPosition.take(axisName);
+                if(sensorPositionByAxis - currentCoordinates[i] < 0.01) continue;
+
+                if(sensorPositionByAxis > currentCoordinates[i])
+                {
+                    dest[i] += step;
+                }
+                else
+                {
+                    dest[i] -= step;
+                }
+            }
             // move to sensor
+
+            /*qDebug("dest");
+            for(auto i = 0; i < dest.size(); i++)
+            {
+                qDebug() << dest[i];
+            }*/
+            this->moveToPoint(dest);
         }
 
-        m_repository->setVelocity(15);
+        /*m_repository->setVelocity(15);
         while(sensor.isEnable())
         {
-            // move from sensor
+            Point currentCoordinates = m_repository->getCurrentCoordinatesFromBase();
+            Point dest = currentCoordinates;
+            for(size_t i = 0; i < currentCoordinates.size(); i++)
+            {
+                QString axisName = SML_AXISES_NAMES.getNameByKey(i);
+                if(!sensorPosition.contains(axisName)) continue;
+
+                double sensorPositionByAxis = sensorPosition.take(axisName);
+                if(sensorPositionByAxis - currentCoordinates[i] < 0.01) continue;
+
+                if(sensorPositionByAxis > currentCoordinates[i])
+                {
+                    dest[i] -= step;
+                }
+                else
+                {
+                    dest[i] += step;
+                }
+            }
+            // move to sensor
+            this->moveToPoint(dest);
         }
 
         m_repository->setVelocity(5);
         while(!sensor.isEnable())
         {
+            Point currentCoordinates = m_repository->getCurrentCoordinatesFromBase();
+            Point dest = currentCoordinates;
+            for(size_t i = 0; i < currentCoordinates.size(); i++)
+            {
+                QString axisName = SML_AXISES_NAMES.getNameByKey(i);
+                if(!sensorPosition.contains(axisName)) continue;
+
+                double sensorPositionByAxis = sensorPosition.take(axisName);
+                if(sensorPositionByAxis - currentCoordinates[i] < 0.01) continue;
+
+                if(sensorPositionByAxis > currentCoordinates[i])
+                {
+                    dest[i] += step;
+                }
+                else
+                {
+                    dest[i] -= step;
+                }
+            }
             // move to sensor
-        }
+            this->moveToPoint(dest);
+        }*/
 
         m_repository->setVelocity(velocity);
     }
@@ -603,13 +669,13 @@ void MachineTool::sendNextCommand()
         return;
     }
 
-    if(!m_based)
+    /*if(!m_based)
     {
         qDebug() << "MachineTool::sendNextCommand: machine tool is not based";
         QMessageBox(QMessageBox::Warning, "", "Базировка станка не проведена").exec();
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
-    }
+    }*/
 
     QByteArray message = m_executionQueue.dequeue();
     qDebug() << "MachineTool::sendNextCommand:" << QString::fromUtf8(message);
