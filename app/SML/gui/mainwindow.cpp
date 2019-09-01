@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     MachineTool& machineTool = MachineTool::getInstance();
     this->onMachineTool_ErrorStateChanged(machineTool.getCurrentErrorFlags());
+    this->on_discreteRadioButton_5_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -139,6 +140,8 @@ void MainWindow::setupConnections()
     QObject::connect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
     QObject::connect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
 
+    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
+
     // задаем горячие клавиши
     for (auto i = m_shortcutsMap.begin(); i != m_shortcutsMap.end(); i++)
     {
@@ -151,8 +154,6 @@ void MainWindow::setupConnections()
 
         m_axisesShortcuts.push_back(shortcut);
     }
-
-    QObject::connect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
 
     QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
@@ -258,7 +259,7 @@ void MainWindow::setupSensorsDisplay()
         ui->sensorsDisplayWidget->addSensor(
                     parameters["Uid"],
                     parameters["Label"],
-                    parameters["CurrentState"].toInt(),
+                    parameters["ActiveState"].toInt(),
                     parameters["ActiveStateLedColor"]);
     }
 }
@@ -334,6 +335,7 @@ void MainWindow::setupSensorsSettingsBoard()
     {
         ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
     }
+    ui->sensorsSettingsTableWidget->resizeColumnsToContents();
 }
 
 void MainWindow::setupSpindelsControlPanel()
@@ -515,7 +517,7 @@ void MainWindow::onMachineTool_GCodesFilePathUpdated(QString path)
 
 void MainWindow::onMachineTool_TaskCompletedSuccesfully()
 {
-    QMessageBox(QMessageBox::Information, "Успешное завершение работ", "Задание успешно выполнено").exec();
+    //QMessageBox(QMessageBox::Information, "Успешное завершение работ", "Задание успешно выполнено").exec();
 }
 
 void MainWindow::onMachineTool_TaskCompletedWithErrors()
@@ -627,12 +629,12 @@ void MainWindow::onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors)
 
 void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
 {
-    //setMovementButtonsShortcutsAutoRepeat(false);
+    this->setMovementButtonsShortcutsAutoRepeat(false);
 }
 
 void MainWindow::enableMovementButtonsShortcutsAutoRepeat()
 {
-    //setMovementButtonsShortcutsAutoRepeat(true);
+    this->setMovementButtonsShortcutsAutoRepeat(true);
 }
 
 void MainWindow::setMovementButtonsShortcutsAutoRepeat(bool state)
@@ -719,157 +721,181 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->runPushButton->setEnabled(enableWidgets);
 }
 
+void MainWindow::stepMove(QMap<QString, double> steps)
+{
+    try
+    {
+        /*if(ui->discreteRadioButton_5->isChecked())
+        {
+            return;
+        }*/
+
+        MachineTool &i = MachineTool::getInstance();
+        Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
+        Point increment = Point(size_t(currentCoordinatesFromBase.size()));
+
+        QStringList axises = steps.keys();
+        for(auto axis : axises)
+        {
+            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += steps[axis];
+        }
+
+        Point target = currentCoordinatesFromBase + increment;
+        this->moveTo(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
+}
+
+void MainWindow::moveTo(Point target)
+{
+    try
+    {
+        MachineTool &i = MachineTool::getInstance();
+        i.moveToPoint(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
+}
+
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0.01);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(0.01);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_2_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0.1);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(0.1);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_3_clicked()
 {
-    //MachineTool::Instance().setMovementStep(1);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(1);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_4_clicked()
 {
-    //MachineTool::Instance().setMovementStep(10);
-
-    //disableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(false);
+    MachineTool::getInstance().getRepository().setMovementStep(10);
+    this->disableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    //MachineTool::Instance().setMovementStep(0);
-
-    //enableMovementButtonsShortcutsAutoRepeat();
-    //setMovementButtonsRepeatAutoRepeat(true);
+    //MachineTool::getInstance().getRepository().setMovementStep(0);
+    MachineTool::getInstance().getRepository().setMovementStep(1);
+    this->enableMovementButtonsShortcutsAutoRepeat();
+    this->setMovementButtonsRepeatAutoRepeat(true);
 }
 
 void MainWindow::on_movementXPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
-    v.x = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble();
-    v.x = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = -1;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = 1;
-    v.y = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = -1;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.x = 1;
-    v.y = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
+        std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementZPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.z = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Z", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementZNegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.z = -1;
-
-    i.stepMove(v);*/
-
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("Z", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementAPositivePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.a = 1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("A", i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_movementANegativePushButton_clicked()
 {
-    /*MachineTool &i = MachineTool::Instance();
-    VectorDouble v = VectorDouble() ;
-    v.a = -1;
-
-    i.stepMove(v);*/
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("A", -i.getRepository().getMovementStep())
+    });
 }
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
@@ -1355,5 +1381,31 @@ void MainWindow::on_runPushButton_clicked()
 void MainWindow::on_toBasePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.setBased(true);
+    machineTool.moveToBase();
+}
+
+void MainWindow::on_zeroPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    this->updateCoordinatesDisplays();
+}
+
+void MainWindow::on_toZeroPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    this->moveTo(machineTool.getRepository().getZeroCoordinates());
+}
+
+void MainWindow::on_parkPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    this->updateCoordinatesDisplays();
+}
+
+void MainWindow::on_toParkPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    this->moveTo(machineTool.getRepository().getParkCoordinates());
 }

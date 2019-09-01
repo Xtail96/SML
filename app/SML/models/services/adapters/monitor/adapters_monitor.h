@@ -31,12 +31,12 @@ signals:
     /**
      * @brief Сигнал об изменнии состояния подключения адптера
      */
-    void AdapterConnectionStateChanged();
+    void adapterConnectionStateChanged();
 
     /**
      * @brief Сигнал об изменнеии состояния заданий на адаптере
      */
-    void AdapterWorkflowStateChanged();
+    void adapterWorkflowStateChanged();
 
 protected slots:
 

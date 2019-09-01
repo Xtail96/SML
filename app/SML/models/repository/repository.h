@@ -268,6 +268,18 @@ public:
      */
     QList<Point> getCurrentCoordinates();
 
+    /**
+     * @brief Возвращает текущие координаты относительно Базы
+     * @return текущие координаты станка в абсолютной системе координат
+     */
+    Point getCurrentCoordinatesFromBase();
+
+    /**
+     * @brief Возвращает текущие координаты относительно точки Ноль
+     * @return текущие координаты станка в относительной системе координат
+     */
+    Point getCurrentCoordinatesFromZero();
+
     void setCurrentCoordinates(Point absCoordinates);
 
     void setCurrentCoordinates(QMap<QString, double> absCoordinates);
@@ -302,6 +314,8 @@ public:
      */
     void setVelocity(double velocity);
 
+    size_t getAxisesCount();
+
     // Options
 
     /**
@@ -309,6 +323,15 @@ public:
      * @return список доступных опций
      */
     QStringList getOptionsLabels();
+
+    double getMovementStep() const;
+    void setMovementStep(double movementStep);
+
+    Point getZeroCoordinates() const;
+    void setZeroCoordinates(const Point &zeroCoordinates);
+
+    Point getParkCoordinates() const;
+    void setParkCoordinates(const Point &parkCoordinates);
 
 private:
     /// Менеджер настроек
@@ -364,6 +387,9 @@ private:
     /// Максимальная скорость перемещения
     double m_velocity;
 
+    /// Дискретность перемещений из наладки
+    double m_movementStep;
+
     /**
      * @brief Последовательно загружает все настройки станка
      */
@@ -390,20 +416,15 @@ private:
     void loadAxisesSettings();
 
     /**
-     * @brief Возвращает текущие координаты относительно Базы
-     * @return текущие координаты станка в абсолютной системе координат
+     * @brief Проверяет наличие датчика в репозитории
+     * @param uid уникальный идентификатор датчика
+     * @return существует ли датчик с указанным идентификатором
      */
-    Point getCurrentCoordinatesFromBase();
-
-    /**
-     * @brief Возвращает текущие координаты относительно точки Ноль
-     * @return текущие координаты станка в относительной системе координат
-     */
-    Point getCurrentCoordinatesFromZero();
+    bool sensorExists(QString uid);
 
     /**
      * @brief Возвращает ссылку на датчик
-     * @param name уникальный идетификатор датчика
+     * @param uid уникальный идетификатор датчика
      * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
      * @return ссылка на датчик
      */
@@ -424,6 +445,12 @@ private:
      * @return ссылка на шпиндель
      */
     Spindel& getSpindel(QString uid);
+
+    bool axisExists(QString uid);
+
+    Axis& getAxis(QString uid);
+
+    Point getMaxPosition();
 
     /// Класс-друг!
     friend class MachineTool;

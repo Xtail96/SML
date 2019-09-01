@@ -1,8 +1,8 @@
 #include "point.h"
 
-Point::Point(int dimension)
+Point::Point(size_t dimension)
 {
-    coordinates = std::vector<double>(dimension, 0);
+    coordinates = std::vector<double>(dimension, 0.0);
 }
 
 Point::Point(std::initializer_list<double> coords) : Point(coords.size())
@@ -35,7 +35,7 @@ double& Point::operator[](size_t idx)
 
 double& Point::operator[](QString name)
 {
-    int idx = SML_AXISES_NAMES.getKeyByName(name);
+    size_t idx = SML_AXISES_NAMES.getKeyByName(name);
     return operator[](idx);
 }
 

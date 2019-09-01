@@ -133,6 +133,9 @@ private:
     void disableMotionWidgets();
     void setMotionWidgetsState(bool enableWidgets);
 
+    void stepMove(QMap<QString, double> steps);
+    void moveTo(Point target);
+
 private slots:
     /// Слоты для отображения поддержки/отсутсвия связи со станком
     void onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors);
@@ -217,6 +220,10 @@ private slots:
     void on_syntaxHighlightingCheckBox_clicked();
     void on_runPushButton_clicked();
     void on_toBasePushButton_clicked();
+    void on_zeroPushButton_clicked();
+    void on_toZeroPushButton_clicked();
+    void on_parkPushButton_clicked();
+    void on_toParkPushButton_clicked();
 };
 
 

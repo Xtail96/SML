@@ -2,14 +2,14 @@
 #define AXIS_H
 
 #include <QString>
-
 #include <QObject>
+#include <QDebug>
 
 class Axis : public QObject
 {
     Q_OBJECT
 public:
-    explicit Axis(QString name, double length, double step, bool invertDirection, double basingVelocity, QObject* parent = nullptr);
+    explicit Axis(QString name, double length, double step, bool invertDirection, double basingVelocity, double lowerBound, double upperBound, QObject* parent = nullptr);
     ~Axis();
 
     QString name() const;
@@ -38,6 +38,12 @@ public:
 
     QString axisSettings() const;
 
+    double lowerBound() const;
+    void setLowerBound(double lowerBound);
+
+    double upperBound() const;
+    void setUpperBound(double upperBound);
+
 private:
     QString m_name;
     double m_length;
@@ -46,6 +52,8 @@ private:
     bool m_invertDirection;
     double m_currentVelocity;
     double m_basingVelocity;
+    double m_lowerBound;
+    double m_upperBound;
 
     bool m_softLimitsEnable;
 

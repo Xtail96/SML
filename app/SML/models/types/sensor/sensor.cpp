@@ -7,6 +7,7 @@ Sensor::Sensor(QString uid,
                QString boardName,
                bool inputActiveState,
                QColor color,
+               QMap<QString, double> position,
                QObject *parent) :
     QObject(parent),
     m_uid(uid),
@@ -16,7 +17,8 @@ Sensor::Sensor(QString uid,
     m_inputNumber(inputNumber),
     m_inputActiveState(inputActiveState),
     m_inputCurrentState(!m_inputActiveState),
-    m_activeStateLedColor(color)
+    m_activeStateLedColor(color),
+    m_position(position)
 {
 }
 
@@ -99,13 +101,30 @@ QString Sensor::getLabel() const
 
 QString Sensor::getSettings()
 {
+    QList<QString> position = {};
+    for(auto i = m_position.begin(); i != m_position.end(); i++)
+    {
+        position += i.key() + "=" + QString::number(i.value());
+    }
+
     QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
             QStringLiteral("Uid:") + m_uid + QStringLiteral(";") +
             QStringLiteral("Board:") + m_boardName + QStringLiteral(";") +
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
             QStringLiteral("ActiveState:") + QString::number(m_inputActiveState) + QStringLiteral(";") +
-            QStringLiteral("CurrentState:") + m_inputCurrentState + QStringLiteral(";") +
-            QStringLiteral("ActiveStateLedColor:") + m_activeStateLedColor.name();
+            QStringLiteral("CurrentState:") + QString::number(m_inputCurrentState) + QStringLiteral(";") +
+            QStringLiteral("ActiveStateLedColor:") + m_activeStateLedColor.name() + QStringLiteral(";") +
+            QStringLiteral("Position: [") + position.join(",") + QStringLiteral("]");
     return sensorSettings;
+}
+
+QMap<QString, double> Sensor::getPosition() const
+{
+    return m_position;
+}
+
+void Sensor::setPosition(const QMap<QString, double> &position)
+{
+    m_position = position;
 }

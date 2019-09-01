@@ -4,7 +4,9 @@ Axis::Axis(QString name,
            double length,
            double step,
            bool invertDirection,
-           double basingVelocity, QObject *parent) :
+           double basingVelocity,
+           double lowerBound,
+           double upperBound, QObject *parent) :
     QObject(parent),
     m_name(name),
     m_length(length),
@@ -13,6 +15,8 @@ Axis::Axis(QString name,
     m_invertDirection(invertDirection),
     m_currentVelocity(30.0),
     m_basingVelocity(basingVelocity),
+    m_lowerBound(lowerBound),
+    m_upperBound(upperBound),
     m_softLimitsEnable(false)
 {
 
@@ -60,6 +64,7 @@ double Axis::currentPosition() const
 
 void Axis::setCurrentPosition(double currentPosition)
 {
+    currentPosition = qRound(currentPosition * 1000.0) / 1000.0;
     m_currentPosition = currentPosition;
     emit this->currentPositionChanged(m_name, m_currentPosition);
 }
@@ -112,5 +117,27 @@ QString Axis::axisSettings() const
     settings += QString("Шаг по оси: ") + QString::number(m_step) + QString("; ");
     settings += QString("Обратное направление: ") + QString::number(m_invertDirection) + QString("; ");
     settings += QString("Скорость базирования: ") + QString::number(m_basingVelocity) + QString("; ");
+    settings += QString("Минимальное значение: ") + QString::number(m_lowerBound) + QString("; ");
+    settings += QString("Максимальное значение: ") + QString::number(m_upperBound) + QString(".");
     return settings;
+}
+
+double Axis::lowerBound() const
+{
+    return m_lowerBound;
+}
+
+void Axis::setLowerBound(double lowerBound)
+{
+    m_lowerBound = lowerBound;
+}
+
+double Axis::upperBound() const
+{
+    return m_upperBound;
+}
+
+void Axis::setUpperBound(double upperBound)
+{
+    m_upperBound = upperBound;
 }

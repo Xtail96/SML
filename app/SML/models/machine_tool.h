@@ -230,9 +230,17 @@ public slots:
     void switchSpindelOff(QString uid);
 
     void startProgramProcessing();
-    void pauseProgramProcessing();
-    void resumeProgramProcessing();
-    void stopProgramProcessing();
+    bool prepareExecutionQueue(QStringList gcodes);
+    void pauseExecutionQueueProcessing();
+    void resumeExecutionQueueProcessing();
+    void stopExecutionQueueProcessing();
+
+    void moveToPoint(Point pointFromBase);
+
+    void moveToSensor(QString sensorUid);
+    void moveToBase();
+
+    void resetCurrentCoordinates();
 
 private slots:
     void onRepository_ErrorOccurred(ERROR_CODE flag);
