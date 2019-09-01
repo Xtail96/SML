@@ -64,6 +64,7 @@ SOURCES += main.cpp\
     libs/candle_visualizer/drawers/shaderdrawable.cpp \
     libs/candle_visualizer/drawers/tooldrawer.cpp \
     models/repository/repository.cpp \
+    models/services/adapters/launcher/adapters_launcher.cpp \
     models/types/sensor/sensor.cpp \
     models/types/device/spindel.cpp \
     models/types/device/device.cpp \
@@ -132,6 +133,7 @@ HEADERS  += gui/mainwindow.h \
     libs/candle_visualizer/tables/heightmaptablemodel.h \
     libs/simple_qt_logger/simpleQtLogger.h \
     models/repository/repository.h \
+    models/services/adapters/launcher/adapters_launcher.h \
     models/types/structs.h \
     models/types/sensor/sensor.h \
     models/types/device/spindel.h \

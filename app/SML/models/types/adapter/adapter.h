@@ -59,6 +59,9 @@ public:
      */
     Adapter::Type type() const;
 
+    QString path() const;
+    void setPath(const QString &path);
+
 protected:
 
     /// Тип адаптера (U1 или U2)
@@ -69,6 +72,8 @@ protected:
 
     /// Состояние выполения задания адаптера (0 - адаптер совободен. 1 - адаптер занят. >= 2 - ошибка выполеннеия задания)
     unsigned int m_workflowState;
+
+    QString m_path;
 
 signals:
 

@@ -17,6 +17,8 @@
 #include "models/services/axises/monitor/axises_monitor.h"
 #include "models/services/errors/error_flags_monitor.h"
 
+#include "models/services/adapters/launcher/adapters_launcher.h"
+
 /**
  * @brief Класс станок
  *
@@ -97,6 +99,9 @@ public:
     bool getBased() const;
     void setBased(bool based);
 
+    void launchAdapters();
+    void stopAdapters();
+
 private:
 
     /// Репозиторий, хранящий текущее состояние систем станка
@@ -135,6 +140,8 @@ private:
 
     /// Проводилась ли базировка станка (можно ли доверять координатам осей)
     bool m_based;
+
+    QScopedPointer<AdaptersLauncher> m_adaptersLauncher;
 
     /**
      * @brief Создает объект класса станок

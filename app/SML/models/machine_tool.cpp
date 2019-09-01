@@ -15,7 +15,8 @@ MachineTool::MachineTool(QObject *parent) :
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
     m_axisesMonitor(new AxisesMonitor(m_repository->m_axises, this)),
     m_executionQueue(QQueue<QByteArray>()),
-    m_based(false)
+    m_based(false),
+    m_adaptersLauncher(new AdaptersLauncher(this))
 {
     this->setupConnections();
     this->startAdapterServer();
@@ -26,6 +27,7 @@ MachineTool::MachineTool(QObject *parent) :
 
 MachineTool::~MachineTool()
 {
+    this->stopAdapterServer();
     this->resetConnections();
 }
 
@@ -138,6 +140,7 @@ void MachineTool::startAdapterServer()
     try
     {
         m_adapterServer->start();
+        this->launchAdapters();
     }
     catch(...)
     {
@@ -151,6 +154,7 @@ void MachineTool::stopAdapterServer()
     try
     {
         m_adapterServer->stop();
+        this->stopAdapters();
     }
     catch(...)
     {
@@ -220,6 +224,16 @@ void MachineTool::setBased(bool based)
 {
     m_based = based;
     emit this->basingStateChanged(m_based);
+}
+
+void MachineTool::launchAdapters()
+{
+    m_adaptersLauncher->startAdapters(m_repository->m_u1Adapter->path(), m_repository->m_u2Adapter->path());
+}
+
+void MachineTool::stopAdapters()
+{
+    m_adaptersLauncher->stopAdapters();
 }
 
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)

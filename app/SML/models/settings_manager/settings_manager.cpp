@@ -127,6 +127,11 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("DebugMode", 1);
     settings->endGroup();
 
+    settings->beginGroup("Adapters");
+        settings->setValue("U1Path", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U1SerialAdapter/app/build-U1SerialAdapter-Desktop_Qt_5_12_0_clang_64bit-Release/U1SerialAdapter");
+        settings->setValue("U2Path", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_0_clang_64bit-Release/U2EchoAdapter");
+    settings->endGroup();
+
     settings->beginGroup("DefaultDirs");
         QString currentDir = QCoreApplication::applicationDirPath();
         settings->setValue("SaveDir", currentDir + "/files/programs");
