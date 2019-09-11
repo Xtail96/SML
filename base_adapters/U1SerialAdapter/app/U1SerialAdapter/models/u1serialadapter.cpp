@@ -51,8 +51,8 @@ void U1SerialAdapter::loadSettings()
 {
     try
     {
-        size_t sensorsPackageSize = m_settingsManager.get("General", "SensorsBufferSize").toUInt();
-        size_t devicesPackageSize = m_settingsManager.get("General", "DevicesBufferSize").toUInt();
+        size_t sensorsPackageSize = m_settingsManager.get("Main", "SensorsBufferSize").toUInt();
+        size_t devicesPackageSize = m_settingsManager.get("Main", "DevicesBufferSize").toUInt();
 
         m_currentState = new U1State(sensorsPackageSize, devicesPackageSize);
         m_previousState = new U1State(sensorsPackageSize, devicesPackageSize);
