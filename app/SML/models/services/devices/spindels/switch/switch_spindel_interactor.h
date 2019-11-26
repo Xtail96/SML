@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/server/sml_server.h"
+#include "models/machine_tool_elements/adapter/server/sml_server.h"
 
 /**
  * @brief Класс Включения/Отключения шпинделя

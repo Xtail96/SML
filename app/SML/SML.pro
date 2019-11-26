@@ -83,7 +83,7 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     gui/sml_console_dialog.cpp \
     gui/to_selection_point_dialog.cpp \
-    models/server/sml_server.cpp \
+    models/machine_tool_elements/adapter/server/sml_server.cpp \
     models/services/adapters/monitor/adapters_monitor.cpp \
     models/services/devices/spindels/monitor/spindels_monitor.cpp \
     models/services/gcodes/monitor/gcodes_monitor.cpp \
@@ -160,7 +160,7 @@ HEADERS  += gui/mainwindow.h \
     models/services/sensors/monitor/sensors_monitor.h \
     models/machine_tool.h \
     models/settings_manager/settings_manager.h \
-    models/server/sml_server.h \
+    models/machine_tool_elements/adapter/server/sml_server.h \
     models/machine_tool_elements/device/devices_buffer.h \
     models/machine_tool_elements/device/support_device.h \
     models/exceptions/invalid_argument_exception.h \
@@ -171,11 +171,11 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/point/points_manager.h \
     models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/machine_tool_elements/gcodes/file_reader/file_reader.h \
-    models/server/u1_state.h \
+    models/machine_tool_elements/adapter/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/program/prepare_execution_queue_interactor.h \
-    models/server/u2_state.h \
+    models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
     models/services/axises/monitor/axises_monitor.h \
     models/errors/sml_error_flags.h \

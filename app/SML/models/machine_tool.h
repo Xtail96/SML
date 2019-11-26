@@ -5,7 +5,7 @@
 #include <QQueue>
 
 #include "models/repository/repository.h"
-#include "models/server/sml_server.h"
+#include "models/machine_tool_elements/adapter/server/sml_server.h"
 
 #include "models/services/adapters/monitor/adapters_monitor.h"
 #include "models/services/points/monitor/points_monitor.h"

@@ -10,8 +10,8 @@
 #include "models/exceptions/exceptions.h"
 
 #include "models/structs.h"
-#include "models/server/u1_state.h"
-#include "models/server/u2_state.h"
+#include "models/machine_tool_elements/adapter/server/u1_state.h"
+#include "models/machine_tool_elements/adapter/server/u2_state.h"
 
 /**
  * @brief Класс SML-сервер
