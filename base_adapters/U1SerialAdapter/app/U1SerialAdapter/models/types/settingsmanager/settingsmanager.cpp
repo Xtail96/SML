@@ -101,7 +101,7 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 
 void SettingsManager::generateDefaultSettings()
 {
-    settings->beginGroup("General");
+    settings->beginGroup("Main");
         settings->setValue("SensorsBufferSize", 2);
         settings->setValue("DevicesBufferSize", 3);
     settings->endGroup();

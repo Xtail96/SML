@@ -1,6 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
-#include "models/types/structs.h"
+
+#include "models/structs.h"
 
 /*!
  * \brief Класс Устройство

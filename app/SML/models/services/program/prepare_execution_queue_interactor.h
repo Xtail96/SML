@@ -9,7 +9,7 @@
 #include "libs/gpr/parser.h"
 #include "libs/json_parser/json.h"
 
-#include "models/types/exceptions/exceptions.h"
+#include "models/exceptions/exceptions.h"
 
 
 class PrepareExecutionQueueInteractor

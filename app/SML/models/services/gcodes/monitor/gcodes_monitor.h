@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h"
+#include "models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
 /**
  * @brief Класс Монитор состояния G-кодов

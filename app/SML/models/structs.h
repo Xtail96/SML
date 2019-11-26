@@ -6,7 +6,7 @@
 
 #include <QDebug>
 
-#include "models/types/exceptions/exceptions.h"
+#include "models/exceptions/exceptions.h"
 
 typedef unsigned char byte;
 typedef QList<byte> byte_array;

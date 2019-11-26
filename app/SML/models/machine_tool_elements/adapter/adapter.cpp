@@ -4,7 +4,8 @@ Adapter::Adapter(Type type, QObject *parent) :
     QObject(parent),
     m_type(type),
     m_connected(false),
-    m_workflowState(0)
+    m_workflowState(0),
+    m_path("")
 {
 
 }
@@ -40,4 +41,14 @@ void Adapter::setWorkflowState(unsigned int workflowState)
 Adapter::Type Adapter::type() const
 {
     return m_type;
+}
+
+QString Adapter::path() const
+{
+    return m_path;
+}
+
+void Adapter::setPath(const QString &path)
+{
+    m_path = path;
 }

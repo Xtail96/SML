@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/types/structs.h"
+#include "models/structs.h"
 
 /*!
  * \brief Флаги ошибок в работе системы

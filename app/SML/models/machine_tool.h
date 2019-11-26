@@ -5,7 +5,7 @@
 #include <QQueue>
 
 #include "models/repository/repository.h"
-#include "models/server/sml_server.h"
+#include "models/machine_tool_elements/adapter/server/sml_adapter_server.h"
 
 #include "models/services/adapters/monitor/adapters_monitor.h"
 #include "models/services/points/monitor/points_monitor.h"
@@ -16,6 +16,8 @@
 #include "models/services/program/prepare_execution_queue_interactor.h"
 #include "models/services/axises/monitor/axises_monitor.h"
 #include "models/services/errors/error_flags_monitor.h"
+
+#include "models/services/adapters/launcher/adapters_launcher.h"
 
 /**
  * @brief Класс станок
@@ -97,13 +99,16 @@ public:
     bool getBased() const;
     void setBased(bool based);
 
+    void launchAdapters();
+    void stopAdapters();
+
 private:
 
     /// Репозиторий, хранящий текущее состояние систем станка
     QScopedPointer<Repository> m_repository;
 
     /// Сервер для подключения адаптеров
-    QScopedPointer<SMLServer> m_adapterServer;
+    QScopedPointer<SMLAdapterServer> m_adapterServer;
 
     /// Ошибки возникшие при работе системы
     /// Данную переменную необходимо проверять, при отправке данных на станок.
@@ -135,6 +140,8 @@ private:
 
     /// Проводилась ли базировка станка (можно ли доверять координатам осей)
     bool m_based;
+
+    QScopedPointer<AdaptersLauncher> m_adaptersLauncher;
 
     /**
      * @brief Создает объект класса станок

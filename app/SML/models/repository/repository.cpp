@@ -821,6 +821,9 @@ void Repository::loadSettigs()
     this->loadAxisesSettings();
     this->loadSensorsSettings();
     this->loadDevicesSettings();
+
+    m_u1Adapter->setPath(m_settingsManager->get("Adapters", "U1Path").toString());
+    m_u2Adapter->setPath(m_settingsManager->get("Adapters", "U2Path").toString());
 }
 
 void Repository::loadServerSettings()

@@ -2,7 +2,7 @@
 #define SPINDELSMONITOR_H
 
 #include <QObject>
-#include "models/types/device/spindel.h"
+#include "models/machine_tool_elements/device/spindel.h"
 
 /**
  * @brief Класс Монитор состояния шпинделей

@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <vector>
 
-#include "models/types/structs.h"
+#include "models/structs.h"
 
-#include "models/types/exceptions/exceptions.h"
+#include "models/exceptions/exceptions.h"
 
 /**
  * @brief Класс "Точка"

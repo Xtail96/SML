@@ -63,15 +63,17 @@ SOURCES += main.cpp\
     libs/candle_visualizer/glwidget.cpp \
     libs/candle_visualizer/drawers/shaderdrawable.cpp \
     libs/candle_visualizer/drawers/tooldrawer.cpp \
+    models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
-    models/types/sensor/sensor.cpp \
-    models/types/device/spindel.cpp \
-    models/types/device/device.cpp \
-    models/types/axis/axis.cpp \
-    models/types/point/point.cpp \
-    models/types/gcodes/file_reader/file_reader.cpp \
-    models/types/gcodes/gcodes_file_manager/gcodes_file_manager.cpp \
-    models/types/adapter/adapter.cpp \
+    models/services/adapters/launcher/adapters_launcher.cpp \
+    models/machine_tool_elements/sensor/sensor.cpp \
+    models/machine_tool_elements/device/spindel.cpp \
+    models/machine_tool_elements/device/device.cpp \
+    models/machine_tool_elements/axis/axis.cpp \
+    models/machine_tool_elements/point/point.cpp \
+    models/machine_tool_elements/gcodes/file_reader/file_reader.cpp \
+    models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.cpp \
+    models/machine_tool_elements/adapter/adapter.cpp \
     gui/widgets/gcodes_editor_widget.cpp \
     gui/widgets/sensors_display_widget.cpp \
     gui/widgets/sml_commands_list_widget.cpp \
@@ -82,28 +84,27 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     gui/sml_console_dialog.cpp \
     gui/to_selection_point_dialog.cpp \
-    models/server/sml_server.cpp \
     models/services/adapters/monitor/adapters_monitor.cpp \
     models/services/devices/spindels/monitor/spindels_monitor.cpp \
     models/services/gcodes/monitor/gcodes_monitor.cpp \
     models/services/points/monitor/points_monitor.cpp \
     models/services/sensors/monitor/sensors_monitor.cpp \
     models/settings_manager/settings_manager.cpp \
-    models/types/device/devices_buffer.cpp \
-    models/types/device/support_device.cpp \
-    models/types/exceptions/invalid_argument_exception.cpp \
-    models/types/exceptions/invalid_configuration_exception.cpp \
-    models/types/exceptions/out_of_range_exception.cpp \
-    models/types/exceptions/synchronize_state_exception.cpp \
-    models/types/point/points_manager.cpp \
-    models/types/sensor/sensors_buffer.cpp \
+    models/machine_tool_elements/device/devices_buffer.cpp \
+    models/machine_tool_elements/device/support_device.cpp \
+    models/exceptions/invalid_argument_exception.cpp \
+    models/exceptions/invalid_configuration_exception.cpp \
+    models/exceptions/out_of_range_exception.cpp \
+    models/exceptions/synchronize_state_exception.cpp \
+    models/machine_tool_elements/point/points_manager.cpp \
+    models/machine_tool_elements/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
     gui/utils/gcodes_visualizer.cpp \
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/program/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
     models/services/axises/monitor/axises_monitor.cpp \
-    models/types/errors/sml_error_flags.cpp \
+    models/errors/sml_error_flags.cpp \
     models/services/errors/error_flags_monitor.cpp
 
 HEADERS  += gui/mainwindow.h \
@@ -131,15 +132,17 @@ HEADERS  += gui/mainwindow.h \
     libs/candle_visualizer/tables/gcodetablemodel.h \
     libs/candle_visualizer/tables/heightmaptablemodel.h \
     libs/simple_qt_logger/simpleQtLogger.h \
+    models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
-    models/types/structs.h \
-    models/types/sensor/sensor.h \
-    models/types/device/spindel.h \
-    models/types/device/device.h \
-    models/types/axis/axis.h \
-    models/types/point/point.h \
-    models/types/exceptions/exceptions.h \
-    models/types/adapter/adapter.h \
+    models/services/adapters/launcher/adapters_launcher.h \
+    models/structs.h \
+    models/machine_tool_elements/sensor/sensor.h \
+    models/machine_tool_elements/device/spindel.h \
+    models/machine_tool_elements/device/device.h \
+    models/machine_tool_elements/axis/axis.h \
+    models/machine_tool_elements/point/point.h \
+    models/exceptions/exceptions.h \
+    models/machine_tool_elements/adapter/adapter.h \
     gui/widgets/gcodes_editor_widget.h \
     gui/widgets/sensors_display_widget.h \
     gui/widgets/sml_editor_tree_widget.h \
@@ -158,25 +161,24 @@ HEADERS  += gui/mainwindow.h \
     models/services/sensors/monitor/sensors_monitor.h \
     models/machine_tool.h \
     models/settings_manager/settings_manager.h \
-    models/server/sml_server.h \
-    models/types/device/devices_buffer.h \
-    models/types/device/support_device.h \
-    models/types/exceptions/invalid_argument_exception.h \
-    models/types/exceptions/invalid_configuration_exception.h \
-    models/types/exceptions/out_of_range_exception.h \
-    models/types/exceptions/synchronize_state_exception.h \
-    models/types/sensor/sensors_buffer.h \
-    models/types/point/points_manager.h \
-    models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h \
-    models/types/gcodes/file_reader/file_reader.h \
-    models/server/u1_state.h \
+    models/machine_tool_elements/device/devices_buffer.h \
+    models/machine_tool_elements/device/support_device.h \
+    models/exceptions/invalid_argument_exception.h \
+    models/exceptions/invalid_configuration_exception.h \
+    models/exceptions/out_of_range_exception.h \
+    models/exceptions/synchronize_state_exception.h \
+    models/machine_tool_elements/sensor/sensors_buffer.h \
+    models/machine_tool_elements/point/points_manager.h \
+    models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h \
+    models/machine_tool_elements/gcodes/file_reader/file_reader.h \
+    models/machine_tool_elements/adapter/server/u1_state.h \
     gui/utils/gcodes_visualizer.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/program/prepare_execution_queue_interactor.h \
-    models/server/u2_state.h \
+    models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
     models/services/axises/monitor/axises_monitor.h \
-    models/types/errors/sml_error_flags.h \
+    models/errors/sml_error_flags.h \
     models/services/errors/error_flags_monitor.h
 
 FORMS    += gui/mainwindow.ui \

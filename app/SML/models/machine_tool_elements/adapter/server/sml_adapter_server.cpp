@@ -1,6 +1,6 @@
-#include "sml_server.h"
+#include "sml_adapter_server.h"
 
-SMLServer::SMLServer(qint16 port, QObject *parent) :
+SMLAdapterServer::SMLAdapterServer(qint16 port, QObject *parent) :
     QObject(parent),
     m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
     m_port(port),
@@ -9,7 +9,7 @@ SMLServer::SMLServer(qint16 port, QObject *parent) :
     this->setupConnections();
 }
 
-SMLServer::~SMLServer()
+SMLAdapterServer::~SMLAdapterServer()
 {
     this->stop();
     this->resetConnections();
@@ -58,19 +58,19 @@ SMLServer::~SMLServer()
 
 }
 
-void SMLServer::setupConnections()
+void SMLAdapterServer::setupConnections()
 {
     QObject::connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
     QObject::connect(m_server.data(), SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
 }
 
-void SMLServer::resetConnections()
+void SMLAdapterServer::resetConnections()
 {
     QObject::disconnect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
     QObject::disconnect(m_server.data(), SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
 }
 
-void SMLServer::start()
+void SMLAdapterServer::start()
 {
     if(m_port != 0)
     {
@@ -86,7 +86,7 @@ void SMLServer::start()
     }
 }
 
-void SMLServer::stop()
+void SMLAdapterServer::stop()
 {
     qDebug() << "stop server";
     if(m_server->isListening())
@@ -96,7 +96,7 @@ void SMLServer::stop()
     qDebug() << "Server successfully stopped. Good Bye!";
 }
 
-void SMLServer::onQWebSocketServer_NewConnection()
+void SMLAdapterServer::onQWebSocketServer_NewConnection()
 {
     QWebSocket* pSocket = m_server->nextPendingConnection();
 
@@ -113,7 +113,7 @@ void SMLServer::onQWebSocketServer_NewConnection()
 
 }
 
-void SMLServer::sendMessageToU1(QByteArray message)
+void SMLAdapterServer::sendMessageToU1(QByteArray message)
 {
     for(auto socket : m_u1Connections)
     {
@@ -135,7 +135,7 @@ void SMLServer::sendMessageToU1(QByteArray message)
     }
 }
 
-void SMLServer::sendMessageToU2(QByteArray message)
+void SMLAdapterServer::sendMessageToU2(QByteArray message)
 {
     for(auto socket : m_u2Connections)
     {
@@ -157,13 +157,13 @@ void SMLServer::sendMessageToU2(QByteArray message)
     }
 }
 
-void SMLServer::sendMessage(QByteArray message)
+void SMLAdapterServer::sendMessage(QByteArray message)
 {
     this->sendMessageToU1(message);
     this->sendMessageToU2(message);
 }
 
-void SMLServer::onQWebSocketServer_Closed()
+void SMLAdapterServer::onQWebSocketServer_Closed()
 {
     if(m_debug)
     {
@@ -175,7 +175,7 @@ void SMLServer::onQWebSocketServer_Closed()
     emit this->u2Disconnected();
 }
 
-void SMLServer::onQWebSocket_TextMessageReceived(QString message)
+void SMLAdapterServer::onQWebSocket_TextMessageReceived(QString message)
 {
     if (m_debug)
     {
@@ -189,7 +189,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
     {
         try
         {
-            this->registerClient(pSender, SMLServer::U1Adapter);
+            this->registerClient(pSender, SMLAdapterServer::U1Adapter);
             pSender->sendTextMessage("Registered!");
         }
         catch(SynchronizeStateException e)
@@ -204,7 +204,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
         {
             try
             {
-                this->registerClient(pSender, SMLServer::U2Adapter);
+                this->registerClient(pSender, SMLAdapterServer::U2Adapter);
                 pSender->sendTextMessage("Registered!");
             }
             catch(SynchronizeStateException e)
@@ -221,7 +221,7 @@ void SMLServer::onQWebSocket_TextMessageReceived(QString message)
     }
 }
 
-void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
+void SMLAdapterServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
 {
     if(m_debug)
     {
@@ -235,7 +235,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
     {
         try
         {
-            U1State u1 = SMLServer::parseU1BinaryMessage(message);
+            U1State u1 = SMLAdapterServer::parseU1BinaryMessage(message);
             emit this->u1StateChanged(u1.sensors, u1.devices, u1.workflowState, ERROR_CODE(u1.errorCode));
         }
         catch(SynchronizeStateException e)
@@ -250,7 +250,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
     {
         try
         {
-            U2State u2 = SMLServer::parseU2BinaryMessage(message);
+            U2State u2 = SMLAdapterServer::parseU2BinaryMessage(message);
             emit this->u2StateChanged(u2.positions, u2.workflowState, ERROR_CODE(u2.errorCode));
         }
         catch(SynchronizeStateException e)
@@ -262,7 +262,7 @@ void SMLServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
     }
 }
 
-U1State SMLServer::parseU1BinaryMessage(QByteArray message)
+U1State SMLAdapterServer::parseU1BinaryMessage(QByteArray message)
 {
     bool ok;
     QString json = QString::fromUtf8(message);
@@ -290,7 +290,7 @@ U1State SMLServer::parseU1BinaryMessage(QByteArray message)
     }
 }
 
-U2State SMLServer::parseU2BinaryMessage(QByteArray message)
+U2State SMLAdapterServer::parseU2BinaryMessage(QByteArray message)
 {
     bool ok;
     QString json = QString::fromUtf8(message);
@@ -326,7 +326,7 @@ U2State SMLServer::parseU2BinaryMessage(QByteArray message)
     }
 }
 
-void SMLServer::onQWebSocket_Disconnected()
+void SMLAdapterServer::onQWebSocket_Disconnected()
 {
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
@@ -357,13 +357,13 @@ void SMLServer::onQWebSocket_Disconnected()
     pSender->deleteLater();
 }
 
-void SMLServer::registerClient(QWebSocket* client, int type)
+void SMLAdapterServer::registerClient(QWebSocket* client, int type)
 {
     if (client == nullptr)
         throw SynchronizeStateException("Try to Register invalid socket");
 
     switch (type) {
-    case SMLServer::U1Adapter:
+    case SMLAdapterServer::U1Adapter:
         m_u1Connections.push_back(client);
         m_unregistered.removeAll(client);
         if(m_debug)
@@ -372,7 +372,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
         }
         emit this->u1Connected();
         break;
-    case SMLServer::U2Adapter:
+    case SMLAdapterServer::U2Adapter:
         m_u2Connections.push_back(client);
         m_unregistered.removeAll(client);
         if(m_debug)
@@ -401,7 +401,7 @@ void SMLServer::registerClient(QWebSocket* client, int type)
     }
 }
 
-QStringList SMLServer::currentAdapters()
+QStringList SMLAdapterServer::currentAdapters()
 {
     QStringList settings;
 
@@ -444,7 +444,7 @@ QStringList SMLServer::currentAdapters()
     return settings;
 }
 
-size_t SMLServer::port() const
+size_t SMLAdapterServer::port() const
 {
     return size_t (m_port);
 }

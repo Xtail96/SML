@@ -4,9 +4,9 @@
 #include <vector>
 #include <memory>
 #include <QMessageBox>
-#include "models/types/point/point.h"
+#include "models/machine_tool_elements/point/point.h"
 
-#include "models/types/exceptions/exceptions.h"
+#include "models/exceptions/exceptions.h"
 
 /**
  * @brief Класс Менеджер точек

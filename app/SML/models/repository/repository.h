@@ -5,16 +5,16 @@
 #include <QFile>
 #include <QFileDialog>
 
-#include "models/types/structs.h"
-#include "models/types/axis/axis.h"
-#include "models/types/device/spindel.h"
-#include "models/types/device/support_device.h"
-#include "models/types/sensor/sensor.h"
-#include "models/types/sensor/sensors_buffer.h"
+#include "models/structs.h"
+#include "models/machine_tool_elements/axis/axis.h"
+#include "models/machine_tool_elements/device/spindel.h"
+#include "models/machine_tool_elements/device/support_device.h"
+#include "models/machine_tool_elements/sensor/sensor.h"
+#include "models/machine_tool_elements/sensor/sensors_buffer.h"
 #include "models/settings_manager/settings_manager.h"
-#include "models/types/point/points_manager.h"
-#include "models/types/adapter/adapter.h"
-#include "models/types/gcodes/gcodes_file_manager/gcodes_file_manager.h"
+#include "models/machine_tool_elements/point/points_manager.h"
+#include "models/machine_tool_elements/adapter/adapter.h"
+#include "models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
 class MachineTool;
 
