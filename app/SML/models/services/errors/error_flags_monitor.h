@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/types/errors/sml_error_flags.h"
+#include "models/errors/sml_error_flags.h"
 
 class ErrorFlagsMonitor : public QObject
 {

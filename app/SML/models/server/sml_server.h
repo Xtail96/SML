@@ -7,9 +7,9 @@
 
 #include "libs/json_parser/json.h"
 
-#include "models/types/exceptions/exceptions.h"
+#include "models/exceptions/exceptions.h"
 
-#include "models/types/structs.h"
+#include "models/structs.h"
 #include "models/server/u1_state.h"
 #include "models/server/u2_state.h"
 

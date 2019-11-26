@@ -2,7 +2,7 @@
 #define POINTSMONITOR_H
 
 #include <QObject>
-#include "models/types/point/points_manager.h"
+#include "models/machine_tool_elements/point/points_manager.h"
 
 /**
  * @brief Класс Монитор состояния точек

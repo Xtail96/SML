@@ -1,7 +1,8 @@
 #ifndef SPINDEL_H
 #define SPINDEL_H
 
-#include "models/types/device/device.h"
+#include "models/machine_tool_elements/device/device.h"
+
 class Spindel : public Device
 {
     Q_OBJECT

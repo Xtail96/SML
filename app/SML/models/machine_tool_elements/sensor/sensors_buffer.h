@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "models/types/structs.h"
-#include "models/types/exceptions/exceptions.h"
+#include "models/structs.h"
+#include "models/exceptions/exceptions.h"
 
 /**
  * @brief Класс Буфер датчиков

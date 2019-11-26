@@ -1,7 +1,7 @@
 #ifndef SUPPORTDEVICE_H
 #define SUPPORTDEVICE_H
 
-#include "models/types/device/device.h"
+#include "models/machine_tool_elements/device/device.h"
 
 class SupportDevice : public Device
 {

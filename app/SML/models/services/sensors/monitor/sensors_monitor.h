@@ -2,7 +2,7 @@
 #define SENSORSMONITOR_H
 
 #include <QObject>
-#include "models/types/sensor/sensor.h"
+#include "models/machine_tool_elements/sensor/sensor.h"
 
 /**
  * @brief Класс Монитор состояния датчиков

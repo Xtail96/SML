@@ -2,7 +2,7 @@
 #define CONNECTIONSMONITOR_H
 
 #include <QObject>
-#include "models/types/adapter/adapter.h"
+#include "models/machine_tool_elements/adapter/adapter.h"
 
 
 /**

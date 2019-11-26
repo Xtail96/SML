@@ -2,7 +2,7 @@
 #define DEVICESBUFFER_H
 
 #include <QObject>
-#include "models/types/structs.h"
+#include "models/structs.h"
 
 class DevicesBuffer : public QObject
 {

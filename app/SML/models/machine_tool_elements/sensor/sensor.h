@@ -3,7 +3,7 @@
 
 #include <QColor>
 
-#include "models/types/structs.h"
+#include "models/structs.h"
 
 /**
  * @brief Класс Датчик

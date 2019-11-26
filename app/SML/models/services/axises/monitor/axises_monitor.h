@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSharedPointer>
 
-#include "models/types/axis/axis.h"
+#include "models/machine_tool_elements/axis/axis.h"
 
 class AxisesMonitor : public QObject
 {
