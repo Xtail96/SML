@@ -63,6 +63,7 @@ SOURCES += main.cpp\
     libs/candle_visualizer/glwidget.cpp \
     libs/candle_visualizer/drawers/shaderdrawable.cpp \
     libs/candle_visualizer/drawers/tooldrawer.cpp \
+    models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/machine_tool_elements/sensor/sensor.cpp \
@@ -83,7 +84,6 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     gui/sml_console_dialog.cpp \
     gui/to_selection_point_dialog.cpp \
-    models/machine_tool_elements/adapter/server/sml_server.cpp \
     models/services/adapters/monitor/adapters_monitor.cpp \
     models/services/devices/spindels/monitor/spindels_monitor.cpp \
     models/services/gcodes/monitor/gcodes_monitor.cpp \
@@ -132,6 +132,7 @@ HEADERS  += gui/mainwindow.h \
     libs/candle_visualizer/tables/gcodetablemodel.h \
     libs/candle_visualizer/tables/heightmaptablemodel.h \
     libs/simple_qt_logger/simpleQtLogger.h \
+    models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/structs.h \
@@ -160,7 +161,6 @@ HEADERS  += gui/mainwindow.h \
     models/services/sensors/monitor/sensors_monitor.h \
     models/machine_tool.h \
     models/settings_manager/settings_manager.h \
-    models/machine_tool_elements/adapter/server/sml_server.h \
     models/machine_tool_elements/device/devices_buffer.h \
     models/machine_tool_elements/device/support_device.h \
     models/exceptions/invalid_argument_exception.h \

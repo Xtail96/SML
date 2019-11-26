@@ -5,7 +5,7 @@
 #include <QQueue>
 
 #include "models/repository/repository.h"
-#include "models/machine_tool_elements/adapter/server/sml_server.h"
+#include "models/machine_tool_elements/adapter/server/sml_adapter_server.h"
 
 #include "models/services/adapters/monitor/adapters_monitor.h"
 #include "models/services/points/monitor/points_monitor.h"
@@ -108,7 +108,7 @@ private:
     QScopedPointer<Repository> m_repository;
 
     /// Сервер для подключения адаптеров
-    QScopedPointer<SMLServer> m_adapterServer;
+    QScopedPointer<SMLAdapterServer> m_adapterServer;
 
     /// Ошибки возникшие при работе системы
     /// Данную переменную необходимо проверять, при отправке данных на станок.

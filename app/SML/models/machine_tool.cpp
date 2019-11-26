@@ -3,7 +3,7 @@
 MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_repository(new Repository(this)),
-    m_adapterServer(new SMLServer(m_repository->m_port, this)),
+    m_adapterServer(new SMLAdapterServer(m_repository->m_port, this)),
     m_errors(new SmlErrorFlags(this)),
     m_errorFlagsMonitor(new ErrorFlagsMonitor(m_errors.data(), this)),
     m_adaptersMonitor(new AdaptersMonitor(m_repository->m_u1Adapter.data(),

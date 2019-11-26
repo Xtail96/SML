@@ -1,5 +1,5 @@
-#ifndef SMLSERVER_H
-#define SMLSERVER_H
+#ifndef SMLADAPTERSERVER_H
+#define SMLADAPTERSERVER_H
 
 #include <QObject>
 #include <QWebSocketServer>
@@ -14,12 +14,12 @@
 #include "models/machine_tool_elements/adapter/server/u2_state.h"
 
 /**
- * @brief Класс SML-сервер
+ * @brief Класс сервер SML-адаптеров.
  *
- * Предназначен для взаимодействия с адаптерами контроллеров U1 и U2
- * Использует технологию Web-Soket для реализации коммуникаций
+ * Предназначен для взаимодействия с адаптерами контроллеров U1 и U2.
+ * Использует технологию Web-Soket для обеспечения коммуникации.
  */
-class SMLServer : public QObject
+class SMLAdapterServer : public QObject
 {
     Q_OBJECT
 public:
@@ -28,12 +28,12 @@ public:
      * @param port порт сервера
      * @param parent родительский виджет в дереве объектов
      */
-    explicit SMLServer(qint16 port, QObject *parent = nullptr);
+    explicit SMLAdapterServer(qint16 port, QObject *parent = nullptr);
 
     /**
       * @brief Деструктор класса
       */
-    ~SMLServer();
+    ~SMLAdapterServer();
 
     /**
      * @brief Тип клиентской программы
@@ -211,4 +211,4 @@ private slots:
     void onQWebSocket_Disconnected();
 };
 
-#endif // SMLRSERVER_H
+#endif // SMLADAPTERSERVER_H

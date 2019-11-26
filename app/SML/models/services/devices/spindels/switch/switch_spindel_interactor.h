@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/adapter/server/sml_server.h"
+#include "models/machine_tool_elements/adapter/server/sml_adapter_server.h"
 
 /**
  * @brief Класс Включения/Отключения шпинделя
@@ -26,7 +26,7 @@ public:
      * @param enable требуемое состояние шпинделя, после отправки посылки. True - шпиндель включен. False - шпиндель выключен.
      * @param rotations требуемое число оборотом, после отправки посылки
      */
-    static void execute(SMLServer& server, QString uid, bool enable, size_t rotations = 0);
+    static void execute(SMLAdapterServer& server, QString uid, bool enable, size_t rotations = 0);
 
 protected:
     /**
@@ -35,14 +35,14 @@ protected:
      * @param rotations требуемое число оборотов шпинделя после включения
      * @param server указатель на сервер, который должен выполнить отправку сообщения
      */
-    static void switchOn(QString uid, size_t rotations, SMLServer &server);
+    static void switchOn(QString uid, size_t rotations, SMLAdapterServer &server);
 
     /**
      * @brief Производит формирование и запускает процесс отправки посылки для выключения шпинделя
      * @param uid уникальный идентификатор шпинделя
      * @param server указатель на сервер, который должен выполнить отправку сообщения
      */
-    static void switchOff(QString uid, SMLServer &server);
+    static void switchOff(QString uid, SMLAdapterServer &server);
 };
 
 #endif // SWITCH_SPINDEL_INTERACTOR_H
