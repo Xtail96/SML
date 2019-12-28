@@ -24,6 +24,7 @@ public:
 
 private:
     Ui::ProgramProcessingDialog *ui;
+    bool m_paused;
 
     void setupWidgets();
     void setupConnections();

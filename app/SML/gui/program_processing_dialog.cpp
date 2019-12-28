@@ -3,7 +3,8 @@
 
 ProgramProcessingDialog::ProgramProcessingDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ProgramProcessingDialog)
+    ui(new Ui::ProgramProcessingDialog),
+    m_paused(false)
 {
     ui->setupUi(this);
 
@@ -79,10 +80,18 @@ void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
 void ProgramProcessingDialog::on_pausePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.pauseExecutionQueueProcessing();
 
+    if(m_paused)
+    {
+        machineTool.stopExecutionQueueProcessing();
+        this->close();
+        return;
+    }
+
+    machineTool.pauseExecutionQueueProcessing();
     ui->resumePushButton->setEnabled(true);
-    ui->pausePushButton->setEnabled(false);
+    m_paused = true;
+    ui->pausePushButton->setText("Остановить");
 }
 
 void ProgramProcessingDialog::on_resumePushButton_clicked()
@@ -91,11 +100,12 @@ void ProgramProcessingDialog::on_resumePushButton_clicked()
     machineTool.resumeExecutionQueueProcessing();
 
     ui->resumePushButton->setEnabled(false);
-    ui->pausePushButton->setEnabled(true);
+    m_paused = false;
+    ui->pausePushButton->setText("Пауза");
 }
 
 void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)
- {
+{
     event->ignore();
- }
+}
 

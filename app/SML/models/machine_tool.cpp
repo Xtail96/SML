@@ -336,7 +336,9 @@ void MachineTool::resumeExecutionQueueProcessing()
 
 void MachineTool::stopExecutionQueueProcessing()
 {
-    // kill adapter and terminate controller;
+    // todo: terminate controller (may be kill adapter);
+    QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    m_executionQueue.clear();
 }
 
 void MachineTool::moveToPoint(Point pointFromBase)
