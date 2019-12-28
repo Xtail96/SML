@@ -102,7 +102,7 @@ QStringList PrepareExecutionQueueInteractor::resolveToCurrentPosition(QStringLis
                 QStringList avaliableAxises = machineTool.getRepository().getAxisesNames();
                 if(avaliableAxises.contains(key, Qt::CaseInsensitive))
                 {
-                    value += machineTool.getRepository().getCurrentAxisPosition(key);
+                    value += machineTool.getRepository().getAxisPosition(key);
                 }
 
                 QString serializedChunk = key + QString::number(value);

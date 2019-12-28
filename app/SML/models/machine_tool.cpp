@@ -383,7 +383,7 @@ void MachineTool::moveToBase()
     try
     {
         this->setBased(false);
-        m_repository->setCurrentCoordinates(m_repository->getMaxPosition());
+        m_repository->setCurrentPosition(m_repository->getMaxPosition());
 
         QStringList axisesNames = m_repository->getAxisesNames();
         QStringList sensorUids = {};
@@ -422,7 +422,7 @@ void MachineTool::resetCurrentCoordinates()
     try
     {
         Point zeroPoint = Point(m_repository->getAxisesCount());
-        m_repository->setCurrentCoordinates(zeroPoint);
+        m_repository->setCurrentPosition(zeroPoint);
     }
     catch (...)
     {
@@ -480,7 +480,7 @@ void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinat
 {
     this->setErrorFlag(lastError);
     m_repository->setU2WorkflowState(workflowState);
-    m_repository->setCurrentCoordinates(coordinates);
+    m_repository->setCurrentPosition(coordinates);
 }
 
 void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)

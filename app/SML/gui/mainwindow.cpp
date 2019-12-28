@@ -480,7 +480,7 @@ void MainWindow::updateCoordinatesDisplays()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QList<Point> currentCoordinates = machineTool.getRepository().getCurrentCoordinates();
+    QList<Point> currentCoordinates = machineTool.getRepository().getCurrentPositionDetails();
 
     if(currentCoordinates.length() == 3)
     {
@@ -731,7 +731,7 @@ void MainWindow::stepMove(QMap<QString, double> steps)
         }*/
 
         MachineTool &i = MachineTool::getInstance();
-        Point currentCoordinatesFromBase = i.getRepository().getCurrentCoordinatesFromBase();
+        Point currentCoordinatesFromBase = i.getRepository().getCurrentPositionFromBase();
         Point increment = Point(size_t(currentCoordinatesFromBase.size()));
 
         QStringList axises = steps.keys();
@@ -1387,7 +1387,7 @@ void MainWindow::on_toBasePushButton_clicked()
 void MainWindow::on_zeroPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
     this->updateCoordinatesDisplays();
 }
 
@@ -1400,7 +1400,7 @@ void MainWindow::on_toZeroPushButton_clicked()
 void MainWindow::on_parkPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentCoordinatesFromBase());
+    machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
     this->updateCoordinatesDisplays();
 }
 
