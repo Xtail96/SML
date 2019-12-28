@@ -19,8 +19,8 @@ class PrepareExecutionQueueInteractor
 public:
     PrepareExecutionQueueInteractor();
 
-    static QQueue<QByteArray> execute(QStringList gcodesProgram);
-    static QStringList linkToCurrentPosition(QStringList gcodes);
+    static QQueue<QByteArray> execute(QStringList gcodesProgram, bool resolveToCurrentPositionIsNeed = false);
+    static QStringList resolveToCurrentPosition(QStringList gcodes);
 
 private:
     static QPair<QString, double> chunkToKeyValuePair(gpr::chunk chunk);

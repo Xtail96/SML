@@ -278,7 +278,7 @@ void MachineTool::startProgramProcessing()
 {
     try
     {
-        if(this->prepareExecutionQueue(m_repository->getGCodesProgram()))
+        if(this->prepareExecutionQueue(m_repository->getGCodesProgram(), true))
         {
             this->resumeExecutionQueueProcessing();
         }
@@ -300,14 +300,14 @@ void MachineTool::startProgramProcessing()
     }
 }
 
-bool MachineTool::prepareExecutionQueue(QStringList gcodes)
+bool MachineTool::prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPositionIsNeed)
 {
     try
     {
         m_executionQueue.clear();
         if(!m_errors->isSystemHasErrors())
         {
-            m_executionQueue = PrepareExecutionQueueInteractor::execute(gcodes);
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(gcodes, resolveToCurrentPositionIsNeed);
             return true;
         }
         else
@@ -352,7 +352,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
         }
         gcode += "F" + QString::number(m_repository->getVelocity());
 
-        if(this->prepareExecutionQueue(QStringList {gcode}))
+        if(this->prepareExecutionQueue(QStringList {gcode}, false))
         {
             this->resumeExecutionQueueProcessing();
         }

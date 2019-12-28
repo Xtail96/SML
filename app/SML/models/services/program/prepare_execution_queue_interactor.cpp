@@ -5,9 +5,9 @@ PrepareExecutionQueueInteractor::PrepareExecutionQueueInteractor()
 
 }
 
-QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesProgram)
+QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesProgram, bool resolveToCurrentPositionIsNeed)
 {
-    gcodesProgram = PrepareExecutionQueueInteractor::linkToCurrentPosition(gcodesProgram);
+    if(resolveToCurrentPositionIsNeed) gcodesProgram = PrepareExecutionQueueInteractor::resolveToCurrentPosition(gcodesProgram);
 
     QQueue<QByteArray> result = {};
 
@@ -73,7 +73,7 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
     return result;
 }
 
-QStringList PrepareExecutionQueueInteractor::linkToCurrentPosition(QStringList gcodes)
+QStringList PrepareExecutionQueueInteractor::resolveToCurrentPosition(QStringList gcodes)
 {
     QStringList result = {};
     MachineTool &machineTool = MachineTool::getInstance();
