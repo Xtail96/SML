@@ -3,8 +3,7 @@
 
 ProgramProcessingDialog::ProgramProcessingDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ProgramProcessingDialog),
-    m_paused(false)
+    ui(new Ui::ProgramProcessingDialog)
 {
     ui->setupUi(this);
 
@@ -37,6 +36,7 @@ void ProgramProcessingDialog::setupWidgets()
 
     ui->resumePushButton->setEnabled(false);
     ui->pausePushButton->setEnabled(true);
+    ui->stopPushButton->hide();
 
     this->setWindowFlags(Qt::Window
                          | Qt::WindowMinimizeButtonHint
@@ -80,18 +80,10 @@ void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
 void ProgramProcessingDialog::on_pausePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-
-    if(m_paused)
-    {
-        machineTool.stopExecutionQueueProcessing();
-        this->close();
-        return;
-    }
-
     machineTool.pauseExecutionQueueProcessing();
     ui->resumePushButton->setEnabled(true);
-    m_paused = true;
-    ui->pausePushButton->setText("Остановить");
+    ui->pausePushButton->hide();
+    ui->stopPushButton->show();
 }
 
 void ProgramProcessingDialog::on_resumePushButton_clicked()
@@ -100,8 +92,8 @@ void ProgramProcessingDialog::on_resumePushButton_clicked()
     machineTool.resumeExecutionQueueProcessing();
 
     ui->resumePushButton->setEnabled(false);
-    m_paused = false;
-    ui->pausePushButton->setText("Пауза");
+    ui->stopPushButton->hide();
+    ui->pausePushButton->show();
 }
 
 void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)
@@ -109,3 +101,9 @@ void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)
     event->ignore();
 }
 
+void ProgramProcessingDialog::on_stopPushButton_clicked()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.stopExecutionQueueProcessing();
+    this->close();
+}

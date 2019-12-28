@@ -24,7 +24,6 @@ public:
 
 private:
     Ui::ProgramProcessingDialog *ui;
-    bool m_paused;
 
     void setupWidgets();
     void setupConnections();
@@ -35,6 +34,7 @@ private slots:
     void onMachineTool_NextCommandSent(QByteArray package);
     void on_pausePushButton_clicked();
     void on_resumePushButton_clicked();
+    void on_stopPushButton_clicked();
 };
 
 #endif // PROGRAM_PROCESSING_DIALOG_H
