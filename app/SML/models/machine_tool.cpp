@@ -104,16 +104,16 @@ void MachineTool::resetConnections()
     QObject::connect(m_axisesMonitor.data(), SIGNAL(axisCurrentPositionChanged(QString, double)), this, SLOT(onAxisesMonitor_AxisCurrentPositionChanged(QString, double)));
 }
 
-void MachineTool::fixErrors()
+void MachineTool::handleErrors()
 {
     QList<ERROR_CODE> currentErrors = m_errors->getCurrentErrorFlags();
     for(ERROR_CODE error : currentErrors)
     {
         switch (error)
         {
-        case ERROR_CODE::INVALID_SETTINGS:
-            break;
         case ERROR_CODE::OK:
+            break;
+        case ERROR_CODE::INVALID_SETTINGS:
             break;
         case ERROR_CODE::PROGRAM_EXECUTION_ERROR:
             m_executionQueue.clear();
@@ -204,9 +204,11 @@ QList<ERROR_CODE> MachineTool::getCurrentErrorFlags()
 
 void MachineTool::setErrorFlag(ERROR_CODE code)
 {
+    if(code == ERROR_CODE::OK) return;
+
     qDebug() << "MachineTool::setErrorFlag: ERROR_CODE =" << code;
     m_errors->insertErrorFlag(code);
-    this->fixErrors();
+    this->handleErrors();
 }
 
 void MachineTool::removeErrorFlag(ERROR_CODE code)

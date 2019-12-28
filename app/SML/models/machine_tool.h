@@ -169,7 +169,7 @@ private:
      */
     void resetConnections();
 
-    void fixErrors();
+    void handleErrors();
 
 signals:
     /**
