@@ -358,14 +358,14 @@ QStringList Repository::getGCodesProgram()
     return result;
 }
 
-QList<Point> Repository::getCurrentCoordinates()
+QList<Point> Repository::getCurrentPositionDetails()
 {
     QList<Point> currentCoordinates = {};
 
     try
     {
-        currentCoordinates.push_back(this->getCurrentCoordinatesFromZero());
-        currentCoordinates.push_back(this->getCurrentCoordinatesFromBase());
+        currentCoordinates.push_back(this->getCurrentPositionFromZero());
+        currentCoordinates.push_back(this->getCurrentPositionFromBase());
         currentCoordinates.push_back(m_parkCoordinates);
     }
     catch(...)
@@ -377,7 +377,7 @@ QList<Point> Repository::getCurrentCoordinates()
     return currentCoordinates;
 }
 
-void Repository::setCurrentCoordinates(Point absCoordinates)
+void Repository::setCurrentPosition(Point absCoordinates)
 {
     for(auto axis : m_axises)
     {
@@ -387,7 +387,7 @@ void Repository::setCurrentCoordinates(Point absCoordinates)
     }
 }
 
-void Repository::setCurrentCoordinates(QMap<QString, double> absCoordinates)
+void Repository::setCurrentPosition(QMap<QString, double> absCoordinates)
 {
     for(auto axis : m_axises)
     {
@@ -418,6 +418,29 @@ QStringList Repository::getAxisesNames()
     }
 
     return names;
+}
+
+double Repository::getAxisPosition(const QString axisName)
+{
+    if(!this->getAxisesNames().contains(axisName, Qt::CaseInsensitive))
+    {
+        QString message =
+                QStringLiteral("axis with name = ") +
+                axisName +
+                QStringLiteral(" does not exists");
+        qDebug() << QStringLiteral("Repository::getCurrentAxisPosition:") << message;
+        throw InvalidArgumentException(message);
+    }
+
+    try
+    {
+        Point positionFromBase = this->getCurrentPositionFromBase();
+        return positionFromBase.get(axisName);
+    }
+    catch (std::invalid_argument e) {
+        qDebug() << QStringLiteral("Repository::getCurrentAxisPosition:") << e.what();
+        throw InvalidArgumentException(e.what());
+    }
 }
 
 QStringList Repository::getAxisesSettings()
@@ -993,7 +1016,7 @@ bool Repository::sensorExists(QString uid)
     return false;
 }
 
-Point Repository::getCurrentCoordinatesFromBase()
+Point Repository::getCurrentPositionFromBase()
 {
     Point result = Point();
 
@@ -1015,14 +1038,14 @@ Point Repository::getCurrentCoordinatesFromBase()
     return result;
 }
 
-Point Repository::getCurrentCoordinatesFromZero()
+Point Repository::getCurrentPositionFromZero()
 {
     Point result = Point();
 
     try
     {
         Point currentFromZero(size_t(m_axises.size()));
-        Point p = this->getCurrentCoordinatesFromBase();
+        Point p = this->getCurrentPositionFromBase();
 
         if(p.size() == m_zeroCoordinates.size())
         {

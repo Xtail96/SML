@@ -260,35 +260,50 @@ public:
     // Axises
 
     /**
-     * @brief Возвращает текущие координаты станка
-     * [0] элемент списка содержит текущие координаты относительно Нуля,
-     * [1] элемент списка содержит текущие координаты относительно Базы,
-     * [2] элемент списка содержит текущие координаты точки Парк.
+     * @brief Возвращает подробную информацию о текущей позиции станка
+     * [0] элемент списка содержит текущую позицию относительно Нуля,
+     * [1] элемент списка содержит текущую позицию относительно Базы,
+     * [2] элемент списка содержит позицию точки Парк.
      * @return координаты станка
      */
-    QList<Point> getCurrentCoordinates();
+    QList<Point> getCurrentPositionDetails();
 
     /**
-     * @brief Возвращает текущие координаты относительно Базы
+     * @brief Возвращает позицию станка относительно Базы
      * @return текущие координаты станка в абсолютной системе координат
      */
-    Point getCurrentCoordinatesFromBase();
+    Point getCurrentPositionFromBase();
 
     /**
-     * @brief Возвращает текущие координаты относительно точки Ноль
+     * @brief Возвращает позицию станка относительно точки Ноль
      * @return текущие координаты станка в относительной системе координат
      */
-    Point getCurrentCoordinatesFromZero();
+    Point getCurrentPositionFromZero();
 
-    void setCurrentCoordinates(Point absCoordinates);
+    /**
+     * @brief Устанавливает позицию станка
+     * @param absCoordinates точка с абсолютными координатами положения станка
+     */
+    void setCurrentPosition(Point absCoordinates);
 
-    void setCurrentCoordinates(QMap<QString, double> absCoordinates);
+    /**
+     * @brief Устанавливает позицию станка
+     * @param absCoordinates словарь ключ-значение содержащий имя оси и соответвующее ей положение станка
+     */
+    void setCurrentPosition(QMap<QString, double> absCoordinates);
 
     /**
      * @brief Возвращает названия всех доступных осей координат
      * @return список доступных осей координат
      */
     QStringList getAxisesNames();
+
+    /**
+     * @brief Возвращает позицию по оси относительно базы
+     * @param axisName идентификатор оси
+     * @return позиция по оси относительно базы.
+     */
+    double getAxisPosition(const QString axisName);
 
     /**
      * @brief Возвращает настройки доступных осей координат

@@ -10,6 +10,8 @@
 #include "libs/json_parser/json.h"
 
 #include "models/exceptions/exceptions.h"
+#include "models/structs.h"
+#include "models/machine_tool.h"
 
 
 class PrepareExecutionQueueInteractor
@@ -17,7 +19,8 @@ class PrepareExecutionQueueInteractor
 public:
     PrepareExecutionQueueInteractor();
 
-    static QQueue<QByteArray> execute(QStringList gcodesProgram);
+    static QQueue<QByteArray> execute(QStringList gcodesProgram, bool resolveToCurrentPositionIsNeed = false);
+    static QStringList resolveToCurrentPosition(QStringList gcodes);
 
 private:
     static QPair<QString, double> chunkToKeyValuePair(gpr::chunk chunk);

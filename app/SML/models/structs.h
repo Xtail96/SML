@@ -82,6 +82,20 @@ struct
 
         throw InvalidArgumentException("Unknown Axis");
     }
+
+    /// \details Проверка сущетсвания оси с указанным именем;
+    bool contains(const QString &name) const
+    {
+        for(auto it : axisesNames)
+        {
+            if(it.second == name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 } SML_AXISES_NAMES;
 
 /*!

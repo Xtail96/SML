@@ -237,7 +237,7 @@ public slots:
     void switchSpindelOff(QString uid);
 
     void startProgramProcessing();
-    bool prepareExecutionQueue(QStringList gcodes);
+    bool prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPositionIsNeed = false);
     void pauseExecutionQueueProcessing();
     void resumeExecutionQueueProcessing();
     void stopExecutionQueueProcessing();
