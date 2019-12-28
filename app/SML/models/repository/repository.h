@@ -290,6 +290,8 @@ public:
      */
     QStringList getAxisesNames();
 
+    double getCurrentAxisPosition(const QString axisName);
+
     /**
      * @brief Возвращает настройки доступных осей координат
      * @return настройки всех доступных осей координат

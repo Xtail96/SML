@@ -82,6 +82,19 @@ struct
 
         throw InvalidArgumentException("Unknown Axis");
     }
+
+    bool contains(const QString &name) const
+    {
+        for(auto it : axisesNames)
+        {
+            if(it.second == name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 } SML_AXISES_NAMES;
 
 /*!

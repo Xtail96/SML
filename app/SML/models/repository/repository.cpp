@@ -420,6 +420,29 @@ QStringList Repository::getAxisesNames()
     return names;
 }
 
+double Repository::getCurrentAxisPosition(const QString axisName)
+{
+    if(!this->getAxisesNames().contains(axisName, Qt::CaseInsensitive))
+    {
+        QString message =
+                QStringLiteral("axis with name = ") +
+                axisName +
+                QStringLiteral(" does not exists");
+        qDebug() << QStringLiteral("Repository::getCurrentAxisPosition:") << message;
+        throw InvalidArgumentException(message);
+    }
+
+    try
+    {
+        Point positionFromBase = this->getCurrentCoordinatesFromBase();
+        return positionFromBase.get(axisName);
+    }
+    catch (std::invalid_argument e) {
+        qDebug() << QStringLiteral("Repository::getCurrentAxisPosition:") << e.what();
+        throw InvalidArgumentException(e.what());
+    }
+}
+
 QStringList Repository::getAxisesSettings()
 {
     QStringList axisesSettings = {};

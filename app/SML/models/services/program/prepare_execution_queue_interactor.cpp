@@ -7,6 +7,8 @@ PrepareExecutionQueueInteractor::PrepareExecutionQueueInteractor()
 
 QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesProgram)
 {
+    gcodesProgram = PrepareExecutionQueueInteractor::linkToCurrentPosition(gcodesProgram);
+
     QQueue<QByteArray> result = {};
 
     const std::string data = gcodesProgram.join("\n").toStdString();
@@ -68,6 +70,52 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
         package.insert("detailed_info", detailedInfo);
         result.enqueue(QtJson::serialize(package));
     }
+    return result;
+}
+
+QStringList PrepareExecutionQueueInteractor::linkToCurrentPosition(QStringList gcodes)
+{
+    QStringList result = {};
+    MachineTool &machineTool = MachineTool::getInstance();
+
+    const std::string data = gcodes.join("\n").toStdString();
+    gpr::gcode_program program = gpr::parse_gcode(data);
+    int programLength = program.num_blocks();
+
+    for(int i = 0; i < programLength; i++)
+    {
+        gpr::block block = program.get_block(i);
+        int blockSize = block.size();
+        if(blockSize <= 0) continue;
+
+        QPair<QString, double> frameId = PrepareExecutionQueueInteractor::chunkToKeyValuePair(block.get_chunk(0));
+        if(((frameId.first.toLower() == "g") && (qFuzzyCompare(frameId.second, double(0)))) ||
+          ((frameId.first.toLower() == "g") && (qFuzzyCompare(frameId.second, double(1)))))
+        {
+            QString serializedBlock = frameId.first.toUpper() + QString::number(frameId.second);
+            for(int j = 1; j < block.size(); j++)
+            {
+                QPair<QString, double> chunk = PrepareExecutionQueueInteractor::chunkToKeyValuePair(block.get_chunk(j));
+                QString key = chunk.first;
+                double value = chunk.second;
+
+                QStringList avaliableAxises = machineTool.getRepository().getAxisesNames();
+                if(avaliableAxises.contains(key, Qt::CaseInsensitive))
+                {
+                    value += machineTool.getRepository().getCurrentAxisPosition(key);
+                }
+
+                QString serializedChunk = key + QString::number(value);
+                serializedBlock += serializedChunk;
+            }
+            result.append(serializedBlock);
+        }
+        else
+        {
+            result.append(QString::fromStdString(block.to_string()));
+        }
+    }
+
     return result;
 }
 
