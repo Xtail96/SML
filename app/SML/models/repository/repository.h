@@ -290,6 +290,11 @@ public:
      */
     QStringList getAxisesNames();
 
+    /**
+     * @brief Возвращает позицию по оси относительно базы
+     * @param axisName идентификатор оси
+     * @return позиция по оси относительно базы.
+     */
     double getCurrentAxisPosition(const QString axisName);
 
     /**
