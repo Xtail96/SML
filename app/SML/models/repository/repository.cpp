@@ -358,7 +358,7 @@ QStringList Repository::getGCodesProgram()
     return result;
 }
 
-QList<Point> Repository::getCurrentPositionDetails()
+QList<Point> Repository::getCurrentPositionDetaiedInfo()
 {
     QList<Point> currentCoordinates = {};
 

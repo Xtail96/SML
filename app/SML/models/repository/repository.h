@@ -266,7 +266,7 @@ public:
      * [2] элемент списка содержит позицию точки Парк.
      * @return координаты станка
      */
-    QList<Point> getCurrentPositionDetails();
+    QList<Point> getCurrentPositionDetaiedInfo();
 
     /**
      * @brief Возвращает позицию станка относительно Базы

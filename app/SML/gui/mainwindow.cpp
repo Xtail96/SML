@@ -480,7 +480,7 @@ void MainWindow::updateCoordinatesDisplays()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QList<Point> currentCoordinates = machineTool.getRepository().getCurrentPositionDetails();
+    QList<Point> currentCoordinates = machineTool.getRepository().getCurrentPositionDetaiedInfo();
 
     if(currentCoordinates.length() == 3)
     {
