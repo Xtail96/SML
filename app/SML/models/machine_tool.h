@@ -102,6 +102,8 @@ public:
     void launchAdapters();
     void stopAdapters();
 
+    static bool isProgramEmpty(QStringList gcodes);
+
 private:
 
     /// Репозиторий, хранящий текущее состояние систем станка

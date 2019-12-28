@@ -238,6 +238,22 @@ void MachineTool::stopAdapters()
     m_adaptersLauncher->stopAdapters();
 }
 
+bool MachineTool::isProgramEmpty(QStringList gcodes)
+{
+    if(gcodes.length() <= 0) return true;
+
+    if(gcodes.join("") == "") return true;
+
+    QString token = gcodes.join("");
+    token = token.remove("\n");
+    token = token.remove("\r");
+    token = token.remove("\t");
+    token = token.remove(" ");
+    if(token.length() <= 0 || token == "") return true;
+
+    return false;
+}
+
 void MachineTool::switchSpindelOn(QString uid, size_t rotations)
 {
     try
