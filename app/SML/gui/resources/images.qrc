@@ -24,4 +24,14 @@
         <file>images/aist/pause.png</file>
         <file>images/aist/play.png</file>
     </qresource>
+    <qresource prefix="/arrows">
+        <file>images/arrows/ArrowDown.png</file>
+        <file>images/arrows/ArrowLeft.png</file>
+        <file>images/arrows/ArrowLeftDown.png</file>
+        <file>images/arrows/ArrowLeftUp.png</file>
+        <file>images/arrows/ArrowRight.png</file>
+        <file>images/arrows/ArrowRightDown.png</file>
+        <file>images/arrows/ArrowRightUp.png</file>
+        <file>images/arrows/ArrowUp.png</file>
+    </qresource>
 </RCC>

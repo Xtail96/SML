@@ -1542,7 +1542,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRight.png</normaloff>:/arrows/images/arrows/ArrowRight.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1570,7 +1570,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRight.png</normaloff>:/arrows/images/arrows/ArrowRight.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1607,7 +1607,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRight.png</normaloff>:/arrows/images/arrows/ArrowRight.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1641,7 +1641,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1673,7 +1673,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1704,7 +1704,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1738,7 +1738,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRight.png</normaloff>:/arrows/images/arrows/ArrowRight.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1778,7 +1778,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1836,7 +1836,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeft.png</normaloff>:/new/prefix1/images/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1867,7 +1867,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRightDown.png</normaloff>:/new/prefix1/images/ArrowRightDown.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRightDown.png</normaloff>:/arrows/images/arrows/ArrowRightDown.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1911,7 +1911,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeftDown.png</normaloff>:/new/prefix1/images/ArrowLeftDown.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeftDown.png</normaloff>:/arrows/images/arrows/ArrowLeftDown.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1942,7 +1942,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowLeftUp.png</normaloff>:/new/prefix1/images/ArrowLeftUp.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowLeftUp.png</normaloff>:/arrows/images/arrows/ArrowLeftUp.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1976,7 +1976,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowUp.png</normaloff>:/arrows/images/arrows/ArrowUp.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2010,7 +2010,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowDown.png</normaloff>:/arrows/images/arrows/ArrowDown.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2041,7 +2041,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRightUp.png</normaloff>:/new/prefix1/images/ArrowRightUp.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRightUp.png</normaloff>:/arrows/images/arrows/ArrowRightUp.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2090,7 +2090,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowRight.png</normaloff>:/new/prefix1/images/ArrowRight.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowRight.png</normaloff>:/arrows/images/arrows/ArrowRight.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2163,7 +2163,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowUp.png</normaloff>:/new/prefix1/images/ArrowUp.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowUp.png</normaloff>:/arrows/images/arrows/ArrowUp.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2197,7 +2197,7 @@
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/new/prefix1/images/ArrowDown.png</normaloff>:/new/prefix1/images/ArrowDown.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowDown.png</normaloff>:/arrows/images/arrows/ArrowDown.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -2275,6 +2275,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </active>
                <inactive>
                 <colorrole role="Text">
@@ -2322,6 +2331,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </inactive>
                <disabled>
                 <colorrole role="Text">
@@ -2363,6 +2381,15 @@
                 <colorrole role="ToolTipText">
                  <brush brushstyle="SolidPattern">
                   <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
                    <red>0</red>
                    <green>0</green>
                    <blue>0</blue>
@@ -3722,6 +3749,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </active>
                <inactive>
                 <colorrole role="WindowText">
@@ -3796,6 +3832,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </inactive>
                <disabled>
                 <colorrole role="WindowText">
@@ -3867,6 +3912,15 @@
                    <red>223</red>
                    <green>223</green>
                    <blue>223</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
                   </color>
                  </brush>
                 </colorrole>
@@ -4054,6 +4108,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </active>
                <inactive>
                 <colorrole role="WindowText">
@@ -4191,6 +4254,15 @@
                   </color>
                  </brush>
                 </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
                </inactive>
                <disabled>
                 <colorrole role="WindowText">
@@ -4322,6 +4394,15 @@
                 <colorrole role="ToolTipText">
                  <brush brushstyle="SolidPattern">
                   <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>0</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+                <colorrole role="PlaceholderText">
+                 <brush brushstyle="NoBrush">
+                  <color alpha="128">
                    <red>0</red>
                    <green>0</green>
                    <blue>0</blue>
