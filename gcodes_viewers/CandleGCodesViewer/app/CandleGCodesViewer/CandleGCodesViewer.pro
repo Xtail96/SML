@@ -1,4 +1,5 @@
 QT += gui
+QT += opengl
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11 console
@@ -39,9 +40,62 @@ contains(QT_CONFIG, opengles.) {
 #end
 
 SOURCES += \
-        main.cpp
+        libs/candle_visualizer/drawers/gcodedrawer.cpp \
+        libs/candle_visualizer/drawers/heightmapborderdrawer.cpp \
+        libs/candle_visualizer/drawers/heightmapgriddrawer.cpp \
+        libs/candle_visualizer/drawers/heightmapinterpolationdrawer.cpp \
+        libs/candle_visualizer/drawers/origindrawer.cpp \
+        libs/candle_visualizer/drawers/selectiondrawer.cpp \
+        libs/candle_visualizer/drawers/shaderdrawable.cpp \
+        libs/candle_visualizer/drawers/tooldrawer.cpp \
+        libs/candle_visualizer/glwidget.cpp \
+        libs/candle_visualizer/parser/arcproperties.cpp \
+        libs/candle_visualizer/parser/gcodeparser.cpp \
+        libs/candle_visualizer/parser/gcodepreprocessorutils.cpp \
+        libs/candle_visualizer/parser/gcodeviewparse.cpp \
+        libs/candle_visualizer/parser/linesegment.cpp \
+        libs/candle_visualizer/parser/pointsegment.cpp \
+        libs/candle_visualizer/tables/gcodetablemodel.cpp \
+        libs/candle_visualizer/tables/heightmaptablemodel.cpp \
+        main.cpp \
+        widget/candle_visualizer_dialog.cpp \
+        widget/gcodes_visualizer.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    widget/candle_visualizer_dialog.ui
+
+HEADERS += \
+    libs/candle_visualizer/drawers/gcodedrawer.h \
+    libs/candle_visualizer/drawers/heightmapborderdrawer.h \
+    libs/candle_visualizer/drawers/heightmapgriddrawer.h \
+    libs/candle_visualizer/drawers/heightmapinterpolationdrawer.h \
+    libs/candle_visualizer/drawers/origindrawer.h \
+    libs/candle_visualizer/drawers/selectiondrawer.h \
+    libs/candle_visualizer/drawers/shaderdrawable.h \
+    libs/candle_visualizer/drawers/tooldrawer.h \
+    libs/candle_visualizer/glwidget.h \
+    libs/candle_visualizer/parser/arcproperties.h \
+    libs/candle_visualizer/parser/gcodeparser.h \
+    libs/candle_visualizer/parser/gcodepreprocessorutils.h \
+    libs/candle_visualizer/parser/gcodeviewparse.h \
+    libs/candle_visualizer/parser/linesegment.h \
+    libs/candle_visualizer/parser/pointsegment.h \
+    libs/candle_visualizer/tables/gcodetablemodel.h \
+    libs/candle_visualizer/tables/heightmaptablemodel.h \
+    libs/candle_visualizer/utils/interpolation.h \
+    libs/candle_visualizer/utils/util.h \
+    widget/candle_visualizer_dialog.h \
+    widget/gcodes_visualizer.h
+
+RESOURCES += \
+    libs/candle_visualizer/shaders.qrc \
+    resources/resources.qrc
+
+DISTFILES += \
+    libs/candle_visualizer/shaders/fshader.glsl \
+    libs/candle_visualizer/shaders/vshader.glsl
