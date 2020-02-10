@@ -1186,9 +1186,8 @@ void MainWindow::on_saveas_action_triggered()
 void MainWindow::on_view_action_triggered()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-
     machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
-    CandleVisualizerDialog(machineTool.getRepository().getGCodesProgram(), this).exec();
+    QMessageBox(QMessageBox::Information, "Viewer", "Gcodes viewer").exec();
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

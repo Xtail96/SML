@@ -56,7 +56,6 @@
 
 #include "models/machine_tool.h"
 
-#include "gui/candle_visualizer_dialog.h"
 #include "gui/sml_console_dialog.h"
 #include "gui/widgets/spindel_control_widget.h"
 
