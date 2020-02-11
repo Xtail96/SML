@@ -1101,6 +1101,8 @@ void MainWindow::on_open_action_triggered()
 void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 {
     QString text = ui->gcodesEditorPlainTextEdit->toPlainText();
+    MachineTool& machineTool = MachineTool::getInstance();
+    machineTool.getRepository().setGCodes(text);
 }
 
 void MainWindow::on_importsettings_action_triggered()

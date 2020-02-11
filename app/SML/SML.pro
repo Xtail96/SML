@@ -58,7 +58,7 @@ SOURCES += main.cpp\
     models/machine_tool_elements/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
-    models/services/program/prepare_execution_queue_interactor.cpp \
+    models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
     models/services/axises/monitor/axises_monitor.cpp \
     models/errors/sml_error_flags.cpp \
@@ -110,7 +110,7 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/gcodes/file_reader/file_reader.h \
     models/machine_tool_elements/adapter/server/u1_state.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
-    models/services/program/prepare_execution_queue_interactor.h \
+    models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h \
     models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
     models/services/axises/monitor/axises_monitor.h \
