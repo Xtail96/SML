@@ -23,5 +23,10 @@ void GCodesViewInteractor::execute(QString gcodesFileName, QObject* parent)
 
 QString GCodesViewInteractor::getViewerPath()
 {
-    return "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_0_clang_64bit-Release/CandleGCodesViewer";
+    QString gcodesViewerPath = "";
+
+    SettingsManager s = SettingsManager();
+    gcodesViewerPath = s.get("ExternalTools", "GCodesViewer").toString();
+
+    return gcodesViewerPath;
 }

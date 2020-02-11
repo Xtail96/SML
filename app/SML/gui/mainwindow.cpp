@@ -1187,16 +1187,29 @@ void MainWindow::on_saveas_action_triggered()
 
 void MainWindow::on_view_action_triggered()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
+    try
+    {
+        MachineTool& machineTool = MachineTool::getInstance();
+        machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
 
-    if(machineTool.getRepository().getFilePath().isEmpty())
-    {
-        GCodesViewInteractor::execute(machineTool.getRepository().getGCodesProgram(), this);
+        if(machineTool.getRepository().getFilePath().isEmpty())
+        {
+            GCodesViewInteractor::execute(machineTool.getRepository().getGCodesProgram(), this);
+        }
+        else
+        {
+            GCodesViewInteractor::execute(machineTool.getRepository().getFilePath(), this);
+        }
     }
-    else
+    catch(InvalidConfigurationException e)
     {
-        GCodesViewInteractor::execute(machineTool.getRepository().getFilePath(), this);
+        qDebug() << "MainWindow::on_view_action_triggered:" << e.message();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
+    }
+    catch(...)
+    {
+        qDebug() << "MainWindow::on_view_action_triggered: unknown error";
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Ошибка визуализации УП");
     }
 }
 

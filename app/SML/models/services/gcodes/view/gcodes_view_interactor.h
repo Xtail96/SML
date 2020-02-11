@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QProcess>
+#include <QMessageBox>
+#include "models/settings_manager/settings_manager.h"
 
 class GCodesViewInteractor
 {

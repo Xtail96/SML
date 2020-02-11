@@ -92,7 +92,7 @@ QVariant SettingsManager::get(QString group, QString key) const
     {
         settings->endGroup();
 
-        QString message = QStringLiteral("Отсутствует ключ ") + key;
+        QString message = QStringLiteral("В файле настроек отсутствует ключ ") + key;
         throw InvalidConfigurationException(message);
     }
 
@@ -130,6 +130,10 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("Adapters");
         settings->setValue("U1Path", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U1SerialAdapter/app/build-U1SerialAdapter-Desktop_Qt_5_12_0_clang_64bit-Release/U1SerialAdapter");
         settings->setValue("U2Path", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_0_clang_64bit-Release/U2EchoAdapter");
+    settings->endGroup();
+
+    settings->beginGroup("ExternalTools");
+        settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_0_clang_64bit-Release/CandleGCodesViewer");
     settings->endGroup();
 
     settings->beginGroup("DefaultDirs");
