@@ -1101,8 +1101,8 @@ void MainWindow::on_open_action_triggered()
 void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 {
     QString text = ui->gcodesEditorPlainTextEdit->toPlainText();
-    MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setGCodes(text);
+    //MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.getRepository().setGCodes(text);
 }
 
 void MainWindow::on_importsettings_action_triggered()
@@ -1189,7 +1189,15 @@ void MainWindow::on_view_action_triggered()
 {
     MachineTool& machineTool = MachineTool::getInstance();
     machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
-    QMessageBox(QMessageBox::Information, "Viewer", "Gcodes viewer").exec();
+
+    if(machineTool.getRepository().getFilePath().isEmpty())
+    {
+        GCodesViewInteractor::execute(machineTool.getRepository().getGCodesProgram(), this);
+    }
+    else
+    {
+        GCodesViewInteractor::execute(machineTool.getRepository().getFilePath(), this);
+    }
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

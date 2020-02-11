@@ -61,6 +61,8 @@
 
 #include "gui/program_processing_dialog.h"
 
+#include "models/services/gcodes/view/gcodes_view_interactor.h"
+
 namespace Ui {
 class MainWindow;
 }

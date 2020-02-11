@@ -45,6 +45,7 @@ SOURCES += main.cpp\
     models/services/adapters/monitor/adapters_monitor.cpp \
     models/services/devices/spindels/monitor/spindels_monitor.cpp \
     models/services/gcodes/monitor/gcodes_monitor.cpp \
+    models/services/gcodes/view/gcodes_view_interactor.cpp \
     models/services/points/monitor/points_monitor.cpp \
     models/services/sensors/monitor/sensors_monitor.cpp \
     models/settings_manager/settings_manager.cpp \
@@ -73,6 +74,7 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
     models/services/adapters/launcher/adapters_launcher.h \
+    models/services/gcodes/view/gcodes_view_interactor.h \
     models/structs.h \
     models/machine_tool_elements/sensor/sensor.h \
     models/machine_tool_elements/device/spindel.h \
