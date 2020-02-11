@@ -9,6 +9,7 @@ void GCodesViewInteractor::execute(QStringList gcodes, QObject* parent)
 {
     QStringList args = {"-i", gcodes.join("\r\n")};
     auto viewProcess = new QProcess(parent);
+    QObject::connect(viewProcess, SIGNAL(finished(int)), viewProcess, SLOT(deleteLater()));
     viewProcess->start(getViewerPath(), args);
 }
 
@@ -16,6 +17,7 @@ void GCodesViewInteractor::execute(QString gcodesFileName, QObject* parent)
 {
     QStringList args = {"-f", gcodesFileName};
     auto viewProcess = new QProcess(parent);
+    QObject::connect(viewProcess, SIGNAL(finished(int)), viewProcess, SLOT(deleteLater()));
     viewProcess->start(getViewerPath(), args);
 }
 
