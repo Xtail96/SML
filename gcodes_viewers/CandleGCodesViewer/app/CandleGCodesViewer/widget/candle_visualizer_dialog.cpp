@@ -41,6 +41,8 @@ void CandleVisualizerDialog::on_isometricToolButton_clicked()
 
 void CandleVisualizerDialog::closeEvent(QCloseEvent* e)
 {
-    e->ignore();
-    this->accept();
+    qDebug() << "123";
+    e->accept();
+    //e->ignore();
+    //this->accept();
 }

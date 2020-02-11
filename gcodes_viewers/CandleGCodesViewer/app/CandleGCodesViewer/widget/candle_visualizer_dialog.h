@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QProgressDialog>
 #include <QCloseEvent>
+#include <QDebug>
 
 #include "gcodes_visualizer.h"
 

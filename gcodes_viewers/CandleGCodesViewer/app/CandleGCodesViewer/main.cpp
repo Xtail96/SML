@@ -54,12 +54,12 @@ int main(int argc, char *argv[])
         gcodes = parser.value(inlineOption).split(lineSeparator());
     }
 
-    if(gcodes.length() < 0)
+    /*if(gcodes.length() <= 0)
     {
-        return 0;
-    }
+        return -1;
+    }*/
 
     CandleVisualizerDialog(gcodes, nullptr).exec();
 
-    return a.exec();
+    return 0;
 }
