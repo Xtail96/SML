@@ -1,8 +1,9 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QRegularExpression>
-#include <widget/candle_visualizer_dialog.h>
 #include <QDebug>
+
+#include <widget/candle_visualizer_dialog.h>
 
 QRegularExpression lineSeparator()
 {
