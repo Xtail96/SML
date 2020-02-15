@@ -112,6 +112,9 @@ private:
     /// Проводит инициализацию таблицы настроек осей
     void setupAxisesSettingsBoard();
 
+    /// Проводит настройку кнопок перемещений в наладке и их горячих клавиш
+    void setupAxisesButtons();
+
     /// Настраивает панель опций
     void setupOptionsPanel();
 
@@ -125,10 +128,8 @@ private:
     void resetConnections();
 
     /// Методы для настройки работы горячих клавиш движения по осям станка
-    void disableMovementButtonsShortcutsAutoRepeat();
-    void enableMovementButtonsShortcutsAutoRepeat();
     void setMovementButtonsShortcutsAutoRepeat(bool state);
-    void setMovementButtonsRepeatAutoRepeat(bool state);
+    void setMovementButtonsAutoRepeat(bool state);
 
     void enableMotionWidgets();
     void disableMotionWidgets();

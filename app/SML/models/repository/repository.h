@@ -348,6 +348,9 @@ public:
     Point getParkCoordinates() const;
     void setParkCoordinates(const Point &parkCoordinates);
 
+    bool axisExists(QString uid);
+
+
 private:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;
@@ -460,8 +463,6 @@ private:
      * @return ссылка на шпиндель
      */
     Spindel& getSpindel(QString uid);
-
-    bool axisExists(QString uid);
 
     Axis& getAxis(QString uid);
 

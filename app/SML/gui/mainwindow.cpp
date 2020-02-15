@@ -11,19 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // окно на весь экран
     // QMainWindow::showMaximized();
 
-    m_shortcutsMap.push_back(std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
-    m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
-
     this->setupWidgets();
     this->hideWidgets();
     this->setupConnections();
@@ -80,6 +67,7 @@ void MainWindow::setupWidgets()
 
     this->setupCoordinatesDisplays();
     this->setupAxisesSettingsBoard();
+    this->setupAxisesButtons();
 
     this->setupOptionsPanel();
 
@@ -476,6 +464,85 @@ void MainWindow::setupAxisesSettingsBoard()
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 
+void MainWindow::setupAxisesButtons()
+{
+    MachineTool& machineTool = MachineTool::getInstance();
+
+    bool axisXEnabled = machineTool.getRepository().axisExists("X");
+    bool axisYEnabled = machineTool.getRepository().axisExists("Y");
+    bool axisZEnabled = machineTool.getRepository().axisExists("Z");
+    bool axisAEnabled = machineTool.getRepository().axisExists("A");
+    bool axisBEnabled = machineTool.getRepository().axisExists("B");
+    bool axisCEnabled = machineTool.getRepository().axisExists("C");
+    bool axisUEnabled = machineTool.getRepository().axisExists("U");
+    bool axisVEnabled = machineTool.getRepository().axisExists("V");
+    bool axisWEnabled = machineTool.getRepository().axisExists("W");
+
+    if(axisXEnabled)
+    {
+        m_shortcutsMap.push_back(std::make_tuple("A", ui->movementXNegativePushButton, SLOT(on_movementXNegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("D", ui->movementXPositivePushButton, SLOT(on_movementXPositivePushButton_clicked())));
+    }
+    ui->movementXNegativePushButton->setEnabled(axisXEnabled);
+    ui->movementXPositivePushButton->setEnabled(axisXEnabled);
+
+    if(axisYEnabled)
+    {
+        m_shortcutsMap.push_back(std::make_tuple("S", ui->movementYNegativePushButton, SLOT(on_movementYNegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("W", ui->movementYPositivePushButton, SLOT(on_movementYPositivePushButton_clicked())));
+    }
+    ui->movementYNegativePushButton->setEnabled(axisYEnabled);
+    ui->movementYPositivePushButton->setEnabled(axisYEnabled);
+
+    if(axisXEnabled && axisYEnabled)
+    {
+        m_shortcutsMap.push_back(std::make_tuple("Z", ui->movementXNegativeYNegativePushButton, SLOT(on_movementXNegativeYNegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("Q", ui->movementXNegativeYPositivePushButton, SLOT(on_movementXNegativeYPositivePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("X", ui->movementXPositiveYNegativePushButton, SLOT(on_movementXPositiveYNegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("E", ui->movementXPositiveYPositivePushButton, SLOT(on_movementXPositiveYPositivePushButton_clicked())));
+    }
+    ui->movementXNegativeYNegativePushButton->setEnabled(axisXEnabled && axisYEnabled);
+    ui->movementXNegativeYPositivePushButton->setEnabled(axisXEnabled && axisYEnabled);
+    ui->movementXPositiveYNegativePushButton->setEnabled(axisXEnabled && axisYEnabled);
+    ui->movementXPositiveYPositivePushButton->setEnabled(axisXEnabled && axisYEnabled);
+
+    if(axisZEnabled)
+    {
+        m_shortcutsMap.push_back(std::make_tuple("Down", ui->movementZNegativePushButton, SLOT(on_movementZNegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("Up", ui->movementZPositivePushButton, SLOT(on_movementZPositivePushButton_clicked())));
+    }
+    ui->movementZNegativePushButton->setEnabled(axisZEnabled);
+    ui->movementZPositivePushButton->setEnabled(axisZEnabled);
+
+    if(axisAEnabled)
+    {
+        m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
+        m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
+    }
+    ui->movementANegativePushButton->setEnabled(axisAEnabled);
+    ui->movementAPositivePushButton->setEnabled(axisAEnabled);
+
+    ui->movementBNegativePushButton->setEnabled(axisBEnabled);
+    ui->movementBPositivePushButton->setEnabled(axisBEnabled);
+
+    ui->movementCNegativePushButton->setEnabled(axisCEnabled);
+    ui->movementCPositivePushButton->setEnabled(axisCEnabled);
+
+    ui->movementUNegativePushButton->setEnabled(axisUEnabled);
+    ui->movementUPositivePushButton->setEnabled(axisUEnabled);
+
+    ui->movementVNegativePushButton->setEnabled(axisVEnabled);
+    ui->movementVPositivePushButton->setEnabled(axisVEnabled);
+
+    ui->movementWNegativePushButton->setEnabled(axisWEnabled);
+    ui->movementWPositivePushButton->setEnabled(axisWEnabled);
+
+    for(auto shortcut : m_axisesShortcuts)
+    {
+        shortcut->setEnabled(true);
+    }
+}
+
 void MainWindow::updateCoordinatesDisplays()
 {
     MachineTool& machineTool = MachineTool::getInstance();
@@ -627,23 +694,13 @@ void MainWindow::onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors)
     }
 }
 
-void MainWindow::disableMovementButtonsShortcutsAutoRepeat()
-{
-    this->setMovementButtonsShortcutsAutoRepeat(false);
-}
-
-void MainWindow::enableMovementButtonsShortcutsAutoRepeat()
-{
-    this->setMovementButtonsShortcutsAutoRepeat(true);
-}
-
 void MainWindow::setMovementButtonsShortcutsAutoRepeat(bool state)
 {
     for (auto i = m_axisesShortcuts.begin(); i != m_axisesShortcuts.end(); i++)
         (*i)->setAutoRepeat(state);
 }
 
-void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
+void MainWindow::setMovementButtonsAutoRepeat(bool state)
 {
     std::vector<QPushButton*> movementButtons = {
         ui->movementXPositivePushButton,
@@ -680,6 +737,8 @@ void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
         (*i)->setAutoRepeat(state);
+
+    setMovementButtonsShortcutsAutoRepeat(state);
 }
 
 void MainWindow::enableMotionWidgets()
@@ -694,43 +753,6 @@ void MainWindow::disableMotionWidgets()
 
 void MainWindow::setMotionWidgetsState(bool enableWidgets)
 {
-    ui->movementXNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXPositivePushButton->setEnabled(enableWidgets);
-    ui->movementXNegativeYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXNegativeYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementXPositiveYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementXPositiveYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementYNegativePushButton->setEnabled(enableWidgets);
-    ui->movementYPositivePushButton->setEnabled(enableWidgets);
-    ui->movementZNegativePushButton->setEnabled(enableWidgets);
-    ui->movementZPositivePushButton->setEnabled(enableWidgets);
-    ui->movementANegativePushButton->setEnabled(enableWidgets);
-    ui->movementAPositivePushButton->setEnabled(enableWidgets);
-    ui->movementBNegativePushButton->setEnabled(enableWidgets);
-    ui->movementBPositivePushButton->setEnabled(enableWidgets);
-    ui->movementCNegativePushButton->setEnabled(enableWidgets);
-    ui->movementCPositivePushButton->setEnabled(enableWidgets);
-    ui->movementUNegativePushButton->setEnabled(enableWidgets);
-    ui->movementUPositivePushButton->setEnabled(enableWidgets);
-    ui->movementVNegativePushButton->setEnabled(enableWidgets);
-    ui->movementVPositivePushButton->setEnabled(enableWidgets);
-    ui->movementWNegativePushButton->setEnabled(enableWidgets);
-    ui->movementWPositivePushButton->setEnabled(enableWidgets);
-
-    for(auto shortcut : m_axisesShortcuts)
-    {
-        shortcut->setEnabled(enableWidgets);
-    }
-
-    ui->discreteRadioButton_1->setEnabled(enableWidgets);
-    ui->discreteRadioButton_2->setEnabled(enableWidgets);
-    ui->discreteRadioButton_3->setEnabled(enableWidgets);
-    ui->discreteRadioButton_4->setEnabled(enableWidgets);
-    ui->discreteRadioButton_5->setEnabled(enableWidgets);
-
-    ui->feedrateScrollBar->setEnabled(enableWidgets);
-    ui->feedrateLcdNumber->setEnabled(enableWidgets);
-
     ui->toZeroPushButton->setEnabled(enableWidgets);
     ui->toParkPushButton->setEnabled(enableWidgets);
     ui->zeroPushButton->setEnabled(enableWidgets);
@@ -784,37 +806,32 @@ void MainWindow::moveTo(Point target)
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
     MachineTool::getInstance().getRepository().setMovementStep(0.01);
-    this->disableMovementButtonsShortcutsAutoRepeat();
-    this->setMovementButtonsRepeatAutoRepeat(false);
+    this->setMovementButtonsAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_2_clicked()
 {
     MachineTool::getInstance().getRepository().setMovementStep(0.1);
-    this->disableMovementButtonsShortcutsAutoRepeat();
-    this->setMovementButtonsRepeatAutoRepeat(false);
+    this->setMovementButtonsAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_3_clicked()
 {
     MachineTool::getInstance().getRepository().setMovementStep(1);
-    this->disableMovementButtonsShortcutsAutoRepeat();
-    this->setMovementButtonsRepeatAutoRepeat(false);
+    this->setMovementButtonsAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_4_clicked()
 {
     MachineTool::getInstance().getRepository().setMovementStep(10);
-    this->disableMovementButtonsShortcutsAutoRepeat();
-    this->setMovementButtonsRepeatAutoRepeat(false);
+    this->setMovementButtonsAutoRepeat(false);
 }
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
     //MachineTool::getInstance().getRepository().setMovementStep(0);
     MachineTool::getInstance().getRepository().setMovementStep(1);
-    this->enableMovementButtonsShortcutsAutoRepeat();
-    this->setMovementButtonsRepeatAutoRepeat(true);
+    this->setMovementButtonsAutoRepeat(true);
 }
 
 void MainWindow::on_movementXPositivePushButton_clicked()
