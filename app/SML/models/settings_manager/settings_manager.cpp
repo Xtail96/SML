@@ -111,9 +111,6 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("Main");
-        //settings->setValue("VendorId", 0x10c4);
-        //settings->setValue("ProductId", 0xea61);
-        //settings->setValue("Name", "semil");
         settings->setValue("AxisesCount", 5);
         settings->setValue("SensorsCount", 8);
         settings->setValue("SpindelsCount", 3);
@@ -142,26 +139,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("OpenDir", currentDir);
         settings->setValue("ImportDir", currentDir);
         settings->setValue("ImportResDir", currentDir);
-    settings->endGroup();
-
-    settings->beginGroup("TableSize");
-        settings->setValue("SizeX", -1374);
-        settings->setValue("SizeY", 1386);
-        settings->setValue("SizeZ", -306);
-        settings->setValue("SizeA", -185);
-        settings->setValue("SizeB", 100);
-        settings->setValue("SavedSizeZ", 100);
-    settings->endGroup();
-
-    settings->beginGroup("Tools");
-    settings->endGroup();
-
-    settings->beginGroup("ExternalMCSettings");
-        settings->setValue("LookAheadLength", 3);
-        settings->setValue("BreakAngle", 30);
-        settings->setValue("CollinearTollerance", 0.01);
-        settings->setValue("CornerTollerance", 0.07);
-        settings->setValue("FacetAngle", 3);
     settings->endGroup();
 
     settings->beginGroup("AxisX");

@@ -980,12 +980,12 @@ void Repository::loadAxisesSettings()
 
              QString fullAxisName = QString("Axis") + name;
 
-             double length = m_settingsManager->get("TableSize", QString("Size" + name)).toDouble();
              double step = m_settingsManager->get(fullAxisName, "Step").toDouble();
              bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
              double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
              double lowerBound = m_settingsManager->get(fullAxisName, "LowerBound").toDouble();
              double uppderBound = m_settingsManager->get(fullAxisName, "UpperBound").toDouble();
+             double length = uppderBound - lowerBound;
 
 
              QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));
