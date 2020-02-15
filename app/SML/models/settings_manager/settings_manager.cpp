@@ -111,8 +111,8 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("Main");
-        settings->setValue("AxisesCount", 5);
-        settings->setValue("SensorsCount", 8);
+        settings->setValue("AxisesCount", 9);
+        settings->setValue("SensorsCount", 10);
         settings->setValue("SpindelsCount", 3);
         settings->setValue("SupportDevicesCount", 0);
         settings->setValue("SensorsBufferSize", 2);
@@ -206,6 +206,58 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
+    settings->beginGroup("AxisC");
+        settings->setValue("Label", "C");
+        settings->setValue("Channel", 8);
+        settings->setValue("Jerk", 10000);
+        settings->setValue("Acceleration", 400);
+        settings->setValue("Speed", 200);
+        settings->setValue("BazaSearchSpeed", 40);
+        settings->setValue("Step", 0.05);
+        settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
+    settings->endGroup();
+
+    settings->beginGroup("AxisU");
+        settings->setValue("Label", "U");
+        settings->setValue("Channel", 8);
+        settings->setValue("Jerk", 10000);
+        settings->setValue("Acceleration", 400);
+        settings->setValue("Speed", 200);
+        settings->setValue("BazaSearchSpeed", 40);
+        settings->setValue("Step", 0.05);
+        settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
+    settings->endGroup();
+
+    settings->beginGroup("AxisV");
+        settings->setValue("Label", "V");
+        settings->setValue("Channel", 8);
+        settings->setValue("Jerk", 10000);
+        settings->setValue("Acceleration", 400);
+        settings->setValue("Speed", 200);
+        settings->setValue("BazaSearchSpeed", 40);
+        settings->setValue("Step", 0.05);
+        settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
+    settings->endGroup();
+
+    settings->beginGroup("AxisW");
+        settings->setValue("Label", "W");
+        settings->setValue("Channel", 8);
+        settings->setValue("Jerk", 10000);
+        settings->setValue("Acceleration", 400);
+        settings->setValue("Speed", 200);
+        settings->setValue("BazaSearchSpeed", 40);
+        settings->setValue("Step", 0.05);
+        settings->setValue("Invert", false);
+        settings->setValue("LowerBound", -90);
+        settings->setValue("UpperBound", 90);
+    settings->endGroup();
+
     settings->beginGroup("Sensor0");
         settings->setValue("Uid", "SensorAxisX");
         settings->setValue("Label", "Датчик оси X");
@@ -220,6 +272,10 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
@@ -237,6 +293,10 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
@@ -254,6 +314,10 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
@@ -271,6 +335,10 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
@@ -288,6 +356,10 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
@@ -305,12 +377,16 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
     settings->beginGroup("Sensor6");
-        settings->setValue("Uid", "SensorAxisD");
-        settings->setValue("Label", "Датчик оси D");
+        settings->setValue("Uid", "SensorAxisU");
+        settings->setValue("Label", "Датчик оси U");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 6);
         settings->setValue("BoardName", "portal");
@@ -322,14 +398,60 @@ void SettingsManager::generateDefaultSettings()
                                std::make_pair("AxisZ", "0.0"),
                                std::make_pair("AxisA", "0.0"),
                                std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
                            });
     settings->endGroup();
 
     settings->beginGroup("Sensor7");
+        settings->setValue("Uid", "SensorAxisV");
+        settings->setValue("Label", "Датчик оси V");
+        settings->setValue("PortNumber", 0);
+        settings->setValue("InputNumber", 7);
+        settings->setValue("BoardName", "portal");
+        settings->setValue("ActiveState", false);
+        settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
+                           });
+    settings->endGroup();
+
+    settings->beginGroup("Sensor8");
+        settings->setValue("Uid", "SensorAxisW");
+        settings->setValue("Label", "Датчик оси W");
+        settings->setValue("PortNumber", 1);
+        settings->setValue("InputNumber", 0);
+        settings->setValue("BoardName", "portal");
+        settings->setValue("ActiveState", false);
+        settings->setValue("Color", "#55bb55");
+        settings->setValue("Position", QMap<QString, QVariant> {
+                               std::make_pair("AxisX", "0.0"),
+                               std::make_pair("AxisY", "0.0"),
+                               std::make_pair("AxisZ", "0.0"),
+                               std::make_pair("AxisA", "0.0"),
+                               std::make_pair("AxisB", "0.0"),
+                               std::make_pair("AxisC", "0.0"),
+                               std::make_pair("AxisU", "0.0"),
+                               std::make_pair("AxisV", "0.0"),
+                               std::make_pair("AxisW", "0.0"),
+                           });
+    settings->endGroup();
+
+    settings->beginGroup("Sensor9");
         settings->setValue("Uid", "SensorZero");
         settings->setValue("Label", "Датчик Ноля");
         settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 0);
+        settings->setValue("InputNumber", 1);
         settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");

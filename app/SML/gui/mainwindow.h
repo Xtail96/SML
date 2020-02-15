@@ -112,6 +112,9 @@ private:
     /// Проводит инициализацию таблицы настроек осей
     void setupAxisesSettingsBoard();
 
+    /// Проводит настройку кнопок перемещений в наладке и их горячих клавиш
+    void setupAxisesButtons();
+
     /// Настраивает панель опций
     void setupOptionsPanel();
 
@@ -125,10 +128,8 @@ private:
     void resetConnections();
 
     /// Методы для настройки работы горячих клавиш движения по осям станка
-    void disableMovementButtonsShortcutsAutoRepeat();
-    void enableMovementButtonsShortcutsAutoRepeat();
     void setMovementButtonsShortcutsAutoRepeat(bool state);
-    void setMovementButtonsRepeatAutoRepeat(bool state);
+    void setMovementButtonsAutoRepeat(bool state);
 
     void enableMotionWidgets();
     void disableMotionWidgets();
@@ -196,6 +197,16 @@ private slots:
     void on_movementZPositivePushButton_clicked();
     void on_movementAPositivePushButton_clicked();
     void on_movementANegativePushButton_clicked();
+    void on_movementBNegativePushButton_clicked();
+    void on_movementBPositivePushButton_clicked();
+    void on_movementCNegativePushButton_clicked();
+    void on_movementCPositivePushButton_clicked();
+    void on_movementUNegativePushButton_clicked();
+    void on_movementUPositivePushButton_clicked();
+    void on_movementVNegativePushButton_clicked();
+    void on_movementVPositivePushButton_clicked();
+    void on_movementWNegativePushButton_clicked();
+    void on_movementWPositivePushButton_clicked();
     void on_feedrateScrollBar_valueChanged(int value);
     void on_exit_action_triggered();
     void on_pointsAmountToolButton_clicked();

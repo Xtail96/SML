@@ -31,6 +31,10 @@ void U2SerialAdapter::loadSettings()
         m_currentState.addAxisPosition("Z", 0.0);
         m_currentState.addAxisPosition("A", 0.0);
         m_currentState.addAxisPosition("B", 0.0);
+        m_currentState.addAxisPosition("C", 0.0);
+        m_currentState.addAxisPosition("U", 0.0);
+        m_currentState.addAxisPosition("V", 0.0);
+        m_currentState.addAxisPosition("W", 0.0);
         this->printState(m_currentState);
     }
     catch(std::invalid_argument e)
