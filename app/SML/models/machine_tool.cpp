@@ -22,6 +22,7 @@ MachineTool::MachineTool(QObject *parent) :
     this->startAdapterServer();
     this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
     this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+
     //this->setBased(false);
 }
 
