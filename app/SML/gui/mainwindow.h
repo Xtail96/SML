@@ -56,11 +56,12 @@
 
 #include "models/machine_tool.h"
 
-#include "gui/candle_visualizer_dialog.h"
 #include "gui/sml_console_dialog.h"
 #include "gui/widgets/spindel_control_widget.h"
 
 #include "gui/program_processing_dialog.h"
+
+#include "models/services/gcodes/view/gcodes_view_interactor.h"
 
 namespace Ui {
 class MainWindow;

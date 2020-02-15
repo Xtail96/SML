@@ -1101,6 +1101,8 @@ void MainWindow::on_open_action_triggered()
 void MainWindow::on_gcodesEditorPlainTextEdit_textChanged()
 {
     QString text = ui->gcodesEditorPlainTextEdit->toPlainText();
+    //MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.getRepository().setGCodes(text);
 }
 
 void MainWindow::on_importsettings_action_triggered()
@@ -1185,10 +1187,30 @@ void MainWindow::on_saveas_action_triggered()
 
 void MainWindow::on_view_action_triggered()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    try
+    {
+        MachineTool& machineTool = MachineTool::getInstance();
+        machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
 
-    machineTool.getRepository().setGCodes(ui->gcodesEditorPlainTextEdit->toPlainText());
-    CandleVisualizerDialog(machineTool.getRepository().getGCodesProgram(), this).exec();
+        if(machineTool.getRepository().getFilePath().isEmpty())
+        {
+            GCodesViewInteractor::execute(machineTool.getRepository().getGCodesProgram(), this);
+        }
+        else
+        {
+            GCodesViewInteractor::execute(machineTool.getRepository().getFilePath(), this);
+        }
+    }
+    catch(InvalidConfigurationException e)
+    {
+        qDebug() << "MainWindow::on_view_action_triggered:" << e.message();
+        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
+    }
+    catch(...)
+    {
+        qDebug() << "MainWindow::on_view_action_triggered: unknown error";
+        QMessageBox(QMessageBox::Warning, "Ошибка", "Ошибка визуализации УП");
+    }
 }
 
 void MainWindow::on_consoleOpenPushButton_clicked()

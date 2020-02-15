@@ -4,7 +4,7 @@
 #include <QDialog>
 
 #include "models/machine_tool.h"
-#include "models/services/program/prepare_execution_queue_interactor.h"
+#include "models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h"
 
 namespace Ui {
 class ProgramProcessingDialog;

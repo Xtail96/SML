@@ -13,7 +13,7 @@
 #include "models/services/devices/spindels/monitor/spindels_monitor.h"
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/monitor/gcodes_monitor.h"
-#include "models/services/program/prepare_execution_queue_interactor.h"
+#include "models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h"
 #include "models/services/axises/monitor/axises_monitor.h"
 #include "models/services/errors/error_flags_monitor.h"
 
