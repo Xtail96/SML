@@ -660,7 +660,22 @@ void MainWindow::setMovementButtonsRepeatAutoRepeat(bool state)
         ui->movementZNegativePushButton,
 
         ui->movementAPositivePushButton,
-        ui->movementANegativePushButton
+        ui->movementANegativePushButton,
+
+        ui->movementBPositivePushButton,
+        ui->movementBNegativePushButton,
+
+        ui->movementCPositivePushButton,
+        ui->movementCNegativePushButton,
+
+        ui->movementUPositivePushButton,
+        ui->movementUNegativePushButton,
+
+        ui->movementVPositivePushButton,
+        ui->movementVNegativePushButton,
+
+        ui->movementWPositivePushButton,
+        ui->movementWNegativePushButton
     };
 
     for (std::vector<QPushButton*>::iterator i = movementButtons.begin(); i != movementButtons.end(); i++)
@@ -899,6 +914,86 @@ void MainWindow::on_movementANegativePushButton_clicked()
     MachineTool &i = MachineTool::getInstance();
     this->stepMove({
         std::make_pair<QString, double> ("A", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementBNegativePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("B", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementBPositivePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("B", i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementCNegativePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("C", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementCPositivePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("C", i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementUNegativePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("U", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementUPositivePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("U", i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementVNegativePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("V", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementVPositivePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("V", i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementWNegativePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("W", -i.getRepository().getMovementStep())
+    });
+}
+
+void MainWindow::on_movementWPositivePushButton_clicked()
+{
+    MachineTool &i = MachineTool::getInstance();
+    this->stepMove({
+        std::make_pair<QString, double> ("W", i.getRepository().getMovementStep())
     });
 }
 
