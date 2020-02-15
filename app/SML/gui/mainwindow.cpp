@@ -695,8 +695,12 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->movementBPositivePushButton->setEnabled(enableWidgets);
     ui->movementCNegativePushButton->setEnabled(enableWidgets);
     ui->movementCPositivePushButton->setEnabled(enableWidgets);
-    ui->movementDNegativePushButton->setEnabled(enableWidgets);
-    ui->movementDPositivePushButton->setEnabled(enableWidgets);
+    ui->movementUNegativePushButton->setEnabled(enableWidgets);
+    ui->movementUPositivePushButton->setEnabled(enableWidgets);
+    ui->movementVNegativePushButton->setEnabled(enableWidgets);
+    ui->movementVPositivePushButton->setEnabled(enableWidgets);
+    ui->movementWNegativePushButton->setEnabled(enableWidgets);
+    ui->movementWPositivePushButton->setEnabled(enableWidgets);
 
     for(auto shortcut : m_axisesShortcuts)
     {
