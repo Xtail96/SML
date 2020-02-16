@@ -92,7 +92,7 @@ QVariant SettingsManager::get(QString group, QString key) const
     {
         settings->endGroup();
 
-        QString message = QStringLiteral("В файле настроек отсутствует ключ ") + key;
+        QString message = QStringLiteral("В файла настроек отсутствует ключ ") + key + QStringLiteral(" для секции ") + group;
         throw InvalidConfigurationException(message);
     }
 
@@ -111,8 +111,11 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("Main");
-        settings->setValue("AxisesCount", 9);
-        settings->setValue("SensorsCount", 10);
+        settings->setValue("AvailableAxises", QStringList {
+                               "X","Y","Z","A","B","U"});
+        settings->setValue("AvailableSensors", QStringList {
+                               "AxisXSensor", "AxisYSensor", "AxisZSensor", "AxisASensor",
+                               "AxisBSensor", "AxisCSensor", "AxisUSensor", "AxisVSensor", "AxisWSensor", "ZeroSensor"});
         settings->setValue("SpindelsCount", 3);
         settings->setValue("SupportDevicesCount", 0);
         settings->setValue("SensorsBufferSize", 2);
@@ -142,7 +145,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisX");
-        settings->setValue("Label", "X");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 250);
@@ -155,7 +157,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisY");
-        settings->setValue("Label", "Y");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -168,7 +169,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisZ");
-        settings->setValue("Label", "Z");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 6000);
         settings->setValue("Acceleration", 100);
@@ -181,7 +181,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisA");
-        settings->setValue("Label", "A");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 100);
@@ -194,7 +193,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisB");
-        settings->setValue("Label", "B");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -207,7 +205,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisC");
-        settings->setValue("Label", "C");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -220,7 +217,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisU");
-        settings->setValue("Label", "U");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -233,7 +229,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisV");
-        settings->setValue("Label", "V");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -246,7 +241,6 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisW");
-        settings->setValue("Label", "W");
         settings->setValue("Channel", 8);
         settings->setValue("Jerk", 10000);
         settings->setValue("Acceleration", 400);
@@ -258,8 +252,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
-    settings->beginGroup("Sensor0");
-        settings->setValue("Uid", "SensorAxisX");
+    settings->beginGroup("AxisXSensor");
         settings->setValue("Label", "Датчик оси X");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 0);
@@ -279,8 +272,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor1");
-        settings->setValue("Uid", "SensorAxisY");
+    settings->beginGroup("AxisYSensor");
         settings->setValue("Label", "Датчик оси Y");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 1);
@@ -300,8 +292,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor2");
-        settings->setValue("Uid", "SensorAxisZ");
+    settings->beginGroup("AxisZSensor");
         settings->setValue("Label", "Датчик оси Z");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 2);
@@ -321,8 +312,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor3");
-        settings->setValue("Uid", "SensorAxisA");
+    settings->beginGroup("AxisASensor");
         settings->setValue("Label", "Датчик оси A");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 3);
@@ -342,8 +332,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor4");
-        settings->setValue("Uid", "SensorAxisB");
+    settings->beginGroup("AxisBSensor");
         settings->setValue("Label", "Датчик оси B");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 4);
@@ -363,8 +352,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor5");
-        settings->setValue("Uid", "SensorAxisC");
+    settings->beginGroup("AxisCSensor");
         settings->setValue("Label", "Датчик оси C");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 5);
@@ -384,8 +372,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor6");
-        settings->setValue("Uid", "SensorAxisU");
+    settings->beginGroup("AxisUSensor");
         settings->setValue("Label", "Датчик оси U");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 6);
@@ -405,8 +392,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor7");
-        settings->setValue("Uid", "SensorAxisV");
+    settings->beginGroup("AxisVSensor");
         settings->setValue("Label", "Датчик оси V");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 7);
@@ -426,8 +412,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor8");
-        settings->setValue("Uid", "SensorAxisW");
+    settings->beginGroup("AxisWSensor");
         settings->setValue("Label", "Датчик оси W");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 0);
@@ -447,8 +432,7 @@ void SettingsManager::generateDefaultSettings()
                            });
     settings->endGroup();
 
-    settings->beginGroup("Sensor9");
-        settings->setValue("Uid", "SensorZero");
+    settings->beginGroup("ZeroSensor");
         settings->setValue("Label", "Датчик Ноля");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 1);

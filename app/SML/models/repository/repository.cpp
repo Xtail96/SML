@@ -3,7 +3,6 @@
 Repository::Repository(QObject *parent) :
     QObject(parent),
     m_settingsManager(new SettingsManager()),
-    m_pointsManager(new PointsManager(this)),
     m_gcodesFilesManager(new GCodesFileManager(this)),
     m_port(1234),
     m_sensorsBufferSize(2),
@@ -15,8 +14,9 @@ Repository::Repository(QObject *parent) :
     m_spindels(QList< QSharedPointer<Spindel> >()),
     m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
     m_axises(QList< QSharedPointer<Axis> >()),
-    m_zeroCoordinates(Point(size_t(m_axises.size()))),
-    m_parkCoordinates(Point(size_t(m_axises.size()))),
+    m_points(QList<Point>()),
+    m_zeroCoordinates(Point()),
+    m_parkCoordinates(Point()),
     m_velocity(0),
     m_movementStep(0)
 {
@@ -379,11 +379,18 @@ QList<Point> Repository::getCurrentPositionDetaiedInfo()
 
 void Repository::setCurrentPosition(Point absCoordinates)
 {
-    for(auto axis : m_axises)
+    try
     {
-        auto index = SML_AXISES_NAMES.getKeyByName(axis->name());
-        auto absValue = absCoordinates.get(index);
-        axis->setCurrentPosition(absValue);
+        for(auto axis : m_axises)
+        {
+            auto absValue = absCoordinates.get(axis->name());
+            axis->setCurrentPosition(absValue);
+        }
+    }
+    catch (...)
+    {
+        qDebug() << "Repository::setCurrentPosition: unknown error";
+        QMessageBox(QMessageBox::Critical, "Error", "Can not set current position").exec();
     }
 }
 
@@ -417,7 +424,8 @@ QStringList Repository::getAxisesNames()
         emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
-    return names;
+
+    return SML_AXISES_NAMES.sort(names);
 }
 
 double Repository::getAxisPosition(const QString axisName)
@@ -505,12 +513,18 @@ void Repository::setParkCoordinates(const Point &parkCoordinates)
     m_parkCoordinates = parkCoordinates;
 }
 
-void Repository::addPoint(QStringList coordinates)
+void Repository::addPoint(QMap<QString, double> coords)
 {
     try
     {
-        Point* p = PointsManager::makePoint(coordinates);
-        m_pointsManager->addPoint(p);
+        Point p;
+        for(auto axisUid : coords.keys())
+        {
+            p.insertAxis(axisUid, coords[axisUid]);
+        }
+        m_points.append(p);
+
+        emit this->pointsUpdated();
     }
     catch(...)
     {
@@ -520,71 +534,41 @@ void Repository::addPoint(QStringList coordinates)
     }
 }
 
-QList<QStringList> Repository::getPoints()
+QList<Point> Repository::getPoints()
 {
-    QList<QStringList> result = {};
-
-    try
-    {
-        result = m_pointsManager->points();
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::getPoints: unknown error");
-        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
-    }
-
-    return result;
+    return m_points;
 }
 
-QStringList Repository::getPoint(unsigned int index)
+Point Repository::getPoint(unsigned int index)
 {
-    QStringList result = {};
-
-    try
-    {
-        result = m_pointsManager->point(index);
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::getPoint: unknown error");
-        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
-    }
-
-    return result;
+    if(m_points.size() <= int(index)) throw OutOfRangeException("Point with index " + QString::number(index) + " doest not exists");
+    return m_points[int(index)];
 }
 
 void Repository::deletePoint(unsigned int index)
 {
-    try
-    {
-        QSharedPointer<Point> p = m_pointsManager->operator [](index);
-        m_pointsManager->deletePoint(p);
-    }
-    catch(OutOfRangeException e)
-    {
-        QMessageBox(QMessageBox::Warning, "Ошибка", e.message()).exec();
-        qDebug() << QStringLiteral("Repository::deletePoint:") << e.message();
-        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::deletePoint: unknown error");
-        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
-    }
+    if(m_points.size() <= int(index)) throw OutOfRangeException("Point with index " + QString::number(index) + " doest not exists");
+    m_points.removeAt(int(index));
+
+    emit this->pointsUpdated();
 }
 
-void Repository::updatePoint(QStringList coordinates, unsigned int index)
+void Repository::updatePoint(QMap<QString, double> coordinates, unsigned int index)
 {
-    try
+    if(m_points.size() <= int(index)) throw OutOfRangeException("Point with index " + QString::number(index) + " doest not exists");
+    m_points.replace(int(index), Point(coordinates));
+
+    emit this->pointsUpdated();
+}
+
+Point Repository::createEmptyPoint()
+{
+    Point p;
+    for(auto axis : m_axises)
     {
-        m_pointsManager->updatePoint(coordinates, index);
+        p.insertAxis(axis->name(), 0.0);
     }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("Repository::updatePoint: unknown error");
-        emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
-    }
+    return p;
 }
 
 QString Repository::getFilePath(QString type)
@@ -868,25 +852,18 @@ void Repository::loadSensorsSettings()
 {
     try
     {
-        unsigned int sensorsCount = QVariant(m_settingsManager->get("Main", "SensorsCount")).toUInt();
-
-        QList<QString> sensorsSettingCodes;
-        for(unsigned int i = 0; i < sensorsCount; i++)
+        QStringList availableSensors = m_settingsManager->get("Main", "AvailableSensors").toStringList();
+        for(auto sensorUid : availableSensors)
         {
-            QString sensorSettingCode = QString("Sensor") + QString::number(i);
-            sensorsSettingCodes.push_back(sensorSettingCode);
-        }
+            QString sectionName = sensorUid;
 
-        for(auto settingCode : sensorsSettingCodes)
-        {
-            QString uid  = QVariant(m_settingsManager->get(settingCode, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingCode, "Label")).toString();
-            size_t portNumber = QVariant(m_settingsManager->get(settingCode, "PortNumber")).toUInt();
-            size_t inputNumber = QVariant(m_settingsManager->get(settingCode, "InputNumber")).toUInt();
-            QString boardName = QVariant(m_settingsManager->get(settingCode, "BoardName")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingCode, "ActiveState")).toBool();
-            QColor color = QColor(QVariant(m_settingsManager->get(settingCode, "Color")).toString());
-            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager->get(settingCode, "Position").toMap());
+            QString label = QVariant(m_settingsManager->get(sectionName, "Label")).toString();
+            size_t portNumber = QVariant(m_settingsManager->get(sectionName, "PortNumber")).toUInt();
+            size_t inputNumber = QVariant(m_settingsManager->get(sectionName, "InputNumber")).toUInt();
+            QString boardName = QVariant(m_settingsManager->get(sectionName, "BoardName")).toString();
+            bool activeState = QVariant(m_settingsManager->get(sectionName, "ActiveState")).toBool();
+            QColor color = QColor(QVariant(m_settingsManager->get(sectionName, "Color")).toString());
+            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager->get(sectionName, "Position").toMap());
 
             QMap<QString, double> position = {};
             for(auto i = rawPosition.begin(); i != rawPosition.end(); i++)
@@ -894,7 +871,7 @@ void Repository::loadSensorsSettings()
                 position.insert(i.key(), i.value().toDouble());
             }
 
-            Sensor* sensor = new Sensor(uid,
+            Sensor* sensor = new Sensor(sensorUid,
                                         label,
                                         portNumber,
                                         inputNumber,
@@ -973,26 +950,26 @@ void Repository::loadAxisesSettings()
 {
     try
     {
-         size_t axisesCount = m_settingsManager->get("Main", "AxisesCount").toUInt();
-         for(size_t i = 0; i < axisesCount; i++)
-         {
-             QString name = SML_AXISES_NAMES.getNameByKey(i);
+        QStringList availableAxises = m_settingsManager->get("Main", "AvailableAxises").toStringList();
+        for(auto axisUid : availableAxises)
+        {
+            if(!SML_AXISES_NAMES.contains(axisUid)) throw InvalidConfigurationException("Unknown axis uid " + axisUid);
 
-             QString fullAxisName = QString("Axis") + name;
+            QString sectionName = QStringLiteral("Axis") + axisUid;
 
-             double step = m_settingsManager->get(fullAxisName, "Step").toDouble();
-             bool invertDirection = m_settingsManager->get(fullAxisName, "Invert").toBool();
-             double bazaSearchSpeed = m_settingsManager->get(fullAxisName, "BazaSearchSpeed").toDouble();
-             double lowerBound = m_settingsManager->get(fullAxisName, "LowerBound").toDouble();
-             double uppderBound = m_settingsManager->get(fullAxisName, "UpperBound").toDouble();
-             double length = uppderBound - lowerBound;
+            double step = m_settingsManager->get(sectionName, "Step").toDouble();
+            bool invertDirection = m_settingsManager->get(sectionName, "Invert").toBool();
+            double bazaSearchSpeed = m_settingsManager->get(sectionName, "BazaSearchSpeed").toDouble();
+            double lowerBound = m_settingsManager->get(sectionName, "LowerBound").toDouble();
+            double uppderBound = m_settingsManager->get(sectionName, "UpperBound").toDouble();
+            double length = uppderBound - lowerBound;
 
+            QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(axisUid, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));
+            m_axises.push_back(axis);
 
-             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(name, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));
-             m_axises.push_back(axis);
-         }
-         m_zeroCoordinates = Point(size_t(m_axises.size()));
-         m_parkCoordinates = Point(size_t(m_axises.size()));
+            m_zeroCoordinates.insertAxis(axisUid, 0.0);
+            m_parkCoordinates.insertAxis(axisUid, 0.0);
+        }
     }
     catch(InvalidConfigurationException e)
     {
@@ -1022,12 +999,10 @@ Point Repository::getCurrentPositionFromBase()
 
     try
     {
-        QList<double> axisesCoordinates;
         for(auto axis : m_axises)
         {
-            axisesCoordinates.push_back(axis->currentPosition());
+            result.insertAxis(axis->name(), axis->currentPosition());
         }
-        result = Point(axisesCoordinates.toVector().toStdVector());
     }
     catch(...)
     {
@@ -1040,19 +1015,12 @@ Point Repository::getCurrentPositionFromBase()
 
 Point Repository::getCurrentPositionFromZero()
 {
-    Point result = Point();
+    Point result = {};
 
     try
     {
-        Point currentFromZero(size_t(m_axises.size()));
         Point p = this->getCurrentPositionFromBase();
-
-        if(p.size() == m_zeroCoordinates.size())
-        {
-            currentFromZero = p.operator -=(m_zeroCoordinates);
-        }
-
-        result = currentFromZero;
+        result = p.operator -=(m_zeroCoordinates);
     }
     catch(...)
     {
@@ -1160,14 +1128,10 @@ Axis &Repository::getAxis(QString uid)
 
 Point Repository::getMaxPosition()
 {
-    Point maxPosition = Point(this->getAxisesCount());
-    for(size_t i = 0; i < maxPosition.size(); i++)
+    Point maxPosition = Point();
+    for(auto axis : m_axises)
     {
-        QString uid = SML_AXISES_NAMES.getNameByKey(i);
-        if(this->axisExists(uid))
-        {
-            maxPosition[i] = this->getAxis(uid).upperBound();
-        }
+        maxPosition.insertAxis(axis->name(), axis->upperBound());
     }
     return maxPosition;
 }

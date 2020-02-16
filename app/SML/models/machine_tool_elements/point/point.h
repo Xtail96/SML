@@ -18,32 +18,12 @@ class Point
 {
 private:
     /// Массив, где хранятся координаты
-    std::vector<double> coordinates;
+    QMap<QString, double> m_coords;
 
 public:
-    /**
-     * @brief Создает точку заданной размерности и инициализирует каждую координату нулем
-     * @param dimension размерность точки
-     */
-    Point(size_t dimension = 3);
+    Point();
 
-    /**
-     * @brief Создает точку с явно заданными координатами, размерность равна числу заданных координат
-     * @param coords явно заданные координаты
-     *
-     * Пример использования:
-     *
-     * \code{.cpp}
-     * Point p = {1.5, 0.33, -3.66, 1, 0};
-     * \endcode
-     */
-    Point(std::initializer_list<double> coords);
-
-    /**
-     * @brief Создает точку по заданному вектору координат
-     * @param v вектор координат
-     */
-    Point(const std::vector<double>& v);
+    Point(QMap<QString, double> coords);
 
     /**
      * @brief Создает копию заданной точки
@@ -58,19 +38,10 @@ public:
      */
     Point& operator=(Point other);
 
-    /**
-     * @brief Получение конкретной координаты по заданному номеру
-     * @param idx номер координаты
-     * @return ссылку на координату
-     * \warning Если номер превышает число координат, бросает исключение out_of_range
-     *
-     * Пример использования:
-     *
-     * \code{.cpp}
-     * double x = point[3];
-     * \endcode
-     */
-    double& operator[](size_t idx);
+    void insertAxis(QString axisName, double coord);
+
+    QList< QPair<QString, double> > coords();
+    QMap<QString, double> coordsMap();
 
     /**
      * @brief Получение конкретной координаты по заданному имени оси
@@ -86,30 +57,18 @@ public:
      *
      * \see Point::operator[](size_t idx);
      */
-    double& operator[](QString name);
-
-    /**
-     * @brief Получение конкретной координаты по заданному номеру
-     * \see double& operator[](size_t idx)
-     */
-    double& get(size_t idx);
+    double& operator[](QString axisName);
 
     /**
      * @brief Получение конкретной координаты по заданному имени оси
      * \see double& operator[](QString name)
      */
-    double& get(QString name);
+    double& get(QString axisName);
 
     /**
      * @return текущее число координат точки
      */
-    size_t size() const;
-
-    /**
-     * @brief Устанавливает число координат точки
-     * @param num новое число координат
-     */
-    void setCoordinatesCount(size_t num);
+    int size() const;
 
     /**
      * @brief Операторы проверки точек на равенство

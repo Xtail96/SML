@@ -561,13 +561,13 @@ void MainWindow::updateCoordinatesDisplays()
     }
 }
 
-void MainWindow::showCoordinates(QListWidget *display, Point coordinates)
+void MainWindow::showCoordinates(QListWidget *display, Point p)
 {
     display->clear();
-    for(size_t i = 0; i < coordinates.size(); i++)
+    QList< QPair<QString, double> > coords = p.coords();
+    for(auto coordsItem : coords)
     {
-        QString axisKey = SML_AXISES_NAMES.getNameByKey(i);
-        QString axisLabel = axisKey + QString(": ") + QString::number(coordinates[i], 'f', 3);
+        QString axisLabel = coordsItem.first + QString(": ") + QString::number(coordsItem.second, 'f', 3);
         display->addItem(axisLabel);
     }
 }
@@ -773,12 +773,12 @@ void MainWindow::stepMove(QMap<QString, double> steps)
 
         MachineTool &i = MachineTool::getInstance();
         Point currentCoordinatesFromBase = i.getRepository().getCurrentPositionFromBase();
-        Point increment = Point(size_t(currentCoordinatesFromBase.size()));
+        Point increment = i.getRepository().createEmptyPoint();
 
         QStringList axises = steps.keys();
         for(auto axis : axises)
         {
-            increment.get(SML_AXISES_NAMES.getKeyByName(axis)) += steps[axis];
+            increment.insertAxis(axis, steps[axis]);
         }
 
         Point target = currentCoordinatesFromBase + increment;
@@ -1082,8 +1082,8 @@ void MainWindow::on_pointCopyToolButton_clicked()
 
         for(auto row : selectedRowsIndexes)
         {
-            QStringList pointsArguments = machineTool.getRepository().getPoint(static_cast<unsigned int>(row.row()));
-            machineTool.getRepository().addPoint(pointsArguments);
+            Point p = machineTool.getRepository().getPoint(static_cast<unsigned int>(row.row()));
+            machineTool.getRepository().addPoint(p.coordsMap());
         }
     }
     else
@@ -1143,7 +1143,7 @@ void MainWindow::onPointsUpdated()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QList<QStringList> points = machineTool.getRepository().getPoints();
+    QList<Point> points = machineTool.getRepository().getPoints();
     QList<PointsTableWidget*> fields = { ui->pointsTableWidget };
     QStringList axisesLabels = machineTool.getRepository().getAxisesNames();
 
@@ -1156,9 +1156,12 @@ void MainWindow::onPointsUpdated()
 
         for(int i = 0; i < points.size(); i++)
         {
-            for(int j = 0; j < points[i].size(); j++)
+            QList< QPair<QString, double> > coords = points[i].coords();
+            int j = 0;
+            for(auto coordsItem : coords)
             {
-                field->setItem(i, j, new QTableWidgetItem(points[i][j]));
+                field->setItem(i, j, new QTableWidgetItem(QString::number(coordsItem.second)));
+                j++;
             }
         }
     }

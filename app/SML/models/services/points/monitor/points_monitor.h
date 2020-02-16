@@ -2,7 +2,8 @@
 #define POINTSMONITOR_H
 
 #include <QObject>
-#include "models/machine_tool_elements/point/points_manager.h"
+
+#include "models/repository/repository.h"
 
 /**
  * @brief Класс Монитор состояния точек
@@ -21,7 +22,7 @@ public:
      * @param manager указатель на менеджер точек, управляющий точками, которые необходимо отслеживать
      * @param parent родительский объект в дереве объектов
      */
-    explicit PointsMonitor(PointsManager* manager, QObject *parent = nullptr);
+    explicit PointsMonitor(Repository &repo, QObject *parent = nullptr);
 
 signals:
 
@@ -35,7 +36,7 @@ protected slots:
     /**
      * @brief Испускает сигнал об изменении состояния точек
      */
-    void onPointsUpdated();
+    void onRepository_PointsUpdated();
 };
 
 #endif // POINTSMONITOR_H

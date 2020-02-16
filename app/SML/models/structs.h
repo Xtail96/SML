@@ -27,6 +27,7 @@ enum ERROR_CODE
     UNKNOWN_ERROR
 };
 
+bool axisesNamesComparator(QString a1, QString a2);
 
 /*!
  * \brief Объект "Имена осей"
@@ -94,7 +95,38 @@ struct
 
         return false;
     }
+
+    QStringList sort(QStringList axisesNames)
+    {
+        QList< QPair<size_t, QString> > axisesMeta = {};
+        QStringList unresolved = {};
+        for(auto axisName : axisesNames)
+        {
+            if(this->contains(axisName))
+            {
+                axisesMeta.append(QPair<size_t, QString>(this->getKeyByName(axisName), axisName));
+            }
+            else
+            {
+                unresolved.append(axisName);
+            }
+        }
+
+        qSort(axisesMeta.begin(), axisesMeta.end(), [] (QPair<size_t, QString> a1, QPair<size_t, QString> a2) {
+            return a1.first < a2.first;
+        });
+
+        QStringList result = {};
+        for(auto axisesMetaItem : axisesMeta)
+        {
+            result.append(axisesMetaItem.second);
+        }
+
+        return result + unresolved;
+    }
 } SML_AXISES_NAMES;
+
+
 
 /*!
  * \brief Структура 3D-Точка

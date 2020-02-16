@@ -55,7 +55,6 @@ SOURCES += main.cpp\
     models/exceptions/invalid_configuration_exception.cpp \
     models/exceptions/out_of_range_exception.cpp \
     models/exceptions/synchronize_state_exception.cpp \
-    models/machine_tool_elements/point/points_manager.cpp \
     models/machine_tool_elements/sensor/sensors_buffer.cpp \
     models/machine_tool.cpp \
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
@@ -107,7 +106,6 @@ HEADERS  += gui/mainwindow.h \
     models/exceptions/out_of_range_exception.h \
     models/exceptions/synchronize_state_exception.h \
     models/machine_tool_elements/sensor/sensors_buffer.h \
-    models/machine_tool_elements/point/points_manager.h \
     models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/machine_tool_elements/gcodes/file_reader/file_reader.h \
     models/machine_tool_elements/adapter/server/u1_state.h \

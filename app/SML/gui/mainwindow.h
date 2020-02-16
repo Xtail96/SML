@@ -151,7 +151,7 @@ private slots:
 
     /// Слот для обновления дисплея координат
     void updateCoordinatesDisplays();
-    void showCoordinates(QListWidget* display, Point coordinates);
+    void showCoordinates(QListWidget* display, Point p);
 
     /// Слот для обновления дисплея заряда батареи
     void updateBatteryStatusDisplay();

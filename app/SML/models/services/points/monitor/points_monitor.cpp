@@ -1,11 +1,11 @@
 #include "points_monitor.h"
 
-PointsMonitor::PointsMonitor(PointsManager *manager, QObject *parent) : QObject(parent)
+PointsMonitor::PointsMonitor(Repository &repo, QObject *parent) : QObject(parent)
 {
-    QObject::connect(manager, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
+    QObject::connect(&repo, SIGNAL(pointsUpdated()), this, SLOT(onRepository_PointsUpdated()));
 }
 
-void PointsMonitor::onPointsUpdated()
+void PointsMonitor::onRepository_PointsUpdated()
 {
     emit pointsUpdated();
 }

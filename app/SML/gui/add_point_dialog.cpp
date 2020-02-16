@@ -29,7 +29,7 @@ AddPointDialog::~AddPointDialog()
 
 void AddPointDialog::on_buttonBox_accepted()
 {
-    QStringList qArguments;
+    QMap<QString, double> qArguments;
     for(int i = 0; i < ui->addPointArgumentsTableWidget->rowCount(); i++)
     {
         QString qArgument;
@@ -41,7 +41,8 @@ void AddPointDialog::on_buttonBox_accepted()
                 qArgument = "0";
             }
         }
-        qArguments.push_back(qArgument);
+        qArguments.insert(ui->addPointArgumentsTableWidget->verticalHeaderItem(i)->text(),
+                          qArgument.toDouble());
     }
 
     if(!m_Edit)
@@ -71,7 +72,11 @@ void AddPointDialog::setupFields()
     QStringList pointCoordinates;
     if(m_Edit)
     {
-        pointCoordinates = m_repository.getPoint(m_pointNumber);
+        Point p = m_repository.getPoint(m_pointNumber);
+        for(auto axisUid : qRowHeaders)
+        {
+           pointCoordinates.append(QString::number(p.get(axisUid)));
+        }
     }
 
     for(int i = 0; i < ui->addPointArgumentsTableWidget->columnCount(); i++)

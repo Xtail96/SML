@@ -12,7 +12,7 @@
 #include "models/machine_tool_elements/sensor/sensor.h"
 #include "models/machine_tool_elements/sensor/sensors_buffer.h"
 #include "models/settings_manager/settings_manager.h"
-#include "models/machine_tool_elements/point/points_manager.h"
+#include "models/machine_tool_elements/point/point.h"
 #include "models/machine_tool_elements/adapter/adapter.h"
 #include "models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
@@ -112,6 +112,14 @@ public:
      */
     QString getSensorsBufferSize();
 
+    /**
+     * @brief Возвращает ссылку на датчик
+     * @param uid уникальный идетификатор датчика
+     * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
+     * @return ссылка на датчик
+     */
+    Sensor& getSensor(QString uid);
+
     // Devices
 
     /**
@@ -174,26 +182,42 @@ public:
      */
     void setSpindelState(QString uid, bool enable, size_t rotations);
 
+    /**
+     * @brief Возвращает ссылку на устройство
+     * @param index уникальный индекс устройства
+     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
+     * @return ссылка на устройство
+     */
+    Device& getDevice(size_t index);
+
+    /**
+     * @brief Возвращает ссылку на шпиндель
+     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
+     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
+     * @return ссылка на шпиндель
+     */
+    Spindel& getSpindel(QString uid);
+
     // Points
 
     /**
      * @brief Добавляет точку
      * @param coordinates координаты точки
      */
-    void addPoint(QStringList coordinates);
+    void addPoint(QMap<QString, double> coords);
 
     /**
      * @brief Возвращает список координат всех доступных точек
      * @return список координат всех доступных точек
      */
-    QList<QStringList> getPoints();
+    QList<Point> getPoints();
 
     /**
      * @brief Возвращает координаты точки по ее индексу
      * @param index индекс (номер, идентификатор) точки
      * @return координаты точки
      */
-    QStringList getPoint(unsigned int index);
+    Point getPoint(unsigned int index);
 
     /**
      * @brief Удаляет точку
@@ -206,7 +230,9 @@ public:
      * @param coordinates новые координаты точки
      * @param index индекс (номер, идентификатор) точки
      */
-    void updatePoint(QStringList coordinates, unsigned int index);
+    void updatePoint(QMap<QString, double> coordinates, unsigned int index);
+
+    Point createEmptyPoint();
 
     // Program
 
@@ -331,6 +357,8 @@ public:
 
     size_t getAxisesCount();
 
+    Axis& getAxis(QString uid);
+
     // Options
 
     /**
@@ -354,9 +382,6 @@ public:
 private:
     /// Менеджер настроек
     QScopedPointer<SettingsManager> m_settingsManager;
-
-    /// Менеджер точек
-    QScopedPointer<PointsManager> m_pointsManager;
 
     /// Менеджер файлов G-Codes
     QScopedPointer<GCodesFileManager> m_gcodesFilesManager;
@@ -395,6 +420,8 @@ private:
     // Оси
     /// Список доступных координатных осей
     QList< QSharedPointer<Axis> > m_axises;
+
+    QList<Point> m_points;
 
     /// Координаты точки Ноль
     Point m_zeroCoordinates;
@@ -440,32 +467,6 @@ private:
      */
     bool sensorExists(QString uid);
 
-    /**
-     * @brief Возвращает ссылку на датчик
-     * @param uid уникальный идетификатор датчика
-     * @warning Бросает исключение InvalidArgumentException, если датчик не найден.
-     * @return ссылка на датчик
-     */
-    Sensor& getSensor(QString uid);
-
-    /**
-     * @brief Возвращает ссылку на устройство
-     * @param index уникальный индекс устройства
-     * @warning Бросает исключение InvalidArgumentException, если устройство не найдено.
-     * @return ссылка на устройство
-     */
-    Device& getDevice(size_t index);
-
-    /**
-     * @brief Возвращает ссылку на шпиндель
-     * @param uid уникальный идентифиактор шпинделя (уникальный идентификатор устройства)
-     * @warning Бросает исключение InvalidArgumentException, если шпиндель не найден.
-     * @return ссылка на шпиндель
-     */
-    Spindel& getSpindel(QString uid);
-
-    Axis& getAxis(QString uid);
-
     Point getMaxPosition();
 
     /// Класс-друг!
@@ -473,6 +474,7 @@ private:
 
 signals:
     void errorOccurred(ERROR_CODE code);
+    void pointsUpdated();
 
 public slots:
 

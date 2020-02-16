@@ -14,7 +14,7 @@ class AddPointDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddPointDialog(Repository &repository, QWidget *parent = 0);
+    explicit AddPointDialog(Repository &repository, QWidget *parent = nullptr);
     explicit AddPointDialog(Repository &repository, unsigned int pointNumber, QWidget *parent);
     ~AddPointDialog();
 signals:

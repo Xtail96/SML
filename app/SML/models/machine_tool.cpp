@@ -9,7 +9,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_adaptersMonitor(new AdaptersMonitor(m_repository->m_u1Adapter.data(),
                                                m_repository->m_u2Adapter.data(),
                                                this)),
-    m_pointsMonitor(new PointsMonitor(m_repository->m_pointsManager.data(), this)),
+    m_pointsMonitor(new PointsMonitor(*m_repository.data(), this)),
     m_sensorsMonitor(new SensorsMonitor(m_repository->m_sensors, this)),
     m_spindelsMonitor(new SpindelsMonitor(m_repository->m_spindels, this)),
     m_gcodesMonitor(new GCodesMonitor(m_repository->m_gcodesFilesManager.data(), this)),
@@ -363,9 +363,10 @@ void MachineTool::moveToPoint(Point pointFromBase)
     try
     {
         QString gcode = "G1 ";
-        for(size_t i = 0; i < pointFromBase.size(); i++)
+        QMap<QString, double> coords = pointFromBase.coordsMap();
+        for(QString axisUid : coords.keys())
         {
-            gcode += SML_AXISES_NAMES.getNameByKey(i) + QString::number(pointFromBase.get(i)) + " ";
+            gcode += axisUid + QString::number(coords[axisUid]);
         }
         gcode += "F" + QString::number(m_repository->getVelocity());
 
@@ -438,7 +439,7 @@ void MachineTool::resetCurrentCoordinates()
 {
     try
     {
-        Point zeroPoint = Point(m_repository->getAxisesCount());
+        Point zeroPoint = m_repository->createEmptyPoint();
         m_repository->setCurrentPosition(zeroPoint);
     }
     catch (...)

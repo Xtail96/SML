@@ -1,89 +1,91 @@
 #include "point.h"
 
-Point::Point(size_t dimension)
+Point::Point()
 {
-    coordinates = std::vector<double>(dimension, 0.0);
+    m_coords = {};
 }
 
-Point::Point(std::initializer_list<double> coords) : Point(coords.size())
+Point::Point(QMap<QString, double> coords)
 {
-    std::copy(coords.begin(), coords.end(), coordinates.begin());
-}
-
-Point::Point(const std::vector<double> &v) : coordinates(v)
-{
+    m_coords = coords;
 }
 
 Point::Point(const Point& other)
 {
-    coordinates = other.coordinates;
+    m_coords = other.m_coords;
 }
 
 Point& Point::operator=(Point other)
 {
-    std::swap(coordinates, other.coordinates);
+    m_coords = other.m_coords;
     return *this;
 }
 
-double& Point::operator[](size_t idx)
+void Point::insertAxis(QString axisName, double coord)
 {
-    if (idx < coordinates.size())
-        return coordinates[idx];
-    else
-        throw OutOfRangeException("Координаты с номером " + QString::number(idx) + " не существует.");
+    m_coords.insert(axisName, coord);
 }
 
-double& Point::operator[](QString name)
+QList< QPair<QString, double> > Point::coords()
 {
-    size_t idx = SML_AXISES_NAMES.getKeyByName(name);
-    return operator[](idx);
+    QStringList axisesUidsSorted = SML_AXISES_NAMES.sort(m_coords.keys());
+
+    QList< QPair<QString, double> > result = {};
+    for(auto axisUid : axisesUidsSorted)
+    {
+        result.append(QPair<QString, double>(axisUid, m_coords[axisUid]));
+    }
+    return result;
 }
 
-double& Point::get(size_t idx)
+QMap<QString, double> Point::coordsMap()
 {
-    return operator[](idx);
+    return m_coords;
 }
 
-double& Point::get(QString name)
+double& Point::operator[](QString axisName)
 {
-    return operator[](name);
+    if(!m_coords.contains(axisName)) throw InvalidArgumentException("Axis name " + axisName + " does not exists");
+    return m_coords[axisName];
 }
 
-size_t Point::size() const
+double& Point::get(QString axisName)
 {
-    return coordinates.size();
+    return operator[](axisName);
 }
 
-void Point::setCoordinatesCount(size_t num)
+int Point::size() const
 {
-    coordinates.resize(num);
+    return m_coords.size();
 }
 
 bool Point::operator==(const Point &other) const
 {
-    return (coordinates == other.coordinates);
+    return (m_coords == other.m_coords);
 }
 
 bool Point::operator!=(const Point &other) const
 {
-    return (coordinates != other.coordinates);
+    return (m_coords != other.m_coords);
 }
 
 Point& Point::operator*=(double x)
 {
-    for (double& coord : coordinates)
+    for (double& coord : m_coords)
+    {
         coord *= x;
+    }
 
     return *this;
 }
 
 Point& Point::operator*=(const Point &other)
 {
-    assert(coordinates.size() == other.coordinates.size());
+    assert(m_coords.size() == other.m_coords.size());
 
-    std::transform(coordinates.begin(), coordinates.end(),
-                   other.coordinates.begin(),
-                   coordinates.begin(),
+    std::transform(m_coords.begin(), m_coords.end(),
+                   other.m_coords.begin(),
+                   m_coords.begin(),
                    std::multiplies<double>()
                    );
 
@@ -92,11 +94,11 @@ Point& Point::operator*=(const Point &other)
 
 Point &Point::operator+=(const Point &other)
 {
-    assert(coordinates.size() == other.coordinates.size());
+    assert(m_coords.size() == other.m_coords.size());
 
-    std::transform(coordinates.begin(), coordinates.end(),
-                   other.coordinates.begin(),
-                   coordinates.begin(),
+    std::transform(m_coords.begin(), m_coords.end(),
+                   other.m_coords.begin(),
+                   m_coords.begin(),
                    std::plus<double>()
                    );
 
@@ -105,11 +107,11 @@ Point &Point::operator+=(const Point &other)
 
 Point &Point::operator-=(const Point &other)
 {
-    assert(coordinates.size() == other.coordinates.size());
+    assert(m_coords.size() == other.m_coords.size());
 
-    std::transform(coordinates.begin(), coordinates.end(),
-                   other.coordinates.begin(),
-                   coordinates.begin(),
+    std::transform(m_coords.begin(), m_coords.end(),
+                   other.m_coords.begin(),
+                   m_coords.begin(),
                    std::minus<double>()
                    );
 
