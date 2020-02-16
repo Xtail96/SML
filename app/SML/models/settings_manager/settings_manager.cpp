@@ -112,7 +112,7 @@ void SettingsManager::generateDefaultSettings()
 {
     settings->beginGroup("Main");
         settings->setValue("AvailableAxises", QStringList {
-                               "X","Y","Z","A","B","U"});
+                               "X","Y","Z","A","U"});
         settings->setValue("AvailableSensors", QStringList {
                                "AxisXSensor", "AxisYSensor", "AxisZSensor", "AxisASensor",
                                "AxisBSensor", "AxisCSensor", "AxisUSensor", "AxisVSensor", "AxisWSensor", "ZeroSensor"});
