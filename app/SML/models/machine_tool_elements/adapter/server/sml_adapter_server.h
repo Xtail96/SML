@@ -45,7 +45,7 @@ public:
 
 private:
     /// Web-soket сервер
-    QScopedPointer<QWebSocketServer> m_server;
+    QWebSocketServer m_server;
 
     /// Порт, на котором работает сервер
     qint16 m_port;
