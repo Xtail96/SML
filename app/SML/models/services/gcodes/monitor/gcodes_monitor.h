@@ -22,7 +22,7 @@ public:
      * @param gcodesManager менеджер файлов G-кодов, управляющий файлом, состояние которого требуется отслеживать
      * @param parent родительский объект в дереве объектов
      */
-    explicit GCodesMonitor(GCodesFileManager* gcodesManager, QObject *parent = nullptr);
+    explicit GCodesMonitor(GCodesFileManager& gcodesManager, QObject *parent = nullptr);
 
 signals:
 

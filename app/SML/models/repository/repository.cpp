@@ -2,13 +2,13 @@
 
 Repository::Repository(QObject *parent) :
     QObject(parent),
-    m_settingsManager(new SettingsManager()),
+    m_settingsManager(),
     m_gcodesFilesManager(new GCodesFileManager(this)),
     m_port(1234),
     m_sensorsBufferSize(2),
     m_devicesBufferSize(1),
-    m_u1Adapter(new Adapter(Adapter::U1, this)),
-    m_u2Adapter(new Adapter(Adapter::U2, this)),
+    m_u1Adapter(Adapter::U1, this),
+    m_u2Adapter(Adapter::U2, this),
     m_sensors(QList< QSharedPointer<Sensor> >()),
     m_sensorsBuffer(new SensorsBuffer(16, this)),
     m_spindels(QList< QSharedPointer<Spindel> >()),
@@ -27,7 +27,7 @@ void Repository::setU1ConnectState(bool connected)
 {
     try
     {
-        m_u1Adapter->setConnectionState(connected);
+        m_u1Adapter.setConnectionState(connected);
     }
     catch(...)
     {
@@ -40,7 +40,7 @@ void Repository::setU1WorkflowState(unsigned int state)
 {
     try
     {
-        m_u1Adapter->setWorkflowState(state);
+        m_u1Adapter.setWorkflowState(state);
     }
     catch(...)
     {
@@ -53,7 +53,7 @@ void Repository::setU2ConnectState(bool connected)
 {
     try
     {
-        m_u2Adapter->setConnectionState(connected);
+        m_u2Adapter.setConnectionState(connected);
     }
     catch(...)
     {
@@ -66,7 +66,7 @@ void Repository::setU2WorkflowState(unsigned int state)
 {
     try
     {
-        m_u2Adapter->setWorkflowState(state);
+        m_u2Adapter.setWorkflowState(state);
     }
     catch(...)
     {
@@ -332,7 +332,7 @@ void Repository::setGCodes(const QString &data)
 {
     try
     {
-        m_gcodesFilesManager->setFileContent(data);
+        m_gcodesFilesManager.setFileContent(data);
     }
     catch(...)
     {
@@ -347,7 +347,7 @@ QStringList Repository::getGCodesProgram()
 
     try
     {
-        result = m_gcodesFilesManager->getContent();
+        result = m_gcodesFilesManager.getContent();
     }
     catch(...)
     {
@@ -579,7 +579,7 @@ QString Repository::getFilePath(QString type)
     {
         if(type == "gcodes")
         {
-            path = m_gcodesFilesManager->getFilePath();
+            path = m_gcodesFilesManager.getFilePath();
         }
         else
         {
@@ -706,7 +706,7 @@ void Repository::exportSettings()
     try
     {
         QString path = QFileDialog::getSaveFileName(nullptr, "Выберите путь до файла", "", "*.ini");
-        m_settingsManager->exportSettings(path);
+        m_settingsManager.exportSettings(path);
     }
     catch(...)
     {
@@ -720,7 +720,7 @@ void Repository::importSettings()
     try
     {
         QString path = QFileDialog::getOpenFileName(nullptr, "Выберите файл с настройками", "", "*.ini");
-        m_settingsManager->importSettings(path);
+        m_settingsManager.importSettings(path);
     }
     catch(...)
     {
@@ -733,7 +733,7 @@ void Repository::openGCodesFile()
 {
     try
     {
-        m_gcodesFilesManager->openGCodesFile();
+        m_gcodesFilesManager.openGCodesFile();
     }
     catch(...)
     {
@@ -746,8 +746,8 @@ void Repository::saveGCodesFile(const QString data)
 {
     try
     {
-        m_gcodesFilesManager->setFileContent(data);
-        m_gcodesFilesManager->saveGCodesFile();
+        m_gcodesFilesManager.setFileContent(data);
+        m_gcodesFilesManager.saveGCodesFile();
     }
     catch(...)
     {
@@ -760,8 +760,8 @@ void Repository::saveGCodesFileAs(const QString data)
 {
     try
     {
-        m_gcodesFilesManager->setFileContent(data);
-        m_gcodesFilesManager->saveGCodesFileAs();
+        m_gcodesFilesManager.setFileContent(data);
+        m_gcodesFilesManager.saveGCodesFileAs();
     }
     catch(...)
     {
@@ -774,7 +774,7 @@ void Repository::newGCodesFile()
 {
     try
     {
-        m_gcodesFilesManager->newGCodesFile();
+        m_gcodesFilesManager.newGCodesFile();
     }
     catch(...)
     {
@@ -788,7 +788,7 @@ void Repository::addGCodesFile(const QString data)
     try
     {
         this->saveGCodesFile(data);
-        m_gcodesFilesManager->addGCodesFile();
+        m_gcodesFilesManager.addGCodesFile();
     }
     catch(...)
     {
@@ -829,15 +829,15 @@ void Repository::loadSettigs()
     this->loadSensorsSettings();
     this->loadDevicesSettings();
 
-    m_u1Adapter->setPath(m_settingsManager->get("ExternalTools", "U1Adapter").toString());
-    m_u2Adapter->setPath(m_settingsManager->get("ExternalTools", "U2Adapter").toString());
+    m_u1Adapter.setPath(m_settingsManager.get("ExternalTools", "U1Adapter").toString());
+    m_u2Adapter.setPath(m_settingsManager.get("ExternalTools", "U2Adapter").toString());
 }
 
 void Repository::loadServerSettings()
 {
     try
     {
-        m_port = qint16(m_settingsManager->get("ServerSettings", "ServerPort").toUInt());
+        m_port = qint16(m_settingsManager.get("ServerSettings", "ServerPort").toUInt());
     }
     catch(InvalidConfigurationException e)
     {
@@ -852,18 +852,18 @@ void Repository::loadSensorsSettings()
 {
     try
     {
-        QStringList availableSensors = m_settingsManager->get("Main", "AvailableSensors").toStringList();
+        QStringList availableSensors = m_settingsManager.get("Main", "AvailableSensors").toStringList();
         for(auto sensorUid : availableSensors)
         {
             QString sectionName = sensorUid;
 
-            QString label = QVariant(m_settingsManager->get(sectionName, "Label")).toString();
-            size_t portNumber = QVariant(m_settingsManager->get(sectionName, "PortNumber")).toUInt();
-            size_t inputNumber = QVariant(m_settingsManager->get(sectionName, "InputNumber")).toUInt();
-            QString boardName = QVariant(m_settingsManager->get(sectionName, "BoardName")).toString();
-            bool activeState = QVariant(m_settingsManager->get(sectionName, "ActiveState")).toBool();
-            QColor color = QColor(QVariant(m_settingsManager->get(sectionName, "Color")).toString());
-            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager->get(sectionName, "Position").toMap());
+            QString label = QVariant(m_settingsManager.get(sectionName, "Label")).toString();
+            size_t portNumber = QVariant(m_settingsManager.get(sectionName, "PortNumber")).toUInt();
+            size_t inputNumber = QVariant(m_settingsManager.get(sectionName, "InputNumber")).toUInt();
+            QString boardName = QVariant(m_settingsManager.get(sectionName, "BoardName")).toString();
+            bool activeState = QVariant(m_settingsManager.get(sectionName, "ActiveState")).toBool();
+            QColor color = QColor(QVariant(m_settingsManager.get(sectionName, "Color")).toString());
+            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager.get(sectionName, "Position").toMap());
 
             QMap<QString, double> position = {};
             for(auto i = rawPosition.begin(); i != rawPosition.end(); i++)
@@ -883,7 +883,7 @@ void Repository::loadSensorsSettings()
             m_sensors.push_back(QSharedPointer<Sensor>(sensor));
         }
 
-        m_sensorsBufferSize = QVariant(m_settingsManager->get("Main", "SensorsBufferSize")).toUInt();
+        m_sensorsBufferSize = QVariant(m_settingsManager.get("Main", "SensorsBufferSize")).toUInt();
         m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
     }
     catch(InvalidConfigurationException e)
@@ -899,17 +899,17 @@ void Repository::loadDevicesSettings()
 {
     try
     {
-        unsigned int spindelsCount = QVariant(m_settingsManager->get("Main", "SpindelsCount")).toUInt();
-        unsigned int supportDevicesCount = QVariant(m_settingsManager->get("Main", "SupportDevicesCount")).toUInt();
+        unsigned int spindelsCount = QVariant(m_settingsManager.get("Main", "SpindelsCount")).toUInt();
+        unsigned int supportDevicesCount = QVariant(m_settingsManager.get("Main", "SupportDevicesCount")).toUInt();
 
         for(unsigned int i = 0; i < spindelsCount; i++)
         {
             QString settingName = QString("Spindel") + QString::number(i);
-            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
-            size_t upperBound = QVariant(m_settingsManager->get(settingName, "UpperBound")).toULongLong();
-            size_t lowerBound = QVariant(m_settingsManager->get(settingName, "LowerBound")).toULongLong();
+            QString uid = QVariant(m_settingsManager.get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager.get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager.get(settingName, "ActiveState")).toBool();
+            size_t upperBound = QVariant(m_settingsManager.get(settingName, "UpperBound")).toULongLong();
+            size_t lowerBound = QVariant(m_settingsManager.get(settingName, "LowerBound")).toULongLong();
 
 
             Spindel* spindel = new Spindel(settingName,
@@ -925,9 +925,9 @@ void Repository::loadDevicesSettings()
         for(unsigned int i = 0; i < supportDevicesCount; i++)
         {
             QString settingName = QString("SupportDevice") + QString::number(i);
-            QString uid = QVariant(m_settingsManager->get(settingName, "Uid")).toString();
-            QString label = QVariant(m_settingsManager->get(settingName, "Label")).toString();
-            bool activeState = QVariant(m_settingsManager->get(settingName, "ActiveState")).toBool();
+            QString uid = QVariant(m_settingsManager.get(settingName, "Uid")).toString();
+            QString label = QVariant(m_settingsManager.get(settingName, "Label")).toString();
+            bool activeState = QVariant(m_settingsManager.get(settingName, "ActiveState")).toBool();
 
             SupportDevice* device = new SupportDevice(settingName,
                                                       uid,
@@ -950,18 +950,18 @@ void Repository::loadAxisesSettings()
 {
     try
     {
-        QStringList availableAxises = m_settingsManager->get("Main", "AvailableAxises").toStringList();
+        QStringList availableAxises = m_settingsManager.get("Main", "AvailableAxises").toStringList();
         for(auto axisUid : availableAxises)
         {
             if(!SML_AXISES_NAMES.contains(axisUid)) throw InvalidConfigurationException("Unknown axis uid " + axisUid);
 
             QString sectionName = QStringLiteral("Axis") + axisUid;
 
-            double step = m_settingsManager->get(sectionName, "Step").toDouble();
-            bool invertDirection = m_settingsManager->get(sectionName, "Invert").toBool();
-            double bazaSearchSpeed = m_settingsManager->get(sectionName, "BazaSearchSpeed").toDouble();
-            double lowerBound = m_settingsManager->get(sectionName, "LowerBound").toDouble();
-            double uppderBound = m_settingsManager->get(sectionName, "UpperBound").toDouble();
+            double step = m_settingsManager.get(sectionName, "Step").toDouble();
+            bool invertDirection = m_settingsManager.get(sectionName, "Invert").toBool();
+            double bazaSearchSpeed = m_settingsManager.get(sectionName, "BazaSearchSpeed").toDouble();
+            double lowerBound = m_settingsManager.get(sectionName, "LowerBound").toDouble();
+            double uppderBound = m_settingsManager.get(sectionName, "UpperBound").toDouble();
             double length = uppderBound - lowerBound;
 
             QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(axisUid, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));

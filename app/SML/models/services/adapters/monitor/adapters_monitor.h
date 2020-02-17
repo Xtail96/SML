@@ -22,7 +22,7 @@ public:
      * @param u1 указатель на подключение адаптера контроллера u1, состояние которого требуется отслеживать
      * @param u2 указатель на подключение адаптера контроллера u2, состояние которого требуется отслеживать
      */
-    explicit AdaptersMonitor(Adapter* u1, Adapter* u2, QObject *parent = nullptr);
+    explicit AdaptersMonitor(Adapter& u1, Adapter& u2, QObject *parent = nullptr);
 
 protected:
 
