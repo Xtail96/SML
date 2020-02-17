@@ -16,8 +16,8 @@ public:
     void stopAdapters();
 
 private:
-    QScopedPointer<QProcess> m_u1AdapterProcess;
-    QScopedPointer<QProcess> m_u2AdapterProcess;
+    QProcess m_u1AdapterProcess;
+    QProcess m_u2AdapterProcess;
 
 
 signals:

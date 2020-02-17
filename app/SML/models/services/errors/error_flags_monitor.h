@@ -9,7 +9,7 @@ class ErrorFlagsMonitor : public QObject
 {
     Q_OBJECT
 public:
-    explicit ErrorFlagsMonitor(SmlErrorFlags* flags, QObject *parent = nullptr);
+    explicit ErrorFlagsMonitor(SmlErrorFlags& flags, QObject *parent = nullptr);
 
 signals:
     void errorFlagsStateChanged();

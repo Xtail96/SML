@@ -381,10 +381,10 @@ public:
 
 private:
     /// Менеджер настроек
-    QScopedPointer<SettingsManager> m_settingsManager;
+    SettingsManager m_settingsManager;
 
     /// Менеджер файлов G-Codes
-    QScopedPointer<GCodesFileManager> m_gcodesFilesManager;
+    GCodesFileManager m_gcodesFilesManager;
 
     // Настройки сервера
     /// Номер порта сервера
@@ -398,17 +398,17 @@ private:
 
     // Подключения
     /// Адаптер контроллера U1
-    QScopedPointer<Adapter> m_u1Adapter;
+    Adapter m_u1Adapter;
 
     /// Адаптер контроллера U2
-    QScopedPointer<Adapter> m_u2Adapter;
+    Adapter m_u2Adapter;
 
     // Датчики
     /// Список доступных датчиков
     QList< QSharedPointer<Sensor> > m_sensors;
 
     /// Буфер датчиков
-    QScopedPointer<SensorsBuffer> m_sensorsBuffer;
+    SensorsBuffer m_sensorsBuffer;
 
     // Устройства
     /// Список доступных шпинедлей

@@ -2,7 +2,7 @@
 
 SMLAdapterServer::SMLAdapterServer(qint16 port, QObject *parent) :
     QObject(parent),
-    m_server(new QWebSocketServer(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this)),
+    m_server(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this),
     m_port(port),
     m_debug(false)
 {
@@ -60,27 +60,27 @@ SMLAdapterServer::~SMLAdapterServer()
 
 void SMLAdapterServer::setupConnections()
 {
-    QObject::connect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
-    QObject::connect(m_server.data(), SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
+    QObject::connect(&m_server, SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
+    QObject::connect(&m_server, SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
 }
 
 void SMLAdapterServer::resetConnections()
 {
-    QObject::disconnect(m_server.data(), SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
-    QObject::disconnect(m_server.data(), SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
+    QObject::disconnect(&m_server, SIGNAL(newConnection()), this, SLOT(onQWebSocketServer_NewConnection()));
+    QObject::disconnect(&m_server, SIGNAL(closed()), this, SLOT(onQWebSocketServer_Closed()));
 }
 
 void SMLAdapterServer::start()
 {
     if(m_port != 0)
     {
-        if (m_server->listen(QHostAddress::Any, m_port))
+        if (m_server.listen(QHostAddress::Any, m_port))
         {
             qDebug() << "Hello! SML Server is listening on port" << m_port;
             if (m_debug)
             {
-                qDebug() << m_server->error();
-                qDebug() << m_server->errorString();
+                qDebug() << m_server.error();
+                qDebug() << m_server.errorString();
             }
         }
     }
@@ -89,16 +89,16 @@ void SMLAdapterServer::start()
 void SMLAdapterServer::stop()
 {
     qDebug() << "stop server";
-    if(m_server->isListening())
+    if(m_server.isListening())
     {
-        m_server->close();
+        m_server.close();
     }
     qDebug() << "Server successfully stopped. Good Bye!";
 }
 
 void SMLAdapterServer::onQWebSocketServer_NewConnection()
 {
-    QWebSocket* pSocket = m_server->nextPendingConnection();
+    QWebSocket* pSocket = m_server.nextPendingConnection();
 
     QObject::connect(pSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onQWebSocket_TextMessageReceived(QString)));
     QObject::connect(pSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onQWebSocket_BinaryMessageReceived(QByteArray)));
@@ -168,8 +168,8 @@ void SMLAdapterServer::onQWebSocketServer_Closed()
     if(m_debug)
     {
         qDebug() << "Server Closed";
-        qDebug() << m_server->error();
-        qDebug() << m_server->errorString();
+        qDebug() << m_server.error();
+        qDebug() << m_server.errorString();
     }
     emit this->u1Disconnected();
     emit this->u2Disconnected();

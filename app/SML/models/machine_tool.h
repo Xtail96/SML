@@ -107,35 +107,35 @@ public:
 private:
 
     /// Репозиторий, хранящий текущее состояние систем станка
-    QScopedPointer<Repository> m_repository;
+    Repository m_repository;
 
     /// Сервер для подключения адаптеров
-    QScopedPointer<SMLAdapterServer> m_adapterServer;
+    SMLAdapterServer m_adapterServer;
 
     /// Ошибки возникшие при работе системы
     /// Данную переменную необходимо проверять, при отправке данных на станок.
-    QScopedPointer<SmlErrorFlags> m_errors;
+    SmlErrorFlags m_errors;
 
     /// Монитор ошибок
-    QScopedPointer<ErrorFlagsMonitor> m_errorFlagsMonitor;
+    ErrorFlagsMonitor m_errorFlagsMonitor;
 
     /// Монитор текущих подключений к серверу адаптеров
-    QScopedPointer<AdaptersMonitor> m_adaptersMonitor;
+    AdaptersMonitor m_adaptersMonitor;
 
     /// Монитор текущего состояния точек
-    QScopedPointer<PointsMonitor> m_pointsMonitor;
+    PointsMonitor m_pointsMonitor;
 
     /// Монитор текущего состояния датчиков
-    QScopedPointer<SensorsMonitor> m_sensorsMonitor;
+    SensorsMonitor m_sensorsMonitor;
 
     /// Монитор текущего состояния шпинделей
-    QScopedPointer<SpindelsMonitor> m_spindelsMonitor;
+    SpindelsMonitor m_spindelsMonitor;
 
     /// Монитор текущего состояния G-кодов
-    QScopedPointer<GCodesMonitor> m_gcodesMonitor;
+    GCodesMonitor m_gcodesMonitor;
 
     /// Монитор осей координат
-    QScopedPointer<AxisesMonitor> m_axisesMonitor;
+    AxisesMonitor m_axisesMonitor;
 
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
@@ -143,7 +143,7 @@ private:
     /// Проводилась ли базировка станка (можно ли доверять координатам осей)
     bool m_based;
 
-    QScopedPointer<AdaptersLauncher> m_adaptersLauncher;
+    AdaptersLauncher m_adaptersLauncher;
 
     /**
      * @brief Создает объект класса станок
