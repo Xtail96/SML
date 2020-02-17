@@ -408,7 +408,7 @@ private:
     QList< QSharedPointer<Sensor> > m_sensors;
 
     /// Буфер датчиков
-    QScopedPointer<SensorsBuffer> m_sensorsBuffer;
+    SensorsBuffer m_sensorsBuffer;
 
     // Устройства
     /// Список доступных шпинедлей

@@ -3,14 +3,14 @@
 Repository::Repository(QObject *parent) :
     QObject(parent),
     m_settingsManager(),
-    m_gcodesFilesManager(new GCodesFileManager(this)),
+    m_gcodesFilesManager(this),
     m_port(1234),
     m_sensorsBufferSize(2),
     m_devicesBufferSize(1),
     m_u1Adapter(Adapter::U1, this),
     m_u2Adapter(Adapter::U2, this),
     m_sensors(QList< QSharedPointer<Sensor> >()),
-    m_sensorsBuffer(new SensorsBuffer(16, this)),
+    m_sensorsBuffer(16, this),
     m_spindels(QList< QSharedPointer<Spindel> >()),
     m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
     m_axises(QList< QSharedPointer<Axis> >()),
@@ -85,10 +85,10 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
             currentSensorsState.push_back(static_cast<byte>(port.toUInt()));
         }
 
-        m_sensorsBuffer->updateBuffer(currentSensorsState);
+        m_sensorsBuffer.updateBuffer(currentSensorsState);
         for(auto sensor : m_sensors)
         {
-            bool isVoltage = m_sensorsBuffer->getInputState(sensor->getBoardName(),
+            bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(),
                                                             sensor->getPortNumber(),
                                                             sensor->getInputNumber());
             sensor->updateInputState(isVoltage);
@@ -870,21 +870,19 @@ void Repository::loadSensorsSettings()
             {
                 position.insert(i.key(), i.value().toDouble());
             }
-
-            Sensor* sensor = new Sensor(sensorUid,
-                                        label,
-                                        portNumber,
-                                        inputNumber,
-                                        boardName,
-                                        activeState,
-                                        color,
-                                        position,
-                                        this);
-            m_sensors.push_back(QSharedPointer<Sensor>(sensor));
+            m_sensors.push_back(QSharedPointer<Sensor>(new Sensor(sensorUid,
+                                                                  label,
+                                                                  portNumber,
+                                                                  inputNumber,
+                                                                  boardName,
+                                                                  activeState,
+                                                                  color,
+                                                                  position,
+                                                                  this)));
         }
 
         m_sensorsBufferSize = QVariant(m_settingsManager.get("Main", "SensorsBufferSize")).toUInt();
-        m_sensorsBuffer->resetBuffer(m_sensorsBufferSize);
+        m_sensorsBuffer.resetBuffer(m_sensorsBufferSize);
     }
     catch(InvalidConfigurationException e)
     {
@@ -910,16 +908,13 @@ void Repository::loadDevicesSettings()
             bool activeState = QVariant(m_settingsManager.get(settingName, "ActiveState")).toBool();
             size_t upperBound = QVariant(m_settingsManager.get(settingName, "UpperBound")).toULongLong();
             size_t lowerBound = QVariant(m_settingsManager.get(settingName, "LowerBound")).toULongLong();
-
-
-            Spindel* spindel = new Spindel(settingName,
-                                           uid,
-                                           label,
-                                           activeState,
-                                           lowerBound,
-                                           upperBound,
-                                           this);
-            m_spindels.push_back(QSharedPointer<Spindel> (spindel));
+            m_spindels.push_back(QSharedPointer<Spindel> (new Spindel(settingName,
+                                                                      uid,
+                                                                      label,
+                                                                      activeState,
+                                                                      lowerBound,
+                                                                      upperBound,
+                                                                      this)));
         }
 
         for(unsigned int i = 0; i < supportDevicesCount; i++)
@@ -928,13 +923,11 @@ void Repository::loadDevicesSettings()
             QString uid = QVariant(m_settingsManager.get(settingName, "Uid")).toString();
             QString label = QVariant(m_settingsManager.get(settingName, "Label")).toString();
             bool activeState = QVariant(m_settingsManager.get(settingName, "ActiveState")).toBool();
-
-            SupportDevice* device = new SupportDevice(settingName,
-                                                      uid,
-                                                      label,
-                                                      activeState,
-                                                      this);
-            m_supportDevices.push_back(QSharedPointer<SupportDevice> (device));
+            m_supportDevices.push_back(QSharedPointer<SupportDevice> (new SupportDevice(settingName,
+                                                                                        uid,
+                                                                                        label,
+                                                                                        activeState,
+                                                                                        this)));
         }
     }
     catch(InvalidConfigurationException e)
