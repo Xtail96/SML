@@ -114,29 +114,22 @@ bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t i
     try
     {
         bool voltage = false;
-        if(plateName == "portal")
+        if(plateName == "u1")
         {
-            voltage = this->checkPortalSensorState(portNumber, inputNumber);
+            voltage = this->checkU1SensorState(portNumber, inputNumber);
         }
         else
         {
-            if(plateName == "u1")
+            if(plateName == "u2")
             {
-                voltage = this->checkU1SensorState(portNumber, inputNumber);
+                voltage = this->checkU2SensorState(portNumber, inputNumber);
             }
             else
             {
-                if(plateName == "u2")
-                {
-                    // todo
-                }
-                else
-                {
-                    QString message =
-                            QStringLiteral("Unknown plateName = ") +
-                            plateName;
-                    throw SynchronizeStateException(message);
-                }
+                QString message =
+                        QStringLiteral("Unknown plateName = ") +
+                        plateName;
+                throw SynchronizeStateException(message);
             }
         }
         return voltage;
@@ -148,7 +141,7 @@ bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t i
     }
 }
 
-bool SensorsBuffer::checkPortalSensorState(size_t portNumber, size_t inputNumber) const
+bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) const
 {
     if (portNumber > 7)
     {
@@ -219,12 +212,12 @@ bool SensorsBuffer::checkPortalSensorState(size_t portNumber, size_t inputNumber
     }
     catch(SynchronizeStateException e)
     {
-        qDebug() << "SensorsBuffer::checkPortalSensorState:" << e.message();
+        qDebug() << "SensorsBuffer::checkU1SensorState:" << e.message();
         throw;
     }
 }
 
-bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) const
+bool SensorsBuffer::checkU2SensorState(size_t portNumber, size_t inputNumber) const
 {
     if (portNumber > 7)
     {
@@ -296,7 +289,7 @@ bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) co
     }
     catch(SynchronizeStateException e)
     {
-        qDebug() << "SensorsBuffer::checkU1SensorState:" << e.message();
+        qDebug() << "SensorsBuffer::checkU2SensorState:" << e.message();
         throw;
     }
 }

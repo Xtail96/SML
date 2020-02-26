@@ -253,7 +253,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси X");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -273,7 +273,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси Y");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -293,7 +293,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси Z");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 2);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -313,7 +313,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси A");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 3);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -333,7 +333,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси B");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 4);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -353,7 +353,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси C");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 5);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -373,7 +373,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси U");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 6);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -393,7 +393,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси V");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 7);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -413,7 +413,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси W");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
         settings->setValue("Position", QMap<QString, QVariant> {
@@ -433,7 +433,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик Ноля");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "portal");
+        settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
         settings->setValue("Position", QMap<QString, QVariant> {
