@@ -291,6 +291,24 @@ void MachineTool::switchSpindelOff(QString uid)
     }
 }
 
+bool MachineTool::isGCodesCorrect(QStringList gcodes)
+{
+    try
+    {
+       QQueue<QByteArray> result = PrepareExecutionQueueInteractor::execute(gcodes, true);
+       if(result.length() <= 0) return false;
+       result.clear();
+
+       result = PrepareExecutionQueueInteractor::execute(gcodes, false);
+       return result.length() > 0;
+    }
+    catch(...)
+    {
+        qDebug() << "MachineTool::isGCodesCorrect: unknown error";
+        return false;
+    }
+}
+
 void MachineTool::startProgramProcessing()
 {
     try
@@ -301,7 +319,6 @@ void MachineTool::startProgramProcessing()
         }
         else
         {
-            QMessageBox(QMessageBox::Warning, "Ошибка подготовки УП", "Произошла ошибка при подготовке УП к исполнению.").exec();
             this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         }
     }
@@ -317,14 +334,14 @@ void MachineTool::startProgramProcessing()
     }
 }
 
-bool MachineTool::prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPositionIsNeed)
+bool MachineTool::prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPosition)
 {
     try
     {
         m_executionQueue.clear();
         if(!m_errors.isSystemHasErrors())
         {
-            m_executionQueue = PrepareExecutionQueueInteractor::execute(gcodes, resolveToCurrentPositionIsNeed);
+            m_executionQueue = PrepareExecutionQueueInteractor::execute(gcodes, resolveToCurrentPosition);
             return true;
         }
         else

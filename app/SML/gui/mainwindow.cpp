@@ -1516,6 +1516,12 @@ void MainWindow::on_runPushButton_clicked()
         return;
     }
 
+    if(!machineTool.isGCodesCorrect(machineTool.getRepository().getGCodesProgram()))
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", "Возникла ошибка при подготовке управляющей программы к выполнению").exec();
+        return;
+    }
+
     ProgramProcessingDialog(this).exec();
 }
 
