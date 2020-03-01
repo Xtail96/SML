@@ -481,6 +481,8 @@ void MachineTool::onAdapterServer_U1Connected()
 {
     qDebug() << "MachineTool::onAdapterServer_U1Connected";
     m_repository.setU1ConnectState(true);
+
+    // send "get current state" message
 }
 
 void MachineTool::onAdapterServer_U1Disconnected()
@@ -503,6 +505,8 @@ void MachineTool::onAdapterServer_U2Connected()
 {
     qDebug() << "MachineTool::onAdapterServer_U2Connected";
     m_repository.setU2ConnectState(true);
+
+    // send "get current state" message
 }
 
 void MachineTool::onAdapterServer_U2Disconnected()
