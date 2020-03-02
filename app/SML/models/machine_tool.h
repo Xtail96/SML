@@ -18,6 +18,7 @@
 #include "models/services/errors/error_flags_monitor.h"
 
 #include "models/services/adapters/launcher/adapters_launcher.h"
+#include "models/services/adapters/get_current_state/get_adapter_current_state_interactor.h"
 
 /**
  * @brief Класс станок

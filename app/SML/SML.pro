@@ -23,6 +23,7 @@ SOURCES += main.cpp\
     libs/simple_qt_logger/simpleQtLogger.cpp \
     models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
+    models/services/adapters/get_current_state/get_adapter_current_state_interactor.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/machine_tool_elements/sensor/sensor.cpp \
     models/machine_tool_elements/device/spindel.cpp \
@@ -72,6 +73,7 @@ HEADERS  += gui/mainwindow.h \
     libs/simple_qt_logger/simpleQtLogger.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
+    models/services/adapters/get_current_state/get_adapter_current_state_interactor.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/services/gcodes/view/gcodes_view_interactor.h \
     models/structs.h \

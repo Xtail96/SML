@@ -28,7 +28,7 @@ public:
      */
     static void execute(SMLAdapterServer& server, QString uid, bool enable, size_t rotations = 0);
 
-protected:
+private:
     /**
      * @brief Производит формирование и запускает процесс отправки посылки для включения шпинделя
      * @param uid уникальный идентификатор шпинделя
