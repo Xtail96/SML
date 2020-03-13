@@ -35,7 +35,7 @@ private:
             label(_label),
             state(_state),
             activeStateLedColor(_activeStateLedColor),
-            inactiveStateLedColor(Qt::white) {}
+            inactiveStateLedColor(Qt::transparent) {}
     };
 
     QList< QSharedPointer<SensorWidget> > m_sensors;
