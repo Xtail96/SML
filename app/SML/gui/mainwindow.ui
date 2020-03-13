@@ -1461,7 +1461,7 @@
          <widget class="QWidget" name="mainAdjustmentWidget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>4</horstretch>
+            <horstretch>3</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
