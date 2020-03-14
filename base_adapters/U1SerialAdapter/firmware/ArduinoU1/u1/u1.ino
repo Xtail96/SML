@@ -227,12 +227,11 @@ void check_serial_port()
     indexByte = message[1];
     paramsByte = message[2];
     
-    needToSend = true;
-    
     switch(commandKey)
     {
       case 0x00:
         // switch off
+        needToSend = true;
         switch(indexByte)
         {
           case 0x00:
@@ -250,6 +249,7 @@ void check_serial_port()
         break;
       case 0x01:
         // switch on
+        needToSend = true;
         switch(indexByte)
         {
           case 0x00:
@@ -264,6 +264,11 @@ void check_serial_port()
           default:
             break;
         }
+        break;
+      case 0x02:
+        // return current state
+        needToSend = true;
+        break;
       default:
         break;
     }
