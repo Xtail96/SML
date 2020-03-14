@@ -13,6 +13,7 @@
 
 const char SWITCH_DEVICE_OFF = 0x00;
 const char SWITCH_DEVICE_ON = 0x01;
+const char GET_CURRENT_STATE = 0x02;
 
 struct U1State
 {
@@ -120,6 +121,7 @@ protected slots:
     void onQSerialPort_ReadFromPort(QByteArray received);
     void switchDevice(byte_array data);
     void switchDevice(size_t index, QString target, QString type);
+    void getCurrentState();
 
 
     void onWebSocketHandler_Connected();

@@ -25,38 +25,38 @@ void SwitchSpindelInteractor::execute(SMLAdapterServer &server, QString uid, boo
 void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLAdapterServer& server)
 {
     QtJson::JsonObject u1Message;
-    QtJson::JsonObject device;
-    device["uid"] = uid;
-    device["target"] = "on";
-    device["type"] = "spindel";
-    device["rotations"] = QVariant::fromValue(rotations);
-    u1Message["switch_device"] = device;
+    QtJson::JsonObject params;
+    params["uid"] = uid;
+    params["target"] = "on";
+    params["type"] = "spindel";
+    params["rotations"] = QVariant::fromValue(rotations);
+    u1Message["params"] = params;
+    u1Message["action"] = "switch_device";
     u1Message["target"] = "u1";
 
     bool ok = false;
     QByteArray message = QtJson::serialize(u1Message, ok);
-    qDebug() << "Try to switch on device =" << message;
-    if(ok)
-    {
-        server.sendMessageToU1(message);
-    }
+    if(!ok) { qDebug() << "SwitchSpindelInteractor::switchOn: serialize error" << message; return; }
+
+    qDebug() << "SwitchSpindelInteractor::switchOn:" << message;
+    server.sendMessageToU1(message);
 }
 
 void SwitchSpindelInteractor::switchOff(QString uid, SMLAdapterServer& server)
 {
     QtJson::JsonObject u1Message;
-    QtJson::JsonObject device;
-    device["uid"] = uid;
-    device["target"] = "off";
-    device["type"] = "spindel";
-    u1Message["switch_device"] = device;
+    QtJson::JsonObject params;
+    params["uid"] = uid;
+    params["target"] = "off";
+    params["type"] = "spindel";
+    u1Message["params"] = params;
+    u1Message["action"] = "switch_device";
     u1Message["target"] = "u1";
 
     bool ok = false;
     QByteArray message = QtJson::serialize(u1Message, ok);
-    qDebug() << "Try to switch off device =" << message;
-    if(ok)
-    {
-        server.sendMessageToU1(message);
-    }
+    if(!ok) { qDebug() << "SwitchSpindelInteractor::switchOff: serialize error" << message; return; }
+
+    qDebug() << "SwitchSpindelInteractor::switchOff: " << message;
+    server.sendMessageToU1(message);
 }

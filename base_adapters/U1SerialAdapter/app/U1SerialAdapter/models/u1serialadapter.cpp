@@ -191,7 +191,7 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
             message.push_back(SWITCH_DEVICE_ON);
             message.push_back(indexByte);
             message.push_back(paramsByte);
-            qDebug() << "switch on message"<< message;
+            qDebug() << "U1SerialAdapter::switchDevice: on"<< message;
             m_serial->write(message);
         }
         else
@@ -203,11 +203,19 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
                 message.push_back(SWITCH_DEVICE_OFF);
                 message.push_back(indexByte);
                 message.push_back(paramsByte);
-                qDebug() << "switch off message"<< message;
+                qDebug() << "U1SerialAdapter::switchDevice: off"<< message;
                 m_serial->write(message);
             }
         }
     }
+}
+
+void U1SerialAdapter::getCurrentState()
+{
+    QByteArray message;
+    message.push_back(GET_CURRENT_STATE);
+    qDebug() << "U1SerialAdapter::getCurrentState:" << message;
+    m_serial->write(message);
 }
 
 void U1SerialAdapter::sendStateToServer(U1State *state)
@@ -249,35 +257,29 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
         QString target = parsedMessage["target"].toString();
         if(target.toLower() == "u1")
         {
-            QtJson::JsonObject switchParams = parsedMessage["switch_device"].toMap();
-            if(!switchParams.empty())
+            QString action = parsedMessage["action"].toString();
+            if(action == "switch_device")
             {
-                size_t index = switchParams["uid"].toUInt();
-                QString target = switchParams["target"].toString();
-                QString type = switchParams["type"].toString();
-                this->switchDevice(index, target, type);
-                /*byte_array data;
-                for(auto param : switchParams)
+                QtJson::JsonObject switchParams = parsedMessage["params"].toMap();
+                if(!switchParams.empty())
                 {
-                    data.push_back(param.toUInt());
+                    size_t index = switchParams["uid"].toUInt();
+                    QString target = switchParams["target"].toString();
+                    QString type = switchParams["type"].toString();
+                    this->switchDevice(index, target, type);
+                    return;
                 }
-                switchDevice(data);*/
             }
 
-            /*QString directMessage = u1Message["DirectMessage"].toString();
-            if(!directMessage.isEmpty())
+            if(action == "get_current_state")
             {
-                if(directMessage == "GetState")
-                {
-                    qDebug() << "get state";
-                    this->sendStateToServer(*m_currentState);
-                }
-            }*/
-
+                this->getCurrentState();
+                return;
+            }
         }
         else
         {
-            qDebug() << "Message ignored";
+            qDebug() << "U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived: message ignored" << messageString;
         }
     }
 }
