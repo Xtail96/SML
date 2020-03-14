@@ -264,66 +264,58 @@ void SMLAdapterServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
 
 U1State SMLAdapterServer::parseU1BinaryMessage(QByteArray message)
 {
-    bool ok;
+    bool parsed = false;
     QString json = QString::fromUtf8(message);
-    QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
-    if(ok)
+    QtJson::JsonObject result = QtJson::parse(json, parsed).toMap();
+    if(!parsed)
     {
-        QtJson::JsonObject u1State = result["u1_state"].toMap();
-        if(!u1State.isEmpty())
-        {
-            U1State u1;
-            u1.sensors = u1State["sensors_state"].toList();
-            u1.devices = u1State["devices_state"].toList();
-            u1.errorCode = u1State["last_error"].toInt();
-            u1.workflowState = 0;
-            return u1;
-        }
-        else
-        {
-            throw SynchronizeStateException("empty u1 message");
-        }
+        throw SynchronizeStateException("An error is occurred during parsing json" + QString::fromUtf8(message));
     }
-    else
+
+    QtJson::JsonObject u1State = result["u1_state"].toMap();
+    if(u1State.isEmpty())
     {
-        throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
+        throw SynchronizeStateException("empty u1 message");
     }
+
+    U1State u1;
+    u1.sensors = u1State["sensors_state"].toList();
+    u1.devices = u1State["devices_state"].toList();
+    u1.errorCode = u1State["last_error"].toInt();
+    u1.workflowState = 0;
+    return u1;
 }
 
 U2State SMLAdapterServer::parseU2BinaryMessage(QByteArray message)
 {
-    bool ok;
+    bool parsed = false;
     QString json = QString::fromUtf8(message);
-    QtJson::JsonObject result = QtJson::parse(json, ok).toMap();
-    if(ok)
-    {
-        QtJson::JsonObject u2State = result["u2_state"].toMap();
-        if(!u2State.isEmpty())
-        {
-            U2State u2;
-            u2.errorCode = u2State["last_error"].toInt();
-            u2.workflowState = u2State["workflow_state"].toUInt();
-
-            QtJson::JsonArray axises = u2State["axises"].toList();
-            for(auto axis : axises)
-            {
-                QtJson::JsonObject axisObject = axis.toMap();
-                QString id = axisObject["id"].toString();
-                double value = axisObject["position"].toDouble();
-                u2.positions.insert(id, value);
-            }
-
-            return u2;
-        }
-        else
-        {
-            throw SynchronizeStateException("empty u2 message");
-        }
-    }
-    else
+    QtJson::JsonObject result = QtJson::parse(json, parsed).toMap();
+    if(!parsed)
     {
         throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
     }
+
+    QtJson::JsonObject u2State = result["u2_state"].toMap();
+    if(u2State.isEmpty())
+    {
+        throw SynchronizeStateException("empty u2 message");
+    }
+
+    U2State u2;
+    u2.errorCode = u2State["last_error"].toInt();
+    u2.workflowState = u2State["workflow_state"].toUInt();
+
+    QtJson::JsonArray axises = u2State["axises"].toList();
+    for(auto axis : axises)
+    {
+        QtJson::JsonObject axisObject = axis.toMap();
+        QString id = axisObject["id"].toString();
+        double value = axisObject["position"].toDouble();
+        u2.positions.insert(id, value);
+    }
+
+    return u2;
 }
 
 void SMLAdapterServer::onQWebSocket_Disconnected()

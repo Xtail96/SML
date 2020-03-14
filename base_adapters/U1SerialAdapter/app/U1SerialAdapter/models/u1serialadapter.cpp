@@ -250,37 +250,36 @@ void U1SerialAdapter::sendStateToServer(U1State *state)
 void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray message)
 {
     QString messageString = QString::fromUtf8(message);
-    bool ok = false;
-    QtJson::JsonObject parsedMessage = QtJson::parse(messageString, ok).toMap();
-    if(ok)
-    {
-        QString target = parsedMessage["target"].toString();
-        if(target.toLower() == "u1")
-        {
-            QString action = parsedMessage["action"].toString();
-            if(action == "switch_device")
-            {
-                QtJson::JsonObject switchParams = parsedMessage["params"].toMap();
-                if(!switchParams.empty())
-                {
-                    size_t index = switchParams["uid"].toUInt();
-                    QString target = switchParams["target"].toString();
-                    QString type = switchParams["type"].toString();
-                    this->switchDevice(index, target, type);
-                    return;
-                }
-            }
+    bool parsed = false;
+    QtJson::JsonObject parsedMessage = QtJson::parse(messageString, parsed).toMap();
+    if(!parsed) return;
 
-            if(action == "get_current_state")
+    QString target = parsedMessage["target"].toString();
+    if(target.toLower() == "u1")
+    {
+        QString action = parsedMessage["action"].toString();
+        if(action == "switch_device")
+        {
+            QtJson::JsonObject switchParams = parsedMessage["params"].toMap();
+            if(!switchParams.empty())
             {
-                this->getCurrentState();
+                size_t index = switchParams["uid"].toUInt();
+                QString target = switchParams["target"].toString();
+                QString type = switchParams["type"].toString();
+                this->switchDevice(index, target, type);
                 return;
             }
         }
-        else
+
+        if(action == "get_current_state")
         {
-            qDebug() << "U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived: message ignored" << messageString;
+            this->getCurrentState();
+            return;
         }
+    }
+    else
+    {
+        qDebug() << "U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived: message ignored" << messageString;
     }
 }
 
