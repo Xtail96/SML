@@ -627,10 +627,30 @@ void MachineTool::sendNextCommand()
         return;
     }
 
-    QByteArray message = m_executionQueue.dequeue();
-    qDebug() << "MachineTool::sendNextCommand:" << QString::fromUtf8(message);
-    m_adapterServer.sendMessage(message);
-    emit this->nextCommandSent(message);
+    QByteArray cmd = m_executionQueue.dequeue();
+    QString cmdStr = QString::fromUtf8(cmd);
+    bool parsed = false;
+    QtJson::JsonObject cmdObj = QtJson::parse(cmdStr, parsed).toMap();
+    if(!parsed) { qDebug() << "MachineTool::sendNextCommand: analyse command error" << cmdStr; return; }
+
+    QString target = cmdObj["target"].toString();
+    if(target.toLower() == "u1")
+    {
+        qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
+        m_adapterServer.sendMessageToU1(cmd);
+        emit this->nextCommandSent(cmd);
+        return;
+    }
+
+    if(target.toLower() == "u2")
+    {
+        qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
+        m_adapterServer.sendMessageToU2(cmd);
+        emit this->nextCommandSent(cmd);
+        return;
+    }
+
+    qDebug() << "MachineTool::sendNextCommand: unknown target" << target;
 }
 
 void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState)
