@@ -31,11 +31,11 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
           ((myFirstChunk.first.toLower() == "m") && (qFuzzyCompare(myFirstChunk.second, double(4)))) ||
           ((myFirstChunk.first.toLower() == "m") && (qFuzzyCompare(myFirstChunk.second, double(5)))))
         {
-            package.insert("target", "U1");
+            package.insert("target", "u1");
         }
         else
         {
-            package.insert("target", "U2");
+            package.insert("target", "u2");
         }
 
         QtJson::JsonArray axisesArguments = {};
