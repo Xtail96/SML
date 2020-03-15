@@ -1,8 +1,6 @@
 #ifndef SENSORSBUFFER_H
 #define SENSORSBUFFER_H
 
-#include <QObject>
-
 #include "models/structs.h"
 #include "models/exceptions/exceptions.h"
 
@@ -16,9 +14,8 @@
  * Необходим для того, чтобы однозначно идентифицировать
  * какой датчик представляет собой каждый бит раздела посылки, хранящего текущее состояние датчиков станка.
  */
-class SensorsBuffer : public QObject
+class SensorsBuffer
 {
-    Q_OBJECT
 public:
 
     /**
@@ -26,7 +23,7 @@ public:
      * @param bufferSize размер буфера датчиков (сколько байт посылки будет интерпретировано, как раздел, хранящий состояния датчиков)
      * @param parent родительский объект
      */
-    explicit SensorsBuffer(size_t bufferSize = 16, QObject *parent = nullptr);
+    explicit SensorsBuffer(size_t bufferSize = 16);
 
     /**
      * @brief Проводит изменнеие размера буфера и его инициализацию начальными значениями
@@ -64,7 +61,7 @@ public:
      */
     bool getInputState(QString plateName, size_t portNumber, size_t inputNumber) const;
 
-protected:
+private:
     /**
      * @brief Содержит всю информацию о состояниях датчиков станка
      * Размер буфера должен составлять не менее 2 байт.
@@ -112,7 +109,7 @@ protected:
      * Нумерация в байте порта должна идти с младшего разряда и, начинаться, с нуля.
      * Пример:
      * 1111[1]11
-     * В данном случае, датчик, состояние которого выделено [], подключен к 1 порту и 2 входу портальной платы.
+     * В данном случае, датчик, состояние которого выделено [], подключен к 1 порту и 2 входу.
      */
     bool standardInputStateCheck(size_t inputNumber, byte portState) const;
 
@@ -143,10 +140,6 @@ protected:
      * @warning Бросает исключение SynchronizeStateException, если номер порта > 7 или номер входа > 7.
      */
     bool checkU2SensorState(size_t portNumber, size_t inputNumber) const;
-
-signals:
-
-public slots:
 };
 
 #endif // SENSORSBUFFER_H

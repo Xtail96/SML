@@ -1,7 +1,6 @@
 #include "sensors_buffer.h"
 
-SensorsBuffer::SensorsBuffer(size_t bufferSize, QObject *parent) :
-    QObject(parent)
+SensorsBuffer::SensorsBuffer(size_t bufferSize)
 {
     this->resetBuffer(bufferSize);
 }

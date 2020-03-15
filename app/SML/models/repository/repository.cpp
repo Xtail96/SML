@@ -10,7 +10,7 @@ Repository::Repository(QObject *parent) :
     m_u1Adapter(Adapter::U1, this),
     m_u2Adapter(Adapter::U2, this),
     m_sensors(QList< QSharedPointer<Sensor> >()),
-    m_sensorsBuffer(16, this),
+    m_sensorsBuffer(16),
     m_spindels(QList< QSharedPointer<Spindel> >()),
     m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
     m_axises(QList< QSharedPointer<Axis> >()),
