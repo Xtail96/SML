@@ -43,7 +43,7 @@ void setup()
 void loop() {
   checkSerialPort();
 
-  if(stepsCount != 0)
+  /*if(stepsCount != 0)
   {
     // нужно пройти некоторое расстояние
     
@@ -67,7 +67,7 @@ void loop() {
  
     // Отключаем двигатель
     switchOffStepperMotor();
-  }
+  }*/
 }
 
 void switchOnStepperMotor()
@@ -102,10 +102,19 @@ void makeSteps(long stepCount)
 // Serial Communication
 void checkSerialPort()
 {
-  long tmp = 0;
+  //char buffer[];
+  //Serial.readBytes(buffer, Serial.available());
+  String data = Serial.readString();
+  char charVar[sizeof(data)];
+  data.toCharArray(charVar, sizeof(charVar));
+  
+  Serial.write(charVar, data.length());
+
+  
+  /*long tmp = 0;
   while (Serial.available()) tmp = tmp * 10 + (Serial.read() - '0');
   stepsCount = tmp;
-  currentDirection = ((tmp % 2) == 0);
+  currentDirection = ((tmp % 2) == 0);*/
 }
 
 void sendLongValueBySerial(long value)
@@ -120,4 +129,3 @@ void sendLongValueBySerial(long value)
   Serial.write(result, sizeof(result));
   delay(500);
 }
-
