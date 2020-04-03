@@ -1,7 +1,6 @@
 #include "step_motor.h"
 #include "receive_buffer.h"
 
-
 // Troyka-Stepper подключён к следующим пинам:
 StepMotor motor(A4, A3, 11);
 
