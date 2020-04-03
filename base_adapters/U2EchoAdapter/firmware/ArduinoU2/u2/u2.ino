@@ -15,39 +15,31 @@ void loop() {
   Serial.write(" ");
   
   if(!root.containsKey("steps") or !root.containsKey("feedrate")) return;
-  double steps = root["steps"];
+  int steps = root["steps"];
   Serial.print(steps);
   Serial.write(" ");
 
   int feedrate = root["feedrate"];
   Serial.print(feedrate);
   Serial.println();
-  
-  
-  
-  /*if(stepsCount != 0)
-  {
-    // нужно пройти некоторое расстояние
+
+  // нужно пройти некоторое расстояние
     
-    // Подаём питание на двигатель
-    switchOnStepperMotor();
+  // Подаём питание на двигатель
+  switchOnStepperMotor();
 
-    // Задаём направление вращения
-    setDirection(currentDirection);
+  // Задаём направление вращения
+  setDirection(steps > 0);
 
-    // Выполняем перемещние
-    makeSteps(stepsCount);
+  // Выполняем перемещние
+  makeSteps(steps > 0 ? steps : steps * -1);
 
-    //sendLongValueBySerial(stepsCount);
-    stepsCount = 0;
-    
-    // Переходим в режим экономичного удержания двигателя...
-    analogWrite(enablePin, 100);
+  // Переходим в режим экономичного удержания двигателя...
+  analogWrite(enablePin, 100);
 
-    // Ничего не делаем без отключения двигателя
-    delay(100);
- 
-    // Отключаем двигатель
-    switchOffStepperMotor();
-  }*/
+  // Ничего не делаем без отключения двигателя
+  delay(100);
+
+  // Отключаем двигатель
+  switchOffStepperMotor();
 }
