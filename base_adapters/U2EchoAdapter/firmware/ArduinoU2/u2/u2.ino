@@ -1,48 +1,26 @@
-// Troyka-Stepper подключён к следующим пинам:
-const byte stepPin = A4;
-const byte directionPin = A3;
-const byte enablePin = 11;
- 
-// Выдержка для регулировки скорости вращения
-int delayTime = 20;
+#include <ArduinoJson.h>
+#include "servo_motor_utils.h"
+#include "receive_buffer.h"
 
-long stepsCount = 0;
-bool currentDirection = false;
+JsonObject parseJsonFromBuffer();
 
-// Включает ШД
-void switchOnStepperMotor();
-
-// Выключает ШД 
-void switchOffStepperMotor();
-
-// Задает направление вращения двигателя
-void setDirection(bool value);
-
-// Вращает вал двигателя на указанное число шагов
-void makeSteps(long stepCount);
-
-// Проверяет содержимое буфера обмена последовательного порта
-void checkSerialPort();
-
-void sendLongValueBySerial(long value);
- 
 void setup()
 {
-  // Настраиваем нужные контакты на выход
-  pinMode(stepPin, OUTPUT);
-  pinMode(directionPin, OUTPUT);
-  pinMode(enablePin, OUTPUT);
-
-  // setup communication via serial port
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB
-  }
+  setupMotor();
+  RECIEVE_BUFFER.init();
 }
  
 void loop() {
-  checkSerialPort();
+  RECIEVE_BUFFER.read();
+  Serial.write(RECIEVE_BUFFER.m_data);
 
+  if(!RECIEVE_BUFFER.isEmpty())
+  {
+    JsonObject root = parseJsonFromBuffer();
+    serializeJson(root, Serial);
+  }
+
+  RECIEVE_BUFFER.clear();
   /*if(stepsCount != 0)
   {
     // нужно пройти некоторое расстояние
@@ -70,62 +48,17 @@ void loop() {
   }*/
 }
 
-void switchOnStepperMotor()
+JsonObject parseJsonFromBuffer()
 {
-  digitalWrite(enablePin, HIGH);
-}
-
-void switchOffStepperMotor()
-{
-  digitalWrite(enablePin, LOW);
-}
-
-// true == HIGH (по часовой стрелке), false == LOW (против часовой стрелки)
-void setDirection(bool value)
-{
-  value ? digitalWrite(directionPin, HIGH) : digitalWrite(directionPin, LOW);
-}
-
-void makeSteps(long stepCount)
-{
-  for (int i = 0; i < stepCount; ++i)
+  DynamicJsonDocument doc(RECIEVE_BUFFER_SIZE);
+  JsonObject root;
+  auto error = deserializeJson(doc, RECIEVE_BUFFER.m_data);
+  if (error)
   {
-    // Делаем шаг
-    digitalWrite(stepPin, HIGH);
-    delay(delayTime);
- 
-    digitalWrite(stepPin, LOW);
-    delay(delayTime);
+      Serial.print(F("deserializeJson() failed with code "));
+      Serial.println(error.c_str());
+      return root;
   }
-}
-
-// Serial Communication
-void checkSerialPort()
-{
-  //char buffer[];
-  //Serial.readBytes(buffer, Serial.available());
-  String data = Serial.readString();
-  char charVar[sizeof(data)];
-  data.toCharArray(charVar, sizeof(charVar));
-  
-  Serial.write(charVar, data.length());
-
-  
-  /*long tmp = 0;
-  while (Serial.available()) tmp = tmp * 10 + (Serial.read() - '0');
-  stepsCount = tmp;
-  currentDirection = ((tmp % 2) == 0);*/
-}
-
-void sendLongValueBySerial(long value)
-{
-  byte result[4];
-
-  result[0] = value & 255;
-  result[1] = (value >> 8) & 255;
-  result[2] = (value >> 16) & 255;
-  result[3] = (value >> 24) & 255;
-
-  Serial.write(result, sizeof(result));
-  delay(500);
+  root = doc.as<JsonObject>(); 
+  return root;
 }
