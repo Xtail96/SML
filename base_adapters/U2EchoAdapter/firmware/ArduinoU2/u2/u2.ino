@@ -2,8 +2,6 @@
 #include "servo_motor_utils.h"
 #include "receive_buffer.h"
 
-JsonObject parseJsonFromBuffer();
-
 void setup()
 {
   setupMotor();
@@ -11,16 +9,16 @@ void setup()
 }
  
 void loop() {
-  RECIEVE_BUFFER.read();
-  Serial.write(RECIEVE_BUFFER.m_data);
-
-  if(!RECIEVE_BUFFER.isEmpty())
+  JsonObject root = RECIEVE_BUFFER.readAsJson();
+  
+  if(!root.isNull())
   {
-    JsonObject root = parseJsonFromBuffer();
     serializeJson(root, Serial);
   }
 
   RECIEVE_BUFFER.clear();
+  
+  
   /*if(stepsCount != 0)
   {
     // нужно пройти некоторое расстояние
@@ -46,19 +44,4 @@ void loop() {
     // Отключаем двигатель
     switchOffStepperMotor();
   }*/
-}
-
-JsonObject parseJsonFromBuffer()
-{
-  DynamicJsonDocument doc(RECIEVE_BUFFER_SIZE);
-  JsonObject root;
-  auto error = deserializeJson(doc, RECIEVE_BUFFER.m_data);
-  if (error)
-  {
-      Serial.print(F("deserializeJson() failed with code "));
-      Serial.println(error.c_str());
-      return root;
-  }
-  root = doc.as<JsonObject>(); 
-  return root;
 }
