@@ -10,15 +10,20 @@ void setup()
 void loop() {
   JsonObject root = RECIEVE_BUFFER.readAsJson();
   if(root.isNull()) return;
+
+  serializeJson(root, Serial);
+  Serial.write(" ");
   
-  if(root.containsKey("hello"))
-  {
-    sendToSerial(root["hello"]);
-  }
-  else
-  {
-    serializeJson(root, Serial);
-  }
+  if(!root.containsKey("steps") or !root.containsKey("feedrate")) return;
+  double steps = root["steps"];
+  Serial.print(steps);
+  Serial.write(" ");
+
+  int feedrate = root["feedrate"];
+  Serial.print(feedrate);
+  Serial.println();
+  
+  
   
   /*if(stepsCount != 0)
   {
