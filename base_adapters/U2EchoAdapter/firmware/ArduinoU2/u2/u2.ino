@@ -1,9 +1,12 @@
-#include "servo_motor_utils.h"
+#include "step_motor.h"
 #include "receive_buffer.h"
+
+
+// Troyka-Stepper подключён к следующим пинам:
+StepMotor motor(A4, A3, 11);
 
 void setup()
 {
-  setupMotor();
   RECIEVE_BUFFER.init();
 }
  
@@ -24,24 +27,5 @@ void loop() {
   Serial.print(MotorDelay);
   Serial.println();
 
-  // Задаём скорость вращения
-  delayTime = MotorDelay;
-    
-  // Подаём питание на двигатель
-  switchOnStepperMotor();
-
-  // Задаём направление вращения
-  setDirection(steps > 0);
-
-  // Выполняем перемещние
-  makeSteps(steps > 0 ? steps : steps * -1);
-
-  // Переходим в режим экономичного удержания двигателя...
-  analogWrite(enablePin, 100);
-
-  // Ничего не делаем без отключения двигателя
-  delay(100);
-
-  // Отключаем двигатель
-  switchOffStepperMotor();
+  motor.makeMove(steps > 0 ? steps : steps * -1, steps > 0, MotorDelay);
 }
