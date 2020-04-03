@@ -23,7 +23,8 @@ void loop() {
   Serial.print(feedrate);
   Serial.println();
 
-  // нужно пройти некоторое расстояние
+  // Задаём скорость вращения
+  delayTime = feedrate;
     
   // Подаём питание на двигатель
   switchOnStepperMotor();
