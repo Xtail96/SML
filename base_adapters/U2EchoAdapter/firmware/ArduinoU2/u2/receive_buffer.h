@@ -39,6 +39,7 @@ public:
 
 	JsonObject readAsJson()
 	{
+		this->clear();
 		readFromSerial(m_data);
 
 		if(this->isEmpty()) return JsonObject();

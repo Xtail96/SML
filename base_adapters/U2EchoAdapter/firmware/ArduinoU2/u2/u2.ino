@@ -9,21 +9,16 @@ void setup()
  
 void loop() {
   JsonObject root = RECIEVE_BUFFER.readAsJson();
+  if(root.isNull()) return;
   
-  if(!root.isNull())
+  if(root.containsKey("hello"))
   {
-    if(root.containsKey("hello"))
-    {
-      sendToSerial(root["hello"]);
-    }
-    else
-    {
-      serializeJson(root, Serial);
-    }
+    sendToSerial(root["hello"]);
   }
-
-  RECIEVE_BUFFER.clear();
-  
+  else
+  {
+    serializeJson(root, Serial);
+  }
   
   /*if(stepsCount != 0)
   {
