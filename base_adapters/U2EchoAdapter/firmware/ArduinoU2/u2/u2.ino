@@ -14,17 +14,18 @@ void loop() {
   serializeJson(root, Serial);
   Serial.write(" ");
   
-  if(!root.containsKey("steps") or !root.containsKey("feedrate")) return;
+  if(!root.containsKey("steps")) return;
   int steps = root["steps"];
   Serial.print(steps);
   Serial.write(" ");
 
-  int feedrate = root["feedrate"];
-  Serial.print(feedrate);
+  if(!root.containsKey("delay")) return;
+  int MotorDelay = root["delay"];
+  Serial.print(MotorDelay);
   Serial.println();
 
   // Задаём скорость вращения
-  delayTime = feedrate;
+  delayTime = MotorDelay;
     
   // Подаём питание на двигатель
   switchOnStepperMotor();
