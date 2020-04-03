@@ -1,6 +1,10 @@
 #include "step_motor.h"
 #include "receive_buffer.h"
 
+// Команда на перемещение двигателя на 100 шагов
+// с задержкой между ними в 6 милисекунд:
+// {"steps":100, "delay":6}
+
 // Troyka-Stepper подключён к следующим пинам:
 StepMotor motor(A4, A3, 11);
 

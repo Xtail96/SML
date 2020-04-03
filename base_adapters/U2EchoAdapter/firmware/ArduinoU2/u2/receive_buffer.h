@@ -1,5 +1,4 @@
 #include <ArduinoJson.h>
-#include "serial_utils.h"
 
 #define RECIEVE_BUFFER_SIZE 100
 
@@ -7,12 +6,30 @@ struct
 {
 private:
 	char m_data[RECIEVE_BUFFER_SIZE];
+
+	void setupSerial(int baudRate)
+	{
+		// setup communication via serial port
+		Serial.begin(baudRate);
+		while (!Serial) {
+			; // wait for serial port to connect. Needed for native USB
+		}
+	}
+
+	void readFromSerial(char* buff)
+	{
+		int size = Serial.available();
+		for(int i = 0; i < size; i++)
+		{
+			buff[i] = char(Serial.read());
+		}
+	}
 	
 public:
 	void init()
 	{
 		this->clear();
-		setupSerial(9600);
+		this->setupSerial(9600);
 	}
 
 	void clear()
@@ -40,7 +57,7 @@ public:
 	JsonObject readAsJson()
 	{
 		this->clear();
-		readFromSerial(m_data);
+		this->readFromSerial(m_data);
 
 		if(this->isEmpty()) return JsonObject();
 		DynamicJsonDocument doc(RECIEVE_BUFFER_SIZE);
