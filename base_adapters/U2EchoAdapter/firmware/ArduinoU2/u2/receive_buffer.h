@@ -40,7 +40,6 @@ public:
 	JsonObject readAsJson()
 	{
 		readFromSerial(m_data);
-		Serial.write(this->m_data);
 
 		if(this->isEmpty()) return JsonObject();
 		DynamicJsonDocument doc(RECIEVE_BUFFER_SIZE);

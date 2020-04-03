@@ -1,4 +1,3 @@
-#include <ArduinoJson.h>
 #include "servo_motor_utils.h"
 #include "receive_buffer.h"
 
@@ -13,7 +12,14 @@ void loop() {
   
   if(!root.isNull())
   {
-    serializeJson(root, Serial);
+    if(root.containsKey("hello"))
+    {
+      sendToSerial(root["hello"]);
+    }
+    else
+    {
+      serializeJson(root, Serial);
+    }
   }
 
   RECIEVE_BUFFER.clear();
