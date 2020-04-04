@@ -7,7 +7,9 @@
     "build": "tsc && npm run copy_view",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "start": "npm run build && electron ./build/main.js"
+    "start": "npm run build && electron ./build/main.js",
+    "test_cmd_file": "npm run build && electron ./build/main.js -f /Users/xtail/Desktop/octocat.txt",
+    "test_cmd_help": "npm run build && electron ./build/main.js --help"
   },
   "repository": "https://github.com/ApplicationsForge/SML",
   "keywords": [

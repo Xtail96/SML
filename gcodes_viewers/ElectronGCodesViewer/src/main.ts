@@ -5,12 +5,13 @@ import yargs = require('yargs');
 
 let mainWindow: Electron.BrowserWindow;
 
-function createWindow() {
+function createWindow(gcodesFilePath: string | undefined = undefined) {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true
     },
     width: 800,
   });
@@ -20,6 +21,10 @@ function createWindow() {
 
   // Open the DevTools.
   electronLocalshortcut.register(mainWindow, 'Ctrl+Shift+I', () => { mainWindow.webContents.openDevTools(); });
+
+  mainWindow.webContents.once('dom-ready', () => {
+    mainWindow.webContents.send('show-gcodes', gcodesFilePath);
+  });
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
@@ -33,7 +38,14 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+  let argv = yargs.argv;
+
+  let gcodesFilePath: string | undefined = undefined;
+  if(typeof(argv.f) == "string") gcodesFilePath = argv.f;
+
+  createWindow(gcodesFilePath);
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
