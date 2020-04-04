@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "GCodes Preview Service for SML",
   "scripts": {
-    "build": "tsc",
+    "copy_view": "cp -R src/webVisualizer build",
+    "build": "tsc && npm run copy_view",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "npm run build && electron ./build/main.js"
