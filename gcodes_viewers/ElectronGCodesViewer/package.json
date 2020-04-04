@@ -1,0 +1,26 @@
+{
+  "name": "ElectronGCodesViewer",
+  "version": "0.0.1",
+  "description": "GCodes Preview Service for SML",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./build/main.js"
+  },
+  "repository": "https://github.com/ApplicationsForge/SML",
+  "keywords": [
+    "Electron",
+    "GCodes",
+    "CNC",
+    "typescript",
+    "SML"
+  ],
+  "author": "ApplicationsForge",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.8",
+    "tslint": "^5.19.0",
+    "typescript": "^3.7.5"
+  }
+}
