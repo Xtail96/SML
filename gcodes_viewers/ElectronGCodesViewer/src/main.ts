@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+const electronLocalshortcut = require('electron-localshortcut');
+import yargs = require('yargs');
 
 let mainWindow: Electron.BrowserWindow;
 
@@ -17,7 +19,7 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  electronLocalshortcut.register(mainWindow, 'Ctrl+Shift+I', () => { mainWindow.webContents.openDevTools(); });
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
