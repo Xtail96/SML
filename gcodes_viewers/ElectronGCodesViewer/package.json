@@ -4,14 +4,28 @@
   "description": "GCodes Preview Service for SML",
   "scripts": {
     "copy_view": "cp -R src/webVisualizer build",
-    "build": "tsc && npm run copy_view",
-    "watch": "tsc -w",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "start": "npm run build && electron ./build/main.js",
-    "test_cmd_file": "npm run build && electron ./build/main.js -f /Users/xtail/Desktop/octocat.txt",
-    "test_cmd_help": "npm run build && electron ./build/main.js --help"
+    "build_unix": "tsc && npm run copy_view",
+    "start_unix": "npm run build_unix && electron ./build/main.js",
+    "show_help_unix": "npm run build_unix && electron ./build/main.js --help",
+    "start_mock_mac_os": "npm run build_unix && electron ./build/main.js -f /Users/xtail/Desktop/octocat.txt",
+    "pack": "electron-builder --dir",
+    "release": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": "https://github.com/ApplicationsForge/SML",
+  "build": {
+    "appId": "ElectronGCodesViewer",
+    "productName": "ElectronGCodesViewer",
+    "artifactName": "${productName} Setup ${version}.${ext}",
+    "mac": {
+      "category": "developer.tools"
+    },
+    "files": [
+      "./build/**/*"
+    ],
+    "asarUnpack": [],
+    "asar": true
+  },
   "keywords": [
     "Electron",
     "GCodes",
@@ -24,7 +38,8 @@
   "devDependencies": {
     "electron": "^6.0.8",
     "tslint": "^5.19.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "electron-builder": "^22.4.1"
   },
   "dependencies": {
     "@types/yargs": "^15.0.4",
