@@ -41,6 +41,7 @@ bool axisesNamesComparator(QString a1, QString a2);
  */
 struct
 {
+public:
     /// \details Словарь имен всех осей в формате <ключ, значение> = <индекс оси, имя оси>
     std::map<size_t, QString> axisesNames =
     {
@@ -112,7 +113,7 @@ struct
             }
         }
 
-        qSort(axisesMeta.begin(), axisesMeta.end(), [] (QPair<size_t, QString> a1, QPair<size_t, QString> a2) {
+        std::sort(axisesMeta.begin(), axisesMeta.end(), [] (QPair<size_t, QString> a1, QPair<size_t, QString> a2) {
             return a1.first < a2.first;
         });
 
