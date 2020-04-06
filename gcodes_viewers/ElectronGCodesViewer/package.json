@@ -12,7 +12,8 @@
     "release": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
-  "repository": "https://github.com/ApplicationsForge/SML",
+  "private": true,
+  "main": "build/main.js",
   "build": {
     "appId": "ElectronGCodesViewer",
     "productName": "ElectronGCodesViewer",
