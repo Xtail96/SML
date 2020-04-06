@@ -130,7 +130,11 @@ void SettingsManager::generateDefaultSettings()
     settings->beginGroup("ExternalTools");
         settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U1SerialAdapter/app/build-U1SerialAdapter-Desktop_Qt_5_14_1_clang_64bit-Release/U1SerialAdapter");
         settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_14_1_clang_64bit-Release/U2EchoAdapter");
-        settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_14_1_clang_64bit-Release/CandleGCodesViewer");
+#ifdef Q_OS_MACX
+        settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
+#else
+        settings->setValue("GCodesViewer", "CandleGCodesViewer");
+#endif
     settings->endGroup();
 
     settings->beginGroup("DefaultDirs");
