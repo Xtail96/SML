@@ -84,6 +84,10 @@ void ProgramProcessingDialog::on_pausePushButton_clicked()
     ui->resumePushButton->setEnabled(true);
     ui->pausePushButton->hide();
     ui->stopPushButton->show();
+
+#ifdef Q_OS_MACX
+    this->repaint();
+#endif
 }
 
 void ProgramProcessingDialog::on_resumePushButton_clicked()
@@ -94,6 +98,10 @@ void ProgramProcessingDialog::on_resumePushButton_clicked()
     ui->resumePushButton->setEnabled(false);
     ui->stopPushButton->hide();
     ui->pausePushButton->show();
+
+#ifdef Q_OS_MACX
+    this->repaint();
+#endif
 }
 
 void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)

@@ -760,6 +760,10 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->parkPushButton->setEnabled(enableWidgets);
 
     ui->runPushButton->setEnabled(enableWidgets);
+
+#ifdef Q_OS_MACX
+    this->repaint();
+#endif
 }
 
 void MainWindow::stepMove(QMap<QString, double> steps)
