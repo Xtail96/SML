@@ -9,7 +9,7 @@
     "show_help_unix": "npm run build_unix && electron ./build/main.js --help",
     "start_mock_mac_os": "npm run build_unix && electron ./build/main.js -f /Users/xtail/Desktop/octocat.txt",
     "pack": "electron-builder --dir",
-    "release": "electron-builder",
+    "release_unix": "npm run build_unix && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "private": true,
