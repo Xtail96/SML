@@ -16,6 +16,11 @@ function createWindow() {
       nodeIntegration: true
     },
     width: 800,
+    show: false
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 
   mainWindow.loadFile(path.join(__dirname, "webVisualizer", "index.html"));
