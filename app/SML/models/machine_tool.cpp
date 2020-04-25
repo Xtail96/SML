@@ -141,7 +141,7 @@ void MachineTool::startAdapterServer()
     try
     {
         m_adapterServer.start();
-        this->launchAdapters();
+        //this->launchAdapters();
     }
     catch(...)
     {

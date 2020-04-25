@@ -296,17 +296,17 @@ U2State SMLAdapterServer::parseU2BinaryMessage(QByteArray message)
         throw SynchronizeStateException("an error is occurred during parsing json" + QString::fromUtf8(message));
     }
 
-    QtJson::JsonObject u2State = result["u2_state"].toMap();
+    QtJson::JsonObject u2State = result["u2State"].toMap();
     if(u2State.isEmpty())
     {
         throw SynchronizeStateException("empty u2 message");
     }
 
     U2State u2;
-    u2.errorCode = u2State["last_error"].toInt();
-    u2.workflowState = u2State["workflow_state"].toUInt();
+    u2.errorCode = u2State["lastError"].toInt();
+    u2.workflowState = u2State["workflowState"].toUInt();
 
-    QtJson::JsonArray axises = u2State["axises"].toList();
+    QtJson::JsonArray axises = u2State["axes"].toList();
     for(auto axis : axises)
     {
         QtJson::JsonObject axisObject = axis.toMap();

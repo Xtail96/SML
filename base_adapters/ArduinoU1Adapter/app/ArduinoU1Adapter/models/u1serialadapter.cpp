@@ -1,6 +1,6 @@
 #include "u1serialadapter.h"
 
-U1SerialAdapter::U1SerialAdapter(QString portName, QObject *parent) :
+ArduinoU2Adapter::ArduinoU2Adapter(QString portName, QObject *parent) :
     QObject(parent),
     m_settingsManager(SettingsManager()),
     m_serial(new QSerialPort(this)),
@@ -31,7 +31,7 @@ U1SerialAdapter::U1SerialAdapter(QString portName, QObject *parent) :
     }
 }
 
-U1SerialAdapter::~U1SerialAdapter()
+ArduinoU2Adapter::~ArduinoU2Adapter()
 {
     disconnect(m_socketHandler, SIGNAL(connected()), this, SLOT(onWebSocketHandler_Connected()));
     disconnect(m_socketHandler, SIGNAL(disconnected(QWebSocketProtocol::CloseCode,QString)), this, SLOT(onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode,QString)));
@@ -47,7 +47,7 @@ U1SerialAdapter::~U1SerialAdapter()
     delete m_serial;
 }
 
-void U1SerialAdapter::loadSettings()
+void ArduinoU2Adapter::loadSettings()
 {
     try
     {
@@ -68,7 +68,7 @@ void U1SerialAdapter::loadSettings()
     }
 }
 
-bool U1SerialAdapter::isStateChanged()
+bool ArduinoU2Adapter::isStateChanged()
 {
     qDebug() << "LastError" << m_currentState->getLastError() << "vs" << m_previousState->getLastError();
     qDebug() << "Sensors" << m_currentState->getSensorsState() << "vs" << m_previousState->getSensorsState();
@@ -78,7 +78,7 @@ bool U1SerialAdapter::isStateChanged()
                 m_currentState->getLastError() != m_previousState->getLastError());
 }
 
-void U1SerialAdapter::printState()
+void ArduinoU2Adapter::printState()
 {
     qDebug() << "New State";
     qDebug() << "Sensors:";
@@ -95,7 +95,7 @@ void U1SerialAdapter::printState()
     qDebug() << "---------" ;
 }
 
-void U1SerialAdapter::openPort(const QSerialPortInfo &info)
+void ArduinoU2Adapter::openPort(const QSerialPortInfo &info)
 {
     m_serial->setPort(info);
     if (m_serial->open(QIODevice::ReadWrite))
@@ -105,7 +105,7 @@ void U1SerialAdapter::openPort(const QSerialPortInfo &info)
     }
 }
 
-void U1SerialAdapter::onQSerialPort_ReadyRead()
+void ArduinoU2Adapter::onQSerialPort_ReadyRead()
 {
     qDebug() << "start read";
     QByteArray data;
@@ -119,7 +119,7 @@ void U1SerialAdapter::onQSerialPort_ReadyRead()
     emit readFromPort(data);
 }
 
-void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
+void ArduinoU2Adapter::onQSerialPort_ReadFromPort(QByteArray received)
 {
     byte lastErrorCode = byte(received[0]);
     m_currentState->setLastError(lastErrorCode);
@@ -157,7 +157,7 @@ void U1SerialAdapter::onQSerialPort_ReadFromPort(QByteArray received)
     }
 }
 
-void U1SerialAdapter::switchDevice(byte_array data)
+void ArduinoU2Adapter::switchDevice(byte_array data)
 {
     QByteArray devicesMask;
     devicesMask.push_back(data[1]);
@@ -165,7 +165,7 @@ void U1SerialAdapter::switchDevice(byte_array data)
     m_serial->write(devicesMask);
 }
 
-void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
+void ArduinoU2Adapter::switchDevice(size_t index, QString target, QString type)
 {
     byte indexByte = 0xff;
     switch (index) {
@@ -210,7 +210,7 @@ void U1SerialAdapter::switchDevice(size_t index, QString target, QString type)
     }
 }
 
-void U1SerialAdapter::getCurrentState()
+void ArduinoU2Adapter::getCurrentState()
 {
     QByteArray message;
     message.push_back(GET_CURRENT_STATE);
@@ -218,7 +218,7 @@ void U1SerialAdapter::getCurrentState()
     m_serial->write(message);
 }
 
-void U1SerialAdapter::sendStateToServer(U1State *state)
+void ArduinoU2Adapter::sendStateToServer(U1State *state)
 {
     QtJson::JsonObject message;
     QtJson::JsonObject u1State;
@@ -247,7 +247,7 @@ void U1SerialAdapter::sendStateToServer(U1State *state)
     m_socketHandler->sendBinaryMessage(data);
 }
 
-void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray message)
+void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray message)
 {
     QString messageString = QString::fromUtf8(message);
     bool parsed = false;
@@ -283,18 +283,18 @@ void U1SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
     }
 }
 
-void U1SerialAdapter::sendTestPackageToServer()
+void ArduinoU2Adapter::sendTestPackageToServer()
 {
     this->sendStateToServer(m_currentState);
 }
 
-void U1SerialAdapter::onWebSocketHandler_Connected()
+void ArduinoU2Adapter::onWebSocketHandler_Connected()
 {
     qDebug() << "Web socket is connected";
     this->sendTestPackageToServer();
 }
 
-void U1SerialAdapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)
+void ArduinoU2Adapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)
 {
     qDebug() << "Web socket disconnected with message" << message << "(code" << code << ")";
 }

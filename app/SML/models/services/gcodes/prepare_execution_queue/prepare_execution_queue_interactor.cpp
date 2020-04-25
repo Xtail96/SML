@@ -38,22 +38,22 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
             package.insert("target", "u2");
         }
 
-        QtJson::JsonArray axisesArguments = {};
+        QtJson::JsonObject axisesArguments = {};
         for(int j = 1; j < block.size(); j++)
         {
             QPair<QString, double> myChunk = PrepareExecutionQueueInteractor::chunkToKeyValuePair(block.get_chunk(j));
             QString key = myChunk.first;
             double value = myChunk.second;
-            QString serializedChunk = key + QString::number(value);
+
             if(key.toLower() == "f")
             {
-                detailedInfo.insert("feedrate", serializedChunk);
+                detailedInfo.insert("feedrate", value);
                 continue;
             }
 
             if(key.toLower() == "m")
             {
-                detailedInfo.insert("support_m_code_id", serializedChunk);
+                detailedInfo.insert("supportMCodeId", value);
                 continue;
             }
 
@@ -62,12 +62,12 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
                 continue;
             }
 
-            axisesArguments.append(serializedChunk);
+            axisesArguments[key] = QString::number(value);
         }
-        detailedInfo.insert("frame_id", myFirstChunk.first + QString::number(myFirstChunk.second));
-        detailedInfo.insert("axises_count", axisesArguments.size());
-        detailedInfo.insert("axises_arguments", axisesArguments);
-        package.insert("detailed_info", detailedInfo);
+        detailedInfo.insert("frameId", myFirstChunk.first + QString::number(myFirstChunk.second));
+        detailedInfo.insert("axesCount", axisesArguments.size());
+        detailedInfo.insert("axesArguments", axisesArguments);
+        package.insert("detailedInfo", detailedInfo);
         result.enqueue(QtJson::serialize(package));
     }
     return result;

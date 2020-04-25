@@ -90,12 +90,12 @@ public:
     }
 };
 
-class U1SerialAdapter : public QObject
+class ArduinoU2Adapter : public QObject
 {
     Q_OBJECT
 public:
-    explicit U1SerialAdapter(QString portName, QObject *parent = nullptr);
-    ~U1SerialAdapter();
+    explicit ArduinoU2Adapter(QString portName, QObject *parent = nullptr);
+    ~ArduinoU2Adapter();
 
 protected:
     SettingsManager m_settingsManager;
