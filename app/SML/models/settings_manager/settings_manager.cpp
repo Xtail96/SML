@@ -128,7 +128,7 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("ExternalTools");
-        settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U1SerialAdapter/app/build-U1SerialAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U1SerialAdapter");
+        settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU1Adapter/app/build-ArduinoU1Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU1Adapter");
         settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
 #ifdef Q_OS_MACX
         //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
