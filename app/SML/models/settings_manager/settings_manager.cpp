@@ -129,8 +129,8 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("ExternalTools");
         settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU1Adapter/app/build-ArduinoU1Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU1Adapter");
-        //settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
-        settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU2Adapter/app/build-ArduinoU2Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU2Adapter");
+        settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
+        //settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU2Adapter/app/build-ArduinoU2Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU2Adapter");
 #ifdef Q_OS_MACX
         //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
         settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_8_clang_64bit-Release/CandleGCodesViewer");

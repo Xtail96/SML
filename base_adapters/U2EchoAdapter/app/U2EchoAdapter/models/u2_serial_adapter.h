@@ -48,7 +48,7 @@ public:
         m_workflowState = value;
     }
 
-    int getAxisesCount()
+    int getAxesCount()
     {
         return m_positions.size();
     }

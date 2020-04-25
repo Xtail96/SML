@@ -2,8 +2,7 @@
 
 Axis::Axis(QString id, Motor motor) :
     m_id(id),
-    m_motor(motor),
-    m_lastTask(0.0, 0.0, 0.0)
+    m_motor(motor)
 {
 }
 
@@ -14,7 +13,7 @@ QtJson::JsonObject Axis::currentState()
     axisState["id"] = m_id;
     axisState["position"] = this->currentAxisPos();
     axisState["step"] = m_motor.step();
-    axisState["feedrate"] = m_lastTask.feedrate();
+    axisState["feedrate"] = m_motor.delay();
 
     return axisState;
 }
@@ -29,17 +28,7 @@ Motor &Axis::getMotor()
     return m_motor;
 }
 
-Task &Axis::getTask()
-{
-    return m_lastTask;
-}
-
 double Axis::currentAxisPos()
 {
-    return m_lastTask.initialPos() + m_lastTask.currentMotorProgress() * m_motor.step();
-}
-
-void Axis::setTask(double target, int feedrate)
-{
-    m_lastTask = Task(this->currentAxisPos(), target, feedrate);
+    return m_motor.initialPos() + m_motor.currentProgress() * m_motor.step();
 }

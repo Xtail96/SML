@@ -20,9 +20,7 @@ SOURCES += \
         main.cpp \
     libs/jsonparser/json.cpp \
     models/arduino_u2_adapter.cpp \
-    models/repository/repository.cpp \
     models/types/axis/axis.cpp \
-    models/types/axis/task/task.cpp \
     models/types/u2_state/u2_state.cpp \
     models/types/axis/motor/motor.cpp \
     models/types/settings_manager/settings_manager.cpp \
@@ -30,11 +28,9 @@ SOURCES += \
 
 HEADERS += \
     models/arduino_u2_adapter.h \
-    models/repository/repository.h \
     models/structs.h \
     libs/jsonparser/json.h \
     models/types/axis/axis.h \
-    models/types/axis/task/task.h \
     models/types/u2_state/u2_state.h \
     models/types/axis/motor/motor.h \
     models/types/settings_manager/settings_manager.h \

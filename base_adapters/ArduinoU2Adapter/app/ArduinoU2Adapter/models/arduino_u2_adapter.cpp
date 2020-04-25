@@ -83,7 +83,6 @@ void ArduinoU2Adapter::onQSerialPort_ReadyRead()
 
 void ArduinoU2Adapter::processMessageFromSerialPort(QString message)
 {
-    qDebug() << "from port" << message;
     bool parsed = false;
     QtJson::JsonObject parsedMessage = QtJson::parse(message, parsed).toMap();
     if(!parsed) return;
@@ -99,7 +98,7 @@ void ArduinoU2Adapter::processMessageFromSerialPort(QString message)
     {
         if(axis.getMotor().id() != motorId) continue;
 
-        axis.getTask().updateMotorProgress(invertDirection ? -1*progress : progress);
+        axis.getMotor().setCurrentProgress(invertDirection ? -1*progress : progress);
         axis.getMotor().setIsMoving(isMoving);
     }
 
@@ -134,7 +133,6 @@ void ArduinoU2Adapter::sendStateToServer()
     message["u2State"] = u2State;
 
     QByteArray data = QtJson::serialize(message);
-    qDebug() << "sendStateToServer" << QString::fromUtf8(data);
     m_socketHandler->sendBinaryMessage(data);
 }
 
@@ -157,24 +155,27 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
     QString feedrate = gcodesDetailedInfo["feedrate"].toString();
 
     QtJson::JsonArray cmds = {};
-    for(auto axis : m_axes)
+    for(auto& axis : m_axes)
     {
         if(!axesArguments.contains(axis.getId())) continue;
-        qDebug() << axis.getId() << axesArguments[axis.getId()].toDouble();
 
         double position = axesArguments[axis.getId()].toDouble();
-        if(axis.getId().toLower() != "x") continue;
+        if(fabs(position - axis.getMotor().targetPos()) < 0.01) continue;
 
-        axis.setTask(position, 30);
-        cmds.append(axis.getTask().toJson(axis.getMotor().step()));
+        axis.getMotor().setInitialPos(axis.currentAxisPos());
+        axis.getMotor().setTargetPos(position);
+        axis.getMotor().setDelay(6);
+        cmds.append(axis.getMotor().getMotorCmd());
     }
 
 
     for(auto cmd : cmds)
     {
-        qDebug() << "send" << cmd.toMap();
+        qDebug() << QString::fromUtf8(QtJson::serialize(cmd));
         m_serial->write(QtJson::serialize(cmd));
     }
+
+    this->sendStateToServer();
 }
 
 void ArduinoU2Adapter::onWebSocketHandler_Connected()

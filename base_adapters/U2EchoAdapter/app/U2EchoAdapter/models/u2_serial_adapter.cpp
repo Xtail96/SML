@@ -46,7 +46,7 @@ void U2SerialAdapter::loadSettings()
 void U2SerialAdapter::printState(U2State state)
 {
     qDebug() << "State";
-    qDebug() << "AxisesCount:" << state.getAxisesCount();
+    qDebug() << "AxisesCount:" << state.getAxesCount();
     qDebug() << "Positions:";
     QStringList axisesKeys = state.getAxisesKeys();
     for(auto key : axisesKeys)
@@ -62,20 +62,20 @@ void U2SerialAdapter::sendCurrentStateToServer(U2State state)
 {
     QtJson::JsonObject message = {};
     QtJson::JsonObject u2State = {};
-    u2State["last_error"] = state.getLastError();
-    u2State["workflow_state"] = state.getWorkflowState();
-    u2State["axises_count"] = state.getAxisesCount();
-    QtJson::JsonArray axises = {};
+    u2State["lastError"] = state.getLastError();
+    u2State["workflowState"] = state.getWorkflowState();
+    u2State["axesCount"] = state.getAxesCount();
+    QtJson::JsonArray axes = {};
     QStringList axisesKeys = state.getAxisesKeys();
     for(auto key : axisesKeys)
     {
         QtJson::JsonObject axis = {};
         axis["id"] = key;
         axis["position"] = state.getAxisPosition(key);
-        axises.append(axis);
+        axes.append(axis);
     }
-    u2State["axises"] = axises;
-    message["u2_state"] = u2State;
+    u2State["axes"] = axes;
+    message["u2State"] = u2State;
 
     QByteArray data = QtJson::serialize(message);
     m_socketHandler->sendBinaryMessage(data);
@@ -92,31 +92,17 @@ void U2SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
         QString target = parsedMessage["target"].toString();
         if(target.toLower() == "u2")
         {
-            QtJson::JsonObject detailedInfo = parsedMessage["detailed_info"].toMap();
-            QtJson::JsonArray axisesArguments = detailedInfo["axises_arguments"].toList();
-            QMap<QString, double> axisesArgumentsMap = {};
-            if(!axisesArguments.isEmpty())
+            QtJson::JsonObject detailedInfo = parsedMessage["detailedInfo"].toMap();
+            QtJson::JsonObject axesArgumentsRaw = detailedInfo["axesArguments"].toMap();
+            QMap<QString, double> axesArgumentsMap = {};
+            for(auto axisId : axesArgumentsRaw.keys())
             {
-                QRegExp keyRegExp("[A-Za-z]+");
-                QRegExp valueRegExp("[0-9.-]+");
+                bool ok = false;
+                double value = axesArgumentsRaw[axisId].toDouble(&ok);
 
-                for(auto argument : axisesArguments)
+                if(ok)
                 {
-                    QString key = "";
-
-                    keyRegExp.indexIn(argument.toString());
-                    key = keyRegExp.cap();
-
-                    valueRegExp.indexIn(argument.toString());
-                    QString rawValue = valueRegExp.cap();
-
-                    bool ok = false;
-                    double value = rawValue.toDouble(&ok);
-
-                    if(ok)
-                    {
-                        axisesArgumentsMap.insert(key, value);
-                    }
+                    axesArgumentsMap.insert(axisId, value);
                 }
             }
 
@@ -124,12 +110,12 @@ void U2SerialAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messag
             m_currentState.setWorkflowState(1);
 
             // calculate increments
-            QStringList axisArgumentsKeys = axisesArgumentsMap.keys();
+            QStringList axisArgumentsKeys = axesArgumentsMap.keys();
             int stepsCount = 100;
             QMap<QString, double> stepIncrements = {};
             for(auto key : axisArgumentsKeys)
             {
-                double targetValue = axisesArgumentsMap[key];
+                double targetValue = axesArgumentsMap[key];
                 double diff = (targetValue - m_currentState.getAxisPosition(key));
                 double stepByAxis = diff / stepsCount;
                 stepIncrements.insert(key, stepByAxis);
