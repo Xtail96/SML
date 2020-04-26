@@ -91,6 +91,8 @@ void ArduinoU2Adapter::processMessageFromSerialPort(QString message)
 void ArduinoU2Adapter::sendStateToServer()
 {
     QByteArray data = QtJson::serialize(m_repository.currentState());
+    qDebug() << "send to server" << QString::fromUtf8(data);
+    qDebug() << " ";
     m_socketHandler->sendBinaryMessage(data);
 }
 
