@@ -627,6 +627,12 @@ void MachineTool::sendNextCommand()
         return;
     }
 
+    if((m_repository.m_u1Adapter.workflowState() != 0) || (m_repository.m_u1Adapter.workflowState() != 0))
+    {
+        qDebug() << "MachineTool::sendNextCommand: duplicate send. U1WorkflowSate =" << m_repository.m_u1Adapter.workflowState() << "U2WorkflowState =" << m_repository.m_u2Adapter.workflowState();
+        return;
+    }
+
     QByteArray cmd = m_executionQueue.dequeue();
     QString cmdStr = QString::fromUtf8(cmd);
     bool parsed = false;
@@ -639,6 +645,8 @@ void MachineTool::sendNextCommand()
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
         m_adapterServer.sendMessageToU1(cmd);
         emit this->nextCommandSent(cmd);
+
+        m_repository.m_u1Adapter.setWorkflowState(1);
         return;
     }
 
@@ -647,6 +655,8 @@ void MachineTool::sendNextCommand()
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
         m_adapterServer.sendMessageToU2(cmd);
         emit this->nextCommandSent(cmd);
+
+        m_repository.m_u2Adapter.setWorkflowState(1);
         return;
     }
 
@@ -655,7 +665,7 @@ void MachineTool::sendNextCommand()
 
 void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState)
 {
-    //qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1State << u2State;
+    qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1WorkflowState << u2WorkflowState;
     if((u1WorkflowState == 0) && (u2WorkflowState == 0))
     {
         this->sendNextCommand();

@@ -4,7 +4,7 @@ SMLAdapterServer::SMLAdapterServer(qint16 port, QObject *parent) :
     QObject(parent),
     m_server(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this),
     m_port(port),
-    m_debug(false)
+    m_debug(true)
 {
     this->setupConnections();
 }
@@ -108,7 +108,7 @@ void SMLAdapterServer::onQWebSocketServer_NewConnection()
 
     if(m_debug)
     {
-        qDebug() << "Socket connected:" << pSocket->peerAddress() <<  pSocket->peerName() << pSocket->origin();
+        qDebug() << "SMLAdapterServer::onQWebSocketServer_NewConnection: Socket connected:" << pSocket->peerAddress() <<  pSocket->peerName() << pSocket->origin();
     }
 
 }
@@ -167,7 +167,7 @@ void SMLAdapterServer::onQWebSocketServer_Closed()
 {
     if(m_debug)
     {
-        qDebug() << "Server Closed";
+        qDebug() << "SMLAdapterServer::onQWebSocketServer_Closed: Server Closed";
         qDebug() << m_server.error();
         qDebug() << m_server.errorString();
     }
@@ -179,7 +179,7 @@ void SMLAdapterServer::onQWebSocket_TextMessageReceived(QString message)
 {
     if (m_debug)
     {
-        qDebug() << "Message received:" << message;
+        qDebug() << "SMLAdapterServer::onQWebSocket_TextMessageReceived:" << message;
     }
 
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
@@ -225,7 +225,7 @@ void SMLAdapterServer::onQWebSocket_BinaryMessageReceived(QByteArray message)
 {
     if(m_debug)
     {
-        qDebug() << "Binary Message received:" << message;
+        qDebug() << "SMLAdapterServer::onQWebSocket_BinaryMessageReceived:" << QString::fromUtf8(message);
     }
 
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
@@ -325,7 +325,7 @@ void SMLAdapterServer::onQWebSocket_Disconnected()
 
     if (m_debug)
     {
-        qDebug() << "socketDisconnected:" << pSender;
+        qDebug() << "SMLAdapterServer::onQWebSocket_Disconnected:" << pSender;
     }
 
     if(m_u1Connections.contains(pSender))

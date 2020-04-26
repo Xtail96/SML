@@ -58,6 +58,7 @@ QtJson::JsonObject MotorState::prepareMotorCmd(double targetPos, int feedrate)
     m_initialPos = this->currentPos();
     m_targetPos = targetPos;
     m_delay = 1 / (feedrate + 1) + 6;
+    m_isMoving = true;
     double posRelative = m_targetPos - m_initialPos;
 
     QtJson::JsonObject result = {};

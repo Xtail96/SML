@@ -64,6 +64,9 @@ void ArduinoU2Adapter::openSerialPort(const QSerialPortInfo &info)
         qDebug() << "opened" << m_serial->portName();
         emit serialPortOpened();
     }
+    else {
+        qApp->quit();
+    }
 }
 
 void ArduinoU2Adapter::onQSerialPort_ReadyRead()
