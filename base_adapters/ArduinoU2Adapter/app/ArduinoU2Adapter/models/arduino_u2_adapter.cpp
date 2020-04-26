@@ -113,7 +113,7 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
     QtJson::JsonObject gcodesDetailedInfo = parsedMessage["detailedInfo"].toMap();
 
     QString gcodesFrameId = gcodesDetailedInfo["frameId"].toString();
-    int axisCount = gcodesDetailedInfo["axesCount"].toInt();
+    //int axisCount = gcodesDetailedInfo["axesCount"].toInt();
     QtJson::JsonObject axesArguments = gcodesDetailedInfo["axesArguments"].toMap();
     int feedrate = gcodesDetailedInfo["feedrate"].toInt();
 
@@ -122,8 +122,9 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
     {
         if(!axesArguments.contains(axis.getId())) continue;
 
-        double position = axesArguments[axis.getId()].toDouble();
-        if(fabs(position - axis.getMotor().targetPos()) < 0.01) continue;
+        int position = int(round(axesArguments[axis.getId()].toDouble() * 100));
+        if(position == axis.getMotor().targetPos()) continue;
+
         cmds.append(axis.getMotor().prepareMotorCmd(position, feedrate));
     }
 

@@ -11,8 +11,8 @@ QtJson::JsonObject AxisState::currentState()
     QtJson::JsonObject axisState = {};
 
     axisState["id"] = m_id;
-    axisState["position"] = this->currentAxisPos();
-    axisState["step"] = m_motor.step();
+    axisState["position"] = double(m_motor.currentPos()) / 100;
+    axisState["step"] = 1;
     axisState["feedrate"] = m_motor.delay();
 
     return axisState;
@@ -26,9 +26,4 @@ QString AxisState::getId() const
 MotorState &AxisState::getMotor()
 {
     return m_motor;
-}
-
-double AxisState::currentAxisPos()
-{
-    return m_motor.currentPos();
 }

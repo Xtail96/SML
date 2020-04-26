@@ -8,36 +8,32 @@
 class MotorState
 {
 public:
-    MotorState(int id, double step);
+    MotorState(int id);
 
     int id() const;
 
-    double step() const;
-
     bool isMoving() const;
 
-    double initialPos() const;
+    int initialPos() const;
 
-    double targetPos() const;
+    int targetPos() const;
 
-    double currentPos() const;
+    int currentPos() const;
 
-    void setCurrentProgress(double currentProgress);
+    void setCurrentProgress(int currentProgress);
 
     int delay() const;
 
-    QtJson::JsonObject prepareMotorCmd(double targetPos, int feedrate);
+    QtJson::JsonObject prepareMotorCmd(int targetPos, int feedrate);
 
 private:
     int m_id;
 
-    double m_step;
-
     bool m_isMoving;
 
-    double m_initialPos;
-    double m_targetPos;
-    double m_currentProgress;
+    int m_initialPos;
+    int m_targetPos;
+    int m_currentProgress;
 
     int m_delay;
 };

@@ -43,10 +43,10 @@ QtJson::JsonObject Repository::currentState()
 void Repository::updateCurrentState(QtJson::JsonObject serialPortMessage)
 {
     int motorId = serialPortMessage["motor"].toInt();
-    bool isMoving = serialPortMessage["isMoving"].toBool();
-    int task = serialPortMessage["task"].toInt();
+    //bool isMoving = serialPortMessage["isMoving"].toBool();
+    //int task = serialPortMessage["task"].toInt();
     int progress = serialPortMessage["progress"].toInt();
-    bool taskCompleted = serialPortMessage["taskCompleted"].toBool();
+    //bool taskCompleted = serialPortMessage["taskCompleted"].toBool();
     bool invertDirection = serialPortMessage["invertedDirection"].toBool();
 
     for(auto& axis : m_axes)
@@ -62,7 +62,7 @@ void Repository::loadSettings()
     try
     {
         m_serialPortName = "tty.usbmodem14101";
-        m_axes.append(AxisState("X", MotorState(0, 1)));
+        m_axes.append(AxisState("X", MotorState(0)));
     }
     catch(std::invalid_argument e)
     {

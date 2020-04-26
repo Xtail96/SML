@@ -16,13 +16,9 @@ public:
 
     MotorState& getMotor();
 
-    double currentAxisPos();
-
 private:
     QString m_id;
     MotorState m_motor;
-
-    int m_feedrate;
 };
 
 #endif // AXIS_H
