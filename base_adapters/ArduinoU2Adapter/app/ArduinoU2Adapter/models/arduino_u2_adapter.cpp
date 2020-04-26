@@ -1,15 +1,11 @@
 #include "arduino_u2_adapter.h"
 
-ArduinoU2Adapter::ArduinoU2Adapter(QString portName, QObject *parent) :
+ArduinoU2Adapter::ArduinoU2Adapter(QObject *parent) :
     QObject(parent),
-    m_settingsManager(SettingsManager()),
     m_serial(new QSerialPort(this)),
-    m_serialReadBuffer(QByteArray()),
-    m_socketHandler(new WebSocketHandler(m_settingsManager, this)),
-    m_axes(QList<Axis>())
+    m_socketHandler(new WebSocketHandler("", this)),
+    m_repository(this)
 {
-    this->loadSettings();
-
     m_serial->setBaudRate(9600);
     connect(m_serial, SIGNAL(readyRead()), this, SLOT(onQSerialPort_ReadyRead()));
 
@@ -22,14 +18,12 @@ ArduinoU2Adapter::ArduinoU2Adapter(QString portName, QObject *parent) :
         qDebug() << "Name : " << info.portName();
         qDebug() << "Description : " << info.description();
         qDebug() << "Manufacturer: " << info.manufacturer();
-        if(info.portName() == portName)
+        if(info.portName() == m_repository.m_serialPortName)
         {
-            openPort(info);
+            this->openSerialPort(info);
             break;
         }
     }
-
-    m_axes.append(Axis("X", Motor(0, 1)));
 }
 
 ArduinoU2Adapter::~ArduinoU2Adapter()
@@ -46,38 +40,41 @@ ArduinoU2Adapter::~ArduinoU2Adapter()
     delete m_serial;
 }
 
-void ArduinoU2Adapter::loadSettings()
+Repository &ArduinoU2Adapter::getRepository()
 {
-    try
-    {
-        //size_t sensorsPackageSize = m_settingsManager.get("Main", "SensorsBufferSize").toUInt();
-        //size_t devicesPackageSize = m_settingsManager.get("Main", "DevicesBufferSize").toUInt();
-    }
-    catch(std::invalid_argument e)
-    {
-        qDebug() << e.what();
-    }
+    return m_repository;
 }
 
-void ArduinoU2Adapter::openPort(const QSerialPortInfo &info)
+
+ArduinoU2Adapter &ArduinoU2Adapter::getInstance()
+{
+    static QScopedPointer<ArduinoU2Adapter> m_instance;
+    if(m_instance.data() == nullptr)
+    {
+        m_instance.reset( new ArduinoU2Adapter() );
+    }
+    return *m_instance;
+}
+
+void ArduinoU2Adapter::openSerialPort(const QSerialPortInfo &info)
 {
     m_serial->setPort(info);
     if (m_serial->open(QIODevice::ReadWrite))
     {
         qDebug() << "opened" << m_serial->portName();
-        emit portOpened();
+        emit serialPortOpened();
     }
 }
 
 void ArduinoU2Adapter::onQSerialPort_ReadyRead()
 {
-    this->m_serialReadBuffer.append(m_serial->readAll());
+    this->m_repository.m_serialPortReadBuffer.append(m_serial->readAll());
     bool ok = false;
-    QtJson::parse(QString::fromUtf8(this->m_serialReadBuffer), ok);
+    QtJson::parse(QString::fromUtf8(this->m_repository.m_serialPortReadBuffer), ok);
     if(ok)
     {
-        this->processMessageFromSerialPort(QString::fromUtf8(this->m_serialReadBuffer));
-        this->m_serialReadBuffer.clear();
+        this->processMessageFromSerialPort(QString::fromUtf8(this->m_repository.m_serialPortReadBuffer));
+        this->m_repository.m_serialPortReadBuffer.clear();
     }
 }
 
@@ -87,52 +84,13 @@ void ArduinoU2Adapter::processMessageFromSerialPort(QString message)
     QtJson::JsonObject parsedMessage = QtJson::parse(message, parsed).toMap();
     if(!parsed) return;
 
-    int motorId = parsedMessage["motor"].toInt();
-    bool isMoving = parsedMessage["isMoving"].toBool();
-    int task = parsedMessage["task"].toInt();
-    int progress = parsedMessage["progress"].toInt();
-    bool taskCompleted = parsedMessage["taskCompleted"].toBool();
-    bool invertDirection = parsedMessage["invertedDirection"].toBool();
-
-    for(auto& axis : m_axes)
-    {
-        if(axis.getMotor().id() != motorId) continue;
-
-        axis.getMotor().setCurrentProgress(invertDirection ? -1*progress : progress);
-        axis.getMotor().setIsMoving(isMoving);
-    }
-
+    m_repository.updateCurrentState(parsedMessage);
     this->sendStateToServer();
 }
 
 void ArduinoU2Adapter::sendStateToServer()
 {
-    QtJson::JsonObject message = {};
-    QtJson::JsonObject u2State = {};
-
-    int workflowState = 0;
-    for(auto axis : m_axes)
-    {
-        if(axis.getMotor().isMoving())
-        {
-            workflowState = 1;
-            break;
-        }
-    }
-
-    u2State["workflowState"] = workflowState;
-    u2State["lastError"] = 0;
-    u2State["axesCount"] = m_axes.length();
-
-    QtJson::JsonArray axesState = {};
-    for(auto axis : m_axes)
-    {
-        axesState.append(axis.currentState());
-    }
-    u2State["axes"] = axesState;
-    message["u2State"] = u2State;
-
-    QByteArray data = QtJson::serialize(message);
+    QByteArray data = QtJson::serialize(m_repository.currentState());
     m_socketHandler->sendBinaryMessage(data);
 }
 
@@ -152,26 +110,22 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
     QString gcodesFrameId = gcodesDetailedInfo["frameId"].toString();
     int axisCount = gcodesDetailedInfo["axesCount"].toInt();
     QtJson::JsonObject axesArguments = gcodesDetailedInfo["axesArguments"].toMap();
-    QString feedrate = gcodesDetailedInfo["feedrate"].toString();
+    int feedrate = gcodesDetailedInfo["feedrate"].toInt();
 
     QtJson::JsonArray cmds = {};
-    for(auto& axis : m_axes)
+    for(auto& axis : m_repository.m_axes)
     {
         if(!axesArguments.contains(axis.getId())) continue;
 
         double position = axesArguments[axis.getId()].toDouble();
         if(fabs(position - axis.getMotor().targetPos()) < 0.01) continue;
-
-        axis.getMotor().setInitialPos(axis.currentAxisPos());
-        axis.getMotor().setTargetPos(position);
-        axis.getMotor().setDelay(6);
-        cmds.append(axis.getMotor().getMotorCmd());
+        cmds.append(axis.getMotor().prepareMotorCmd(position, feedrate));
     }
 
 
     for(auto cmd : cmds)
     {
-        qDebug() << QString::fromUtf8(QtJson::serialize(cmd));
+        qDebug() << "execute" << QString::fromUtf8(QtJson::serialize(cmd));
         m_serial->write(QtJson::serialize(cmd));
     }
 

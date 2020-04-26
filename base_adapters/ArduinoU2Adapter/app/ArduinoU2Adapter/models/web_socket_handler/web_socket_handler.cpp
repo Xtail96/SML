@@ -1,11 +1,11 @@
 #include "web_socket_handler.h"
 
-WebSocketHandler::WebSocketHandler(const SettingsManager& sm, QObject *parent) :
+WebSocketHandler::WebSocketHandler(const QString& settingsFileName, QObject *parent) :
     QObject(parent),
     m_webSocket(nullptr),
     m_timer(new QTimer(this))
 {
-    loadSettings(sm);
+    loadSettings(settingsFileName);
 
     m_timer->setInterval(10000);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(openWebSocket()));
@@ -24,10 +24,11 @@ WebSocketHandler::~WebSocketHandler()
     delete m_webSocket;
 }
 
-void WebSocketHandler::loadSettings(const SettingsManager &sm)
+void WebSocketHandler::loadSettings(const QString &settingsFileName)
 {
     try
     {
+        SettingsManager sm = SettingsManager(settingsFileName);
         m_url = QUrl(sm.get("ServerSettings", "ServerAddress").toString());
         m_debug = sm.get("ServerSettings", "DebugMode").toBool();
     }

@@ -5,7 +5,7 @@
 #include <QObject>
 
 #include "models/structs.h"
-#include "models/types/settings_manager/settings_manager.h"
+#include "models/settings_manager/settings_manager.h"
 
 class WebSocketHandler : public QObject
 {
@@ -16,10 +16,10 @@ protected:
     bool m_debug;
     QTimer *m_timer;
 
-    void loadSettings(const SettingsManager& sm);
+    void loadSettings(const QString &settingsFileName);
 
 public:
-    WebSocketHandler(const SettingsManager& sm = SettingsManager(), QObject *parent = Q_NULLPTR);
+    WebSocketHandler(const QString& settingsFileName = "", QObject *parent = Q_NULLPTR);
     ~WebSocketHandler();
 
     void setDebug(bool debug);

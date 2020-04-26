@@ -1,12 +1,12 @@
-#include "axis.h"
+#include "axis_state.h"
 
-Axis::Axis(QString id, Motor motor) :
+AxisState::AxisState(QString id, MotorState motor) :
     m_id(id),
     m_motor(motor)
 {
 }
 
-QtJson::JsonObject Axis::currentState()
+QtJson::JsonObject AxisState::currentState()
 {
     QtJson::JsonObject axisState = {};
 
@@ -18,17 +18,17 @@ QtJson::JsonObject Axis::currentState()
     return axisState;
 }
 
-QString Axis::getId() const
+QString AxisState::getId() const
 {
     return m_id;
 }
 
-Motor &Axis::getMotor()
+MotorState &AxisState::getMotor()
 {
     return m_motor;
 }
 
-double Axis::currentAxisPos()
+double AxisState::currentAxisPos()
 {
-    return m_motor.initialPos() + m_motor.currentProgress() * m_motor.step();
+    return m_motor.currentPos();
 }

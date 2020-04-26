@@ -5,32 +5,28 @@
 
 #include "libs/jsonparser/json.h"
 
-class Motor
+class MotorState
 {
 public:
-    Motor(int id, double step);
+    MotorState(int id, double step);
 
     int id() const;
 
     double step() const;
-    void setStep(double step);
 
     bool isMoving() const;
-    void setIsMoving(bool isMoving);
 
     double initialPos() const;
-    void setInitialPos(double initialPos);
 
     double targetPos() const;
-    void setTargetPos(double targetPos);
 
-    double currentProgress() const;
+    double currentPos() const;
+
     void setCurrentProgress(double currentProgress);
 
     int delay() const;
-    void setDelay(int delay);
 
-    QtJson::JsonObject getMotorCmd();
+    QtJson::JsonObject prepareMotorCmd(double targetPos, int feedrate);
 
 private:
     int m_id;

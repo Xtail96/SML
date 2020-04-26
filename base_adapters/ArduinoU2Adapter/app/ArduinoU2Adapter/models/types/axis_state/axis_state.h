@@ -3,24 +3,24 @@
 
 #include <QString>
 
-#include "models/types/axis/motor/motor.h"
+#include "models/types/motor_state/motor_state.h"
 
-class Axis
+class AxisState
 {
 public:
-    Axis(QString id, Motor motor);
+    AxisState(QString id, MotorState motor);
 
     QtJson::JsonObject currentState();
 
     QString getId() const;
 
-    Motor& getMotor();
+    MotorState& getMotor();
 
     double currentAxisPos();
 
 private:
     QString m_id;
-    Motor m_motor;
+    MotorState m_motor;
 
     int m_feedrate;
 };

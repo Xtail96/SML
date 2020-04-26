@@ -13,9 +13,8 @@ int main(int argc, char *argv[])
     Q_UNUSED(u1SerialAdapter);
 #endif
 #ifdef Q_OS_MACOS
-    //U1SerialAdapter u1SerialAdapter("cu.usbmodem1421");
-    ArduinoU2Adapter u1SerialAdapter("tty.usbmodem14101");
-    Q_UNUSED(u1SerialAdapter)
+    ArduinoU2Adapter& adapter = ArduinoU2Adapter::getInstance();
+    Q_UNUSED(adapter)
 #endif
     return a.exec();
 }
