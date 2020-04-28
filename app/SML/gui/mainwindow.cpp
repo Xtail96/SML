@@ -762,46 +762,7 @@ void MainWindow::setMotionWidgetsState(bool enableWidgets)
     ui->runPushButton->setEnabled(enableWidgets);
 }
 
-void MainWindow::stepMove(QMap<QString, double> steps)
-{
-    try
-    {
-        /*if(ui->discreteRadioButton_5->isChecked())
-        {
-            return;
-        }*/
 
-        MachineTool &i = MachineTool::getInstance();
-        Point currentCoordinatesFromBase = i.getRepository().getCurrentPositionFromBase();
-        Point increment = i.getRepository().createEmptyPoint();
-
-        QStringList axises = steps.keys();
-        for(auto axis : axises)
-        {
-            increment.insertAxis(axis, steps[axis]);
-        }
-
-        Point target = currentCoordinatesFromBase + increment;
-        this->moveTo(target);
-    }
-    catch(InvalidArgumentException e)
-    {
-        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
-    }
-}
-
-void MainWindow::moveTo(Point target)
-{
-    try
-    {
-        MachineTool &i = MachineTool::getInstance();
-        i.moveToPoint(target);
-    }
-    catch(InvalidArgumentException e)
-    {
-        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
-    }
-}
 
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
@@ -829,15 +790,14 @@ void MainWindow::on_discreteRadioButton_4_clicked()
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    //MachineTool::getInstance().getRepository().setMovementStep(0);
-    MachineTool::getInstance().getRepository().setMovementStep(1);
+    MachineTool::getInstance().getRepository().setMovementStep(0.01);
     this->setMovementButtonsAutoRepeat(true);
 }
 
 void MainWindow::on_movementXPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", i.getRepository().getMovementStep())
     });
 }
@@ -845,7 +805,7 @@ void MainWindow::on_movementXPositivePushButton_clicked()
 void MainWindow::on_movementXNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep())
     });
 }
@@ -853,7 +813,7 @@ void MainWindow::on_movementXNegativePushButton_clicked()
 void MainWindow::on_movementYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
     });
 }
@@ -861,7 +821,7 @@ void MainWindow::on_movementYPositivePushButton_clicked()
 void MainWindow::on_movementYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
     });
 }
@@ -869,7 +829,7 @@ void MainWindow::on_movementYNegativePushButton_clicked()
 void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
         std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
     });
@@ -878,7 +838,7 @@ void MainWindow::on_movementXNegativeYPositivePushButton_clicked()
 void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
         std::make_pair<QString, double> ("Y", i.getRepository().getMovementStep())
     });
@@ -887,7 +847,7 @@ void MainWindow::on_movementXPositiveYPositivePushButton_clicked()
 void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", -i.getRepository().getMovementStep()),
         std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
     });
@@ -896,7 +856,7 @@ void MainWindow::on_movementXNegativeYNegativePushButton_clicked()
 void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("X", i.getRepository().getMovementStep()),
         std::make_pair<QString, double> ("Y", -i.getRepository().getMovementStep())
     });
@@ -905,7 +865,7 @@ void MainWindow::on_movementXPositiveYNegativePushButton_clicked()
 void MainWindow::on_movementZPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("Z", i.getRepository().getMovementStep())
     });
 }
@@ -913,7 +873,7 @@ void MainWindow::on_movementZPositivePushButton_clicked()
 void MainWindow::on_movementZNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("Z", -i.getRepository().getMovementStep())
     });
 }
@@ -921,7 +881,7 @@ void MainWindow::on_movementZNegativePushButton_clicked()
 void MainWindow::on_movementAPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("A", i.getRepository().getMovementStep())
     });
 }
@@ -929,7 +889,7 @@ void MainWindow::on_movementAPositivePushButton_clicked()
 void MainWindow::on_movementANegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("A", -i.getRepository().getMovementStep())
     });
 }
@@ -937,7 +897,7 @@ void MainWindow::on_movementANegativePushButton_clicked()
 void MainWindow::on_movementBNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("B", -i.getRepository().getMovementStep())
     });
 }
@@ -945,7 +905,7 @@ void MainWindow::on_movementBNegativePushButton_clicked()
 void MainWindow::on_movementBPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("B", i.getRepository().getMovementStep())
     });
 }
@@ -953,7 +913,7 @@ void MainWindow::on_movementBPositivePushButton_clicked()
 void MainWindow::on_movementCNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("C", -i.getRepository().getMovementStep())
     });
 }
@@ -961,7 +921,7 @@ void MainWindow::on_movementCNegativePushButton_clicked()
 void MainWindow::on_movementCPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("C", i.getRepository().getMovementStep())
     });
 }
@@ -969,7 +929,7 @@ void MainWindow::on_movementCPositivePushButton_clicked()
 void MainWindow::on_movementUNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("U", -i.getRepository().getMovementStep())
     });
 }
@@ -977,7 +937,7 @@ void MainWindow::on_movementUNegativePushButton_clicked()
 void MainWindow::on_movementUPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("U", i.getRepository().getMovementStep())
     });
 }
@@ -985,7 +945,7 @@ void MainWindow::on_movementUPositivePushButton_clicked()
 void MainWindow::on_movementVNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("V", -i.getRepository().getMovementStep())
     });
 }
@@ -993,7 +953,7 @@ void MainWindow::on_movementVNegativePushButton_clicked()
 void MainWindow::on_movementVPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("V", i.getRepository().getMovementStep())
     });
 }
@@ -1001,7 +961,7 @@ void MainWindow::on_movementVPositivePushButton_clicked()
 void MainWindow::on_movementWNegativePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("W", -i.getRepository().getMovementStep())
     });
 }
@@ -1009,7 +969,7 @@ void MainWindow::on_movementWNegativePushButton_clicked()
 void MainWindow::on_movementWPositivePushButton_clicked()
 {
     MachineTool &i = MachineTool::getInstance();
-    this->stepMove({
+    i.stepMove({
         std::make_pair<QString, double> ("W", i.getRepository().getMovementStep())
     });
 }
@@ -1038,7 +998,7 @@ void MainWindow::on_pointAddToolButton_clicked()
 
 void MainWindow::on_pointDeleteToolButton_clicked()
 {
-    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();;
+    QItemSelectionModel *select = ui->pointsTableWidget->selectionModel();
     QModelIndexList selectedItemsIndexes = select->selectedIndexes();
 
     if(selectedItemsIndexes.size() > 0)
@@ -1541,7 +1501,7 @@ void MainWindow::on_zeroPushButton_clicked()
 void MainWindow::on_toZeroPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    this->moveTo(machineTool.getRepository().getZeroCoordinates());
+    machineTool.moveToPoint(machineTool.getRepository().getZeroCoordinates());
 }
 
 void MainWindow::on_parkPushButton_clicked()
@@ -1554,5 +1514,5 @@ void MainWindow::on_parkPushButton_clicked()
 void MainWindow::on_toParkPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    this->moveTo(machineTool.getRepository().getParkCoordinates());
+    machineTool.moveToPoint(machineTool.getRepository().getParkCoordinates());
 }

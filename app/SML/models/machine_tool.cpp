@@ -375,6 +375,28 @@ void MachineTool::stopExecutionQueueProcessing()
     m_executionQueue.clear();
 }
 
+void MachineTool::stepMove(QMap<QString, double> steps)
+{
+    try
+    {
+        Point currentCoordinatesFromBase = m_repository.getCurrentPositionFromBase();
+        Point increment = m_repository.createEmptyPoint();
+
+        QStringList axises = steps.keys();
+        for(auto axis : axises)
+        {
+            increment.insertAxis(axis, steps[axis]);
+        }
+
+        Point target = currentCoordinatesFromBase + increment;
+        this->moveToPoint(target);
+    }
+    catch(InvalidArgumentException e)
+    {
+        QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
+    }
+}
+
 void MachineTool::moveToPoint(Point pointFromBase)
 {
     try

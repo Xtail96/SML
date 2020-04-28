@@ -246,6 +246,7 @@ public slots:
     void resumeExecutionQueueProcessing();
     void stopExecutionQueueProcessing();
 
+    void stepMove(QMap<QString, double> steps);
     void moveToPoint(Point pointFromBase);
 
     void moveToSensor(QString sensorUid);
