@@ -271,7 +271,7 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
             }
         }
 
-        if(action == "get_current_state")
+        if(action == "getCurrentState")
         {
             this->getCurrentState();
             return;

@@ -19,7 +19,7 @@ void GetAdapterCurrentStateInteractor::execute(SMLAdapterServer &server, Adapter
     }
 
     QtJson::JsonObject rootObj;
-    rootObj["action"] = "get_current_state";
+    rootObj["action"] = "getCurrentState";
     rootObj["target"] = targetAdapter;
 
     bool ok = false;

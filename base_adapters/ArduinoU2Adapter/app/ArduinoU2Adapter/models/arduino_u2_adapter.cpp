@@ -109,6 +109,13 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
     QString target = parsedMessage["target"].toString();
     if(target.toLower() != "u2") return;
 
+    QString action = parsedMessage["action"].toString();
+    if(action == "getCurrentState")
+    {
+        this->sendStateToServer();
+        return;
+    }
+
     QString gcodesFrame = parsedMessage["frame"].toString();
     QtJson::JsonObject gcodesDetailedInfo = parsedMessage["detailedInfo"].toMap();
 
@@ -124,6 +131,13 @@ void ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived(QByteArray messa
 
         int position = int(round(axesArguments[axis.getId()].toDouble() * 100));
         if(position == axis.getMotor().targetPos()) continue;
+
+        if(axis.getMotor().isMoving())
+        {
+            qDebug() << "ArduinoU2Adapter::onWebSocketHandler_BinaryMessageReceived: motor is moving already. Command"
+                     << messageString << "is dropped";
+            continue;
+        }
 
         cmds.append(axis.getMotor().prepareMotorCmd(position, feedrate));
     }

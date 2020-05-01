@@ -19,6 +19,7 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
         gpr::block block = program.get_block(i);
 
         QtJson::JsonObject package = {};
+        package.insert("action", "gcodeExecution");
         package.insert("frame", QString::fromStdString(block.to_string()));
         QtJson::JsonObject detailedInfo = {};
 
