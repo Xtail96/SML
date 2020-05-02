@@ -16,18 +16,18 @@ Sensor::Sensor(QString uid,
     m_inputNumber(inputNumber),
     m_inputActiveState(inputActiveState),
     m_inputCurrentState(!m_inputActiveState),
-    m_activeStateLedColor(color)
+    m_ledColorActiveState(color)
 {
 }
 
 bool Sensor::operator<(const Sensor &sensor)
 {
-    return this->m_uid < sensor.getUid();
+    return this->m_uid < sensor.uid();
 }
 
 bool Sensor::operator==(const Sensor &sensor)
 {
-    return this->m_uid == sensor.getUid();
+    return this->m_uid == sensor.uid();
 }
 
 void Sensor::updateInputState(bool state)
@@ -35,7 +35,7 @@ void Sensor::updateInputState(bool state)
     this->setInputCurrentState(state);
 }
 
-bool Sensor::getInputCurrentState() const
+bool Sensor::inputCurrentState() const
 {
     return m_inputCurrentState;
 }
@@ -45,46 +45,38 @@ void Sensor::setInputCurrentState(bool value)
     if(m_inputCurrentState != value)
     {
         m_inputCurrentState = value;
-
-        if(this->isEnable())
-        {
-            emit this->stateChanged(m_uid, true);
-        }
-        else
-        {
-            emit this->stateChanged(m_uid, false);
-        }
+        emit this->stateChanged();
     }
 }
 
-size_t Sensor::getPortNumber() const
+size_t Sensor::portNumber() const
 {
     return m_portNumber;
 }
 
-size_t Sensor::getInputNumber() const
+size_t Sensor::inputNumber() const
 {
     return m_inputNumber;
 }
 
-QString Sensor::getUid() const
+QString Sensor::uid() const
 {
     return m_uid;
 }
 
-QString Sensor::getBoardName() const
+QString Sensor::boardName() const
 {
     return m_boardName;
 }
 
-bool Sensor::getInputActiveState() const
+bool Sensor::inputActiveState() const
 {
     return m_inputActiveState;
 }
 
-QColor Sensor::getActiveStateLedColor() const
+QColor Sensor::ledColorActiveStaate() const
 {
-    return m_activeStateLedColor;
+    return m_ledColorActiveState;
 }
 
 bool Sensor::isEnable()
@@ -92,12 +84,12 @@ bool Sensor::isEnable()
     return (m_inputActiveState == m_inputCurrentState);
 }
 
-QString Sensor::getLabel() const
+QString Sensor::label() const
 {
     return m_label;
 }
 
-QString Sensor::getSettings()
+QString Sensor::settings()
 {
     QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
             QStringLiteral("Uid:") + m_uid + QStringLiteral(";") +
@@ -106,6 +98,6 @@ QString Sensor::getSettings()
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
             QStringLiteral("ActiveState:") + QString::number(m_inputActiveState) + QStringLiteral(";") +
             QStringLiteral("CurrentState:") + QString::number(m_inputCurrentState) + QStringLiteral(";") +
-            QStringLiteral("ActiveStateLedColor:") + m_activeStateLedColor.name();
+            QStringLiteral("ActiveStateLedColor:") + m_ledColorActiveState.name();
     return sensorSettings;
 }

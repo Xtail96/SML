@@ -88,9 +88,9 @@ void Repository::setU1Sensors(QList<QVariant> sensors)
         m_sensorsBuffer.updateBuffer(currentSensorsState);
         for(auto sensor : m_sensors)
         {
-            bool isVoltage = m_sensorsBuffer.getInputState(sensor->getBoardName(),
-                                                            sensor->getPortNumber(),
-                                                            sensor->getInputNumber());
+            bool isVoltage = m_sensorsBuffer.getInputState(sensor->boardName(),
+                                                            sensor->portNumber(),
+                                                            sensor->inputNumber());
             sensor->updateInputState(isVoltage);
         }
     }
@@ -264,7 +264,7 @@ QStringList Repository::getAllSensorsUids()
     {
         for(auto sensor : m_sensors)
         {
-            uids.push_back(sensor->getUid());
+            uids.push_back(sensor->uid());
         }
     }
     catch(...)
@@ -282,7 +282,7 @@ QMap<QString, QString> Repository::getSensorSettings(QString uid)
 
     try
     {
-        QString settingsString = this->getSensor(uid).getSettings();
+        QString settingsString = this->getSensor(uid).settings();
         QStringList settingsList = settingsString.split(";");
 
         for(auto setting : settingsList)
@@ -316,7 +316,7 @@ QStringList Repository::getAllSensorsSettings()
     {
         for(auto sensor : m_sensors)
         {
-            settings.push_back(sensor->getSettings());
+            settings.push_back(sensor->settings());
         }
     }
     catch(...)
@@ -962,7 +962,7 @@ bool Repository::sensorExists(QString uid)
 {
     for(auto sensor : m_sensors)
     {
-        if(sensor->getUid() == uid)
+        if(sensor->uid() == uid)
         {
             return true;
         }
@@ -1013,7 +1013,7 @@ Sensor &Repository::getSensor(QString uid)
 {
     for(auto sensor : m_sensors)
     {
-        if(sensor->getUid() == uid)
+        if(sensor->uid() == uid)
         {
             return *(sensor.data());
         }

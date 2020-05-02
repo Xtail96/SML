@@ -48,7 +48,7 @@ public:
      * @brief Возвращает текущее состояние входа, к которому подключен датчик
      * @return текущее состояние входа, к которому подключен датчик. true - есть напряжение на входе. false - нет напряжения на входе.
      */
-    bool getInputCurrentState() const;
+    bool inputCurrentState() const;
 
     /**
      * @brief Обновляет текущее состояния входа, если новое значение НЕ совпадает с текущим
@@ -62,31 +62,31 @@ public:
      *
      * Порт датчика приходит снаружи в конструктор датчика.
      */
-    size_t getPortNumber() const;
+    size_t portNumber() const;
 
     /**
      * @brief Возвращает номер входа датчика
      * @return номер входа, к которому подключен датчик
      */
-    size_t getInputNumber() const;
+    size_t inputNumber() const;
 
     /**
      * @brief Возвращает уникальный идентификатор датчика
      * @return уникальный идентификатор (имя) датчика
      */
-    QString getUid() const;
+    QString uid() const;
 
     /**
      * @brief Возвращает имя платы, к которой подключен датчик
      * @return имя платы, к которой подключен датчик (u1 / u2)
      */
-    QString getBoardName() const;
+    QString boardName() const;
 
     /**
      * @brief Возвращает активное состояние входа, к которому подключен датчик
      * @return состояние входа (логический ноль или логическая единица), при котором датчик считается активным
      */
-    bool getInputActiveState() const;
+    bool inputActiveState() const;
 
     /**
      * @brief Возвращает цвет индикатора активного датчика
@@ -95,7 +95,7 @@ public:
      * В системе, для наглядности, у каждого датчика задается цвет индикатора, который необходимо выводить
      * в интерфейс при срабатывании датчика.
      */
-    QColor getActiveStateLedColor() const;
+    QColor ledColorActiveStaate() const;
 
     /**
      * @brief Проверяет сработал ли датчик
@@ -110,14 +110,14 @@ public:
      * @warning Этот параметр нужно использовать исключительно для отображения имени датчика в интерфейсе.
      * @warning Поиск датчика по этому параметру проводить нельзя.
      */
-    QString getLabel() const;
+    QString label() const;
 
     /**
      * @brief Возвращает актуальные настройки датчика
      * @return настройки датчика в виде строки, формата
      * "setting1_key:setting1_value;setting2_key:setting2_value"
      */
-    QString getSettings();
+    QString settings();
 
 protected:
     /// Уникальный идентификатор (имя) датчика
@@ -148,15 +148,13 @@ protected:
     bool m_inputCurrentState;
 
     /// Цвет индикатора датчика
-    QColor m_activeStateLedColor;
+    QColor m_ledColorActiveState;
 
 signals:
     /**
      * @brief Сигнал об изменении состояния датчика
-     * @param name уникальный идентификатор датчика
-     * @param enable обновленное состояние датчика. true - датчик активен. false - датчик не активен.
      */
-    void stateChanged(QString name, bool enable);
+    void stateChanged();
 
 public slots:
 

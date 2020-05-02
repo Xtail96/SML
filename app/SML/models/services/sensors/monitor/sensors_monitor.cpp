@@ -4,11 +4,8 @@ SensorsMonitor::SensorsMonitor(QList<QSharedPointer<Sensor> > &sensors, QObject 
 {
     for(auto sensor : sensors)
     {
-        QObject::connect(sensor.data(), SIGNAL(stateChanged(QString,bool)), this, SLOT(onSensor_StateChanged(QString,bool)));
+        QObject::connect(sensor.data(), &Sensor::stateChanged, this, [=]() {
+            emit this->stateChanged(sensor.data()->uid(), sensor.data()->isEnable());
+        });
     }
-}
-
-void SensorsMonitor::onSensor_StateChanged(QString uid, bool enable)
-{
-    emit stateChanged(uid, enable);
 }

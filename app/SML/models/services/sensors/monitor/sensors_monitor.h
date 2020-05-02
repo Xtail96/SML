@@ -31,15 +31,6 @@ signals:
      * @param state обновленное состояние датчика
      */
     void stateChanged(QString uid, bool state);
-
-protected slots:
-
-    /**
-     * @brief Испускает сигнал об изменении состояния датчика
-     * @param uid уникальный идентификатор датчика
-     * @param enable обновленное состояние датчика
-     */
-    void onSensor_StateChanged(QString uid, bool enable);
 };
 
 #endif // SENSORSMONITOR_H
