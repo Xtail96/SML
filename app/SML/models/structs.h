@@ -27,7 +27,7 @@ enum ERROR_CODE
     UNKNOWN_ERROR
 };
 
-bool axisesNamesComparator(QString a1, QString a2);
+bool axesNamesComparator(QString a1, QString a2);
 
 /*!
  * \brief Объект "Имена осей"
@@ -43,7 +43,7 @@ struct
 {
 public:
     /// \details Словарь имен всех осей в формате <ключ, значение> = <индекс оси, имя оси>
-    std::map<size_t, QString> axisesNames =
+    std::map<size_t, QString> axesNames =
     {
         {0, "X"},
         {1, "Y"},
@@ -59,9 +59,9 @@ public:
     /// \details Получение имени оси(значения) по ключу(индексу);
     QString getNameByKey(const size_t &value)
     {
-        if(value < axisesNames.size())
+        if(value < axesNames.size())
         {
-            return axisesNames[value];
+            return axesNames[value];
         }
         else
         {
@@ -72,7 +72,7 @@ public:
     /// \details Получение индекса(ключа) по имени оси(значению);
     size_t getKeyByName(const QString &s) const
     {
-        for(auto it : axisesNames)
+        for(auto it : axesNames)
         {
             if(it.second == s)
             {
@@ -86,7 +86,7 @@ public:
     /// \details Проверка сущетсвания оси с указанным именем;
     bool contains(const QString &name) const
     {
-        for(auto it : axisesNames)
+        for(auto it : axesNames)
         {
             if(it.second == name)
             {
@@ -97,15 +97,15 @@ public:
         return false;
     }
 
-    QStringList sort(QStringList axisesNames)
+    QStringList sort(QStringList axesNames)
     {
-        QList< QPair<size_t, QString> > axisesMeta = {};
+        QList< QPair<size_t, QString> > axesMeta = {};
         QStringList unresolved = {};
-        for(auto axisName : axisesNames)
+        for(auto axisName : axesNames)
         {
             if(this->contains(axisName))
             {
-                axisesMeta.append(QPair<size_t, QString>(this->getKeyByName(axisName), axisName));
+                axesMeta.append(QPair<size_t, QString>(this->getKeyByName(axisName), axisName));
             }
             else
             {
@@ -113,19 +113,19 @@ public:
             }
         }
 
-        std::sort(axisesMeta.begin(), axisesMeta.end(), [] (QPair<size_t, QString> a1, QPair<size_t, QString> a2) {
+        std::sort(axesMeta.begin(), axesMeta.end(), [] (QPair<size_t, QString> a1, QPair<size_t, QString> a2) {
             return a1.first < a2.first;
         });
 
         QStringList result = {};
-        for(auto axisesMetaItem : axisesMeta)
+        for(auto axesMetaItem : axesMeta)
         {
-            result.append(axisesMetaItem.second);
+            result.append(axesMetaItem.second);
         }
 
         return result + unresolved;
     }
-} SML_AXISES_NAMES;
+} SML_AXES_NAMES;
 
 
 

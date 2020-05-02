@@ -129,8 +129,8 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("ExternalTools");
         settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU1Adapter/app/build-ArduinoU1Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU1Adapter");
-        settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
-        //settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU2Adapter/app/build-ArduinoU2Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU2Adapter");
+        //settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
+        settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU2Adapter/app/build-ArduinoU2Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU2Adapter");
 #ifdef Q_OS_MACX
         //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
         settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_8_clang_64bit-Release/CandleGCodesViewer");
@@ -148,109 +148,55 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("AxisX");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 250);
-        settings->setValue("Speed", 250);
         settings->setValue("BazaSearchSpeed", 60);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
         settings->setValue("LowerBound", 0);
         settings->setValue("UpperBound", 1000);
     settings->endGroup();
 
     settings->beginGroup("AxisY");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 250);
         settings->setValue("BazaSearchSpeed", 60);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
         settings->setValue("LowerBound", 0);
         settings->setValue("UpperBound", 500);
     settings->endGroup();
 
     settings->beginGroup("AxisZ");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 6000);
-        settings->setValue("Acceleration", 100);
-        settings->setValue("Speed", 50);
         settings->setValue("BazaSearchSpeed", 25);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
         settings->setValue("LowerBound", -100);
         settings->setValue("UpperBound", 0);
     settings->endGroup();
 
     settings->beginGroup("AxisA");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 100);
-        settings->setValue("Speed", 100);
         settings->setValue("BazaSearchSpeed", 10);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisB");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 200);
-        settings->setValue("BazaSearchSpeed", 40);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
+        settings->setValue("BazaSearchSpeed", 30);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisC");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 200);
-        settings->setValue("BazaSearchSpeed", 40);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
+        settings->setValue("BazaSearchSpeed", 30);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisU");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 200);
-        settings->setValue("BazaSearchSpeed", 40);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
+        settings->setValue("BazaSearchSpeed", 30);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisV");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 200);
-        settings->setValue("BazaSearchSpeed", 40);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
+        settings->setValue("BazaSearchSpeed", 30);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
 
     settings->beginGroup("AxisW");
-        settings->setValue("Channel", 8);
-        settings->setValue("Jerk", 10000);
-        settings->setValue("Acceleration", 400);
-        settings->setValue("Speed", 200);
-        settings->setValue("BazaSearchSpeed", 40);
-        settings->setValue("Step", 0.05);
-        settings->setValue("Invert", false);
+        settings->setValue("BazaSearchSpeed", 30);
         settings->setValue("LowerBound", -90);
         settings->setValue("UpperBound", 90);
     settings->endGroup();
@@ -262,17 +208,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisYSensor");
@@ -282,17 +217,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisZSensor");
@@ -302,17 +226,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisASensor");
@@ -322,17 +235,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisBSensor");
@@ -342,17 +244,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisCSensor");
@@ -362,17 +253,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisUSensor");
@@ -382,17 +262,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisVSensor");
@@ -402,17 +271,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("AxisWSensor");
@@ -422,17 +280,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "0.0"),
-                               std::make_pair("AxisY", "0.0"),
-                               std::make_pair("AxisZ", "0.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                               std::make_pair("AxisC", "0.0"),
-                               std::make_pair("AxisU", "0.0"),
-                               std::make_pair("AxisV", "0.0"),
-                               std::make_pair("AxisW", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("ZeroSensor");
@@ -442,13 +289,6 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("BoardName", "u1");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
-        settings->setValue("Position", QMap<QString, QVariant> {
-                               std::make_pair("AxisX", "1000.0"),
-                               std::make_pair("AxisY", "500.0"),
-                               std::make_pair("AxisZ", "-50.0"),
-                               std::make_pair("AxisA", "0.0"),
-                               std::make_pair("AxisB", "0.0"),
-                           });
     settings->endGroup();
 
     settings->beginGroup("Spindel0");

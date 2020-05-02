@@ -13,7 +13,7 @@ Repository::Repository(QObject *parent) :
     m_sensorsBuffer(16),
     m_spindels(QList< QSharedPointer<Spindel> >()),
     m_supportDevices(QList< QSharedPointer<SupportDevice> >()),
-    m_axises(QList< QSharedPointer<Axis> >()),
+    m_axes(QList< QSharedPointer<Axis> >()),
     m_points(QList<Point>()),
     m_zeroCoordinates(Point()),
     m_parkCoordinates(Point()),
@@ -381,7 +381,7 @@ void Repository::setCurrentPosition(Point absCoordinates)
 {
     try
     {
-        for(auto axis : m_axises)
+        for(auto axis : m_axes)
         {
             auto absValue = absCoordinates.get(axis->name());
             axis->setCurrentPosition(absValue);
@@ -396,7 +396,7 @@ void Repository::setCurrentPosition(Point absCoordinates)
 
 void Repository::setCurrentPosition(QMap<QString, double> absCoordinates)
 {
-    for(auto axis : m_axises)
+    for(auto axis : m_axes)
     {
         QString currentAxisName = axis->name();
         if(absCoordinates.contains(currentAxisName))
@@ -413,7 +413,7 @@ QStringList Repository::getAxisesNames()
 
     try
     {
-        for(auto axis : m_axises)
+        for(auto axis : m_axes)
         {
             names.push_back(axis->name());
         }
@@ -425,7 +425,7 @@ QStringList Repository::getAxisesNames()
     }
 
 
-    return SML_AXISES_NAMES.sort(names);
+    return SML_AXES_NAMES.sort(names);
 }
 
 double Repository::getAxisPosition(const QString axisName)
@@ -451,15 +451,15 @@ double Repository::getAxisPosition(const QString axisName)
     }
 }
 
-QStringList Repository::getAxisesSettings()
+QStringList Repository::getAxesSettings()
 {
-    QStringList axisesSettings = {};
+    QStringList axesSettings = {};
 
     try
     {
-        for(auto axis : m_axises)
+        for(auto axis : m_axes)
         {
-            axisesSettings.push_back(axis->axisSettings());
+            axesSettings.push_back(axis->axisSettings());
         }
     }
     catch(...)
@@ -468,7 +468,7 @@ QStringList Repository::getAxisesSettings()
         emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
-    return axisesSettings;
+    return axesSettings;
 }
 
 QStringList Repository::getOptionsLabels()
@@ -564,7 +564,7 @@ void Repository::updatePoint(QMap<QString, double> coordinates, unsigned int ind
 Point Repository::createEmptyPoint()
 {
     Point p;
-    for(auto axis : m_axises)
+    for(auto axis : m_axes)
     {
         p.insertAxis(axis->name(), 0.0);
     }
@@ -602,10 +602,6 @@ void Repository::setSoftLimitsMode(bool enable)
 {
     try
     {
-        for(auto axis : m_axises)
-        {
-            axis->setSoftLimitsEnable(enable);
-        }
     }
     catch(...)
     {
@@ -817,7 +813,7 @@ void Repository::setVelocity(double velocity)
 
 size_t Repository::getAxisesCount()
 {
-    return size_t(m_axises.size());
+    return size_t(m_axes.size());
 }
 
 // private
@@ -863,13 +859,7 @@ void Repository::loadSensorsSettings()
             QString boardName = QVariant(m_settingsManager.get(sectionName, "BoardName")).toString();
             bool activeState = QVariant(m_settingsManager.get(sectionName, "ActiveState")).toBool();
             QColor color = QColor(QVariant(m_settingsManager.get(sectionName, "Color")).toString());
-            QMap<QString, QVariant> rawPosition = QMap<QString, QVariant>(m_settingsManager.get(sectionName, "Position").toMap());
 
-            QMap<QString, double> position = {};
-            for(auto i = rawPosition.begin(); i != rawPosition.end(); i++)
-            {
-                position.insert(i.key(), i.value().toDouble());
-            }
             m_sensors.push_back(QSharedPointer<Sensor>(new Sensor(sensorUid,
                                                                   label,
                                                                   portNumber,
@@ -877,7 +867,6 @@ void Repository::loadSensorsSettings()
                                                                   boardName,
                                                                   activeState,
                                                                   color,
-                                                                  position,
                                                                   this)));
         }
 
@@ -946,19 +935,15 @@ void Repository::loadAxisesSettings()
         QStringList availableAxises = m_settingsManager.get("Main", "AvailableAxises").toStringList();
         for(auto axisUid : availableAxises)
         {
-            if(!SML_AXISES_NAMES.contains(axisUid)) throw InvalidConfigurationException("Unknown axis uid " + axisUid);
+            if(!SML_AXES_NAMES.contains(axisUid)) throw InvalidConfigurationException("Unknown axis uid " + axisUid);
 
             QString sectionName = QStringLiteral("Axis") + axisUid;
 
-            double step = m_settingsManager.get(sectionName, "Step").toDouble();
-            bool invertDirection = m_settingsManager.get(sectionName, "Invert").toBool();
             double bazaSearchSpeed = m_settingsManager.get(sectionName, "BazaSearchSpeed").toDouble();
             double lowerBound = m_settingsManager.get(sectionName, "LowerBound").toDouble();
             double uppderBound = m_settingsManager.get(sectionName, "UpperBound").toDouble();
-            double length = uppderBound - lowerBound;
 
-            QSharedPointer<Axis> axis = QSharedPointer<Axis>(new Axis(axisUid, length, step, invertDirection, bazaSearchSpeed, lowerBound, uppderBound, this));
-            m_axises.push_back(axis);
+            m_axes.push_back(QSharedPointer<Axis>(new Axis(axisUid, lowerBound, uppderBound, bazaSearchSpeed, this)));
 
             m_zeroCoordinates.insertAxis(axisUid, 0.0);
             m_parkCoordinates.insertAxis(axisUid, 0.0);
@@ -992,7 +977,7 @@ Point Repository::getCurrentPositionFromBase()
 
     try
     {
-        for(auto axis : m_axises)
+        for(auto axis : m_axes)
         {
             result.insertAxis(axis->name(), axis->currentPosition());
         }
@@ -1089,7 +1074,7 @@ Spindel &Repository::getSpindel(QString uid)
 
 bool Repository::axisExists(QString uid)
 {
-    for(auto axis : m_axises)
+    for(auto axis : m_axes)
     {
         if(axis->name() == uid)
         {
@@ -1102,7 +1087,7 @@ bool Repository::axisExists(QString uid)
 
 Axis &Repository::getAxis(QString uid)
 {
-    for(auto axis : m_axises)
+    for(auto axis : m_axes)
     {
         if(axis->name() == uid)
         {
@@ -1122,7 +1107,7 @@ Axis &Repository::getAxis(QString uid)
 Point Repository::getMaxPosition()
 {
     Point maxPosition = Point();
-    for(auto axis : m_axises)
+    for(auto axis : m_axes)
     {
         maxPosition.insertAxis(axis->name(), axis->upperBound());
     }

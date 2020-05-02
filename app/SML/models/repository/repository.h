@@ -335,7 +335,7 @@ public:
      * @brief Возвращает настройки доступных осей координат
      * @return настройки всех доступных осей координат
      */
-    QStringList getAxisesSettings();
+    QStringList getAxesSettings();
 
     /**
      * @brief Включает / Отключает контроль габаритов
@@ -419,7 +419,7 @@ private:
 
     // Оси
     /// Список доступных координатных осей
-    QList< QSharedPointer<Axis> > m_axises;
+    QList< QSharedPointer<Axis> > m_axes;
 
     QList<Point> m_points;
 

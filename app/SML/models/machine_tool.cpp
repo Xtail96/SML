@@ -13,7 +13,7 @@ MachineTool::MachineTool(QObject *parent) :
     m_sensorsMonitor(m_repository.m_sensors, this),
     m_spindelsMonitor(m_repository.m_spindels, this),
     m_gcodesMonitor(m_repository.m_gcodesFilesManager, this),
-    m_axisesMonitor(m_repository.m_axises, this),
+    m_axisesMonitor(m_repository.m_axes, this),
     m_executionQueue(QQueue<QByteArray>()),
     m_based(false),
     m_adaptersLauncher(new AdaptersLauncher(this))

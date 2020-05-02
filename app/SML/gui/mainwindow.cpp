@@ -460,7 +460,7 @@ void MainWindow::setupAxisesSettingsBoard()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QStringList axisesSettings = machineTool.getRepository().getAxisesSettings();
+    QStringList axisesSettings = machineTool.getRepository().getAxesSettings();
     ui->axisesSettingsListWidget->addItems(axisesSettings);
 }
 

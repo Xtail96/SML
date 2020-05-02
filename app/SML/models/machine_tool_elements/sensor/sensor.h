@@ -32,7 +32,6 @@ public:
            QString boardName,
            bool inputActiveState,
            QColor color,
-           QMap<QString, double> position,
            QObject *parent = nullptr);
 
     /**
@@ -120,9 +119,6 @@ public:
      */
     QString getSettings();
 
-    QMap<QString, double> getPosition() const;
-    void setPosition(const QMap<QString, double> &position);
-
 protected:
     /// Уникальный идентификатор (имя) датчика
     QString m_uid;
@@ -153,8 +149,6 @@ protected:
 
     /// Цвет индикатора датчика
     QColor m_activeStateLedColor;
-
-    QMap<QString, double> m_position;
 
 signals:
     /**

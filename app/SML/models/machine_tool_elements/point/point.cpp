@@ -28,7 +28,7 @@ void Point::insertAxis(QString axisName, double coord)
 
 QList< QPair<QString, double> > Point::coords()
 {
-    QStringList axisesUidsSorted = SML_AXISES_NAMES.sort(m_coords.keys());
+    QStringList axisesUidsSorted = SML_AXES_NAMES.sort(m_coords.keys());
 
     QList< QPair<QString, double> > result = {};
     for(auto axisUid : axisesUidsSorted)
