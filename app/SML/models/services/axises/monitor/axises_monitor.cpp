@@ -5,11 +5,8 @@ AxisesMonitor::AxisesMonitor(QList<QSharedPointer<Axis> > &axises, QObject *pare
 {
     for(auto axis : axises)
     {
-        QObject::connect(axis.data(), SIGNAL(currentPositionChanged(QString,double)), this, SLOT(onAxis_CurrentPositionChanged(QString,double)));
+        QObject::connect(axis.data(), &Axis::currentPositionChanged, this, [=]() {
+            emit this->axisCurrentPositionChanged(axis.data()->name(), axis.data()->currentPosition());
+        });
     }
-}
-
-void AxisesMonitor::onAxis_CurrentPositionChanged(QString uid, double position)
-{
-    emit this->axisCurrentPositionChanged(uid, position);
 }

@@ -40,7 +40,7 @@ private:
     double m_upperBound;
 
 signals:
-    void currentPositionChanged(QString axisUid, double currentPosition);
+    void currentPositionChanged();
 };
 
 #endif // AXIS_H

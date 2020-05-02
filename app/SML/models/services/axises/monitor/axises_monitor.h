@@ -14,9 +14,6 @@ public:
 
 signals:
     void axisCurrentPositionChanged(QString uid, double position);
-
-public slots:
-    void onAxis_CurrentPositionChanged(QString uid, double position);
 };
 
 #endif // AXISES_MONITOR_H
