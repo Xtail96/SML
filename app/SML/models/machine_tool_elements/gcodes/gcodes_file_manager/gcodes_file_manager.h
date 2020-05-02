@@ -45,8 +45,8 @@ public:
 signals:
     void loadedFile();
 
-    void filePathUpdated(QString path);
-    void fileContentUpdated(QStringList data);
+    void filePathUpdated();
+    void fileContentUpdated();
 
 public slots:
     void onFileLoaded(QString content);

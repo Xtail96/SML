@@ -43,12 +43,7 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     gui/sml_console_dialog.cpp \
     gui/to_selection_point_dialog.cpp \
-    models/services/adapters/monitor/adapters_monitor.cpp \
-    models/services/devices/spindels/monitor/spindels_monitor.cpp \
-    models/services/gcodes/monitor/gcodes_monitor.cpp \
     models/services/gcodes/view/gcodes_view_interactor.cpp \
-    models/services/points/monitor/points_monitor.cpp \
-    models/services/sensors/monitor/sensors_monitor.cpp \
     models/settings_manager/settings_manager.cpp \
     models/machine_tool_elements/device/devices_buffer.cpp \
     models/machine_tool_elements/device/support_device.cpp \
@@ -61,7 +56,6 @@ SOURCES += main.cpp\
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
-    models/services/axises/monitor/axises_monitor.cpp \
     models/errors/sml_error_flags.cpp \
     models/services/errors/error_flags_monitor.cpp
 
@@ -94,11 +88,6 @@ HEADERS  += gui/mainwindow.h \
     gui/utils/gcodes_syntax_highlighter.h \
     gui/sml_console_dialog.h \
     gui/to_selection_point_dialog.h \
-    models/services/adapters/monitor/adapters_monitor.h \
-    models/services/devices/spindels/monitor/spindels_monitor.h \
-    models/services/gcodes/monitor/gcodes_monitor.h \
-    models/services/points/monitor/points_monitor.h \
-    models/services/sensors/monitor/sensors_monitor.h \
     models/machine_tool.h \
     models/settings_manager/settings_manager.h \
     models/machine_tool_elements/device/devices_buffer.h \
@@ -115,7 +104,6 @@ HEADERS  += gui/mainwindow.h \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h \
     models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
-    models/services/axises/monitor/axises_monitor.h \
     models/errors/sml_error_flags.h \
     models/services/errors/error_flags_monitor.h
 

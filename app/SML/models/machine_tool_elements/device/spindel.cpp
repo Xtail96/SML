@@ -42,11 +42,11 @@ void Spindel::setCurrentState(bool value, QMap<QString, QString> attributes)
                 size_t rotations = attributes["rotations"].toUInt();
                 setCurrentRotations(rotations);
             }
-            emit stateChanged(m_uid, true, m_currentRotations);
+            emit this->stateChanged();
         }
         else
         {
-            emit stateChanged(m_uid, false, m_currentRotations);
+            emit this->stateChanged();
         }
     }
 }
@@ -107,5 +107,5 @@ void Spindel::update(bool state, size_t rotations)
     QMap<QString, QString> params;
     params.insert(QStringLiteral("rotations"), QString::number(rotations));
 
-    setCurrentState(state, params);
+    this->setCurrentState(state, params);
 }

@@ -45,7 +45,7 @@ protected:
     size_t m_currentRotations;
 
 signals:
-    void stateChanged(QString index, bool state, size_t rotations);
+    void stateChanged();
 
 public slots:
     void update(bool state, size_t rotations);

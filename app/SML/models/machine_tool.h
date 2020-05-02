@@ -7,14 +7,8 @@
 #include "models/repository/repository.h"
 #include "models/machine_tool_elements/adapter/server/sml_adapter_server.h"
 
-#include "models/services/adapters/monitor/adapters_monitor.h"
-#include "models/services/points/monitor/points_monitor.h"
-#include "models/services/sensors/monitor/sensors_monitor.h"
-#include "models/services/devices/spindels/monitor/spindels_monitor.h"
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
-#include "models/services/gcodes/monitor/gcodes_monitor.h"
 #include "models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h"
-#include "models/services/axises/monitor/axises_monitor.h"
 #include "models/services/errors/error_flags_monitor.h"
 
 #include "models/services/adapters/launcher/adapters_launcher.h"
@@ -119,24 +113,6 @@ private:
 
     /// Монитор ошибок
     ErrorFlagsMonitor m_errorFlagsMonitor;
-
-    /// Монитор текущих подключений к серверу адаптеров
-    AdaptersMonitor m_adaptersMonitor;
-
-    /// Монитор текущего состояния точек
-    PointsMonitor m_pointsMonitor;
-
-    /// Монитор текущего состояния датчиков
-    SensorsMonitor m_sensorsMonitor;
-
-    /// Монитор текущего состояния шпинделей
-    SpindelsMonitor m_spindelsMonitor;
-
-    /// Монитор текущего состояния G-кодов
-    GCodesMonitor m_gcodesMonitor;
-
-    /// Монитор осей координат
-    AxisesMonitor m_axisesMonitor;
 
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
@@ -259,6 +235,7 @@ private slots:
 
     void onErrorFlagsMonitor_ErrorFlagsStateChanged();
 
+
     /**
      * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
      * (запись данных в репозитоий)
@@ -314,62 +291,18 @@ private slots:
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптеров
      */
-    void onAdaptersMonitor_AdapterConnectionStateChanged();
+    void onAdapter_ConnectionStateChanged();
 
     /**
      * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния выполнения заданий адаптеров
      */
-    void onAdaptersMonitor_AdapterWorkflowStateChanged();
+    void onAdapter_WorkflowStateChanged();
 
     /**
      * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек
      * (испускает сигнал о том, что состояние точек изменилось)
      */
-    void onPointsMonitor_PointsUpdated();
-
-    /**
-     * @brief Обрабатывает сигнал от монитора датчиков об изменении состояния датчика
-     * (испускает сигнал о том, что состояние датчика изменилось)
-     *
-     * @param sensorUid уникальный идентификатор датчика
-     * @param state обновленное состояние датчика, true = on / false = off
-     */
-    void onSensorMonitor_StateChanged(QString sensorUid, bool state);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора шпинделей об изменении состояния шпинделя
-     * (испускает сигнал о том, что состояние шпинделя изменилось)
-     *
-     * @param index уникальный идентификатор устройства
-     * @param state обновленное состояние шпинделя, true = on / false = off
-     * @param rotations частота вращения шпинделя (обороты в минуту)
-     */
-    void onSpindelsMonitor_StateChanged(QString index, bool state, size_t rotations);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора G-кодов об изменении пути к текущему файлу
-     * (испускает сигнал о том, что обновился путь к текущему файлу)
-     *
-     * @param path обновленный путь к файлу (включая имя файла)
-     */
-    void onGCodesMonitor_FilePathUpdated(QString path);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора G-кодов об изменении содержимого файла
-     * (испускает сигнал о том, что обновилось содержимое файла)
-     *
-     * @param content содержимое файла в формате списка строк
-     */
-    void onGCodesMonitor_FileContentUpdated(QStringList content);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора Осей об изменении текущей позиции оси
-     * (испускает сигнал о том, что изменились текущие координаты по оси)
-     *
-     * @param uid идентификатор оси (unused)
-     * @param position позиция по оси (unused)
-     */
-    void onAxisesMonitor_AxisCurrentPositionChanged(QString, double);
+    void onRepository_PointsUpdated();
 
     /**
      * @brief Отправляет следующую команду в очереди на исполнение

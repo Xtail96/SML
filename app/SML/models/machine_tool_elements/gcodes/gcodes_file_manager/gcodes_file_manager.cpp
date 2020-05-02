@@ -115,8 +115,8 @@ void GCodesFileManager::newGCodesFile()
     setFilePath("");
     setFileContent("");
 
-    emit filePathUpdated(m_filePath);
-    emit fileContentUpdated(m_fileContent);
+    emit this->filePathUpdated();
+    emit this->fileContentUpdated();
 }
 
 void GCodesFileManager::addGCodesFile()
@@ -158,7 +158,7 @@ void GCodesFileManager::onFileLoaded(QString content)
     m_readerThread->quit();
     m_readerThread->wait();
     qDebug() << "gcodes file loaded";
-    emit filePathUpdated(m_filePath);
-    emit fileContentUpdated(m_fileContent);
+    emit this->filePathUpdated();
+    emit this->fileContentUpdated();
 }
 
