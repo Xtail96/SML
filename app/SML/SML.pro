@@ -56,8 +56,7 @@ SOURCES += main.cpp\
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
-    models/errors/sml_error_flags.cpp \
-    models/services/errors/error_flags_monitor.cpp
+    models/errors/sml_error_flags.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -104,8 +103,7 @@ HEADERS  += gui/mainwindow.h \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h \
     models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
-    models/errors/sml_error_flags.h \
-    models/services/errors/error_flags_monitor.h
+    models/errors/sml_error_flags.h
 
 FORMS    += gui/mainwindow.ui \
     gui/add_point_dialog.ui \

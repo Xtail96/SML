@@ -9,7 +9,7 @@
 
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h"
-#include "models/services/errors/error_flags_monitor.h"
+#include "models/errors/sml_error_flags.h"
 
 #include "models/services/adapters/launcher/adapters_launcher.h"
 #include "models/services/adapters/get_current_state/get_adapter_current_state_interactor.h"
@@ -111,9 +111,6 @@ private:
     /// Ошибки возникшие при работе системы
     /// Данную переменную необходимо проверять, при отправке данных на станок.
     SmlErrorFlags m_errors;
-
-    /// Монитор ошибок
-    ErrorFlagsMonitor m_errorFlagsMonitor;
 
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
@@ -232,78 +229,6 @@ public slots:
     void resetCurrentCoordinates();
 
 private slots:
-    void onRepository_ErrorOccurred(ERROR_CODE flag);
-
-    void onErrorFlagsMonitor_ErrorFlagsStateChanged();
-
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U1
-     * (запись данных в репозитоий)
-     */
-    void onAdapterServer_U1Connected();
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U1
-     * (запись данных в репозиторий)
-     */
-    void onAdapterServer_U1Disconnected();
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U1
-     * (запись данных в репозиторий)
-     * @param sensors обновленное состояние датчиков
-     * @param devices обновленное состояние устройств
-     * @param workflowState состояние выполнения работ
-     * @param lastError код ошибки
-     */
-    void onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError);
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров о подключении адаптера U2
-     * (запись данных в репозитоий)
-     */
-    void onAdapterServer_U2Connected();
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров об отключении адаптера U2
-     * (запись данных в репозиторий)
-     */
-    void onAdapterServer_U2Disconnected();
-
-    /**
-     * @brief Обрабатывает сигнал от сервера адаптеров об изменении состояния адаптера U2
-     * (запись данных в репозиторий)
-     * @param coordinates текущие координаты по осям
-     * @param workflowState состояние выполнения работ
-     * @param lastError код ошибки
-     */
-    void onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError);
-
-    /**
-     * @brief Обрабатывает сигнал об ошибке станка
-     * 1) Устанавливает значение переменной, хранящей код ошибки.
-     * 2) Вызывает сценарий обработки ошибки.
-     * 3) Испускает сигнал о возникновении ошибки.
-     * @param errorCode код ошибки
-     */
-    void onAdapterServer_ErrorOccurred(ERROR_CODE errorCode);
-
-    /**
-     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния подключения адаптеров
-     */
-    void onAdapter_ConnectionStateChanged();
-
-    /**
-     * @brief Обрабатывает сигнал от монитора адаптеров об изменнии сотояния выполнения заданий адаптеров
-     */
-    void onAdapter_WorkflowStateChanged();
-
-    /**
-     * @brief Обрабатывает сигнал от монитора точек об изменении состояния точек
-     * (испускает сигнал о том, что состояние точек изменилось)
-     */
-    void onRepository_PointsUpdated();
 
     /**
      * @brief Отправляет следующую команду в очереди на исполнение

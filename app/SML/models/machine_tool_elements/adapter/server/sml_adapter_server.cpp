@@ -4,7 +4,7 @@ SMLAdapterServer::SMLAdapterServer(qint16 port, QObject *parent) :
     QObject(parent),
     m_server(QStringLiteral("Echo Server"), QWebSocketServer::NonSecureMode, this),
     m_port(port),
-    m_debug(true)
+    m_debug(false)
 {
     this->setupConnections();
 }

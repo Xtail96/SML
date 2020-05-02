@@ -1,12 +1,10 @@
 #include "machine_tool.h"
 
-MachineTool::MachineTool(QObject *parent) :
-    QObject(parent),
+MachineTool::MachineTool(QObject *parent) : QObject(parent),
     m_connections(QList<QMetaObject::Connection>()),
     m_repository(this),
     m_adapterServer(m_repository.m_port, this),
     m_errors(this),
-    m_errorFlagsMonitor(m_errors, this),
     m_executionQueue(QQueue<QByteArray>()),
     m_based(false),
     m_adaptersLauncher(new AdaptersLauncher(this))
@@ -15,8 +13,6 @@ MachineTool::MachineTool(QObject *parent) :
     this->startAdapterServer();
     this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
     this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
-
-    //this->setBased(false);
 }
 
 MachineTool::~MachineTool()
@@ -42,42 +38,78 @@ Repository &MachineTool::getRepository()
 
 void MachineTool::setupConnections()
 {
-    m_connections.append(QObject::connect(&m_repository, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onRepository_ErrorOccurred(ERROR_CODE))));
+    this->resetConnections();
 
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u1Connected()), this, SLOT(onAdapterServer_U1Connected())));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected())));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE))));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected())));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected())));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE))));
-    m_connections.append(QObject::connect(&m_adapterServer, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE))));
+    m_connections.append(QObject::connect(&m_repository, &Repository::errorOccurred, this, [=](ERROR_CODE flag) {
+        this->setErrorFlag(flag);
+    }));
 
-    m_connections.append(QObject::connect(&m_errorFlagsMonitor, SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged())));
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1Connected, this, [=]() {
+        qDebug() << "U1Connected";
+        m_repository.setU1ConnectState(true);
+        GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U1);
+    }));
 
-    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, &MachineTool::onAdapter_ConnectionStateChanged));
-    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::connectionStateChanged, this, &MachineTool::onAdapter_ConnectionStateChanged));
-    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::workflowStateChanged, this, &MachineTool::onAdapter_WorkflowStateChanged));
-    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::workflowStateChanged, this, &MachineTool::onAdapter_WorkflowStateChanged));
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1Disconnected, this, [=]() {
+        qDebug() << "U1Disconnected";
+        m_repository.setU1ConnectState(false);
+    }));
 
-    m_connections.append(QObject::connect(&m_repository, &Repository::pointsUpdated, this, &MachineTool::onRepository_PointsUpdated));
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1StateChanged, this, [=](QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError) {
+        this->setErrorFlag(lastError);
+        m_repository.setU1Sensors(sensors);
+        m_repository.setU1Devices(devices);
+        m_repository.setU1WorkflowState(workflowState);
+    }));
 
-    for(auto sensor : m_repository.m_sensors)
-    {
-        m_connections.append(QObject::connect(sensor.data(), &Sensor::stateChanged, this, [=]() {
-            emit this->sensorStateChanged(sensor.data()->uid(), sensor.data()->isEnable());
-        }));
-    }
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2Connected, this, [=]() {
+        qDebug() << "U2Connected";
+        m_repository.setU2ConnectState(true);
+        GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U2);
+    }));
 
-    for(auto spindel : m_repository.m_spindels)
-    {
-        m_connections.append(QObject::connect(spindel.data(), &Spindel::stateChanged, this, [=]() {
-            emit this->spindelStateChanged(spindel.data()->getUid(),
-                                           spindel.data()->isEnable(),
-                                           spindel.data()->getCurrentRotations());
-        }));
-    }
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2Disconnected, this, [=]() {
+        qDebug() << "U2Disconnected";
+        m_repository.setU2ConnectState(false);
+    }));
+
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2StateChanged, this, [=](QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError) {
+        this->setErrorFlag(lastError);
+        m_repository.setU2WorkflowState(workflowState);
+        m_repository.setCurrentPosition(coordinates);
+    }));
+
+    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::errorOccurred, this, [=](ERROR_CODE errorCode) {
+        this->setErrorFlag(errorCode);
+    }));
+
+    m_connections.append(QObject::connect(&m_errors, &SmlErrorFlags::stateChanged, this, [=]() {
+        emit this->errorStateChanged(m_errors.getCurrentErrorFlags());
+    }));
+
+    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, [=]() {
+        m_repository.m_u1Adapter.connectionState()
+                ? this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
+    }));
+
+    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::connectionStateChanged, this, [=]() {
+        m_repository.m_u2Adapter.connectionState()
+                ? this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+    }));
+
+    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::workflowStateChanged, this, [=]() {
+        emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
+    }));
+
+    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::workflowStateChanged, this, [=]() {
+        emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
+    }));
+
+    m_connections.append(QObject::connect(&m_repository, &Repository::pointsUpdated, this, [=]() {
+        emit this->pointsUpdated();
+    }));
 
     m_connections.append(QObject::connect(&m_repository.m_gcodesFilesManager, &GCodesFileManager::filePathUpdated, this, [=]() {
         emit this->gcodesFilePathUpdated(m_repository.m_gcodesFilesManager.getFilePath());
@@ -87,12 +119,22 @@ void MachineTool::setupConnections()
         emit this->gcodesFileContentUpdated(m_repository.m_gcodesFilesManager.getContent());
     }));
 
+    for(auto sensor : m_repository.m_sensors)
+        m_connections.append(QObject::connect(sensor.data(), &Sensor::stateChanged, this, [=]() {
+            emit this->sensorStateChanged(sensor.data()->uid(), sensor.data()->isEnable());
+        }));
+
+    for(auto spindel : m_repository.m_spindels)
+        m_connections.append(QObject::connect(spindel.data(), &Spindel::stateChanged, this, [=]() {
+            emit this->spindelStateChanged(spindel.data()->getUid(),
+                                           spindel.data()->isEnable(),
+                                           spindel.data()->getCurrentRotations());
+        }));
+
     for(auto axis : m_repository.m_axes)
-    {
         m_connections.append(QObject::connect(axis.data(), &Axis::currentPositionChanged, this, [=]() {
             emit this->currentCoordinatesChanged();
         }));
-    }
 }
 
 void MachineTool::resetConnections()
@@ -101,27 +143,6 @@ void MachineTool::resetConnections()
     {
         QObject::disconnect(connection);
     }
-/*
-    QObject::disconnect(&m_repository, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onRepository_ErrorOccurred(ERROR_CODE)));
-
-    QObject::disconnect(&m_adapterServer, SIGNAL(u1Connected()), this, SLOT(onAdapterServer_U1Connected()));
-    QObject::disconnect(&m_adapterServer, SIGNAL(u1Disconnected()), this, SLOT(onAdapterServer_U1Disconnected()));
-    QObject::disconnect(&m_adapterServer, SIGNAL(u1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U1StateChanged(QList<QVariant>,QList<QVariant>, unsigned int, ERROR_CODE)));
-    QObject::disconnect(&m_adapterServer, SIGNAL(u2Connected()), this, SLOT(onAdapterServer_U2Connected()));
-    QObject::disconnect(&m_adapterServer, SIGNAL(u2Disconnected()), this, SLOT(onAdapterServer_U2Disconnected()));
-    QObject::disconnect(&m_adapterServer, SIGNAL(u2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)),
-                     this, SLOT(onAdapterServer_U2StateChanged(QMap<QString, double>,unsigned int, ERROR_CODE)));
-    QObject::disconnect(&m_adapterServer, SIGNAL(errorOccurred(ERROR_CODE)), this, SLOT(onAdapterServer_ErrorOccurred(ERROR_CODE)));
-
-    QObject::disconnect(&m_errorFlagsMonitor, SIGNAL(errorFlagsStateChanged()), this, SLOT(onErrorFlagsMonitor_ErrorFlagsStateChanged()));
-*/
-
-    //QObject::disconnect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, &MachineTool::onAdapter_ConnectionStateChanged);
-    //QObject::disconnect(&m_repository.m_u2Adapter, &Adapter::connectionStateChanged, this, &MachineTool::onAdapter_ConnectionStateChanged);
-    //QObject::disconnect(&m_repository.m_u1Adapter, &Adapter::workflowStateChanged, this, &MachineTool::onAdapter_WorkflowStateChanged);
-    //QObject::disconnect(&m_repository.m_u2Adapter, &Adapter::workflowStateChanged, this, &MachineTool::onAdapter_WorkflowStateChanged);
-    //QObject::disconnect(&m_repository, &Repository::pointsUpdated, this, &MachineTool::onRepository_PointsUpdated);
 }
 
 void MachineTool::handleErrors()
@@ -278,10 +299,7 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
 {
     try
     {
-        if(m_errors.isSystemHasErrors())
-        {
-            return;
-        }
+        if(m_errors.isSystemHasErrors()) return;
 
         SwitchSpindelInteractor::execute(m_adapterServer, uid, true, rotations);
     }
@@ -296,10 +314,7 @@ void MachineTool::switchSpindelOff(QString uid)
 {
     try
     {
-        if(m_errors.isSystemHasErrors())
-        {
-            return;
-        }
+        if(m_errors.isSystemHasErrors()) return;
 
         SwitchSpindelInteractor::execute(m_adapterServer, uid, false);
     }
@@ -332,14 +347,9 @@ void MachineTool::startProgramProcessing()
 {
     try
     {
-        if(this->prepareExecutionQueue(m_repository.getGCodesProgram(), true))
-        {
-            this->resumeExecutionQueueProcessing();
-        }
-        else
-        {
-            this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
-        }
+        this->prepareExecutionQueue(m_repository.getGCodesProgram(), true)
+                ? this->resumeExecutionQueueProcessing()
+                : this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
     }
     catch(InvalidArgumentException e)
     {
@@ -506,111 +516,6 @@ void MachineTool::resetCurrentCoordinates()
         qDebug() << "MachineTool::resetCurrentCoordinates: unknown error";
         this->setBased(false);
     }
-}
-
-void MachineTool::onRepository_ErrorOccurred(ERROR_CODE flag)
-{
-    this->setErrorFlag(flag);
-}
-
-void MachineTool::onErrorFlagsMonitor_ErrorFlagsStateChanged()
-{
-    emit this->errorStateChanged(m_errors.getCurrentErrorFlags());
-}
-
-void MachineTool::onAdapterServer_U1Connected()
-{
-    qDebug() << "MachineTool::onAdapterServer_U1Connected";
-    m_repository.setU1ConnectState(true);
-    GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U1);
-}
-
-void MachineTool::onAdapterServer_U1Disconnected()
-{
-    qDebug() << "MachineTool::onAdapterServer_U1Disconnected";
-    m_repository.setU1ConnectState(false);
-}
-
-void MachineTool::onAdapterServer_U1StateChanged(QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError)
-{
-    //qDebug() << "MachineTool::onAdapterServer_U1StateChanged"
-    //         << lastError << sensors << devices << workflowState;
-    this->setErrorFlag(lastError);
-    m_repository.setU1Sensors(sensors);
-    m_repository.setU1Devices(devices);
-    m_repository.setU1WorkflowState(workflowState);
-}
-
-void MachineTool::onAdapterServer_U2Connected()
-{
-    qDebug() << "MachineTool::onAdapterServer_U2Connected";
-    m_repository.setU2ConnectState(true);
-    GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U2);
-}
-
-void MachineTool::onAdapterServer_U2Disconnected()
-{
-    qDebug() << "MachineTool::onAdapterServer_U2Disconnected";
-    m_repository.setU2ConnectState(false);
-}
-
-void MachineTool::onAdapterServer_U2StateChanged(QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError)
-{
-    this->setErrorFlag(lastError);
-    m_repository.setU2WorkflowState(workflowState);
-    m_repository.setCurrentPosition(coordinates);
-}
-
-void MachineTool::onAdapterServer_ErrorOccurred(ERROR_CODE errorCode)
-{
-    qDebug() << "MachineTool::onAdapterServer_ErrorOccurred" << errorCode;
-    this->setErrorFlag(errorCode);
-}
-
-void MachineTool::onAdapter_ConnectionStateChanged()
-{
-    try
-    {
-        bool u1 = m_repository.m_u1Adapter.connectionState();
-        bool u2 = m_repository.m_u2Adapter.connectionState();
-
-        if(u1)
-        {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U1_DISCONNECTED = false";
-            this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED);
-        }
-        else
-        {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U1_DISCONNECTED = true";
-            this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
-        }
-
-        if(u2)
-        {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U2_DISCONNECTED = false";
-            this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED);
-        }
-        else
-        {
-            qDebug() << "MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: U2_DISCONNECTED = true";
-            this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
-        }
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("MachineTool::onAdaptersMonitor_AdapterConnectionStateChanged: unknown error");
-        this->setErrorFlag(ERROR_CODE::UNKNOWN_ERROR);
-    }
-}
-
-void MachineTool::onAdapter_WorkflowStateChanged()
-{
-    emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
-}
-
-void MachineTool::onRepository_PointsUpdated()
-{
-    emit this->pointsUpdated();
 }
 
 void MachineTool::sendNextCommand()
