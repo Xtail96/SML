@@ -100,6 +100,7 @@ public:
     static bool isProgramEmpty(QStringList gcodes);
 
 private:
+    QList<QMetaObject::Connection> m_connections;
 
     /// Репозиторий, хранящий текущее состояние систем станка
     Repository m_repository;
