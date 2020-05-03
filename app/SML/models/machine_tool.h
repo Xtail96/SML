@@ -114,6 +114,7 @@ private:
 
     /// Очередь сообщений, ожидающих отправки.
     QQueue<QByteArray> m_executionQueue;
+    QMetaObject::Connection m_sendNextCommandMetaInfo;
 
     /// Проводилась ли базировка станка (можно ли доверять координатам осей)
     bool m_based;
@@ -234,13 +235,6 @@ private slots:
      * @brief Отправляет следующую команду в очереди на исполнение
      */
     void sendNextCommand();
-
-    /**
-     * @brief Обрабатывает изменение workflow статуса адаптеров
-     * @param u1State состояние выполнения работ на контроллере U1
-     * @param u2State состояние выполнения работ на контроллере U2
-     */
-    void onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
 };
 
 #endif // MACHINETOOL_H

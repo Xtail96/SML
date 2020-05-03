@@ -1,11 +1,13 @@
 #include "machine_tool.h"
 
-MachineTool::MachineTool(QObject *parent) : QObject(parent),
+MachineTool::MachineTool(QObject *parent) :
+    QObject(parent),
     m_connections(QList<QMetaObject::Connection>()),
     m_repository(this),
     m_adapterServer(m_repository.m_port, this),
     m_errors(this),
     m_executionQueue(QQueue<QByteArray>()),
+    m_sendNextCommandMetaInfo(QMetaObject::Connection()),
     m_based(false),
     m_adaptersLauncher(new AdaptersLauncher(this))
 {
@@ -388,19 +390,30 @@ bool MachineTool::prepareExecutionQueue(QStringList gcodes, bool resolveToCurren
 
 void MachineTool::pauseExecutionQueueProcessing()
 {
-    QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    if(m_sendNextCommandMetaInfo)
+        QObject::disconnect(m_sendNextCommandMetaInfo);
 }
 
 void MachineTool::resumeExecutionQueueProcessing()
 {
-    QObject::connect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    if(!m_sendNextCommandMetaInfo)
+    {
+        m_sendNextCommandMetaInfo = QObject::connect(this, &MachineTool::workflowStateChanged, this, [=](unsigned int u1WorkflowState, unsigned int u2WorkflowState) {
+            qDebug() << "MachineTool::resumeExecutionQueueProcessing:WorkflowStateChanged:" << u1WorkflowState << u2WorkflowState;
+            if((u1WorkflowState == 0) && (u2WorkflowState == 0))
+            {
+                this->sendNextCommand();
+            }
+        });
+    }
+
     this->sendNextCommand();
 }
 
 void MachineTool::stopExecutionQueueProcessing()
 {
     // todo: terminate controller (may be kill adapter);
-    QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+    this->pauseExecutionQueueProcessing();
     m_executionQueue.clear();
 }
 
@@ -523,7 +536,7 @@ void MachineTool::sendNextCommand()
     if(m_errors.isSystemHasErrors())
     {
         qDebug() << "MachineTool::sendNextCommand: error is occured during program processing.";
-        QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+        this->stopExecutionQueueProcessing();
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
     }
@@ -531,14 +544,8 @@ void MachineTool::sendNextCommand()
     if(m_executionQueue.isEmpty())
     {
         qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
-        QObject::disconnect(this, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
+        this->stopExecutionQueueProcessing();
         emit this->taskCompletedSuccesfully();
-        return;
-    }
-
-    if((m_repository.m_u1Adapter.workflowState() != 0) || (m_repository.m_u1Adapter.workflowState() != 0))
-    {
-        qDebug() << "MachineTool::sendNextCommand: duplicate send. U1WorkflowSate =" << m_repository.m_u1Adapter.workflowState() << "U2WorkflowState =" << m_repository.m_u2Adapter.workflowState();
         return;
     }
 
@@ -547,6 +554,12 @@ void MachineTool::sendNextCommand()
     bool parsed = false;
     QtJson::JsonObject cmdObj = QtJson::parse(cmdStr, parsed).toMap();
     if(!parsed) { qDebug() << "MachineTool::sendNextCommand: analyse command error" << cmdStr; return; }
+
+    if((m_repository.m_u1Adapter.workflowState() != 0) || (m_repository.m_u2Adapter.workflowState() != 0))
+    {
+        qDebug() << "MachineTool::sendNextCommand: duplicate send. U1WorkflowSate =" << m_repository.m_u1Adapter.workflowState() << "U2WorkflowState =" << m_repository.m_u2Adapter.workflowState();
+        return;
+    }
 
     QString target = cmdObj["target"].toString();
     if(target.toLower() == "u1")
@@ -570,13 +583,4 @@ void MachineTool::sendNextCommand()
     }
 
     qDebug() << "MachineTool::sendNextCommand: unknown target" << target;
-}
-
-void MachineTool::onMachineTool_WorkflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState)
-{
-    qDebug() << "MachineTool::onMachineTool_WorkflowStateChanged:" << u1WorkflowState << u2WorkflowState;
-    if((u1WorkflowState == 0) && (u2WorkflowState == 0))
-    {
-        this->sendNextCommand();
-    }
 }
