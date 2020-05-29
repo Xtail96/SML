@@ -69,15 +69,27 @@
     </sizepolicy>
    </property>
    <layout class="QGridLayout" name="gridLayout_10">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item row="0" column="0">
      <widget class="QTabWidget" name="mainTabMenu">
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::North</enum>
+       <enum>QTabWidget::East</enum>
       </property>
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
@@ -96,6 +108,9 @@
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
       </property>
       <property name="tabsClosable">
        <bool>false</bool>
@@ -3307,7 +3322,7 @@
     <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
    <property name="allowedAreas">
-    <set>Qt::LeftDockWidgetArea</set>
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Dashboard</string>
