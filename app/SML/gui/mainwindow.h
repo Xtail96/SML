@@ -82,6 +82,8 @@ private:
     QList< std::tuple<const char*, QPushButton*, const char*> > m_shortcutsMap;
     QList<QShortcut*> m_axisesShortcuts;
 
+    QList<QMetaObject::Connection> m_connections;
+
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 

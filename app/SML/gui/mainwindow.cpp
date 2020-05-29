@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    m_connections(QList<QMetaObject::Connection>()),
     m_hightlighter(new GCodesSyntaxHighlighter(this))
 {
     ui->setupUi(this);
@@ -99,17 +100,17 @@ void MainWindow::setupConnections()
 {
     MachineTool& machineTool = MachineTool::getInstance();
 
-    QObject::connect(&machineTool, SIGNAL(errorStateChanged(QList<ERROR_CODE>)), this, SLOT(onMachineTool_ErrorStateChanged(QList<ERROR_CODE>)));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(errorStateChanged(QList<ERROR_CODE>)), this, SLOT(onMachineTool_ErrorStateChanged(QList<ERROR_CODE>))));
 
-    QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
-    QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
-    QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));
-    QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
-    QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
-    QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
-    QObject::connect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool)));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated())));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool))));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t))));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString))));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList))));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully())));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors())));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged())));
+    m_connections.append(QObject::connect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool))));
 
     /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
 
@@ -138,7 +139,7 @@ void MainWindow::setupConnections()
         const char* shortcutSlot = std::get<2>(*i);
 
         QShortcut* shortcut = new QShortcut(QKeySequence(shortcutKey), shortcutButton);
-        QObject::connect(shortcut, SIGNAL(activated()), this, shortcutSlot);
+        m_connections.append(QObject::connect(shortcut, SIGNAL(activated()), this, shortcutSlot));
 
         m_axisesShortcuts.push_back(shortcut);
     }
@@ -146,93 +147,51 @@ void MainWindow::setupConnections()
     QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
     for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
     {
-        QObject::connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
-        QObject::connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
-        QObject::connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        m_connections.append(QObject::connect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex))));
+        m_connections.append(QObject::connect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList))));
+        m_connections.append(QObject::connect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex))));
     }
 
     for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
     {
         SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(i))));
-        QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
-        QObject::connect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
+        m_connections.append(QObject::connect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t))));
+        m_connections.append(QObject::connect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString))));
     }
 
     // настройка импорта и экспорта настроек
-    QObject::connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
-    QObject::connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
+    m_connections.append(QObject::connect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered())));
+    m_connections.append(QObject::connect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered())));
 
     // настройка кнопок работы с файлами
-    QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
-    QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
-    QObject::connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
-    QObject::connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
-    QObject::connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
-    QObject::connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
+    m_connections.append(QObject::connect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered())));
+    m_connections.append(QObject::connect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered())));
+    m_connections.append(QObject::connect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered())));
+    m_connections.append(QObject::connect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered())));
+    m_connections.append(QObject::connect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered())));
+    m_connections.append(QObject::connect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered())));
+
+    m_connections.append(QObject::connect(new QShortcut(QKeySequence("Esc"), this), &QShortcut::activated, this, [=]() {
+        switch (ui->mainTabMenu->currentIndex()) {
+        case 0:
+            ui->mainTabMenu->setCurrentIndex(1);
+            break;
+        case 1:
+            ui->mainTabMenu->setCurrentIndex(0);
+            break;
+        default:
+            ui->mainTabMenu->setCurrentIndex(1);
+            break;
+        }
+    }));
 }
 
 void MainWindow::resetConnections()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
-
-    QObject::disconnect(&machineTool, SIGNAL(errorStateChanged(QList<ERROR_CODE>)), this, SLOT(onMachineTool_ErrorStateChanged(QList<ERROR_CODE>)));
-
-    QObject::disconnect(&machineTool, SIGNAL(pointsUpdated()), this, SLOT(onPointsUpdated()));
-    QObject::disconnect(&machineTool, SIGNAL(sensorStateChanged(QString,bool)), this, SLOT(onMachineTool_SensorStateChanged(QString,bool)));
-    QObject::disconnect(&machineTool, SIGNAL(spindelStateChanged(QString,bool,size_t)), this, SLOT(onMachineTool_SpindelStateChanged(QString,bool,size_t)));
-    QObject::disconnect(&machineTool, SIGNAL(gcodesFilePathUpdated(QString)), this, SLOT(onMachineTool_GCodesFilePathUpdated(QString)));
-    QObject::disconnect(&machineTool, SIGNAL(gcodesFileContentUpdated(QStringList)), this, SLOT(onMachineTool_GCodesFileContentUpdated(QStringList)));  
-    QObject::disconnect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(onMachineTool_TaskCompletedSuccesfully()));
-    QObject::disconnect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(onMachineTool_TaskCompletedWithErrors()));
-    QObject::disconnect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged()));
-    QObject::disconnect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool)));
-
-    /*QObject::disconnect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
-
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
-
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
-
-    QObject::disconnect(m_machineTool.data(), SIGNAL(machineToolErrorIsOccured(int)), this, SLOT(onMachineToolError(int)));
-
-    QObject::disconnect(m_machineTool.data(), SIGNAL(gcodesUpdated()), this, SLOT(updateGCodesEditorWidget()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(filePathUpdated()), this, SLOT(updateFilePath()));
-    QObject::disconnect(m_machineTool.data(), SIGNAL(pointsUpdated()), this, SLOT(updatePointsEditorWidgets()));
-
-    QObject::disconnect(ui->edgesControlCheckBox, SIGNAL(clicked(bool)), this, SLOT(updateEdgesControlStatus()));*/
-
-
-    QList<PointsTableWidget*> pointsEditorTableWidgets = { ui->pointsTableWidget };
-    for(auto pointsEditorTableWidget : pointsEditorTableWidgets)
+    for(auto& connection : m_connections)
     {
-        QObject::disconnect(pointsEditorTableWidget, SIGNAL(editSignal(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
-        QObject::disconnect(pointsEditorTableWidget, SIGNAL(eraseSignal(QModelIndexList)), this, SLOT(deletePoints(QModelIndexList)));
-        QObject::disconnect(pointsEditorTableWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editPoint(QModelIndex)));
+        QObject::disconnect(connection);
     }
-
-    for(size_t i = 0; i < static_cast<size_t>(ui->spindelsListWidget->count()); i++)
-    {
-        SpindelControlWidget* widget = qobject_cast<SpindelControlWidget*> (ui->spindelsListWidget->itemWidget(ui->spindelsListWidget->item(static_cast<int>(i))));
-        QObject::disconnect(widget, SIGNAL(switchOn(QString,size_t)), &machineTool, SLOT(switchSpindelOn(QString,size_t)));
-        QObject::disconnect(widget, SIGNAL(switchOff(QString)), &machineTool, SLOT(switchSpindelOff(QString)));
-    }
-
-    // настройка импорта и экспорта настроек
-    QObject::disconnect(ui->importSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_importsettings_action_triggered()));
-    QObject::disconnect(ui->exportSettingsPushButton, SIGNAL(clicked(bool)), this, SLOT(on_savesettings_action_triggered()));
-
-    // настройка кнопок работы с файлами
-    QObject::disconnect(ui->newFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_create_action_triggered()));
-    QObject::disconnect(ui->openFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_open_action_triggered()));
-    QObject::disconnect(ui->saveFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_save_action_triggered()));
-    QObject::disconnect(ui->saveFileAsToolButton, SIGNAL(clicked(bool)), this, SLOT(on_saveas_action_triggered()));
-    QObject::disconnect(ui->addFileToolButton, SIGNAL(clicked(bool)), this, SLOT(on_add_action_triggered()));
-    QObject::disconnect(ui->viewToolButton, SIGNAL(clicked(bool)), this, SLOT(on_view_action_triggered()));
 }
 
 void MainWindow::setupSensorsDisplay()
