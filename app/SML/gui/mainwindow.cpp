@@ -478,6 +478,7 @@ void MainWindow::setupAxisesButtons()
         m_shortcutsMap.push_back(std::make_tuple("Left", ui->movementANegativePushButton, SLOT(on_movementANegativePushButton_clicked())));
         m_shortcutsMap.push_back(std::make_tuple("Right", ui->movementAPositivePushButton, SLOT(on_movementAPositivePushButton_clicked())));
     }
+
     ui->movementANegativePushButton->setEnabled(axisAEnabled);
     ui->movementAPositivePushButton->setEnabled(axisAEnabled);
 

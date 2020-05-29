@@ -1108,6 +1108,12 @@
         </property>
         <item>
          <widget class="QWidget" name="topAdjustmentWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <property name="leftMargin">
             <number>0</number>
@@ -1591,9 +1597,9 @@
                  <item row="5" column="2">
                   <widget class="QPushButton" name="movementWPositivePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1614,9 +1620,9 @@
                  <item row="4" column="2">
                   <widget class="QPushButton" name="movementVPositivePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1637,9 +1643,9 @@
                  <item row="0" column="2">
                   <widget class="QPushButton" name="movementAPositivePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1677,9 +1683,9 @@
                  <item row="5" column="1">
                   <widget class="QPushButton" name="movementWNegativePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1703,9 +1709,9 @@
                     <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1740,9 +1746,9 @@
                     <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1763,9 +1769,9 @@
                  <item row="0" column="1">
                   <widget class="QPushButton" name="movementANegativePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1797,9 +1803,9 @@
                  <item row="1" column="2">
                   <widget class="QPushButton" name="movementBPositivePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1834,9 +1840,9 @@
                     <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1868,9 +1874,9 @@
                  <item row="4" column="1">
                   <widget class="QPushButton" name="movementVNegativePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -1891,9 +1897,9 @@
                  <item row="1" column="1">
                   <widget class="QPushButton" name="movementBNegativePushButton">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="font">
@@ -1928,9 +1934,9 @@
                     <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="text">
@@ -2530,6 +2536,12 @@
         </item>
         <item>
          <widget class="QWidget" name="bottomAdjustmentWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>2</verstretch>
+           </sizepolicy>
+          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <property name="leftMargin">
             <number>0</number>
