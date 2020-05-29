@@ -248,7 +248,7 @@ void MainWindow::setupSensorsDisplay()
                     parameters["Uid"],
                     parameters["Label"],
                     parameters["ActiveState"].toInt(),
-                    parameters["ActiveStateLedColor"]);
+                    parameters["LedColor"]);
     }
 }
 

@@ -83,7 +83,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -2755,13 +2755,18 @@
             <string>Настройки станка</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_13">
-            <item row="0" column="0" colspan="2">
+            <item row="0" column="0">
              <widget class="QGroupBox" name="axisesSettingsGroupBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>2</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
               </property>
               <property name="title">
                <string>Настройки осей</string>
@@ -2798,13 +2803,18 @@
               </layout>
              </widget>
             </item>
-            <item row="1" column="0" rowspan="2">
+            <item row="0" column="1">
              <widget class="QGroupBox" name="sensorsSettingsGroupBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>1</horstretch>
                 <verstretch>2</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
               </property>
               <property name="title">
                <string>Настройки датчиков</string>
@@ -2841,13 +2851,18 @@
               </layout>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="1" column="0">
              <widget class="QGroupBox" name="spindelsSettingsGroupBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>1</horstretch>
                 <verstretch>1</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
               </property>
               <property name="title">
                <string>Настройки шпинделей</string>
@@ -2891,6 +2906,11 @@
                 <horstretch>1</horstretch>
                 <verstretch>1</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
               </property>
               <property name="title">
                <string>Настройки сопуствующих устройств</string>

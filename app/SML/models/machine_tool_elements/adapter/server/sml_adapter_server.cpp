@@ -403,7 +403,7 @@ QStringList SMLAdapterServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U1Adapter] ") +
+                QString("[U1Adapter] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);
@@ -415,7 +415,7 @@ QStringList SMLAdapterServer::currentAdapters()
         QString localAddress = socket->localAddress().toString();
 
         QString adapterSettingsString =
-                QString("Name [U2Adapter] ") +
+                QString("[U2Adapter] ") +
                 "on local port [" + localPort + "] " +
                 "with local address [" + localAddress + "]";
         settings.push_back(adapterSettingsString);

@@ -74,7 +74,7 @@ bool Sensor::inputActiveState() const
     return m_inputActiveState;
 }
 
-QColor Sensor::ledColorActiveStaate() const
+QColor Sensor::ledColorActiveState() const
 {
     return m_ledColorActiveState;
 }
@@ -97,7 +97,6 @@ QString Sensor::settings()
             QStringLiteral("Port:") + QString::number(m_portNumber) + QStringLiteral(";") +
             QStringLiteral("Input:") + QString::number(m_inputNumber) + QStringLiteral(";") +
             QStringLiteral("ActiveState:") + QString::number(m_inputActiveState) + QStringLiteral(";") +
-            QStringLiteral("CurrentState:") + QString::number(m_inputCurrentState) + QStringLiteral(";") +
-            QStringLiteral("ActiveStateLedColor:") + m_ledColorActiveState.name();
+            QStringLiteral("LedColor:") + m_ledColorActiveState.name();
     return sensorSettings;
 }
