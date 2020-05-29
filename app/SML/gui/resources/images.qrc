@@ -23,6 +23,8 @@
         <file>images/aist/key.png</file>
         <file>images/aist/pause.png</file>
         <file>images/aist/play.png</file>
+        <file>images/aist/key_rotated.png</file>
+        <file>images/aist/pencil_rotated.png</file>
     </qresource>
     <qresource prefix="/arrows">
         <file>images/arrows/ArrowDown.png</file>
