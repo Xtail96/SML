@@ -3507,7 +3507,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <property name="spacing">
-         <number>9</number>
+         <number>10</number>
         </property>
         <property name="leftMargin">
          <number>5</number>
@@ -3525,7 +3525,7 @@
          <widget class="QWidget" name="currentCoordinatesWidget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
-            <number>6</number>
+            <number>5</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -3591,7 +3591,7 @@
          <widget class="QWidget" name="baseCoordinatesWidget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <property name="spacing">
-            <number>6</number>
+            <number>5</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -3651,7 +3651,7 @@
          <widget class="QWidget" name="parkCoordinatesWidget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_14">
            <property name="spacing">
-            <number>6</number>
+            <number>5</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
