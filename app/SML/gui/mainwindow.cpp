@@ -1430,13 +1430,13 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
 void MainWindow::on_runPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    if(MachineTool::isProgramEmpty(machineTool.getRepository().getGCodesProgram()))
+    if(machineTool.isProgramEmpty())
     {
         QMessageBox(QMessageBox::Information, "Отсутствует управляющая программа", "Нет управляющей программы").exec();
         return;
     }
 
-    if(!machineTool.isGCodesCorrect(machineTool.getRepository().getGCodesProgram()))
+    if(!machineTool.isGCodesCorrect())
     {
         QMessageBox(QMessageBox::Critical, "Ошибка", "Возникла ошибка при подготовке управляющей программы к выполнению").exec();
         return;

@@ -54,16 +54,6 @@ public:
     Repository& getRepository();
 
     /**
-     * @brief Производит запуск WebSocket сервера для подключения адаптеров
-     */
-    void startAdapterServer();
-
-    /**
-     * @brief Производит остановку WebSocket сервера для подключения адаптеров
-     */
-    void stopAdapterServer();
-
-    /**
      * @brief Возвращает список подключенных адаптеров
      * @return Список подключенных авдптеов в формате списка строк
      */
@@ -83,21 +73,7 @@ public:
      */
     QList<ERROR_CODE> getCurrentErrorFlags();
 
-    /**
-     * @brief Устанавливает значение ошибки
-     * @param code код ошибки
-     */
-    void setErrorFlag(ERROR_CODE code);
-
-    void removeErrorFlag(ERROR_CODE code);
-
     bool getBased() const;
-    void setBased(bool based);
-
-    void launchAdapters();
-    void stopAdapters();
-
-    static bool isProgramEmpty(QStringList gcodes);
 
 private:
     QList<QMetaObject::Connection> m_connections;
@@ -107,6 +83,7 @@ private:
 
     /// Сервер для подключения адаптеров
     SMLAdapterServer m_adapterServer;
+    AdaptersLauncher m_adaptersLauncher;
 
     /// Ошибки возникшие при работе системы
     /// Данную переменную необходимо проверять, при отправке данных на станок.
@@ -118,8 +95,6 @@ private:
 
     /// Проводилась ли базировка станка (можно ли доверять координатам осей)
     bool m_based;
-
-    AdaptersLauncher m_adaptersLauncher;
 
     /**
      * @brief Создает объект класса станок
@@ -190,7 +165,7 @@ signals:
 
     void workflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
 
-    void nextCommandSent(QByteArray package);
+    void commandSent(QByteArray package);
 
     void taskCompletedSuccesfully();
 
@@ -214,12 +189,12 @@ public slots:
      */
     void switchSpindelOff(QString uid);
 
-    bool isGCodesCorrect(QStringList gcodes);
+    bool isProgramEmpty();
+    bool isGCodesCorrect();
     void startProgramProcessing();
-    bool prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPosition = false);
-    void pauseExecutionQueueProcessing();
-    void resumeExecutionQueueProcessing();
-    void stopExecutionQueueProcessing();
+    void pauseProgramProcessing();
+    void resumeProgramProcessing();
+    void stopProgramProcessing();
 
     void stepMove(QMap<QString, double> steps);
     void moveToPoint(Point pointFromBase);
@@ -227,14 +202,38 @@ public slots:
     void moveToSensor(QString sensorUid);
     void moveToBase();
 
-    void resetCurrentCoordinates();
-
 private slots:
+    /**
+     * @brief Устанавливает значение ошибки
+     * @param code код ошибки
+     */
+    void setErrorFlag(ERROR_CODE code);
+
+    void removeErrorFlag(ERROR_CODE code);
+
+    bool prepareExecutionQueue(QStringList gcodes, bool resolveToCurrentPosition = false);
 
     /**
      * @brief Отправляет следующую команду в очереди на исполнение
      */
     void sendNextCommand();
+
+    void resetCurrentCoordinates();
+
+    void setBased(bool based);
+
+    /**
+     * @brief Производит запуск WebSocket сервера для подключения адаптеров
+     */
+    void startAdapterServer();
+
+    /**
+     * @brief Производит остановку WebSocket сервера для подключения адаптеров
+     */
+    void stopAdapterServer();
+
+    void launchAdapters();
+    void stopAdapters();
 };
 
 #endif // MACHINETOOL_H

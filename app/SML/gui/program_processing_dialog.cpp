@@ -50,7 +50,7 @@ void ProgramProcessingDialog::setupConnections()
     QObject::connect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(close()));
     QObject::connect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(close()));
     QObject::connect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
-    QObject::connect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
+    QObject::connect(&machineTool, SIGNAL(сommandSent(QByteArray)), this, SLOT(onMachineTool_CommandSent(QByteArray)));
 }
 
 void ProgramProcessingDialog::resetConnections()
@@ -59,7 +59,7 @@ void ProgramProcessingDialog::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(taskCompletedSuccesfully()), this, SLOT(close()));
     QObject::disconnect(&machineTool, SIGNAL(taskCompletedWithErrors()), this, SLOT(close()));
     QObject::disconnect(&machineTool, SIGNAL(workflowStateChanged(unsigned int, unsigned int)), this, SLOT(onMachineTool_WorkflowStateChanged(unsigned int, unsigned int)));
-    QObject::disconnect(&machineTool, SIGNAL(nextCommandSent(QByteArray)), this, SLOT(onMachineTool_NextCommandSent(QByteArray)));
+    QObject::disconnect(&machineTool, SIGNAL(сommandSent(QByteArray)), this, SLOT(onMachineTool_CommandSent(QByteArray)));
 }
 
 void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State)
@@ -69,7 +69,7 @@ void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int u1
     ui->programProcessingProgressBar->setValue(currentProgress + 1);
 }
 
-void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
+void ProgramProcessingDialog::onMachineTool_CommandSent(QByteArray package)
 {
     QString packageStr = QString::fromUtf8(package);
     QtJson::JsonObject message = QtJson::parse(packageStr).toMap();
@@ -80,7 +80,7 @@ void ProgramProcessingDialog::onMachineTool_NextCommandSent(QByteArray package)
 void ProgramProcessingDialog::on_pausePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.pauseExecutionQueueProcessing();
+    machineTool.pauseProgramProcessing();
     ui->resumePushButton->setEnabled(true);
     ui->pausePushButton->hide();
     ui->stopPushButton->show();
@@ -89,7 +89,7 @@ void ProgramProcessingDialog::on_pausePushButton_clicked()
 void ProgramProcessingDialog::on_resumePushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.resumeExecutionQueueProcessing();
+    machineTool.resumeProgramProcessing();
 
     ui->resumePushButton->setEnabled(false);
     ui->stopPushButton->hide();
@@ -104,6 +104,6 @@ void ProgramProcessingDialog::keyPressEvent(QKeyEvent *event)
 void ProgramProcessingDialog::on_stopPushButton_clicked()
 {
     MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.stopExecutionQueueProcessing();
+    machineTool.stopProgramProcessing();
     this->close();
 }

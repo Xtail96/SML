@@ -5,11 +5,11 @@ MachineTool::MachineTool(QObject *parent) :
     m_connections(QList<QMetaObject::Connection>()),
     m_repository(this),
     m_adapterServer(m_repository.m_port, this),
+    m_adaptersLauncher(new AdaptersLauncher(this)),
     m_errors(this),
     m_executionQueue(QQueue<QByteArray>()),
     m_sendNextCommandMetaInfo(QMetaObject::Connection()),
-    m_based(false),
-    m_adaptersLauncher(new AdaptersLauncher(this))
+    m_based(false)
 {
     this->setupConnections();
     this->startAdapterServer();
@@ -281,8 +281,9 @@ void MachineTool::stopAdapters()
     m_adaptersLauncher.stopAdapters();
 }
 
-bool MachineTool::isProgramEmpty(QStringList gcodes)
+bool MachineTool::isProgramEmpty()
 {
+    QStringList gcodes = m_repository.getGCodesProgram();
     if(gcodes.length() <= 0) return true;
 
     if(gcodes.join("") == "") return true;
@@ -327,10 +328,11 @@ void MachineTool::switchSpindelOff(QString uid)
     }
 }
 
-bool MachineTool::isGCodesCorrect(QStringList gcodes)
+bool MachineTool::isGCodesCorrect()
 {
     try
     {
+       QStringList gcodes = m_repository.getGCodesProgram();
        QQueue<QByteArray> result = PrepareExecutionQueueInteractor::execute(gcodes, true);
        if(result.length() <= 0) return false;
        result.clear();
@@ -350,7 +352,7 @@ void MachineTool::startProgramProcessing()
     try
     {
         this->prepareExecutionQueue(m_repository.getGCodesProgram(), true)
-                ? this->resumeExecutionQueueProcessing()
+                ? this->resumeProgramProcessing()
                 : this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
     }
     catch(InvalidArgumentException e)
@@ -388,13 +390,13 @@ bool MachineTool::prepareExecutionQueue(QStringList gcodes, bool resolveToCurren
     }
 }
 
-void MachineTool::pauseExecutionQueueProcessing()
+void MachineTool::pauseProgramProcessing()
 {
     if(m_sendNextCommandMetaInfo)
         QObject::disconnect(m_sendNextCommandMetaInfo);
 }
 
-void MachineTool::resumeExecutionQueueProcessing()
+void MachineTool::resumeProgramProcessing()
 {
     if(!m_sendNextCommandMetaInfo)
     {
@@ -410,10 +412,10 @@ void MachineTool::resumeExecutionQueueProcessing()
     this->sendNextCommand();
 }
 
-void MachineTool::stopExecutionQueueProcessing()
+void MachineTool::stopProgramProcessing()
 {
     // todo: terminate controller (may be kill adapter);
-    this->pauseExecutionQueueProcessing();
+    this->pauseProgramProcessing();
     m_executionQueue.clear();
 }
 
@@ -453,7 +455,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
 
         if(this->prepareExecutionQueue(QStringList {gcode}, false))
         {
-            this->resumeExecutionQueueProcessing();
+            this->resumeProgramProcessing();
         }
         else
         {
@@ -536,7 +538,7 @@ void MachineTool::sendNextCommand()
     if(m_errors.isSystemHasErrors())
     {
         qDebug() << "MachineTool::sendNextCommand: error is occured during program processing.";
-        this->stopExecutionQueueProcessing();
+        this->stopProgramProcessing();
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         return;
     }
@@ -544,7 +546,7 @@ void MachineTool::sendNextCommand()
     if(m_executionQueue.isEmpty())
     {
         qDebug() << "MachineTool::sendNextCommand: queue is empty, program completed successfully";
-        this->stopExecutionQueueProcessing();
+        this->stopProgramProcessing();
         emit this->taskCompletedSuccesfully();
         return;
     }
@@ -566,7 +568,7 @@ void MachineTool::sendNextCommand()
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
         m_adapterServer.sendMessageToU1(cmd);
-        emit this->nextCommandSent(cmd);
+        emit this->commandSent(cmd);
 
         m_repository.m_u1Adapter.setWorkflowState(1);
         return;
@@ -576,7 +578,7 @@ void MachineTool::sendNextCommand()
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
         m_adapterServer.sendMessageToU2(cmd);
-        emit this->nextCommandSent(cmd);
+        emit this->commandSent(cmd);
 
         m_repository.m_u2Adapter.setWorkflowState(1);
         return;
