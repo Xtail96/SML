@@ -1,12 +1,11 @@
 #include "adapter_server.h"
 
-AdapterServer::AdapterServer(quint16 port, QObject *parent) :
+AdapterServer::AdapterServer(QObject *parent) :
     QObject(parent),
     m_server("SMLAdapterServer", QWebSocketServer::NonSecureMode, this),
-    m_port(port),
+    m_port(0),
     m_connections(QList<QMetaObject::Connection>())
 {
-    this->startServer();
 }
 
 AdapterServer::~AdapterServer()
@@ -19,11 +18,15 @@ quint16 AdapterServer::port() const
     return m_port;
 }
 
-bool AdapterServer::startServer()
+bool AdapterServer::startServer(quint16 port)
 {
-    if(m_port == 0)
+    if(m_server.isListening())
+        this->stopServer();
+
+    if(port == 0)
         throw std::invalid_argument("ivalid port number" + QString(m_port).toStdString());
 
+    m_port = port;
     if (!m_server.listen(QHostAddress::Any, m_port))
         return false;
 
@@ -39,9 +42,7 @@ void AdapterServer::stopServer()
 
     qDebug() << "Stop Server";
     if(m_server.isListening())
-    {
         m_server.close();
-    }
     qDebug() << "Server successfully stopped. Good Bye!";
 }
 

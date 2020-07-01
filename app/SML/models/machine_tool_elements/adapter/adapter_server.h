@@ -10,13 +10,13 @@ class AdapterServer : public QObject
     Q_OBJECT
 public:
     /// Конструктор класса
-    explicit AdapterServer(quint16 port, QObject *parent);
+    explicit AdapterServer(QObject *parent);
 
     /// Деструктор класса
     ~AdapterServer();
 
     /// Запускает сервер
-    bool startServer();
+    bool startServer(quint16 port);
 
     /// Останавливает сервер
     void stopServer();
