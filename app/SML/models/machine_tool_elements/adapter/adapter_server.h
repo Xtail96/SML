@@ -1,19 +1,19 @@
-#ifndef ADAPTERHOST_H
-#define ADAPTERHOST_H
+#ifndef ADAPTERSERVER_H
+#define ADAPTERSERVER_H
 
 #include <QObject>
 #include <QWebSocketServer>
 #include <QWebSocket>
 
-class AdapterHost : public QObject
+class AdapterServer : public QObject
 {
     Q_OBJECT
 public:
     /// Конструктор класса
-    explicit AdapterHost(quint16 port, QObject *parent);
+    explicit AdapterServer(quint16 port, QObject *parent);
 
     /// Деструктор класса
-    ~AdapterHost();
+    ~AdapterServer();
 
     /// Запускает сервер
     bool startServer();
@@ -48,4 +48,4 @@ signals:
     void serverStopped();
 };
 
-#endif // ADAPTERHOST_H
+#endif // ADAPTERSERVER_H
