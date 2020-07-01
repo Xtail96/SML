@@ -14,6 +14,8 @@
 #include "models/services/adapters/launcher/adapters_launcher.h"
 #include "models/services/adapters/get_current_state/get_adapter_current_state_interactor.h"
 
+#include "models/machine_tool_elements/adapter/adapter_host.h"
+
 /**
  * @brief Класс станок
  *
