@@ -22,6 +22,8 @@ SOURCES += main.cpp\
     libs/gpr/parser.cpp \
     libs/simple_qt_logger/simpleQtLogger.cpp \
     models/machine_tool_elements/adapter/adapter_server.cpp \
+    models/machine_tool_elements/adapter/base_adapter.cpp \
+    models/machine_tool_elements/adapter/client_info.cpp \
     models/machine_tool_elements/adapter/motor_adapter.cpp \
     models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
@@ -58,7 +60,8 @@ SOURCES += main.cpp\
     models/services/devices/spindels/switch/switch_spindel_interactor.cpp \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.cpp \
     gui/program_processing_dialog.cpp \
-    models/errors/sml_error_flags.cpp
+    models/errors/sml_error_flags.cpp \
+    testenv.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/widgets/console.h \
@@ -67,6 +70,8 @@ HEADERS  += gui/mainwindow.h \
     libs/gpr/parser.h \
     libs/simple_qt_logger/simpleQtLogger.h \
     models/machine_tool_elements/adapter/adapter_server.h \
+    models/machine_tool_elements/adapter/base_adapter.h \
+    models/machine_tool_elements/adapter/client_info.h \
     models/machine_tool_elements/adapter/motor_adapter.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
@@ -107,7 +112,8 @@ HEADERS  += gui/mainwindow.h \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h \
     models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
-    models/errors/sml_error_flags.h
+    models/errors/sml_error_flags.h \
+    testenv.h
 
 FORMS    += gui/mainwindow.ui \
     gui/add_point_dialog.ui \
