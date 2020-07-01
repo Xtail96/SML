@@ -21,7 +21,7 @@ Point MotorAdapter::currentPos()
     auto keys = m_axes.keys();
     for(auto key : keys)
     {
-        p.insertAxis(key, (&m_axes[key])->currentPosition());
+        //p.insertAxis(key, (&m_axes[key])->currentPosition());
     }
     return p;
 }
@@ -80,10 +80,10 @@ void MotorAdapter::setupConnections()
             QString id = axisObject["id"].toString();
             double value = axisObject["position"].toDouble();
 
-            if(!m_axes.contains(id))
-                m_axes.insert(id, Axis(id, value, this));
-            else
-                m_axes[id].setCurrentPosition(value);
+            //if(!m_axes.contains(id))
+            //    m_axes.insert(id, new Axis(id, value, this));
+            //else
+            //    m_axes[id].setCurrentPosition(value);
         }
 
         this->setWorkflowState(u2State["workflowState"].toBool());

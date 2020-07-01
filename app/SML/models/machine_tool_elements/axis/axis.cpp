@@ -28,7 +28,7 @@ QString Axis::axisSettings() const
 {
     QString settings = "";
     settings += QString("Идентификатор оси: ") + m_id + QString(".");
-    return "";
+    return settings;
 }
 
 QString Axis::id() const
