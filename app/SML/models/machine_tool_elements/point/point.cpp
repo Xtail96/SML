@@ -45,7 +45,7 @@ QMap<QString, double> Point::coordsMap()
 
 double& Point::operator[](QString axisName)
 {
-    if(!m_coords.contains(axisName)) throw InvalidArgumentException("Axis name " + axisName + " does not exists");
+    if(!m_coords.contains(axisName)) throw InvalidArgumentException("Axis " + axisName + "does not exists");
     return m_coords[axisName];
 }
 

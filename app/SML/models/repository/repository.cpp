@@ -383,7 +383,7 @@ void Repository::setCurrentPosition(Point absCoordinates)
     {
         for(auto axis : m_axes)
         {
-            auto absValue = absCoordinates.get(axis->id());
+            auto absValue = absCoordinates.get(axis->decoratedId());
             axis->setCurrentPosition(absValue);
         }
     }
@@ -398,7 +398,7 @@ void Repository::setCurrentPosition(QMap<QString, double> absCoordinates)
 {
     for(auto axis : m_axes)
     {
-        QString currentAxisName = axis->id();
+        QString currentAxisName = axis->decoratedId();
         if(absCoordinates.contains(currentAxisName))
         {
             double axisPosition = absCoordinates[currentAxisName];
@@ -415,7 +415,7 @@ QStringList Repository::getAxisesNames()
     {
         for(auto axis : m_axes)
         {
-            names.push_back(axis->id());
+            names.push_back(axis->decoratedId());
         }
     }
     catch(...)
@@ -424,13 +424,12 @@ QStringList Repository::getAxisesNames()
         emit this->errorOccurred(ERROR_CODE::UNKNOWN_ERROR);
     }
 
-
-    return SML_AXES_NAMES.sort(names);
+    return names;
 }
 
 double Repository::getAxisPosition(const QString axisName)
 {
-    if(!this->getAxisesNames().contains(axisName, Qt::CaseInsensitive))
+    if(!this->getAxisesNames().contains(axisName))
     {
         QString message =
                 QStringLiteral("axis with name = ") +
@@ -566,7 +565,7 @@ Point Repository::createEmptyPoint()
     Point p;
     for(auto axis : m_axes)
     {
-        p.insertAxis(axis->id(), 0.0);
+        p.insertAxis(axis->decoratedId(), 0.0);
     }
     return p;
 }
@@ -943,7 +942,9 @@ void Repository::loadAxisesSettings()
             //double lowerBound = m_settingsManager.get(sectionName, "LowerBound").toDouble();
             //double uppderBound = m_settingsManager.get(sectionName, "UpperBound").toDouble();
 
-            m_axes.push_back(QSharedPointer<Axis>(new Axis(axisUid, 0.0, this)));
+
+            AxisId id = Axis::idFromStr(axisUid);
+            m_axes.push_back(QSharedPointer<Axis>(new Axis(id, 0.0, this)));
 
             m_zeroCoordinates.insertAxis(axisUid, 0.0);
             m_parkCoordinates.insertAxis(axisUid, 0.0);
@@ -979,7 +980,7 @@ Point Repository::getCurrentPositionFromBase()
     {
         for(auto axis : m_axes)
         {
-            result.insertAxis(axis->id(), axis->currentPosition());
+            result.insertAxis(axis->decoratedId(), axis->currentPosition());
         }
     }
     catch(...)
@@ -1076,7 +1077,7 @@ bool Repository::axisExists(QString uid)
 {
     for(auto axis : m_axes)
     {
-        if(axis->id() == uid)
+        if(axis->decoratedId() == uid)
         {
             return true;
         }
@@ -1109,7 +1110,7 @@ Point Repository::getMaxPosition()
     Point maxPosition = Point();
     for(auto axis : m_axes)
     {
-        maxPosition.insertAxis(axis->id(), 10000);
+        maxPosition.insertAxis(axis->decoratedId(), 10000);
     }
     return maxPosition;
 }
