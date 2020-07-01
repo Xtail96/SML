@@ -34,7 +34,10 @@ private:
     void setupConnections();
     void resetConnections();
 
+    void setWorkflowState(bool value);
+
 signals:
+    void workflowStateChanged();
 
 private slots:
     qint64 sendMessage(QByteArray message);
