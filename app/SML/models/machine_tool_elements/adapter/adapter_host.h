@@ -21,22 +21,6 @@ public:
     /// Останавливает сервер
     void stopServer();
 
-    /**
-     * @brief Отправляет сообщение
-     * @param dest - целевой сокет
-     * @param message - сообщение
-     * @return количество переданых байт
-     */
-    qint64 sendMessage(QWebSocket* dest, QString message);
-
-    /**
-     * @brief Отправляет сообщение
-     * @param dest - целевой сокет
-     * @param message - сообщение
-     * @return количество переданых байт
-     */
-    qint64 sendMessage(QWebSocket* dest, QByteArray message);
-
     /// Возвращает порт сервера
     quint16 port() const;
 

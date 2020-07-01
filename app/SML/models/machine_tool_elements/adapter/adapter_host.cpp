@@ -14,29 +14,6 @@ AdapterHost::~AdapterHost()
     this->stopServer();
 }
 
-qint64 AdapterHost::sendMessage(QWebSocket *dest, QString message)
-{
-    if(!dest)
-        throw std::invalid_argument("Socket is null");
-
-    if(!dest->isValid())
-        throw std::invalid_argument("Invalid socket:" + dest->localAddress().toString().toStdString());
-
-
-    return dest->sendTextMessage(message);
-}
-
-qint64 AdapterHost::sendMessage(QWebSocket *dest, QByteArray message)
-{
-    if(!dest)
-        throw std::invalid_argument("Socket is null");
-
-    if(!dest->isValid())
-        throw std::invalid_argument("Invalid socket:" + dest->localAddress().toString().toStdString());
-
-    return dest->sendBinaryMessage(message);
-}
-
 quint16 AdapterHost::port() const
 {
     return m_port;
