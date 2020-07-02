@@ -1,6 +1,6 @@
-#include "adapter_server.h"
+#include "adapter_gateway.h"
 
-AdapterServer::AdapterServer(QObject *parent) :
+AdapterGateway::AdapterGateway(QObject *parent) :
     QObject(parent),
     m_server("SMLAdapterServer", QWebSocketServer::NonSecureMode, this),
     m_port(0),
@@ -8,17 +8,17 @@ AdapterServer::AdapterServer(QObject *parent) :
 {
 }
 
-AdapterServer::~AdapterServer()
+AdapterGateway::~AdapterGateway()
 {
     this->stopServer();
 }
 
-quint16 AdapterServer::port() const
+quint16 AdapterGateway::port() const
 {
     return m_port;
 }
 
-bool AdapterServer::startServer(quint16 port)
+bool AdapterGateway::startServer(quint16 port)
 {
     if(m_server.isListening())
         this->stopServer();
@@ -36,7 +36,7 @@ bool AdapterServer::startServer(quint16 port)
     return true;
 }
 
-void AdapterServer::stopServer()
+void AdapterGateway::stopServer()
 {
     this->resetConnections();
 
@@ -46,7 +46,7 @@ void AdapterServer::stopServer()
     qDebug() << "Server successfully stopped. Good Bye!";
 }
 
-void AdapterServer::setupConnections()
+void AdapterGateway::setupConnections()
 {
     m_connections.append(QObject::connect(&m_server, &QWebSocketServer::newConnection, this, [=](){
         emit this->newConnection(m_server.nextPendingConnection());
@@ -57,7 +57,7 @@ void AdapterServer::setupConnections()
     }));
 }
 
-void AdapterServer::resetConnections()
+void AdapterGateway::resetConnections()
 {
     for(auto& connection : m_connections)
         QObject::disconnect(connection);

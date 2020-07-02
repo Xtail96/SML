@@ -1,19 +1,19 @@
-#ifndef BASEADAPTER_H
-#define BASEADAPTER_H
+#ifndef BASECONTROLLER_H
+#define BASECONTROLLER_H
 
 #include <QObject>
 #include <QWebSocket>
 
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/adapter/client_info.h"
+#include "models/machine_tool_elements/adapter/adapter_connection.h"
 
-class BaseAdapter : public QObject
+class BaseController : public QObject
 {
     Q_OBJECT
 public:
-    explicit BaseAdapter(QObject *parent = nullptr);
-    virtual ~BaseAdapter();
+    explicit BaseController(QObject *parent = nullptr);
+    virtual ~BaseController();
 
     void addClient(QWebSocket* s);
     void clearClients();
@@ -21,7 +21,7 @@ public:
     bool processingTask() const;
 
 protected:
-    QList<ClientInfo*> m_clients;
+    QList<AdapterConnection*> m_clients;
     bool m_processingTask;
 
     virtual void parseTextMessage(QString message) = 0;
@@ -34,4 +34,4 @@ signals:
     void taskProcessingStateChanged();
 };
 
-#endif // BASEADAPTER_H
+#endif // BASECONTROLLER_H

@@ -1,20 +1,20 @@
-#ifndef MOTORADAPTER_H
-#define MOTORADAPTER_H
+#ifndef MOTIONCONTROLLER_H
+#define MOTIONCONTROLLER_H
 
 #include <QObject>
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/adapter/base_adapter.h"
+#include "models/machine_tool_elements/adapter/base_controller.h"
 
 #include "models/machine_tool_elements/axis/axis.h"
 #include "models/machine_tool_elements/point/point.h"
 
-class MotorAdapter : public BaseAdapter
+class MotionController : public BaseController
 {
     Q_OBJECT
 public:
-    explicit MotorAdapter(QObject *parent = nullptr);
-    ~MotorAdapter();
+    explicit MotionController(QObject *parent = nullptr);
+    ~MotionController();
 
     Point currentPos();
     void setCurrentPos(Point absPos);
@@ -36,4 +36,4 @@ signals:
 
 };
 
-#endif // MOTORADAPTER_H
+#endif // MOTIONCONTROLLER_H

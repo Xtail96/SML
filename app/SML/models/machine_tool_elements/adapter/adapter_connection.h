@@ -1,13 +1,13 @@
-#ifndef CLIENTINFO_H
-#define CLIENTINFO_H
+#ifndef ADAPTERCONNECTION_H
+#define ADAPTERCONNECTION_H
 
 #include <QWebSocket>
 
-class ClientInfo
+class AdapterConnection
 {
 public:
-    ClientInfo(QWebSocket* s);
-    ~ClientInfo();
+    AdapterConnection(QWebSocket* s);
+    ~AdapterConnection();
 
     void addSlotInfo(const QMetaObject::Connection &slotInfo);
 
@@ -19,4 +19,4 @@ private:
 
 };
 
-#endif // CLIENTINFO_H
+#endif // ADAPTERCONNECTION_H

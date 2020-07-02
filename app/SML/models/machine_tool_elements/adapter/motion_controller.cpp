@@ -1,17 +1,17 @@
-#include "motor_adapter.h"
+#include "motion_controller.h"
 
-MotorAdapter::MotorAdapter(QObject *parent):
-    BaseAdapter(parent),
+MotionController::MotionController(QObject *parent):
+    BaseController(parent),
     m_axes()
 {
 }
 
-MotorAdapter::~MotorAdapter()
+MotionController::~MotionController()
 {
     qDeleteAll(m_axes.begin(), m_axes.end());
 }
 
-Point MotorAdapter::currentPos()
+Point MotionController::currentPos()
 {
     Point p;
     for(auto axis : m_axes)
@@ -21,8 +21,10 @@ Point MotorAdapter::currentPos()
     return p;
 }
 
-void MotorAdapter::parseBinaryMessage(QByteArray message)
+void MotionController::parseBinaryMessage(QByteArray message)
 {
+    qDebug() << "binary message received" << QString::fromUtf8(message);
+
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
     if(!parsed)
@@ -54,7 +56,7 @@ void MotorAdapter::parseBinaryMessage(QByteArray message)
     this->setProcessingTask(u2State["workflowState"].toBool());
 }
 
-void MotorAdapter::parseTextMessage(QString message)
+void MotionController::parseTextMessage(QString message)
 {
     qDebug() << "text message received" << message;
 }

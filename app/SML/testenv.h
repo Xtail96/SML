@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/adapter/adapter_server.h"
-#include "models/machine_tool_elements/adapter/motor_adapter.h"
+#include "models/machine_tool_elements/adapter/adapter_gateway.h"
+#include "models/machine_tool_elements/adapter/motion_controller.h"
 
 class TestEnv : public QObject
 {
@@ -13,8 +13,8 @@ public:
     explicit TestEnv(QObject *parent = nullptr);
 
 private:
-    AdapterServer s;
-    MotorAdapter m;
+    AdapterGateway s;
+    MotionController m;
 
 signals:
 

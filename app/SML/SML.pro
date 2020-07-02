@@ -21,10 +21,10 @@ SOURCES += main.cpp\
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/simple_qt_logger/simpleQtLogger.cpp \
-    models/machine_tool_elements/adapter/adapter_server.cpp \
-    models/machine_tool_elements/adapter/base_adapter.cpp \
-    models/machine_tool_elements/adapter/client_info.cpp \
-    models/machine_tool_elements/adapter/motor_adapter.cpp \
+    models/machine_tool_elements/adapter/adapter_connection.cpp \
+    models/machine_tool_elements/adapter/adapter_gateway.cpp \
+    models/machine_tool_elements/adapter/base_controller.cpp \
+    models/machine_tool_elements/adapter/motion_controller.cpp \
     models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.cpp \
@@ -69,10 +69,10 @@ HEADERS  += gui/mainwindow.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/simple_qt_logger/simpleQtLogger.h \
-    models/machine_tool_elements/adapter/adapter_server.h \
-    models/machine_tool_elements/adapter/base_adapter.h \
-    models/machine_tool_elements/adapter/client_info.h \
-    models/machine_tool_elements/adapter/motor_adapter.h \
+    models/machine_tool_elements/adapter/adapter_connection.h \
+    models/machine_tool_elements/adapter/adapter_gateway.h \
+    models/machine_tool_elements/adapter/base_controller.h \
+    models/machine_tool_elements/adapter/motion_controller.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.h \
