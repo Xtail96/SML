@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/adapter/adapter_gateway.h"
-#include "models/machine_tool_elements/adapter/motion_controller.h"
+#include "models/machine_tool_elements/adapter_refactor/adapter_gateway.h"
+#include "models/machine_tool_elements/adapter_refactor/motion_controller.h"
 
 class TestEnv : public QObject
 {

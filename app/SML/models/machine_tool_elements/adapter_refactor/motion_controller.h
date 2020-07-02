@@ -4,7 +4,7 @@
 #include <QObject>
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/adapter/base_controller.h"
+#include "models/machine_tool_elements/adapter_refactor/base_controller.h"
 
 #include "models/machine_tool_elements/axis/axis.h"
 #include "models/machine_tool_elements/point/point.h"
@@ -14,7 +14,7 @@ class MotionController : public BaseController
     Q_OBJECT
 public:
     explicit MotionController(QObject *parent = nullptr);
-    ~MotionController();
+    ~MotionController() override;
 
     Point currentPos();
     void setCurrentPos(Point absPos);

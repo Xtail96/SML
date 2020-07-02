@@ -6,7 +6,7 @@
 
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/adapter/adapter_connection.h"
+#include "models/machine_tool_elements/adapter_refactor/adapter_connection.h"
 
 class BaseController : public QObject
 {
