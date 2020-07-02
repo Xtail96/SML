@@ -20,6 +20,7 @@ public:
 
     bool processingTask() const;
     bool isConnected() const;
+    qint64 sendMessage(QByteArray message);
 
 protected:
     QList<AdapterConnection*> m_clients;
@@ -28,7 +29,6 @@ protected:
     virtual void parseTextMessage(QString message) = 0;
     virtual void parseBinaryMessage(QByteArray message) = 0;
 
-    qint64 sendMessage(QByteArray message);
     void setProcessingTask(bool processingTask);
 signals:
     void connectionStateChanged();
