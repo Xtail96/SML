@@ -458,7 +458,7 @@ QStringList Repository::getAxesSettings()
     {
         for(auto axis : m_axes)
         {
-            axesSettings.push_back(axis->axisSettings());
+            axesSettings.push_back(axis->toString());
         }
     }
     catch(...)

@@ -24,7 +24,7 @@ void Axis::setCurrentPosition(double absPosition)
     emit this->currentPositionChanged();
 }
 
-QString Axis::axisSettings() const
+QString Axis::toString() const
 {
     QString settings = "";
     settings += QString("Идентификатор оси: ") + m_id + QString(".");
@@ -97,4 +97,14 @@ bool Axis::operator==(const Axis &other) const
 bool Axis::operator!=(const Axis &other) const
 {
     return (m_id != other.id());
+}
+
+bool Axis::operator >=(const Axis &other) const
+{
+    return (m_id >= other.id());
+}
+
+bool Axis::operator<=(const Axis &other) const
+{
+    return (m_id <= other.id());
 }

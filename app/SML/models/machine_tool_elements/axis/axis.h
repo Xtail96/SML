@@ -19,7 +19,7 @@ public:
     double currentPosition() const;
     void setCurrentPosition(double absPosition);
 
-    QString axisSettings() const;
+    QString toString() const;
 
     AxisId id() const;
     QString decoratedId() const;
@@ -27,6 +27,8 @@ public:
 
     bool operator==(const Axis& other) const;
     bool operator!=(const Axis& other) const;
+    bool operator>=(const Axis& other) const;
+    bool operator<=(const Axis& other) const;
 
 private:
     AxisId m_id;
