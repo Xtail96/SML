@@ -56,6 +56,14 @@ bool BaseController::processingTask() const
     return m_processingTask;
 }
 
+bool BaseController::isConnected() const
+{
+    if(m_clients.first() == nullptr) return false;
+    if(m_clients.first()->socket() == nullptr) return false;
+
+    return m_clients.first()->socket()->isValid();
+}
+
 qint64 BaseController::sendMessage(QByteArray message)
 {
     auto client = m_clients.first();

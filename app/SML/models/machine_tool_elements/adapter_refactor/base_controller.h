@@ -19,6 +19,7 @@ public:
     void clearClients();
 
     bool processingTask() const;
+    bool isConnected() const;
 
 protected:
     QList<AdapterConnection*> m_clients;
