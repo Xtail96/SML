@@ -5,46 +5,49 @@
 #include <QWebSocketServer>
 #include <QWebSocket>
 
+/**
+ * @brief Точка подключения адаптеров к системе.
+ */
 class AdapterGateway : public QObject
 {
     Q_OBJECT
 public:
-    /// Конструктор класса
+    /// Конструктор класса.
     explicit AdapterGateway(QObject *parent);
 
-    /// Деструктор класса
+    /// Деструктор класса.
     ~AdapterGateway();
 
-    /// Запускает сервер
+    /// Запускает сервер.
     bool startServer(quint16 port);
 
-    /// Останавливает сервер
+    /// Останавливает сервер.
     void stopServer();
 
-    /// Возвращает порт сервера
+    /// Возвращает порт сервера.
     quint16 port() const;
 
 private:
-    /// Web-soket сервер
+    /// Web-soket сервер.
     QWebSocketServer m_server;
 
-    /// Порт, на котором работает сервер
+    /// Порт, на котором работает сервер.
     quint16 m_port;
 
-    /// Мета-информация о подключенных слотах
+    /// Мета-информация о подключенных слотах.
     QList<QMetaObject::Connection> m_connections;
 
-    /// Подключает необходимые слоты
+    /// Подключает необходимые слоты.
     void setupConnections();
 
-    /// Отключает слоты
+    /// Отключает слоты.
     void resetConnections();
 
 signals:
-    /// Произошло подключение нового сокета
+    /// Произошло подключение нового сокета.
     void newConnection(QWebSocket* s);
 
-    /// Сервер остановлен
+    /// Сервер остановлен.
     void serverStopped();
 };
 

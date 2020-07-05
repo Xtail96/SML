@@ -51,9 +51,9 @@ void BaseController::clearClients()
     emit this->connectionStateChanged();
 }
 
-bool BaseController::processingTask() const
+bool BaseController::isReady() const
 {
-    return m_processingTask;
+    return !m_processingTask;
 }
 
 bool BaseController::isConnected() const
