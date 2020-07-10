@@ -27,6 +27,7 @@ SOURCES += main.cpp\
     models/machine_tool_elements/adapter_refactor/device_controller.cpp \
     models/machine_tool_elements/adapter_refactor/motion_controller.cpp \
     models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
+    models/machine_tool_elements/adapter_refactor/registrator.cpp \
     models/repository/repository.cpp \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
@@ -76,6 +77,7 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/adapter_refactor/device_controller.h \
     models/machine_tool_elements/adapter_refactor/motion_controller.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
+    models/machine_tool_elements/adapter_refactor/registrator.h \
     models/repository/repository.h \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.h \
     models/services/adapters/launcher/adapters_launcher.h \

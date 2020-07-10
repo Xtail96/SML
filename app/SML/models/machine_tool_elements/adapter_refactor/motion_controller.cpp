@@ -23,7 +23,7 @@ Point MotionController::currentPos()
 
 void MotionController::parseBinaryMessage(QByteArray message)
 {
-    qDebug() << "binary message received" << QString::fromUtf8(message);
+    qDebug() << "MotionController::binary message received" << QString::fromUtf8(message);
 
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
@@ -58,5 +58,5 @@ void MotionController::parseBinaryMessage(QByteArray message)
 
 void MotionController::parseTextMessage(QString message)
 {
-    qDebug() << "text message received" << message;
+    qDebug() << "MotionController::text message received" << message;
 }
