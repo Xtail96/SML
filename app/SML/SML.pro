@@ -24,6 +24,7 @@ SOURCES += main.cpp\
     models/machine_tool_elements/adapter_refactor/adapter_connection.cpp \
     models/machine_tool_elements/adapter_refactor/adapter_gateway.cpp \
     models/machine_tool_elements/adapter_refactor/base_controller.cpp \
+    models/machine_tool_elements/adapter_refactor/device_controller.cpp \
     models/machine_tool_elements/adapter_refactor/motion_controller.cpp \
     models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
     models/repository/repository.cpp \
@@ -72,6 +73,7 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/adapter_refactor/adapter_connection.h \
     models/machine_tool_elements/adapter_refactor/adapter_gateway.h \
     models/machine_tool_elements/adapter_refactor/base_controller.h \
+    models/machine_tool_elements/adapter_refactor/device_controller.h \
     models/machine_tool_elements/adapter_refactor/motion_controller.h \
     models/machine_tool_elements/adapter/server/sml_adapter_server.h \
     models/repository/repository.h \

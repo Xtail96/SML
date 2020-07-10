@@ -29,18 +29,18 @@ void MotionController::parseBinaryMessage(QByteArray message)
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
     if(!parsed)
     {
-        qDebug() << "MotorAdapter::binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
+        qDebug() << "MotionController::binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
         return;
     }
 
-    QtJson::JsonObject u2State = result["u2State"].toMap();
-    if(u2State.isEmpty())
+    QtJson::JsonObject motionController = result["u2State"].toMap();
+    if(motionController.isEmpty())
     {
-        qDebug() << "MotorAdapter::binaryMessageReceived: empty message";
+        qDebug() << "MotionController::binaryMessageReceived: empty message";
         return ;
     }
 
-    QtJson::JsonArray axes = u2State["axes"].toList();
+    QtJson::JsonArray axes = motionController["axes"].toList();
     for(auto axis : axes)
     {
         QtJson::JsonObject axisObject = axis.toMap();
@@ -53,7 +53,7 @@ void MotionController::parseBinaryMessage(QByteArray message)
         //    m_axes[id].setCurrentPosition(value);
     }
 
-    this->setProcessingTask(u2State["workflowState"].toBool());
+    this->setProcessingTask(motionController["workflowState"].toBool());
 }
 
 void MotionController::parseTextMessage(QString message)
