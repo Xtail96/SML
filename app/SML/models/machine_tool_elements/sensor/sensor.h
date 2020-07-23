@@ -5,6 +5,8 @@
 
 #include "models/structs.h"
 
+class DeviceController;
+
 /**
  * @brief Класс Датчик
  * Базовый тип, описывающий любой из датчиков станка
@@ -30,7 +32,7 @@ public:
            size_t portNumber,
            size_t inputNumber,
            QString boardName,
-           bool inputActiveState,
+           bool activeState,
            QColor color,
            QObject *parent = nullptr);
 
@@ -48,13 +50,7 @@ public:
      * @brief Возвращает текущее состояние входа, к которому подключен датчик
      * @return текущее состояние входа, к которому подключен датчик. true - есть напряжение на входе. false - нет напряжения на входе.
      */
-    bool inputCurrentState() const;
-
-    /**
-     * @brief Обновляет текущее состояния входа, если новое значение НЕ совпадает с текущим
-     * @param value - новое состояние входа, к которому подключен датчик
-     */
-    void setInputCurrentState(bool value);
+    bool inputState() const;
 
     /**
      * @brief Возвращает номер порта датчика
@@ -86,7 +82,7 @@ public:
      * @brief Возвращает активное состояние входа, к которому подключен датчик
      * @return состояние входа (логический ноль или логическая единица), при котором датчик считается активным
      */
-    bool inputActiveState() const;
+    bool activeState() const;
 
     /**
      * @brief Возвращает цвет индикатора активного датчика
@@ -136,7 +132,7 @@ protected:
     size_t m_inputNumber;
 
     /// Состояние входа, при котором датчик считается активным
-    bool m_inputActiveState;
+    bool m_activeState;
 
     /**
      * @brief Текущее сотояние входа (есть напряжение / нет напряжения)
@@ -145,24 +141,27 @@ protected:
      * Дело в том, что некторые датчики при срабатывании устанавливают на входе в логический ноль (большинство),
      * а некоторые - логическую единицу.
      */
-    bool m_inputCurrentState;
+    bool m_inputState;
 
     /// Цвет индикатора датчика
     QColor m_ledColorActiveState;
+
+private:
+
+    /**
+     * @brief Обновляет текущее состояния входа, если новое значение НЕ совпадает с текущим
+     * @param value - новое состояние входа, к которому подключен датчик
+     */
+    void setInputState(bool value);
+
+    /// Класс-друг!
+    friend class DeviceController;
 
 signals:
     /**
      * @brief Сигнал об изменении состояния датчика
      */
     void stateChanged();
-
-public slots:
-
-    /**
-     * @brief Обновляет текущее состояние входа, к которому подключен датчик
-     * @param state обновленное состояние входа, к которому подключен датчик
-     */
-    void updateInputState(bool state);
 };
 
 #endif // SENSOR_H

@@ -79,7 +79,7 @@ void DeviceController::parseSensors(const QtJson::JsonArray &sensors)
         bool input = sensorJson["input"].toBool();
         try
         {
-            this->getSensor(id)->updateInputState(input);
+            this->getSensor(id)->setInputState(input);
         }
         catch(std::invalid_argument e)
         {
