@@ -15,8 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    models/machine_tool_elements/sensor/sensor.cpp \
-    models/machine_tool_elements/sensor/sensor_tests.cpp \
+    models/machine_tool/controllers/device_controller/sensor/sensor.cpp \
+    models/machine_tool/controllers/device_controller/sensor/sensor_tests.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -24,4 +24,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    models/machine_tool_elements/sensor/sensor.h \
+    models/machine_tool/controllers/device_controller/sensor/sensor.h \
