@@ -7,16 +7,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //QCoreApplication::setOrganizationName("Semil");
-    //QCoreApplication::setOrganizationDomain("semil.ru");
-    //QCoreApplication::setApplicationName("SMLKAMEditor");
+    //TestEnv s(nullptr);
 
-    //MainWindow w;
-    //w.show();
+    QCoreApplication::setOrganizationName("SEMIL");
+    QCoreApplication::setOrganizationDomain("semil.ru");
+    QCoreApplication::setApplicationName("SML");
 
-    //Test t;
-
-    TestEnv s(nullptr);
+    MainWindow w;
+    w.show();
 
     return a.exec();
 }

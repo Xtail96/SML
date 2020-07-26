@@ -196,7 +196,7 @@ void MainWindow::resetConnections()
 
 void MainWindow::setupSensorsDisplay()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     QStringList names = machineTool.getRepository().getAllSensorsUids();
 
@@ -208,7 +208,7 @@ void MainWindow::setupSensorsDisplay()
                     parameters["Label"],
                     parameters["ActiveState"].toInt(),
                     parameters["LedColor"]);
-    }
+    }*/
 }
 
 void MainWindow::onMachineTool_SensorStateChanged(QString name, bool state)
@@ -243,7 +243,7 @@ void MainWindow::onMachineTool_BasingStateChanged(bool state)
 
 void MainWindow::setupSensorsSettingsBoard()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     QStringList sensorsSettings = machineTool.getRepository().getAllSensorsSettings();
 
@@ -282,12 +282,12 @@ void MainWindow::setupSensorsSettingsBoard()
     {
         ui->sensorsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
     }
-    ui->sensorsSettingsTableWidget->resizeColumnsToContents();
+    ui->sensorsSettingsTableWidget->resizeColumnsToContents();*/
 }
 
 void MainWindow::setupSpindelsControlPanel()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     ui->spindelsListWidget->clear();
     auto spindels = machineTool.getRepository().getSpindels();
@@ -308,12 +308,12 @@ void MainWindow::setupSpindelsControlPanel()
         ui->spindelsListWidget->addItem(item);
         ui->spindelsListWidget->setItemWidget(item, widget);
     }
-    ui->spindelsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
+    ui->spindelsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");*/
 }
 
 void MainWindow::setupSpindelsSettingsBoard()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
     QStringList spindelsSettings = machineTool.getRepository().getAllSpindelsSettings();
 
     QStringList labels;
@@ -350,12 +350,12 @@ void MainWindow::setupSpindelsSettingsBoard()
     for(int i = 0; i < items.size(); i++)
     {
         ui->spindelsSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
-    }
+    }*/
 }
 
 void MainWindow::setupSupportDevicesControlPanel()
 {
-    ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
+    /*ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 
     QStringList supportDevices = { "Муфта1", "Тормоз1", "Лазер", "Муфта2", "Муфта3", "Тормоз2", "Тормоз3" };
     for(auto supportDevice : supportDevices)
@@ -365,12 +365,12 @@ void MainWindow::setupSupportDevicesControlPanel()
         item->setSizeHint(itemWidget->sizeHint());
         ui->supportDevicesListWidget->addItem(item);
         ui->supportDevicesListWidget->setItemWidget(item, itemWidget);
-    }
+    }*/
 }
 
 void MainWindow::setupSupportDevicesSettingsBoard()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
     QStringList supportDevicesSettings = machineTool.getRepository().getAllSupportDeviceSettings();
 
     QStringList labels;
@@ -407,7 +407,7 @@ void MainWindow::setupSupportDevicesSettingsBoard()
     for(int i = 0; i < items.size(); i++)
     {
         ui->supportDevicesSettingsTableWidget->setItem(positions[i].first, positions[i].second, items[i]);
-    }
+    }*/
 }
 
 void MainWindow::setupCoordinatesDisplays()
@@ -417,15 +417,15 @@ void MainWindow::setupCoordinatesDisplays()
 
 void MainWindow::setupAxisesSettingsBoard()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     QStringList axisesSettings = machineTool.getRepository().getAxesSettings();
-    ui->axisesSettingsListWidget->addItems(axisesSettings);
+    ui->axisesSettingsListWidget->addItems(axisesSettings);*/
 }
 
 void MainWindow::setupAxisesButtons()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     bool axisXEnabled = machineTool.getRepository().axisExists("X");
     bool axisYEnabled = machineTool.getRepository().axisExists("Y");
@@ -500,12 +500,12 @@ void MainWindow::setupAxisesButtons()
     for(auto shortcut : m_axisesShortcuts)
     {
         shortcut->setEnabled(true);
-    }
+    }*/
 }
 
 void MainWindow::updateCoordinatesDisplays()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     QList<Point> currentCoordinates = machineTool.getRepository().getCurrentPositionDetaiedInfo();
 
@@ -518,7 +518,7 @@ void MainWindow::updateCoordinatesDisplays()
         this->showCoordinates(ui->currentCoordinatesListWidget, currentCoordinatesFromZero);
         this->showCoordinates(ui->baseCoordinatesListWidget, currentCoordinatesFromBase);
         this->showCoordinates(ui->parkCoordinatesListWidget, parkCoordinates);
-    }
+    }*/
 }
 
 void MainWindow::showCoordinates(QListWidget *display, Point p)
@@ -610,8 +610,8 @@ void MainWindow::onMachineTool_ErrorStateChanged(QList<ERROR_CODE> errors)
     MachineTool& machineTool = MachineTool::getInstance();
 
     ui->serverPortLcdNumber->display(machineTool.getAdapterServerPort());
-    ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository().getSensorsBufferSize());
-    ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository().getDevicesBufferSize());
+    //ui->sensorsBufferSizeLcdNumber->display(machineTool.getRepository().getSensorsBufferSize());
+    //ui->devicesBufferSizeLcdNumber->display(machineTool.getRepository().getDevicesBufferSize());
     ui->currentConnectionsListWidget->clear();
     ui->currentConnectionsListWidget->addItems(machineTool.getConnectedAdapters());
 
@@ -936,9 +936,9 @@ void MainWindow::on_movementWPositivePushButton_clicked()
 
 void MainWindow::on_feedrateScrollBar_valueChanged(int value)
 {
-    MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setVelocity(value);
-    ui->feedrateLcdNumber->display(QString::number(machineTool.getRepository().getVelocity()));
+    //MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.getRepository().setVelocity(value);
+    //ui->feedrateLcdNumber->display(QString::number(machineTool.getRepository().getVelocity()));
 }
 
 void MainWindow::on_exit_action_triggered()
@@ -1061,7 +1061,7 @@ void MainWindow::deletePoints(QModelIndexList indexes)
 
 void MainWindow::onPointsUpdated()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    /*MachineTool& machineTool = MachineTool::getInstance();
 
     QList<Point> points = machineTool.getRepository().getPoints();
     QList<PointsTableWidget*> fields = { ui->pointsTableWidget };
@@ -1117,7 +1117,7 @@ void MainWindow::onPointsUpdated()
         {
             button->setEnabled(false);
         }
-    }
+    }*/
 }
 
 void MainWindow::on_open_action_triggered()
@@ -1407,9 +1407,9 @@ void MainWindow::on_consoleOpenPushButton_clicked()
 
 void MainWindow::on_edgesControlCheckBox_clicked()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
+    //MachineTool& machineTool = MachineTool::getInstance();
 
-    machineTool.getRepository().setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
+    //machineTool.getRepository().setSoftLimitsMode(ui->edgesControlCheckBox->isChecked());
 }
 
 void MainWindow::on_syntaxHighlightingCheckBox_clicked()
@@ -1453,9 +1453,9 @@ void MainWindow::on_toBasePushButton_clicked()
 
 void MainWindow::on_zeroPushButton_clicked()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
-    this->updateCoordinatesDisplays();
+    //MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.getRepository().setZeroCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
+    //this->updateCoordinatesDisplays();
 }
 
 void MainWindow::on_toZeroPushButton_clicked()
@@ -1466,9 +1466,9 @@ void MainWindow::on_toZeroPushButton_clicked()
 
 void MainWindow::on_parkPushButton_clicked()
 {
-    MachineTool& machineTool = MachineTool::getInstance();
-    machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
-    this->updateCoordinatesDisplays();
+    //MachineTool& machineTool = MachineTool::getInstance();
+    //machineTool.getRepository().setParkCoordinates(machineTool.getRepository().getCurrentPositionFromBase());
+    //this->updateCoordinatesDisplays();
 }
 
 void MainWindow::on_toParkPushButton_clicked()

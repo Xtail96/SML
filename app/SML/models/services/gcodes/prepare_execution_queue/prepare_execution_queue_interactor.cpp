@@ -77,7 +77,7 @@ QQueue<QByteArray> PrepareExecutionQueueInteractor::execute(QStringList gcodesPr
 QStringList PrepareExecutionQueueInteractor::resolveToCurrentPosition(QStringList gcodes)
 {
     QStringList result = {};
-    MachineTool &machineTool = MachineTool::getInstance();
+    /*MachineTool &machineTool = MachineTool::getInstance();
 
     const std::string data = gcodes.join("\n").toStdString();
     gpr::gcode_program program = gpr::parse_gcode(data);
@@ -115,7 +115,7 @@ QStringList PrepareExecutionQueueInteractor::resolveToCurrentPosition(QStringLis
         {
             result.append(QString::fromStdString(block.to_string()));
         }
-    }
+    }*/
 
     return result;
 }

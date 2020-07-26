@@ -5,7 +5,6 @@
 #include <QQueue>
 
 #include "models/repository/repository.h"
-#include "models/machine_tool_elements/adapter/server/sml_adapter_server.h"
 
 #include "models/services/devices/spindels/switch/switch_spindel_interactor.h"
 #include "models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h"
@@ -13,6 +12,11 @@
 
 #include "models/services/adapters/launcher/adapters_launcher.h"
 #include "models/services/adapters/get_current_state/get_adapter_current_state_interactor.h"
+
+#include "models/machine_tool_elements/adapter_refactor/adapter_gateway.h"
+#include "models/machine_tool_elements/adapter_refactor/motion_controller.h"
+#include "models/machine_tool_elements/adapter_refactor/device_controller.h"
+#include "models/machine_tool_elements/adapter_refactor/registrator.h"
 
 /**
  * @brief Класс станок
@@ -82,7 +86,10 @@ private:
     Repository m_repository;
 
     /// Сервер для подключения адаптеров
-    SMLAdapterServer m_adapterServer;
+    AdapterGateway m_adapterServer;
+    MotionController m_motionController;
+    DeviceController m_deviceController;
+    Registrator m_adapterRegistrator;
     AdaptersLauncher m_adaptersLauncher;
 
     /// Ошибки возникшие при работе системы

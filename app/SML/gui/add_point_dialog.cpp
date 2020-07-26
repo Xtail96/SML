@@ -58,7 +58,7 @@ void AddPointDialog::on_buttonBox_accepted()
 void AddPointDialog::setupFields()
 {
     ui->setupUi(this);
-    QStringList qColumnsHeaders =
+    /*QStringList qColumnsHeaders =
     {
         "Значение"
     };
@@ -94,5 +94,5 @@ void AddPointDialog::setupFields()
                 ui->addPointArgumentsTableWidget->setItem(i, j, new QTableWidgetItem(pointCoordinates[j]));
             }
         }
-    }
+    }*/
 }

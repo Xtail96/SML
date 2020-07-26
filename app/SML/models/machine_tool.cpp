@@ -4,7 +4,10 @@ MachineTool::MachineTool(QObject *parent) :
     QObject(parent),
     m_connections(QList<QMetaObject::Connection>()),
     m_repository(this),
-    m_adapterServer(m_repository.m_port, this),
+    m_adapterServer(this),
+    m_motionController(this),
+    m_deviceController(this),
+    m_adapterRegistrator(&m_motionController, &m_deviceController, this),
     m_adaptersLauncher(new AdaptersLauncher(this)),
     m_errors(this),
     m_executionQueue(QQueue<QByteArray>()),
@@ -46,33 +49,27 @@ void MachineTool::setupConnections()
         this->setErrorFlag(flag);
     }));
 
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1Connected, this, [=]() {
-        qDebug() << "U1Connected";
-        m_repository.setU1ConnectState(true);
-        GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U1);
+    m_connections.append(QObject::connect(&m_adapterServer, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
+        m_adapterRegistrator.addClient(client);
     }));
 
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1Disconnected, this, [=]() {
-        qDebug() << "U1Disconnected";
-        m_repository.setU1ConnectState(false);
+    m_connections.append(QObject::connect(&m_motionController, &MotionController::connectionStateChanged, this, [=]() {
+        m_motionController.isConnected()
+                ? this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
     }));
 
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1StateChanged, this, [=](QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError) {
+    m_connections.append(QObject::connect(&m_deviceController, &DeviceController::connectionStateChanged, this, [=]() {
+        m_deviceController.isConnected()
+                ? this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
+    }));
+
+    /*m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1StateChanged, this, [=](QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError) {
         this->setErrorFlag(lastError);
         m_repository.setU1Sensors(sensors);
         m_repository.setU1Devices(devices);
         m_repository.setU1WorkflowState(workflowState);
-    }));
-
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2Connected, this, [=]() {
-        qDebug() << "U2Connected";
-        m_repository.setU2ConnectState(true);
-        GetAdapterCurrentStateInteractor::execute(m_adapterServer, Adapter::U2);
-    }));
-
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2Disconnected, this, [=]() {
-        qDebug() << "U2Disconnected";
-        m_repository.setU2ConnectState(false);
     }));
 
     m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2StateChanged, this, [=](QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError) {
@@ -83,13 +80,13 @@ void MachineTool::setupConnections()
 
     m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::errorOccurred, this, [=](ERROR_CODE errorCode) {
         this->setErrorFlag(errorCode);
-    }));
+    }));*/
 
     m_connections.append(QObject::connect(&m_errors, &SmlErrorFlags::stateChanged, this, [=]() {
         emit this->errorStateChanged(m_errors.getCurrentErrorFlags());
     }));
 
-    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, [=]() {
+    /*m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, [=]() {
         m_repository.m_u1Adapter.connectionState()
                 ? this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED)
                 : this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
@@ -107,7 +104,7 @@ void MachineTool::setupConnections()
 
     m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::workflowStateChanged, this, [=]() {
         emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
-    }));
+    }));*/
 
     m_connections.append(QObject::connect(&m_repository, &Repository::pointsUpdated, this, [=]() {
         emit this->pointsUpdated();
@@ -121,7 +118,7 @@ void MachineTool::setupConnections()
         emit this->gcodesFileContentUpdated(m_repository.m_gcodesFilesManager.getContent());
     }));
 
-    for(auto sensor : m_repository.m_sensors)
+    /*for(auto sensor : m_repository.m_sensors)
         m_connections.append(QObject::connect(sensor.data(), &Sensor::stateChanged, this, [=]() {
             emit this->sensorStateChanged(sensor.data()->uid(), sensor.data()->isEnable());
         }));
@@ -136,7 +133,7 @@ void MachineTool::setupConnections()
     for(auto axis : m_repository.m_axes)
         m_connections.append(QObject::connect(axis.data(), &Axis::currentPositionChanged, this, [=]() {
             emit this->currentCoordinatesChanged();
-        }));
+        }));*/
 }
 
 void MachineTool::resetConnections()
@@ -182,7 +179,9 @@ void MachineTool::startAdapterServer()
 {
     try
     {
-        m_adapterServer.start();
+        SettingsManager s;
+        quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
+        m_adapterServer.startServer(port);
         this->launchAdapters();
     }
     catch(...)
@@ -196,7 +195,7 @@ void MachineTool::stopAdapterServer()
 {
     try
     {
-        m_adapterServer.stop();
+        m_adapterServer.stopServer();
         this->stopAdapters();
     }
     catch(...)
@@ -212,7 +211,7 @@ QStringList MachineTool::getConnectedAdapters()
 
     try
     {
-        result = m_adapterServer.currentAdapters();
+        //result = m_adapterServer.currentAdapters();
     }
     catch(...)
     {
@@ -273,7 +272,11 @@ void MachineTool::setBased(bool based)
 
 void MachineTool::launchAdapters()
 {
-    m_adaptersLauncher.startAdapters(m_repository.m_u1Adapter.path(), m_repository.m_u2Adapter.path());
+    SettingsManager s;
+    QString deviceAdapterPath = s.get("ExternalTools", "U1Adapter").toString();
+    QString motionAdapterPath = s.get("ExternalTools", "U2Adapter").toString();
+
+    m_adaptersLauncher.startAdapters(deviceAdapterPath, motionAdapterPath);
 }
 
 void MachineTool::stopAdapters()
@@ -304,7 +307,7 @@ void MachineTool::switchSpindelOn(QString uid, size_t rotations)
     {
         if(m_errors.isSystemHasErrors()) return;
 
-        SwitchSpindelInteractor::execute(m_adapterServer, uid, true, rotations);
+        //SwitchSpindelInteractor::execute(m_adapterServer, uid, true, rotations);
     }
     catch(...)
     {
@@ -319,7 +322,7 @@ void MachineTool::switchSpindelOff(QString uid)
     {
         if(m_errors.isSystemHasErrors()) return;
 
-        SwitchSpindelInteractor::execute(m_adapterServer, uid, false);
+        //SwitchSpindelInteractor::execute(m_adapterServer, uid, false);
     }
     catch(...)
     {
@@ -421,7 +424,7 @@ void MachineTool::stopProgramProcessing()
 
 void MachineTool::stepMove(QMap<QString, double> steps)
 {
-    try
+    /*try
     {
         Point currentCoordinatesFromBase = m_repository.getCurrentPositionFromBase();
         Point increment = m_repository.createEmptyPoint();
@@ -438,12 +441,12 @@ void MachineTool::stepMove(QMap<QString, double> steps)
     catch(InvalidArgumentException e)
     {
         QMessageBox(QMessageBox::Critical, "Ошибка", e.what()).exec();
-    }
+    }*/
 }
 
 void MachineTool::moveToPoint(Point pointFromBase)
 {
-    try
+    /*try
     {
         QString gcode = "G1 ";
         QMap<QString, double> coords = pointFromBase.coordsMap();
@@ -471,7 +474,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
     {
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         qDebug() << "MachineTool::moveToPoint: unknown error";
-    }
+    }*/
 }
 
 void MachineTool::moveToSensor(QString sensorUid)
@@ -481,7 +484,7 @@ void MachineTool::moveToSensor(QString sensorUid)
 
 void MachineTool::moveToBase()
 {
-    try
+    /*try
     {
         this->setBased(false);
         m_repository.setCurrentPosition(m_repository.getMaxPosition());
@@ -515,12 +518,12 @@ void MachineTool::moveToBase()
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         qDebug() << "MachineTool::moveToBase: unknown error";
         this->setBased(false);
-    }
+    }*/
 }
 
 void MachineTool::resetCurrentCoordinates()
 {
-    try
+    /*try
     {
         Point zeroPoint = m_repository.createEmptyPoint();
         m_repository.setCurrentPosition(zeroPoint);
@@ -530,12 +533,12 @@ void MachineTool::resetCurrentCoordinates()
         this->setErrorFlag(ERROR_CODE::SYNC_STATE_ERROR);
         qDebug() << "MachineTool::resetCurrentCoordinates: unknown error";
         this->setBased(false);
-    }
+    }*/
 }
 
 void MachineTool::sendNextCommand()
 {
-    if(m_errors.isSystemHasErrors())
+    /*if(m_errors.isSystemHasErrors())
     {
         qDebug() << "MachineTool::sendNextCommand: error is occured during program processing.";
         this->stopProgramProcessing();
@@ -584,5 +587,5 @@ void MachineTool::sendNextCommand()
         return;
     }
 
-    qDebug() << "MachineTool::sendNextCommand: unknown target" << target;
+    qDebug() << "MachineTool::sendNextCommand: unknown target" << target;*/
 }
