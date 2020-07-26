@@ -54,7 +54,7 @@
 #include "gui/options/toollengthsensorwindow.h"
 #include "gui/options/lubricationsystemwindow.h"*/
 
-#include "models/machine_tool.h"
+#include "models/machine_tool/machine_tool.h"
 
 #include "gui/sml_console_dialog.h"
 #include "gui/widgets/spindel_control_widget.h"

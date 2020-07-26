@@ -3,10 +3,10 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/controllers/base_controller.h"
-#include "models/machine_tool_elements/sensor/sensor.h"
-#include "models/machine_tool_elements/device/spindel.h"
-#include "models/machine_tool_elements/device/support_device.h"
+#include "models/machine_tool/controllers/base_controller.h"
+#include "models/machine_tool/controllers/device_controller/sensor/sensor.h"
+#include "models/machine_tool/controllers/device_controller/device/spindel.h"
+#include "models/machine_tool/controllers/device_controller/device/support_device.h"
 
 class DeviceController : public BaseController
 {

@@ -16,7 +16,7 @@ void BaseController::addClient(QWebSocket *s)
 {
     if(m_clients.length() > 0)
     {
-        qDebug () << "Already have client. Remove it first";
+        qDebug () << "Already have a client. Remove it first";
         if(s->isValid())
             s->sendTextMessage("Connection aborted");
 

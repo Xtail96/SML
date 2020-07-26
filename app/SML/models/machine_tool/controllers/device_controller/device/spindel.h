@@ -1,7 +1,7 @@
 #ifndef SPINDEL_H
 #define SPINDEL_H
 
-#include "models/machine_tool_elements/device/device.h"
+#include "./device.h"
 
 class Spindel : public Device
 {

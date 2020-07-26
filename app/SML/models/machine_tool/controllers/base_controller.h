@@ -6,7 +6,7 @@
 
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/controllers/adapters/adapter_connection.h"
+#include "models/machine_tool/controllers/adapters/adapter_connection.h"
 
 /**
  * @brief Базовый контроллер станка.

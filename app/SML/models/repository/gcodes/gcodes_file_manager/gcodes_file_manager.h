@@ -13,7 +13,7 @@
 #include <QProgressDialog>
 #include <QRegularExpression>
 
-#include "models/machine_tool_elements/gcodes/file_reader/file_reader.h"
+#include "../file_reader/file_reader.h"
 
 class GCodesFileManager : public QObject
 {

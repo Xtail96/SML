@@ -11,7 +11,7 @@
 
 #include "models/exceptions/exceptions.h"
 #include "models/structs.h"
-#include "models/machine_tool.h"
+#include "models/machine_tool/machine_tool.h"
 
 
 class PrepareExecutionQueueInteractor

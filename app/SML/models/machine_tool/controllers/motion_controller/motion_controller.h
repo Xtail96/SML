@@ -4,10 +4,10 @@
 #include <QObject>
 #include "libs/json_parser/json.h"
 
-#include "models/machine_tool_elements/controllers/base_controller.h"
+#include "../base_controller.h"
 
-#include "models/machine_tool_elements/axis/axis.h"
-#include "models/machine_tool_elements/point/point.h"
+#include "./axis/axis.h"
+#include "./axis/point.h"
 
 /**
  * @brief Контроллер двигаталей.

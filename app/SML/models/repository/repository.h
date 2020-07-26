@@ -7,8 +7,8 @@
 
 #include "models/structs.h"
 #include "models/settings_manager/settings_manager.h"
-#include "models/machine_tool_elements/point/point.h"
-#include "models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h"
+#include "models/machine_tool/controllers/motion_controller/axis/point.h"
+#include "./gcodes/gcodes_file_manager/gcodes_file_manager.h"
 
 class MachineTool;
 

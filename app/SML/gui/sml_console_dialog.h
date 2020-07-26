@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "models/machine_tool.h"
+#include "models/machine_tool/machine_tool.h"
 
 namespace Ui {
 class SMLConsoleDialog;
