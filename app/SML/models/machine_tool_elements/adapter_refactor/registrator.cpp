@@ -6,10 +6,23 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
 {
     m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s) {
         m->addClient(s);
+        for(auto client : m_clients)
+        {
+            client->clearSlotsInfo();
+        }
+        m_clients.clear();
+        s->sendTextMessage("Registered!");
     }));
 
     m_connections.append(QObject::connect(this, &Registrator::DeviceAdapterConnected, this, [=](QWebSocket* s) {
         d->addClient(s);
+        for(auto client : m_clients)
+        {
+            client->clearSlotsInfo();
+        }
+        m_clients.clear();
+
+        s->sendTextMessage("Registered!");
     }));
 }
 
@@ -29,4 +42,41 @@ void Registrator::parseBinaryMessage(QByteArray message)
 void Registrator::parseTextMessage(QString message)
 {
     qDebug() << "Registrator::text message received" << message;
+
+    QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
+    if (!pSender) return;
+
+    if(message == "@SML-U1Adapter@")
+    {
+        try
+        {
+            emit this->DeviceAdapterConnected(pSender);
+        }
+        catch(SynchronizeStateException e)
+        {
+            qDebug() << e.message();
+            delete pSender;
+        }
+    }
+    else
+    {
+        if(message == "@SML-U2Adapter@")
+        {
+            try
+            {
+                emit this->MotionAdapterConnected(pSender);
+            }
+            catch(SynchronizeStateException e)
+            {
+                qDebug() << e.message();
+                delete pSender;
+            }
+        }
+        else
+        {
+            pSender->sendTextMessage("Connection aborted");
+            pSender->close();
+        }
+    }
+
 }

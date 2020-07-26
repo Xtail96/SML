@@ -26,6 +26,8 @@ public:
      */
     void addSlotInfo(const QMetaObject::Connection &slotInfo);
 
+    void clearSlotsInfo();
+
     /**
      * @brief Возвращает сокет подключения.
      * @return указатель на сокет

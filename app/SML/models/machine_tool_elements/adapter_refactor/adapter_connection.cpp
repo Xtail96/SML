@@ -7,11 +7,7 @@ AdapterConnection::AdapterConnection(QWebSocket *s):
 
 AdapterConnection::~AdapterConnection()
 {
-    for(auto& slotInfo : m_slotsInfo)
-    {
-        qDebug() << "disconnect slot";
-        QObject::disconnect(slotInfo);
-    }
+    this->clearSlotsInfo();
 
     if(m_socket && m_socket->isValid())
     {
@@ -24,6 +20,15 @@ AdapterConnection::~AdapterConnection()
 void AdapterConnection::addSlotInfo(const QMetaObject::Connection &slotInfo)
 {
     m_slotsInfo.append(slotInfo);
+}
+
+void AdapterConnection::clearSlotsInfo()
+{
+    for(auto& slotInfo : m_slotsInfo)
+    {
+        qDebug() << "disconnect slot";
+        QObject::disconnect(slotInfo);
+    }
 }
 
 QWebSocket *AdapterConnection::socket() const
