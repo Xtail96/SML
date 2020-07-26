@@ -21,13 +21,12 @@ SOURCES += main.cpp\
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/simple_qt_logger/simpleQtLogger.cpp \
-    models/machine_tool_elements/adapter_refactor/adapter_connection.cpp \
-    models/machine_tool_elements/adapter_refactor/adapter_gateway.cpp \
-    models/machine_tool_elements/adapter_refactor/base_controller.cpp \
-    models/machine_tool_elements/adapter_refactor/device_controller.cpp \
-    models/machine_tool_elements/adapter_refactor/motion_controller.cpp \
-    models/machine_tool_elements/adapter/server/sml_adapter_server.cpp \
-    models/machine_tool_elements/adapter_refactor/registrator.cpp \
+    models/machine_tool_elements/controllers/adapters/adapter_connection.cpp \
+    models/machine_tool_elements/controllers/adapters/adapter_gateway.cpp \
+    models/machine_tool_elements/controllers/base_controller.cpp \
+    models/machine_tool_elements/controllers/device_controller.cpp \
+    models/machine_tool_elements/controllers/motion_controller.cpp \
+    models/machine_tool_elements/controllers/registrator.cpp \
     models/repository/repository.cpp \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
@@ -38,7 +37,6 @@ SOURCES += main.cpp\
     models/machine_tool_elements/point/point.cpp \
     models/machine_tool_elements/gcodes/file_reader/file_reader.cpp \
     models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.cpp \
-    models/machine_tool_elements/adapter/adapter.cpp \
     gui/widgets/gcodes_editor_widget.cpp \
     gui/widgets/sensors_display_widget.cpp \
     gui/widgets/sml_commands_list_widget.cpp \
@@ -71,13 +69,12 @@ HEADERS  += gui/mainwindow.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/simple_qt_logger/simpleQtLogger.h \
-    models/machine_tool_elements/adapter_refactor/adapter_connection.h \
-    models/machine_tool_elements/adapter_refactor/adapter_gateway.h \
-    models/machine_tool_elements/adapter_refactor/base_controller.h \
-    models/machine_tool_elements/adapter_refactor/device_controller.h \
-    models/machine_tool_elements/adapter_refactor/motion_controller.h \
-    models/machine_tool_elements/adapter/server/sml_adapter_server.h \
-    models/machine_tool_elements/adapter_refactor/registrator.h \
+    models/machine_tool_elements/controllers/adapters/adapter_connection.h \
+    models/machine_tool_elements/controllers/adapters/adapter_gateway.h \
+    models/machine_tool_elements/controllers/base_controller.h \
+    models/machine_tool_elements/controllers/device_controller.h \
+    models/machine_tool_elements/controllers/motion_controller.h \
+    models/machine_tool_elements/controllers/registrator.h \
     models/repository/repository.h \
     models/services/adapters/get_current_state/get_adapter_current_state_interactor.h \
     models/services/adapters/launcher/adapters_launcher.h \
@@ -89,7 +86,6 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/axis/axis.h \
     models/machine_tool_elements/point/point.h \
     models/exceptions/exceptions.h \
-    models/machine_tool_elements/adapter/adapter.h \
     gui/widgets/gcodes_editor_widget.h \
     gui/widgets/sensors_display_widget.h \
     gui/widgets/sml_editor_tree_widget.h \
@@ -111,10 +107,8 @@ HEADERS  += gui/mainwindow.h \
     models/machine_tool_elements/sensor/sensors_buffer.h \
     models/machine_tool_elements/gcodes/gcodes_file_manager/gcodes_file_manager.h \
     models/machine_tool_elements/gcodes/file_reader/file_reader.h \
-    models/machine_tool_elements/adapter/server/u1_state.h \
     models/services/devices/spindels/switch/switch_spindel_interactor.h \
     models/services/gcodes/prepare_execution_queue/prepare_execution_queue_interactor.h \
-    models/machine_tool_elements/adapter/server/u2_state.h \
     gui/program_processing_dialog.h \
     models/errors/sml_error_flags.h \
     testenv.h

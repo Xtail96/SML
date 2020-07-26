@@ -5,7 +5,7 @@ GetAdapterCurrentStateInteractor::GetAdapterCurrentStateInteractor()
 
 }
 
-void GetAdapterCurrentStateInteractor::execute(SMLAdapterServer &server, Adapter::Type adapter)
+/*void GetAdapterCurrentStateInteractor::execute(SMLAdapterServer &server, Adapter::Type adapter)
 {
     QString targetAdapter = "";
     switch (adapter)
@@ -37,4 +37,4 @@ void GetAdapterCurrentStateInteractor::execute(SMLAdapterServer &server, Adapter
             break;
         }
     }
-}
+}*/

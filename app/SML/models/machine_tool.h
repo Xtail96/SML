@@ -13,10 +13,10 @@
 #include "models/services/adapters/launcher/adapters_launcher.h"
 #include "models/services/adapters/get_current_state/get_adapter_current_state_interactor.h"
 
-#include "models/machine_tool_elements/adapter_refactor/adapter_gateway.h"
-#include "models/machine_tool_elements/adapter_refactor/motion_controller.h"
-#include "models/machine_tool_elements/adapter_refactor/device_controller.h"
-#include "models/machine_tool_elements/adapter_refactor/registrator.h"
+#include "models/machine_tool_elements/controllers/adapters/adapter_gateway.h"
+#include "models/machine_tool_elements/controllers/motion_controller.h"
+#include "models/machine_tool_elements/controllers/device_controller.h"
+#include "models/machine_tool_elements/controllers/registrator.h"
 
 /**
  * @brief Класс станок

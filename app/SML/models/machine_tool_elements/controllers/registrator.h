@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/adapter_refactor/motion_controller.h"
-#include "models/machine_tool_elements/adapter_refactor/device_controller.h"
+#include "models/machine_tool_elements/controllers/motion_controller.h"
+#include "models/machine_tool_elements/controllers/device_controller.h"
 
 
 class Registrator : public BaseController

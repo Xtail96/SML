@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/machine_tool_elements/adapter_refactor/base_controller.h"
+#include "models/machine_tool_elements/controllers/base_controller.h"
 #include "models/machine_tool_elements/sensor/sensor.h"
 #include "models/machine_tool_elements/device/spindel.h"
 #include "models/machine_tool_elements/device/support_device.h"

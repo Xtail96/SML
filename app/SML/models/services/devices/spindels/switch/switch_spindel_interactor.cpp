@@ -10,7 +10,7 @@ SwitchSpindelInteractor::~SwitchSpindelInteractor()
 
 }
 
-void SwitchSpindelInteractor::execute(SMLAdapterServer &server, QString uid, bool enable, size_t rotations)
+/*void SwitchSpindelInteractor::execute(SMLAdapterServer &server, QString uid, bool enable, size_t rotations)
 {
     if(enable)
     {
@@ -59,4 +59,4 @@ void SwitchSpindelInteractor::switchOff(QString uid, SMLAdapterServer& server)
 
     qDebug() << "SwitchSpindelInteractor::switchOff: " << message;
     server.sendMessageToU1(message);
-}
+}*/
