@@ -38,8 +38,13 @@ AxisId Axis::id() const
 
 QString Axis::decoratedId() const
 {
+    return Axis::decorateId(m_id);
+}
+
+QString Axis::decorateId(AxisId id)
+{
     QString result = "";
-    switch (m_id)
+    switch (id)
     {
     case AxisId::X:
         result = "X";

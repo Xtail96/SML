@@ -23,6 +23,8 @@ public:
 
     AxisId id() const;
     QString decoratedId() const;
+
+    static QString decorateId(AxisId id);
     static AxisId idFromStr(QString value);
 
     bool operator==(const Axis& other) const;

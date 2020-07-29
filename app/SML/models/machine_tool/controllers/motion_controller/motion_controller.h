@@ -33,6 +33,11 @@ public:
      */
     Point currentPos();
 
+    bool axisExists(AxisId id);
+    void addAxis(AxisId id, double initialPosition);
+    void removeAxis(AxisId id);
+    void clearAxes();
+
     //void moveTo(Point absPos);
     //void moveOffset(Point relPos);
 
@@ -43,6 +48,7 @@ public:
 private:
     /// Доступные оси станка.
     QSet<Axis*> m_axes;
+    QList<QMetaObject::Connection> m_slotsInfo;
 
     /**
      * @brief Устанавливает текущее положение станка относительно базы.
@@ -62,8 +68,10 @@ private:
      */
     void parseTextMessage(QString message) override;
 
-signals:
+    Axis* findById(AxisId id);
 
+signals:
+    void axesListChanged();
 };
 
 #endif // MOTIONCONTROLLER_H
