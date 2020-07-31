@@ -10,7 +10,7 @@
 #include <QDebug>
 
 #define DEFAULT_SETTINGS_DIR ""
-#define DEFAULT_SETTINGS_FILE "SMLU1SerialAdapterSettings.ini"
+#define DEFAULT_SETTINGS_FILE "SMLDeviceArdinoAdapterSettings.ini"
 #define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE
 
 /**

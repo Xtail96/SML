@@ -11,7 +11,7 @@ Repository::Repository(QObject *parent) :
 QtJson::JsonObject Repository::currentState()
 {
     QtJson::JsonObject result = {};
-    QtJson::JsonObject u2State = {};
+    QtJson::JsonObject motionControllerState = {};
 
     int workflowState = 0;
     for(auto axis : m_axes)
@@ -26,17 +26,17 @@ QtJson::JsonObject Repository::currentState()
 
     qDebug() << "workflowState" << workflowState;
 
-    u2State["workflowState"] = workflowState;
-    u2State["lastError"] = 0;
-    u2State["axesCount"] = m_axes.length();
+    motionControllerState["workflowState"] = workflowState;
+    motionControllerState["lastError"] = 0;
+    motionControllerState["axesCount"] = m_axes.length();
 
     QtJson::JsonArray axesState = {};
     for(auto axis : m_axes)
     {
         axesState.append(axis.currentState());
     }
-    u2State["axes"] = axesState;
-    result["u2State"] = u2State;
+    motionControllerState["axes"] = axesState;
+    result["motionControllerState"] = motionControllerState;
     return result;
 }
 

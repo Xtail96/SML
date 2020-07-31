@@ -10,7 +10,7 @@
 #include <QDebug>
 
 #define DEFAULT_SETTINGS_DIR ""
-#define DEFAULT_SETTINGS_FILE "ArduinoU2AdapterSettings.ini"
+#define DEFAULT_SETTINGS_FILE "SMLMotionArduinoAdapterSettings.ini"
 #define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE
 
 /**

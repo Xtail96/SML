@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 #ifdef Q_OS_LINUX
-    U1SerialAdapter u1SerialAdapter("ttyACM0");
-    Q_UNUSED(u1SerialAdapter);
+    MotionArduinoAdapter adapter("ttyACM0");
+    Q_UNUSED(adapter);
 #endif
 #ifdef Q_OS_MACOS
     MotionArduinoAdapter& adapter = MotionArduinoAdapter::getInstance();

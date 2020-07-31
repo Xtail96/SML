@@ -10,7 +10,7 @@
 #include <QDebug>
 
 #define DEFAULT_SETTINGS_DIR ""
-#define DEFAULT_SETTINGS_FILE "SMLU2EchoAdapterSettings.ini"
+#define DEFAULT_SETTINGS_FILE "SMLMotionEchoAdapterSettings.ini"
 #define DEFAULT_SETTINGS_PATH DEFAULT_SETTINGS_DIR DEFAULT_SETTINGS_FILE
 
 /**

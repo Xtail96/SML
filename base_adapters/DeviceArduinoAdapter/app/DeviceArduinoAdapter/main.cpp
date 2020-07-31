@@ -9,13 +9,12 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 #ifdef Q_OS_LINUX
-    U1SerialAdapter u1SerialAdapter("ttyACM0");
-    Q_UNUSED(u1SerialAdapter);
+    ArduinoDeviceAdapter adapter("ttyACM0");
+    Q_UNUSED(adapter);
 #endif
 #ifdef Q_OS_MACOS
-    //U1SerialAdapter u1SerialAdapter("cu.usbmodem1421");
-    ArduinoDeviceAdapter u1SerialAdapter("tty.usbmodem14201");
-    Q_UNUSED(u1SerialAdapter);
+    ArduinoDeviceAdapter adapter("tty.usbmodem14201");
+    Q_UNUSED(adapter)
 #endif
     return a.exec();
 }
