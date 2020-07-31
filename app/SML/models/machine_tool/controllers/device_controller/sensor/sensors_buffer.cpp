@@ -112,25 +112,7 @@ bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t i
 
     try
     {
-        bool voltage = false;
-        if(plateName == "u1")
-        {
-            voltage = this->checkU1SensorState(portNumber, inputNumber);
-        }
-        else
-        {
-            if(plateName == "u2")
-            {
-                voltage = this->checkU2SensorState(portNumber, inputNumber);
-            }
-            else
-            {
-                QString message =
-                        QStringLiteral("Unknown plateName = ") +
-                        plateName;
-                throw SynchronizeStateException(message);
-            }
-        }
+        bool voltage = this->checkSensorState(portNumber, inputNumber);
         return voltage;
     }
     catch(SynchronizeStateException e)
@@ -140,7 +122,7 @@ bool SensorsBuffer::getInputState(QString plateName, size_t portNumber, size_t i
     }
 }
 
-bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) const
+bool SensorsBuffer::checkSensorState(size_t portNumber, size_t inputNumber) const
 {
     if (portNumber > 7)
     {
@@ -211,84 +193,7 @@ bool SensorsBuffer::checkU1SensorState(size_t portNumber, size_t inputNumber) co
     }
     catch(SynchronizeStateException e)
     {
-        qDebug() << "SensorsBuffer::checkU1SensorState:" << e.message();
-        throw;
-    }
-}
-
-bool SensorsBuffer::checkU2SensorState(size_t portNumber, size_t inputNumber) const
-{
-    if (portNumber > 7)
-    {
-        QString message =
-                QStringLiteral("invalid port number. ") +
-                QString::number(portNumber) +
-                QStringLiteral(" > 7");
-        throw SynchronizeStateException(message);
-    }
-
-    if (inputNumber > 7)
-    {
-        QString message =
-                QStringLiteral("invalid input number. ") +
-                QString::number(inputNumber) +
-                QStringLiteral(" > 7");
-        throw SynchronizeStateException(message);
-    }
-
-    try
-    {
-        bool voltage = false;
-
-        switch(portNumber) {
-        case 0:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[8]);
-            break;
-        }
-        case 1:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[9]);
-            break;
-        }
-        case 2:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[10]);
-            break;
-        }
-        case 3:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[11]);
-            break;
-        }
-        case 4:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[12]);
-            break;
-        }
-        case 5:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[13]);
-            break;
-        }
-        case 6:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[14]);
-            break;
-        }
-        case 7:
-        {
-            voltage = this->standardInputStateCheck(inputNumber, m_buffer[15]);
-            break;
-        }
-        default:
-            break;
-        }
-        return voltage;
-    }
-    catch(SynchronizeStateException e)
-    {
-        qDebug() << "SensorsBuffer::checkU2SensorState:" << e.message();
+        qDebug() << "SensorsBuffer::checkSensorState:" << e.message();
         throw;
     }
 }

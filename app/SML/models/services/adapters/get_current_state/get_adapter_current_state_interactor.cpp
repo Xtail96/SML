@@ -10,11 +10,11 @@ GetAdapterCurrentStateInteractor::GetAdapterCurrentStateInteractor()
     QString targetAdapter = "";
     switch (adapter)
     {
-    case Adapter::U1:
-        targetAdapter = "u1";
+    case Adapter::Device:
+        targetAdapter = "deviceAdapter";
         break;
-    case Adapter::U2:
-        targetAdapter = "u2";
+    case Adapter::Motion:
+        targetAdapter = "motionAdapter";
         break;
     }
 
@@ -29,11 +29,11 @@ GetAdapterCurrentStateInteractor::GetAdapterCurrentStateInteractor()
     {
         switch (adapter)
         {
-        case Adapter::U1:
-            server.sendMessageToU1(message);
+        case Adapter::Device:
+            server.sendMessageToDeviceAdapter(message);
             break;
-        case Adapter::U2:
-            server.sendMessageToU2(message);
+        case Adapter::Motion:
+            server.sendMessageToMotionAdapter(message);
             break;
         }
     }

@@ -16,8 +16,8 @@ MachineTool::MachineTool(QObject *parent) :
 {
     this->setupConnections();
     this->startAdapterServer();
-    this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
-    this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+    this->setErrorFlag(ERROR_CODE::DEVICE_ADAPTER_DISCONNECTED);
+    this->setErrorFlag(ERROR_CODE::MOTION_ADAPTER_DISCONNECTED);
 }
 
 MachineTool::~MachineTool()
@@ -55,29 +55,17 @@ void MachineTool::setupConnections()
 
     m_connections.append(QObject::connect(&m_motionController, &MotionController::connectionStateChanged, this, [=]() {
         m_motionController.isConnected()
-                ? this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED)
-                : this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
+                ? this->removeErrorFlag(ERROR_CODE::MOTION_ADAPTER_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::MOTION_ADAPTER_DISCONNECTED);
     }));
 
     m_connections.append(QObject::connect(&m_deviceController, &DeviceController::connectionStateChanged, this, [=]() {
         m_deviceController.isConnected()
-                ? this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED)
-                : this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
+                ? this->removeErrorFlag(ERROR_CODE::DEVICE_ADAPTER_DISCONNECTED)
+                : this->setErrorFlag(ERROR_CODE::DEVICE_ADAPTER_DISCONNECTED);
     }));
 
-    /*m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u1StateChanged, this, [=](QList<QVariant> sensors, QList<QVariant> devices, unsigned int workflowState, ERROR_CODE lastError) {
-        this->setErrorFlag(lastError);
-        m_repository.setU1Sensors(sensors);
-        m_repository.setU1Devices(devices);
-        m_repository.setU1WorkflowState(workflowState);
-    }));
-
-    m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::u2StateChanged, this, [=](QMap<QString, double> coordinates, unsigned int workflowState, ERROR_CODE lastError) {
-        this->setErrorFlag(lastError);
-        m_repository.setU2WorkflowState(workflowState);
-        m_repository.setCurrentPosition(coordinates);
-    }));
-
+    /*
     m_connections.append(QObject::connect(&m_adapterServer, &SMLAdapterServer::errorOccurred, this, [=](ERROR_CODE errorCode) {
         this->setErrorFlag(errorCode);
     }));*/
@@ -85,26 +73,6 @@ void MachineTool::setupConnections()
     m_connections.append(QObject::connect(&m_errors, &SmlErrorFlags::stateChanged, this, [=]() {
         emit this->errorStateChanged(m_errors.getCurrentErrorFlags());
     }));
-
-    /*m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::connectionStateChanged, this, [=]() {
-        m_repository.m_u1Adapter.connectionState()
-                ? this->removeErrorFlag(ERROR_CODE::U1_DISCONNECTED)
-                : this->setErrorFlag(ERROR_CODE::U1_DISCONNECTED);
-    }));
-
-    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::connectionStateChanged, this, [=]() {
-        m_repository.m_u2Adapter.connectionState()
-                ? this->removeErrorFlag(ERROR_CODE::U2_DISCONNECTED)
-                : this->setErrorFlag(ERROR_CODE::U2_DISCONNECTED);
-    }));
-
-    m_connections.append(QObject::connect(&m_repository.m_u1Adapter, &Adapter::workflowStateChanged, this, [=]() {
-        emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
-    }));
-
-    m_connections.append(QObject::connect(&m_repository.m_u2Adapter, &Adapter::workflowStateChanged, this, [=]() {
-        emit this->workflowStateChanged(m_repository.m_u1Adapter.workflowState(), m_repository.m_u2Adapter.workflowState());
-    }));*/
 
     m_connections.append(QObject::connect(&m_repository, &Repository::pointsUpdated, this, [=]() {
         emit this->pointsUpdated();
@@ -163,9 +131,9 @@ void MachineTool::handleErrors()
         case ERROR_CODE::SYNC_STATE_ERROR:
             this->setBased(false);
             break;
-        case ERROR_CODE::U1_DISCONNECTED:
+        case ERROR_CODE::DEVICE_ADAPTER_DISCONNECTED:
             break;
-        case ERROR_CODE::U2_DISCONNECTED:
+        case ERROR_CODE::MOTION_ADAPTER_DISCONNECTED:
             this->setBased(false);
             break;
         case ERROR_CODE::UNKNOWN_ERROR:
@@ -273,8 +241,8 @@ void MachineTool::setBased(bool based)
 void MachineTool::launchAdapters()
 {
     SettingsManager s;
-    QString deviceAdapterPath = s.get("ExternalTools", "U1Adapter").toString();
-    QString motionAdapterPath = s.get("ExternalTools", "U2Adapter").toString();
+    QString deviceAdapterPath = s.get("ExternalTools", "DeviceAdapter").toString();
+    QString motionAdapterPath = s.get("ExternalTools", "MotionAdapter").toString();
 
     m_adaptersLauncher.startAdapters(deviceAdapterPath, motionAdapterPath);
 }
@@ -403,9 +371,9 @@ void MachineTool::resumeProgramProcessing()
 {
     if(!m_sendNextCommandMetaInfo)
     {
-        m_sendNextCommandMetaInfo = QObject::connect(this, &MachineTool::workflowStateChanged, this, [=](unsigned int u1WorkflowState, unsigned int u2WorkflowState) {
-            qDebug() << "MachineTool::resumeExecutionQueueProcessing:WorkflowStateChanged:" << u1WorkflowState << u2WorkflowState;
-            if((u1WorkflowState == 0) && (u2WorkflowState == 0))
+        m_sendNextCommandMetaInfo = QObject::connect(this, &MachineTool::workflowStateChanged, this, [=](unsigned int deviceControllerWorkflowState, unsigned int motionControllerWorkflowState) {
+            qDebug() << "MachineTool::resumeExecutionQueueProcessing:WorkflowStateChanged:" << deviceControllerWorkflowState << motionControllerWorkflowState;
+            if((deviceControllerWorkflowState == 0) && (motionControllerWorkflowState == 0))
             {
                 this->sendNextCommand();
             }
@@ -560,30 +528,30 @@ void MachineTool::sendNextCommand()
     QtJson::JsonObject cmdObj = QtJson::parse(cmdStr, parsed).toMap();
     if(!parsed) { qDebug() << "MachineTool::sendNextCommand: analyse command error" << cmdStr; return; }
 
-    if((m_repository.m_u1Adapter.workflowState() != 0) || (m_repository.m_u2Adapter.workflowState() != 0))
+    if((m_repository.m_deviceAdapter.workflowState() != 0) || (m_repository.m_motionAdapter.workflowState() != 0))
     {
-        qDebug() << "MachineTool::sendNextCommand: duplicate send. U1WorkflowSate =" << m_repository.m_u1Adapter.workflowState() << "U2WorkflowState =" << m_repository.m_u2Adapter.workflowState();
+        qDebug() << "MachineTool::sendNextCommand: duplicate send. DeviceControllerWorkflowSate =" << m_repository.m_deviceAdapter.workflowState() << "MotionControllerWorkflowState =" << m_repository.m_motionAdapter.workflowState();
         return;
     }
 
     QString target = cmdObj["target"].toString();
-    if(target.toLower() == "u1")
+    if(target.toLower() == "devicecontroller")
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
-        m_adapterServer.sendMessageToU1(cmd);
+        m_adapterServer.sendMessageToDeviceAdapter(cmd);
         emit this->commandSent(cmd);
 
-        m_repository.m_u1Adapter.setWorkflowState(1);
+        m_repository.m_deviceAdapter.setWorkflowState(1);
         return;
     }
 
-    if(target.toLower() == "u2")
+    if(target.toLower() == "motioncontroller")
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
-        m_adapterServer.sendMessageToU2(cmd);
+        m_adapterServer.sendMessageToMotionAdapter(cmd);
         emit this->commandSent(cmd);
 
-        m_repository.m_u2Adapter.setWorkflowState(1);
+        m_repository.m_motionAdapter.setWorkflowState(1);
         return;
     }
 

@@ -46,7 +46,7 @@ void Registrator::parseTextMessage(QString message)
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
 
-    if(message == "@SML-U1Adapter@")
+    if(message == "@SML-DeviceAdapter@")
     {
         try
         {
@@ -60,7 +60,7 @@ void Registrator::parseTextMessage(QString message)
     }
     else
     {
-        if(message == "@SML-U2Adapter@")
+        if(message == "@SML-MotionAdapter@")
         {
             try
             {

@@ -58,7 +58,7 @@ void DeviceController::parseBinaryMessage(QByteArray message)
         return;
     }
 
-    QtJson::JsonObject deviceController = result["u1State"].toMap();
+    QtJson::JsonObject deviceController = result["deviceControllerState"].toMap();
     if(deviceController.isEmpty())
     {
         qDebug() << "DeviceController::binaryMessageReceived: empty message";

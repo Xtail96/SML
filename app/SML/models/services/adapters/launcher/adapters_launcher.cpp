@@ -2,40 +2,40 @@
 
 AdaptersLauncher::AdaptersLauncher(QObject *parent) :
     QObject(parent),
-    m_u1AdapterProcess(this),
-    m_u2AdapterProcess(this)
+    m_deviceAdapterProcess(this),
+    m_motionAdapterProcess(this)
 {
 
 }
 
-void AdaptersLauncher::startAdapters(QString u1AdapterPath, QString u2AdapterPath)
+void AdaptersLauncher::startAdapters(QString deviceAdapterPath, QString motionAdapterPath)
 {
-    qDebug() << "AdaptersLauncher::startAdapters: try to start adapters U1 =" << u1AdapterPath << "U2 =" << u2AdapterPath;
-    if(!m_u1AdapterProcess.isOpen())
+    qDebug() << "AdaptersLauncher::startAdapters: try to start adapters Device Adapter =" << deviceAdapterPath << "Motion Adapter =" << motionAdapterPath;
+    if(!m_deviceAdapterProcess.isOpen())
     {
-        qDebug() << "AdaptersLauncher::startAdapters: try to start u1";
-        m_u1AdapterProcess.start(u1AdapterPath);
+        qDebug() << "AdaptersLauncher::startAdapters: try to start device adapter";
+        m_deviceAdapterProcess.start(deviceAdapterPath);
     }
 
-    if(!m_u2AdapterProcess.isOpen())
+    if(!m_motionAdapterProcess.isOpen())
     {
-        qDebug() << "AdaptersLauncher::startAdapters: try to start u2";
-        m_u2AdapterProcess.start(u2AdapterPath);
+        qDebug() << "AdaptersLauncher::startAdapters: try to start motion adapter";
+        m_motionAdapterProcess.start(motionAdapterPath);
     }
 }
 
 void AdaptersLauncher::stopAdapters()
 {
     qDebug() << "AdaptersLauncher::stopAdapters: try to stop adapters";
-    if(m_u1AdapterProcess.isOpen())
+    if(m_deviceAdapterProcess.isOpen())
     {
-        qDebug() << "AdaptersLauncher::stopAdapters: try to stop u1";
-        m_u1AdapterProcess.kill();
+        qDebug() << "AdaptersLauncher::stopAdapters: try to stop device adapter";
+        m_deviceAdapterProcess.kill();
     }
 
-    if(m_u2AdapterProcess.isOpen())
+    if(m_motionAdapterProcess.isOpen())
     {
-        qDebug() << "AdaptersLauncher::stopAdapters: try to stop u2";
-        m_u2AdapterProcess.kill();
+        qDebug() << "AdaptersLauncher::stopAdapters: try to stop motion adapter";
+        m_motionAdapterProcess.kill();
     }
 }

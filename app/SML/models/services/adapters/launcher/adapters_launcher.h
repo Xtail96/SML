@@ -12,12 +12,12 @@ class AdaptersLauncher : public QObject
 public:
     explicit AdaptersLauncher(QObject *parent = nullptr);
 
-    void startAdapters(QString u1AdapterPath, QString u2AdapterPath);
+    void startAdapters(QString deviceAdapterPath, QString motionAdapterPath);
     void stopAdapters();
 
 private:
-    QProcess m_u1AdapterProcess;
-    QProcess m_u2AdapterProcess;
+    QProcess m_deviceAdapterProcess;
+    QProcess m_motionAdapterProcess;
 
 
 signals:

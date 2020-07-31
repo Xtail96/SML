@@ -170,7 +170,7 @@ signals:
      */
     void gcodesFileContentUpdated(QStringList content);
 
-    void workflowStateChanged(unsigned int u1WorkflowState, unsigned int u2WorkflowState);
+    void workflowStateChanged(unsigned int deviceControllerWorkflowState, unsigned int motionCotrollerWorkflowState);
 
     void commandSent(QByteArray package);
 

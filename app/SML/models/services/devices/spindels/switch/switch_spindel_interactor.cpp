@@ -24,39 +24,39 @@ SwitchSpindelInteractor::~SwitchSpindelInteractor()
 
 void SwitchSpindelInteractor::switchOn(QString uid, size_t rotations, SMLAdapterServer& server)
 {
-    QtJson::JsonObject u1Message;
+    QtJson::JsonObject deviceControllerMessage;
     QtJson::JsonObject params;
     params["uid"] = uid;
     params["target"] = "on";
     params["type"] = "spindel";
     params["rotations"] = QVariant::fromValue(rotations);
-    u1Message["params"] = params;
-    u1Message["action"] = "switch_device";
-    u1Message["target"] = "u1";
+    deviceControllerMessage["params"] = params;
+    deviceControllerMessage["action"] = "switch_device";
+    deviceControllerMessage["target"] = "deviceController";
 
     bool ok = false;
-    QByteArray message = QtJson::serialize(u1Message, ok);
+    QByteArray message = QtJson::serialize(deviceControllerMessage, ok);
     if(!ok) { qDebug() << "SwitchSpindelInteractor::switchOn: serialize error" << message; return; }
 
     qDebug() << "SwitchSpindelInteractor::switchOn:" << message;
-    server.sendMessageToU1(message);
+    server.sendMessageToDeviceAdapter(message);
 }
 
 void SwitchSpindelInteractor::switchOff(QString uid, SMLAdapterServer& server)
 {
-    QtJson::JsonObject u1Message;
+    QtJson::JsonObject deviceControllerMessage;
     QtJson::JsonObject params;
     params["uid"] = uid;
     params["target"] = "off";
     params["type"] = "spindel";
-    u1Message["params"] = params;
-    u1Message["action"] = "switch_device";
-    u1Message["target"] = "u1";
+    deviceControllerMessage["params"] = params;
+    deviceControllerMessage["action"] = "switch_device";
+    deviceControllerMessage["target"] = "deviceController";
 
     bool ok = false;
-    QByteArray message = QtJson::serialize(u1Message, ok);
+    QByteArray message = QtJson::serialize(deviceControllerMessage, ok);
     if(!ok) { qDebug() << "SwitchSpindelInteractor::switchOff: serialize error" << message; return; }
 
     qDebug() << "SwitchSpindelInteractor::switchOff: " << message;
-    server.sendMessageToU1(message);
+    server.sendMessageToDeviceAdapter(message);
 }*/

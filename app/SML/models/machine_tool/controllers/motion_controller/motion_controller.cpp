@@ -69,7 +69,7 @@ void MotionController::parseBinaryMessage(QByteArray message)
         return;
     }
 
-    QtJson::JsonObject motionController = result["u2State"].toMap();
+    QtJson::JsonObject motionController = result["motionControllerState"].toMap();
     if(motionController.isEmpty())
     {
         qDebug() << "MotionController::binaryMessageReceived: empty message";

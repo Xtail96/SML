@@ -128,9 +128,9 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("ExternalTools");
-        settings->setValue("U1Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU1Adapter/app/build-ArduinoU1Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU1Adapter");
-        settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/U2EchoAdapter/app/build-U2EchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/U2EchoAdapter");
-        //settings->setValue("U2Adapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/ArduinoU2Adapter/app/build-ArduinoU2Adapter-Desktop_Qt_5_12_8_clang_64bit-Release/ArduinoU2Adapter");
+        settings->setValue("DeviceAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/DeviceArduinoAdapter/app/build-DeviceArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/DeviceArduinoAdapter");
+        settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/MotionEchoAdapter/app/build-MotionEchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionEchoAdapter");
+        //settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/MotionArduinoAdapter/app/build-MotionArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionArduinoAdapter");
 #ifdef Q_OS_MACX
         //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
         settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_8_clang_64bit-Release/CandleGCodesViewer");
@@ -205,7 +205,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси X");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -214,7 +214,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси Y");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -223,7 +223,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси Z");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 2);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -232,7 +232,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси A");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 3);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -241,7 +241,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси B");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 4);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -250,7 +250,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси C");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 5);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -259,7 +259,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси U");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 6);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -268,7 +268,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси V");
         settings->setValue("PortNumber", 0);
         settings->setValue("InputNumber", 7);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -277,7 +277,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик оси W");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
@@ -286,7 +286,7 @@ void SettingsManager::generateDefaultSettings()
         settings->setValue("Label", "Датчик Ноля");
         settings->setValue("PortNumber", 1);
         settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "u1");
+        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
     settings->endGroup();

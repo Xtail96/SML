@@ -31,9 +31,9 @@ protected slots:
 
     void showMachineToolState(QString state);
 
-    void onU1Connected();
-    void onU1Disconnected();
-    void onU1SensorStateChanged(QString name, QColor led);
+    void onDeviceAdapterConnected();
+    void onDeviceAdapterDisconnected();
+    void onSensorStateChanged(QString name, QColor led);
 };
 
 #endif // SMLCONSOLEDIALOG_H

@@ -20,17 +20,17 @@ SMLConsoleDialog::~SMLConsoleDialog()
 void SMLConsoleDialog::setup()
 {
     QObject::connect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
-    QObject::connect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onU1SensorStateChanged(QString,QColor)));
-    QObject::connect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    QObject::connect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::connect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onSensorStateChanged(QString,QColor)));
+    QObject::connect(&m_machineTool, SIGNAL(deviceAdapterConnected()), this, SLOT(onDeviceAdapterConnected()));
+    QObject::connect(&m_machineTool, SIGNAL(deviceAdapterDisconnected()), this, SLOT(onDeviceAdapterDisconnected()));
 }
 
 void SMLConsoleDialog::reset()
 {
     QObject::disconnect(ui->consolePlainTextEdit, SIGNAL(onCommand(QString)), this, SLOT(onCommand(QString)));
-    QObject::disconnect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onU1SensorStateChanged(QString,QColor)));
-    QObject::disconnect(&m_machineTool, SIGNAL(u1Connected()), this, SLOT(onU1Connected()));
-    QObject::disconnect(&m_machineTool, SIGNAL(u1Disconnected()), this, SLOT(onU1Disconnected()));
+    QObject::disconnect(&m_machineTool, SIGNAL(sensorStateChanged(QString,QColor)), this, SLOT(onSensorStateChanged(QString,QColor)));
+    QObject::disconnect(&m_machineTool, SIGNAL(deviceAdapterConnected()), this, SLOT(onDeviceAdapterConnected()));
+    QObject::disconnect(&m_machineTool, SIGNAL(deviceAdapterDisconnected()), this, SLOT(onDeviceAdapterDisconnected()));
 }
 
 void SMLConsoleDialog::setupWidgets()
@@ -70,18 +70,18 @@ void SMLConsoleDialog::showMachineToolState(QString state)
     ui->monitorPlainTextEdit->setPlainText(state);
 }
 
-void SMLConsoleDialog::onU1Connected()
+void SMLConsoleDialog::onDeviceAdapterConnected()
 {
-    showMachineToolState("U1 Connected");
+    showMachineToolState("Device Adapter Connected");
 }
 
-void SMLConsoleDialog::onU1Disconnected()
+void SMLConsoleDialog::onDeviceAdapterDisconnected()
 {
-    showMachineToolState("U1 Disconnected");
+    showMachineToolState("Device Adapter Disconnected");
 }
 
-void SMLConsoleDialog::onU1SensorStateChanged(QString name, QColor led)
+void SMLConsoleDialog::onSensorStateChanged(QString name, QColor led)
 {
-    QString u1State = name + QStringLiteral(":") + led.name();
-    showMachineToolState(u1State);
+    QString state = name + QStringLiteral(":") + led.name();
+    showMachineToolState(state);
 }

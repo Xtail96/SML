@@ -62,9 +62,9 @@ void ProgramProcessingDialog::resetConnections()
     QObject::disconnect(&machineTool, SIGNAL(сommandSent(QByteArray)), this, SLOT(onMachineTool_CommandSent(QByteArray)));
 }
 
-void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int u1State, unsigned int u2State)
+void ProgramProcessingDialog::onMachineTool_WorkflowStateChanged(unsigned int deviceControllerWorkflowState, unsigned int motionControllerWorkflowState)
 {
-    ui->messagesTextEdit->appendPlainText("WorkflowStateChanged. U1State = " + QString::number(u1State) + ", U2State = " + QString::number(u2State));
+    ui->messagesTextEdit->appendPlainText("WorkflowStateChanged. DeviceControllerWorkflowState = " + QString::number(deviceControllerWorkflowState) + ", MotionControllerWorkflowState = " + QString::number(motionControllerWorkflowState));
     int currentProgress = ui->programProcessingProgressBar->value();
     ui->programProcessingProgressBar->setValue(currentProgress + 1);
 }

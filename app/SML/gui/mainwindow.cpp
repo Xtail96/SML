@@ -112,16 +112,16 @@ void MainWindow::setupConnections()
     m_connections.append(QObject::connect(&machineTool, SIGNAL(currentCoordinatesChanged()), this, SLOT(onMachineTool_CurrentCoordinatesChanged())));
     m_connections.append(QObject::connect(&machineTool, SIGNAL(basingStateChanged(bool)), this, SLOT(onMachineTool_BasingStateChanged(bool))));
 
-    /*QObject::connect(m_machineTool.data(), SIGNAL(u1StateIsChanged()), this, SLOT(updateU1Displays()));
+    /*QObject::connect(m_machineTool.data(), SIGNAL(deviceControllerStateIsChanged()), this, SLOT(updateDeviceControllerDisplays()));
 
-    QObject::connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(onU2Connected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(onU2Disconnected()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u2StateIsChanged()), this, SLOT(updateU1Displays()));
+    QObject::connect(m_machineTool.data(), SIGNAL(motionControllerConnected()), this, SLOT(onMotionControllerConnected()));
+    QObject::connect(m_machineTool.data(), SIGNAL(motionControllerDisconnected()), this, SLOT(onMotionControllerDisconnected()));
+    QObject::connect(m_machineTool.data(), SIGNAL(motionControllerStateIsChanged()), this, SLOT(updateDeviceControllerDisplays()));
 
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Connected()), this, SLOT(updateServerPanel()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u1Disconnected()), this, SLOT(updateServerPanel()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u2Connected()), this, SLOT(updateServerPanel()));
-    QObject::connect(m_machineTool.data(), SIGNAL(u2Disconnected()), this, SLOT(updateServerPanel()));
+    QObject::connect(m_machineTool.data(), SIGNAL(deviceControllerConnected()), this, SLOT(updateServerPanel()));
+    QObject::connect(m_machineTool.data(), SIGNAL(deviceControllerDisconnected()), this, SLOT(updateServerPanel()));
+    QObject::connect(m_machineTool.data(), SIGNAL(motionControllerConnected()), this, SLOT(updateServerPanel()));
+    QObject::connect(m_machineTool.data(), SIGNAL(motionControllerDisconnected()), this, SLOT(updateServerPanel()));
 
     QObject::connect(m_machineTool.data(), SIGNAL(machineToolErrorIsOccured(int)), this, SLOT(onMachineToolError(int)));
 
