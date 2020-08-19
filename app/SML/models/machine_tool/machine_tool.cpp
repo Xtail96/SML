@@ -414,7 +414,7 @@ void MachineTool::stepMove(QMap<QString, double> steps)
 
 void MachineTool::moveToPoint(Point pointFromBase)
 {
-    /*try
+    try
     {
         QString gcode = "G1 ";
         QMap<QString, double> coords = pointFromBase.coordsMap();
@@ -422,7 +422,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
         {
             gcode += axisUid + QString::number(coords[axisUid]);
         }
-        gcode += "F" + QString::number(m_repository.getVelocity());
+        gcode += "F100";
 
         if(this->prepareExecutionQueue(QStringList {gcode}, false))
         {
@@ -442,7 +442,7 @@ void MachineTool::moveToPoint(Point pointFromBase)
     {
         this->setErrorFlag(ERROR_CODE::PROGRAM_EXECUTION_ERROR);
         qDebug() << "MachineTool::moveToPoint: unknown error";
-    }*/
+    }
 }
 
 void MachineTool::moveToSensor(QString sensorUid)
@@ -506,7 +506,7 @@ void MachineTool::resetCurrentCoordinates()
 
 void MachineTool::sendNextCommand()
 {
-    /*if(m_errors.isSystemHasErrors())
+    if(m_errors.isSystemHasErrors())
     {
         qDebug() << "MachineTool::sendNextCommand: error is occured during program processing.";
         this->stopProgramProcessing();
@@ -528,9 +528,11 @@ void MachineTool::sendNextCommand()
     QtJson::JsonObject cmdObj = QtJson::parse(cmdStr, parsed).toMap();
     if(!parsed) { qDebug() << "MachineTool::sendNextCommand: analyse command error" << cmdStr; return; }
 
-    if((m_repository.m_deviceAdapter.workflowState() != 0) || (m_repository.m_motionAdapter.workflowState() != 0))
+    if(!m_deviceController.isReady() || !m_motionController.isReady())
     {
-        qDebug() << "MachineTool::sendNextCommand: duplicate send. DeviceControllerWorkflowSate =" << m_repository.m_deviceAdapter.workflowState() << "MotionControllerWorkflowState =" << m_repository.m_motionAdapter.workflowState();
+        qDebug() << "MachineTool::sendNextCommand: duplicate send. DeviceControllerWorkflowSate ="
+                 << m_deviceController.isReady()
+                 << "MotionControllerWorkflowState =" << m_motionController.isReady();
         return;
     }
 
@@ -538,22 +540,18 @@ void MachineTool::sendNextCommand()
     if(target.toLower() == "devicecontroller")
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
-        m_adapterServer.sendMessageToDeviceAdapter(cmd);
+        m_deviceController.sendMessage(cmd);
         emit this->commandSent(cmd);
-
-        m_repository.m_deviceAdapter.setWorkflowState(1);
         return;
     }
 
     if(target.toLower() == "motioncontroller")
     {
         qDebug() << "MachineTool::sendNextCommand:" << cmdStr;
-        m_adapterServer.sendMessageToMotionAdapter(cmd);
+        m_motionController.sendMessage(cmd);
         emit this->commandSent(cmd);
-
-        m_repository.m_motionAdapter.setWorkflowState(1);
         return;
     }
 
-    qDebug() << "MachineTool::sendNextCommand: unknown target" << target;*/
+    qDebug() << "MachineTool::sendNextCommand: unknown target" << target;
 }
