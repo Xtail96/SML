@@ -2,7 +2,7 @@
 
 AdapterGateway::AdapterGateway(QObject *parent) :
     QObject(parent),
-    m_server("SMLAdapterServer", QWebSocketServer::NonSecureMode, this),
+    m_server("SMLAdapterGateway", QWebSocketServer::NonSecureMode, this),
     m_port(0),
     m_connections(QList<QMetaObject::Connection>())
 {
@@ -10,7 +10,7 @@ AdapterGateway::AdapterGateway(QObject *parent) :
 
 AdapterGateway::~AdapterGateway()
 {
-    this->stopServer();
+    this->close();
 }
 
 quint16 AdapterGateway::port() const
@@ -18,10 +18,10 @@ quint16 AdapterGateway::port() const
     return m_port;
 }
 
-bool AdapterGateway::startServer(quint16 port)
+bool AdapterGateway::open(quint16 port)
 {
     if(m_server.isListening())
-        this->stopServer();
+        this->close();
 
     if(port == 0)
         throw std::invalid_argument("ivalid port number" + QString(m_port).toStdString());
@@ -32,18 +32,21 @@ bool AdapterGateway::startServer(quint16 port)
 
     this->setupConnections();
 
-    qDebug() << "Hello! SML Server is listening on port" << m_port;
+    qDebug() << "Hello! Adapter gateway is available on port" << m_port;
     return true;
 }
 
-void AdapterGateway::stopServer()
+void AdapterGateway::close()
 {
     this->resetConnections();
 
-    qDebug() << "Stop Server";
+
     if(m_server.isListening())
+    {
+        qDebug() << "Try to close adapter gateway";
         m_server.close();
-    qDebug() << "Server successfully stopped. Good Bye!";
+        qDebug() << "Adapter gateway successfully closed. Good Bye!";
+    }
 }
 
 void AdapterGateway::setupConnections()

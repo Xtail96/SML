@@ -6,7 +6,6 @@ DeviceController::DeviceController(QObject *parent) :
     m_spindels(),
     m_supportDevices()
 {
-
 }
 
 DeviceController::~DeviceController()

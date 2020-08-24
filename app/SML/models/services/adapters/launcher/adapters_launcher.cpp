@@ -31,11 +31,13 @@ void AdaptersLauncher::stopAdapters()
     {
         qDebug() << "AdaptersLauncher::stopAdapters: try to stop device adapter";
         m_deviceAdapterProcess.kill();
+        m_deviceAdapterProcess.waitForFinished(-1);
     }
 
     if(m_motionAdapterProcess.isOpen())
     {
         qDebug() << "AdaptersLauncher::stopAdapters: try to stop motion adapter";
         m_motionAdapterProcess.kill();
+        m_motionAdapterProcess.waitForFinished(-1);
     }
 }

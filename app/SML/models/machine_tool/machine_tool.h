@@ -230,17 +230,11 @@ private slots:
     void setBased(bool based);
 
     /**
-     * @brief Производит запуск WebSocket сервера для подключения адаптеров
-     */
-    void startAdapterServer();
-
-    /**
      * @brief Производит остановку WebSocket сервера для подключения адаптеров
      */
-    void stopAdapterServer();
+    void stopAdapters();
 
     void launchAdapters();
-    void stopAdapters();
 };
 
 #endif // MACHINETOOL_H

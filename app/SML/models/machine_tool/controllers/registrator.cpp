@@ -5,23 +5,28 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
     m_connections()
 {
     m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s) {
+        qDebug() << "Registrator: try to connect" << s << "as a client to motion controller";
         m->addClient(s);
+        qDebug() << "Registrator: clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
+        qDebug() << "Registrator: clear clients";
         m_clients.clear();
         s->sendTextMessage("Registered!");
     }));
 
     m_connections.append(QObject::connect(this, &Registrator::DeviceAdapterConnected, this, [=](QWebSocket* s) {
+        qDebug() << "Registrator: try to connect" << s << "as a client to device controller";
         d->addClient(s);
+        qDebug() << "Registrator: clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
+        qDebug() << "Registrator: clear clients";
         m_clients.clear();
-
         s->sendTextMessage("Registered!");
     }));
 }
@@ -36,12 +41,12 @@ Registrator::~Registrator()
 
 void Registrator::parseBinaryMessage(QByteArray message)
 {
-    qDebug() << "Registrator::binary message received" << message;
+    qDebug() << "Registrator: binary message received" << message;
 }
 
 void Registrator::parseTextMessage(QString message)
 {
-    qDebug() << "Registrator::text message received" << message;
+    qDebug() << "Registrator: text message received" << message;
 
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
@@ -74,7 +79,8 @@ void Registrator::parseTextMessage(QString message)
         }
         else
         {
-            pSender->sendTextMessage("Connection aborted");
+            qDebug() << "Registrator: connection refused";
+            pSender->sendTextMessage("Connection refused");
             pSender->close();
         }
     }

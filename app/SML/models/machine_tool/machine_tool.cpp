@@ -15,14 +15,18 @@ MachineTool::MachineTool(QObject *parent) :
     m_based(false)
 {
     this->setupConnections();
-    this->startAdapterServer();
     this->setErrorFlag(ERROR_CODE::DEVICE_ADAPTER_DISCONNECTED);
     this->setErrorFlag(ERROR_CODE::MOTION_ADAPTER_DISCONNECTED);
+
+    SettingsManager s;
+    quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
+    m_adapterServer.open(port);
+    this->launchAdapters();
 }
 
 MachineTool::~MachineTool()
 {
-    this->stopAdapterServer();
+    this->stopAdapters();
     this->resetConnections();
 }
 
@@ -143,32 +147,15 @@ void MachineTool::handleErrors()
     }
 }
 
-void MachineTool::startAdapterServer()
+void MachineTool::stopAdapters()
 {
     try
     {
-        SettingsManager s;
-        quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
-        m_adapterServer.startServer(port);
-        this->launchAdapters();
+        m_adaptersLauncher.stopAdapters();
     }
     catch(...)
     {
-        qDebug() << QStringLiteral("MachineTool::startAdapterServer: unknown error");
-        this->setErrorFlag(UNKNOWN_ERROR);
-    }
-}
-
-void MachineTool::stopAdapterServer()
-{
-    try
-    {
-        m_adapterServer.stopServer();
-        this->stopAdapters();
-    }
-    catch(...)
-    {
-        qDebug() << QStringLiteral("MachineTool::stopAdapterServer: unknown error");
+        qDebug() << QStringLiteral("MachineTool::stopAdapters: unknown error");
         this->setErrorFlag(UNKNOWN_ERROR);
     }
 }
@@ -245,11 +232,6 @@ void MachineTool::launchAdapters()
     QString motionAdapterPath = s.get("ExternalTools", "MotionAdapter").toString();
 
     m_adaptersLauncher.startAdapters(deviceAdapterPath, motionAdapterPath);
-}
-
-void MachineTool::stopAdapters()
-{
-    m_adaptersLauncher.stopAdapters();
 }
 
 bool MachineTool::isProgramEmpty()

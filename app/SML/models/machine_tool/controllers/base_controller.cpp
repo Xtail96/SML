@@ -14,14 +14,16 @@ BaseController::~BaseController()
 
 void BaseController::addClient(QWebSocket *s)
 {
+    qDebug() << "Try to connect" << s << "as a client";
     if(m_clients.length() > 0)
     {
-        qDebug () << "Already have a client. Remove it first";
         if(s->isValid())
-            s->sendTextMessage("Connection aborted");
+            s->sendTextMessage("Connection refused");
 
         s->close();
         s->deleteLater();
+
+        qDebug() << "Already have a client." << s << "disconnected";
         return;
     }
 
@@ -40,6 +42,7 @@ void BaseController::addClient(QWebSocket *s)
     }));
 
     m_clients.append(newClient);
+    qDebug() << s << "is connected as a client";
 
     emit this->connectionStateChanged();
 }

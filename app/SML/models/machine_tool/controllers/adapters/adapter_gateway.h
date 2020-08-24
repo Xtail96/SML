@@ -19,10 +19,10 @@ public:
     ~AdapterGateway();
 
     /// Запускает сервер.
-    bool startServer(quint16 port);
+    bool open(quint16 port);
 
     /// Останавливает сервер.
-    void stopServer();
+    void close();
 
     /// Возвращает порт сервера.
     quint16 port() const;

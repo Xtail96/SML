@@ -7,7 +7,7 @@ TestEnv::TestEnv(QObject *parent) :
     d(this),
     r(&m, &d, this)
 {
-    qDebug() << "server is started =" << s.startServer(1234);
+    qDebug() << "server is started =" << s.open(1234);
 
     QObject::connect(&s, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
         r.addClient(client);
