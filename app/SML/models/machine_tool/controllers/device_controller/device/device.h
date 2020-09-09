@@ -1,7 +1,9 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include "models/structs.h"
+#include <QObject>
+#include <QMap>
+#include <QDebug>
 
 /*!
  * \brief Класс Устройство

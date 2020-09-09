@@ -1,9 +1,8 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
+#include <QObject>
 #include <QColor>
-
-#include "models/structs.h"
 
 class DeviceController;
 

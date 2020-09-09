@@ -7,7 +7,6 @@
 #include "../base_controller.h"
 
 #include "./axis/axis.h"
-#include "./axis/point.h"
 
 /**
  * @brief Контроллер двигаталей.
@@ -27,12 +26,6 @@ public:
      */
     ~MotionController() override;
 
-    /**
-     * @brief Возвращает текущее положение станка относительно базы.
-     * @return Текущее положение станка в абсолютных координатах.
-     */
-    Point currentPos();
-
     bool axisExists(AxisId id);
     void addAxis(AxisId id, double initialPosition);
     void removeAxis(AxisId id);
@@ -49,12 +42,6 @@ private:
     /// Доступные оси станка.
     QSet<Axis*> m_axes;
     QList<QMetaObject::Connection> m_slotsInfo;
-
-    /**
-     * @brief Устанавливает текущее положение станка относительно базы.
-     * @param absPos - обновленное положение станка относительно базы.
-     */
-    void setCurrentPos(Point absPos);
 
     /**
      * @brief Обработчик сообщения от адаптера в виде массива байт.

@@ -18,16 +18,6 @@ MotionController::~MotionController()
     qDeleteAll(m_axes.begin(), m_axes.end());
 }
 
-Point MotionController::currentPos()
-{
-    Point p;
-    for(auto axis : m_axes)
-    {
-        p.insertAxis(axis->decoratedId(), axis->currentPosition());
-    }
-    return p;
-}
-
 bool MotionController::axisExists(AxisId id)
 {
     for(auto axis : m_axes)

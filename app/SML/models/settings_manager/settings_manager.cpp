@@ -93,7 +93,7 @@ QVariant SettingsManager::get(QString group, QString key) const
         settings->endGroup();
 
         QString message = QStringLiteral("В файла настроек отсутствует ключ ") + key + QStringLiteral(" для секции ") + group;
-        throw InvalidConfigurationException(message);
+        throw std::invalid_argument(message.toStdString());
     }
 
     settings->endGroup();

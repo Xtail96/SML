@@ -57,9 +57,9 @@ void Registrator::parseTextMessage(QString message)
         {
             emit this->DeviceAdapterConnected(pSender);
         }
-        catch(SynchronizeStateException e)
+        catch(std::runtime_error e)
         {
-            qDebug() << e.message();
+            qDebug() << e.what();
             delete pSender;
         }
     }
@@ -71,9 +71,9 @@ void Registrator::parseTextMessage(QString message)
             {
                 emit this->MotionAdapterConnected(pSender);
             }
-            catch(SynchronizeStateException e)
+            catch(std::runtime_error e)
             {
-                qDebug() << e.message();
+                qDebug() << e.what();
                 delete pSender;
             }
         }
