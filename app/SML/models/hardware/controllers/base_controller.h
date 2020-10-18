@@ -67,6 +67,8 @@ protected:
     /// Выполняется ли задача в текущий момент.
     bool m_processingTask;
 
+    QString m_logName;
+
     /**
      * @brief Обработчик сообщения от адаптера в виде текста.
      * @warning Должен быть определен в наследниках.
@@ -86,9 +88,6 @@ protected:
      * @param processingTask - обрабатывается ли задача.
      */
     void setProcessingTask(bool isReady);
-
-private:
-    QString m_logName;
 
 signals:
     /// Состояние подключения изменилось.

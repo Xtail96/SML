@@ -5,27 +5,27 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
     m_connections()
 {
     m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s) {
-        qDebug() << "Registrator: try to connect" << s << "as a client to motion controller";
+        qDebug().noquote() << m_logName << "try to connect" << s << "as a client to motion controller";
         m->addClient(s);
-        qDebug() << "Registrator: clear" << s << "slots info";
+        qDebug().noquote() << m_logName << "clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
-        qDebug() << "Registrator: clear clients";
+        qDebug().noquote() << m_logName << "clear clients";
         m_clients.clear();
         s->sendTextMessage("Registered!");
     }));
 
     m_connections.append(QObject::connect(this, &Registrator::DeviceAdapterConnected, this, [=](QWebSocket* s) {
-        qDebug() << "Registrator: try to connect" << s << "as a client to device controller";
+        qDebug().noquote() << m_logName << "try to connect" << s << "as a client to device controller";
         d->addClient(s);
-        qDebug() << "Registrator: clear" << s << "slots info";
+        qDebug().noquote() << m_logName << "clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
-        qDebug() << "Registrator: clear clients";
+        qDebug().noquote() << m_logName << "clear clients";
         m_clients.clear();
         s->sendTextMessage("Registered!");
     }));
@@ -41,12 +41,12 @@ Registrator::~Registrator()
 
 void Registrator::parseBinaryMessage(QByteArray message)
 {
-    qDebug() << "Registrator: binary message received" << message;
+    qDebug().noquote() << m_logName << "binary message received" << message;
 }
 
 void Registrator::parseTextMessage(QString message)
 {
-    qDebug() << "Registrator: text message received" << message;
+    qDebug().noquote() << m_logName << "text message received" << message;
 
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
@@ -59,7 +59,7 @@ void Registrator::parseTextMessage(QString message)
         }
         catch(std::runtime_error e)
         {
-            qDebug() << e.what();
+            qDebug().noquote() << m_logName << e.what();
             delete pSender;
         }
     }
@@ -73,13 +73,13 @@ void Registrator::parseTextMessage(QString message)
             }
             catch(std::runtime_error e)
             {
-                qDebug() << e.what();
+                qDebug().noquote() << m_logName << e.what();
                 delete pSender;
             }
         }
         else
         {
-            qDebug() << "Registrator: connection refused";
+            qDebug().noquote() << m_logName << "connection refused";
             pSender->sendTextMessage("Connection refused");
             pSender->close();
         }
