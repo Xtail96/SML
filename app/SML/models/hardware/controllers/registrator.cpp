@@ -1,7 +1,7 @@
 #include "registrator.h"
 
 Registrator::Registrator(MotionController *m, DeviceController *d, QObject *parent) :
-    BaseController(parent),
+    BaseController("Registrator", parent),
     m_connections()
 {
     m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s) {

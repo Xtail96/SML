@@ -9,7 +9,7 @@
 #include "../controllers/adapters/adapter_connection.h"
 
 /**
- * @brief Базовый контроллер станка.
+ * @brief Базовый контроллер.
  * Содержит код для работы с подключениями через сокеты.
  * Содержит код для получения информации о готовности платы обрабатывать задачи.
  */
@@ -21,7 +21,7 @@ public:
      * @brief Конструктор  класса.
      * @param parent - родительский объект
      */
-    explicit BaseController(QObject *parent = nullptr);
+    explicit BaseController(QString logName = "", QObject *parent = nullptr);
 
     /**
      * @brief Деструктор класса.
@@ -86,6 +86,10 @@ protected:
      * @param processingTask - обрабатывается ли задача.
      */
     void setProcessingTask(bool isReady);
+
+private:
+    QString m_logName;
+
 signals:
     /// Состояние подключения изменилось.
     void connectionStateChanged();

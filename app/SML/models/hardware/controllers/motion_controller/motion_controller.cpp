@@ -1,7 +1,7 @@
 #include "motion_controller.h"
 
 MotionController::MotionController(QObject *parent):
-    BaseController(parent),
+    BaseController("MotionController", parent),
     m_axes(),
     m_slotsInfo()
 {

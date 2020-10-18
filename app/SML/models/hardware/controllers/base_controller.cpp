@@ -1,9 +1,10 @@
 #include "base_controller.h"
 
-BaseController::BaseController(QObject *parent) :
+BaseController::BaseController(QString logName, QObject *parent) :
     QObject(parent),
     m_clients(),
-    m_processingTask(false)
+    m_processingTask(false),
+    m_logName(QString(logName + ":"))
 {
 }
 
@@ -14,7 +15,7 @@ BaseController::~BaseController()
 
 void BaseController::addClient(QWebSocket *s)
 {
-    qDebug() << "Try to connect" << s << "as a client";
+    qDebug().noquote() << m_logName << "Try to connect" << s << "as a client";
     if(m_clients.length() > 0)
     {
         if(s->isValid())
@@ -23,7 +24,7 @@ void BaseController::addClient(QWebSocket *s)
         s->close();
         s->deleteLater();
 
-        qDebug() << "Already have a client." << s << "disconnected";
+        qDebug().noquote() << m_logName << "Already have a client." << s << "disconnected";
         return;
     }
 
@@ -42,7 +43,7 @@ void BaseController::addClient(QWebSocket *s)
     }));
 
     m_clients.append(newClient);
-    qDebug() << s << "is connected as a client";
+    qDebug().noquote() << m_logName << s << "is connected as a client";
 
     emit this->connectionStateChanged();
 }

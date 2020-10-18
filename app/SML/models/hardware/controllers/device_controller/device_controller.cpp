@@ -1,7 +1,7 @@
 #include "device_controller.h"
 
 DeviceController::DeviceController(QObject *parent) :
-    BaseController(parent),
+    BaseController("DeviceController", parent),
     m_sensors(),
     m_spindels(),
     m_supportDevices()
