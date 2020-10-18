@@ -20,7 +20,7 @@
 
 /// Подключение подсветки синтаксиса G-кодов
 #include "gui/utils/gcodes_syntax_highlighter.h"
-#include "models/machine_tool/machine_tool.h"
+#include "models/hardware/hardware_driver.h"
 #include "gui/widgets/spindel_control_widget.h"
 
 #include "models/services/gcodes/view/gcodes_view_interactor.h"

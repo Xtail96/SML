@@ -20,17 +20,18 @@ SOURCES += main.cpp\
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/simple_qt_logger/simpleQtLogger.cpp \
-    models/machine_tool/controllers/adapters/adapter_connection.cpp \
-    models/machine_tool/controllers/adapters/adapter_gateway.cpp \
-    models/machine_tool/controllers/base_controller.cpp \
-    models/machine_tool/controllers/device_controller/device_controller.cpp \
-    models/machine_tool/controllers/motion_controller/motion_controller.cpp \
-    models/machine_tool/controllers/registrator.cpp \
+    models/hardware/controllers/adapters/adapter_connection.cpp \
+    models/hardware/controllers/adapters/adapter_gateway.cpp \
+    models/hardware/controllers/base_controller.cpp \
+    models/hardware/controllers/device_controller/device_controller.cpp \
+    models/hardware/controllers/motion_controller/motion_controller.cpp \
+    models/hardware/controllers/registrator.cpp \
+    models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
-    models/machine_tool/controllers/device_controller/sensor/sensor.cpp \
-    models/machine_tool/controllers/device_controller/device/spindel.cpp \
-    models/machine_tool/controllers/device_controller/device/device.cpp \
-    models/machine_tool/controllers/motion_controller/axis/axis.cpp \
+    models/hardware/controllers/device_controller/sensor/sensor.cpp \
+    models/hardware/controllers/device_controller/device/spindel.cpp \
+    models/hardware/controllers/device_controller/device/device.cpp \
+    models/hardware/controllers/motion_controller/axis/axis.cpp \
     gui/widgets/gcodes_editor_widget.cpp \
     gui/widgets/sensors_display_widget.cpp \
     gui/widgets/sml_commands_list_widget.cpp \
@@ -40,8 +41,7 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     models/services/gcodes/view/gcodes_view_interactor.cpp \
     models/settings_manager/settings_manager.cpp \
-    models/machine_tool/controllers/device_controller/device/support_device.cpp \
-    models/machine_tool/machine_tool.cpp
+    models/hardware/controllers/device_controller/device/support_device.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/utils/colors.h \
@@ -49,18 +49,19 @@ HEADERS  += gui/mainwindow.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/simple_qt_logger/simpleQtLogger.h \
-    models/machine_tool/controllers/adapters/adapter_connection.h \
-    models/machine_tool/controllers/adapters/adapter_gateway.h \
-    models/machine_tool/controllers/base_controller.h \
-    models/machine_tool/controllers/device_controller/device_controller.h \
-    models/machine_tool/controllers/motion_controller/motion_controller.h \
-    models/machine_tool/controllers/registrator.h \
+    models/hardware/controllers/adapters/adapter_connection.h \
+    models/hardware/controllers/adapters/adapter_gateway.h \
+    models/hardware/controllers/base_controller.h \
+    models/hardware/controllers/device_controller/device_controller.h \
+    models/hardware/controllers/motion_controller/motion_controller.h \
+    models/hardware/controllers/registrator.h \
+    models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/services/gcodes/view/gcodes_view_interactor.h \
-    models/machine_tool/controllers/device_controller/sensor/sensor.h \
-    models/machine_tool/controllers/device_controller/device/spindel.h \
-    models/machine_tool/controllers/device_controller/device/device.h \
-    models/machine_tool/controllers/motion_controller/axis/axis.h \
+    models/hardware/controllers/device_controller/sensor/sensor.h \
+    models/hardware/controllers/device_controller/device/spindel.h \
+    models/hardware/controllers/device_controller/device/device.h \
+    models/hardware/controllers/motion_controller/axis/axis.h \
     gui/widgets/gcodes_editor_widget.h \
     gui/widgets/sensors_display_widget.h \
     gui/widgets/sml_editor_tree_widget.h \
@@ -68,9 +69,8 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/spindel_control_widget.h \
     gui/widgets/sml_commands_list_widget.h \
     gui/utils/gcodes_syntax_highlighter.h \
-    models/machine_tool/machine_tool.h \
     models/settings_manager/settings_manager.h \
-    models/machine_tool/controllers/device_controller/device/support_device.h
+    models/hardware/controllers/device_controller/device/support_device.h
 
 FORMS    += gui/mainwindow.ui
 

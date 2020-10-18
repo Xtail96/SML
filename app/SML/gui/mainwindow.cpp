@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideWidgets();
     this->setupConnections();
 
-    MachineTool::getInstance();
+    HardwareDriver::getInstance();
 }
 
 MainWindow::~MainWindow()

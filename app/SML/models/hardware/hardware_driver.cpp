@@ -1,6 +1,6 @@
-#include "machine_tool.h"
+#include "hardware_driver.h"
 
-MachineTool::MachineTool(QObject *parent) :
+HardwareDriver::HardwareDriver(QObject *parent) :
     QObject(parent),
     m_connections(QList<QMetaObject::Connection>()),
     m_adapterServer(this),
@@ -17,23 +17,23 @@ MachineTool::MachineTool(QObject *parent) :
     this->launchAdapters();
 }
 
-MachineTool::~MachineTool()
+HardwareDriver::~HardwareDriver()
 {
     this->stopAdapters();
     this->resetConnections();
 }
 
-MachineTool &MachineTool::getInstance()
+HardwareDriver &HardwareDriver::getInstance()
 {
-    static QScopedPointer<MachineTool> m_instance;
+    static QScopedPointer<HardwareDriver> m_instance;
     if(m_instance.data() == nullptr)
     {
-        m_instance.reset( new MachineTool() );
+        m_instance.reset( new HardwareDriver() );
     }
     return *m_instance;
 }
 
-void MachineTool::setupConnections()
+void HardwareDriver::setupConnections()
 {
     this->resetConnections();
 
@@ -42,7 +42,7 @@ void MachineTool::setupConnections()
     }));
 }
 
-void MachineTool::resetConnections()
+void HardwareDriver::resetConnections()
 {
     for(auto& connection : m_connections)
     {
@@ -50,7 +50,7 @@ void MachineTool::resetConnections()
     }
 }
 
-void MachineTool::stopAdapters()
+void HardwareDriver::stopAdapters()
 {
     try
     {
@@ -62,7 +62,7 @@ void MachineTool::stopAdapters()
     }
 }
 
-void MachineTool::launchAdapters()
+void HardwareDriver::launchAdapters()
 {
     SettingsManager s;
     QString deviceAdapterPath = s.get("ExternalTools", "DeviceAdapter").toString();

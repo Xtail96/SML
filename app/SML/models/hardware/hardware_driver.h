@@ -1,5 +1,5 @@
-#ifndef MACHINETOOL_H
-#define MACHINETOOL_H
+#ifndef HARDWAREDRIVER_H
+#define HARDWAREDRIVER_H
 
 #include <QObject>
 #include <QQueue>
@@ -12,7 +12,7 @@
 #include "./models/settings_manager/settings_manager.h"
 
 /**
- * @brief Класс станок
+ * @brief Класс драйвер
  *
  * @warning Реализует паттерн Singleton
  *
@@ -28,7 +28,7 @@
  *
  * Запускает сценарии бизнес-логики, реализованные по средствам интеракторов.
  */
-class MachineTool : public QObject
+class HardwareDriver : public QObject
 {
     Q_OBJECT
 
@@ -37,12 +37,12 @@ public:
      * @brief Предоставляет доступ к объекту класса
      * @return ссылка на объект класса
      */
-    static MachineTool& getInstance();
+    static HardwareDriver& getInstance();
 
     /**
-      * @brief Деструктор класса Станок
+      * @brief Деструктор класса
       */
-    ~MachineTool();
+    ~HardwareDriver();
 
 private:
     QList<QMetaObject::Connection> m_connections;
@@ -55,20 +55,20 @@ private:
     AdaptersLauncher m_adaptersLauncher;
 
     /**
-     * @brief Создает объект класса станок
+     * @brief Создает объект класса
      * @param parent родительский объект
      */
-    MachineTool(QObject *parent = nullptr);
+    HardwareDriver(QObject *parent = nullptr);
 
     /**
      * @brief Запрещаем копи-конструктор
      */
-    MachineTool(MachineTool const&) = delete;
+    HardwareDriver(HardwareDriver const&) = delete;
 
     /**
      * @brief Запрещаем operator =
      */
-    MachineTool& operator =(MachineTool const&) = delete;
+    HardwareDriver& operator =(HardwareDriver const&) = delete;
 
     /**
      * @brief Подключет слоты к сигналам полей класса
@@ -93,4 +93,4 @@ private slots:
     void launchAdapters();
 };
 
-#endif // MACHINETOOL_H
+#endif // HARDWAREDRIVER_H
