@@ -56,32 +56,28 @@ void HardwareDriver::resetSlots()
     m_slotsInfo.clear();
 }
 
-QMetaObject::Connection HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
+void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
 {
-    QMetaObject::Connection slotInfo = QMetaObject::Connection();
     switch (event) {
     case HARDWARE_EVENT::DeviceControllerConnectionStateChanged:
-        slotInfo = QObject::connect(&m_deviceController, &BaseController::connectionStateChanged, this, [=]() {
+        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connectionStateChanged, this, [=]() {
             handler();
-        });
+        }));
         break;
     case HARDWARE_EVENT::MotionControllerConnectionStateChanged:
-        slotInfo = QObject::connect(&m_motionController, &BaseController::connectionStateChanged, this, [=]() {
+        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::connectionStateChanged, this, [=]() {
             handler();
-        });
+        }));
         break;
     default:
         break;
     }
-
-    m_slotsInfo.append(slotInfo);
-    return slotInfo;
 }
 
-void HardwareDriver::unregisterHandler(QMetaObject::Connection slotInfo)
+void HardwareDriver::resetHandlers()
 {
-    m_slotsInfo.removeAll(slotInfo);
-    QObject::disconnect(slotInfo);
+    this->resetSlots();
+    this->setupSlots();
 }
 
 void HardwareDriver::stopAdapters()

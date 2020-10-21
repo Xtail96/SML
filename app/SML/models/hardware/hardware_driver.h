@@ -24,7 +24,7 @@ enum HARDWARE_EVENT {
  *
  * @warning Реализует паттерн Singleton
  *
- * Единая точка доступа к дереву моделей в системе (Router).
+ * Единая точка доступа к дереву моделей.
  * Основная задача класса: обеспечение взаимодействия компомнентов системы между собой.
  *
  * Все взаимодействие между компонентами происходит через этот класс.
@@ -54,8 +54,8 @@ public:
 
     bool isConnected() const;
 
-    QMetaObject::Connection registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
-    void unregisterHandler(QMetaObject::Connection slotInfo);
+    void registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
+    void resetHandlers();
 
 private:
     QList<QMetaObject::Connection> m_slotsInfo;

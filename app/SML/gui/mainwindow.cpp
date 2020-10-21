@@ -4,9 +4,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_selfSlotsInfo(QList<QMetaObject::Connection>()),
-    m_hightlighter(new GCodesSyntaxHighlighter(this)),
-    m_hardwareSlotsInfo(QList<QMetaObject::Connection>())
+    m_slotsInfo(QList<QMetaObject::Connection>()),
+    m_hightlighter(new GCodesSyntaxHighlighter(this))
 {
     ui->setupUi(this);
 
@@ -14,12 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideWidgets();
 
     this->setupHardwareDriver();
-    this->setupSelfSlots();
+    this->setupSlots();
 }
 
 MainWindow::~MainWindow()
 {
-    this->resetSelfSlots();
+    this->resetSlots();
     delete ui;
 }
 
@@ -42,8 +41,8 @@ void MainWindow::setupHardwareDriver()
         }
     };
 
-    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, hardwareConnectionStateChangedHandler));
-    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, hardwareConnectionStateChangedHandler));
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, hardwareConnectionStateChangedHandler);
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, hardwareConnectionStateChangedHandler);
 }
 
 void MainWindow::setupWidgets()
@@ -65,9 +64,9 @@ void MainWindow::setupWidgets()
     ui->optionsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
 
-void MainWindow::setupSelfSlots()
+void MainWindow::setupSlots()
 {
-    m_selfSlotsInfo.append(QObject::connect(new QShortcut(QKeySequence("Esc"), this), &QShortcut::activated, this, [=]() {
+    m_slotsInfo.append(QObject::connect(new QShortcut(QKeySequence("Esc"), this), &QShortcut::activated, this, [=]() {
         switch (ui->mainTabMenu->currentIndex()) {
         case 0:
             ui->mainTabMenu->setCurrentIndex(1);
@@ -82,13 +81,13 @@ void MainWindow::setupSelfSlots()
     }));
 }
 
-void MainWindow::resetSelfSlots()
+void MainWindow::resetSlots()
 {
-    for(auto& slotInfo : m_selfSlotsInfo)
+    for(auto& slotInfo : m_slotsInfo)
     {
         QObject::disconnect(slotInfo);
     }
-    m_selfSlotsInfo.clear();
+    m_slotsInfo.clear();
 }
 
 void MainWindow::updateBatteryStatusDisplay()
