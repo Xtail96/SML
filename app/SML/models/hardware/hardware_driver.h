@@ -55,6 +55,7 @@ public:
     bool isConnected() const;
 
     QMetaObject::Connection registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
+    void unregisterHandler(QMetaObject::Connection slotInfo);
 
 private:
     QList<QMetaObject::Connection> m_slotsInfo;

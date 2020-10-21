@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    this->resetHardwareDriver();
     this->resetSelfSlots();
     delete ui;
 }
@@ -43,18 +42,8 @@ void MainWindow::setupHardwareDriver()
         }
     };
 
-    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged,
-                                                      hardwareConnectionStateChangedHandler));
-    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged,
-                                                      hardwareConnectionStateChangedHandler));
-}
-
-void MainWindow::resetHardwareDriver()
-{
-    for(auto& slotInfo : m_hardwareSlotsInfo)
-    {
-        QObject::disconnect(slotInfo);
-    }
+    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, hardwareConnectionStateChangedHandler));
+    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, hardwareConnectionStateChangedHandler));
 }
 
 void MainWindow::setupWidgets()
@@ -99,6 +88,7 @@ void MainWindow::resetSelfSlots()
     {
         QObject::disconnect(slotInfo);
     }
+    m_selfSlotsInfo.clear();
 }
 
 void MainWindow::updateBatteryStatusDisplay()

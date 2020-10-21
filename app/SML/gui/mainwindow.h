@@ -51,7 +51,6 @@ private:
 
     QList<QMetaObject::Connection> m_hardwareSlotsInfo;
     void setupHardwareDriver();
-    void resetHardwareDriver();
 
     /// Проводит начальную настройку виджетов
     void setupWidgets();
