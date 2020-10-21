@@ -5,21 +5,55 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_connections(QList<QMetaObject::Connection>()),
-    m_hightlighter(new GCodesSyntaxHighlighter(this))
+    m_hightlighter(new GCodesSyntaxHighlighter(this)),
+    m_hardwareConnections(QList<QMetaObject::Connection>())
 {
     ui->setupUi(this);
 
     this->setupWidgets();
     this->hideWidgets();
-    this->setupConnections();
 
-    HardwareDriver::getInstance();
+    this->setupHardwareDriver();
+    this->setupConnections();
 }
 
 MainWindow::~MainWindow()
 {
     this->resetConnections();
     delete ui;
+}
+
+void MainWindow::setupHardwareDriver()
+{
+    auto& driver = HardwareDriver::getInstance();
+    auto handler = [=]() {
+        auto& driver = HardwareDriver::getInstance();
+        bool isConnected = driver.isConnected();
+        if(isConnected) {
+            ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
+            ui->statusBar->showMessage("Hardware driver is ready");
+        }
+        else {
+            ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
+            ui->statusBar->showMessage("Hardware driver is not ready");
+        }
+    };
+
+    m_hardwareConnections.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, handler));
+    m_hardwareConnections.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, handler));
+}
+
+void MainWindow::resetHardwareDriver()
+{
+    for(auto& connection : m_hardwareConnections)
+    {
+        QObject::disconnect(connection);
+    }
+}
+
+void MainWindow::test()
+{
+
 }
 
 void MainWindow::setupWidgets()

@@ -23,6 +23,11 @@ HardwareDriver::~HardwareDriver()
     this->resetConnections();
 }
 
+bool HardwareDriver::isConnected() const
+{
+    return m_deviceController.isConnected() && m_motionController.isConnected();
+}
+
 HardwareDriver &HardwareDriver::getInstance()
 {
     static QScopedPointer<HardwareDriver> m_instance;
@@ -48,6 +53,24 @@ void HardwareDriver::resetConnections()
     {
         QObject::disconnect(connection);
     }
+}
+
+QMetaObject::Connection HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
+{
+    switch (event) {
+    case HARDWARE_EVENT::DeviceControllerConnectionStateChanged:
+        return QObject::connect(&m_deviceController, &BaseController::connectionStateChanged, this, [=]() {
+            handler();
+        });
+    case HARDWARE_EVENT::MotionControllerConnectionStateChanged:
+        return QObject::connect(&m_motionController, &BaseController::connectionStateChanged, this, [=]() {
+            handler();
+        });
+    default:
+        break;
+    }
+
+    return QMetaObject::Connection();
 }
 
 void HardwareDriver::stopAdapters()

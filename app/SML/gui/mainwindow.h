@@ -49,6 +49,11 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 
+    QList<QMetaObject::Connection> m_hardwareConnections;
+    void setupHardwareDriver();
+    void resetHardwareDriver();
+    void test();
+
     /// Проводит начальную настройку виджетов
     void setupWidgets();
 

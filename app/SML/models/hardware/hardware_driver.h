@@ -11,6 +11,14 @@
 #include "./controllers/registrator.h"
 #include "./models/settings_manager/settings_manager.h"
 
+enum HARDWARE_EVENT {
+    DeviceControllerConnectionStateChanged,
+    MotionControllerConnectionStateChanged,
+    SensorStateChanged,
+    DeviceStateChanged,
+    CurrentPositionChanged,
+};
+
 /**
  * @brief Класс драйвер
  *
@@ -43,6 +51,10 @@ public:
       * @brief Деструктор класса
       */
     ~HardwareDriver();
+
+    bool isConnected() const;
+
+    QMetaObject::Connection registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
 
 private:
     QList<QMetaObject::Connection> m_connections;
