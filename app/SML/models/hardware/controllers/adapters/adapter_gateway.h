@@ -35,13 +35,13 @@ private:
     quint16 m_port;
 
     /// Мета-информация о подключенных слотах.
-    QList<QMetaObject::Connection> m_connections;
+    QList<QMetaObject::Connection> m_slotsInfo;
 
     /// Подключает необходимые слоты.
-    void setupConnections();
+    void setupSlots();
 
     /// Отключает слоты.
-    void resetConnections();
+    void resetSlots();
 
 signals:
     /// Произошло подключение нового сокета.

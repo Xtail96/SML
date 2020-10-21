@@ -4,9 +4,9 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_connections(QList<QMetaObject::Connection>()),
+    m_selfSlotsInfo(QList<QMetaObject::Connection>()),
     m_hightlighter(new GCodesSyntaxHighlighter(this)),
-    m_hardwareConnections(QList<QMetaObject::Connection>())
+    m_hardwareSlotsInfo(QList<QMetaObject::Connection>())
 {
     ui->setupUi(this);
 
@@ -14,46 +14,47 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideWidgets();
 
     this->setupHardwareDriver();
-    this->setupConnections();
+    this->setupSelfSlots();
 }
 
 MainWindow::~MainWindow()
 {
-    this->resetConnections();
+    this->resetHardwareDriver();
+    this->resetSelfSlots();
     delete ui;
 }
 
 void MainWindow::setupHardwareDriver()
 {
     auto& driver = HardwareDriver::getInstance();
-    auto handler = [=]() {
+    auto hardwareConnectionStateChangedHandler = [=]()
+    {
         auto& driver = HardwareDriver::getInstance();
         bool isConnected = driver.isConnected();
-        if(isConnected) {
+        if(isConnected)
+        {
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
             ui->statusBar->showMessage("Hardware driver is ready");
         }
-        else {
+        else
+        {
             ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
             ui->statusBar->showMessage("Hardware driver is not ready");
         }
     };
 
-    m_hardwareConnections.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, handler));
-    m_hardwareConnections.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, handler));
+    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged,
+                                                      hardwareConnectionStateChangedHandler));
+    m_hardwareSlotsInfo.append(driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged,
+                                                      hardwareConnectionStateChangedHandler));
 }
 
 void MainWindow::resetHardwareDriver()
 {
-    for(auto& connection : m_hardwareConnections)
+    for(auto& slotInfo : m_hardwareSlotsInfo)
     {
-        QObject::disconnect(connection);
+        QObject::disconnect(slotInfo);
     }
-}
-
-void MainWindow::test()
-{
-
 }
 
 void MainWindow::setupWidgets()
@@ -75,9 +76,9 @@ void MainWindow::setupWidgets()
     ui->optionsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
 }
 
-void MainWindow::setupConnections()
+void MainWindow::setupSelfSlots()
 {
-    m_connections.append(QObject::connect(new QShortcut(QKeySequence("Esc"), this), &QShortcut::activated, this, [=]() {
+    m_selfSlotsInfo.append(QObject::connect(new QShortcut(QKeySequence("Esc"), this), &QShortcut::activated, this, [=]() {
         switch (ui->mainTabMenu->currentIndex()) {
         case 0:
             ui->mainTabMenu->setCurrentIndex(1);
@@ -92,11 +93,11 @@ void MainWindow::setupConnections()
     }));
 }
 
-void MainWindow::resetConnections()
+void MainWindow::resetSelfSlots()
 {
-    for(auto& connection : m_connections)
+    for(auto& slotInfo : m_selfSlotsInfo)
     {
-        QObject::disconnect(connection);
+        QObject::disconnect(slotInfo);
     }
 }
 

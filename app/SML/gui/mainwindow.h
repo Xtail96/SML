@@ -44,15 +44,14 @@ private:
     QList< std::tuple<const char*, QPushButton*, const char*> > m_shortcutsMap;
     QList<QShortcut*> m_axisesShortcuts;
 
-    QList<QMetaObject::Connection> m_connections;
+    QList<QMetaObject::Connection> m_selfSlotsInfo;
 
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 
-    QList<QMetaObject::Connection> m_hardwareConnections;
+    QList<QMetaObject::Connection> m_hardwareSlotsInfo;
     void setupHardwareDriver();
     void resetHardwareDriver();
-    void test();
 
     /// Проводит начальную настройку виджетов
     void setupWidgets();
@@ -61,10 +60,10 @@ private:
     void hideWidgets();
 
     /// Подключает необходимые слоты к полям и сигналам
-    void setupConnections();
+    void setupSelfSlots();
 
     /// Отключает слоты от полей и сигналов
-    void resetConnections();
+    void resetSelfSlots();
 
 private slots:
     void updateBatteryStatusDisplay();

@@ -2,14 +2,14 @@
 
 HardwareDriver::HardwareDriver(QObject *parent) :
     QObject(parent),
-    m_connections(QList<QMetaObject::Connection>()),
+    m_slotsInfo(QList<QMetaObject::Connection>()),
     m_adapterServer(this),
     m_motionController(this),
     m_deviceController(this),
     m_adapterRegistrator(&m_motionController, &m_deviceController, this),
     m_adaptersLauncher(new AdaptersLauncher(this))
 {
-    this->setupConnections();
+    this->setupSlots();
 
     SettingsManager s;
     quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
@@ -20,7 +20,7 @@ HardwareDriver::HardwareDriver(QObject *parent) :
 HardwareDriver::~HardwareDriver()
 {
     this->stopAdapters();
-    this->resetConnections();
+    this->resetSlots();
 }
 
 bool HardwareDriver::isConnected() const
@@ -38,20 +38,20 @@ HardwareDriver &HardwareDriver::getInstance()
     return *m_instance;
 }
 
-void HardwareDriver::setupConnections()
+void HardwareDriver::setupSlots()
 {
-    this->resetConnections();
+    this->resetSlots();
 
-    m_connections.append(QObject::connect(&m_adapterServer, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
+    m_slotsInfo.append(QObject::connect(&m_adapterServer, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
         m_adapterRegistrator.addClient(client);
     }));
 }
 
-void HardwareDriver::resetConnections()
+void HardwareDriver::resetSlots()
 {
-    for(auto& connection : m_connections)
+    for(auto& slotInfo : m_slotsInfo)
     {
-        QObject::disconnect(connection);
+        QObject::disconnect(slotInfo);
     }
 }
 

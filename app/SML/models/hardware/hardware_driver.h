@@ -57,7 +57,7 @@ public:
     QMetaObject::Connection registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
 
 private:
-    QList<QMetaObject::Connection> m_connections;
+    QList<QMetaObject::Connection> m_slotsInfo;
 
     /// Сервер для подключения адаптеров
     AdapterGateway m_adapterServer;
@@ -85,12 +85,12 @@ private:
     /**
      * @brief Подключет слоты к сигналам полей класса
      */
-    void setupConnections();
+    void setupSlots();
 
     /**
      * @brief Отключает слоты от сигналов полей класса
      */
-    void resetConnections();
+    void resetSlots();
 
 signals:
 
