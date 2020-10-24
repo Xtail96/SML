@@ -40,6 +40,7 @@ void BaseController::addClient(QWebSocket *s)
     newClient->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
         m_clients.removeAll(newClient);
         delete newClient;
+        emit this->connectionStateChanged();
     }));
 
     m_clients.append(newClient);
