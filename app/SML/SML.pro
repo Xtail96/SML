@@ -14,6 +14,8 @@ TEMPLATE = app
 
 CONFIG += c++11
 
+DEFINES += QT_MESSAGELOGCONTEXT
+
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
     libs/json_parser/json.cpp \

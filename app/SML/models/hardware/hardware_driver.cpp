@@ -88,7 +88,7 @@ void HardwareDriver::stopAdapters()
     }
     catch(...)
     {
-        qDebug() << QStringLiteral("MachineTool::stopAdapters: unknown error");
+        qWarning() << QStringLiteral("unknown error");
     }
 }
 

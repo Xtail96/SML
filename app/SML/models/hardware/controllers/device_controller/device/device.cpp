@@ -40,12 +40,10 @@ void Device::setCurrentState(bool value, QMap<QString, QString> params)
 
         if(m_currentState == m_activeState)
         {
-            qDebug() << "state changed";
             emit currentStateChanged(true);
         }
         else
         {
-            qDebug() << "state changed";
             emit currentStateChanged(false);
         }
     }

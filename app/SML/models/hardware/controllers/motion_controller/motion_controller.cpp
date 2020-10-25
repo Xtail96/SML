@@ -49,20 +49,20 @@ void MotionController::clearAxes()
 
 void MotionController::parseBinaryMessage(QByteArray message)
 {
-    qDebug().noquote() << m_logName << "binary message received" << QString::fromUtf8(message);
+    qDebug().noquote() << "binary message received" << QString::fromUtf8(message);
 
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
     if(!parsed)
     {
-        qDebug().noquote() << m_logName << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
+        qWarning().noquote() << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
         return;
     }
 
     QtJson::JsonObject motionController = result["motionControllerState"].toMap();
     if(motionController.isEmpty())
     {
-        qDebug().noquote() << m_logName << "binaryMessageReceived: empty message";
+        qWarning() << "binaryMessageReceived: empty message";
         return ;
     }
 
@@ -83,7 +83,7 @@ void MotionController::parseBinaryMessage(QByteArray message)
 
 void MotionController::parseTextMessage(QString message)
 {
-    qDebug().noquote() << m_logName << "text message received" << message;
+    qDebug().noquote() << "text message received" << message;
 }
 
 Axis *MotionController::findById(AxisId id)

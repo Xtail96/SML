@@ -4,7 +4,7 @@ BaseController::BaseController(QString logName, QObject *parent) :
     QObject(parent),
     m_clients(),
     m_processingTask(false),
-    m_logName(QString(logName + ":"))
+    m_logName(QString("[" + logName + "]"))
 {
 }
 

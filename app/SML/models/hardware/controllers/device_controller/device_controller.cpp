@@ -47,20 +47,20 @@ SupportDevice *DeviceController::getSupportDevice(QString uid)
 
 void DeviceController::parseBinaryMessage(QByteArray message)
 {
-    qDebug().noquote() << m_logName << "binary message received" << QString::fromUtf8(message);
+    qDebug().noquote() << "binary message received" << QString::fromUtf8(message);
 
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
     if(!parsed)
     {
-        qDebug().noquote() << m_logName << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
+        qWarning().noquote() << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
         return;
     }
 
     QtJson::JsonObject deviceController = result["deviceControllerState"].toMap();
     if(deviceController.isEmpty())
     {
-        qDebug().noquote() << m_logName << "binaryMessageReceived: empty message";
+        qWarning() << "binaryMessageReceived: empty message";
         return ;
     }
 
@@ -108,5 +108,5 @@ void DeviceController::parseSpindels(const QtJson::JsonArray &spindels)
 
 void DeviceController::parseTextMessage(QString message)
 {
-    qDebug().noquote() << m_logName << "text message received" << message;
+    qDebug().noquote() << "text message received" << message;
 }

@@ -11,7 +11,7 @@ AdapterConnection::~AdapterConnection()
 
     if(m_socket && m_socket->isValid())
     {
-        qDebug() << "AdapterConnection::~AdapterConnection: close socket" << m_socket->peerAddress();
+        qDebug() << "close socket" << m_socket->peerAddress();
         m_socket->close();
         m_socket->deleteLater();
     }
@@ -26,7 +26,6 @@ void AdapterConnection::clearSlotsInfo()
 {
     for(auto& slotInfo : m_slotsInfo)
     {
-        //qDebug() << "AdapterConnection::clearSlotsInfo: disconnect slot";
         QObject::disconnect(slotInfo);
     }
 }
