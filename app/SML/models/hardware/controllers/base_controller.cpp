@@ -63,7 +63,7 @@ bool BaseController::isReady() const
 
 bool BaseController::isConnected() const
 {
-    if(m_clients.first() == nullptr) return false;
+    if(m_clients.length() <= 0) return false;
     if(m_clients.first()->socket() == nullptr) return false;
 
     return m_clients.first()->socket()->isValid();
