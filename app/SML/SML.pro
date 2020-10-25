@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    libs/simple_qt_logger/simpleQtLogger.cpp \
     models/hardware/controllers/adapters/adapter_connection.cpp \
     models/hardware/controllers/adapters/adapter_gateway.cpp \
     models/hardware/controllers/base_controller.cpp \
@@ -48,7 +47,6 @@ HEADERS  += gui/mainwindow.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    libs/simple_qt_logger/simpleQtLogger.h \
     models/hardware/controllers/adapters/adapter_connection.h \
     models/hardware/controllers/adapters/adapter_gateway.h \
     models/hardware/controllers/base_controller.h \
