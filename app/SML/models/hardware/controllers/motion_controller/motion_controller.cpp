@@ -49,7 +49,7 @@ void MotionController::clearAxes()
 
 void MotionController::parseBinaryMessage(QByteArray message)
 {
-    qDebug().noquote() << "binary message received" << QString::fromUtf8(message);
+    qInfo().noquote() << "binary message received" << QString::fromUtf8(message);
 
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
@@ -83,7 +83,7 @@ void MotionController::parseBinaryMessage(QByteArray message)
 
 void MotionController::parseTextMessage(QString message)
 {
-    qDebug().noquote() << "text message received" << message;
+    qInfo().noquote() << "text message received" << message;
 }
 
 Axis *MotionController::findById(AxisId id)

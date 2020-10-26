@@ -15,7 +15,7 @@ BaseController::~BaseController()
 
 void BaseController::addClient(QWebSocket *s)
 {
-    qDebug().noquote() << m_logName << "Try to connect" << s << "as a client";
+    qInfo().noquote() << m_logName << "Try to connect" << s << "as a client";
     if(m_clients.length() > 0)
     {
         if(s->isValid())
@@ -24,7 +24,7 @@ void BaseController::addClient(QWebSocket *s)
         s->close();
         s->deleteLater();
 
-        qDebug().noquote() << m_logName << "Already have a client." << s << "disconnected";
+        qWarning().noquote() << m_logName << "Already have a client." << s << "disconnected";
         return;
     }
 
@@ -44,7 +44,7 @@ void BaseController::addClient(QWebSocket *s)
     }));
 
     m_clients.append(newClient);
-    qDebug().noquote() << m_logName << s << "is connected as a client";
+    qInfo().noquote() << m_logName << s << "is connected as a client";
 
     emit this->connectionStateChanged();
 }

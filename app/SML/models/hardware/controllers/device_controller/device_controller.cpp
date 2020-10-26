@@ -47,7 +47,7 @@ SupportDevice *DeviceController::getSupportDevice(QString uid)
 
 void DeviceController::parseBinaryMessage(QByteArray message)
 {
-    qDebug().noquote() << "binary message received" << QString::fromUtf8(message);
+    qInfo().noquote() << "binary message received" << QString::fromUtf8(message);
 
     bool parsed = false;
     QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
@@ -108,5 +108,5 @@ void DeviceController::parseSpindels(const QtJson::JsonArray &spindels)
 
 void DeviceController::parseTextMessage(QString message)
 {
-    qDebug().noquote() << "text message received" << message;
+    qInfo().noquote() << "text message received" << message;
 }

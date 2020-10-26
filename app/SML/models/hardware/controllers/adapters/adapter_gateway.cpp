@@ -32,7 +32,7 @@ bool AdapterGateway::open(quint16 port)
 
     this->setupSlots();
 
-    qDebug() << "Hello! Adapter gateway is available on port" << m_port;
+    qInfo() << "Hello! Adapter gateway is available on port" << m_port;
     return true;
 }
 
@@ -43,9 +43,9 @@ void AdapterGateway::close()
 
     if(m_server.isListening())
     {
-        qDebug() << "Try to close adapter gateway";
+        qInfo() << "Try to close adapter gateway";
         m_server.close();
-        qDebug() << "Adapter gateway successfully closed. Good Bye!";
+        qInfo() << "Adapter gateway successfully closed. Good Bye!";
     }
 }
 

@@ -11,7 +11,7 @@ AdapterConnection::~AdapterConnection()
 
     if(m_socket && m_socket->isValid())
     {
-        qDebug() << "close socket" << m_socket->peerAddress();
+        qInfo() << "close socket" << m_socket->peerAddress();
         m_socket->close();
         m_socket->deleteLater();
     }

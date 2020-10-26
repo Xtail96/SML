@@ -5,27 +5,27 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
     m_connections()
 {
     m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s) {
-        qDebug() << "try to connect" << s << "as a client to motion controller";
+        qInfo() << "try to connect" << s << "as a client to motion controller";
         m->addClient(s);
-        qDebug() << "clear" << s << "slots info";
+        qInfo() << "clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
-        qDebug() << "clear clients";
+        qInfo() << "clear clients";
         m_clients.clear();
         s->sendTextMessage("Registered!");
     }));
 
     m_connections.append(QObject::connect(this, &Registrator::DeviceAdapterConnected, this, [=](QWebSocket* s) {
-        qDebug() << "try to connect" << s << "as a client to device controller";
+        qInfo() << "try to connect" << s << "as a client to device controller";
         d->addClient(s);
-        qDebug() << "clear" << s << "slots info";
+        qInfo() << "clear" << s << "slots info";
         for(auto client : m_clients)
         {
             client->clearSlotsInfo();
         }
-        qDebug() << "clear clients";
+        qInfo() << "clear clients";
         m_clients.clear();
         s->sendTextMessage("Registered!");
     }));
@@ -41,12 +41,12 @@ Registrator::~Registrator()
 
 void Registrator::parseBinaryMessage(QByteArray message)
 {
-    qDebug().noquote() << "binary message received" << message;
+    qInfo().noquote() << "binary message received" << message;
 }
 
 void Registrator::parseTextMessage(QString message)
 {
-    qDebug().noquote() << "text message received" << message;
+    qInfo().noquote() << "text message received" << message;
 
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
@@ -79,7 +79,7 @@ void Registrator::parseTextMessage(QString message)
         }
         else
         {
-            qDebug() << "connection refused";
+            qInfo() << "connection refused";
             pSender->sendTextMessage("Connection refused");
             pSender->close();
         }
