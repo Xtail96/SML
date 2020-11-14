@@ -49,3 +49,6 @@ CMakeLists.txt.user*
 *releases/linux/*.png
 *releases/linux/*.desktop
 *releases/linux/AppRun
+
+# MacOS
+*.DS_Store

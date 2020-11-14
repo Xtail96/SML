@@ -128,12 +128,12 @@ void SettingsManager::generateDefaultSettings()
     settings->endGroup();
 
     settings->beginGroup("ExternalTools");
-        settings->setValue("DeviceAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/DeviceArduinoAdapter/app/build-DeviceArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/DeviceArduinoAdapter");
-        settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/MotionEchoAdapter/app/build-MotionEchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionEchoAdapter");
-        //settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/sml-qt/base_adapters/MotionArduinoAdapter/app/build-MotionArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionArduinoAdapter");
+        settings->setValue("DeviceAdapter", "/Users/xtail/Projects/SML/base_adapters/DeviceArduinoAdapter/app/build-DeviceArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/DeviceArduinoAdapter");
+        settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/base_adapters/MotionEchoAdapter/app/build-MotionEchoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionEchoAdapter");
+        //settings->setValue("MotionAdapter", "/Users/xtail/Projects/SML/base_adapters/MotionArduinoAdapter/app/build-MotionArduinoAdapter-Desktop_Qt_5_12_8_clang_64bit-Release/MotionArduinoAdapter");
 #ifdef Q_OS_MACX
-        //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
-        settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/sml-qt/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_8_clang_64bit-Release/CandleGCodesViewer");
+        //settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/gcodes_viewers/ElectronGCodesViewer/dist/mac/ElectronGCodesViewer.app/Contents/MacOS/ElectronGCodesViewer");
+        settings->setValue("GCodesViewer", "/Users/xtail/Projects/SML/gcodes_viewers/CandleGCodesViewer/app/build-CandleGCodesViewer-Desktop_Qt_5_12_8_clang_64bit-Release/CandleGCodesViewer");
 #else
         settings->setValue("GCodesViewer", "CandleGCodesViewer");
 #endif
