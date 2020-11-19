@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QQueue>
 
-#include "./models/services/adapters/launcher/adapters_launcher.h"
 #include "./controllers/adapters/adapter_gateway.h"
 #include "./controllers/motion_controller/motion_controller.h"
 #include "./controllers/device_controller/device_controller.h"
@@ -65,7 +64,6 @@ private:
     MotionController m_motionController;
     DeviceController m_deviceController;
     Registrator m_adapterRegistrator;
-    AdaptersLauncher m_adaptersLauncher;
 
     /**
      * @brief Создает объект класса
@@ -98,12 +96,6 @@ signals:
 public slots:
 
 private slots:
-    /**
-     * @brief Производит остановку WebSocket сервера для подключения адаптеров
-     */
-    void stopAdapters();
-
-    void launchAdapters();
 };
 
 #endif // HARDWAREDRIVER_H

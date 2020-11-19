@@ -6,20 +6,17 @@ HardwareDriver::HardwareDriver(QObject *parent) :
     m_adapterServer(this),
     m_motionController(this),
     m_deviceController(this),
-    m_adapterRegistrator(&m_motionController, &m_deviceController, this),
-    m_adaptersLauncher(new AdaptersLauncher(this))
+    m_adapterRegistrator(&m_motionController, &m_deviceController, this)
 {
     this->setupSlots();
 
     SettingsManager s;
     quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
     m_adapterServer.open(port);
-    this->launchAdapters();
 }
 
 HardwareDriver::~HardwareDriver()
 {
-    this->stopAdapters();
     this->resetSlots();
 }
 
@@ -78,25 +75,4 @@ void HardwareDriver::resetHandlers()
 {
     this->resetSlots();
     this->setupSlots();
-}
-
-void HardwareDriver::stopAdapters()
-{
-    try
-    {
-        m_adaptersLauncher.stopAdapters();
-    }
-    catch(...)
-    {
-        qWarning() << QStringLiteral("unknown error");
-    }
-}
-
-void HardwareDriver::launchAdapters()
-{
-    SettingsManager s;
-    QString deviceAdapterPath = s.get("ExternalTools", "DeviceAdapter").toString();
-    QString motionAdapterPath = s.get("ExternalTools", "MotionAdapter").toString();
-
-    m_adaptersLauncher.startAdapters(deviceAdapterPath, motionAdapterPath);
 }

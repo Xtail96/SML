@@ -24,6 +24,7 @@
 #include "gui/widgets/spindel_control_widget.h"
 
 #include "models/services/gcodes/view/gcodes_view_interactor.h"
+#include "./models/services/adapters/launcher/adapters_launcher.h"
 
 namespace Ui {
 class MainWindow;
@@ -49,6 +50,8 @@ private:
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
 
+    AdaptersLauncher m_adaptersLauncher;
+
     void setupHardwareDriver();
 
     /// Проводит начальную настройку виджетов
@@ -62,6 +65,10 @@ private:
 
     /// Отключает слоты от полей и сигналов
     void resetSlots();
+
+    void startAdapters();
+
+    void stopAdapters();
 
 private slots:
     void updateBatteryStatusDisplay();

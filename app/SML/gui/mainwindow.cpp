@@ -5,7 +5,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_slotsInfo(QList<QMetaObject::Connection>()),
-    m_hightlighter(new GCodesSyntaxHighlighter(this))
+    m_hightlighter(new GCodesSyntaxHighlighter(this)),
+    m_adaptersLauncher(new AdaptersLauncher(this))
 {
     ui->setupUi(this);
 
@@ -14,10 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setupHardwareDriver();
     this->setupSlots();
+
+    this->startAdapters();
 }
 
 MainWindow::~MainWindow()
 {
+    this->stopAdapters();
     this->resetSlots();
     delete ui;
 }
@@ -88,6 +92,37 @@ void MainWindow::resetSlots()
         QObject::disconnect(slotInfo);
     }
     m_slotsInfo.clear();
+}
+
+void MainWindow::startAdapters()
+{
+    try
+    {
+        SettingsManager s;
+        QString deviceAdapterPath = s.get("ExternalTools", "DeviceAdapter").toString();
+        QString motionAdapterPath = s.get("ExternalTools", "MotionAdapter").toString();
+
+        m_adaptersLauncher.startAdapters(deviceAdapterPath, motionAdapterPath);
+    }
+    catch(...)
+    {
+        QString msg = "An error has occured during adapter starting";
+        qWarning() << msg;
+        QMessageBox(QMessageBox::Warning, "Warning", msg).exec();
+    }
+
+}
+
+void MainWindow::stopAdapters()
+{
+    try
+    {
+        m_adaptersLauncher.stopAdapters();
+    }
+    catch(...)
+    {
+        qWarning() << QStringLiteral("unknown error");
+    }
 }
 
 void MainWindow::updateBatteryStatusDisplay()
