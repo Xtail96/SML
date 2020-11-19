@@ -16,8 +16,7 @@ SettingsManager::SettingsManager(QString settingsFile)
     if (!QFileInfo::exists(settingsPath))
     {
         // если не существует, выводим соответствующее сообщение
-        QMessageBox(QMessageBox::Warning, "Ошибка",
-                    "Файл с настройками не найден. Используем настройки по умолчанию").exec();
+        qInfo() << "Settings file not found. Generate default settings";
 
         // используем настройки по умолчанию
         settings = std::shared_ptr<QSettings>( new QSettings(settingsPath, QSettings::IniFormat) );
@@ -50,8 +49,6 @@ void SettingsManager::importSettings(QString settingsPath)
 
         // сохранение основных настроек
         saveSettings();
-
-        QMessageBox(QMessageBox::Information, "Информация", "Настройки импортированы. Перезапустите приложение для их применения.").exec();
     }
 }
 

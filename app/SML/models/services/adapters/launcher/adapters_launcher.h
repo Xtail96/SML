@@ -15,7 +15,7 @@ public:
     explicit AdaptersLauncher(QObject *parent = nullptr);
     ~AdaptersLauncher();
 
-    void startAdapters();
+    void startAdapters(bool deviceAdpater = true, bool motionAdapter = true);
     void stopAdapters();
 
 private:

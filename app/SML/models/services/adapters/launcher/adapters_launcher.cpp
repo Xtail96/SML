@@ -17,19 +17,24 @@ AdaptersLauncher::~AdaptersLauncher()
     this->stopAdapters();
 }
 
-void AdaptersLauncher::startAdapters()
+void AdaptersLauncher::startAdapters(bool deviceAdpater, bool motionAdapter)
 {
-    qInfo() << "try to start adapters Device Adapter =" << m_deviceAdapterPath << "Motion Adapter =" << m_motionAdapterPath;
-    if(!m_deviceAdapterProcess.isOpen())
+    if(deviceAdpater)
     {
-        qInfo() << "try to start device adapter";
-        m_deviceAdapterProcess.start(m_deviceAdapterPath);
+        if(!m_deviceAdapterProcess.isOpen())
+        {
+            qInfo() << "Try to start device adapter =" << m_deviceAdapterPath;
+            m_deviceAdapterProcess.start(m_deviceAdapterPath);
+        }
     }
 
-    if(!m_motionAdapterProcess.isOpen())
+    if(motionAdapter)
     {
-        qInfo() << "try to start motion adapter";
-        m_motionAdapterProcess.start(m_motionAdapterPath);
+        if(!m_motionAdapterProcess.isOpen())
+        {
+            qInfo() << "Try to start motion adapter =" << m_motionAdapterPath;
+            m_motionAdapterProcess.start(m_motionAdapterPath);
+        }
     }
 }
 

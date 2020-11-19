@@ -2,6 +2,7 @@
 #define MOTIONCONTROLLER_H
 
 #include <QObject>
+
 #include "libs/json_parser/json.h"
 
 #include "../base_controller.h"

@@ -6,8 +6,8 @@
 #include <QSettings>
 #include <QString>
 #include <QDateTime>
-#include <QMessageBox>
 #include <memory>
+#include <QDebug>
 
 #define DEFAULT_SETTINGS_DIR ""
 #define DEFAULT_SETTINGS_FILE "SMLSettings.ini"
