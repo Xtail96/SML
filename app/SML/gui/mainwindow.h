@@ -49,8 +49,7 @@ private:
 
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
-
-    AdaptersLauncher m_adaptersLauncher;
+    QScopedPointer<AdaptersLauncher> m_adaptersLauncher;
 
     void setupHardwareDriver();
 

@@ -35,7 +35,7 @@ SOURCES += \
     models/settings_manager/settings_manager.cpp \
     tests/base_test.cpp \
     tests/hardware_driver/hardware_driver_tests.cpp \
-    tests/main.cpp \
+    tests_main.cpp \
     tests/sensor/sensor_tests.cpp
 
 # Default rules for deployment.

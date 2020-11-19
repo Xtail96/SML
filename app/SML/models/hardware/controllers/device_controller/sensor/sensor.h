@@ -19,18 +19,12 @@ public:
      * @brief Конструктор класса Датчик
      * @param uid уникальный идентификатор (имя) датчика
      * @param label подпись датчика для вывода в интерфейс
-     * @param portNumber номер порта, к которому подключен датчик
-     * @param inputNumber номер входа, к которому подключен датчик
-     * @param boardName навание платы, к которой подключен датчик
      * @param inputActiveState состояние входа (логический ноль или логическая единица), при котором датчик считается активным
      * @param color цвет индикатора датчика
      * @param parent родительский объект
      */
     Sensor(QString uid,
            QString label,
-           size_t portNumber,
-           size_t inputNumber,
-           QString boardName,
            bool activeState,
            QColor color,
            QObject *parent = nullptr);
@@ -49,33 +43,13 @@ public:
      * @brief Возвращает текущее состояние входа, к которому подключен датчик
      * @return текущее состояние входа, к которому подключен датчик. true - есть напряжение на входе. false - нет напряжения на входе.
      */
-    bool inputState() const;
-
-    /**
-     * @brief Возвращает номер порта датчика
-     * @return номер порта, к которому подключен датчик
-     *
-     * Порт датчика приходит снаружи в конструктор датчика.
-     */
-    size_t portNumber() const;
-
-    /**
-     * @brief Возвращает номер входа датчика
-     * @return номер входа, к которому подключен датчик
-     */
-    size_t inputNumber() const;
+    bool currentState() const;
 
     /**
      * @brief Возвращает уникальный идентификатор датчика
      * @return уникальный идентификатор (имя) датчика
      */
     QString uid() const;
-
-    /**
-     * @brief Возвращает имя платы, к которой подключен датчик
-     * @return имя платы, к которой подключен датчик
-     */
-    QString boardName() const;
 
     /**
      * @brief Возвращает активное состояние входа, к которому подключен датчик
@@ -121,15 +95,6 @@ protected:
     /// Пользовательское имя датчика
     QString m_label;
 
-    /// Имя платы, к которой подключен датчик
-    QString m_boardName;
-
-    /// Номер порта, ко входу которого подключен датчик
-    size_t m_portNumber;
-
-    /// Номер входа, к которому подключен датчик
-    size_t m_inputNumber;
-
     /// Состояние входа, при котором датчик считается активным
     bool m_activeState;
 
@@ -140,7 +105,7 @@ protected:
      * Дело в том, что некторые датчики при срабатывании устанавливают на входе в логический ноль (большинство),
      * а некоторые - логическую единицу.
      */
-    bool m_inputState;
+    bool m_currentState;
 
     /// Цвет индикатора датчика
     QColor m_ledColorActiveState;
@@ -151,7 +116,7 @@ private:
      * @brief Обновляет текущее состояния входа, если новое значение НЕ совпадает с текущим
      * @param value - новое состояние входа, к которому подключен датчик
      */
-    void setInputState(bool value);
+    void setCurrentState(bool value);
 
     /// Класс-друг!
     friend class DeviceController;

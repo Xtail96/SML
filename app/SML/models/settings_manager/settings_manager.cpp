@@ -200,90 +200,60 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("AxisXSensor");
         settings->setValue("Label", "Датчик оси X");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisYSensor");
         settings->setValue("Label", "Датчик оси Y");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisZSensor");
         settings->setValue("Label", "Датчик оси Z");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 2);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisASensor");
         settings->setValue("Label", "Датчик оси A");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 3);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisBSensor");
         settings->setValue("Label", "Датчик оси B");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 4);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", true);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisCSensor");
         settings->setValue("Label", "Датчик оси C");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 5);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisUSensor");
         settings->setValue("Label", "Датчик оси U");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 6);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisVSensor");
         settings->setValue("Label", "Датчик оси V");
-        settings->setValue("PortNumber", 0);
-        settings->setValue("InputNumber", 7);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("AxisWSensor");
         settings->setValue("Label", "Датчик оси W");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 0);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#55bb55");
     settings->endGroup();
 
     settings->beginGroup("ZeroSensor");
         settings->setValue("Label", "Датчик Ноля");
-        settings->setValue("PortNumber", 1);
-        settings->setValue("InputNumber", 1);
-        settings->setValue("BoardName", "portal");
         settings->setValue("ActiveState", false);
         settings->setValue("Color", "#b22222");
     settings->endGroup();

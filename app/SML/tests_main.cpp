@@ -1,8 +1,8 @@
 #include <QApplication>
 #include <QTest>
 
-#include "./sensor/sensor_tests.h"
-#include "./hardware_driver/hardware_driver_tests.h"
+#include "./tests/sensor/sensor_tests.h"
+#include "./tests/hardware_driver/hardware_driver_tests.h"
 
 void noMessageHandler(QtMsgType, const QMessageLogContext&, const QString &){}
 
