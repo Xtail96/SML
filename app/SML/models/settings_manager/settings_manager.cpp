@@ -16,7 +16,7 @@ SettingsManager::SettingsManager(QString settingsFile)
     if (!QFileInfo::exists(settingsPath))
     {
         // если не существует, выводим соответствующее сообщение
-        qInfo() << "Settings file not found. Generate default settings";
+        qInfo() << "Settings file not found. Generate default settings.";
 
         // используем настройки по умолчанию
         settings = std::shared_ptr<QSettings>( new QSettings(settingsPath, QSettings::IniFormat) );
