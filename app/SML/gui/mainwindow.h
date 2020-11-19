@@ -66,10 +66,6 @@ private:
     /// Отключает слоты от полей и сигналов
     void resetSlots();
 
-    void startAdapters();
-
-    void stopAdapters();
-
 private slots:
     void updateBatteryStatusDisplay();
     Q_NORETURN void on_exit_action_triggered();
