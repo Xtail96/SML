@@ -12,7 +12,7 @@ public:
         : QObject(parent) {}
 
 private slots:
-    void sensorInitialStateTest() {
+    void testSensor_InitialState() {
         Sensor s1("TestSensor", "TestSensor",
                  0, 0, "portal", false, QColor("#00ff00"), this);
         Sensor s2("TestSensor", "TestSensor",
@@ -26,6 +26,3 @@ private slots:
     }
 
 };
-
-QTEST_MAIN(SensorTests)
-#include "sensor_tests.moc"
