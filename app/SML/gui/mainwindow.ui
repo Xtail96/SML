@@ -1131,7 +1131,7 @@
             <widget class="QWidget" name="axisWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
+               <horstretch>3</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
@@ -2275,6 +2275,12 @@
            </item>
            <item>
             <widget class="QWidget" name="baseActionsWidget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QVBoxLayout" name="verticalLayout_16">
               <property name="leftMargin">
                <number>0</number>
@@ -2843,7 +2849,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>770</width>
+                 <width>773</width>
                  <height>375</height>
                 </rect>
                </property>
@@ -2883,8 +2889,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>770</width>
-                 <height>375</height>
+                 <width>100</width>
+                 <height>74</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -2919,6 +2925,14 @@
                </layout>
               </widget>
               <widget class="QWidget" name="devicesPage">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>158</width>
+                 <height>74</height>
+                </rect>
+               </property>
                <attribute name="label">
                 <string>Устройства</string>
                </attribute>
