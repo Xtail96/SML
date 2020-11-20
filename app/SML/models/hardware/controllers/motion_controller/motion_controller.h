@@ -43,6 +43,7 @@ private:
     /// Доступные оси станка.
     QSet<Axis*> m_axes;
     QList<QMetaObject::Connection> m_slotsInfo;
+    bool m_initialized;
 
     /**
      * @brief Обработчик сообщения от адаптера в виде массива байт.
@@ -57,9 +58,6 @@ private:
     void parseTextMessage(QString message) override;
 
     Axis* findById(AxisId id);
-
-signals:
-    void axesListChanged();
 };
 
 #endif // MOTIONCONTROLLER_H

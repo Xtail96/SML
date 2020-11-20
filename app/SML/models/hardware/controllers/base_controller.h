@@ -92,7 +92,9 @@ private:
 
 signals:
     /// Состояние подключения изменилось.
-    void connectionStateChanged();
+    void connected();
+
+    void disconnected();
 
     /// Состояние обработки задания изменилось.
     void taskProcessingStateChanged();

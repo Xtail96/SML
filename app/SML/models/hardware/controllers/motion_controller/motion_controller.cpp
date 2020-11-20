@@ -3,9 +3,11 @@
 MotionController::MotionController(QObject *parent):
     BaseController("MotionController", parent),
     m_axes(),
-    m_slotsInfo()
+    m_slotsInfo(),
+    m_initialized(false)
 {
-    m_slotsInfo.append(QObject::connect(this, &BaseController::connectionStateChanged, this, [=]() {
+    m_slotsInfo.append(QObject::connect(this, &BaseController::disconnected, this, [=]() {
+        m_initialized = false;
         this->clearAxes();
     }));
 }
@@ -32,19 +34,16 @@ bool MotionController::axisExists(AxisId id)
 void MotionController::addAxis(AxisId id, double initialPosition)
 {
     m_axes.insert(new Axis(id, initialPosition, this));
-    emit this->axesListChanged();
 }
 
 void MotionController::removeAxis(AxisId id)
 {
     m_axes.remove(this->findById(id));
-    emit this->axesListChanged();
 }
 
 void MotionController::clearAxes()
 {
     m_axes.clear();
-    emit this->axesListChanged();
 }
 
 void MotionController::parseBinaryMessage(QByteArray message)
@@ -73,12 +72,13 @@ void MotionController::parseBinaryMessage(QByteArray message)
         AxisId id = Axis::idFromStr(axisObject["id"].toString());
         double value = axisObject["position"].toDouble();
 
-        (!this->axisExists(id))
-            ? this->addAxis(id, value)
-            : this->findById(id)->setCurrentPosition(value);
+        if(m_initialized && !this->axisExists(id)) continue;
+        m_initialized ? this->findById(id)->setCurrentPosition(value)
+                      : this->addAxis(id, value);
     }
-
     this->setProcessingTask(motionController["workflowState"].toBool());
+
+    if(!m_initialized) m_initialized = true;
 }
 
 void MotionController::parseTextMessage(QString message)

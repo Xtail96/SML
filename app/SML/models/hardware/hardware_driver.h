@@ -11,8 +11,10 @@
 #include "./models/settings_manager/settings_manager.h"
 
 enum HARDWARE_EVENT {
-    DeviceControllerConnectionStateChanged,
-    MotionControllerConnectionStateChanged,
+    DeviceControllerConnected,
+    DeviceControllerDisconnected,
+    MotionControllerConnected,
+    MotionControllerDisconnected,
     SensorStateChanged,
     DeviceStateChanged,
     CurrentPositionChanged,

@@ -56,13 +56,23 @@ void HardwareDriver::resetSlots()
 void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
 {
     switch (event) {
-    case HARDWARE_EVENT::DeviceControllerConnectionStateChanged:
-        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connectionStateChanged, this, [=]() {
+    case HARDWARE_EVENT::DeviceControllerConnected:
+        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connected, this, [=]() {
             handler();
         }));
         break;
-    case HARDWARE_EVENT::MotionControllerConnectionStateChanged:
-        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::connectionStateChanged, this, [=]() {
+    case HARDWARE_EVENT::DeviceControllerDisconnected:
+        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::disconnected, this, [=]() {
+            handler();
+        }));
+        break;
+    case HARDWARE_EVENT::MotionControllerConnected:
+        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::connected, this, [=]() {
+            handler();
+        }));
+        break;
+    case HARDWARE_EVENT::MotionControllerDisconnected:
+        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::disconnected, this, [=]() {
             handler();
         }));
         break;

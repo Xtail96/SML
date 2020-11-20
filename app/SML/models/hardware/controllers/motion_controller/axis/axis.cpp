@@ -19,6 +19,8 @@ double Axis::currentPosition() const
 
 void Axis::setCurrentPosition(double absPosition)
 {
+    if(qRound(this->currentPosition() * 1000) == qRound(absPosition * 1000)) return;
+
     absPosition = qRound(absPosition * 1000.0) / 1000.0;
     m_currentPosition = absPosition;
     emit this->currentPositionChanged();

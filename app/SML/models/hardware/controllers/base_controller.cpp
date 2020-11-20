@@ -40,20 +40,20 @@ void BaseController::addClient(QWebSocket *s)
     newClient->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
         m_clients.removeAll(newClient);
         delete newClient;
-        emit this->connectionStateChanged();
+        emit this->disconnected();
     }));
 
     m_clients.append(newClient);
     qInfo().noquote() << m_logName << s << "is connected as a client";
 
-    emit this->connectionStateChanged();
+    emit this->connected();
 }
 
 void BaseController::clearClients()
 {
     qDeleteAll(m_clients.begin(), m_clients.end());
     m_clients.clear();
-    emit this->connectionStateChanged();
+    emit this->disconnected();
 }
 
 bool BaseController::isReady() const

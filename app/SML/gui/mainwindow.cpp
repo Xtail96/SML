@@ -44,8 +44,11 @@ void MainWindow::setupHardwareDriver()
         }
     };
 
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, hardwareConnectionStateChangedHandler);
-    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnectionStateChanged, hardwareConnectionStateChangedHandler);
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, hardwareConnectionStateChangedHandler);
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, hardwareConnectionStateChangedHandler);
+
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, hardwareConnectionStateChangedHandler);
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, hardwareConnectionStateChangedHandler);
 }
 
 void MainWindow::setupWidgets()
