@@ -18,7 +18,7 @@ public:
     Device(QString settingsUid,
            QString uid,
            QString label,
-           bool activeState,
+           bool enable,
            QObject *parent = nullptr);
 
     virtual ~Device();
@@ -40,10 +40,6 @@ public:
     virtual QStringList getParams() = 0;
 
     QString getLabel() const;
-
-    bool getActiveState() const;
-
-    bool getCurrentState() const;
 
     QString getSettingsUId() const;
 
@@ -67,11 +63,7 @@ protected:
     /// Пользовательское устройства
     QString m_label;
 
-    /// Активное состояние устройства (устройство включено)
-    bool m_activeState;
-
-    /// Текущее состояние устройства (true или false стоит на соответсвующем выходе)
-    bool m_currentState;
+    bool m_enable;
 
 signals:
     void currentStateChanged(bool on);

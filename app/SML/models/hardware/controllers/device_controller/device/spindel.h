@@ -10,7 +10,7 @@ public:
     Spindel(QString settingsUid,
             QString label,
             QString uid,
-            bool activeState,
+            bool enable,
             size_t lowerBound,
             size_t upperBound,
             QObject *parent = nullptr);

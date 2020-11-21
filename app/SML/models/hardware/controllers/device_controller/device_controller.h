@@ -18,17 +18,14 @@ public:
     Sensor *getSensor(QString uid);
     Spindel *getSpindel(QString uid);
     SupportDevice *getSupportDevice(QString uid);
-
 private:
     QSet<Sensor*> m_sensors;
     QSet<Spindel*> m_spindels;
     QSet<SupportDevice*> m_supportDevices;
 
-    /**
-     * @brief Обработчик сообщения от адаптера в виде массива байт.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseBinaryMessage(QByteArray message) override;
+    void setup(QtJson::JsonObject initialState) override;
+
+    void newMessageHandler(QtJson::JsonObject msg) override;
 
     // нужно сделать нормальную проверку на существование датчиков
     void parseSensors(const QtJson::JsonArray &sensors);
@@ -36,14 +33,8 @@ private:
     // нужно сделать нормальную проверку на существование устройств
     void parseSpindels(const QtJson::JsonArray &spindels);
 
-    /**
-     * @brief Обработчик сообщения от адаптера в виде текста.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseTextMessage(QString message) override;
-
-signals:
-
+    bool sensorExists(QString id);
+    bool spindelExists(QString id);
 };
 
 #endif // DEVICECONTROLLER_H

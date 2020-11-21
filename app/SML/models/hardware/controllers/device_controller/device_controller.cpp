@@ -45,68 +45,103 @@ SupportDevice *DeviceController::getSupportDevice(QString uid)
     throw std::invalid_argument("Device with uid " + uid.toStdString() + " does not exists");
 }
 
-void DeviceController::parseBinaryMessage(QByteArray message)
+void DeviceController::setup(QtJson::JsonObject initialState)
 {
-    qInfo().noquote() << "binary message received" << QString::fromUtf8(message);
-
-    bool parsed = false;
-    QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
-    if(!parsed)
-    {
-        qWarning().noquote() << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
-        return;
-    }
-
-    QtJson::JsonObject deviceController = result["deviceControllerState"].toMap();
+    QtJson::JsonObject deviceController = initialState["deviceControllerState"].toMap();
     if(deviceController.isEmpty())
     {
-        qWarning() << "binaryMessageReceived: empty message";
+        qWarning() << "Empty message received";
         return ;
     }
 
-    this->parseSensors(deviceController["sensors"].toList());
-    this->parseSpindels(deviceController["spindels"].toList());
-    this->setProcessingTask(deviceController["workflowState"].toBool());
-}
-
-void DeviceController::parseSensors(const QtJson::JsonArray &sensors)
-{
+    QtJson::JsonArray sensors = deviceController["sensors"].toList();
     for(auto s : sensors)
     {
         QtJson::JsonObject sensorJson = s.toMap();
         QString id = sensorJson["id"].toString();
-        bool input = sensorJson["input"].toBool();
-        try
-        {
-            this->getSensor(id)->setCurrentState(input);
-        }
-        catch(std::invalid_argument e)
-        {
-            // create new sensor;
-        }
-    }
-}
+        QString label = sensorJson["label"].toString();
+        bool activeState = sensorJson["activeState"].toBool();
+        bool currentState = sensorJson["currentState"].toBool();
+        QColor ledColor = sensorJson["ledColor"].toString();
 
-void DeviceController::parseSpindels(const QtJson::JsonArray &spindels)
-{
+        if(this->sensorExists(id)) continue;
+        m_sensors.insert(new Sensor(id, label, activeState, ledColor, this));
+        this->getSensor(id)->setCurrentState(currentState);
+    }
+
+    QtJson::JsonArray spindels = deviceController["spindels"].toList();
     for(auto s : spindels)
     {
         QtJson::JsonObject spindelJson = s.toMap();
         QString id = spindelJson["id"].toString();
-        size_t currentRotations  = spindelJson["rotations"].toULongLong();
+        QString label = spindelJson["label"].toString();
+        bool activeState = spindelJson["activeState"].toBool();
+        int lowerBound = spindelJson["lowerBound"].toUInt();
+        int upperBound = spindelJson["upperBound"].toUInt();
+        size_t currentRotations  = spindelJson["currentRotations"].toULongLong();
         bool isEnable = spindelJson["enable"].toBool();
-        try
-        {
-           this->getSpindel(id)->update(isEnable, currentRotations);
-        }
-        catch(std::invalid_argument e)
-        {
-            // create new spindel
-        }
+
+        if(this->spindelExists(id)) continue;
+        m_spindels.insert(new Spindel(id, label, id, activeState, lowerBound, upperBound, this));
+        this->getSpindel(id)->update(isEnable, currentRotations);
     }
+
+    this->setProcessingTask(deviceController["workflowState"].toBool());
 }
 
-void DeviceController::parseTextMessage(QString message)
+void DeviceController::newMessageHandler(QtJson::JsonObject msg)
 {
-    qInfo().noquote() << "text message received" << message;
+    QtJson::JsonObject deviceController = msg["deviceControllerState"].toMap();
+    if(deviceController.isEmpty())
+    {
+        qWarning() << "Empty message received";
+        return ;
+    }
+
+    QtJson::JsonArray sensors = deviceController["sensors"].toList();
+    for(auto s : sensors)
+    {
+        QtJson::JsonObject sensorJson = s.toMap();
+        QString id = sensorJson["id"].toString();
+        bool currentState = sensorJson["currentState"].toBool();
+
+        if(!this->sensorExists(id)) { qWarning() << "Unknown sensor" << id; continue; }
+        this->getSensor(id)->setCurrentState(currentState);
+    }
+
+    QtJson::JsonArray spindels = deviceController["spindels"].toList();
+    for(auto s : spindels)
+    {
+        QtJson::JsonObject spindelJson = s.toMap();
+        QString id = spindelJson["id"].toString();
+        size_t currentRotations  = spindelJson["currentRotations"].toULongLong();
+        bool isEnable = spindelJson["enable"].toBool();
+
+        if(!this->spindelExists(id)) { qWarning() << "Unknow spindel" << id; continue; }
+        this->getSpindel(id)->update(isEnable, currentRotations);
+    }
+
+    this->setProcessingTask(deviceController["workflowState"].toBool());
+}
+
+bool DeviceController::sensorExists(QString id)
+{
+    for(auto sensor : m_sensors)
+    {
+       if(sensor->uid() == id)
+           return true;
+    }
+
+    return false;
+}
+
+bool DeviceController::spindelExists(QString id)
+{
+    for(auto spindel : m_spindels)
+    {
+       if(spindel->getUid() == id)
+           return true;
+    }
+
+    return false;
 }

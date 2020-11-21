@@ -116,8 +116,6 @@ protected slots:
     void onWebSocketHandler_BinaryMessageReceived(QByteArray message);
 
     void sendCurrentStateToServer(MotionControllerState state);
-
-    void sendTestPackageToServer();
 };
 
 #endif // MOTIONECHOADAPTER_H

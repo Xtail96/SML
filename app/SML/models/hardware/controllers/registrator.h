@@ -28,9 +28,15 @@ private:
      */
     void parseTextMessage(QString message) override;
 
+    void setup(QtJson::JsonObject) override;
+
+    void newMessageHandler(QtJson::JsonObject) override;
+
+    void clearClients();
+
 signals:
-    void MotionAdapterConnected(QWebSocket* s);
-    void DeviceAdapterConnected(QWebSocket* s);
+    void MotionAdapterConnected(QWebSocket* s, QtJson::JsonObject initialState);
+    void DeviceAdapterConnected(QWebSocket* s, QtJson::JsonObject initialState);
 
 };
 

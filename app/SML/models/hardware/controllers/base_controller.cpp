@@ -4,6 +4,7 @@ BaseController::BaseController(QString logName, QObject *parent) :
     QObject(parent),
     m_clients(),
     m_processingTask(false),
+    m_initialized(false),
     m_logName(QString("[" + logName + "]"))
 {
 }
@@ -40,12 +41,21 @@ void BaseController::addClient(QWebSocket *s)
     newClient->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
         m_clients.removeAll(newClient);
         delete newClient;
+        m_initialized = false;
         emit this->disconnected();
     }));
 
     m_clients.append(newClient);
     qInfo().noquote() << m_logName << s << "is connected as a client";
 
+    //emit this->connected();
+}
+
+void BaseController::addClient(QWebSocket *s, QtJson::JsonObject intialState)
+{
+    this->addClient(s);
+    this->setup(intialState);
+    m_initialized = true;
     emit this->connected();
 }
 
@@ -53,6 +63,7 @@ void BaseController::clearClients()
 {
     qDeleteAll(m_clients.begin(), m_clients.end());
     m_clients.clear();
+    m_initialized = false;
     emit this->disconnected();
 }
 
@@ -79,6 +90,33 @@ qint64 BaseController::sendMessage(QByteArray message)
         throw std::invalid_argument("Invalid socket:" + client->socket()->peerAddress().toString().toStdString());
 
     return client->socket()->sendBinaryMessage(message);
+}
+
+void BaseController::parseTextMessage(QString message)
+{
+    bool parsed = false;
+    QtJson::JsonObject messageData = QtJson::parse(message, parsed).toMap();
+    if(!parsed)
+    {
+        qWarning().noquote() << "An error has occurred during parsing" << message << "." << "Message Ignored";
+        return;
+    }
+
+    if(m_initialized)
+    {
+        this->newMessageHandler(messageData);
+    }
+    else
+    {
+        this->setup(messageData);
+        m_initialized = true;
+        emit this->connected();
+    }
+}
+
+void BaseController::parseBinaryMessage(QByteArray message)
+{
+    this->parseTextMessage(QString::fromUtf8(message));
 }
 
 void BaseController::setProcessingTask(bool processingTask)

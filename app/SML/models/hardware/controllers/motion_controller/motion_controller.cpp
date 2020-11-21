@@ -3,11 +3,9 @@
 MotionController::MotionController(QObject *parent):
     BaseController("MotionController", parent),
     m_axes(),
-    m_slotsInfo(),
-    m_initialized(false)
+    m_slotsInfo()
 {
     m_slotsInfo.append(QObject::connect(this, &BaseController::disconnected, this, [=]() {
-        m_initialized = false;
         this->clearAxes();
     }));
 }
@@ -46,22 +44,12 @@ void MotionController::clearAxes()
     m_axes.clear();
 }
 
-void MotionController::parseBinaryMessage(QByteArray message)
+void MotionController::setup(QtJson::JsonObject initialState)
 {
-    qInfo().noquote() << "binary message received" << QString::fromUtf8(message);
-
-    bool parsed = false;
-    QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(message), parsed).toMap();
-    if(!parsed)
-    {
-        qWarning().noquote() << "binaryMessageReceived: an error is occurred during parsing json" << QString::fromUtf8(message) << "." << "Message Ignored";
-        return;
-    }
-
-    QtJson::JsonObject motionController = result["motionControllerState"].toMap();
+    QtJson::JsonObject motionController = initialState["motionControllerState"].toMap();
     if(motionController.isEmpty())
     {
-        qWarning() << "binaryMessageReceived: empty message";
+        qWarning() << "Empty message received";
         return ;
     }
 
@@ -72,18 +60,32 @@ void MotionController::parseBinaryMessage(QByteArray message)
         AxisId id = Axis::idFromStr(axisObject["id"].toString());
         double value = axisObject["position"].toDouble();
 
-        if(m_initialized && !this->axisExists(id)) continue;
-        m_initialized ? this->findById(id)->setCurrentPosition(value)
-                      : this->addAxis(id, value);
+        if(this->axisExists(id)) continue;
+        this->addAxis(id, value);
     }
     this->setProcessingTask(motionController["workflowState"].toBool());
-
-    if(!m_initialized) m_initialized = true;
 }
 
-void MotionController::parseTextMessage(QString message)
+void MotionController::newMessageHandler(QtJson::JsonObject msg)
 {
-    qInfo().noquote() << "text message received" << message;
+    QtJson::JsonObject motionController = msg["motionControllerState"].toMap();
+    if(motionController.isEmpty())
+    {
+        qWarning() << "Empty message received";
+        return ;
+    }
+
+    QtJson::JsonArray axes = motionController["axes"].toList();
+    for(auto axis : axes)
+    {
+        QtJson::JsonObject axisObject = axis.toMap();
+        AxisId id = Axis::idFromStr(axisObject["id"].toString());
+        double value = axisObject["position"].toDouble();
+
+        if(!this->axisExists(id)) { qWarning() << "Unknown axis" << id; continue; }
+        this->findById(id)->setCurrentPosition(value);
+    }
+    this->setProcessingTask(motionController["workflowState"].toBool());
 }
 
 Axis *MotionController::findById(AxisId id)

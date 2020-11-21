@@ -148,15 +148,10 @@ void MotionEchoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray mess
     }
 }
 
-void MotionEchoAdapter::sendTestPackageToServer()
-{
-    sendCurrentStateToServer(m_currentState);
-}
-
 void MotionEchoAdapter::onWebSocketHandler_Connected()
 {
     qDebug() << "Web socket is connected";
-    sendTestPackageToServer();
+    sendCurrentStateToServer(m_currentState);
 }
 
 void MotionEchoAdapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)

@@ -43,19 +43,10 @@ private:
     /// Доступные оси станка.
     QSet<Axis*> m_axes;
     QList<QMetaObject::Connection> m_slotsInfo;
-    bool m_initialized;
 
-    /**
-     * @brief Обработчик сообщения от адаптера в виде массива байт.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseBinaryMessage(QByteArray message) override;
+    void setup(QtJson::JsonObject initialState) override;
 
-    /**
-     * @brief Обработчик сообщения от адаптера в виде текста.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseTextMessage(QString message) override;
+    void newMessageHandler(QtJson::JsonObject msg) override;
 
     Axis* findById(AxisId id);
 };

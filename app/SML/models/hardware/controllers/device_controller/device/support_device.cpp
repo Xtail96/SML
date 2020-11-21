@@ -3,9 +3,9 @@
 SupportDevice::SupportDevice(QString settingsUid,
                              QString label,
                              QString uid,
-                             bool activeState,
+                             bool enable,
                              QObject *parent) :
-    Device(settingsUid, label, uid, activeState, parent)
+    Device(settingsUid, label, uid, enable, parent)
 {
 
 }

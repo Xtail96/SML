@@ -35,6 +35,8 @@ public:
      */
     void addClient(QWebSocket* s);
 
+    void addClient(QWebSocket* s, QtJson::JsonObject intialState);
+
     /**
      * @brief Очищает список подключенных адаптеров.
      */
@@ -72,14 +74,18 @@ protected:
      * @warning Должен быть определен в наследниках.
      * @param message - принятое сообщение от адаптера
      */
-    virtual void parseTextMessage(QString message) = 0;
+    virtual void parseTextMessage(QString message);
 
     /**
      * @brief Обработчик сообщения от адаптера в виде массива байт.
      * @warning Должен быть определен в наследниках.
      * @param message - принятое сообщение от адаптера
      */
-    virtual void parseBinaryMessage(QByteArray message) = 0;
+    virtual void parseBinaryMessage(QByteArray message);
+
+    virtual void setup(QtJson::JsonObject initialState) = 0;
+
+    virtual void newMessageHandler(QtJson::JsonObject msg) = 0;
 
     /**
      * @brief Устанавливает значение обаработки задачи и испускает сигнал.
@@ -88,6 +94,7 @@ protected:
     void setProcessingTask(bool isReady);
 
 private:
+    bool m_initialized;
     QString m_logName;
 
 signals:

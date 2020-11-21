@@ -9,7 +9,7 @@ public:
     SupportDevice(QString settingsUid,
                   QString label,
                   QString uid,
-                  bool activeState,
+                  bool enable,
                   QObject *parent = nullptr);
     QStringList getParams() override;
 };
