@@ -28,29 +28,25 @@ Registrator::~Registrator()
     }
 }
 
-void Registrator::parseBinaryMessage(QByteArray message)
-{
-    this->parseTextMessage(QString::fromUtf8(message));
-}
+void Registrator::setup(QtJson::JsonObject) {}
 
-void Registrator::parseTextMessage(QString message)
+void Registrator::newMessageHandler(QtJson::JsonObject msg)
 {
-    qInfo().noquote() << "Received" << message;
+    qInfo().noquote() << "Received" << msg;
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
 
-    QtJson::JsonObject messageData = QtJson::parse(message).toMap();
-    QtJson::JsonObject deviceController = messageData["deviceControllerState"].toMap();
-    QtJson::JsonObject motionController = messageData["motionControllerState"].toMap();
+    QtJson::JsonObject deviceController = msg["deviceControllerState"].toMap();
+    QtJson::JsonObject motionController = msg["motionControllerState"].toMap();
 
     if(!deviceController.isEmpty())
     {
-        emit this->DeviceAdapterConnected(pSender, messageData);
+        emit this->DeviceAdapterConnected(pSender, msg);
     }
 
     if(!motionController.isEmpty())
     {
-        emit this->MotionAdapterConnected(pSender, messageData);
+        emit this->MotionAdapterConnected(pSender, msg);
     }
 
     if(deviceController.isEmpty() && motionController.isEmpty())
@@ -61,10 +57,6 @@ void Registrator::parseTextMessage(QString message)
         this->clearClients();
     }
 }
-
-void Registrator::setup(QtJson::JsonObject) {}
-
-void Registrator::newMessageHandler(QtJson::JsonObject) {}
 
 void Registrator::clearClients()
 {

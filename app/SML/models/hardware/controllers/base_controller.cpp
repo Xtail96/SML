@@ -82,6 +82,14 @@ qint64 BaseController::sendMessage(QByteArray message)
     return client->socket()->sendBinaryMessage(message);
 }
 
+void BaseController::setProcessingTask(bool processingTask)
+{
+    if(m_processingTask == processingTask) return;
+
+    m_processingTask = processingTask;
+    emit this->taskProcessingStateChanged();
+}
+
 void BaseController::parseTextMessage(QString message)
 {
     bool parsed = false;
@@ -98,12 +106,4 @@ void BaseController::parseTextMessage(QString message)
 void BaseController::parseBinaryMessage(QByteArray message)
 {
     this->parseTextMessage(QString::fromUtf8(message));
-}
-
-void BaseController::setProcessingTask(bool processingTask)
-{
-    if(m_processingTask == processingTask) return;
-
-    m_processingTask = processingTask;
-    emit this->taskProcessingStateChanged();
 }

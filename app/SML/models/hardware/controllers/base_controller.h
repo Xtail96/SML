@@ -68,20 +68,6 @@ protected:
     /// Выполняется ли задача в текущий момент.
     bool m_processingTask;
 
-    /**
-     * @brief Обработчик сообщения от адаптера в виде текста.
-     * @warning Должен быть определен в наследниках.
-     * @param message - принятое сообщение от адаптера
-     */
-    virtual void parseTextMessage(QString message);
-
-    /**
-     * @brief Обработчик сообщения от адаптера в виде массива байт.
-     * @warning Должен быть определен в наследниках.
-     * @param message - принятое сообщение от адаптера
-     */
-    virtual void parseBinaryMessage(QByteArray message);
-
     virtual void setup(QtJson::JsonObject initialState) = 0;
 
     virtual void newMessageHandler(QtJson::JsonObject msg) = 0;
@@ -94,6 +80,20 @@ protected:
 
 private:
     QString m_logName;
+
+    /**
+     * @brief Обработчик сообщения от адаптера в виде текста.
+     * @warning Должен быть определен в наследниках.
+     * @param message - принятое сообщение от адаптера
+     */
+    void parseTextMessage(QString message);
+
+    /**
+     * @brief Обработчик сообщения от адаптера в виде массива байт.
+     * @warning Должен быть определен в наследниках.
+     * @param message - принятое сообщение от адаптера
+     */
+    void parseBinaryMessage(QByteArray message);
 
 signals:
     /// Состояние подключения изменилось.

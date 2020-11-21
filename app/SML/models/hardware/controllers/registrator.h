@@ -16,21 +16,9 @@ public:
 private:
     QList<QMetaObject::Connection> m_connections;
 
-    /**
-     * @brief Обработчик сообщения в виде массива байт.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseBinaryMessage(QByteArray message) override;
-
-    /**
-     * @brief Обработчик сообщения в виде текста.
-     * @param message - принятое сообщение от адаптера
-     */
-    void parseTextMessage(QString message) override;
-
     void setup(QtJson::JsonObject) override;
 
-    void newMessageHandler(QtJson::JsonObject) override;
+    void newMessageHandler(QtJson::JsonObject msg) override;
 
     void clearClients();
 
