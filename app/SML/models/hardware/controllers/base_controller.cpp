@@ -4,7 +4,6 @@ BaseController::BaseController(QString logName, QObject *parent) :
     QObject(parent),
     m_clients(),
     m_processingTask(false),
-    m_initialized(false),
     m_logName(QString("[" + logName + "]"))
 {
 }
@@ -14,7 +13,7 @@ BaseController::~BaseController()
     qDeleteAll(m_clients.begin(), m_clients.end());
 }
 
-void BaseController::addClient(QWebSocket *s)
+void BaseController::addClient(QWebSocket *s, QtJson::JsonObject intialState)
 {
     qInfo().noquote() << m_logName << "Try to connect" << s << "as a client";
     if(m_clients.length() > 0)
@@ -41,21 +40,13 @@ void BaseController::addClient(QWebSocket *s)
     newClient->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
         m_clients.removeAll(newClient);
         delete newClient;
-        m_initialized = false;
         emit this->disconnected();
     }));
 
     m_clients.append(newClient);
     qInfo().noquote() << m_logName << s << "is connected as a client";
 
-    //emit this->connected();
-}
-
-void BaseController::addClient(QWebSocket *s, QtJson::JsonObject intialState)
-{
-    this->addClient(s);
     this->setup(intialState);
-    m_initialized = true;
     emit this->connected();
 }
 
@@ -63,7 +54,6 @@ void BaseController::clearClients()
 {
     qDeleteAll(m_clients.begin(), m_clients.end());
     m_clients.clear();
-    m_initialized = false;
     emit this->disconnected();
 }
 
@@ -102,16 +92,7 @@ void BaseController::parseTextMessage(QString message)
         return;
     }
 
-    if(m_initialized)
-    {
-        this->newMessageHandler(messageData);
-    }
-    else
-    {
-        this->setup(messageData);
-        m_initialized = true;
-        emit this->connected();
-    }
+    this->newMessageHandler(messageData);
 }
 
 void BaseController::parseBinaryMessage(QByteArray message)

@@ -32,9 +32,8 @@ public:
      * @brief Добавляет новое подключение адаптера.
      * @warning Добавление происходит только если нет активных подключений.
      * @param s - сокет подключения адаптера
+     * @param intialState - начальное состояние контроллера
      */
-    void addClient(QWebSocket* s);
-
     void addClient(QWebSocket* s, QtJson::JsonObject intialState);
 
     /**
@@ -94,7 +93,6 @@ protected:
     void setProcessingTask(bool isReady);
 
 private:
-    bool m_initialized;
     QString m_logName;
 
 signals:

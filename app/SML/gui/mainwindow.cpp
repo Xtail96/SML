@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setupHardwareDriver();
     this->setupSlots();
 
-    m_adaptersLauncher->startAdapters(true, true);
+    m_adaptersLauncher->startAdapters(false, true);
 }
 
 MainWindow::~MainWindow()
