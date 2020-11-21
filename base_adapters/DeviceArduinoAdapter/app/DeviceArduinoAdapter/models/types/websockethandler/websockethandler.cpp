@@ -92,7 +92,6 @@ void WebSocketHandler::onQWebSocket_Connected()
     }
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onQWebSocket_TextMessageReceived(QString)));
     connect(m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onQWebSocket_BinaryMessageReceived(QByteArray)));
-    m_webSocket->sendTextMessage(QStringLiteral("@SML-DeviceAdapter@"));
     emit connected();
 }
 

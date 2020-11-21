@@ -32,7 +32,7 @@ void Registrator::setup(QtJson::JsonObject) {}
 
 void Registrator::newMessageHandler(QtJson::JsonObject msg)
 {
-    qInfo().noquote() << "Received" << msg;
+    qInfo().noquote() << "Received" << QtJson::serializeStr(msg);
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
     if (!pSender) return;
 
