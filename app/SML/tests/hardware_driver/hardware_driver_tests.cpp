@@ -23,7 +23,7 @@ void HardwareDriverTests::testDeviceAndMotionAdapterConnected()
     HardwareDriver& driver = HardwareDriver::getInstance();
     auto launcher = new AdaptersLauncher(this);
 
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnectionStateChanged, [=]() {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
         launcher->startAdapters(false, true);
     });
     launcher->startAdapters(true, false);
