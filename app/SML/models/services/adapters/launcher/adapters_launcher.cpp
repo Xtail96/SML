@@ -38,17 +38,17 @@ void AdaptersLauncher::startAdapters(bool deviceAdpater, bool motionAdapter)
     }
 }
 
-void AdaptersLauncher::stopAdapters()
+void AdaptersLauncher::stopAdapters(bool deviceAdpater, bool motionAdapter)
 {
     qInfo() << "try to stop adapters";
-    if(m_deviceAdapterProcess.isOpen())
+    if(m_deviceAdapterProcess.isOpen() && deviceAdpater)
     {
         qInfo() << "try to stop device adapter";
         m_deviceAdapterProcess.kill();
         m_deviceAdapterProcess.waitForFinished(-1);
     }
 
-    if(m_motionAdapterProcess.isOpen())
+    if(m_motionAdapterProcess.isOpen() && motionAdapter)
     {
         qInfo() << "try to stop motion adapter";
         m_motionAdapterProcess.kill();

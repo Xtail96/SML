@@ -16,7 +16,7 @@ public:
     ~AdaptersLauncher();
 
     void startAdapters(bool deviceAdpater = true, bool motionAdapter = true);
-    void stopAdapters();
+    void stopAdapters(bool deviceAdpater = true, bool motionAdapter = true);
 
 private:
     QString m_deviceAdapterPath;

@@ -67,6 +67,75 @@ void HardwareDriverTests::testOnlyMotionAdapterConnected()
     QCOMPARE(actual, expected);
 }
 
+void HardwareDriverTests::testDeviceAdapterAndMotionAdapterDisconnected()
+{
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    auto launcher = new AdaptersLauncher(this);
+
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+        launcher->startAdapters(false, true);
+    });
+    launcher->startAdapters(true, false);
+
+    QTest::qWait(5000);
+    QCOMPARE(driver.isConnected(), true);
+
+    launcher->stopAdapters();
+    QTest::qWait(5000);
+
+    QCOMPARE(driver.isConnected(), false);
+}
+
+void HardwareDriverTests::testDeviceAdapterDisconnected()
+{
+    auto actual = true;
+    auto expected = false;
+
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    auto launcher = new AdaptersLauncher(this);
+
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+        launcher->startAdapters(false, true);
+    });
+    launcher->startAdapters(true, false);
+
+    QTest::qWait(5000);
+    QCOMPARE(driver.isConnected(), true);
+
+    launcher->stopAdapters(true, false);
+    QTest::qWait(5000);
+
+    actual = driver.isConnected();
+    launcher->stopAdapters(false, true);
+
+    QCOMPARE(actual, expected);
+}
+
+void HardwareDriverTests::testMotionAdapterDisconnected()
+{
+    auto actual = true;
+    auto expected = false;
+
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    auto launcher = new AdaptersLauncher(this);
+
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+        launcher->startAdapters(false, true);
+    });
+    launcher->startAdapters(true, false);
+
+    QTest::qWait(5000);
+    QCOMPARE(driver.isConnected(), true);
+
+    launcher->stopAdapters(false, true);
+    QTest::qWait(5000);
+
+    actual = driver.isConnected();
+    launcher->stopAdapters(true, false);
+
+    QCOMPARE(actual, expected);
+}
+
 void HardwareDriverTests::testRegisterHandler()
 {
     bool connected = false;
