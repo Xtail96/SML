@@ -17,6 +17,7 @@ HardwareDriver::HardwareDriver(QObject *parent) :
 
 HardwareDriver::~HardwareDriver()
 {
+    this->resetHandlers();
     this->resetSlots();
 }
 
