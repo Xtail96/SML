@@ -130,8 +130,16 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersDisconnected()
     // Ждем некотрое время.
     QTest::qWait(5000);
 
-    // Проверям, что адаптеры успешно подключились.
-    QCOMPARE(driver.isConnected(), true);
+    // Проверяем, что адаптеры успешно подключились.
+    if(!driver.isConnected())
+    {
+        // Чистим за собой.
+        launcher->stopAdapters();
+        driver.resetHandlers();
+
+        // Делаем так, чтобы тест упал.
+        QCOMPARE(true, false);
+    }
 
     // Останавливаем адаптеры.
     launcher->stopAdapters();
@@ -167,7 +175,15 @@ void HardwareDriverTests::testDeviceAdapterDisconnected()
     QTest::qWait(5000);
 
     // Проверяем, что адаптеры успешно подключились.
-    QCOMPARE(driver.isConnected(), true);
+    if(!driver.isConnected())
+    {
+        // Чистим за собой.
+        launcher->stopAdapters();
+        driver.resetHandlers();
+
+        // Делаем так, чтобы тест упал.
+        QCOMPARE(true, false);
+    }
 
     // Останавливаем адаптер.
     launcher->stopAdapters(true, false);
@@ -210,7 +226,16 @@ void HardwareDriverTests::testMotionAdapterDisconnected()
     QTest::qWait(5000);
 
     // Проверяем, что адаптеры успешно подключились.
-    QCOMPARE(driver.isConnected(), true);
+    // Проверяем, что адаптеры успешно подключились.
+    if(!driver.isConnected())
+    {
+        // Чистим за собой.
+        launcher->stopAdapters();
+        driver.resetHandlers();
+
+        // Делаем так, чтобы тест упал.
+        QCOMPARE(true, false);
+    }
 
     // Останавливаем адаптер.
     launcher->stopAdapters(false, true);
