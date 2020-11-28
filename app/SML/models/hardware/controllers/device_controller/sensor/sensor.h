@@ -5,6 +5,7 @@
 #include <QColor>
 
 class DeviceController;
+class SensorTests;
 
 /**
  * @brief Класс Датчик
@@ -120,6 +121,7 @@ private:
 
     /// Класс-друг!
     friend class DeviceController;
+    friend class SensorTests;
 
 signals:
     /**

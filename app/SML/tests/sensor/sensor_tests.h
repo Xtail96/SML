@@ -11,7 +11,9 @@ public:
     SensorTests(QObject *parent = nullptr);
 
 private slots:
-    void testSensor_InitialState();
+    void testInitialState();
+    void testIsEnable();
+    void testStateChanged();
 };
 
 #endif // SENSORTESTS_H

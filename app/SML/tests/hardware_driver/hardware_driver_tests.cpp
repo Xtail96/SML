@@ -66,3 +66,38 @@ void HardwareDriverTests::testOnlyMotionAdapterConnected()
 
     QCOMPARE(actual, expected);
 }
+
+void HardwareDriverTests::testRegisterHandler()
+{
+    bool connected = false;
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected]() mutable -> void {
+        connected = true;
+    });
+
+    auto launcher = new AdaptersLauncher(this);
+    launcher->startAdapters(true, false);
+    QTest::qWait(5000);
+    launcher->stopAdapters();
+    QCOMPARE(connected, true);
+}
+
+void HardwareDriverTests::testResetHandlers()
+{
+    bool connected = false;
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected]() mutable -> void {
+        connected = true;
+    });
+
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&connected]() mutable -> void {
+        connected = false;
+    });
+
+    auto launcher = new AdaptersLauncher(this);
+    launcher->startAdapters(true, false);
+    QTest::qWait(5000);
+    driver.resetHandlers();
+    launcher->stopAdapters();
+    QCOMPARE(connected, true);
+}

@@ -21,6 +21,10 @@ private slots:
 
     void testOnlyMotionAdapterConnected();
 
+    void testRegisterHandler();
+
+    void testResetHandlers();
+
 };
 
 #endif // HARDWAREDRIVERTESTS_H
