@@ -15,13 +15,13 @@ private slots:
 
     void testAdaptersNotConnected();
 
-    void testDeviceAndMotionAdapterConnected();
+    void testDeviceAndMotionAdaptersConnected();
 
     void testOnlyDeviceAdapterConnected();
 
     void testOnlyMotionAdapterConnected();
 
-    void testDeviceAdapterAndMotionAdapterDisconnected();
+    void testDeviceAndMotionAdaptersDisconnected();
 
     void testDeviceAdapterDisconnected();
 
