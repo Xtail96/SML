@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setupHardwareDriver();
     this->setupSlots();
 
+    this->fillSettings();
     m_adaptersLauncher->startAdapters(true, true);
 }
 
@@ -68,6 +69,16 @@ void MainWindow::setupWidgets()
     ui->spindelsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
     ui->supportDevicesListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
     ui->optionsListWidget->setStyleSheet("QListWidget { background-color: transparent; }");
+
+    SettingsManager s;
+    QStringList keys = s.settingsKeys();
+
+    ui->settingsTableWidget->setColumnCount(1);
+    ui->settingsTableWidget->setRowCount(keys.length());
+
+    ui->settingsTableWidget->setHorizontalHeaderLabels({"Current Value"});
+    ui->settingsTableWidget->setVerticalHeaderLabels(keys);
+    ui->settingsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void MainWindow::setupSlots()
@@ -134,5 +145,33 @@ void MainWindow::on_syntaxHighlightingCheckBox_clicked()
     {
         m_hightlighter->setDocument(nullptr);
         m_hightlighter->setPattern();
+    }
+}
+
+void MainWindow::on_saveSettingsPushButton_clicked()
+{
+    SettingsManager s;
+    for(int i = 0; i < ui->settingsTableWidget->rowCount(); i++)
+    {
+        auto header = ui->settingsTableWidget->verticalHeaderItem(i)->text();
+        QString group = header.split("/").first();
+        QString key = header.split("/").last();
+
+        QString value = ui->settingsTableWidget->item(i, 0)->text();
+        s.set(group, key, value);
+    }
+}
+
+void MainWindow::fillSettings()
+{
+    SettingsManager s;
+    for(int i = 0; i < ui->settingsTableWidget->rowCount(); i++)
+    {
+        auto header = ui->settingsTableWidget->verticalHeaderItem(i)->text();
+        QString group = header.split("/").first();
+        QString key = header.split("/").last();
+
+        QString value = s.get(group, key).toString();
+        ui->settingsTableWidget->setItem(i, 0, new QTableWidgetItem(value));
     }
 }

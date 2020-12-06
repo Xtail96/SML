@@ -69,6 +69,11 @@ private slots:
     void updateBatteryStatusDisplay();
     Q_NORETURN void on_exit_action_triggered();
     void on_syntaxHighlightingCheckBox_clicked();
+
+    void on_saveSettingsPushButton_clicked();
+
+private:
+    void fillSettings();
 };
 
 
