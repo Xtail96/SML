@@ -107,7 +107,7 @@ void SettingsManager::set(QString group, QString key, QVariant value)
 
 void SettingsManager::generateDefaultSettings()
 {
-    settings->beginGroup("Main");
+    settings->beginGroup("General");
         settings->setValue("AvailableAxises", QStringList {
                                "X","Y","Z","A","U"});
         settings->setValue("AvailableSensors", QStringList {
