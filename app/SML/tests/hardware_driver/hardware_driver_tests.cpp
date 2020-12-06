@@ -154,7 +154,7 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersDisconnected()
     QCOMPARE(driver.isConnected(), false);
 }
 
-void HardwareDriverTests::testDeviceAdapterDisconnected()
+void HardwareDriverTests::testOnlyDeviceAdapterDisconnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -205,7 +205,7 @@ void HardwareDriverTests::testDeviceAdapterDisconnected()
     QCOMPARE(signalEmitted, true);
 }
 
-void HardwareDriverTests::testMotionAdapterDisconnected()
+void HardwareDriverTests::testOnlyMotionAdapterDisconnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 

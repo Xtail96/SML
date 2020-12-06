@@ -23,9 +23,9 @@ private slots:
 
     void testDeviceAndMotionAdaptersDisconnected();
 
-    void testDeviceAdapterDisconnected();
+    void testOnlyDeviceAdapterDisconnected();
 
-    void testMotionAdapterDisconnected();
+    void testOnlyMotionAdapterDisconnected();
 
     void testRegisterHandler();
 

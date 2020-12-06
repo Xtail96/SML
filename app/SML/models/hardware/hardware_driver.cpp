@@ -11,7 +11,7 @@ HardwareDriver::HardwareDriver(QObject *parent) :
     this->setupSlots();
 
     SettingsManager s;
-    quint16 port = quint16(s.get("ServerSettings", "ServerPort").toInt());
+    quint16 port = quint16(s.get("AdapterServer", "Port").toInt());
     m_adapterServer.open(port);
 }
 
