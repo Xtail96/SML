@@ -86,3 +86,8 @@ void HardwareDriver::resetHandlers()
     this->resetSlots();
     this->setupSlots();
 }
+
+MotionControllerRepository &HardwareDriver::getMotionController()
+{
+    return m_motionController.m_repository;
+}

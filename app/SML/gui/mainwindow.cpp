@@ -37,11 +37,31 @@ void MainWindow::setupHardwareDriver()
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
             ui->statusBar->showMessage("Hardware driver is ready");
+
+            auto axes = driver.getMotionController().axes();
+            QStringList currentCoordinatesFromZero = {};
+            QStringList currentCoordinatesFromBase = {};
+            QStringList parkCoordinates = {};
+            for(auto axis : axes)
+            {
+                currentCoordinatesFromZero.append(axis->decoratedId() + ": "
+                                                + QString::number(axis->currentPositionFromZero(), 'f', 3));
+                currentCoordinatesFromBase.append(axis->decoratedId() + ": "
+                                                + QString::number(axis->currentPositionFromBase(), 'f', 3));
+                parkCoordinates.append(axis->decoratedId() + ": " + QString::number(axis->parkPosition(), 'f', 3));
+            }
+            ui->currentCoordinatesListWidget->addItems(currentCoordinatesFromZero);
+            ui->baseCoordinatesListWidget->addItems(currentCoordinatesFromBase);
+            ui->parkCoordinatesListWidget->addItems(parkCoordinates);
         }
         else
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
             ui->statusBar->showMessage("Hardware driver is not ready");
+
+            ui->currentCoordinatesListWidget->clear();
+            ui->baseCoordinatesListWidget->clear();
+            ui->parkCoordinatesListWidget->clear();
         }
     };
 

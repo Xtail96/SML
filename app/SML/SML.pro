@@ -26,6 +26,7 @@ SOURCES += main.cpp\
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
+    models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
     models/hardware/controllers/registrator.cpp \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
@@ -54,6 +55,7 @@ HEADERS  += gui/mainwindow.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device_controller.h \
     models/hardware/controllers/motion_controller/motion_controller.h \
+    models/hardware/controllers/motion_controller/motion_controller_repository.h \
     models/hardware/controllers/registrator.h \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \

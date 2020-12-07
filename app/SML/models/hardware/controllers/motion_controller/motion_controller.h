@@ -6,8 +6,7 @@
 #include "libs/json_parser/json.h"
 
 #include "../base_controller.h"
-
-#include "./axis/axis.h"
+#include "./motion_controller_repository.h"
 
 /**
  * @brief Контроллер двигаталей.
@@ -27,11 +26,6 @@ public:
      */
     ~MotionController() override;
 
-    bool axisExists(AxisId id);
-    void addAxis(AxisId id, double initialPosition);
-    void removeAxis(AxisId id);
-    void clearAxes();
-
     //void moveTo(Point absPos);
     //void moveOffset(Point relPos);
 
@@ -40,15 +34,14 @@ public:
     //void stopMoving();
 
 private:
-    /// Доступные оси станка.
-    QSet<Axis*> m_axes;
     QList<QMetaObject::Connection> m_slotsInfo;
+    MotionControllerRepository m_repository;
 
     void setup(QtJson::JsonObject initialState) override;
 
     void newMessageHandler(QtJson::JsonObject msg) override;
 
-    Axis* findById(AxisId id);
+    friend class HardwareDriver;
 };
 
 #endif // MOTIONCONTROLLER_H

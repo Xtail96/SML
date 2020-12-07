@@ -58,6 +58,8 @@ public:
     void registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
     void resetHandlers();
 
+    MotionControllerRepository& getMotionController();
+
 private:
     QList<QMetaObject::Connection> m_slotsInfo;
 
