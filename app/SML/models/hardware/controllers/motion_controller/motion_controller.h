@@ -35,6 +35,7 @@ public:
 
 private:
     QList<QMetaObject::Connection> m_slotsInfo;
+
     MotionControllerRepository m_repository;
 
     void setup(QtJson::JsonObject initialState) override;
