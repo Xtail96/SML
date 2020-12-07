@@ -29,6 +29,7 @@ SOURCES += \
     models/hardware/controllers/device_controller/sensor/sensor.cpp \
     models/hardware/controllers/motion_controller/axis/axis.cpp \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
+    models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
     models/hardware/controllers/registrator.cpp \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
@@ -55,6 +56,7 @@ HEADERS += \
     models/hardware/controllers/device_controller/sensor/sensor.h \
     models/hardware/controllers/motion_controller/axis/axis.h \
     models/hardware/controllers/motion_controller/motion_controller.h \
+    models/hardware/controllers/motion_controller/motion_controller_repository.h \
     models/hardware/controllers/registrator.h \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
