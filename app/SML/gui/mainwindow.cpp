@@ -38,7 +38,7 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
             ui->statusBar->showMessage("Hardware driver is ready");
 
-            this->enableAxesButtons();
+            this->enableUsedAxesButtons();
 
             auto axes = driver.getMotionController().axes();
             QStringList currentCoordinatesFromZero = {};
@@ -202,7 +202,7 @@ void MainWindow::fillSettings()
     }
 }
 
-void MainWindow::enableAxesButtons()
+void MainWindow::enableUsedAxesButtons()
 {
     auto& driver = HardwareDriver::getInstance();
     auto& motionContoller = driver.getMotionController();
