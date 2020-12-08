@@ -38,6 +38,8 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
             ui->statusBar->showMessage("Hardware driver is ready");
 
+            this->enableAxesButtons();
+
             auto axes = driver.getMotionController().axes();
             QStringList currentCoordinatesFromZero = {};
             QStringList currentCoordinatesFromBase = {};
@@ -58,6 +60,8 @@ void MainWindow::setupHardwareDriver()
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
             ui->statusBar->showMessage("Hardware driver is not ready");
+
+            this->disableAllAxesButtons();
 
             ui->currentCoordinatesListWidget->clear();
             ui->baseCoordinatesListWidget->clear();
@@ -99,6 +103,8 @@ void MainWindow::setupWidgets()
     ui->settingsTableWidget->setHorizontalHeaderLabels({"Current Value"});
     ui->settingsTableWidget->setVerticalHeaderLabels(keys);
     ui->settingsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    this->disableAllAxesButtons();
 }
 
 void MainWindow::setupSlots()
@@ -193,5 +199,74 @@ void MainWindow::fillSettings()
 
         QString value = s.get(group, key).toString();
         ui->settingsTableWidget->setItem(i, 0, new QTableWidgetItem(value));
+    }
+}
+
+void MainWindow::enableAxesButtons()
+{
+    auto& driver = HardwareDriver::getInstance();
+    auto& motionContoller = driver.getMotionController();
+
+    auto axesButtons = {
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXPositivePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXNegativeYNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXNegativeYPositivePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXPositiveYNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::X, ui->movementXPositiveYPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementYNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementYPositivePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementXNegativeYNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementXNegativeYPositivePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementXPositiveYNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Y, ui->movementXPositiveYPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::Z, ui->movementZNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::Z, ui->movementZPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::A, ui->movementANegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::A, ui->movementAPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::B, ui->movementBNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::B, ui->movementBPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::C, ui->movementCNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::C, ui->movementCPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::U, ui->movementUNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::U, ui->movementUPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::V, ui->movementVNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::V, ui->movementVPositivePushButton),
+
+        QPair<AxisId, QPushButton*>(AxisId::W, ui->movementWNegativePushButton),
+        QPair<AxisId, QPushButton*>(AxisId::W, ui->movementWPositivePushButton)
+    };
+
+    for(auto button : axesButtons)
+    {
+        if(motionContoller.axisExists(button.first)) button.second->setEnabled(true);
+    }
+}
+
+void MainWindow::disableAllAxesButtons()
+{
+    auto axesButtons = {
+        ui->movementXNegativePushButton, ui->movementXPositivePushButton,
+        ui->movementYNegativePushButton, ui->movementYPositivePushButton,
+        ui->movementXNegativeYNegativePushButton, ui->movementXNegativeYPositivePushButton,
+        ui->movementXPositiveYNegativePushButton, ui->movementXPositiveYPositivePushButton,
+        ui->movementZNegativePushButton, ui->movementZPositivePushButton,
+        ui->movementANegativePushButton, ui->movementAPositivePushButton,
+        ui->movementBNegativePushButton, ui->movementBPositivePushButton,
+        ui->movementCNegativePushButton, ui->movementCPositivePushButton,
+        ui->movementUNegativePushButton, ui->movementUPositivePushButton,
+        ui->movementVNegativePushButton, ui->movementVPositivePushButton,
+        ui->movementWNegativePushButton, ui->movementWPositivePushButton,
+    };
+    for(auto button : axesButtons)
+    {
+        button->setEnabled(false);
     }
 }

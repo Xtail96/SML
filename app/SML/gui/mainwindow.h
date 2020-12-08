@@ -74,6 +74,8 @@ private slots:
 
 private:
     void fillSettings();
+    void enableAxesButtons();
+    void disableAllAxesButtons();
 };
 
 
