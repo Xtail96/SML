@@ -1,7 +1,6 @@
 #include "motion_controller_repository.h"
 
-MotionControllerRepository::MotionControllerRepository(QObject *parent):
-    QObject(parent),
+MotionControllerRepository::MotionControllerRepository():
     m_axes()
 {
 
@@ -9,47 +8,56 @@ MotionControllerRepository::MotionControllerRepository(QObject *parent):
 
 MotionControllerRepository::~MotionControllerRepository()
 {
-    qDeleteAll(m_axes.begin(), m_axes.end());
 }
 
 bool MotionControllerRepository::axisExists(AxisId id)
 {
-    for(auto axis : m_axes)
+    for(auto& axis : m_axes)
     {
-       if(axis->id() == id)
-           return true;
+        if(axis.id() == id)
+            return true;
     }
 
     return false;
 }
 
-Axis *MotionControllerRepository::axis(AxisId id)
+Axis& MotionControllerRepository::axis(AxisId id)
 {
-    for(auto axis : m_axes)
+    for(auto& axis : m_axes)
     {
-       if(axis->id() == id)
-           return axis;
+        if(axis.id() == id)
+            return axis;
     }
 
-    throw std::invalid_argument("invalid axis id" + Axis::decorateId(id).toStdString());
+    throw std::invalid_argument("unknown axis " + Axis::decorateId(id).toStdString());
 }
 
-QList<Axis *> MotionControllerRepository::axes()
+void MotionControllerRepository::setAxisValue(AxisId id, double value)
 {
-    QList<Axis *> axes = m_axes.toList();
-    auto axisPointerCmp = [=](Axis* a1, Axis* a2) { return *(a1) <= *(a2); };
-    std::sort(axes.begin(), axes.end(), axisPointerCmp);
+    this->axis(id).setCurrentPosition(value);
+}
+
+QList<Axis> MotionControllerRepository::axes()
+{
+    QList<Axis> axes = m_axes;
+    std::sort(axes.begin(), axes.end());
     return axes;
 }
 
 void MotionControllerRepository::addAxis(AxisId id, double initialPosition)
 {
-    m_axes.insert(new Axis(id, initialPosition, this));
+    if(this->axisExists(id))
+    {
+        qWarning() << "Axis" << Axis::decorateId(id) << "is already exists. Ignored.";
+        return;
+    }
+
+    m_axes.append(Axis(id, initialPosition));
 }
 
 void MotionControllerRepository::removeAxis(AxisId id)
 {
-    m_axes.remove(this->axis(id));
+    m_axes.removeAll(this->axis(id));
 }
 
 void MotionControllerRepository::clearAxes()

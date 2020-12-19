@@ -45,11 +45,11 @@ void MainWindow::setupHardwareDriver()
         QStringList parkCoordinates = {};
         for(auto axis : axes)
         {
-            currentCoordinatesFromZero.append(axis->decoratedId() + ": "
-                                            + QString::number(axis->currentPositionFromZero(), 'f', 3));
-            currentCoordinatesFromBase.append(axis->decoratedId() + ": "
-                                            + QString::number(axis->currentPositionFromBase(), 'f', 3));
-            parkCoordinates.append(axis->decoratedId() + ": " + QString::number(axis->parkPosition(), 'f', 3));
+            currentCoordinatesFromZero.append(axis.decoratedId() + ": "
+                                            + QString::number(axis.currentPositionFromZero(), 'f', 3));
+            currentCoordinatesFromBase.append(axis.decoratedId() + ": "
+                                            + QString::number(axis.currentPositionFromBase(), 'f', 3));
+            parkCoordinates.append(axis.decoratedId() + ": " + QString::number(axis.parkPosition(), 'f', 3));
         }
         ui->currentCoordinatesListWidget->addItems(currentCoordinatesFromZero);
         ui->baseCoordinatesListWidget->addItems(currentCoordinatesFromBase);

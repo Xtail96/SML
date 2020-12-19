@@ -3,20 +3,20 @@
 
 #include "./axis/axis.h"
 
-class MotionControllerRepository : public QObject
+class MotionControllerRepository
 {
-    Q_OBJECT
 public:
-    MotionControllerRepository(QObject *parent = nullptr);
+    MotionControllerRepository();
     ~MotionControllerRepository();
 
     bool axisExists(AxisId id);
-    Axis* axis(AxisId id);
-    QList<Axis*> axes();
+    Axis &axis(AxisId id);
+    void setAxisValue(AxisId id, double value);
+    QList<Axis> axes();
 
 private:
     /// Доступные оси станка.
-    QSet<Axis*> m_axes;
+    QList<Axis> m_axes;
 
     void addAxis(AxisId id, double initialPosition);
     void removeAxis(AxisId id);

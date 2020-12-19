@@ -1,7 +1,6 @@
 #include "axis.h"
 
-Axis::Axis(AxisId id, double initialPosition, QObject *parent) :
-    QObject(parent),
+Axis::Axis(AxisId id, double initialPosition) :
     m_id(id),
     m_currentPosition(0.0),
     m_zeroPosition(0.0),
@@ -30,7 +29,6 @@ void Axis::setCurrentPosition(double absPosition)
 {
     if(Axis::isEqual(m_currentPosition, absPosition)) return;
     m_currentPosition = Axis::decoratePosition(absPosition);
-    emit this->currentPositionChanged();
 }
 
 double Axis::zeroPosition() const

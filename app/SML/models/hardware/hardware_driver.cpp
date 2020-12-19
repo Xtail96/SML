@@ -122,7 +122,7 @@ void HardwareDriver::moveOffset(QMap<AxisId, double> relPos)
     {
         if(!m_motionController.m_repository.axisExists(key)) continue;
 
-        absPos.insert(key, m_motionController.m_repository.axis(key)->currentPositionFromBase() +
+        absPos.insert(key, m_motionController.m_repository.axis(key).currentPositionFromBase() +
                       relPos.value(key));
     }
 

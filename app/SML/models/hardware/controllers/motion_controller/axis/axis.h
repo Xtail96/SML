@@ -9,13 +9,11 @@ enum AxisId {
     X, Y, Z, A, B, C, U, V, W
 };
 
-class Axis : public QObject
+class Axis
 {
-    Q_OBJECT
 public:
-    explicit Axis(AxisId id,
-                  double initialPosition,
-                  QObject* parent = nullptr);
+    Axis(AxisId id,
+                  double initialPosition);
     ~Axis();
 
     double currentPositionFromBase() const;
@@ -51,9 +49,6 @@ private:
     double m_parkPosition;
 
     static double decoratePosition(double pos);
-
-signals:
-    void currentPositionChanged();
 };
 
 #endif // AXIS_H
