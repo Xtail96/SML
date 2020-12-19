@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    libs/gpr/gcode_program.cpp \
+    libs/gpr/parser.cpp \
     libs/json_parser/json.cpp \
     models/hardware/controllers/adapters/adapter_connection.cpp \
     models/hardware/controllers/adapters/adapter_gateway.cpp \
@@ -31,6 +33,7 @@ SOURCES += \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
     models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
     models/hardware/controllers/registrator.cpp \
+    models/hardware/controllers/task.cpp \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/settings_manager/settings_manager.cpp \
@@ -45,6 +48,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    libs/gpr/gcode_program.h \
+    libs/gpr/parser.h \
     libs/json_parser/json.h \
     models/hardware/controllers/adapters/adapter_connection.h \
     models/hardware/controllers/adapters/adapter_gateway.h \
@@ -58,6 +63,7 @@ HEADERS += \
     models/hardware/controllers/motion_controller/motion_controller.h \
     models/hardware/controllers/motion_controller/motion_controller_repository.h \
     models/hardware/controllers/registrator.h \
+    models/hardware/controllers/task.h \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/settings_manager/settings_manager.h \
