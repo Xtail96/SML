@@ -13,6 +13,8 @@ class Registrator : public BaseController
 public:
     explicit Registrator(MotionController* m, DeviceController* d, QObject *parent = nullptr);
     ~Registrator() override;
+
+    void processTask(Task) override;
 private:
     QList<QMetaObject::Connection> m_connections;
 

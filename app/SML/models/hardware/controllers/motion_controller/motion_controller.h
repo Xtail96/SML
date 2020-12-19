@@ -26,6 +26,8 @@ public:
      */
     ~MotionController() override;
 
+    void processTask(Task t) override;
+
     //void moveTo(Point absPos);
     //void moveOffset(Point relPos);
 

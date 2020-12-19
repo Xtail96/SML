@@ -18,6 +18,8 @@ public:
     Sensor *getSensor(QString uid);
     Spindel *getSpindel(QString uid);
     SupportDevice *getSupportDevice(QString uid);
+
+    void processTask(Task t) override;
 private:
     QSet<Sensor*> m_sensors;
     QSet<Spindel*> m_spindels;

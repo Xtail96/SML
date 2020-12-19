@@ -28,6 +28,8 @@ Registrator::~Registrator()
     }
 }
 
+void Registrator::processTask(Task){}
+
 void Registrator::setup(QtJson::JsonObject) {}
 
 void Registrator::newMessageHandler(QtJson::JsonObject msg)

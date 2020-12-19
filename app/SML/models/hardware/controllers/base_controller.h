@@ -7,6 +7,7 @@
 #include "libs/json_parser/json.h"
 
 #include "../controllers/adapters/adapter_connection.h"
+#include "task.h"
 
 /**
  * @brief Базовый контроллер.
@@ -53,13 +54,7 @@ public:
      */
     bool isConnected() const;
 
-    /**
-     * @brief Отправляет сообщение на подключенный адаптер.
-     * @warning Отправка происходит только на первый адаптер из списка подключений.
-     * @param message - сообщение для отправки
-     * @return Число отправленных байт информации
-     */
-    qint64 sendMessage(QByteArray message);
+    virtual void processTask(Task t) = 0;
 
 protected:
     /// Подключенные адаптеры.
@@ -67,6 +62,14 @@ protected:
 
     /// Выполняется ли задача в текущий момент.
     bool m_processingTask;
+
+    /**
+     * @brief Отправляет сообщение на подключенный адаптер.
+     * @warning Отправка происходит только на первый адаптер из списка подключений.
+     * @param message - сообщение для отправки
+     * @return Число отправленных байт информации
+     */
+    qint64 sendMessage(QByteArray message);
 
     virtual void setup(QtJson::JsonObject initialState) = 0;
 

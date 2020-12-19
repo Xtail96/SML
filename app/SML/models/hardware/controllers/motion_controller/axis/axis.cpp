@@ -117,7 +117,7 @@ AxisId Axis::idFromStr(QString value)
     if(value == "v") return AxisId::V;
     if(value == "w") return AxisId::W;
 
-    throw std::invalid_argument("axis does not exists" + value.toStdString());
+    throw std::invalid_argument("unknown axis " + value.toStdString());
 }
 
 bool Axis::operator==(const Axis &other) const

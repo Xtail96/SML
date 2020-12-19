@@ -45,6 +45,11 @@ SupportDevice *DeviceController::getSupportDevice(QString uid)
     throw std::invalid_argument("Device with uid " + uid.toStdString() + " does not exists");
 }
 
+void DeviceController::processTask(Task t)
+{
+    qDebug() << t.serialize();
+}
+
 void DeviceController::setup(QtJson::JsonObject initialState)
 {
     QtJson::JsonObject deviceController = initialState["deviceControllerState"].toMap();

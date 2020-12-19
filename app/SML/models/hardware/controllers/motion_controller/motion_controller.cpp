@@ -16,6 +16,38 @@ MotionController::~MotionController()
         QObject::disconnect(slotInfo);
 }
 
+void MotionController::processTask(Task t)
+{
+    QtJson::JsonArray blocks = {};
+    for(int i = 0; i < t.blocksCount(); i++)
+    {
+        QMap<QString, QVariant> axesArgs = t.blockAxesArgs(i);
+        if(axesArgs.isEmpty()) continue;
+
+        QtJson::JsonObject block = {
+            std::pair<QString, QVariant>("block", t.block(i)),
+            std::pair<QString, QVariant>("detailedInfo", QtJson::JsonObject {
+                std::pair<QString, QVariant>("blockId", t.blockId(i)),
+                std::pair<QString, QVariant>("axesCount", axesArgs.size()),
+                std::pair<QString, QVariant>("axesArguments", QtJson::JsonObject(axesArgs)),
+                std::pair<QString, QVariant>("feedrate", t.blockFeedrate(i)),
+                std::pair<QString, QVariant>("mcodeId", t.blockMCode(i)),
+            })
+        };
+        blocks.insert(i, block);
+    }
+
+    QtJson::JsonObject message = {
+        std::pair<QString, QVariant>("target", "motionController"),
+        std::pair<QString, QVariant>("action", "gcodeExecution"),
+        std::pair<QString, QVariant>("raw", t.serialize()),
+        std::pair<QString, QVariant>("blocks", blocks),
+    };
+
+    qDebug() << message;
+    //this->sendMessage(QtJson::serialize(message));
+}
+
 void MotionController::setup(QtJson::JsonObject initialState)
 {
     QtJson::JsonObject motionController = initialState["motionControllerState"].toMap();
