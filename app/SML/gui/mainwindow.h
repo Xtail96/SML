@@ -41,10 +41,6 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    /// Горячие клавиши кнопок для перемещения по осям станка
-    QList< std::tuple<const char*, QPushButton*, const char*> > m_shortcutsMap;
-    QList<QShortcut*> m_axisesShortcuts;
-
     QList<QMetaObject::Connection> m_slotsInfo;
 
     /// Подсветки синтаксиса в редакторе G-кодов
