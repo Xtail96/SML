@@ -67,7 +67,6 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is ready");
 
             this->enableUsedAxesButtons();
-            driver.registerHandler(HARDWARE_EVENT::CurrentPositionChanged, hardwarePositionChangeHandler);
             hardwarePositionChangeHandler();
         }
         else
@@ -88,6 +87,8 @@ void MainWindow::setupHardwareDriver()
 
     driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, hardwareConnectionStateChangedHandler);
     driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, hardwareConnectionStateChangedHandler);
+
+    driver.registerHandler(HARDWARE_EVENT::CurrentPositionChanged, hardwarePositionChangeHandler);
 }
 
 void MainWindow::setupWidgets()

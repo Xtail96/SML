@@ -77,6 +77,7 @@ void MotionController::newMessageHandler(QtJson::JsonObject msg)
         return ;
     }
 
+    bool positionChanged = false;
     QtJson::JsonArray axes = motionController["axes"].toList();
     for(auto axis : axes)
     {
@@ -85,7 +86,12 @@ void MotionController::newMessageHandler(QtJson::JsonObject msg)
         double value = axisObject["position"].toDouble();
 
         if(!m_repository.axisExists(id)) { qWarning() << "Unknown axis" << id; continue; }
+        if(Axis::isEqual(m_repository.axis(id)->currentPositionFromBase(), value)) continue;
+
         m_repository.axis(id)->setCurrentPosition(value);
+        positionChanged = true;
     }
     this->setProcessingTask(motionController["workflowState"].toBool());
+
+    if(positionChanged) emit this->positionChanged();
 }

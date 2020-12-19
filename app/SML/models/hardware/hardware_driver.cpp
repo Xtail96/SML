@@ -79,13 +79,9 @@ void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<v
         }));
         break;
     case HARDWARE_EVENT::CurrentPositionChanged:
-    {
-        for(auto axis : m_motionController.m_repository.axes())
-            m_userSlotsInfo.append(QObject::connect(axis, &Axis::currentPositionChanged, this, [=]() {
-                handler();
-            }));
-        break;
-    }
+        m_userSlotsInfo.append(QObject::connect(&m_motionController, &MotionController::positionChanged, this, [=]() {
+            handler();
+        }));
     default:
         break;
     }

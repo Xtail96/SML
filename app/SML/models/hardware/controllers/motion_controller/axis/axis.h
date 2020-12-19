@@ -42,6 +42,8 @@ public:
     bool operator>(const Axis& other) const;
     bool operator<(const Axis& other) const;
 
+    static bool isEqual(double pos1, double pos2);
+
 private:
     AxisId m_id;
     double m_currentPosition;
@@ -49,7 +51,6 @@ private:
     double m_parkPosition;
 
     static double decoratePosition(double pos);
-    static bool isEqual(double pos1, double pos2);
 
 signals:
     void currentPositionChanged();

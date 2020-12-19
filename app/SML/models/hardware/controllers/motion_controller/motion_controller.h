@@ -37,6 +37,9 @@ private:
 
     void newMessageHandler(QtJson::JsonObject msg) override;
 
+signals:
+    void positionChanged();
+
     friend class HardwareDriver;
 };
 
