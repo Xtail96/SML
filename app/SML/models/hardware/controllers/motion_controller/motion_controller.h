@@ -28,13 +28,6 @@ public:
 
     void processTask(Task t) override;
 
-    //void moveTo(Point absPos);
-    //void moveOffset(Point relPos);
-
-    //void executeChunk(QString gcode);
-
-    //void stopMoving();
-
 private:
     QList<QMetaObject::Connection> m_slotsInfo;
 

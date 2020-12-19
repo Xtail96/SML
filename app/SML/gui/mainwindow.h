@@ -68,6 +68,10 @@ private slots:
 
     void on_saveSettingsPushButton_clicked();
 
+    void on_movementXPositivePushButton_pressed();
+
+    void on_movementXNegativePushButton_pressed();
+
 private:
     void fillSettings();
     void enableUsedAxesButtons();

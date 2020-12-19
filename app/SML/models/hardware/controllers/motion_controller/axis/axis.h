@@ -22,6 +22,7 @@ public:
     double currentPositionFromZero() const;
     void setCurrentPosition(double absPosition);
 
+    double zeroPosition() const;
     double parkPosition() const;
     void setZeroPosition(double zeroPosition);
     void setParkPosition(double parkPosition);

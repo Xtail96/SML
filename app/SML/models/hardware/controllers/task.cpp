@@ -80,7 +80,7 @@ void Task::removeEmptyBlocks()
         for(int j = 0; j < block.size(); j++)
         {
             gpr::chunk chunk = block.get_chunk(j);
-            if(chunk.tp() != gpr::chunk_type::CHUNK_TYPE_WORD) continue;
+            if(chunk.tp() != gpr::chunk_type::CHUNK_TYPE_WORD_ADDRESS) continue;
 
             QString word = QString(chunk.get_word());
             QString addr = Task::strAddr(chunk.get_address());
@@ -100,10 +100,10 @@ QString Task::strAddr(gpr::addr addr)
     switch(addr.tp())
     {
     case gpr::address_type::ADDRESS_TYPE_DOUBLE:
-        result = addr.double_value();
+        result = QString::number(addr.double_value());
         break;
     case gpr::address_type::ADDRESS_TYPE_INTEGER:
-        result = addr.int_value();
+        result = QString::number(addr.int_value());
         break;
     }
     return result;

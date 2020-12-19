@@ -76,6 +76,14 @@ void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<v
             handler();
         }));
         break;
+    case HARDWARE_EVENT::CurrentPositionChanged:
+    {
+        for(auto axis : m_motionController.m_repository.axes())
+            m_slotsInfo.append(QObject::connect(axis, &Axis::currentPositionChanged, this, [=]() {
+                handler();
+            }));
+        break;
+    }
     default:
         break;
     }
@@ -90,4 +98,33 @@ void HardwareDriver::resetHandlers()
 MotionControllerRepository &HardwareDriver::getMotionController()
 {
     return m_motionController.m_repository;
+}
+
+void HardwareDriver::moveTo(QMap<AxisId, double> absPos)
+{
+    QStringList gcode = {};
+
+    gcode.append("G0");
+    for(auto key : absPos.keys())
+    {
+        gcode.append(Axis::decorateId(key) + QString::number(absPos.value(key)));
+    }
+
+    Task t(gcode.join(" "));
+    m_motionController.processTask(t);
+}
+
+void HardwareDriver::moveOffset(QMap<AxisId, double> relPos)
+{
+    QMap<AxisId, double> absPos = {};
+    for(auto key : relPos.keys())
+    {
+        if(!m_motionController.m_repository.axisExists(key)) continue;
+
+        absPos.insert(key, m_motionController.m_repository.axis(key)->currentPositionFromBase() +
+                      relPos.value(key));
+    }
+
+    if(absPos.isEmpty()) return;
+    this->moveTo(absPos);
 }

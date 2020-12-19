@@ -43,9 +43,7 @@ void MotionController::processTask(Task t)
         std::pair<QString, QVariant>("raw", t.serialize()),
         std::pair<QString, QVariant>("blocks", blocks),
     };
-
-    qDebug() << message;
-    //this->sendMessage(QtJson::serialize(message));
+    this->sendMessage(QtJson::serialize(message));
 }
 
 void MotionController::setup(QtJson::JsonObject initialState)

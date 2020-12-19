@@ -67,6 +67,7 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is ready");
 
             this->enableUsedAxesButtons();
+            driver.registerHandler(HARDWARE_EVENT::CurrentPositionChanged, hardwarePositionChangeHandler);
             hardwarePositionChangeHandler();
         }
         else
@@ -87,8 +88,6 @@ void MainWindow::setupHardwareDriver()
 
     driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, hardwareConnectionStateChangedHandler);
     driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, hardwareConnectionStateChangedHandler);
-
-    driver.registerHandler(HARDWARE_EVENT::CurrentPositionChanged, hardwarePositionChangeHandler);
 }
 
 void MainWindow::setupWidgets()
@@ -288,4 +287,16 @@ void MainWindow::disableAllAxesButtons()
     {
         button->setEnabled(false);
     }
+}
+
+void MainWindow::on_movementXPositivePushButton_pressed()
+{
+    auto& driver = HardwareDriver::getInstance();
+    driver.moveOffset({{AxisId::X, 10.0}});
+}
+
+void MainWindow::on_movementXNegativePushButton_pressed()
+{
+    auto& driver = HardwareDriver::getInstance();
+    driver.moveOffset({{AxisId::X, -10.0}});
 }

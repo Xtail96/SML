@@ -33,6 +33,11 @@ void Axis::setCurrentPosition(double absPosition)
     emit this->currentPositionChanged();
 }
 
+double Axis::zeroPosition() const
+{
+    return m_zeroPosition;
+}
+
 double Axis::parkPosition() const
 {
     return m_parkPosition;

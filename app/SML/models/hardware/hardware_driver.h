@@ -60,6 +60,11 @@ public:
 
     MotionControllerRepository& getMotionController();
 
+    void moveTo(QMap<AxisId, double> absPos);
+    void moveOffset(QMap<AxisId, double> relPos);
+
+    //void stopMoving();
+
 private:
     QList<QMetaObject::Connection> m_slotsInfo;
 
