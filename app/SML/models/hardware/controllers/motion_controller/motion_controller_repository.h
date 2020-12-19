@@ -1,7 +1,7 @@
 #ifndef MOTIONCONTROLLERREPOSITORY_H
 #define MOTIONCONTROLLERREPOSITORY_H
 
-#include "./axis/axis.h"
+#include "./axis_state.h"
 
 class MotionControllerRepository
 {
@@ -10,13 +10,13 @@ public:
     ~MotionControllerRepository();
 
     bool axisExists(AxisId id);
-    Axis &axis(AxisId id);
+    AxisState &axis(AxisId id);
     void setAxisValue(AxisId id, double value);
-    QList<Axis> axes();
+    QList<AxisState> axes();
 
 private:
     /// Доступные оси станка.
-    QList<Axis> m_axes;
+    QList<AxisState> m_axes;
 
     void addAxis(AxisId id, double initialPosition);
     void removeAxis(AxisId id);

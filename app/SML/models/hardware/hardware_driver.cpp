@@ -108,7 +108,7 @@ void HardwareDriver::moveTo(QMap<AxisId, double> absPos)
     gcode.append("G0");
     for(auto key : absPos.keys())
     {
-        gcode.append(Axis::decorateId(key) + QString::number(absPos.value(key)));
+        gcode.append(AxisState::decorateId(key) + QString::number(absPos.value(key)));
     }
 
     Task t(gcode.join(" "));

@@ -21,7 +21,7 @@ bool MotionControllerRepository::axisExists(AxisId id)
     return false;
 }
 
-Axis& MotionControllerRepository::axis(AxisId id)
+AxisState& MotionControllerRepository::axis(AxisId id)
 {
     for(auto& axis : m_axes)
     {
@@ -29,7 +29,7 @@ Axis& MotionControllerRepository::axis(AxisId id)
             return axis;
     }
 
-    throw std::invalid_argument("unknown axis " + Axis::decorateId(id).toStdString());
+    throw std::invalid_argument("unknown axis " + AxisState::decorateId(id).toStdString());
 }
 
 void MotionControllerRepository::setAxisValue(AxisId id, double value)
@@ -37,9 +37,9 @@ void MotionControllerRepository::setAxisValue(AxisId id, double value)
     this->axis(id).setCurrentPosition(value);
 }
 
-QList<Axis> MotionControllerRepository::axes()
+QList<AxisState> MotionControllerRepository::axes()
 {
-    QList<Axis> axes = m_axes;
+    QList<AxisState> axes = m_axes;
     std::sort(axes.begin(), axes.end());
     return axes;
 }
@@ -48,11 +48,11 @@ void MotionControllerRepository::addAxis(AxisId id, double initialPosition)
 {
     if(this->axisExists(id))
     {
-        qWarning() << "Axis" << Axis::decorateId(id) << "is already exists. Ignored.";
+        qWarning() << "Axis" << AxisState::decorateId(id) << "is already exists. Ignored.";
         return;
     }
 
-    m_axes.append(Axis(id, initialPosition));
+    m_axes.append(AxisState(id, initialPosition));
 }
 
 void MotionControllerRepository::removeAxis(AxisId id)

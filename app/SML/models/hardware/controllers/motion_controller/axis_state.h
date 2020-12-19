@@ -1,5 +1,5 @@
-#ifndef AXIS_H
-#define AXIS_H
+#ifndef AXISSTATE_H
+#define AXISSTATE_H
 
 #include <QString>
 #include <QObject>
@@ -9,12 +9,11 @@ enum AxisId {
     X, Y, Z, A, B, C, U, V, W
 };
 
-class Axis
+class AxisState
 {
 public:
-    Axis(AxisId id,
-                  double initialPosition);
-    ~Axis();
+    AxisState(AxisId id, double currentPosition);
+    ~AxisState();
 
     double currentPositionFromBase() const;
     double currentPositionFromZero() const;
@@ -33,12 +32,12 @@ public:
     static QString decorateId(AxisId id);
     static AxisId idFromStr(QString value);
 
-    bool operator==(const Axis& other) const;
-    bool operator!=(const Axis& other) const;
-    bool operator>=(const Axis& other) const;
-    bool operator<=(const Axis& other) const;
-    bool operator>(const Axis& other) const;
-    bool operator<(const Axis& other) const;
+    bool operator==(const AxisState& other) const;
+    bool operator!=(const AxisState& other) const;
+    bool operator>=(const AxisState& other) const;
+    bool operator<=(const AxisState& other) const;
+    bool operator>(const AxisState& other) const;
+    bool operator<(const AxisState& other) const;
 
     static bool isEqual(double pos1, double pos2);
 
@@ -51,4 +50,4 @@ private:
     static double decoratePosition(double pos);
 };
 
-#endif // AXIS_H
+#endif // AXISSTATE_H

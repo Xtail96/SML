@@ -1,76 +1,76 @@
-#include "axis.h"
+#include "axis_state.h"
 
-Axis::Axis(AxisId id, double initialPosition) :
+AxisState::AxisState(AxisId id, double currentPosition) :
     m_id(id),
     m_currentPosition(0.0),
     m_zeroPosition(0.0),
     m_parkPosition(0.0)
 {
-    this->setCurrentPosition(initialPosition);
+    this->setCurrentPosition(currentPosition);
     this->setZeroPosition(0.0);
     this->setParkPosition(0.0);
 }
 
-Axis::~Axis()
+AxisState::~AxisState()
 {
 }
 
-double Axis::currentPositionFromBase() const
+double AxisState::currentPositionFromBase() const
 {
     return m_currentPosition;
 }
 
-double Axis::currentPositionFromZero() const
+double AxisState::currentPositionFromZero() const
 {
     return m_currentPosition - m_zeroPosition;
 }
 
-void Axis::setCurrentPosition(double absPosition)
+void AxisState::setCurrentPosition(double absPosition)
 {
-    if(Axis::isEqual(m_currentPosition, absPosition)) return;
-    m_currentPosition = Axis::decoratePosition(absPosition);
+    if(AxisState::isEqual(m_currentPosition, absPosition)) return;
+    m_currentPosition = AxisState::decoratePosition(absPosition);
 }
 
-double Axis::zeroPosition() const
+double AxisState::zeroPosition() const
 {
     return m_zeroPosition;
 }
 
-double Axis::parkPosition() const
+double AxisState::parkPosition() const
 {
     return m_parkPosition;
 }
 
-void Axis::setZeroPosition(double zeroPosition)
+void AxisState::setZeroPosition(double zeroPosition)
 {
-    if(Axis::isEqual(m_zeroPosition, zeroPosition)) return;
-    m_zeroPosition = Axis::decoratePosition(zeroPosition);
+    if(AxisState::isEqual(m_zeroPosition, zeroPosition)) return;
+    m_zeroPosition = AxisState::decoratePosition(zeroPosition);
 }
 
-void Axis::setParkPosition(double parkPosition)
+void AxisState::setParkPosition(double parkPosition)
 {
-    if(Axis::isEqual(m_parkPosition, parkPosition)) return;
-    m_parkPosition = Axis::decoratePosition(parkPosition);
+    if(AxisState::isEqual(m_parkPosition, parkPosition)) return;
+    m_parkPosition = AxisState::decoratePosition(parkPosition);
 }
 
-QString Axis::toString() const
+QString AxisState::toString() const
 {
     QString settings = "";
     settings += QString("Идентификатор оси: ") + m_id + QString(".");
     return settings;
 }
 
-AxisId Axis::id() const
+AxisId AxisState::id() const
 {
     return m_id;
 }
 
-QString Axis::decoratedId() const
+QString AxisState::decoratedId() const
 {
-    return Axis::decorateId(m_id);
+    return AxisState::decorateId(m_id);
 }
 
-QString Axis::decorateId(AxisId id)
+QString AxisState::decorateId(AxisId id)
 {
     QString result = "";
     switch (id)
@@ -106,7 +106,7 @@ QString Axis::decorateId(AxisId id)
     return result;
 }
 
-AxisId Axis::idFromStr(QString value)
+AxisId AxisState::idFromStr(QString value)
 {
     value = value.toLower();
 
@@ -123,42 +123,42 @@ AxisId Axis::idFromStr(QString value)
     throw std::invalid_argument("unknown axis " + value.toStdString());
 }
 
-bool Axis::operator==(const Axis &other) const
+bool AxisState::operator==(const AxisState &other) const
 {
     return (m_id == other.id());
 }
 
-bool Axis::operator!=(const Axis &other) const
+bool AxisState::operator!=(const AxisState &other) const
 {
     return (m_id != other.id());
 }
 
-bool Axis::operator >=(const Axis &other) const
+bool AxisState::operator >=(const AxisState &other) const
 {
     return (m_id >= other.id());
 }
 
-bool Axis::operator<=(const Axis &other) const
+bool AxisState::operator<=(const AxisState &other) const
 {
     return (m_id <= other.id());
 }
 
-bool Axis::operator >(const Axis &other) const
+bool AxisState::operator >(const AxisState &other) const
 {
     return (m_id > other.id());
 }
 
-bool Axis::operator<(const Axis &other) const
+bool AxisState::operator<(const AxisState &other) const
 {
     return (m_id < other.id());
 }
 
-double Axis::decoratePosition(double pos)
+double AxisState::decoratePosition(double pos)
 {
     return qRound(pos * 1000.0) / 1000.0;
 }
 
-bool Axis::isEqual(double pos1, double pos2)
+bool AxisState::isEqual(double pos1, double pos2)
 {
     return qRound(pos1 * 1000) == qRound(pos2 * 1000);
 }

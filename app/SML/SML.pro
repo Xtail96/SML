@@ -25,6 +25,7 @@ SOURCES += main.cpp\
     models/hardware/controllers/adapters/adapter_gateway.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
+    models/hardware/controllers/motion_controller/axis_state.cpp \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
     models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
     models/hardware/controllers/registrator.cpp \
@@ -34,7 +35,6 @@ SOURCES += main.cpp\
     models/hardware/controllers/device_controller/sensor/sensor.cpp \
     models/hardware/controllers/device_controller/device/spindel.cpp \
     models/hardware/controllers/device_controller/device/device.cpp \
-    models/hardware/controllers/motion_controller/axis/axis.cpp \
     gui/widgets/gcodes_editor_widget.cpp \
     gui/widgets/sensors_display_widget.cpp \
     gui/widgets/sml_commands_list_widget.cpp \
@@ -55,6 +55,7 @@ HEADERS  += gui/mainwindow.h \
     models/hardware/controllers/adapters/adapter_gateway.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device_controller.h \
+    models/hardware/controllers/motion_controller/axis_state.h \
     models/hardware/controllers/motion_controller/motion_controller.h \
     models/hardware/controllers/motion_controller/motion_controller_repository.h \
     models/hardware/controllers/registrator.h \
@@ -65,7 +66,6 @@ HEADERS  += gui/mainwindow.h \
     models/hardware/controllers/device_controller/sensor/sensor.h \
     models/hardware/controllers/device_controller/device/spindel.h \
     models/hardware/controllers/device_controller/device/device.h \
-    models/hardware/controllers/motion_controller/axis/axis.h \
     gui/widgets/gcodes_editor_widget.h \
     gui/widgets/sensors_display_widget.h \
     gui/widgets/sml_editor_tree_widget.h \
