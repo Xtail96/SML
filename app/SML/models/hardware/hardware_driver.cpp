@@ -55,32 +55,32 @@ void HardwareDriver::resetSystemSlots()
     m_systemSlotsInfo.clear();
 }
 
-void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
+void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void(HARDWARE_EVENT_DATA)> &handler)
 {
     switch (event) {
     case HARDWARE_EVENT::DeviceControllerConnected:
         m_userSlotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connected, this, [=]() {
-            handler();
+            handler(HARDWARE_EVENT_DATA());
         }));
         break;
     case HARDWARE_EVENT::DeviceControllerDisconnected:
         m_userSlotsInfo.append(QObject::connect(&m_deviceController, &BaseController::disconnected, this, [=]() {
-            handler();
+            handler(HARDWARE_EVENT_DATA());
         }));
         break;
     case HARDWARE_EVENT::MotionControllerConnected:
         m_userSlotsInfo.append(QObject::connect(&m_motionController, &BaseController::connected, this, [=]() {
-            handler();
+            handler(HARDWARE_EVENT_DATA());
         }));
         break;
     case HARDWARE_EVENT::MotionControllerDisconnected:
         m_userSlotsInfo.append(QObject::connect(&m_motionController, &BaseController::disconnected, this, [=]() {
-            handler();
+            handler(HARDWARE_EVENT_DATA());
         }));
         break;
     case HARDWARE_EVENT::CurrentPositionChanged:
         m_userSlotsInfo.append(QObject::connect(&m_motionController, &MotionController::positionChanged, this, [=]() {
-            handler();
+            handler(HARDWARE_EVENT_DATA());
         }));
     default:
         break;

@@ -30,7 +30,7 @@ void MainWindow::setupHardwareDriver()
 {
     auto& driver = HardwareDriver::getInstance();
 
-    auto hardwarePositionChangeHandler = [=]()
+    auto hardwarePositionChangeHandler = [=](HARDWARE_EVENT_DATA)
     {
         auto& driver = HardwareDriver::getInstance();
         ui->currentCoordinatesListWidget->clear();
@@ -57,7 +57,7 @@ void MainWindow::setupHardwareDriver()
 
     };
 
-    auto hardwareConnectionStateChangedHandler = [=]()
+    auto hardwareConnectionStateChangedHandler = [=](HARDWARE_EVENT_DATA)
     {
         auto& driver = HardwareDriver::getInstance();
         bool isConnected = driver.isConnected();
@@ -67,7 +67,7 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is ready");
 
             this->enableUsedAxesButtons();
-            hardwarePositionChangeHandler();
+            hardwarePositionChangeHandler(HARDWARE_EVENT_DATA());
         }
         else
         {

@@ -20,6 +20,11 @@ enum HARDWARE_EVENT {
     CurrentPositionChanged,
 };
 
+struct HARDWARE_EVENT_DATA {
+    HARDWARE_EVENT_DATA(QList<QVariant> params = {}): signalParams(params) {}
+    QList<QVariant> signalParams;
+};
+
 /**
  * @brief Класс драйвер
  *
@@ -55,7 +60,7 @@ public:
 
     bool isConnected() const;
 
-    void registerHandler(HARDWARE_EVENT event, std::function<void()> const& handler);
+    void registerHandler(HARDWARE_EVENT event, const std::function<void(HARDWARE_EVENT_DATA)> &handler);
     void resetHandlers();
 
     MotionControllerRepository& getMotionController();
