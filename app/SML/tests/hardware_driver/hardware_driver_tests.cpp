@@ -8,16 +8,16 @@ void HardwareDriverTests::testAdaptersNotConnected()
 
     // Регистрируем обработчики событий, чтобы проверить, что сигналы подключения не будут испущены.
     auto signalEmitted = false;
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
-    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
-    driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
 
@@ -41,7 +41,7 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersConnected()
 
     // Запускаем адаптеры.
     auto launcher = new AdaptersLauncher(this);
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=](HARDWARE_EVENT_DATA) {
         launcher->startAdapters(false, true);
     });
     launcher->startAdapters(true, false);
@@ -64,7 +64,7 @@ void HardwareDriverTests::testOnlyDeviceAdapterConnected()
 
     // Регистрируем обработчики событий.
     auto signalEmitted = false;
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
 
@@ -93,7 +93,7 @@ void HardwareDriverTests::testOnlyMotionAdapterConnected()
 
     // Регистрируем обработчики событий.
     auto signalEmitted = false;
-    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
 
@@ -122,7 +122,7 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersDisconnected()
 
     // Запускаем адаптеры
     auto launcher = new AdaptersLauncher(this);
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=](HARDWARE_EVENT_DATA) {
         launcher->startAdapters(false, true);
     });
     launcher->startAdapters(true, false);
@@ -160,13 +160,13 @@ void HardwareDriverTests::testOnlyDeviceAdapterDisconnected()
 
     // Регистрируем обработчики событий.
     auto signalEmitted = false;
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
 
     // Запускаем адаптеры.
     auto launcher = new AdaptersLauncher(this);
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=](HARDWARE_EVENT_DATA) {
         launcher->startAdapters(false, true);
     });
     launcher->startAdapters(true, false);
@@ -211,13 +211,13 @@ void HardwareDriverTests::testOnlyMotionAdapterDisconnected()
 
     // Регистрируем обработчики событий.
     auto signalEmitted = false;
-    driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, [&signalEmitted]() mutable {
+    driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, [&signalEmitted](HARDWARE_EVENT_DATA) mutable {
        signalEmitted = true;
     });
 
     // Запускаем адаптеры.
     auto launcher = new AdaptersLauncher(this);
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=]() {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [=](HARDWARE_EVENT_DATA) {
         launcher->startAdapters(false, true);
     });
     launcher->startAdapters(true, false);
@@ -263,7 +263,7 @@ void HardwareDriverTests::testRegisterHandler()
 
     // Регистрируем обработчик.
     bool connected = false;
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected]() mutable -> void {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected](HARDWARE_EVENT_DATA) mutable -> void {
         connected = true;
     });
 
@@ -288,10 +288,10 @@ void HardwareDriverTests::testResetHandlers()
 
     // Регистрируем обработчики.
     bool connected = false;
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected]() mutable -> void {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerConnected, [&connected](HARDWARE_EVENT_DATA) mutable -> void {
         connected = true;
     });
-    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&connected]() mutable -> void {
+    driver.registerHandler(HARDWARE_EVENT::DeviceControllerDisconnected, [&connected](HARDWARE_EVENT_DATA) mutable -> void {
         connected = false;
     });
 
