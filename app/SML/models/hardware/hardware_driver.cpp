@@ -2,13 +2,14 @@
 
 HardwareDriver::HardwareDriver(QObject *parent) :
     QObject(parent),
-    m_slotsInfo(QList<QMetaObject::Connection>()),
+    m_systemSlotsInfo(QList<QMetaObject::Connection>()),
+    m_userSlotsInfo(QList<QMetaObject::Connection>()),
     m_adapterServer(this),
     m_motionController(this),
     m_deviceController(this),
     m_adapterRegistrator(&m_motionController, &m_deviceController, this)
 {
-    this->setupSlots();
+    this->setupSystemSlots();
 
     SettingsManager s;
     quint16 port = quint16(s.get("AdapterServer", "Port").toInt());
@@ -17,7 +18,8 @@ HardwareDriver::HardwareDriver(QObject *parent) :
 
 HardwareDriver::~HardwareDriver()
 {
-    this->resetSlots();
+    this->resetSystemSlots();
+    this->resetHandlers();
 }
 
 bool HardwareDriver::isConnected() const
@@ -35,51 +37,51 @@ HardwareDriver &HardwareDriver::getInstance()
     return *m_instance;
 }
 
-void HardwareDriver::setupSlots()
+void HardwareDriver::setupSystemSlots()
 {
-    this->resetSlots();
+    this->resetSystemSlots();
 
-    m_slotsInfo.append(QObject::connect(&m_adapterServer, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
+    m_systemSlotsInfo.append(QObject::connect(&m_adapterServer, &AdapterGateway::newConnection, this, [=](QWebSocket* client) {
         m_adapterRegistrator.addClient(client, QtJson::JsonObject());
     }));
 }
 
-void HardwareDriver::resetSlots()
+void HardwareDriver::resetSystemSlots()
 {
-    for(auto& slotInfo : m_slotsInfo)
+    for(auto& slotInfo : m_systemSlotsInfo)
     {
         QObject::disconnect(slotInfo);
     }
-    m_slotsInfo.clear();
+    m_systemSlotsInfo.clear();
 }
 
 void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<void()> &handler)
 {
     switch (event) {
     case HARDWARE_EVENT::DeviceControllerConnected:
-        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connected, this, [=]() {
+        m_userSlotsInfo.append(QObject::connect(&m_deviceController, &BaseController::connected, this, [=]() {
             handler();
         }));
         break;
     case HARDWARE_EVENT::DeviceControllerDisconnected:
-        m_slotsInfo.append(QObject::connect(&m_deviceController, &BaseController::disconnected, this, [=]() {
+        m_userSlotsInfo.append(QObject::connect(&m_deviceController, &BaseController::disconnected, this, [=]() {
             handler();
         }));
         break;
     case HARDWARE_EVENT::MotionControllerConnected:
-        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::connected, this, [=]() {
+        m_userSlotsInfo.append(QObject::connect(&m_motionController, &BaseController::connected, this, [=]() {
             handler();
         }));
         break;
     case HARDWARE_EVENT::MotionControllerDisconnected:
-        m_slotsInfo.append(QObject::connect(&m_motionController, &BaseController::disconnected, this, [=]() {
+        m_userSlotsInfo.append(QObject::connect(&m_motionController, &BaseController::disconnected, this, [=]() {
             handler();
         }));
         break;
     case HARDWARE_EVENT::CurrentPositionChanged:
     {
         for(auto axis : m_motionController.m_repository.axes())
-            m_slotsInfo.append(QObject::connect(axis, &Axis::currentPositionChanged, this, [=]() {
+            m_userSlotsInfo.append(QObject::connect(axis, &Axis::currentPositionChanged, this, [=]() {
                 handler();
             }));
         break;
@@ -91,8 +93,11 @@ void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<v
 
 void HardwareDriver::resetHandlers()
 {
-    this->resetSlots();
-    this->setupSlots();
+    for(auto& slotInfo : m_userSlotsInfo)
+    {
+        QObject::disconnect(slotInfo);
+    }
+    m_systemSlotsInfo.clear();
 }
 
 MotionControllerRepository &HardwareDriver::getMotionController()

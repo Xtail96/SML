@@ -66,7 +66,8 @@ public:
     //void stopMoving();
 
 private:
-    QList<QMetaObject::Connection> m_slotsInfo;
+    QList<QMetaObject::Connection> m_systemSlotsInfo;
+    QList<QMetaObject::Connection> m_userSlotsInfo;
 
     /// Сервер для подключения адаптеров
     AdapterGateway m_adapterServer;
@@ -93,12 +94,12 @@ private:
     /**
      * @brief Подключет слоты к сигналам полей класса
      */
-    void setupSlots();
+    void setupSystemSlots();
 
     /**
      * @brief Отключает слоты от сигналов полей класса
      */
-    void resetSlots();
+    void resetSystemSlots();
 
 signals:
 
