@@ -29,6 +29,34 @@ MainWindow::~MainWindow()
 void MainWindow::setupHardwareDriver()
 {
     auto& driver = HardwareDriver::getInstance();
+
+    auto hardwarePositionChangeHandler = [=]()
+    {
+        auto& driver = HardwareDriver::getInstance();
+        ui->currentCoordinatesListWidget->clear();
+        ui->baseCoordinatesListWidget->clear();
+        ui->parkCoordinatesListWidget->clear();
+
+        if(!driver.isConnected()) return;
+
+        auto axes = driver.getMotionController().axes();
+        QStringList currentCoordinatesFromZero = {};
+        QStringList currentCoordinatesFromBase = {};
+        QStringList parkCoordinates = {};
+        for(auto axis : axes)
+        {
+            currentCoordinatesFromZero.append(axis->decoratedId() + ": "
+                                            + QString::number(axis->currentPositionFromZero(), 'f', 3));
+            currentCoordinatesFromBase.append(axis->decoratedId() + ": "
+                                            + QString::number(axis->currentPositionFromBase(), 'f', 3));
+            parkCoordinates.append(axis->decoratedId() + ": " + QString::number(axis->parkPosition(), 'f', 3));
+        }
+        ui->currentCoordinatesListWidget->addItems(currentCoordinatesFromZero);
+        ui->baseCoordinatesListWidget->addItems(currentCoordinatesFromBase);
+        ui->parkCoordinatesListWidget->addItems(parkCoordinates);
+
+    };
+
     auto hardwareConnectionStateChangedHandler = [=]()
     {
         auto& driver = HardwareDriver::getInstance();
@@ -39,22 +67,7 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is ready");
 
             this->enableUsedAxesButtons();
-
-            auto axes = driver.getMotionController().axes();
-            QStringList currentCoordinatesFromZero = {};
-            QStringList currentCoordinatesFromBase = {};
-            QStringList parkCoordinates = {};
-            for(auto axis : axes)
-            {
-                currentCoordinatesFromZero.append(axis->decoratedId() + ": "
-                                                + QString::number(axis->currentPositionFromZero(), 'f', 3));
-                currentCoordinatesFromBase.append(axis->decoratedId() + ": "
-                                                + QString::number(axis->currentPositionFromBase(), 'f', 3));
-                parkCoordinates.append(axis->decoratedId() + ": " + QString::number(axis->parkPosition(), 'f', 3));
-            }
-            ui->currentCoordinatesListWidget->addItems(currentCoordinatesFromZero);
-            ui->baseCoordinatesListWidget->addItems(currentCoordinatesFromBase);
-            ui->parkCoordinatesListWidget->addItems(parkCoordinates);
+            hardwarePositionChangeHandler();
         }
         else
         {
@@ -74,6 +87,8 @@ void MainWindow::setupHardwareDriver()
 
     driver.registerHandler(HARDWARE_EVENT::MotionControllerConnected, hardwareConnectionStateChangedHandler);
     driver.registerHandler(HARDWARE_EVENT::MotionControllerDisconnected, hardwareConnectionStateChangedHandler);
+
+    driver.registerHandler(HARDWARE_EVENT::CurrentPositionChanged, hardwarePositionChangeHandler);
 }
 
 void MainWindow::setupWidgets()
