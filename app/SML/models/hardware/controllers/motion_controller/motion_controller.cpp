@@ -59,7 +59,7 @@ void MotionController::setup(QtJson::JsonObject initialState)
     for(auto axis : axes)
     {
         QtJson::JsonObject axisObject = axis.toMap();
-        AxisId id = AxisState::idFromStr(axisObject["id"].toString());
+        Axis::Id id = Axis::idFromStr(axisObject["id"].toString());
         double value = axisObject["position"].toDouble();
 
         if(m_repository.axisExists(id)) continue;
@@ -82,11 +82,11 @@ void MotionController::newMessageHandler(QtJson::JsonObject msg)
     for(auto axis : axes)
     {
         QtJson::JsonObject axisObject = axis.toMap();
-        AxisId id = AxisState::idFromStr(axisObject["id"].toString());
+        Axis::Id id = Axis::idFromStr(axisObject["id"].toString());
         double value = axisObject["position"].toDouble();
 
         if(!m_repository.axisExists(id)) { qWarning() << "Unknown axis" << id; continue; }
-        if(AxisState::isEqual(m_repository.axis(id).currentPositionFromBase(), value)) continue;
+        if(Axis::State::isEqual(m_repository.axis(id).currentPositionFromBase(), value)) continue;
 
         m_repository.axis(id).setCurrentPosition(value);
         positionChanged = true;

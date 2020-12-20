@@ -29,7 +29,7 @@ SOURCES += \
     models/hardware/controllers/device_controller/device/support_device.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
     models/hardware/controllers/device_controller/sensor/sensor.cpp \
-    models/hardware/controllers/motion_controller/axis_state.cpp \
+    models/hardware/controllers/motion_controller/axis.cpp \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
     models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
     models/hardware/controllers/registrator.cpp \
@@ -59,7 +59,7 @@ HEADERS += \
     models/hardware/controllers/device_controller/device/support_device.h \
     models/hardware/controllers/device_controller/device_controller.h \
     models/hardware/controllers/device_controller/sensor/sensor.h \
-    models/hardware/controllers/motion_controller/axis_state.h \
+    models/hardware/controllers/motion_controller/axis.h \
     models/hardware/controllers/motion_controller/motion_controller.h \
     models/hardware/controllers/motion_controller/motion_controller_repository.h \
     models/hardware/controllers/registrator.h \

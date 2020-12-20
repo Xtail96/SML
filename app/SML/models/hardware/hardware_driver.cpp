@@ -101,23 +101,23 @@ MotionControllerRepository &HardwareDriver::getMotionController()
     return m_motionController.m_repository;
 }
 
-void HardwareDriver::moveTo(QMap<AxisId, double> absPos)
+void HardwareDriver::moveTo(QMap<Axis::Id, double> absPos)
 {
     QStringList gcode = {};
 
     gcode.append("G0");
     for(auto key : absPos.keys())
     {
-        gcode.append(AxisState::decorateId(key) + QString::number(absPos.value(key)));
+        gcode.append(Axis::decorateId(key) + QString::number(absPos.value(key)));
     }
 
     Task t(gcode.join(" "));
     m_motionController.processTask(t);
 }
 
-void HardwareDriver::moveOffset(QMap<AxisId, double> relPos)
+void HardwareDriver::moveOffset(QMap<Axis::Id, double> relPos)
 {
-    QMap<AxisId, double> absPos = {};
+    QMap<Axis::Id, double> absPos = {};
     for(auto key : relPos.keys())
     {
         if(!m_motionController.m_repository.axisExists(key)) continue;

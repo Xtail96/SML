@@ -65,8 +65,8 @@ public:
 
     MotionControllerRepository& getMotionController();
 
-    void moveTo(QMap<AxisId, double> absPos);
-    void moveOffset(QMap<AxisId, double> relPos);
+    void moveTo(QMap<Axis::Id, double> absPos);
+    void moveOffset(QMap<Axis::Id, double> relPos);
 
     //void stopMoving();
 
