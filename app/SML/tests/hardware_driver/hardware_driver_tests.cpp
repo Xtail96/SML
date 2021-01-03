@@ -314,3 +314,61 @@ void HardwareDriverTests::testResetHandlers()
     // Проверяем, что первый обработчик сработал, а второй - нет.
     QCOMPARE(connected, true);
 }
+
+void HardwareDriverTests::testMove()
+{
+    HardwareDriver& driver = HardwareDriver::getInstance();
+
+    // Запускаем адаптеры.
+    auto launcher = new AdaptersLauncher(this);
+    launcher->startAdapters();
+
+    // Ждем некоторое время, чтобы адаптеры успели запуститься и подключиться.
+    QTest::qWait(5000);
+
+    // Получаем начальное состояние осей.
+    QList<Axis::State> intialAxesState = driver.getMotionController().axes();
+
+    // Если осей нет, то завершаем тест с ошибкой, т.к. нет осей для перемещения.
+    if(intialAxesState.length() <= 0)
+    {
+        // Чистим за собой.
+        driver.resetHandlers();
+        launcher->stopAdapters();
+        QCOMPARE(true, false);
+    }
+
+    // Получаем состояние первой оси из списка.
+    Axis::State firstAxisState = intialAxesState.first();
+
+    // Формируем задание на перемещение.
+    QMap<Axis::Id, double> task = {
+        { firstAxisState.id(), firstAxisState.currentPositionFromBase() + 10 }
+    };
+
+    // Формируем ожидаемый результат после перемещения.
+    QList<Axis::State> expectedAxesState = intialAxesState;
+    expectedAxesState.first().setCurrentPosition(firstAxisState.currentPositionFromBase() + 10);
+
+    // Выполняем перемещение.
+    driver.moveTo(task);
+
+    // Ждем некоторое время, чтобы перемещение успело выполниться.
+    QTest::qWait(5000);
+
+    // Получаем актуальное состояние осей после перемещения.
+    QList<Axis::State> actualAxisState = driver.getMotionController().axes();
+
+    // Чистим за собой и останавливаем адаптеры.
+    driver.resetHandlers();
+    launcher->stopAdapters();
+
+    // Проеряем, что число осей до и после перемещения совпадает.
+    QCOMPARE(actualAxisState.length(), expectedAxesState.length());
+
+    // Проверяем, что состояние каждой оси после перемщения соответствует ожидаемому значению.
+    for(int i = 0; i < expectedAxesState.length(); i++)
+    {
+        QCOMPARE(actualAxisState[i].currentPositionFromBase(), expectedAxesState[i].currentPositionFromBase());
+    }
+}

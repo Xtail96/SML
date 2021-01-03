@@ -12,7 +12,6 @@ public:
     explicit HardwareDriverTests(QObject *parent = nullptr);
 
 private slots:
-
     void testAdaptersNotConnected();
 
     void testDeviceAndMotionAdaptersConnected();
@@ -31,6 +30,7 @@ private slots:
 
     void testResetHandlers();
 
+    void testMove();
 };
 
 #endif // HARDWAREDRIVERTESTS_H
