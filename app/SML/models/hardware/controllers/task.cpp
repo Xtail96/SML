@@ -60,17 +60,21 @@ QMap<QString, QVariant> Task::blockAxesArgs(int index)
 QString Task::blockFeedrate(int index)
 {
     gpr::block block = m_gcode.get_block(index);
-    return this->chunkExists(block, GCODE_FEEDRATE_KEY)
-            ? QString(block.begin()->get_word()) + Task::strAddr(block.begin()->get_address())
-            : "";
+    if(!this->chunkExists(block, GCODE_FEEDRATE_KEY)) return "";
+
+    gpr::chunk chunk = this->getChunk(block, GCODE_FEEDRATE_KEY);
+
+    return QString(chunk.get_word()) + Task::strAddr(chunk.get_address());
 }
 
 QString Task::blockMCode(int index)
 {
     gpr::block block = m_gcode.get_block(index);
-    return this->chunkExists(block, MCODE_KEY)
-            ? QString(block.begin()->get_word()) + Task::strAddr(block.begin()->get_address())
-            : "";
+    if(!this->chunkExists(block, MCODE_KEY)) return "";
+
+    gpr::chunk chunk = this->getChunk(block, MCODE_KEY);
+
+    return QString(chunk.get_word()) + Task::strAddr(chunk.get_address());
 }
 
 void Task::removeEmptyBlocks()

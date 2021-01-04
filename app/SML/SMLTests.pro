@@ -38,10 +38,10 @@ SOURCES += \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/settings_manager/settings_manager.cpp \
     tests/base_test.cpp \
-    tests/hardware_driver/hardware_driver_tests.cpp \
+    tests/hardware_driver_tests.cpp \
     tests/task_tests.cpp \
     tests_main.cpp \
-    tests/sensor/sensor_tests.cpp
+    tests/sensor_tests.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -69,6 +69,6 @@ HEADERS += \
     models/services/adapters/launcher/adapters_launcher.h \
     models/settings_manager/settings_manager.h \
     tests/base_test.h \
-    tests/hardware_driver/hardware_driver_tests.h \
-    tests/sensor/sensor_tests.h \
+    tests/hardware_driver_tests.h \
+    tests/sensor_tests.h \
     tests/task_tests.h

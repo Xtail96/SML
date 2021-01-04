@@ -1,8 +1,8 @@
 #ifndef SENSORTESTS_H
 #define SENSORTESTS_H
 
-#include "../base_test.h"
-#include "../../models/hardware/controllers/device_controller/sensor/sensor.h"
+#include "./base_test.h"
+#include "../models/hardware/controllers/device_controller/sensor/sensor.h"
 
 class SensorTests : public BaseTest
 {

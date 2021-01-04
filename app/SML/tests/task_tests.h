@@ -2,7 +2,6 @@
 #define TASKTESTS_H
 
 #include "./base_test.h"
-
 #include "./models/hardware/controllers/task.h"
 
 class TaskTests : public BaseTest
@@ -30,18 +29,13 @@ private slots:
 
     void testGetBlockAxesArgs();
 
-    void testGetBlockFeedrate();
+    void testGetBlockFeedratePositive();
 
-    //void testOneLineGCodeParsing();
+    void testGetBlockFeedrateNegative();
 
-    //void testMultilineGCodeParsing();
+    void testGetBlockMCodePositive();
 
-    //void testFullGCodeBlockParsing();
-
-    //void testOneAxisGcodeBlockParsing();
-
-
-
+    void testGetBlockMCodeNegative();
 };
 
 #endif // TASKTESTS_H

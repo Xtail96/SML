@@ -226,7 +226,6 @@ void HardwareDriverTests::testOnlyMotionAdapterDisconnected()
     QTest::qWait(5000);
 
     // Проверяем, что адаптеры успешно подключились.
-    // Проверяем, что адаптеры успешно подключились.
     if(!driver.isConnected())
     {
         // Чистим за собой.
@@ -305,7 +304,7 @@ void HardwareDriverTests::testResetHandlers()
     // Отключаем обработчики.
     driver.resetHandlers();
 
-    // Создваем условие, чтобы второй обработчик сработал, если бы не был отключен.
+    // Создаем условие, чтобы второй обработчик сработал, если бы не был отключен.
     launcher->stopAdapters();
 
     // Чистим за собой.
@@ -324,10 +323,19 @@ void HardwareDriverTests::testMove()
     launcher->startAdapters();
 
     // Ждем некоторое время, чтобы адаптеры успели запуститься и подключиться.
-    QTest::qWait(5000);
+    QTest::qWait(30000);
 
     // Получаем начальное состояние осей.
     QList<Axis::State> intialAxesState = driver.getMotionController().axes();
+
+    // Если адаптеры так и не подключились, завершаем тест с ошибкой.
+    if(!driver.isConnected())
+    {
+        // Чистим за собой.
+        driver.resetHandlers();
+        launcher->stopAdapters();
+        QCOMPARE(true, false);
+    }
 
     // Если осей нет, то завершаем тест с ошибкой, т.к. нет осей для перемещения.
     if(intialAxesState.length() <= 0)

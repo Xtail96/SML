@@ -111,12 +111,42 @@ void TaskTests::testGetBlockAxesArgs()
     }
 }
 
-void TaskTests::testGetBlockFeedrate()
+void TaskTests::testGetBlockFeedratePositive()
 {
     QString input = "G1 X10.0 Y100.5 Z0.0 A0.0 B0.0 F300 M1";
     Task t(input);
 
     QString expected = "F300";
     QString actual = t.blockFeedrate(0);
+    QCOMPARE(actual, expected);
+}
+
+void TaskTests::testGetBlockFeedrateNegative()
+{
+    QString input = "G1 X10.0 Y100.5 Z0.0";
+    Task t(input);
+
+    QString expected = "";
+    QString actual = t.blockFeedrate(0);
+    QCOMPARE(actual, expected);
+}
+
+void TaskTests::testGetBlockMCodePositive()
+{
+    QString input = "G1 X10.0 Y100.5 Z0.0 A0.0 B0.0 F300 M1";
+    Task t(input);
+
+    QString expected = "M1";
+    QString actual = t.blockMCode(0);
+    QCOMPARE(actual, expected);
+}
+
+void TaskTests::testGetBlockMCodeNegative()
+{
+    QString input = "G1 X10.0 Y100.5 Z0.0";
+    Task t(input);
+
+    QString expected = "";
+    QString actual = t.blockMCode(0);
     QCOMPARE(actual, expected);
 }
