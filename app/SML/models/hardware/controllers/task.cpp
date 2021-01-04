@@ -11,11 +11,10 @@ QString Task::serialize()
     QStringList result = {};
     for(int i = 0; i < m_gcode.num_blocks(); i++)
     {
-        gpr::block block = m_gcode.get_block(i);
-        result.append(QString::fromStdString(block.to_string()));
+        result.append(this->block(i));
     }
 
-    return result.join("/n");
+    return result.join("\n");
 }
 
 int Task::blocksCount() const
@@ -25,15 +24,19 @@ int Task::blocksCount() const
 
 QString Task::block(int index)
 {
-    return QString::fromStdString(m_gcode.get_block(index).to_string());
+    QString serializedBlock = QString::fromStdString(m_gcode.get_block(index).to_string());;
+    serializedBlock = serializedBlock.remove(serializedBlock.length() - 1, 1);
+    return serializedBlock;
 }
 
 QString Task::blockId(int index)
 {
     gpr::block block = m_gcode.get_block(index);
-    return this->chunkExists(block, GCODE_ID_KEY)
-            ? QString(block.begin()->get_word()) + Task::strAddr(block.begin()->get_address())
-            : "";
+    if(!this->chunkExists(block, GCODE_ID_KEY)) return "";
+
+    gpr::chunk chunk = this->getChunk(block, GCODE_ID_KEY);
+
+    return QString(chunk.get_word()) + Task::strAddr(chunk.get_address());
 }
 
 QMap<QString, QVariant> Task::blockAxesArgs(int index)

@@ -39,6 +39,7 @@ SOURCES += \
     models/settings_manager/settings_manager.cpp \
     tests/base_test.cpp \
     tests/hardware_driver/hardware_driver_tests.cpp \
+    tests/task_tests.cpp \
     tests_main.cpp \
     tests/sensor/sensor_tests.cpp
 
@@ -69,4 +70,5 @@ HEADERS += \
     models/settings_manager/settings_manager.h \
     tests/base_test.h \
     tests/hardware_driver/hardware_driver_tests.h \
-    tests/sensor/sensor_tests.h
+    tests/sensor/sensor_tests.h \
+    tests/task_tests.h
