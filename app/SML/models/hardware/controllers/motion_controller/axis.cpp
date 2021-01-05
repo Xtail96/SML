@@ -27,7 +27,7 @@ double Axis::State::currentPositionFromZero() const
 
 void Axis::State::setCurrentPosition(double absPosition)
 {
-    if(Axis::State::isEqual(m_currentPosition, absPosition)) return;
+    if(Axis::State::isPosEqual(m_currentPosition, absPosition)) return;
     m_currentPosition = Axis::State::decoratePosition(absPosition);
 }
 
@@ -43,13 +43,13 @@ double Axis::State::parkPosition() const
 
 void Axis::State::setZeroPosition(double zeroPosition)
 {
-    if(Axis::State::isEqual(m_zeroPosition, zeroPosition)) return;
+    if(Axis::State::isPosEqual(m_zeroPosition, zeroPosition)) return;
     m_zeroPosition = Axis::State::decoratePosition(zeroPosition);
 }
 
 void Axis::State::setParkPosition(double parkPosition)
 {
-    if(Axis::State::isEqual(m_parkPosition, parkPosition)) return;
+    if(Axis::State::isPosEqual(m_parkPosition, parkPosition)) return;
     m_parkPosition = Axis::State::decoratePosition(parkPosition);
 }
 
@@ -158,7 +158,7 @@ double Axis::State::decoratePosition(double pos)
     return qRound(pos * 1000.0) / 1000.0;
 }
 
-bool Axis::State::isEqual(double pos1, double pos2)
+bool Axis::State::isPosEqual(double pos1, double pos2)
 {
     return qRound(pos1 * 1000) == qRound(pos2 * 1000);
 }

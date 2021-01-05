@@ -39,7 +39,7 @@ namespace Axis {
         bool operator>(const State& other) const;
         bool operator<(const State& other) const;
 
-        static bool isEqual(double pos1, double pos2);
+        static bool isPosEqual(double pos1, double pos2);
 
     private:
         Id m_id;
