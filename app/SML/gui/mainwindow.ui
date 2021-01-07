@@ -163,79 +163,6 @@
            <property name="bottomMargin">
             <number>5</number>
            </property>
-           <item row="0" column="0">
-            <widget class="QToolButton" name="newFileToolButton">
-             <property name="toolTip">
-              <string>Новый файл</string>
-             </property>
-             <property name="text">
-              <string>Новый файл</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QToolButton" name="saveFileToolButton">
-             <property name="toolTip">
-              <string>Сохранить файл</string>
-             </property>
-             <property name="text">
-              <string>Сохранить файл</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QToolButton" name="openFileToolButton">
-             <property name="toolTip">
-              <string>Открыть файл</string>
-             </property>
-             <property name="text">
-              <string>Открыть файл</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resources/images.qrc">
-               <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="6">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>228</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item row="0" column="3">
             <widget class="QToolButton" name="saveFileAsToolButton">
              <property name="toolTip">
@@ -276,7 +203,20 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="5">
+           <item row="0" column="8">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>228</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="6">
             <widget class="QToolButton" name="viewToolButton">
              <property name="toolTip">
               <string>Просмотр</string>
@@ -293,6 +233,100 @@
                <width>24</width>
                <height>24</height>
               </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QToolButton" name="openFileToolButton">
+             <property name="toolTip">
+              <string>Открыть файл</string>
+             </property>
+             <property name="text">
+              <string>Открыть файл</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/open.png</normaloff>:/aist/images/aist/open.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>24</width>
+               <height>24</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QToolButton" name="saveFileToolButton">
+             <property name="toolTip">
+              <string>Сохранить файл</string>
+             </property>
+             <property name="text">
+              <string>Сохранить файл</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/save.png</normaloff>:/aist/images/aist/save.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>24</width>
+               <height>24</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QToolButton" name="newFileToolButton">
+             <property name="toolTip">
+              <string>Новый файл</string>
+             </property>
+             <property name="text">
+              <string>Новый файл</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/file.png</normaloff>:/aist/images/aist/file.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>24</width>
+               <height>24</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QToolButton" name="timerToolButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>Время выполнения</string>
+             </property>
+             <property name="text">
+              <string>Время выполнения</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/images.qrc">
+               <normaloff>:/aist/images/aist/timer.png</normaloff>:/aist/images/aist/timer.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>24</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string>F11</string>
              </property>
             </widget>
            </item>
@@ -1175,8 +1209,42 @@
                  <property name="bottomMargin">
                   <number>5</number>
                  </property>
-                 <item row="1" column="0">
-                  <widget class="QPushButton" name="movementXNegativePushButton">
+                 <item row="0" column="0">
+                  <widget class="QPushButton" name="movementXNegativeYPositivePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="resources/images.qrc">
+                     <normaloff>:/arrows/images/arrows/ArrowLeftUp.png</normaloff>:/arrows/images/arrows/ArrowLeftUp.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>32</width>
+                     <height>32</height>
+                    </size>
+                   </property>
+                   <property name="shortcut">
+                    <string>Q</string>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QPushButton" name="movementYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1189,11 +1257,11 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>X -</string>
+                    <string>Y -</string>
                    </property>
                    <property name="icon">
                     <iconset resource="resources/images.qrc">
-                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
+                     <normaloff>:/arrows/images/arrows/ArrowDown.png</normaloff>:/arrows/images/arrows/ArrowDown.png</iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -1202,7 +1270,7 @@
                     </size>
                    </property>
                    <property name="shortcut">
-                    <string>A</string>
+                    <string>S</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1242,6 +1310,46 @@
                     <bool>true</bool>
                    </property>
                    <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QPushButton" name="movementXPositiveYPositivePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="resources/images.qrc">
+                     <normaloff>:/arrows/images/arrows/ArrowRightUp.png</normaloff>:/arrows/images/arrows/ArrowRightUp.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>32</width>
+                     <height>32</height>
+                    </size>
+                   </property>
+                   <property name="shortcut">
+                    <string>E</string>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
+                   <property name="autoDefault">
+                    <bool>false</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                   <property name="flat">
                     <bool>false</bool>
                    </property>
                   </widget>
@@ -1293,40 +1401,6 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="0">
-                  <widget class="QPushButton" name="movementXNegativeYPositivePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/images.qrc">
-                     <normaloff>:/arrows/images/arrows/ArrowLeftUp.png</normaloff>:/arrows/images/arrows/ArrowLeftUp.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Q</string>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="0" column="1">
                   <widget class="QPushButton" name="movementYPositivePushButton">
                    <property name="sizePolicy">
@@ -1360,83 +1434,6 @@
                     <bool>true</bool>
                    </property>
                    <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QPushButton" name="movementYNegativePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Y -</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/images.qrc">
-                     <normaloff>:/arrows/images/arrows/ArrowDown.png</normaloff>:/arrows/images/arrows/ArrowDown.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>S</string>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QPushButton" name="movementXPositiveYPositivePushButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resources/images.qrc">
-                     <normaloff>:/arrows/images/arrows/ArrowRightUp.png</normaloff>:/arrows/images/arrows/ArrowRightUp.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>E</string>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>true</bool>
-                   </property>
-                   <property name="autoDefault">
-                    <bool>false</bool>
-                   </property>
-                   <property name="default">
-                    <bool>false</bool>
-                   </property>
-                   <property name="flat">
                     <bool>false</bool>
                    </property>
                   </widget>
@@ -1496,6 +1493,43 @@
                    </property>
                    <property name="autoRepeatInterval">
                     <number>100</number>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QPushButton" name="movementXNegativePushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>1</horstretch>
+                     <verstretch>1</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>X -</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="resources/images.qrc">
+                     <normaloff>:/arrows/images/arrows/ArrowLeft.png</normaloff>:/arrows/images/arrows/ArrowLeft.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>32</width>
+                     <height>32</height>
+                    </size>
+                   </property>
+                   <property name="shortcut">
+                    <string>A</string>
+                   </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
                    </property>
                    <property name="default">
                     <bool>false</bool>
@@ -2540,37 +2574,6 @@
                 </property>
                 <property name="flat">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="timerPushButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Время выполнения</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="resources/images.qrc">
-                  <normaloff>:/aist/images/aist/timer.png</normaloff>:/aist/images/aist/timer.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="shortcut">
-                 <string>F11</string>
                 </property>
                </widget>
               </item>
