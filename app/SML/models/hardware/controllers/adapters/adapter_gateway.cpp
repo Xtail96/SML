@@ -4,9 +4,7 @@ AdapterGateway::AdapterGateway(QObject *parent) :
     QObject(parent),
     m_server("SMLAdapterGateway", QWebSocketServer::NonSecureMode, this),
     m_port(0),
-    m_slotsInfo(QList<QMetaObject::Connection>())
-{
-}
+    m_slotsInfo(QList<QMetaObject::Connection>()) {}
 
 AdapterGateway::~AdapterGateway()
 {
@@ -16,6 +14,11 @@ AdapterGateway::~AdapterGateway()
 quint16 AdapterGateway::port() const
 {
     return m_port;
+}
+
+bool AdapterGateway::isOpen()
+{
+    return m_server.isListening();
 }
 
 bool AdapterGateway::open(quint16 port)
@@ -32,7 +35,7 @@ bool AdapterGateway::open(quint16 port)
 
     this->setupSlots();
 
-    qInfo() << "Hello! Adapter gateway is available on port" << m_port;
+    qInfo().nospace() << "Hello! Adapter gateway is available on ws://localhost:" << m_port;
     return true;
 }
 

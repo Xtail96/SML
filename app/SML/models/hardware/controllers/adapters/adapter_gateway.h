@@ -27,6 +27,8 @@ public:
     /// Возвращает порт сервера.
     quint16 port() const;
 
+    bool isOpen();
+
 private:
     /// Web-soket сервер.
     QWebSocketServer m_server;

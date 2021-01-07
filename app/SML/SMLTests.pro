@@ -37,6 +37,7 @@ SOURCES += \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/settings_manager/settings_manager.cpp \
+    tests/adapter_gateway_tests.cpp \
     tests/axis_tests.cpp \
     tests/base_test.cpp \
     tests/hardware_driver_tests.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/settings_manager/settings_manager.h \
+    tests/adapter_gateway_tests.h \
     tests/axis_tests.h \
     tests/base_test.h \
     tests/hardware_driver_tests.h \
