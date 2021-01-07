@@ -76,6 +76,8 @@ private:
     void fillSettings();
     void enableUsedAxesButtons();
     void disableAllAxesButtons();
+    void enableAdjustmentActionsButtons();
+    void disableAdjustmentActionsButtons();
 };
 
 

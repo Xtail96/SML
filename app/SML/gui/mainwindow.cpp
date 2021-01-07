@@ -67,6 +67,8 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is ready");
 
             this->enableUsedAxesButtons();
+            this->enableAdjustmentActionsButtons();
+
             hardwarePositionChangeHandler(HARDWARE_EVENT_DATA());
         }
         else
@@ -75,6 +77,7 @@ void MainWindow::setupHardwareDriver()
             ui->statusBar->showMessage("Hardware driver is not ready");
 
             this->disableAllAxesButtons();
+            this->disableAdjustmentActionsButtons();
 
             ui->currentCoordinatesListWidget->clear();
             ui->baseCoordinatesListWidget->clear();
@@ -120,6 +123,7 @@ void MainWindow::setupWidgets()
     ui->settingsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     this->disableAllAxesButtons();
+    this->disableAdjustmentActionsButtons();
 }
 
 void MainWindow::setupSlots()
@@ -288,6 +292,37 @@ void MainWindow::disableAllAxesButtons()
     {
         button->setEnabled(false);
     }
+}
+
+void MainWindow::enableAdjustmentActionsButtons()
+{
+    auto buttons = {
+        ui->toBasePushButton,
+        ui->zeroPushButton,
+        ui->toZeroPushButton,
+        ui->zeroSensorPushButton,
+        ui->parkPushButton,
+        ui->toParkPushButton,
+        ui->runPushButton
+    };
+    for(auto button : buttons)
+        button->setEnabled(true);
+}
+
+void MainWindow::disableAdjustmentActionsButtons()
+{
+    auto buttons = {
+        ui->toBasePushButton,
+        ui->zeroPushButton,
+        ui->toZeroPushButton,
+        ui->zeroSensorPushButton,
+        ui->parkPushButton,
+        ui->toParkPushButton,
+        ui->runPushButton
+    };
+    for(auto button : buttons)
+        button->setEnabled(false);
+
 }
 
 void MainWindow::on_movementXPositivePushButton_pressed()
