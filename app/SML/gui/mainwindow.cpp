@@ -118,7 +118,7 @@ void MainWindow::setupWidgets()
     ui->settingsTableWidget->setColumnCount(1);
     ui->settingsTableWidget->setRowCount(keys.length());
 
-    ui->settingsTableWidget->setHorizontalHeaderLabels({"Current Value"});
+    ui->settingsTableWidget->setHorizontalHeaderLabels({"Значения Настроек"});
     ui->settingsTableWidget->setVerticalHeaderLabels(keys);
     ui->settingsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 

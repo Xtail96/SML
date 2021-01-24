@@ -2892,7 +2892,7 @@
            <item>
             <widget class="QPushButton" name="saveSettingsPushButton">
              <property name="text">
-              <string>Сохранить изменения</string>
+              <string>Применить</string>
              </property>
             </widget>
            </item>
