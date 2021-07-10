@@ -72,6 +72,46 @@ private slots:
 
     void on_movementXNegativePushButton_pressed();
 
+    void on_movementYPositivePushButton_pressed();
+
+    void on_movementYNegativePushButton_pressed();
+
+    void on_movementXNegativeYPositivePushButton_pressed();
+
+    void on_movementXNegativeYNegativePushButton_pressed();
+
+    void on_movementXPositiveYPositivePushButton_pressed();
+
+    void on_movementXPositiveYNegativePushButton_pressed();
+
+    void on_movementZPositivePushButton_pressed();
+
+    void on_movementZNegativePushButton_pressed();
+
+    void on_movementANegativePushButton_pressed();
+
+    void on_movementAPositivePushButton_pressed();
+
+    void on_movementBNegativePushButton_pressed();
+
+    void on_movementBPositivePushButton_pressed();
+
+    void on_movementCNegativePushButton_pressed();
+
+    void on_movementCPositivePushButton_pressed();
+
+    void on_movementUNegativePushButton_pressed();
+
+    void on_movementUPositivePushButton_pressed();
+
+    void on_movementVNegativePushButton_pressed();
+
+    void on_movementVPositivePushButton_pressed();
+
+    void on_movementWNegativePushButton_pressed();
+
+    void on_movementWPositivePushButton_pressed();
+
 private:
     void fillSettings();
     void setAxesButtonsState(bool enable);
