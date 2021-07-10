@@ -79,6 +79,7 @@ void BaseController::stopProcessingTask(QString targetControllerId)
         std::pair<QString, QVariant>("action", "stop")
     };
     this->sendMessage(QtJson::serialize(message));
+    QTest::qWait(100);
 }
 
 qint64 BaseController::sendMessage(QByteArray message)

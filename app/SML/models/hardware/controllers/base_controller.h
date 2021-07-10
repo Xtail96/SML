@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWebSocket>
+#include <QTest>
 
 #include "libs/json_parser/json.h"
 
