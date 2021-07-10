@@ -20,7 +20,9 @@ public:
     SupportDevice *getSupportDevice(QString uid);
 
     void processTask(Task t) override;
+    void stopProcessing() override;
 private:
+    const QString m_controllerName = "deviceController";
     QSet<Sensor*> m_sensors;
     QSet<Spindel*> m_spindels;
     QSet<SupportDevice*> m_supportDevices;

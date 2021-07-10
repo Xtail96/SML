@@ -70,6 +70,17 @@ bool BaseController::isConnected() const
     return m_clients.first()->socket()->isValid();
 }
 
+void BaseController::stopProcessingTask(QString targetControllerId)
+{
+    if(!m_processingTask) return;
+
+    QtJson::JsonObject message = {
+        std::pair<QString, QVariant>("target", targetControllerId),
+        std::pair<QString, QVariant>("action", "stop")
+    };
+    this->sendMessage(QtJson::serialize(message));
+}
+
 qint64 BaseController::sendMessage(QByteArray message)
 {
     auto client = m_clients.first();

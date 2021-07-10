@@ -15,6 +15,7 @@ public:
     ~Registrator() override;
 
     void processTask(Task) override;
+    void stopProcessing() override;
 private:
     QList<QMetaObject::Connection> m_connections;
 

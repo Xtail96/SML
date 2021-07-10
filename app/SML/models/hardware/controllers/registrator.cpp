@@ -28,7 +28,9 @@ Registrator::~Registrator()
     }
 }
 
-void Registrator::processTask(Task){}
+void Registrator::processTask(Task) {}
+
+void Registrator::stopProcessing() {}
 
 void Registrator::setup(QtJson::JsonObject) {}
 

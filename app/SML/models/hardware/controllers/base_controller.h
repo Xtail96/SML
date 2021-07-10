@@ -55,6 +55,7 @@ public:
     bool isConnected() const;
 
     virtual void processTask(Task t) = 0;
+    virtual void stopProcessing() = 0;
 
 protected:
     /// Подключенные адаптеры.
@@ -80,6 +81,8 @@ protected:
      * @param processingTask - обрабатывается ли задача.
      */
     void setProcessingTask(bool isReady);
+
+    void stopProcessingTask(QString targetControllerId);
 
 private:
     QString m_logName;

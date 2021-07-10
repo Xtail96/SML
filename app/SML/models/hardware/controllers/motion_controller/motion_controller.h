@@ -3,8 +3,6 @@
 
 #include <QObject>
 
-#include "libs/json_parser/json.h"
-
 #include "../base_controller.h"
 #include "./motion_controller_repository.h"
 
@@ -28,7 +26,11 @@ public:
 
     void processTask(Task t) override;
 
+    void stopProcessing() override;
+
 private:
+    const QString m_controllerName = "motionController";
+
     QList<QMetaObject::Connection> m_slotsInfo;
 
     MotionControllerRepository m_repository;

@@ -38,12 +38,17 @@ void MotionController::processTask(Task t)
     }
 
     QtJson::JsonObject message = {
-        std::pair<QString, QVariant>("target", "motionController"),
+        std::pair<QString, QVariant>("target", m_controllerName),
         std::pair<QString, QVariant>("action", "gcodeExecution"),
         std::pair<QString, QVariant>("raw", t.serialize()),
         std::pair<QString, QVariant>("blocks", blocks),
     };
     this->sendMessage(QtJson::serialize(message));
+}
+
+void MotionController::stopProcessing()
+{
+    this->stopProcessingTask(m_controllerName);
 }
 
 void MotionController::setup(QtJson::JsonObject initialState)

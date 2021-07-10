@@ -50,6 +50,11 @@ void DeviceController::processTask(Task t)
     qDebug() << t.serialize();
 }
 
+void DeviceController::stopProcessing()
+{
+    this->stopProcessingTask(m_controllerName);
+}
+
 void DeviceController::setup(QtJson::JsonObject initialState)
 {
     QtJson::JsonObject deviceController = initialState["deviceControllerState"].toMap();
