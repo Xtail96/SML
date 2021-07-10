@@ -21,6 +21,8 @@ SOURCES += \
         main.cpp \
     libs/jsonparser/json.cpp \
     models/motion_echo_adapter.cpp \
+    models/motion_task.cpp \
+    models/task_worker.cpp \
     models/types/websockethandler/websockethandler.cpp \
     models/types/settingsmanager/settingsmanager.cpp
 
@@ -32,6 +34,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     libs/jsonparser/json.h \
     models/motion_echo_adapter.h \
+    models/motion_task.h \
+    models/task_worker.h \
     models/types/websockethandler/websockethandler.h \
     models/types/settingsmanager/settingsmanager.h \
     models/structs.h
