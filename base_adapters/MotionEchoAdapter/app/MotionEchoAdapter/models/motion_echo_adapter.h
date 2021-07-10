@@ -8,6 +8,7 @@
 #include <QSerialPortInfo>
 #include <QDebug>
 #include <QThread>
+#include <QTest>
 
 #include "models/types/websockethandler/websockethandler.h"
 #include "libs/jsonparser/json.h"
