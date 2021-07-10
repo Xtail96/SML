@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->setupWidgets();
-    this->hideWidgets();
 
     this->setupHardwareDriver();
     this->setupSlots();
@@ -65,20 +64,16 @@ void MainWindow::setupHardwareDriver()
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
             ui->statusBar->showMessage("Hardware driver is ready");
-
-            this->enableUsedAxesButtons();
-            this->enableAdjustmentActionsButtons();
-
+            this->setAxesButtonsState(true);
+            this->setAdjustmentActionsButtonsState(true);
             hardwarePositionChangeHandler(HARDWARE_EVENT_DATA());
         }
         else
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
             ui->statusBar->showMessage("Hardware driver is not ready");
-
-            this->disableAllAxesButtons();
-            this->disableAdjustmentActionsButtons();
-
+            this->setAxesButtonsState(false);
+            this->setAdjustmentActionsButtonsState(false);
             ui->currentCoordinatesListWidget->clear();
             ui->baseCoordinatesListWidget->clear();
             ui->parkCoordinatesListWidget->clear();
@@ -96,6 +91,8 @@ void MainWindow::setupHardwareDriver()
 
 void MainWindow::setupWidgets()
 {
+    this->hideWidgets();
+
     // изменяет TitleBar для DockWidget
     ui->dashboardDockWidget->setTitleBarWidget(new QWidget(ui->dashboardDockWidget));
 
@@ -122,8 +119,8 @@ void MainWindow::setupWidgets()
     ui->settingsTableWidget->setVerticalHeaderLabels(keys);
     ui->settingsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    this->disableAllAxesButtons();
-    this->disableAdjustmentActionsButtons();
+    this->setAxesButtonsState(false);
+    this->setAdjustmentActionsButtonsState(false);
 }
 
 void MainWindow::setupSlots()
@@ -221,7 +218,7 @@ void MainWindow::fillSettings()
     }
 }
 
-void MainWindow::enableUsedAxesButtons()
+void MainWindow::setAxesButtonsState(bool enable)
 {
     auto& driver = HardwareDriver::getInstance();
     auto& motionContoller = driver.getMotionController();
@@ -262,39 +259,25 @@ void MainWindow::enableUsedAxesButtons()
 
     for(auto button : axesButtons)
     {
-        bool allAxesExists = true;
-        for(auto axisId : button.first)
+        if(enable)
         {
-            if(!motionContoller.axisExists(axisId))
-                allAxesExists = false;
+            bool axisExists = true;
+            for(auto axisId : button.first)
+            {
+                if(!motionContoller.axisExists(axisId))
+                    axisExists = false;
+            }
+            if(axisExists) button.second->setEnabled(true);
+        }
+        else
+        {
+            button.second->setEnabled(false);
         }
 
-        if(allAxesExists) button.second->setEnabled(true);
     }
 }
 
-void MainWindow::disableAllAxesButtons()
-{
-    auto axesButtons = {
-        ui->movementXNegativePushButton, ui->movementXPositivePushButton,
-        ui->movementYNegativePushButton, ui->movementYPositivePushButton,
-        ui->movementXNegativeYNegativePushButton, ui->movementXNegativeYPositivePushButton,
-        ui->movementXPositiveYNegativePushButton, ui->movementXPositiveYPositivePushButton,
-        ui->movementZNegativePushButton, ui->movementZPositivePushButton,
-        ui->movementANegativePushButton, ui->movementAPositivePushButton,
-        ui->movementBNegativePushButton, ui->movementBPositivePushButton,
-        ui->movementCNegativePushButton, ui->movementCPositivePushButton,
-        ui->movementUNegativePushButton, ui->movementUPositivePushButton,
-        ui->movementVNegativePushButton, ui->movementVPositivePushButton,
-        ui->movementWNegativePushButton, ui->movementWPositivePushButton,
-    };
-    for(auto button : axesButtons)
-    {
-        button->setEnabled(false);
-    }
-}
-
-void MainWindow::enableAdjustmentActionsButtons()
+void MainWindow::setAdjustmentActionsButtonsState(bool enable)
 {
     auto buttons = {
         ui->toBasePushButton,
@@ -306,23 +289,7 @@ void MainWindow::enableAdjustmentActionsButtons()
         ui->runPushButton
     };
     for(auto button : buttons)
-        button->setEnabled(true);
-}
-
-void MainWindow::disableAdjustmentActionsButtons()
-{
-    auto buttons = {
-        ui->toBasePushButton,
-        ui->zeroPushButton,
-        ui->toZeroPushButton,
-        ui->zeroSensorPushButton,
-        ui->parkPushButton,
-        ui->toParkPushButton,
-        ui->runPushButton
-    };
-    for(auto button : buttons)
-        button->setEnabled(false);
-
+        button->setEnabled(enable);
 }
 
 void MainWindow::on_movementXPositivePushButton_pressed()

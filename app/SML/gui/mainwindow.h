@@ -74,10 +74,8 @@ private slots:
 
 private:
     void fillSettings();
-    void enableUsedAxesButtons();
-    void disableAllAxesButtons();
-    void enableAdjustmentActionsButtons();
-    void disableAdjustmentActionsButtons();
+    void setAxesButtonsState(bool enable);
+    void setAdjustmentActionsButtonsState(bool enable);
 };
 
 
