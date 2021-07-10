@@ -1,5 +1,4 @@
 #include "motion_echo_adapter.h"
-#include <QTest>
 
 MotionEchoAdapter::MotionEchoAdapter(QObject *parent) :
     QObject(parent),
