@@ -1,4 +1,5 @@
 #include "motion_echo_adapter.h"
+#include <QTest>
 
 MotionEchoAdapter::MotionEchoAdapter(QObject *parent) :
     QObject(parent),
@@ -140,7 +141,7 @@ void MotionEchoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray mess
 
             // wait
             MotionEchoAdapter::printState(m_currentState);
-            for(int i = 0; i < 100000; i++);
+            QTest::qWait(100);
         }
     }
 

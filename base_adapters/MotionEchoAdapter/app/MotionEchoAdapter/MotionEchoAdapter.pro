@@ -1,6 +1,7 @@
 QT -= gui
 QT += serialport
 QT += websockets
+QT += testlib
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
