@@ -31,6 +31,8 @@ private slots:
     void testResetHandlers();
 
     void testMove();
+
+    void testStopMoving();
 };
 
 #endif // HARDWAREDRIVERTESTS_H

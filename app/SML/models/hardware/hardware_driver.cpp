@@ -129,3 +129,8 @@ void HardwareDriver::moveOffset(QMap<Axis::Id, double> relPos)
     if(absPos.isEmpty()) return;
     this->moveTo(absPos);
 }
+
+void HardwareDriver::stopMoving()
+{
+    m_motionController.stopProcessing();
+}

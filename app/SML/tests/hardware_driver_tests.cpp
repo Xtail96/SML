@@ -380,3 +380,67 @@ void HardwareDriverTests::testMove()
         QCOMPARE(actualAxisState[i].currentPositionFromBase(), expectedAxesState[i].currentPositionFromBase());
     }
 }
+
+void HardwareDriverTests::testStopMoving()
+{
+    HardwareDriver& driver = HardwareDriver::getInstance();
+
+    // Запускаем адаптеры.
+    auto launcher = new AdaptersLauncher(this);
+    launcher->startAdapters();
+
+    // Ждем некоторое время, чтобы адаптеры успели запуститься и подключиться.
+    QTest::qWait(30000);
+
+    // Получаем начальное состояние осей.
+    QList<Axis::State> intialAxesState = driver.getMotionController().axes();
+
+    // Если адаптеры так и не подключились, завершаем тест с ошибкой.
+    if(!driver.isConnected())
+    {
+        // Чистим за собой.
+        driver.resetHandlers();
+        launcher->stopAdapters();
+        QCOMPARE(true, false);
+    }
+
+    // Если осей нет, то завершаем тест с ошибкой, т.к. нет осей для перемещения.
+    if(intialAxesState.length() <= 0)
+    {
+        // Чистим за собой.
+        driver.resetHandlers();
+        launcher->stopAdapters();
+        QCOMPARE(true, false);
+    }
+
+    // Получаем состояние первой оси из списка.
+    Axis::State firstAxisState = intialAxesState.first();
+
+    // Формируем задание на перемещение.
+    double targetPosition = firstAxisState.currentPositionFromBase() + 100;
+    QMap<Axis::Id, double> task = {
+        { firstAxisState.id(), targetPosition }
+    };
+
+    // Выполняем перемещение.
+    driver.moveTo(task);
+
+    // Останавливаем перемещение.
+    driver.stopMoving();
+
+    // Ждем некоторое время, за которое перемещение успело бы выполниться.
+    QTest::qWait(5000);
+
+    // Получаем актуальное состояние осей после перемещения.
+    QList<Axis::State> actualAxisState = driver.getMotionController().axes();
+
+    // Чистим за собой и останавливаем адаптеры.
+    driver.resetHandlers();
+    launcher->stopAdapters();
+
+    // Проеряем, что число осей до и после перемещения совпадает.
+    QCOMPARE(actualAxisState.length(), intialAxesState.length());
+
+    // Проверяем, что ось, по которой выполнялось перемещение не выполнила задание.
+    QCOMPARE(actualAxisState.first().currentPositionFromBase() < targetPosition, true);
+}

@@ -67,8 +67,7 @@ public:
 
     void moveTo(QMap<Axis::Id, double> absPos);
     void moveOffset(QMap<Axis::Id, double> relPos);
-
-    //void stopMoving();
+    void stopMoving();
 
 private:
     QList<QMetaObject::Connection> m_systemSlotsInfo;
