@@ -45,7 +45,10 @@ private:
 
     /// Подсветки синтаксиса в редакторе G-кодов
     QScopedPointer<GCodesSyntaxHighlighter> m_hightlighter;
+
     QScopedPointer<AdaptersLauncher> m_adaptersLauncher;
+
+    double m_stepSize = 0;
 
     void setupHardwareDriver();
 
@@ -111,6 +114,16 @@ private slots:
     void on_movementWNegativePushButton_pressed();
 
     void on_movementWPositivePushButton_pressed();
+
+    void on_discreteRadioButton_4_clicked();
+
+    void on_discreteRadioButton_3_clicked();
+
+    void on_discreteRadioButton_2_clicked();
+
+    void on_discreteRadioButton_1_clicked();
+
+    void on_discreteRadioButton_5_clicked();
 
 private:
     void fillSettings();

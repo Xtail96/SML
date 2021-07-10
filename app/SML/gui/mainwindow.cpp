@@ -295,135 +295,160 @@ void MainWindow::setAdjustmentActionsButtonsState(bool enable)
 void MainWindow::on_movementXPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, 10.0}});
+    driver.moveOffset({{Axis::Id::X, m_stepSize}});
 }
 
 void MainWindow::on_movementXNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, -10.0}});
+    driver.moveOffset({{Axis::Id::X, -m_stepSize}});
 }
 
 void MainWindow::on_movementYPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::Y, 10.0}});
+    driver.moveOffset({{Axis::Id::Y, m_stepSize}});
 }
 
 void MainWindow::on_movementYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::Y, -10.0}});
+    driver.moveOffset({{Axis::Id::Y, -m_stepSize}});
 }
 
 void MainWindow::on_movementXNegativeYPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, -10.0},
-                       {Axis::Id::Y, 10.0}});
+    driver.moveOffset({{Axis::Id::X, -m_stepSize},
+                       {Axis::Id::Y, m_stepSize}});
 }
 
 void MainWindow::on_movementXNegativeYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, -10.0},
-                       {Axis::Id::Y, -10.0}});
+    driver.moveOffset({{Axis::Id::X, -m_stepSize},
+                       {Axis::Id::Y, -m_stepSize}});
 }
 
 void MainWindow::on_movementXPositiveYPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, 10.0},
-                       {Axis::Id::Y, 10.0}});
+    driver.moveOffset({{Axis::Id::X, m_stepSize},
+                       {Axis::Id::Y, m_stepSize}});
 }
 
 void MainWindow::on_movementXPositiveYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, 10.0},
-                       {Axis::Id::Y, -10.0}});
+    driver.moveOffset({{Axis::Id::X, m_stepSize},
+                       {Axis::Id::Y, -m_stepSize}});
 }
 
 void MainWindow::on_movementZPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::Z, 10.0}});
+    driver.moveOffset({{Axis::Id::Z, m_stepSize}});
 }
 
 void MainWindow::on_movementZNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::Z, -10.0}});
+    driver.moveOffset({{Axis::Id::Z, -m_stepSize}});
 }
 
 void MainWindow::on_movementANegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::A, -10.0}});
+    driver.moveOffset({{Axis::Id::A, -m_stepSize}});
 }
 
 void MainWindow::on_movementAPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::A, 10.0}});
+    driver.moveOffset({{Axis::Id::A, m_stepSize}});
 }
 
 void MainWindow::on_movementBNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::B, -10.0}});
+    driver.moveOffset({{Axis::Id::B, -m_stepSize}});
 }
 
 void MainWindow::on_movementBPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::B, 10.0}});
+    driver.moveOffset({{Axis::Id::B, m_stepSize}});
 }
 
 void MainWindow::on_movementCNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::C, -10.0}});
+    driver.moveOffset({{Axis::Id::C, -m_stepSize}});
 }
 
 void MainWindow::on_movementCPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::C, 10.0}});
+    driver.moveOffset({{Axis::Id::C, m_stepSize}});
 }
 
 void MainWindow::on_movementUNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::U, -10.0}});
+    driver.moveOffset({{Axis::Id::U, -m_stepSize}});
 }
 
 void MainWindow::on_movementUPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::U, 10.0}});
+    driver.moveOffset({{Axis::Id::U, m_stepSize}});
 }
 
 void MainWindow::on_movementVNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::V, -10.0}});
+    driver.moveOffset({{Axis::Id::V, -m_stepSize}});
 }
 
 void MainWindow::on_movementVPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::V, 10.0}});
+    driver.moveOffset({{Axis::Id::V, m_stepSize}});
 }
 
 void MainWindow::on_movementWNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::W, -10.0}});
+    driver.moveOffset({{Axis::Id::W, -m_stepSize}});
 }
 
 void MainWindow::on_movementWPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::W, 10.0}});
+    driver.moveOffset({{Axis::Id::W, m_stepSize}});
+}
+
+void MainWindow::on_discreteRadioButton_4_clicked()
+{
+    m_stepSize = 10;
+}
+
+void MainWindow::on_discreteRadioButton_3_clicked()
+{
+    m_stepSize = 1;
+}
+
+void MainWindow::on_discreteRadioButton_2_clicked()
+{
+    m_stepSize = 0.1;
+}
+
+void MainWindow::on_discreteRadioButton_1_clicked()
+{
+    m_stepSize = 0.01;
+}
+
+void MainWindow::on_discreteRadioButton_5_clicked()
+{
+    m_stepSize = 0;
 }
