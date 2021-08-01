@@ -425,6 +425,9 @@ void HardwareDriverTests::testStopMoving()
     // Выполняем перемещение.
     driver.moveTo(task);
 
+    // Ждем некоторое, чтобы команда начала выполняться.
+    QTest::qWait(100);
+
     // Останавливаем перемещение.
     driver.stopMoving();
 
