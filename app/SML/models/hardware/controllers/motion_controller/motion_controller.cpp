@@ -97,6 +97,6 @@ void MotionController::newMessageHandler(QtJson::JsonObject msg)
         positionChanged = true;
     }
     this->setProcessingTask(motionController["workflowState"].toBool());
-
-    if(positionChanged) emit this->positionChanged();
+    if(positionChanged)
+        emit this->positionChanged();
 }

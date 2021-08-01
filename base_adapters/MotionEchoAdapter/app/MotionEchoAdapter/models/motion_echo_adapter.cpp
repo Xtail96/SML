@@ -58,6 +58,8 @@ void MotionEchoAdapter::startInThread(QtJson::JsonObject message, bool debugMode
     QObject::connect(worker, &TaskWorker::finished, this, [=]() {
         this->debugMessage("task has finished");
         m_processingTask = false;
+        m_currentState.setWorkflowState(0);
+        this->sendCurrentStateToServer(m_currentState);
     });
     QObject::connect(worker, &TaskWorker::currentStateChanged, this, [=](MotionControllerState state) {
        m_currentState = state;
