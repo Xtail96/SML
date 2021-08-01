@@ -138,6 +138,15 @@ void MainWindow::setupSlots()
             break;
         }
     }));
+
+
+    m_slotsInfo.append(QObject::connect(new QShortcut(QKeySequence("Space"), this), &QShortcut::activated, this, [=]() {
+        if(ui->mainTabMenu->currentIndex() == 1)
+        {
+            qInfo() << "Space pressed. Stop moving";
+            HardwareDriver::getInstance().stopMoving();
+        }
+    }));
 }
 
 void MainWindow::resetSlots()
