@@ -107,7 +107,6 @@ void SettingsManager::generateDefaultSettings()
 
     settings->beginGroup("ServerSettings");
         settings->setValue("ServerAddress", "ws://localhost:1234");
-        settings->setValue("DebugMode", 1);
     settings->endGroup();
 
     // применяем изменения

@@ -17,12 +17,11 @@ protected:
     QTimer *m_timer;
 
     void loadSettings(const SettingsManager& sm);
+    void debugMessage(QString msg);
 
 public:
-    WebSocketHandler(const SettingsManager& sm = SettingsManager(), QObject *parent = Q_NULLPTR);
+    WebSocketHandler(const SettingsManager& sm = SettingsManager(), bool debug = false, QObject *parent = Q_NULLPTR);
     ~WebSocketHandler();
-
-    void setDebug(bool debug);
 
 signals:
     void machineToolStateIsChanged();

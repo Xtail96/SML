@@ -20,6 +20,7 @@ public:
     ~MotionEchoAdapter();
 
 private:
+    bool m_debugMode;
     SettingsManager m_settingsManager;
     WebSocketHandler *m_socketHandler;
 
@@ -29,14 +30,15 @@ private:
     void loadSettings();
     void openPort(const QSerialPortInfo &info);
 
-    void startInThread(QtJson::JsonObject message);
+    void startInThread(QtJson::JsonObject message, bool debugMode = false, bool printState = false);
     void stopThreads();
 
     void sendCurrentStateToServer(MotionControllerState state);
     void printState(MotionControllerState state);
+    void debugMessage(QString msg);
 
 signals:
-    void stopAll(); //остановка всех потоков
+    void stopExecution(); //остановка всех потоков
 
 protected slots:
 

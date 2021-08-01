@@ -1,8 +1,9 @@
 #include "websockethandler.h"
 
-WebSocketHandler::WebSocketHandler(const SettingsManager& sm, QObject *parent) :
+WebSocketHandler::WebSocketHandler(const SettingsManager& sm, bool debug, QObject *parent) :
     QObject(parent),
     m_webSocket(nullptr),
+    m_debug(debug),
     m_timer(new QTimer(this))
 {
     loadSettings(sm);
@@ -29,29 +30,26 @@ void WebSocketHandler::loadSettings(const SettingsManager &sm)
     try
     {
         m_url = QUrl(sm.get("ServerSettings", "ServerAddress").toString());
-        m_debug = sm.get("ServerSettings", "DebugMode").toBool();
     }
     catch(std::invalid_argument e)
     {
         qDebug() << e.what();
         m_url = QUrl(QStringLiteral("ws://localhost:1234"));
-        m_debug = false;
     }
+}
+
+void WebSocketHandler::debugMessage(QString msg)
+{
+    if(m_debug)
+        qDebug() << "WebSocketHandler::" + msg;
 }
 
 void WebSocketHandler::openWebSocket()
 {
-    if(m_debug)
-    {
-        qDebug() << "try to open socket";
-    }
+    this->debugMessage("try to open socket");
     if(!m_url.isEmpty())
     {
-        if(m_debug)
-        {
-            qDebug() << "WebSocket Server url is" << m_url.toString();
-        }
-
+        this->debugMessage("webSocket server url is " + m_url.toString());
         if(m_webSocket != nullptr)
         {
             disconnect(this, SIGNAL(disconnected(QWebSocketProtocol::CloseCode,QString)), m_webSocket, SLOT(close(QWebSocketProtocol::CloseCode,QString)));
@@ -68,7 +66,7 @@ void WebSocketHandler::openWebSocket()
     }
     else
     {
-        qDebug() << "Не могу установить связь с сервером!";
+        qDebug() << "Can not connect to the server";
     }
 }
 
@@ -76,32 +74,23 @@ void WebSocketHandler::closeWebSocket()
 {
     if(m_webSocket != nullptr)
     {
-        if(m_debug)
-        {
-            qDebug() << "Close current socket";
-        }
+        this->debugMessage("close current socket");
         m_webSocket->close();
     }
 }
 
 void WebSocketHandler::onQWebSocket_Connected()
 {
-    if(m_debug)
-    {
-        qDebug() << "WebSocket connected";
-    }
+    this->debugMessage("web socket connected");
     connect(m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onQWebSocket_TextMessageReceived(QString)));
     connect(m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)), this, SLOT(onQWebSocket_BinaryMessageReceived(QByteArray)));
-    emit connected();
+    emit this->connected();
 }
 
 void WebSocketHandler::onQWebSocket_Disconnected()
 {
-    if(m_debug)
-    {
-        qDebug() << "WebSocket Server with url = " << m_url.toString() << " is disconnected";
-    }
-    emit disconnected(QWebSocketProtocol::CloseCode::CloseCodeNormal);
+    this->debugMessage("web socket server with url = " + m_url.toString() + " is disconnected");
+    emit this->disconnected(QWebSocketProtocol::CloseCode::CloseCodeNormal);
 }
 
 bool WebSocketHandler::sendTextMessage(QString message)
@@ -114,7 +103,7 @@ bool WebSocketHandler::sendTextMessage(QString message)
     }
     else
     {
-        emit disconnected(QWebSocketProtocol::CloseCode::CloseCodeBadOperation,
+        emit this->disconnected(QWebSocketProtocol::CloseCode::CloseCodeBadOperation,
                           QString("Can not send text message:") + message);
     }
     return messageSent;
@@ -130,8 +119,8 @@ bool WebSocketHandler::sendBinaryMessage(QByteArray message)
     }
     else
     {
-        qDebug() << "Can not send binary message";
-        emit disconnected(QWebSocketProtocol::CloseCode::CloseCodeBadOperation,
+        this->debugMessage("can not send binary message");
+        emit this->disconnected(QWebSocketProtocol::CloseCode::CloseCodeBadOperation,
                           QString("Can not send byte message: ") + QString::fromUtf8(message));
     }
     return messageSent;
@@ -139,24 +128,11 @@ bool WebSocketHandler::sendBinaryMessage(QByteArray message)
 
 void WebSocketHandler::onQWebSocket_TextMessageReceived(QString message)
 {
-    if (m_debug)
-    {
-        //QMessageBox(QMessageBox::Information, "", "Message recieved: " + message).exec();
-        qDebug() << "Message received:" << message;
-        //emit textMessageReceived(message);
-    }
+    this->debugMessage("message received: " + message);
 }
 
 void WebSocketHandler::onQWebSocket_BinaryMessageReceived(QByteArray message)
 {
-    if(m_debug)
-    {
-        qDebug() << "Received binary message" << message;
-    }
-    emit binaryMessageReceived(message);
-}
-
-void WebSocketHandler::setDebug(bool debug)
-{
-    m_debug = debug;
+    this->debugMessage(" binarymessage received: " + QString::fromUtf8(message));
+    emit this->binaryMessageReceived(message);
 }

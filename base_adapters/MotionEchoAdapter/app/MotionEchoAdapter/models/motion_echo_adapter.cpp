@@ -2,8 +2,9 @@
 
 MotionEchoAdapter::MotionEchoAdapter(QObject *parent) :
     QObject(parent),
+    m_debugMode(true),
     m_settingsManager(SettingsManager()),
-    m_socketHandler(new WebSocketHandler(m_settingsManager, this)),
+    m_socketHandler(new WebSocketHandler(m_settingsManager, m_debugMode, this)),
     m_currentState(MotionControllerState(0, 0)),
     m_processingTask(false)
 {
@@ -43,32 +44,34 @@ void MotionEchoAdapter::loadSettings()
     }
 }
 
-void MotionEchoAdapter::startInThread(QtJson::JsonObject message)
+void MotionEchoAdapter::startInThread(QtJson::JsonObject message, bool debugMode, bool printState)
 {
-    TaskWorker* worker = new TaskWorker(m_currentState, message);
+    this->debugMessage("start processing");
+    TaskWorker* worker = new TaskWorker(m_currentState, message, debugMode);
     QThread* thread = new QThread;
     worker->moveToThread(thread);
     QObject::connect(thread, SIGNAL(started()), worker, SLOT(process()));
     QObject::connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
-    QObject::connect(this, SIGNAL(stopAll()), worker, SLOT(stop()));
+    QObject::connect(this, SIGNAL(stopExecution()), worker, SLOT(stop()));
     QObject::connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
     QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     QObject::connect(worker, &TaskWorker::finished, this, [=]() {
-        qDebug() << "Task finished";
+        this->debugMessage("task has finished");
         m_processingTask = false;
     });
     QObject::connect(worker, &TaskWorker::currentStateChanged, this, [=](MotionControllerState state) {
        m_currentState = state;
-       this->printState(m_currentState);
+       if(debugMode && printState)
+           this->printState(m_currentState);
        this->sendCurrentStateToServer(m_currentState);
     }, Qt::ConnectionType::BlockingQueuedConnection);
     thread->start();
-    return;
+    m_processingTask = true;
 }
 
 void MotionEchoAdapter::stopThreads()
 {
-    emit stopAll();
+    emit this->stopExecution();
 }
 
 void MotionEchoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray message)
@@ -76,33 +79,40 @@ void MotionEchoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray mess
     QString messageString = QString::fromUtf8(message);
     bool ok = false;
     QtJson::JsonObject parsedMessage = QtJson::parse(messageString, ok).toMap();
-    if(!ok) return;
+    if(!ok)
+    {
+        this->debugMessage("invalid message " + messageString + ". Ignored");
+    }
 
     QString target = parsedMessage["target"].toString();
     if(target.toLower() != "motioncontroller")
     {
-        qDebug() << "Message ignored";
+        this->debugMessage("message is not for me. Ignored");
         return;
     }
 
-    qDebug() << "start processing";
+    if(parsedMessage["action"] == "stop")
+    {
+        this->stopThreads();
+        return;
+    }
 
     if(m_processingTask) {
         this->stopThreads();
     }
-    this->startInThread(parsedMessage);
-    m_processingTask = true;
+    this->startInThread(parsedMessage, m_debugMode, false);
+
 }
 
 void MotionEchoAdapter::onWebSocketHandler_Connected()
 {
-    qDebug() << "Web socket is connected";
+    this->debugMessage("web socket is connected");
     this->sendCurrentStateToServer(m_currentState);
 }
 
 void MotionEchoAdapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)
 {
-    qDebug() << "Web socket disconnected with message" << message << "(code" << code << ")";
+    this->debugMessage("web socket disconnected with message " + message + " (" + QString::number(code) + ")");
 }
 
 void MotionEchoAdapter::sendCurrentStateToServer(MotionControllerState state)
@@ -141,5 +151,11 @@ void MotionEchoAdapter::printState(MotionControllerState state)
     qDebug() << "WorkflowState:" << state.getWorkflowState();
     qDebug() << "LastError: " << state.getLastError();
     qDebug() << "---------" ;
+}
+
+void MotionEchoAdapter::debugMessage(QString msg)
+{
+    if(m_debugMode)
+        qDebug() << "MotionEchoAdapter::" + msg;
 }
 

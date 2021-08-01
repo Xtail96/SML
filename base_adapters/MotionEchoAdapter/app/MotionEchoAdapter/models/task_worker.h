@@ -11,12 +11,16 @@ class TaskWorker : public QObject
 public:
     explicit TaskWorker(MotionControllerState state,
                         QtJson::JsonObject message,
+                        bool debugMode = false,
                         QObject *parent = nullptr);
     ~TaskWorker();
 
 private:
     MotionControllerState m_state;
     QtJson::JsonObject m_message;
+    MotionTask* m_task;
+    bool m_debugMode;
+    void debugMessage(QString msg);
 
 signals:
     void finished();

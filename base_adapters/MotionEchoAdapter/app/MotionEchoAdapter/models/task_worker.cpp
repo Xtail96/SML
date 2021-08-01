@@ -1,32 +1,49 @@
 #include "task_worker.h"
 
 TaskWorker::TaskWorker(MotionControllerState state,
-                       QtJson::JsonObject message,
+                       QtJson::JsonObject message, bool debugMode,
                        QObject *parent) :
     QObject(parent),
     m_state(state),
-    m_message(message)
+    m_message(message),
+    m_task(nullptr),
+    m_debugMode(debugMode)
 {
 }
 
 TaskWorker::~TaskWorker()
 {
+    this->debugMessage("~TaskWorker called");
+    m_task->deleteLater();
+}
+
+void TaskWorker::debugMessage(QString msg)
+{
+    if(m_debugMode)
+        qDebug() << "TaskWorker::" + msg;
 }
 
 void TaskWorker::process()
 {
-    MotionTask* task = new MotionTask(m_state, this);
-    QObject::connect(task, &MotionTask::currentStateChanged, this, [=](MotionControllerState state) {
+    if(m_task != nullptr)
+    {
+        this->debugMessage("other task is already running");
+        return;
+    }
+
+    this->debugMessage("start a new task");
+    m_task = new MotionTask(m_state, m_debugMode, this);
+    QObject::connect(m_task, &MotionTask::currentStateChanged, this, [=](MotionControllerState state) {
         emit this->currentStateChanged(state);
     });
 
-    task->execute(m_message);
+    m_task->execute(m_message);
+    this->debugMessage("finish task");
     emit this->finished();
-    task->deleteLater();
-    return;
 }
 
 void TaskWorker::stop()
 {
-    qDebug() << "stop current task";
+    this->debugMessage("stop current task");
+    m_task->stop();
 }

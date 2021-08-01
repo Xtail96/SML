@@ -1,14 +1,18 @@
 #include "motion_task.h"
 
-MotionTask::MotionTask(MotionControllerState state, QObject *parent):
+MotionTask::MotionTask(MotionControllerState state, bool debugMode, QObject *parent):
     QObject(parent),
-    m_state(state)
+    m_state(state),
+    m_terminationRequested(false),
+    m_debugMode(debugMode)
 {
 
 }
 
 void MotionTask::execute(QtJson::JsonObject parsedMessage)
 {
+    this->debugMessage("start processing");
+    m_terminationRequested = false;
     m_state.setWorkflowState(1);
     QtJson::JsonArray blocks = parsedMessage["blocks"].toList();
     for(int i = 0; i < blocks.length(); i++)
@@ -41,23 +45,40 @@ void MotionTask::execute(QtJson::JsonObject parsedMessage)
         {
             for(auto key : axisArgumentsKeys)
             {
+                if(m_terminationRequested)
+                {
+                    m_state.setWorkflowState(0);
+                    emit this->currentStateChanged(m_state);
+                    return;
+                }
                 double newAxisPosition = m_state.getAxisPosition(key) + stepIncrements[key];
                 m_state.setAxisPosition(key, newAxisPosition);
             }
 
-            qDebug() << "send state" << i;
+            this->debugMessage(QString::number((i+1) * 10) + "% done");
             emit this->currentStateChanged(m_state);
 
             // wait
             QTest::qWait(100);
         }
     }
-    qDebug() << "finish processing";
+    this->debugMessage("finish processing");
     m_state.setWorkflowState(0);
 }
 
 MotionControllerState MotionTask::getCurrentState()
 {
     return m_state;
+}
+
+void MotionTask::stop()
+{
+    m_terminationRequested = true;
+}
+
+void MotionTask::debugMessage(QString msg)
+{
+    if(m_debugMode)
+        qDebug() << "MotionTask::" + msg;
 }
 
