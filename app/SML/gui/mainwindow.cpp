@@ -276,7 +276,8 @@ void MainWindow::setAxesButtonsState(bool enable)
                 if(!motionContoller.axisExists(axisId))
                     axisExists = false;
             }
-            if(axisExists) button.second->setEnabled(true);
+            if(axisExists)
+                button.second->setEnabled(true);
         }
         else
         {
