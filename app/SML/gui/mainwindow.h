@@ -25,6 +25,7 @@
 
 #include "models/services/gcodes/view/gcodes_view_interactor.h"
 #include "./models/services/adapters/launcher/adapters_launcher.h"
+#include "./utils/utils.h"
 
 namespace Ui {
 class MainWindow;

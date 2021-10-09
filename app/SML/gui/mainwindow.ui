@@ -1232,9 +1232,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Q</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1269,9 +1266,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>S</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1303,9 +1297,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>X</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1336,9 +1327,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>E</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1390,9 +1378,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Z</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1426,9 +1411,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>W</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1472,9 +1454,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>D</string>
                    </property>
                    <property name="checkable">
                     <bool>false</bool>
@@ -1524,9 +1503,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>A</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1586,9 +1562,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Up</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1622,9 +1595,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Down</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1679,9 +1649,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Shift+Num+Up</string>
-                   </property>
                   </widget>
                  </item>
                  <item row="4" column="2">
@@ -1704,9 +1671,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Shift+W</string>
                    </property>
                   </widget>
                  </item>
@@ -1735,9 +1699,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Right</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1774,9 +1735,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Shift+Num+Down</string>
-                   </property>
                   </widget>
                  </item>
                  <item row="2" column="2">
@@ -1807,9 +1765,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Alt+Right</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1843,9 +1798,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Shift+A</string>
-                   </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
@@ -1873,9 +1825,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Left</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1910,9 +1859,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Shift+Num+Right</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -1951,9 +1897,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Alt+Left</string>
-                   </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
                    </property>
@@ -1983,9 +1926,6 @@
                      <height>32</height>
                     </size>
                    </property>
-                   <property name="shortcut">
-                    <string>Shift+S</string>
-                   </property>
                   </widget>
                  </item>
                  <item row="1" column="1">
@@ -2013,9 +1953,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Shift+Num+Left</string>
                    </property>
                    <property name="autoRepeat">
                     <bool>true</bool>
@@ -2048,9 +1985,6 @@
                      <width>32</width>
                      <height>32</height>
                     </size>
-                   </property>
-                   <property name="shortcut">
-                    <string>Shift+D</string>
                    </property>
                   </widget>
                  </item>

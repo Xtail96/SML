@@ -139,7 +139,6 @@ void MainWindow::setupSlots()
         }
     }));
 
-
     m_slotsInfo.append(QObject::connect(new QShortcut(QKeySequence("Space"), this), &QShortcut::activated, this, [=]() {
         if(ui->mainTabMenu->currentIndex() == 1)
         {
@@ -147,6 +146,58 @@ void MainWindow::setupSlots()
             HardwareDriver::getInstance().stopMoving();
         }
     }));
+
+    // Настройка горячих клавиш для основных осей координат.
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, Qt::Key_Q));
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, QKeySequence("Й")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementYPositivePushButton, Qt::Key_W));
+    m_slotsInfo.append(bindShortcut(ui->movementYPositivePushButton, QKeySequence("Ц")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYPositivePushButton, Qt::Key_E));
+    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYPositivePushButton, QKeySequence("У")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativePushButton, Qt::Key_A));
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativePushButton, QKeySequence("Ф")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementXPositivePushButton, Qt::Key_D));
+    m_slotsInfo.append(bindShortcut(ui->movementXPositivePushButton, QKeySequence("В")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYNegativePushButton, Qt::Key_Z));
+    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYNegativePushButton, QKeySequence("Я")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementYNegativePushButton, Qt::Key_S));
+    m_slotsInfo.append(bindShortcut(ui->movementYNegativePushButton, QKeySequence("Ы")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYNegativePushButton, Qt::Key_X));
+    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYNegativePushButton, QKeySequence("Ч")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementZPositivePushButton, Qt::Key_Up));
+    m_slotsInfo.append(bindShortcut(ui->movementZNegativePushButton, Qt::Key_Down));
+
+
+    // Настройка горячих клавиш для дополнительных осей координат.
+    m_slotsInfo.append(bindShortcut(ui->movementANegativePushButton, Qt::Key_Left));
+    m_slotsInfo.append(bindShortcut(ui->movementAPositivePushButton, Qt::Key_Right));
+    m_slotsInfo.append(bindShortcut(ui->movementBNegativePushButton, Qt::SHIFT + Qt::Key_Left));
+    m_slotsInfo.append(bindShortcut(ui->movementBPositivePushButton, Qt::SHIFT + Qt::Key_Right));
+    m_slotsInfo.append(bindShortcut(ui->movementCNegativePushButton, Qt::ALT + Qt::Key_Left));
+    m_slotsInfo.append(bindShortcut(ui->movementCPositivePushButton, Qt::ALT + Qt::Key_Right));
+
+
+    // Настройка горячих клавиш для вспомогательных осей координат.
+    m_slotsInfo.append(bindShortcut(ui->movementUNegativePushButton, Qt::SHIFT + Qt::Key_A));
+    m_slotsInfo.append(bindShortcut(ui->movementUNegativePushButton, QKeySequence("Shift+Ф")));
+    m_slotsInfo.append(bindShortcut(ui->movementUPositivePushButton, Qt::SHIFT + Qt::Key_D));
+    m_slotsInfo.append(bindShortcut(ui->movementUPositivePushButton, QKeySequence("Shift+В")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementVNegativePushButton, Qt::SHIFT + Qt::Key_S));
+    m_slotsInfo.append(bindShortcut(ui->movementVNegativePushButton, QKeySequence("Shift+Ы")));
+    m_slotsInfo.append(bindShortcut(ui->movementVPositivePushButton, Qt::SHIFT + Qt::Key_W));
+    m_slotsInfo.append(bindShortcut(ui->movementVPositivePushButton, QKeySequence("Shift+Ц")));
+
+    m_slotsInfo.append(bindShortcut(ui->movementWNegativePushButton, Qt::SHIFT + Qt::Key_Down));
+    m_slotsInfo.append(bindShortcut(ui->movementWPositivePushButton, Qt::SHIFT + Qt::Key_Up));
 }
 
 void MainWindow::resetSlots()
