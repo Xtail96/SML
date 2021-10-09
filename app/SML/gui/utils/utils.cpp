@@ -1,10 +1,16 @@
 #include "utils.h"
 
 
-QMetaObject::Connection bindShortcut(QAbstractButton *button, const QKeySequence &shortcut)
+QMetaObject::Connection bindShortcut(QAbstractButton *button, const QKeySequence &key)
 {
-    return QObject::connect(new QShortcut(shortcut, button), &QShortcut::activated, [button]() {
+    auto shortcut = new QShortcut(key, button);
+    shortcut->setAutoRepeat(false);
+    return QObject::connect(shortcut, &QShortcut::activated, [button]() {
+        qDebug() << "activated";
         if(button->isEnabled())
+        {
+            qDebug() << "emit click";
             button->animateClick();
+        }
     });
 }

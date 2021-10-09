@@ -1462,7 +1462,7 @@
                     <bool>false</bool>
                    </property>
                    <property name="autoRepeat">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                    <property name="autoExclusive">
                     <bool>false</bool>

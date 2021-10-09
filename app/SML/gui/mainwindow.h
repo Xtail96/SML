@@ -27,6 +27,8 @@
 #include "./models/services/adapters/launcher/adapters_launcher.h"
 #include "./utils/utils.h"
 
+const int INF_MOVE = 1000;
+
 namespace Ui {
 class MainWindow;
 }
@@ -73,6 +75,7 @@ private slots:
     void on_saveSettingsPushButton_clicked();
 
     void on_movementXPositivePushButton_pressed();
+    void on_movementXPositivePushButton_released();
 
     void on_movementXNegativePushButton_pressed();
 

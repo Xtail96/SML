@@ -136,3 +136,8 @@ void HardwareDriver::stopMoving()
 {
     m_motionController.stopProcessing();
 }
+
+bool HardwareDriver::isMoving()
+{
+    return !m_motionController.isReady();
+}

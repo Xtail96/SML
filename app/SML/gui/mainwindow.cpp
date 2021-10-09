@@ -121,6 +121,7 @@ void MainWindow::setupWidgets()
 
     this->setAxesButtonsState(false);
     this->setAdjustmentActionsButtonsState(false);
+    ui->discreteRadioButton_5->click();
 }
 
 void MainWindow::setupSlots()
@@ -355,8 +356,21 @@ void MainWindow::setAdjustmentActionsButtonsState(bool enable)
 
 void MainWindow::on_movementXPositivePushButton_pressed()
 {
+    qDebug() << "pressed" << m_stepSize;
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::X, m_stepSize}});
+}
+
+void MainWindow::on_movementXPositivePushButton_released()
+{
+    qDebug() << "released";
+    if(m_stepSize < INF_MOVE)
+        return;
+
+    qDebug() << "stop motion";
+    auto& driver = HardwareDriver::getInstance();
+    if(driver.isMoving())
+        driver.stopMoving();
 }
 
 void MainWindow::on_movementXNegativePushButton_pressed()
@@ -511,5 +525,5 @@ void MainWindow::on_discreteRadioButton_1_clicked()
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
-    m_stepSize = 0;
+    m_stepSize = INF_MOVE;
 }
