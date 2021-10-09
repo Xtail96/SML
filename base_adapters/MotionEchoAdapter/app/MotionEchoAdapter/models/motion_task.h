@@ -21,6 +21,8 @@ private:
     bool m_terminationRequested;
     bool m_debugMode;
     void debugMessage(QString msg);
+    QMap<QString, double> getCurrentPositionOffset(QMap<QString, double> targetPosition);
+    int getStepsCount(QMap<QString, double> positionOffset);
 
 signals:
     void currentStateChanged(MotionControllerState state);

@@ -9,6 +9,25 @@ MotionTask::MotionTask(MotionControllerState state, bool debugMode, QObject *par
 
 }
 
+QMap<QString, double> MotionTask::getCurrentPositionOffset(QMap<QString, double> targetPosition)
+{
+    QMap<QString, double> positionsDifference = {};
+    for(auto key : targetPosition.keys())
+    {
+        double difference = targetPosition[key] - m_state.getAxisPosition(key);
+        positionsDifference.insert(key, difference);
+    }
+    return positionsDifference;
+}
+
+int MotionTask::getStepsCount(QMap<QString, double> positionOffset)
+{
+    QList<double> offsets = positionOffset.values();
+    std::sort(offsets.begin(), offsets.end());
+    double maxOffset = offsets.last();
+    return (maxOffset >= 1000) ? int(maxOffset): 10;
+}
+
 void MotionTask::execute(QtJson::JsonObject parsedMessage)
 {
     this->debugMessage("start processing");
@@ -20,30 +39,30 @@ void MotionTask::execute(QtJson::JsonObject parsedMessage)
         QtJson::JsonObject block = blocks[i].toMap();
         QtJson::JsonObject detailedInfo = block["detailedInfo"].toMap();
         QtJson::JsonObject axesArgumentsRaw = detailedInfo["axesArguments"].toMap();
-        QMap<QString, double> axesArgumentsMap = {};
+        QMap<QString, double> targetPosition = {};
         for(auto axisId : axesArgumentsRaw.keys())
         {
             bool ok = false;
             double value = axesArgumentsRaw[axisId].toDouble(&ok);
-            if(!ok) continue;
-            axesArgumentsMap.insert(axisId, value);
+            if(!ok)
+                continue;
+            targetPosition.insert(axisId, value);
         }
 
         // calculate increments
-        QStringList axisArgumentsKeys = axesArgumentsMap.keys();
-        int stepsCount = 10;
-        QMap<QString, double> stepIncrements = {};
-        for(auto key : axisArgumentsKeys)
+        QMap<QString, double> positionOffset = this->getCurrentPositionOffset(targetPosition);
+        int stepsCount = this->getStepsCount(positionOffset);
+        QMap<QString, double> axesSteps = {};
+        for(auto axis : positionOffset.keys())
         {
-            double diff = (axesArgumentsMap[key] - m_state.getAxisPosition(key));
-            double stepByAxis = diff / stepsCount;
-            stepIncrements.insert(key, stepByAxis);
+            double step = positionOffset[axis] / stepsCount;
+            axesSteps.insert(axis, step);
         }
 
         // simulate move
         for(int i = 0; i < stepsCount; i++)
         {
-            for(auto key : axisArgumentsKeys)
+            for(auto key : positionOffset.keys())
             {
                 if(m_terminationRequested)
                 {
@@ -51,7 +70,7 @@ void MotionTask::execute(QtJson::JsonObject parsedMessage)
                     emit this->currentStateChanged(m_state);
                     return;
                 }
-                double newAxisPosition = m_state.getAxisPosition(key) + stepIncrements[key];
+                double newAxisPosition = m_state.getAxisPosition(key) + axesSteps[key];
                 m_state.setAxisPosition(key, newAxisPosition);
             }
 
