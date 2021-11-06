@@ -5,6 +5,7 @@ AxisPushButton::AxisPushButton(QWidget *parent):
     m_shortcutDelayTimer(new QTimer(this)),
     m_continiousMovement(false)
 {
+    this->setAutoRepeat(false);
     QObject::connect(m_shortcutDelayTimer, &QTimer::timeout, [=]() {
         m_shortcutDelayTimer->stop();
         this->setDown(false);
