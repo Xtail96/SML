@@ -149,59 +149,89 @@ void MainWindow::setupSlots()
     }));
 
     // Настройка горячих клавиш для основных осей координат.
+    ui->movementXNegativeYPositivePushButton->bindAxis(Axis::Id::X);
+    ui->movementXNegativeYPositivePushButton->bindAxis(Axis::Id::Y);
+    ui->movementXNegativeYPositivePushButton->bindShortcut(Qt::Key_Q);
+    ui->movementXNegativeYPositivePushButton->bindShortcut(QKeySequence("Й"));
+
+    ui->movementYPositivePushButton->bindAxis(Axis::Id::Y);
+    ui->movementYPositivePushButton->bindShortcut(Qt::Key_W);
+    ui->movementYPositivePushButton->bindShortcut(QKeySequence("Ц"));
+
+    ui->movementXPositiveYPositivePushButton->bindAxis(Axis::Id::X);
+    ui->movementXPositiveYPositivePushButton->bindAxis(Axis::Id::Y);
+    ui->movementXPositiveYPositivePushButton->bindShortcut(Qt::Key_E);
+    ui->movementXPositiveYPositivePushButton->bindShortcut(QKeySequence("У"));
+
+    ui->movementXNegativePushButton->bindAxis(Axis::Id::X);
+    ui->movementXNegativePushButton->bindShortcut(Qt::Key_A);
+    ui->movementXNegativePushButton->bindShortcut(QKeySequence("Ф"));
+
+    ui->movementXPositivePushButton->bindAxis(Axis::Id::X);
     ui->movementXPositivePushButton->bindShortcut(Qt::Key_D);
     ui->movementXPositivePushButton->bindShortcut(QKeySequence("В"));
 
-    /*m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, Qt::Key_Q));
-    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, QKeySequence("Й")));
+    ui->movementXNegativeYNegativePushButton->bindAxis(Axis::Id::X);
+    ui->movementXNegativeYNegativePushButton->bindAxis(Axis::Id::Y);
+    ui->movementXNegativeYNegativePushButton->bindShortcut(Qt::Key_Z);
+    ui->movementXNegativeYNegativePushButton->bindShortcut(QKeySequence("Я"));
 
-    m_slotsInfo.append(bindShortcut(ui->movementYPositivePushButton, Qt::Key_W));
-    m_slotsInfo.append(bindShortcut(ui->movementYPositivePushButton, QKeySequence("Ц")));
+    ui->movementYNegativePushButton->bindAxis(Axis::Id::Y);
+    ui->movementYNegativePushButton->bindShortcut(Qt::Key_S);
+    ui->movementYNegativePushButton->bindShortcut(QKeySequence("Ы"));
 
-    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYPositivePushButton, Qt::Key_E));
-    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYPositivePushButton, QKeySequence("У")));
+    ui->movementXPositiveYNegativePushButton->bindAxis(Axis::Id::X);
+    ui->movementXPositiveYNegativePushButton->bindAxis(Axis::Id::Y);
+    ui->movementXPositiveYNegativePushButton->bindShortcut(Qt::Key_X);
+    ui->movementXPositiveYNegativePushButton->bindShortcut(QKeySequence("Ч"));
 
-    m_slotsInfo.append(bindShortcut(ui->movementXNegativePushButton, Qt::Key_A));
-    m_slotsInfo.append(bindShortcut(ui->movementXNegativePushButton, QKeySequence("Ф")));
+    ui->movementZPositivePushButton->bindAxis(Axis::Id::Z);
+    ui->movementZPositivePushButton->bindShortcut(Qt::Key_Up);
 
-    m_slotsInfo.append(bindShortcut(ui->movementXPositivePushButton, Qt::Key_D));
-    m_slotsInfo.append(bindShortcut(ui->movementXPositivePushButton, QKeySequence("В")));
-
-    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYNegativePushButton, Qt::Key_Z));
-    m_slotsInfo.append(bindShortcut(ui->movementXNegativeYNegativePushButton, QKeySequence("Я")));
-
-    m_slotsInfo.append(bindShortcut(ui->movementYNegativePushButton, Qt::Key_S));
-    m_slotsInfo.append(bindShortcut(ui->movementYNegativePushButton, QKeySequence("Ы")));
-
-    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYNegativePushButton, Qt::Key_X));
-    m_slotsInfo.append(bindShortcut(ui->movementXPositiveYNegativePushButton, QKeySequence("Ч")));
-
-    m_slotsInfo.append(bindShortcut(ui->movementZPositivePushButton, Qt::Key_Up));
-    m_slotsInfo.append(bindShortcut(ui->movementZNegativePushButton, Qt::Key_Down));
-
+    ui->movementZNegativePushButton->bindAxis(Axis::Id::Z);
+    ui->movementZNegativePushButton->bindShortcut(Qt::Key_Down);
 
     // Настройка горячих клавиш для дополнительных осей координат.
-    m_slotsInfo.append(bindShortcut(ui->movementANegativePushButton, Qt::Key_Left));
-    m_slotsInfo.append(bindShortcut(ui->movementAPositivePushButton, Qt::Key_Right));
-    m_slotsInfo.append(bindShortcut(ui->movementBNegativePushButton, Qt::SHIFT + Qt::Key_Left));
-    m_slotsInfo.append(bindShortcut(ui->movementBPositivePushButton, Qt::SHIFT + Qt::Key_Right));
-    m_slotsInfo.append(bindShortcut(ui->movementCNegativePushButton, Qt::ALT + Qt::Key_Left));
-    m_slotsInfo.append(bindShortcut(ui->movementCPositivePushButton, Qt::ALT + Qt::Key_Right));
+    ui->movementANegativePushButton->bindAxis(Axis::Id::A);
+    ui->movementANegativePushButton->bindShortcut(Qt::Key_Left);
 
+    ui->movementAPositivePushButton->bindAxis(Axis::Id::A);
+    ui->movementAPositivePushButton->bindShortcut(Qt::Key_Right);
+
+    ui->movementBNegativePushButton->bindAxis(Axis::Id::B);
+    ui->movementBNegativePushButton->bindShortcut(Qt::SHIFT + Qt::Key_Left);
+
+    ui->movementBPositivePushButton->bindAxis(Axis::Id::B);
+    ui->movementBPositivePushButton->bindShortcut(Qt::SHIFT + Qt::Key_Right);
+
+    ui->movementCNegativePushButton->bindAxis(Axis::Id::C);
+    ui->movementCNegativePushButton->bindShortcut(Qt::ALT + Qt::Key_Left);
+
+    ui->movementCPositivePushButton->bindAxis(Axis::Id::C);
+    ui->movementCPositivePushButton->bindShortcut(Qt::ALT + Qt::Key_Right);
 
     // Настройка горячих клавиш для вспомогательных осей координат.
-    m_slotsInfo.append(bindShortcut(ui->movementUNegativePushButton, Qt::SHIFT + Qt::Key_A));
-    m_slotsInfo.append(bindShortcut(ui->movementUNegativePushButton, QKeySequence("Shift+Ф")));
-    m_slotsInfo.append(bindShortcut(ui->movementUPositivePushButton, Qt::SHIFT + Qt::Key_D));
-    m_slotsInfo.append(bindShortcut(ui->movementUPositivePushButton, QKeySequence("Shift+В")));
+    ui->movementUNegativePushButton->bindAxis(Axis::Id::U);
+    ui->movementUNegativePushButton->bindShortcut(Qt::SHIFT + Qt::Key_A);
+    ui->movementUNegativePushButton->bindShortcut(QKeySequence("Shift+Ф"));
 
-    m_slotsInfo.append(bindShortcut(ui->movementVNegativePushButton, Qt::SHIFT + Qt::Key_S));
-    m_slotsInfo.append(bindShortcut(ui->movementVNegativePushButton, QKeySequence("Shift+Ы")));
-    m_slotsInfo.append(bindShortcut(ui->movementVPositivePushButton, Qt::SHIFT + Qt::Key_W));
-    m_slotsInfo.append(bindShortcut(ui->movementVPositivePushButton, QKeySequence("Shift+Ц")));
+    ui->movementUPositivePushButton->bindAxis(Axis::Id::U);
+    ui->movementUPositivePushButton->bindShortcut(Qt::SHIFT + Qt::Key_D);
+    ui->movementUPositivePushButton->bindShortcut(QKeySequence("Shift+В"));
 
-    m_slotsInfo.append(bindShortcut(ui->movementWNegativePushButton, Qt::SHIFT + Qt::Key_Down));
-    m_slotsInfo.append(bindShortcut(ui->movementWPositivePushButton, Qt::SHIFT + Qt::Key_Up));*/
+    ui->movementVNegativePushButton->bindAxis(Axis::Id::V);
+    ui->movementVNegativePushButton->bindShortcut(Qt::SHIFT + Qt::Key_S);
+    ui->movementVNegativePushButton->bindShortcut(QKeySequence("Shift+Ы"));
+
+    ui->movementVPositivePushButton->bindAxis(Axis::Id::V);
+    ui->movementVPositivePushButton->bindShortcut(Qt::SHIFT + Qt::Key_W);
+    ui->movementVPositivePushButton->bindShortcut(QKeySequence("Shift+Ц"));
+
+    ui->movementWNegativePushButton->bindAxis(Axis::Id::W);
+    ui->movementWNegativePushButton->bindShortcut(Qt::SHIFT + Qt::Key_Down);
+
+    ui->movementWPositivePushButton->bindAxis(Axis::Id::W);
+    ui->movementWPositivePushButton->bindShortcut(Qt::SHIFT + Qt::Key_Up);
 }
 
 void MainWindow::resetSlots()
@@ -282,61 +312,56 @@ void MainWindow::fillSettings()
     }
 }
 
+QList<AxisPushButton *> MainWindow::getAllAxesButtons()
+{
+    return {
+        ui->movementXNegativePushButton,
+        ui->movementXPositivePushButton,
+        ui->movementYNegativePushButton,
+        ui->movementYPositivePushButton,
+        ui->movementXNegativeYNegativePushButton,
+        ui->movementXNegativeYPositivePushButton,
+        ui->movementXPositiveYNegativePushButton,
+        ui->movementXPositiveYPositivePushButton,
+        ui->movementZNegativePushButton,
+        ui->movementZPositivePushButton,
+        ui->movementANegativePushButton,
+        ui->movementAPositivePushButton,
+        ui->movementBNegativePushButton,
+        ui->movementBPositivePushButton,
+        ui->movementCNegativePushButton,
+        ui->movementCPositivePushButton,
+        ui->movementUNegativePushButton,
+        ui->movementUPositivePushButton,
+        ui->movementVNegativePushButton,
+        ui->movementVPositivePushButton,
+        ui->movementWNegativePushButton,
+        ui->movementWPositivePushButton
+    };
+}
+
 void MainWindow::setAxesButtonsState(bool enable)
 {
     auto& driver = HardwareDriver::getInstance();
     auto& motionContoller = driver.getMotionController();
 
-    auto axesButtons = {
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X}, ui->movementXNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X}, ui->movementXPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::Y}, ui->movementYNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::Y}, ui->movementYPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X, Axis::Id::Y}, ui->movementXNegativeYNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X, Axis::Id::Y}, ui->movementXNegativeYPositivePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X, Axis::Id::Y}, ui->movementXPositiveYNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::X, Axis::Id::Y}, ui->movementXPositiveYPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::Z}, ui->movementZNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::Z}, ui->movementZPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::A}, ui->movementANegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::A}, ui->movementAPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::B}, ui->movementBNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::B}, ui->movementBPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::C}, ui->movementCNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::C}, ui->movementCPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::U}, ui->movementUNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::U}, ui->movementUPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::V}, ui->movementVNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::V}, ui->movementVPositivePushButton),
-
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::W}, ui->movementWNegativePushButton),
-        QPair< QList<Axis::Id>, QPushButton*>({Axis::Id::W}, ui->movementWPositivePushButton)
-    };
-
+    auto axesButtons = this->getAllAxesButtons();
     for(auto button : axesButtons)
     {
         if(enable)
         {
             bool axisExists = true;
-            for(auto axisId : button.first)
+            for(auto axisId : button->getAxes())
             {
                 if(!motionContoller.axisExists(axisId))
                     axisExists = false;
             }
             if(axisExists)
-                button.second->setEnabled(true);
+                button->setEnabled(true);
         }
         else
         {
-            button.second->setEnabled(false);
+            button->setEnabled(false);
         }
 
     }
@@ -357,13 +382,7 @@ void MainWindow::setAdjustmentActionsButtonsState(bool enable)
         button->setEnabled(enable);
 }
 
-void MainWindow::on_movementXPositivePushButton_pressed()
-{
-    auto& driver = HardwareDriver::getInstance();
-    driver.moveOffset({{Axis::Id::X, m_stepSize}});
-}
-
-void MainWindow::on_movementXPositivePushButton_released()
+void MainWindow::stopContiniousMovement()
 {
     if(m_stepSize < INF_MOVE)
         return;
@@ -373,10 +392,26 @@ void MainWindow::on_movementXPositivePushButton_released()
         driver.stopMoving();
 }
 
+void MainWindow::on_movementXPositivePushButton_pressed()
+{
+    auto& driver = HardwareDriver::getInstance();
+    driver.moveOffset({{Axis::Id::X, m_stepSize}});
+}
+
+void MainWindow::on_movementXPositivePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementXNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::X, -m_stepSize}});
+}
+
+void MainWindow::on_movementXNegativePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementYPositivePushButton_pressed()
@@ -385,10 +420,20 @@ void MainWindow::on_movementYPositivePushButton_pressed()
     driver.moveOffset({{Axis::Id::Y, m_stepSize}});
 }
 
+void MainWindow::on_movementYPositivePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::Y, -m_stepSize}});
+}
+
+void MainWindow::on_movementYNegativePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementXNegativeYPositivePushButton_pressed()
@@ -398,11 +443,21 @@ void MainWindow::on_movementXNegativeYPositivePushButton_pressed()
                        {Axis::Id::Y, m_stepSize}});
 }
 
+void MainWindow::on_movementXNegativeYPositivePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementXNegativeYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::X, -m_stepSize},
                        {Axis::Id::Y, -m_stepSize}});
+}
+
+void MainWindow::on_movementXNegativeYNegativePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementXPositiveYPositivePushButton_pressed()
@@ -412,11 +467,21 @@ void MainWindow::on_movementXPositiveYPositivePushButton_pressed()
                        {Axis::Id::Y, m_stepSize}});
 }
 
+void MainWindow::on_movementXPositiveYPositivePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementXPositiveYNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::X, m_stepSize},
                        {Axis::Id::Y, -m_stepSize}});
+}
+
+void MainWindow::on_movementXPositiveYNegativePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementZPositivePushButton_pressed()
@@ -425,10 +490,20 @@ void MainWindow::on_movementZPositivePushButton_pressed()
     driver.moveOffset({{Axis::Id::Z, m_stepSize}});
 }
 
+void MainWindow::on_movementZPositivePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementZNegativePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::Z, -m_stepSize}});
+}
+
+void MainWindow::on_movementZNegativePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementANegativePushButton_pressed()
@@ -437,10 +512,20 @@ void MainWindow::on_movementANegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::A, -m_stepSize}});
 }
 
+void MainWindow::on_movementANegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementAPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::A, m_stepSize}});
+}
+
+void MainWindow::on_movementAPositivePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementBNegativePushButton_pressed()
@@ -449,10 +534,20 @@ void MainWindow::on_movementBNegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::B, -m_stepSize}});
 }
 
+void MainWindow::on_movementBNegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementBPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::B, m_stepSize}});
+}
+
+void MainWindow::on_movementBPositivePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementCNegativePushButton_pressed()
@@ -461,10 +556,20 @@ void MainWindow::on_movementCNegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::C, -m_stepSize}});
 }
 
+void MainWindow::on_movementCNegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementCPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::C, m_stepSize}});
+}
+
+void MainWindow::on_movementCPositivePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementUNegativePushButton_pressed()
@@ -473,10 +578,20 @@ void MainWindow::on_movementUNegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::U, -m_stepSize}});
 }
 
+void MainWindow::on_movementUNegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementUPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::U, m_stepSize}});
+}
+
+void MainWindow::on_movementUPositivePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementVNegativePushButton_pressed()
@@ -485,10 +600,20 @@ void MainWindow::on_movementVNegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::V, -m_stepSize}});
 }
 
+void MainWindow::on_movementVNegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementVPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::V, m_stepSize}});
+}
+
+void MainWindow::on_movementVPositivePushButton_released()
+{
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_movementWNegativePushButton_pressed()
@@ -497,33 +622,58 @@ void MainWindow::on_movementWNegativePushButton_pressed()
     driver.moveOffset({{Axis::Id::W, -m_stepSize}});
 }
 
+void MainWindow::on_movementWNegativePushButton_released()
+{
+    this->stopContiniousMovement();
+}
+
 void MainWindow::on_movementWPositivePushButton_pressed()
 {
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::W, m_stepSize}});
 }
 
-void MainWindow::on_discreteRadioButton_4_clicked()
+void MainWindow::on_movementWPositivePushButton_released()
 {
-    m_stepSize = 10;
-}
-
-void MainWindow::on_discreteRadioButton_3_clicked()
-{
-    m_stepSize = 1;
-}
-
-void MainWindow::on_discreteRadioButton_2_clicked()
-{
-    m_stepSize = 0.1;
+    this->stopContiniousMovement();
 }
 
 void MainWindow::on_discreteRadioButton_1_clicked()
 {
     m_stepSize = 0.01;
+    auto axesButtons = this->getAllAxesButtons();
+    for(auto button : axesButtons)
+        button->setContiniousMovement(false);
+}
+
+void MainWindow::on_discreteRadioButton_2_clicked()
+{
+    m_stepSize = 0.1;
+    auto axesButtons = this->getAllAxesButtons();
+    for(auto button : axesButtons)
+        button->setContiniousMovement(false);
+}
+
+void MainWindow::on_discreteRadioButton_3_clicked()
+{
+    m_stepSize = 1;
+    auto axesButtons = this->getAllAxesButtons();
+    for(auto button : axesButtons)
+        button->setContiniousMovement(false);
+}
+
+void MainWindow::on_discreteRadioButton_4_clicked()
+{
+    m_stepSize = 10;
+    auto axesButtons = this->getAllAxesButtons();
+    for(auto button : axesButtons)
+        button->setContiniousMovement(false);
 }
 
 void MainWindow::on_discreteRadioButton_5_clicked()
 {
     m_stepSize = INF_MOVE;
+    auto axesButtons = this->getAllAxesButtons();
+    for(auto button : axesButtons)
+        button->setContiniousMovement(true);
 }

@@ -22,6 +22,7 @@
 #include "gui/utils/gcodes_syntax_highlighter.h"
 #include "models/hardware/hardware_driver.h"
 #include "gui/widgets/spindel_control_widget.h"
+#include "../gui/widgets/axis_push_button.h"
 
 #include "models/services/gcodes/view/gcodes_view_interactor.h"
 #include "./models/services/adapters/launcher/adapters_launcher.h"
@@ -78,61 +79,84 @@ private slots:
     void on_movementXPositivePushButton_released();
 
     void on_movementXNegativePushButton_pressed();
+    void on_movementXNegativePushButton_released();
 
     void on_movementYPositivePushButton_pressed();
+    void on_movementYPositivePushButton_released();
 
     void on_movementYNegativePushButton_pressed();
+    void on_movementYNegativePushButton_released();
 
     void on_movementXNegativeYPositivePushButton_pressed();
+    void on_movementXNegativeYPositivePushButton_released();
 
     void on_movementXNegativeYNegativePushButton_pressed();
+    void on_movementXNegativeYNegativePushButton_released();
 
     void on_movementXPositiveYPositivePushButton_pressed();
+    void on_movementXPositiveYPositivePushButton_released();
 
     void on_movementXPositiveYNegativePushButton_pressed();
+    void on_movementXPositiveYNegativePushButton_released();
 
     void on_movementZPositivePushButton_pressed();
+    void on_movementZPositivePushButton_released();
 
     void on_movementZNegativePushButton_pressed();
+    void on_movementZNegativePushButton_released();
 
     void on_movementANegativePushButton_pressed();
+    void on_movementANegativePushButton_released();
 
     void on_movementAPositivePushButton_pressed();
+    void on_movementAPositivePushButton_released();
 
     void on_movementBNegativePushButton_pressed();
+    void on_movementBNegativePushButton_released();
 
     void on_movementBPositivePushButton_pressed();
+    void on_movementBPositivePushButton_released();
 
     void on_movementCNegativePushButton_pressed();
+    void on_movementCNegativePushButton_released();
 
     void on_movementCPositivePushButton_pressed();
+    void on_movementCPositivePushButton_released();
 
     void on_movementUNegativePushButton_pressed();
+    void on_movementUNegativePushButton_released();
 
     void on_movementUPositivePushButton_pressed();
+    void on_movementUPositivePushButton_released();
 
     void on_movementVNegativePushButton_pressed();
+    void on_movementVNegativePushButton_released();
 
     void on_movementVPositivePushButton_pressed();
+    void on_movementVPositivePushButton_released();
 
     void on_movementWNegativePushButton_pressed();
+    void on_movementWNegativePushButton_released();
 
     void on_movementWPositivePushButton_pressed();
+    void on_movementWPositivePushButton_released();
 
-    void on_discreteRadioButton_4_clicked();
-
-    void on_discreteRadioButton_3_clicked();
+    void on_discreteRadioButton_1_clicked();
 
     void on_discreteRadioButton_2_clicked();
 
-    void on_discreteRadioButton_1_clicked();
+    void on_discreteRadioButton_3_clicked();
+
+    void on_discreteRadioButton_4_clicked();
 
     void on_discreteRadioButton_5_clicked();
 
 private:
     void fillSettings();
+    QList<AxisPushButton*> getAllAxesButtons();
     void setAxesButtonsState(bool enable);
     void setAdjustmentActionsButtonsState(bool enable);
+    void stopContiniousMovement();
 };
 
 

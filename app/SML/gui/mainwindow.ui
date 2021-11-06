@@ -1210,7 +1210,7 @@
                   <number>5</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QPushButton" name="movementXNegativeYPositivePushButton">
+                  <widget class="AxisPushButton" name="movementXNegativeYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1241,7 +1241,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QPushButton" name="movementYNegativePushButton">
+                  <widget class="AxisPushButton" name="movementYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1275,7 +1275,7 @@
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QPushButton" name="movementXPositiveYNegativePushButton">
+                  <widget class="AxisPushButton" name="movementXPositiveYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1306,7 +1306,7 @@
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QPushButton" name="movementXPositiveYPositivePushButton">
+                  <widget class="AxisPushButton" name="movementXPositiveYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1356,7 +1356,7 @@
                   </spacer>
                  </item>
                  <item row="2" column="0">
-                  <widget class="QPushButton" name="movementXNegativeYNegativePushButton">
+                  <widget class="AxisPushButton" name="movementXNegativeYNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1387,7 +1387,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QPushButton" name="movementYPositivePushButton">
+                  <widget class="AxisPushButton" name="movementYPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1479,7 +1479,7 @@
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QPushButton" name="movementXNegativePushButton">
+                  <widget class="AxisPushButton" name="movementXNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>1</horstretch>
@@ -1537,7 +1537,7 @@
                   <number>5</number>
                  </property>
                  <item>
-                  <widget class="QPushButton" name="movementZPositivePushButton">
+                  <widget class="AxisPushButton" name="movementZPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1571,7 +1571,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="movementZNegativePushButton">
+                  <widget class="AxisPushButton" name="movementZNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1629,7 +1629,7 @@
                   <number>5</number>
                  </property>
                  <item row="5" column="2">
-                  <widget class="QPushButton" name="movementWPositivePushButton">
+                  <widget class="AxisPushButton" name="movementWPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1652,7 +1652,7 @@
                   </widget>
                  </item>
                  <item row="4" column="2">
-                  <widget class="QPushButton" name="movementVPositivePushButton">
+                  <widget class="AxisPushButton" name="movementVPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1675,7 +1675,7 @@
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QPushButton" name="movementAPositivePushButton">
+                  <widget class="AxisPushButton" name="movementAPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1715,7 +1715,7 @@
                   </widget>
                  </item>
                  <item row="5" column="1">
-                  <widget class="QPushButton" name="movementWNegativePushButton">
+                  <widget class="AxisPushButton" name="movementWNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1738,7 +1738,7 @@
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QPushButton" name="movementCPositivePushButton">
+                  <widget class="AxisPushButton" name="movementCPositivePushButton">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -1775,7 +1775,7 @@
                   </widget>
                  </item>
                  <item row="3" column="1">
-                  <widget class="QPushButton" name="movementUNegativePushButton">
+                  <widget class="AxisPushButton" name="movementUNegativePushButton">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -1801,7 +1801,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QPushButton" name="movementANegativePushButton">
+                  <widget class="AxisPushButton" name="movementANegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1835,7 +1835,7 @@
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QPushButton" name="movementBPositivePushButton">
+                  <widget class="AxisPushButton" name="movementBPositivePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1869,7 +1869,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QPushButton" name="movementCNegativePushButton">
+                  <widget class="AxisPushButton" name="movementCNegativePushButton">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -1906,7 +1906,7 @@
                   </widget>
                  </item>
                  <item row="4" column="1">
-                  <widget class="QPushButton" name="movementVNegativePushButton">
+                  <widget class="AxisPushButton" name="movementVNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1929,7 +1929,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QPushButton" name="movementBNegativePushButton">
+                  <widget class="AxisPushButton" name="movementBNegativePushButton">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -1963,7 +1963,7 @@
                   </widget>
                  </item>
                  <item row="3" column="2">
-                  <widget class="QPushButton" name="movementUPositivePushButton">
+                  <widget class="AxisPushButton" name="movementUPositivePushButton">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
