@@ -19,7 +19,7 @@ DEFINES += QT_MESSAGELOGCONTEXT
 SOURCES += main.cpp\
         gui/mainwindow.cpp \
     gui/utils/utils.cpp \
-    gui/widgets/my_push_button.cpp \
+    gui/widgets/axis_push_button.cpp \
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
@@ -51,7 +51,7 @@ SOURCES += main.cpp\
 HEADERS  += gui/mainwindow.h \
     gui/utils/colors.h \
     gui/utils/utils.h \
-    gui/widgets/my_push_button.h \
+    gui/widgets/axis_push_button.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \

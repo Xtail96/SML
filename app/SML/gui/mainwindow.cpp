@@ -149,7 +149,9 @@ void MainWindow::setupSlots()
     }));
 
     // Настройка горячих клавиш для основных осей координат.
-    ui->movementXPositivePushButton->setShortcut(Qt::Key_D);
+    ui->movementXPositivePushButton->bindShortcut(Qt::Key_D);
+    ui->movementXPositivePushButton->bindShortcut(QKeySequence("В"));
+
     /*m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, Qt::Key_Q));
     m_slotsInfo.append(bindShortcut(ui->movementXNegativeYPositivePushButton, QKeySequence("Й")));
 
@@ -357,18 +359,15 @@ void MainWindow::setAdjustmentActionsButtonsState(bool enable)
 
 void MainWindow::on_movementXPositivePushButton_pressed()
 {
-    //qDebug() << "pressed" << m_stepSize;
     auto& driver = HardwareDriver::getInstance();
     driver.moveOffset({{Axis::Id::X, m_stepSize}});
 }
 
 void MainWindow::on_movementXPositivePushButton_released()
 {
-    //qDebug() << "released";
     if(m_stepSize < INF_MOVE)
         return;
 
-    //qDebug() << "stop motion";
     auto& driver = HardwareDriver::getInstance();
     if(driver.isMoving())
         driver.stopMoving();
