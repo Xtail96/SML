@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     APP_DIR = qApp->applicationDirPath();
-    //qInstallMessageHandler(myMessageHandler);
+    qInstallMessageHandler(myMessageHandler);
 
     QCoreApplication::setApplicationName("SML");
 
