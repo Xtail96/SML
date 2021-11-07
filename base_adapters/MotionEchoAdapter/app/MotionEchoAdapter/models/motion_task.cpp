@@ -23,6 +23,8 @@ QMap<QString, double> MotionTask::getCurrentPositionOffset(QMap<QString, double>
 int MotionTask::getStepsCount(QMap<QString, double> positionOffset)
 {
     QList<double> offsets = positionOffset.values();
+    for(auto& offset : offsets)
+        offset = fabs(offset);
     std::sort(offsets.begin(), offsets.end());
     double maxOffset = offsets.last();
     return (maxOffset >= 1000) ? int(maxOffset): 10;

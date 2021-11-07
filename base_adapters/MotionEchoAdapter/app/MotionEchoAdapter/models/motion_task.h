@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTest>
+#include "math.h"
 #include "libs/jsonparser/json.h"
 
 #include "./structs.h"
