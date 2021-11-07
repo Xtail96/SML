@@ -59,7 +59,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>SML 0.0.1:Acacia</string>
+   <string>SML 0.0.1</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
