@@ -12,27 +12,27 @@ SML - программно-аппаратная платформа для упр
 
 ## Контакты ##
 
-* EMail: xtail1996@yandex.ru;
-* Phone number/Telegram: +7(911)209-75-27;
+* Электронный Адрес: xtail1996@yandex.ru;
+* Telegram: +7(911)209-75-27;
 
-## Release Building Instructions ##
+## Сборка релизов ##
 
-### Linux ###
+### Для Linux ###
 
-#### Requirements ####
+#### Зависимости ####
 
 * Qt 5.10.1 <=
 * opengl
 * g++ and gcc
 * [linuxdeployqt](https://github.com/probonopd/linuxdeployqt) или [linuxdeployqt fork](https://github.com/ApplicationsForge/linuxdeployqt)
 
-#### Intructions ####
+#### Последовательность действий ####
 
-* Simple example `./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage`
+* Простейшим варианто сборки релиза под Linux является запуск команды`./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage` из терминала. На выходе будет сформирован файл `SML.AppImage`, который можно переносить на целевую машину для запуска программы.
 
-* With .desktop file
+* С использованием файла \*.desktop
 
-provide this directory structure
+Перед запуском `linuxdeployqt-5-x86_64.AppImage`, нужно обеспечить наличие в файловой системе директории со следующей структурой. После чего передать в утилиту `linuxdeployqt-5-x86_64.AppImage` путь до файла `\*.desktop` из этой директории.
 
 ```
 releases/linux
@@ -50,11 +50,13 @@ releases/linux
                         └── sml_logo.png
 ```
 
-1. Add empty `lib` folder to `releases/linux/usr/`
-2. Add `bin` folder to `releases/linux/usr`
-3. Add new `SML` binary file to `releases/linux/usr/bin`
-4. Update icons and desktop file if it neccessary.
-5. Run `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/sml.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage`
+Для этого, необходимо выполнить в папке репоизитория следующие действия:
+1. Добавить пустую директорию `lib` в директории `releases/linux/usr/`
+2. Добавить директорию `bin` в директории `releases/linux/usr`
+3. Положить актуальный исполняемый файл `SML` в директорию `releases/linux/usr/bin`
+4. При необходимости, обновить изображения значка приложения и файл \*.desktop.
+5. Запустить команду `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/sml.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage` из терминала
 
-### MacOS ###
-`./macdeployqt <RepositoryPath>/app/build-SML-Desktop_Qt_5_9_2_clang_64bit-Release/SML.app/ -dmg`
+### Для MacOS ###
+
+Запустить команду `./macdeployqt <RepositoryPath>/app/build-SML-Desktop_Qt_5_9_2_clang_64bit-Release/SML.app/ -dmg` из терминала. На выходе будет сформирован файл `SML.dmg`, который является одним из стандартных способов поставки программ для MacOS.
