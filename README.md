@@ -28,7 +28,7 @@ SML - программно-аппаратная платформа для упр
 
 #### Последовательность действий ####
 
-* Простейшим вариантом сборки релиза под Linux является запуск команды `./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage` из терминала. На выходе будет сформирован файл `SML.AppImage`, который можно переносить на целевую машину для запуска программы.
+* Простейшим вариантом сборки релиза под Linux является запуск команды `./linuxdeployqt-5-x86_64.AppImage <RepositoryPath>/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=<QtPath>/5.12.3/gcc_64/bin/qmake -appimage` из терминала. На выходе будет сформирован файл `SML.AppImage`, который можно переносить на целевую машину для запуска программы.
 
 * С использованием файла \*.desktop
 
@@ -55,7 +55,7 @@ releases/linux
 2. Добавить директорию `bin` в директории `releases/linux/usr`
 3. Положить актуальный исполняемый файл `SML` в директорию `releases/linux/usr/bin`
 4. При необходимости, обновить изображения значка приложения и файл \*.desktop.
-5. Запустить команду `./linuxdeployqt-continuous-x86_64.AppImage /home/xtail/Projects/SML/sml-qt/releases/linux/usr/share/applications/sml.desktop -qmake=/home/xtail/Qt/5.9.2/gcc_64/bin/qmake -appimage` из терминала
+5. Запустить команду `./linuxdeployqt-continuous-x86_64.AppImage <RepositoryPath>/releases/linux/usr/share/applications/sml.desktop -qmake=<QtPath>/5.9.2/gcc_64/bin/qmake -appimage` из терминала
 
 ### Для MacOS ###
 
