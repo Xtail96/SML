@@ -28,7 +28,7 @@ SML - программно-аппаратная платформа для упр
 
 #### Последовательность действий ####
 
-* Простейшим варианто сборки релиза под Linux является запуск команды`./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage` из терминала. На выходе будет сформирован файл `SML.AppImage`, который можно переносить на целевую машину для запуска программы.
+* Простейшим вариантом сборки релиза под Linux является запуск команды`./linuxdeployqt-5-x86_64.AppImage /home/xtail/Projects/sml-qt/app/build-SML-Desktop_Qt_5_12_3_GCC_64bit-Release/SML -qmake=/home/xtail/Qt/5.12.3/gcc_64/bin/qmake -appimage` из терминала. На выходе будет сформирован файл `SML.AppImage`, который можно переносить на целевую машину для запуска программы.
 
 * С использованием файла \*.desktop
 
@@ -59,4 +59,4 @@ releases/linux
 
 ### Для MacOS ###
 
-Запустить команду `./macdeployqt <RepositoryPath>/app/build-SML-Desktop_Qt_5_9_2_clang_64bit-Release/SML.app/ -dmg` из терминала. На выходе будет сформирован файл `SML.dmg`, который является одним из стандартных способов поставки программ для MacOS.
+Для сборки релиза для MacOS, необходимо запустить команду `./macdeployqt <RepositoryPath>/app/build-SML-Desktop_Qt_5_9_2_clang_64bit-Release/SML.app/ -dmg` из терминала. На выходе будет сформирован файл `SML.dmg`, который является одним из стандартных способов поставки программ для MacOS.
