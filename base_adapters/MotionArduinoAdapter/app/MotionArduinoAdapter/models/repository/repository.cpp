@@ -61,7 +61,7 @@ void Repository::loadSettings()
 {
     try
     {
-        m_serialPortName = "tty.usbmodem14101";
+        m_serialPortName = "tty.usbmodem1411";
         m_axes.append(AxisState("X", MotorState(0)));
     }
     catch(std::invalid_argument e)

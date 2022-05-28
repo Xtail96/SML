@@ -3,7 +3,7 @@
 MotionArduinoAdapter::MotionArduinoAdapter(QObject *parent) :
     QObject(parent),
     m_serial(new QSerialPort(this)),
-    m_socketHandler(new WebSocketHandler("", this)),
+    m_socketHandler(new WebSocketHandler()),
     m_repository(this)
 {
     m_serial->setBaudRate(9600);
@@ -20,6 +20,7 @@ MotionArduinoAdapter::MotionArduinoAdapter(QObject *parent) :
         qDebug() << "Manufacturer: " << info.manufacturer();
         if(info.portName() == m_repository.m_serialPortName)
         {
+            qDebug() << "Motion Controller has been found.";
             this->openSerialPort(info);
             break;
         }
@@ -116,21 +117,25 @@ void MotionArduinoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray m
         return;
     }
 
-    QString gcodesFrame = parsedMessage["frame"].toString();
-    QtJson::JsonObject gcodesDetailedInfo = parsedMessage["detailedInfo"].toMap();
+    QtJson::JsonArray blocks = parsedMessage["blocks"].toList();
+    if(blocks.length() <= 0)
+        return;
+    QtJson::JsonObject block = blocks[0].toMap();
+    QtJson::JsonObject detailedInfo = block["detailedInfo"].toMap();
 
-    QString gcodesFrameId = gcodesDetailedInfo["frameId"].toString();
-    //int axisCount = gcodesDetailedInfo["axesCount"].toInt();
-    QtJson::JsonObject axesArguments = gcodesDetailedInfo["axesArguments"].toMap();
-    int feedrate = gcodesDetailedInfo["feedrate"].toInt();
+    QString gcodesBlockId = detailedInfo["blockId"].toString();
+    QtJson::JsonObject axesArguments = detailedInfo["axesArguments"].toMap();
+    int feedrate = detailedInfo["feedrate"].toInt();
 
     QtJson::JsonArray cmds = {};
     for(auto& axis : m_repository.m_axes)
     {
-        if(!axesArguments.contains(axis.getId())) continue;
+        if(!axesArguments.contains(axis.getId()))
+            continue;
 
         int position = int(round(axesArguments[axis.getId()].toDouble() * 100));
-        if(position == axis.getMotor().targetPos()) continue;
+        if(position == axis.getMotor().targetPos())
+            continue;
 
         if(axis.getMotor().isMoving())
         {
@@ -155,6 +160,7 @@ void MotionArduinoAdapter::onWebSocketHandler_BinaryMessageReceived(QByteArray m
 void MotionArduinoAdapter::onWebSocketHandler_Connected()
 {
     qDebug() << "Web socket is connected";
+    this->sendStateToServer();
 }
 
 void MotionArduinoAdapter::onWebSocketHandler_Disconnected(QWebSocketProtocol::CloseCode code, QString message)
