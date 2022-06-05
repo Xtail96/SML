@@ -90,14 +90,12 @@ private:
 
     /**
      * @brief Обработчик сообщения от адаптера в виде текста.
-     * @warning Должен быть определен в наследниках.
      * @param message - принятое сообщение от адаптера
      */
     void parseTextMessage(QString message);
 
     /**
      * @brief Обработчик сообщения от адаптера в виде массива байт.
-     * @warning Должен быть определен в наследниках.
      * @param message - принятое сообщение от адаптера
      */
     void parseBinaryMessage(QByteArray message);
