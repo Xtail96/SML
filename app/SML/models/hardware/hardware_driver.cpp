@@ -49,9 +49,7 @@ void HardwareDriver::setupSystemSlots()
 void HardwareDriver::resetSystemSlots()
 {
     for(auto& slotInfo : m_systemSlotsInfo)
-    {
         QObject::disconnect(slotInfo);
-    }
     m_systemSlotsInfo.clear();
 }
 
