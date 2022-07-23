@@ -1,27 +1,27 @@
-#include "adapter_gateway.h"
+#include "websocket_gateway.h"
 
-AdapterGateway::AdapterGateway(QObject *parent) :
+WebSocketGateway::WebSocketGateway(QObject *parent) :
     QObject(parent),
     m_server("SMLAdapterGateway", QWebSocketServer::NonSecureMode, this),
     m_port(0),
     m_slotsInfo(QList<QMetaObject::Connection>()) {}
 
-AdapterGateway::~AdapterGateway()
+WebSocketGateway::~WebSocketGateway()
 {
     this->close();
 }
 
-quint16 AdapterGateway::port() const
+quint16 WebSocketGateway::port() const
 {
     return m_port;
 }
 
-bool AdapterGateway::isOpen()
+bool WebSocketGateway::isOpen()
 {
     return m_server.isListening();
 }
 
-bool AdapterGateway::open(quint16 port)
+bool WebSocketGateway::open(quint16 port)
 {
     if(m_server.isListening())
         this->close();
@@ -39,7 +39,7 @@ bool AdapterGateway::open(quint16 port)
     return true;
 }
 
-void AdapterGateway::close()
+void WebSocketGateway::close()
 {
     this->resetSlots();
 
@@ -52,7 +52,7 @@ void AdapterGateway::close()
     }
 }
 
-void AdapterGateway::setupSlots()
+void WebSocketGateway::setupSlots()
 {
     m_slotsInfo.append(QObject::connect(&m_server, &QWebSocketServer::newConnection, this, [=](){
         emit this->newConnection(m_server.nextPendingConnection());
@@ -63,7 +63,7 @@ void AdapterGateway::setupSlots()
     }));
 }
 
-void AdapterGateway::resetSlots()
+void WebSocketGateway::resetSlots()
 {
     for(auto& slotInfo : m_slotsInfo)
         QObject::disconnect(slotInfo);

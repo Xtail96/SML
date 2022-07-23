@@ -3,12 +3,12 @@
 
 #include <QObject>
 
-#include "./motion_controller/motion_controller.h"
-#include "./device_controller/device_controller.h"
-#include "./adapters/adapter_message_handler.h"
+#include "../controllers/motion_controller/motion_controller.h"
+#include "../controllers/device_controller/device_controller.h"
+#include "./websocket_adapter.h"
 
 
-class Registrator : public AdapterMessageHandler
+class Registrator : public WebSocketAdapter
 {
     Q_OBJECT
 public:
@@ -17,7 +17,7 @@ public:
 
 private:
     QList<QMetaObject::Connection> m_connections;
-    void clearAwaitedClients();
+    void removeRegisteredClients();
     void onClientConnected(QtJson::JsonObject) override;
     void newMessageHandler(QtJson::JsonObject msg) override;
 signals:

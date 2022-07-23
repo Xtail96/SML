@@ -4,10 +4,10 @@
 #include <QObject>
 #include <QQueue>
 
-#include "./controllers/adapters/adapter_gateway.h"
+#include "./adapters/websocket_gateway.h"
 #include "./controllers/motion_controller/motion_controller.h"
 #include "./controllers/device_controller/device_controller.h"
-#include "./controllers/registrator.h"
+#include "./adapters/registrator.h"
 #include "./models/settings_manager/settings_manager.h"
 
 enum HARDWARE_EVENT {
@@ -75,7 +75,7 @@ private:
     QList<QMetaObject::Connection> m_userSlotsInfo;
 
     /// Сервер для подключения адаптеров
-    AdapterGateway m_adapterServer;
+    WebSocketGateway m_adapterServer;
     MotionController m_motionController;
     DeviceController m_deviceController;
     Registrator m_adapterRegistrator;

@@ -1,18 +1,18 @@
-#include "adapter_message_handler.h"
+#include "websocket_adapter.h"
 
-AdapterMessageHandler::AdapterMessageHandler(QObject *parent):
+WebSocketAdapter::WebSocketAdapter(QObject *parent):
     QObject(parent),
     m_clients()
 {
 
 }
 
-AdapterMessageHandler::~AdapterMessageHandler()
+WebSocketAdapter::~WebSocketAdapter()
 {
     qDeleteAll(m_clients.begin(), m_clients.end());
 }
 
-void AdapterMessageHandler::addClient(QWebSocket *s, QtJson::JsonObject intialState)
+void WebSocketAdapter::addClient(QWebSocket *s, QtJson::JsonObject intialState)
 {
     qInfo().noquote() << "Connection from" << s << "is requested.";
     if(m_clients.length() > 0)
@@ -27,36 +27,36 @@ void AdapterMessageHandler::addClient(QWebSocket *s, QtJson::JsonObject intialSt
         return;
     }
 
-    AdapterConnection* newClient = new AdapterConnection(s);
-    newClient->addSlotInfo(QObject::connect(s, &QWebSocket::textMessageReceived, this, [=](QString message){
+    WebSocketClient* adapter = new WebSocketClient(s);
+    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::textMessageReceived, this, [=](QString message){
         this->parseTextMessage(message);
     }));
 
-    newClient->addSlotInfo(QObject::connect(s, &QWebSocket::binaryMessageReceived, this, [=](QByteArray message) {
+    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::binaryMessageReceived, this, [=](QByteArray message) {
         this->parseBinaryMessage(message);
     }));
 
-    newClient->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
-        m_clients.removeAll(newClient);
-        delete newClient;
+    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
+        m_clients.removeAll(adapter);
+        delete adapter;
         emit this->disconnected();
     }));
 
-    m_clients.append(newClient);
+    m_clients.append(adapter);
     qInfo().noquote() << s << "is connected as a client";
 
     this->onClientConnected(intialState);
     emit this->connected();
 }
 
-void AdapterMessageHandler::clearClients()
+void WebSocketAdapter::clearClients()
 {
     qDeleteAll(m_clients.begin(), m_clients.end());
     m_clients.clear();
     emit this->disconnected();
 }
 
-bool AdapterMessageHandler::isConnected() const
+bool WebSocketAdapter::isConnected() const
 {
     if(m_clients.length() <= 0)
         return false;
@@ -67,7 +67,7 @@ bool AdapterMessageHandler::isConnected() const
     return m_clients.first()->socket()->isValid();
 }
 
-qint64 AdapterMessageHandler::sendMessage(QByteArray message)
+qint64 WebSocketAdapter::sendMessage(QByteArray message)
 {
     auto client = m_clients.first();
     if(!client->socket())
@@ -79,7 +79,7 @@ qint64 AdapterMessageHandler::sendMessage(QByteArray message)
     return client->socket()->sendBinaryMessage(message);
 }
 
-void AdapterMessageHandler::parseTextMessage(QString message)
+void WebSocketAdapter::parseTextMessage(QString message)
 {
     bool parsed = false;
     QtJson::JsonObject messageData = QtJson::parse(message, parsed).toMap();
@@ -92,7 +92,7 @@ void AdapterMessageHandler::parseTextMessage(QString message)
     this->newMessageHandler(messageData);
 }
 
-void AdapterMessageHandler::parseBinaryMessage(QByteArray message)
+void WebSocketAdapter::parseBinaryMessage(QByteArray message)
 {
     this->parseTextMessage(QString::fromUtf8(message));
 }

@@ -1,24 +1,22 @@
-#ifndef ADAPTERCONNECTION_H
-#define ADAPTERCONNECTION_H
+#ifndef WEBSOCKETCLIENT_H
+#define WEBSOCKETCLIENT_H
 
 #include <QWebSocket>
 
-/**
- * @brief Мета-информация о подключении адаптера к системе.
- */
-class AdapterConnection
+
+class WebSocketClient
 {
 public:
     /**
      * @brief Конструктор класса.
      * @param s - сокет подключения
      */
-    AdapterConnection(QWebSocket* s);
+    WebSocketClient(QWebSocket* s);
 
     /**
      * @brief Деструктор класса.
      */
-    ~AdapterConnection();
+    ~WebSocketClient();
 
     /**
      * @brief Добавляет информацию о подключенном слоте.
@@ -42,4 +40,4 @@ private:
     QList<QMetaObject::Connection> m_slotsInfo;
 };
 
-#endif // ADAPTERCONNECTION_H
+#endif // WEBSOCKETCLIENT_H

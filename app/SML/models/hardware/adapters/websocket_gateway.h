@@ -1,22 +1,19 @@
-#ifndef ADAPTERGATEWAY_H
-#define ADAPTERGATEWAY_H
+#ifndef WEBSOCKETGATEWAY_H
+#define WEBSOCKETGATEWAY_H
 
 #include <QObject>
 #include <QWebSocketServer>
 #include <QWebSocket>
 
-/**
- * @brief Точка подключения адаптеров к системе.
- */
-class AdapterGateway : public QObject
+class WebSocketGateway : public QObject
 {
     Q_OBJECT
 public:
     /// Конструктор класса.
-    explicit AdapterGateway(QObject *parent);
+    explicit WebSocketGateway(QObject *parent);
 
     /// Деструктор класса.
-    ~AdapterGateway();
+    ~WebSocketGateway();
 
     /// Запускает сервер.
     bool open(quint16 port);
@@ -53,4 +50,4 @@ signals:
     void serverStopped();
 };
 
-#endif // ADAPTERGATEWAY_H
+#endif // WEBSOCKETGATEWAY_H

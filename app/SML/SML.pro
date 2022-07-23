@@ -23,15 +23,15 @@ SOURCES += main.cpp\
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    models/hardware/controllers/adapters/adapter_connection.cpp \
-    models/hardware/controllers/adapters/adapter_gateway.cpp \
-    models/hardware/controllers/adapters/adapter_message_handler.cpp \
+    models/hardware/adapters/websocket_adapter.cpp \
+    models/hardware/adapters/websocket_client.cpp \
+    models/hardware/adapters/websocket_gateway.cpp \
+    models/hardware/adapters/registrator.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
     models/hardware/controllers/motion_controller/axis.cpp \
     models/hardware/controllers/motion_controller/motion_controller.cpp \
     models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
-    models/hardware/controllers/registrator.cpp \
     models/hardware/controllers/task.cpp \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
@@ -56,15 +56,15 @@ HEADERS  += gui/mainwindow.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    models/hardware/controllers/adapters/adapter_connection.h \
-    models/hardware/controllers/adapters/adapter_gateway.h \
-    models/hardware/controllers/adapters/adapter_message_handler.h \
+    models/hardware/adapters/websocket_adapter.h \
+    models/hardware/adapters/websocket_client.h \
+    models/hardware/adapters/websocket_gateway.h \
+    models/hardware/adapters/registrator.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device_controller.h \
     models/hardware/controllers/motion_controller/axis.h \
     models/hardware/controllers/motion_controller/motion_controller.h \
     models/hardware/controllers/motion_controller/motion_controller_repository.h \
-    models/hardware/controllers/registrator.h \
     models/hardware/controllers/task.h \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
