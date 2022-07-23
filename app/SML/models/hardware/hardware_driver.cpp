@@ -42,7 +42,7 @@ void HardwareDriver::setupSystemSlots()
     this->resetSystemSlots();
 
     m_systemSlotsInfo.append(QObject::connect(&m_adapterServer, &WebSocketGateway::newConnection, this, [=](QWebSocket* client) {
-        m_controllerRegistrator.createClient(client, QtJson::JsonObject());
+        m_controllerRegistrator.createConnection(client, QtJson::JsonObject());
     }));
 }
 

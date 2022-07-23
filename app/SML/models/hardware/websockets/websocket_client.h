@@ -1,29 +1,29 @@
-#ifndef WEBSOCKETADAPTER_H
-#define WEBSOCKETADAPTER_H
+#ifndef WEBSOCKETCLIENT_H
+#define WEBSOCKETCLIENT_H
 
 #include <QObject>
 
 #include "libs/json_parser/json.h"
 
-#include "./websocket_client.h"
+#include "./websocket_connection.h"
 
-class WebSocketAdapter : public QObject
+class WebSocketClient : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebSocketAdapter(QObject *parent = nullptr);
-    ~WebSocketAdapter();
+    explicit WebSocketClient(QObject *parent = nullptr);
+    ~WebSocketClient();
 
-    void createClient(QWebSocket* s, QtJson::JsonObject intialState);
+    void createConnection(QWebSocket* s, QtJson::JsonObject intialState);
 
-    void clearClients();
+    void clearConnections();
 
     bool isConnected() const;
 
     qint64 sendMessage(QByteArray message);
 
 protected:
-    QList<WebSocketClient*> m_clients;
+    QList<WebSocketConnection*> m_connections;
 
     virtual void onMessageReceived(QtJson::JsonObject msg) = 0;
     virtual void onClientConnected(QtJson::JsonObject initialState) = 0;
@@ -37,4 +37,4 @@ signals:
     void disconnected();
 };
 
-#endif // WEBSOCKETADAPTER_H
+#endif // WEBSOCKETCLIENT_H

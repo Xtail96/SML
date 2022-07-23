@@ -1,11 +1,11 @@
-#include "websocket_client.h"
+#include "websocket_connection.h"
 
-WebSocketClient::WebSocketClient(QWebSocket *s):
+WebSocketConnection::WebSocketConnection(QWebSocket *s):
     m_socket(s)
 {
 }
 
-WebSocketClient::~WebSocketClient()
+WebSocketConnection::~WebSocketConnection()
 {
     this->clearSlotsInfo();
 
@@ -17,12 +17,12 @@ WebSocketClient::~WebSocketClient()
     }
 }
 
-void WebSocketClient::addSlotInfo(const QMetaObject::Connection &slotInfo)
+void WebSocketConnection::addSlotInfo(const QMetaObject::Connection &slotInfo)
 {
     m_slotsInfo.append(slotInfo);
 }
 
-void WebSocketClient::clearSlotsInfo()
+void WebSocketConnection::clearSlotsInfo()
 {
     for(auto& slotInfo : m_slotsInfo)
     {
@@ -30,7 +30,7 @@ void WebSocketClient::clearSlotsInfo()
     }
 }
 
-QWebSocket *WebSocketClient::socket() const
+QWebSocket *WebSocketConnection::socket() const
 {
     return m_socket;
 }

@@ -21,9 +21,9 @@ SOURCES += \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/json_parser/json.cpp \
-    models/hardware/adapters/websocket_adapter.cpp \
-    models/hardware/adapters/websocket_client.cpp \
-    models/hardware/adapters/websocket_gateway.cpp \
+    models/hardware/websockets/websocket_client.cpp \
+    models/hardware/websockets/websocket_connection.cpp \
+    models/hardware/websockets/websocket_gateway.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device/device.cpp \
     models/hardware/controllers/device_controller/device/spindel.cpp \
@@ -55,9 +55,9 @@ HEADERS += \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/json_parser/json.h \
-    models/hardware/adapters/websocket_adapter.h \
-    models/hardware/adapters/websocket_client.h \
-    models/hardware/adapters/websocket_gateway.h \
+    models/hardware/websockets/websocket_client.h \
+    models/hardware/websockets/websocket_connection.h \
+    models/hardware/websockets/websocket_gateway.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device/device.h \
     models/hardware/controllers/device_controller/device/spindel.h \

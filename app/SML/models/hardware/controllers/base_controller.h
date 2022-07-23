@@ -7,14 +7,14 @@
 
 #include "libs/json_parser/json.h"
 #include "task.h"
-#include "../adapters/websocket_adapter.h"
+#include "../websockets/websocket_client.h"
 
 /**
  * @brief Базовый контроллер.
  * Содержит код для работы с подключениями через сокеты.
  * Содержит код для получения информации о готовности платы обрабатывать задачи.
  */
-class BaseController : public WebSocketAdapter
+class BaseController : public WebSocketClient
 {
     Q_OBJECT
 public:

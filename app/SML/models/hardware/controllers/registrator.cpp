@@ -1,19 +1,19 @@
 #include "registrator.h"
 
 Registrator::Registrator(MotionController *m, DeviceController *d, QObject *parent) :
-    WebSocketAdapter(parent),
-    m_connections()
+    WebSocketClient(parent),
+    m_slotsInfo()
 {
-    m_connections.append(QObject::connect(this, &Registrator::motionControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+    m_slotsInfo.append(QObject::connect(this, &Registrator::motionControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
         qInfo() << "Try to register" << s << "as a motion controller";
-        m->createClient(s, initialState);
+        m->createConnection(s, initialState);
         this->removeRegisteredClients();
         s->sendTextMessage("Registered");
     }));
 
-    m_connections.append(QObject::connect(this, &Registrator::deviceControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+    m_slotsInfo.append(QObject::connect(this, &Registrator::deviceControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
         qInfo() << "Try to register" << s << "as a device controller";
-        d->createClient(s, initialState);
+        d->createConnection(s, initialState);
         this->removeRegisteredClients();
         s->sendTextMessage("Registered");
     }));
@@ -21,16 +21,16 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
 
 Registrator::~Registrator()
 {
-    for(auto connection : m_connections)
-        QObject::disconnect(connection);
+    for(auto slotInfo : m_slotsInfo)
+        QObject::disconnect(slotInfo);
 }
 
 void Registrator::removeRegisteredClients()
 {
     qInfo() << "Remove registered clients from clients list";
-    for(auto client : m_clients)
-        client->clearSlotsInfo();
-    m_clients.clear();
+    for(auto connection : m_connections)
+        connection->clearSlotsInfo();
+    m_connections.clear();
 }
 
 void Registrator::onClientConnected(QtJson::JsonObject)
@@ -58,6 +58,6 @@ void Registrator::onMessageReceived(QtJson::JsonObject msg)
         qWarning() << "Connection refused";
         pSender->sendTextMessage("Connection refused");
         pSender->close();
-        this->clearClients();
+        this->clearConnections();
     }
 }

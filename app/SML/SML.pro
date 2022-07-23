@@ -23,9 +23,9 @@ SOURCES += main.cpp\
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
-    models/hardware/adapters/websocket_adapter.cpp \
-    models/hardware/adapters/websocket_client.cpp \
-    models/hardware/adapters/websocket_gateway.cpp \
+    models/hardware/websockets/websocket_client.cpp \
+    models/hardware/websockets/websocket_connection.cpp \
+    models/hardware/websockets/websocket_gateway.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
     models/hardware/controllers/motion_controller/axis.cpp \
@@ -56,9 +56,9 @@ HEADERS  += gui/mainwindow.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
-    models/hardware/adapters/websocket_adapter.h \
-    models/hardware/adapters/websocket_client.h \
-    models/hardware/adapters/websocket_gateway.h \
+    models/hardware/websockets/websocket_client.h \
+    models/hardware/websockets/websocket_connection.h \
+    models/hardware/websockets/websocket_gateway.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device_controller.h \
     models/hardware/controllers/motion_controller/axis.h \

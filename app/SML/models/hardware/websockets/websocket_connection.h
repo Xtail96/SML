@@ -1,22 +1,22 @@
-#ifndef WEBSOCKETCLIENT_H
-#define WEBSOCKETCLIENT_H
+#ifndef WEBSOCKETCONNECTION_H
+#define WEBSOCKETCONNECTION_H
 
 #include <QWebSocket>
 
 
-class WebSocketClient
+class WebSocketConnection
 {
 public:
     /**
      * @brief Конструктор класса.
      * @param s - сокет подключения
      */
-    WebSocketClient(QWebSocket* s);
+    WebSocketConnection(QWebSocket* s);
 
     /**
      * @brief Деструктор класса.
      */
-    ~WebSocketClient();
+    ~WebSocketConnection();
 
     /**
      * @brief Добавляет информацию о подключенном слоте.
@@ -40,4 +40,4 @@ private:
     QList<QMetaObject::Connection> m_slotsInfo;
 };
 
-#endif // WEBSOCKETCLIENT_H
+#endif // WEBSOCKETCONNECTION_H

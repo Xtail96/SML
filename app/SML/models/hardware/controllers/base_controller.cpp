@@ -1,7 +1,7 @@
 #include "base_controller.h"
 
 BaseController::BaseController(QObject *parent) :
-    WebSocketAdapter(parent),
+    WebSocketClient(parent),
     m_processingTask(false)
 {
 }

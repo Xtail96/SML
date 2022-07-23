@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QQueue>
 
-#include "./adapters/websocket_gateway.h"
+#include "./websockets/websocket_gateway.h"
 #include "./controllers/motion_controller/motion_controller.h"
 #include "./controllers/device_controller/device_controller.h"
 #include "./controllers/registrator.h"

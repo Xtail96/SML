@@ -5,10 +5,10 @@
 
 #include "./motion_controller/motion_controller.h"
 #include "./device_controller/device_controller.h"
-#include "../adapters/websocket_adapter.h"
+#include "../websockets/websocket_client.h"
 
 
-class Registrator : public WebSocketAdapter
+class Registrator : public WebSocketClient
 {
     Q_OBJECT
 public:
@@ -16,7 +16,7 @@ public:
     ~Registrator() override;
 
 private:
-    QList<QMetaObject::Connection> m_connections;
+    QList<QMetaObject::Connection> m_slotsInfo;
     void removeRegisteredClients();
     void onClientConnected(QtJson::JsonObject) override;
     void onMessageReceived(QtJson::JsonObject msg) override;
