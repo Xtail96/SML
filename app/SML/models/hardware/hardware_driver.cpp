@@ -7,7 +7,7 @@ HardwareDriver::HardwareDriver(QObject *parent) :
     m_adapterServer(this),
     m_motionController(this),
     m_deviceController(this),
-    m_adapterRegistrator(&m_motionController, &m_deviceController, this)
+    m_controllerRegistrator(&m_motionController, &m_deviceController, this)
 {
     this->setupSystemSlots();
 
@@ -42,7 +42,7 @@ void HardwareDriver::setupSystemSlots()
     this->resetSystemSlots();
 
     m_systemSlotsInfo.append(QObject::connect(&m_adapterServer, &WebSocketGateway::newConnection, this, [=](QWebSocket* client) {
-        m_adapterRegistrator.addClient(client, QtJson::JsonObject());
+        m_controllerRegistrator.createClient(client, QtJson::JsonObject());
     }));
 }
 

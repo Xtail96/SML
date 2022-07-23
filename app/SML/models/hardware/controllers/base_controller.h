@@ -22,7 +22,7 @@ public:
      * @brief Конструктор  класса.
      * @param parent - родительский объект
      */
-    explicit BaseController(QString logName = "", QObject *parent = nullptr);
+    explicit BaseController(QObject *parent = nullptr);
 
     /**
      * @brief Деструктор класса.
@@ -34,7 +34,6 @@ public:
      * @return Готов ли контроллер к приему новой задачи
      */
     bool isReady() const;
-
 
     virtual void processTask(Task t) = 0;
     virtual void stopProcessing() = 0;
@@ -51,9 +50,6 @@ protected:
     void setProcessingTask(bool isReady);
 
     void stopProcessingTask(QString targetControllerId);
-
-private:
-    QString m_logName;
 
 signals:
     /// Состояние обработки задания изменилось.

@@ -12,19 +12,19 @@ public:
     explicit HardwareDriverTests(QObject *parent = nullptr);
 
 private slots:
-    void testAdaptersNotConnected();
+    void testControllersNotConnected();
 
-    void testDeviceAndMotionAdaptersConnected();
+    void testDeviceAndMotionControllersConnected();
 
-    void testOnlyDeviceAdapterConnected();
+    void testOnlyDeviceControllerConnected();
 
-    void testOnlyMotionAdapterConnected();
+    void testOnlyMotionControllerConnected();
 
-    void testDeviceAndMotionAdaptersDisconnected();
+    void testDeviceAndMotionControllersDisconnected();
 
-    void testOnlyDeviceAdapterDisconnected();
+    void testOnlyDeviceControllerDisconnected();
 
-    void testOnlyMotionAdapterDisconnected();
+    void testOnlyMotionControllerDisconnected();
 
     void testRegisterHandler();
 

@@ -1,7 +1,7 @@
 #include "motion_controller.h"
 
 MotionController::MotionController(QObject *parent):
-    BaseController("MotionController", parent),
+    BaseController(parent),
     m_slotsInfo(),
     m_repository()
 {
@@ -73,7 +73,7 @@ void MotionController::onClientConnected(QtJson::JsonObject initialState)
     this->setProcessingTask(motionController["workflowState"].toBool());
 }
 
-void MotionController::newMessageHandler(QtJson::JsonObject msg)
+void MotionController::onMessageReceived(QtJson::JsonObject msg)
 {
     QtJson::JsonObject motionController = msg["motionControllerState"].toMap();
     if(motionController.isEmpty())

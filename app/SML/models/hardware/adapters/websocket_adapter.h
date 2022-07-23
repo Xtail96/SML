@@ -14,7 +14,7 @@ public:
     explicit WebSocketAdapter(QObject *parent = nullptr);
     ~WebSocketAdapter();
 
-    void addClient(QWebSocket* s, QtJson::JsonObject intialState);
+    void createClient(QWebSocket* s, QtJson::JsonObject intialState);
 
     void clearClients();
 
@@ -25,7 +25,7 @@ public:
 protected:
     QList<WebSocketClient*> m_clients;
 
-    virtual void newMessageHandler(QtJson::JsonObject msg) = 0;
+    virtual void onMessageReceived(QtJson::JsonObject msg) = 0;
     virtual void onClientConnected(QtJson::JsonObject initialState) = 0;
 
 private:

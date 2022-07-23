@@ -4,18 +4,18 @@ Registrator::Registrator(MotionController *m, DeviceController *d, QObject *pare
     WebSocketAdapter(parent),
     m_connections()
 {
-    m_connections.append(QObject::connect(this, &Registrator::motionAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
-        qInfo() << "Try to connect" << s << "as a client to motion controller";
-        m->addClient(s, initialState);
+    m_connections.append(QObject::connect(this, &Registrator::motionControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+        qInfo() << "Try to register" << s << "as a motion controller";
+        m->createClient(s, initialState);
         this->removeRegisteredClients();
-        s->sendTextMessage("Registered!");
+        s->sendTextMessage("Registered");
     }));
 
-    m_connections.append(QObject::connect(this, &Registrator::deviceAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
-        qInfo() << "Try to connect" << s << "as a client to device controller";
-        d->addClient(s, initialState);
+    m_connections.append(QObject::connect(this, &Registrator::deviceControllerConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+        qInfo() << "Try to register" << s << "as a device controller";
+        d->createClient(s, initialState);
         this->removeRegisteredClients();
-        s->sendTextMessage("Registered!");
+        s->sendTextMessage("Registered");
     }));
 }
 
@@ -27,7 +27,7 @@ Registrator::~Registrator()
 
 void Registrator::removeRegisteredClients()
 {
-    qInfo() << "Clear adapters candidate list";
+    qInfo() << "Remove registered clients from clients list";
     for(auto client : m_clients)
         client->clearSlotsInfo();
     m_clients.clear();
@@ -38,7 +38,7 @@ void Registrator::onClientConnected(QtJson::JsonObject)
 
 }
 
-void Registrator::newMessageHandler(QtJson::JsonObject msg)
+void Registrator::onMessageReceived(QtJson::JsonObject msg)
 {
     qInfo().noquote() << "Received" << QtJson::serializeStr(msg);
     QWebSocket* pSender = qobject_cast<QWebSocket *>(sender());
@@ -48,10 +48,10 @@ void Registrator::newMessageHandler(QtJson::JsonObject msg)
     QtJson::JsonObject motionController = msg["motionControllerState"].toMap();
 
     if(!deviceController.isEmpty())
-        emit this->deviceAdapterConnected(pSender, msg);
+        emit this->deviceControllerConnected(pSender, msg);
 
     if(!motionController.isEmpty())
-        emit this->motionAdapterConnected(pSender, msg);
+        emit this->motionControllerConnected(pSender, msg);
 
     if(deviceController.isEmpty() && motionController.isEmpty())
     {

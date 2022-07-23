@@ -12,9 +12,9 @@ WebSocketAdapter::~WebSocketAdapter()
     qDeleteAll(m_clients.begin(), m_clients.end());
 }
 
-void WebSocketAdapter::addClient(QWebSocket *s, QtJson::JsonObject intialState)
+void WebSocketAdapter::createClient(QWebSocket *s, QtJson::JsonObject intialState)
 {
-    qInfo().noquote() << "Connection from" << s << "is requested.";
+    qInfo().noquote() << "Try to connect" << s;
     if(m_clients.length() > 0)
     {
         if(s->isValid())
@@ -23,27 +23,27 @@ void WebSocketAdapter::addClient(QWebSocket *s, QtJson::JsonObject intialState)
         s->close();
         s->deleteLater();
 
-        qWarning().noquote() << "Already have a client." << s << "disconnected";
+        qWarning().noquote() << "Already have a client. Each adapter could have only one client. Websocket" << s << "is disconnected";
         return;
     }
 
-    WebSocketClient* adapter = new WebSocketClient(s);
-    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::textMessageReceived, this, [=](QString message){
+    WebSocketClient* client = new WebSocketClient(s);
+    client->addSlotInfo(QObject::connect(s, &QWebSocket::textMessageReceived, this, [=](QString message){
         this->parseTextMessage(message);
     }));
 
-    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::binaryMessageReceived, this, [=](QByteArray message) {
+    client->addSlotInfo(QObject::connect(s, &QWebSocket::binaryMessageReceived, this, [=](QByteArray message) {
         this->parseBinaryMessage(message);
     }));
 
-    adapter->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
-        m_clients.removeAll(adapter);
-        delete adapter;
+    client->addSlotInfo(QObject::connect(s, &QWebSocket::disconnected, this, [=]() {
+        m_clients.removeAll(client);
+        delete client;
         emit this->disconnected();
     }));
 
-    m_clients.append(adapter);
-    qInfo().noquote() << s << "is connected as a client";
+    m_clients.append(client);
+    qInfo().noquote() << s << "is connected";
 
     this->onClientConnected(intialState);
     emit this->connected();
@@ -89,7 +89,7 @@ void WebSocketAdapter::parseTextMessage(QString message)
         return;
     }
 
-    this->newMessageHandler(messageData);
+    this->onMessageReceived(messageData);
 }
 
 void WebSocketAdapter::parseBinaryMessage(QByteArray message)

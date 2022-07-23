@@ -1,9 +1,8 @@
 #include "base_controller.h"
 
-BaseController::BaseController(QString logName, QObject *parent) :
+BaseController::BaseController(QObject *parent) :
     WebSocketAdapter(parent),
-    m_processingTask(false),
-    m_logName(QString("[" + logName + "]"))
+    m_processingTask(false)
 {
 }
 

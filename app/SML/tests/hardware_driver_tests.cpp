@@ -2,7 +2,7 @@
 
 HardwareDriverTests::HardwareDriverTests(QObject *parent) : BaseTest(parent) {}
 
-void HardwareDriverTests::testAdaptersNotConnected()
+void HardwareDriverTests::testControllersNotConnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -35,7 +35,7 @@ void HardwareDriverTests::testAdaptersNotConnected()
     QCOMPARE(signalEmitted, false);
 }
 
-void HardwareDriverTests::testDeviceAndMotionAdaptersConnected()
+void HardwareDriverTests::testDeviceAndMotionControllersConnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -58,7 +58,7 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersConnected()
     QCOMPARE(actual, true);
 }
 
-void HardwareDriverTests::testOnlyDeviceAdapterConnected()
+void HardwareDriverTests::testOnlyDeviceControllerConnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -87,7 +87,7 @@ void HardwareDriverTests::testOnlyDeviceAdapterConnected()
     QCOMPARE(signalEmitted, true);
 }
 
-void HardwareDriverTests::testOnlyMotionAdapterConnected()
+void HardwareDriverTests::testOnlyMotionControllerConnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -116,7 +116,7 @@ void HardwareDriverTests::testOnlyMotionAdapterConnected()
     QCOMPARE(signalEmitted, true);
 }
 
-void HardwareDriverTests::testDeviceAndMotionAdaptersDisconnected()
+void HardwareDriverTests::testDeviceAndMotionControllersDisconnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -154,7 +154,7 @@ void HardwareDriverTests::testDeviceAndMotionAdaptersDisconnected()
     QCOMPARE(driver.isConnected(), false);
 }
 
-void HardwareDriverTests::testOnlyDeviceAdapterDisconnected()
+void HardwareDriverTests::testOnlyDeviceControllerDisconnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 
@@ -205,7 +205,7 @@ void HardwareDriverTests::testOnlyDeviceAdapterDisconnected()
     QCOMPARE(signalEmitted, true);
 }
 
-void HardwareDriverTests::testOnlyMotionAdapterDisconnected()
+void HardwareDriverTests::testOnlyMotionControllerDisconnected()
 {
     HardwareDriver& driver = HardwareDriver::getInstance();
 

@@ -7,7 +7,7 @@
 #include "./adapters/websocket_gateway.h"
 #include "./controllers/motion_controller/motion_controller.h"
 #include "./controllers/device_controller/device_controller.h"
-#include "./adapters/registrator.h"
+#include "./controllers/registrator.h"
 #include "./models/settings_manager/settings_manager.h"
 
 enum HARDWARE_EVENT {
@@ -78,7 +78,7 @@ private:
     WebSocketGateway m_adapterServer;
     MotionController m_motionController;
     DeviceController m_deviceController;
-    Registrator m_adapterRegistrator;
+    Registrator m_controllerRegistrator;
 
     /**
      * @brief Создает объект класса

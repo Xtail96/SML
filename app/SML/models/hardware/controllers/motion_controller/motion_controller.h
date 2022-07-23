@@ -37,7 +37,7 @@ private:
 
     void onClientConnected(QtJson::JsonObject initialState) override;
 
-    void newMessageHandler(QtJson::JsonObject msg) override;
+    void onMessageReceived(QtJson::JsonObject msg) override;
 
 signals:
     void positionChanged();

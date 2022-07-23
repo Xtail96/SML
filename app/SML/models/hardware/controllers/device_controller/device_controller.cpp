@@ -1,7 +1,7 @@
 #include "device_controller.h"
 
 DeviceController::DeviceController(QObject *parent) :
-    BaseController("DeviceController", parent),
+    BaseController(parent),
     m_sensors(),
     m_spindels(),
     m_supportDevices()
@@ -99,7 +99,7 @@ void DeviceController::onClientConnected(QtJson::JsonObject initialState)
     this->setProcessingTask(deviceController["workflowState"].toBool());
 }
 
-void DeviceController::newMessageHandler(QtJson::JsonObject msg)
+void DeviceController::onMessageReceived(QtJson::JsonObject msg)
 {
     QtJson::JsonObject deviceController = msg["deviceControllerState"].toMap();
     if(deviceController.isEmpty())

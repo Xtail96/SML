@@ -29,7 +29,7 @@ private:
 
     void onClientConnected(QtJson::JsonObject initialState) override;
 
-    void newMessageHandler(QtJson::JsonObject msg) override;
+    void onMessageReceived(QtJson::JsonObject msg) override;
 
     // нужно сделать нормальную проверку на существование датчиков
     void parseSensors(const QtJson::JsonArray &sensors);

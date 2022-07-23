@@ -21,8 +21,9 @@ SOURCES += \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/json_parser/json.cpp \
-    models/hardware/controllers/adapters/adapter_connection.cpp \
-    models/hardware/controllers/adapters/adapter_gateway.cpp \
+    models/hardware/adapters/websocket_adapter.cpp \
+    models/hardware/adapters/websocket_client.cpp \
+    models/hardware/adapters/websocket_gateway.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device/device.cpp \
     models/hardware/controllers/device_controller/device/spindel.cpp \
@@ -37,11 +38,11 @@ SOURCES += \
     models/hardware/hardware_driver.cpp \
     models/services/adapters/launcher/adapters_launcher.cpp \
     models/settings_manager/settings_manager.cpp \
-    tests/adapter_gateway_tests.cpp \
     tests/axis_tests.cpp \
     tests/base_test.cpp \
     tests/hardware_driver_tests.cpp \
     tests/task_tests.cpp \
+    tests/websocket_gateway_tests.cpp \
     tests_main.cpp \
     tests/sensor_tests.cpp
 
@@ -54,8 +55,9 @@ HEADERS += \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/json_parser/json.h \
-    models/hardware/controllers/adapters/adapter_connection.h \
-    models/hardware/controllers/adapters/adapter_gateway.h \
+    models/hardware/adapters/websocket_adapter.h \
+    models/hardware/adapters/websocket_client.h \
+    models/hardware/adapters/websocket_gateway.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device/device.h \
     models/hardware/controllers/device_controller/device/spindel.h \
@@ -70,9 +72,9 @@ HEADERS += \
     models/hardware/hardware_driver.h \
     models/services/adapters/launcher/adapters_launcher.h \
     models/settings_manager/settings_manager.h \
-    tests/adapter_gateway_tests.h \
     tests/axis_tests.h \
     tests/base_test.h \
     tests/hardware_driver_tests.h \
     tests/sensor_tests.h \
-    tests/task_tests.h
+    tests/task_tests.h \
+    tests/websocket_gateway_tests.h

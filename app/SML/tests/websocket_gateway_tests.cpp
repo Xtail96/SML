@@ -1,29 +1,29 @@
-#include "adapter_gateway_tests.h"
+#include "websocket_gateway_tests.h"
 
-AdapterGatewayTests::AdapterGatewayTests(QObject *parent) : BaseTest(parent) {}
+WebSocketGatewayTests::WebSocketGatewayTests(QObject *parent) : BaseTest(parent) {}
 
-void AdapterGatewayTests::testOpen()
+void WebSocketGatewayTests::testOpen()
 {
     qint16 port = 1234;
-    AdapterGateway g(this);
+    WebSocketGateway g(this);
     QCOMPARE(g.open(port), true);
     QCOMPARE(g.isOpen(), true);
 }
 
-void AdapterGatewayTests::testClose()
+void WebSocketGatewayTests::testClose()
 {
     qint16 port = 1234;
-    AdapterGateway g(this);
+    WebSocketGateway g(this);
     QCOMPARE(g.open(port), true);
     QCOMPARE(g.isOpen(), true);
     g.close();
     QCOMPARE(g.isOpen(), false);
 }
 
-void AdapterGatewayTests::testGetPort()
+void WebSocketGatewayTests::testGetPort()
 {
     qint16 port = 1234;
-    AdapterGateway g(this);
+    WebSocketGateway g(this);
     QCOMPARE(g.open(port), true);
     QCOMPARE(g.port(), port);
 }

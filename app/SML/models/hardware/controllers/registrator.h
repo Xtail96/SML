@@ -3,9 +3,9 @@
 
 #include <QObject>
 
-#include "../controllers/motion_controller/motion_controller.h"
-#include "../controllers/device_controller/device_controller.h"
-#include "./websocket_adapter.h"
+#include "./motion_controller/motion_controller.h"
+#include "./device_controller/device_controller.h"
+#include "../adapters/websocket_adapter.h"
 
 
 class Registrator : public WebSocketAdapter
@@ -19,10 +19,10 @@ private:
     QList<QMetaObject::Connection> m_connections;
     void removeRegisteredClients();
     void onClientConnected(QtJson::JsonObject) override;
-    void newMessageHandler(QtJson::JsonObject msg) override;
+    void onMessageReceived(QtJson::JsonObject msg) override;
 signals:
-    void motionAdapterConnected(QWebSocket* s, QtJson::JsonObject initialState);
-    void deviceAdapterConnected(QWebSocket* s, QtJson::JsonObject initialState);
+    void motionControllerConnected(QWebSocket* s, QtJson::JsonObject initialState);
+    void deviceControllerConnected(QWebSocket* s, QtJson::JsonObject initialState);
 
 };
 

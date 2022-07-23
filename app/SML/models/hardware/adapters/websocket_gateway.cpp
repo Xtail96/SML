@@ -2,7 +2,7 @@
 
 WebSocketGateway::WebSocketGateway(QObject *parent) :
     QObject(parent),
-    m_server("SMLAdapterGateway", QWebSocketServer::NonSecureMode, this),
+    m_server("SMLWebSocketGateway", QWebSocketServer::NonSecureMode, this),
     m_port(0),
     m_slotsInfo(QList<QMetaObject::Connection>()) {}
 
@@ -35,7 +35,7 @@ bool WebSocketGateway::open(quint16 port)
 
     this->setupSlots();
 
-    qInfo().nospace() << "Hello! Adapter gateway is available on ws://localhost:" << m_port;
+    qInfo().nospace() << "Hello! SML websocket gateway is available on ws://localhost:" << m_port;
     return true;
 }
 
@@ -46,9 +46,9 @@ void WebSocketGateway::close()
 
     if(m_server.isListening())
     {
-        qInfo() << "Try to close adapter gateway";
+        qInfo() << "Try to close websocket gateway";
         m_server.close();
-        qInfo() << "Adapter gateway successfully closed. Good Bye!";
+        qInfo() << "Websocket gateway successfully closed. Good Bye!";
     }
 }
 
