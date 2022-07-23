@@ -25,6 +25,7 @@ SOURCES += main.cpp\
     libs/gpr/parser.cpp \
     models/hardware/controllers/adapters/adapter_connection.cpp \
     models/hardware/controllers/adapters/adapter_gateway.cpp \
+    models/hardware/controllers/adapters/adapter_message_handler.cpp \
     models/hardware/controllers/base_controller.cpp \
     models/hardware/controllers/device_controller/device_controller.cpp \
     models/hardware/controllers/motion_controller/axis.cpp \
@@ -57,6 +58,7 @@ HEADERS  += gui/mainwindow.h \
     libs/gpr/parser.h \
     models/hardware/controllers/adapters/adapter_connection.h \
     models/hardware/controllers/adapters/adapter_gateway.h \
+    models/hardware/controllers/adapters/adapter_message_handler.h \
     models/hardware/controllers/base_controller.h \
     models/hardware/controllers/device_controller/device_controller.h \
     models/hardware/controllers/motion_controller/axis.h \

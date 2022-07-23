@@ -40,7 +40,6 @@ private:
 
     /// Мета-инфрмация о всех подключенных слотах.
     QList<QMetaObject::Connection> m_slotsInfo;
-
 };
 
 #endif // ADAPTERCONNECTION_H

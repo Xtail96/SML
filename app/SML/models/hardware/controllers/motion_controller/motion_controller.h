@@ -35,7 +35,7 @@ private:
 
     MotionControllerRepository m_repository;
 
-    void setup(QtJson::JsonObject initialState) override;
+    void onClientConnected(QtJson::JsonObject initialState) override;
 
     void newMessageHandler(QtJson::JsonObject msg) override;
 

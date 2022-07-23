@@ -55,7 +55,7 @@ void DeviceController::stopProcessing()
     this->stopProcessingTask(m_controllerName);
 }
 
-void DeviceController::setup(QtJson::JsonObject initialState)
+void DeviceController::onClientConnected(QtJson::JsonObject initialState)
 {
     QtJson::JsonObject deviceController = initialState["deviceControllerState"].toMap();
     if(deviceController.isEmpty())

@@ -51,7 +51,7 @@ void MotionController::stopProcessing()
     this->stopProcessingTask(m_controllerName);
 }
 
-void MotionController::setup(QtJson::JsonObject initialState)
+void MotionController::onClientConnected(QtJson::JsonObject initialState)
 {
     QtJson::JsonObject motionController = initialState["motionControllerState"].toMap();
     if(motionController.isEmpty())

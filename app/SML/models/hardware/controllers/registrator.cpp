@@ -1,21 +1,20 @@
 #include "registrator.h"
 
 Registrator::Registrator(MotionController *m, DeviceController *d, QObject *parent) :
-    BaseController("Registrator", parent),
+    AdapterMessageHandler(parent),
     m_connections()
 {
-    m_connections.append(QObject::connect(this, &Registrator::MotionAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+    m_connections.append(QObject::connect(this, &Registrator::motionAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
         qInfo() << "Try to connect" << s << "as a client to motion controller";
         m->addClient(s, initialState);
-        this->clearClients();
+        this->clearAwaitedClients();
         s->sendTextMessage("Registered!");
     }));
 
-    m_connections.append(QObject::connect(this, &Registrator::DeviceAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
+    m_connections.append(QObject::connect(this, &Registrator::deviceAdapterConnected, this, [=](QWebSocket* s, QtJson::JsonObject initialState) {
         qInfo() << "Try to connect" << s << "as a client to device controller";
         d->addClient(s, initialState);
-        this->clearClients();
-        m_clients.clear();
+        this->clearAwaitedClients();
         s->sendTextMessage("Registered!");
     }));
 }
@@ -28,11 +27,21 @@ Registrator::~Registrator()
     }
 }
 
-void Registrator::processTask(Task) {}
+void Registrator::clearAwaitedClients()
+{
+    qInfo() << "Clear slots info";
+    for(auto client : m_clients)
+    {
+        client->clearSlotsInfo();
+    }
+    qInfo() << "Clear clients";
+    m_clients.clear();
+}
 
-void Registrator::stopProcessing() {}
+void Registrator::onClientConnected(QtJson::JsonObject)
+{
 
-void Registrator::setup(QtJson::JsonObject) {}
+}
 
 void Registrator::newMessageHandler(QtJson::JsonObject msg)
 {
@@ -45,12 +54,12 @@ void Registrator::newMessageHandler(QtJson::JsonObject msg)
 
     if(!deviceController.isEmpty())
     {
-        emit this->DeviceAdapterConnected(pSender, msg);
+        emit this->deviceAdapterConnected(pSender, msg);
     }
 
     if(!motionController.isEmpty())
     {
-        emit this->MotionAdapterConnected(pSender, msg);
+        emit this->motionAdapterConnected(pSender, msg);
     }
 
     if(deviceController.isEmpty() && motionController.isEmpty())
@@ -60,15 +69,4 @@ void Registrator::newMessageHandler(QtJson::JsonObject msg)
         pSender->close();
         this->clearClients();
     }
-}
-
-void Registrator::clearClients()
-{
-    qInfo() << "Clear slots info";
-    for(auto client : m_clients)
-    {
-        client->clearSlotsInfo();
-    }
-    qInfo() << "Clear clients";
-    m_clients.clear();
 }
