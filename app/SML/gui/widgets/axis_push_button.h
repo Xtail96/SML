@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QDebug>
 
-#include "models/hardware/controllers/motion_controller/axis.h"
+#include "./hardware/controllers/motion_controller/axis.h"
 
 class AxisPushButton : public QPushButton
 {

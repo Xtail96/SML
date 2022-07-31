@@ -6,7 +6,7 @@
 #include <QScopedPointer>
 #include <QDebug>
 
-#include "models/settings_manager/settings_manager.h"
+#include "./common/settings/settings_manager.h"
 
 class AdaptersLauncher : public QObject
 {

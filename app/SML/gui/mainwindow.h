@@ -19,13 +19,13 @@
 #endif
 
 /// Подключение подсветки синтаксиса G-кодов
-#include "gui/utils/gcodes_syntax_highlighter.h"
-#include "models/hardware/hardware_driver.h"
-#include "gui/widgets/spindel_control_widget.h"
+#include "./gui/utils/gcodes_syntax_highlighter.h"
+#include "./hardware/hardware_driver.h"
+#include "./gui/widgets/spindel_control_widget.h"
 #include "../gui/widgets/axis_push_button.h"
 
-#include "models/services/gcodes/view/gcodes_view_interactor.h"
-#include "./models/services/adapters/launcher/adapters_launcher.h"
+#include "./services/gcodes_view_interactor.h"
+#include "./services/adapters_launcher.h"
 #include "./utils/utils.h"
 
 const int INF_MOVE = 1000;

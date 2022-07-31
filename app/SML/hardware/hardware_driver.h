@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QQueue>
 
-#include "./websockets/websocket_gateway.h"
+#include "../common/websockets/websocket_gateway.h"
 #include "./controllers/motion_controller/motion_controller.h"
 #include "./controllers/device_controller/device_controller.h"
 #include "./controllers/registrator.h"
-#include "./models/settings_manager/settings_manager.h"
+#include "../common/settings/settings_manager.h"
 
 enum HARDWARE_EVENT {
     DeviceControllerConnected,

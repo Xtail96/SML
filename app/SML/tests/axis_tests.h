@@ -2,7 +2,7 @@
 #define AXISTESTS_H
 
 #include "./base_test.h"
-#include "../models/hardware/controllers/motion_controller/axis.h"
+#include "../hardware/controllers/motion_controller/axis.h"
 
 class AxisTests : public BaseTest
 {

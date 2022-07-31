@@ -5,7 +5,7 @@
 
 #include "./motion_controller/motion_controller.h"
 #include "./device_controller/device_controller.h"
-#include "../websockets/websocket_client.h"
+#include "../../common/websockets/websocket_client.h"
 
 
 class Registrator : public WebSocketClient

@@ -6,8 +6,8 @@
 #include <QTest>
 
 #include "libs/json_parser/json.h"
-#include "task.h"
-#include "../websockets/websocket_client.h"
+#include "./task.h"
+#include "../../common/websockets/websocket_client.h"
 
 /**
  * @brief Базовый контроллер.

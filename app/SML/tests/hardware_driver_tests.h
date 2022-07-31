@@ -2,8 +2,8 @@
 #define HARDWAREDRIVERTESTS_H
 
 #include "./base_test.h"
-#include "../models/hardware/hardware_driver.h"
-#include "../models/services/adapters/launcher/adapters_launcher.h"
+#include "../hardware/hardware_driver.h"
+#include "../services/adapters_launcher.h"
 
 class HardwareDriverTests : public BaseTest
 {

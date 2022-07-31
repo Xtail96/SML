@@ -2,7 +2,7 @@
 #define TASKTESTS_H
 
 #include "./base_test.h"
-#include "./models/hardware/controllers/task.h"
+#include "./hardware/controllers/task.h"
 
 class TaskTests : public BaseTest
 {

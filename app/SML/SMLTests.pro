@@ -21,23 +21,23 @@ SOURCES += \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/json_parser/json.cpp \
-    models/hardware/websockets/websocket_client.cpp \
-    models/hardware/websockets/websocket_connection.cpp \
-    models/hardware/websockets/websocket_gateway.cpp \
-    models/hardware/controllers/base_controller.cpp \
-    models/hardware/controllers/device_controller/device/device.cpp \
-    models/hardware/controllers/device_controller/device/spindel.cpp \
-    models/hardware/controllers/device_controller/device/support_device.cpp \
-    models/hardware/controllers/device_controller/device_controller.cpp \
-    models/hardware/controllers/device_controller/sensor/sensor.cpp \
-    models/hardware/controllers/motion_controller/axis.cpp \
-    models/hardware/controllers/motion_controller/motion_controller.cpp \
-    models/hardware/controllers/motion_controller/motion_controller_repository.cpp \
-    models/hardware/controllers/registrator.cpp \
-    models/hardware/controllers/task.cpp \
-    models/hardware/hardware_driver.cpp \
-    models/services/adapters/launcher/adapters_launcher.cpp \
-    models/settings_manager/settings_manager.cpp \
+    common/websockets/websocket_client.cpp \
+    common/websockets/websocket_connection.cpp \
+    common/websockets/websocket_gateway.cpp \
+    hardware/controllers/base_controller.cpp \
+    hardware/controllers/device_controller/device/device.cpp \
+    hardware/controllers/device_controller/device/spindel.cpp \
+    hardware/controllers/device_controller/device/support_device.cpp \
+    hardware/controllers/device_controller/device_controller.cpp \
+    hardware/controllers/device_controller/sensor/sensor.cpp \
+    hardware/controllers/motion_controller/axis.cpp \
+    hardware/controllers/motion_controller/motion_controller.cpp \
+    hardware/controllers/motion_controller/motion_controller_repository.cpp \
+    hardware/controllers/registrator.cpp \
+    hardware/controllers/task.cpp \
+    hardware/hardware_driver.cpp \
+    services/adapters_launcher.cpp \
+    common/settings/settings_manager.cpp \
     tests/axis_tests.cpp \
     tests/base_test.cpp \
     tests/hardware_driver_tests.cpp \
@@ -55,23 +55,23 @@ HEADERS += \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/json_parser/json.h \
-    models/hardware/websockets/websocket_client.h \
-    models/hardware/websockets/websocket_connection.h \
-    models/hardware/websockets/websocket_gateway.h \
-    models/hardware/controllers/base_controller.h \
-    models/hardware/controllers/device_controller/device/device.h \
-    models/hardware/controllers/device_controller/device/spindel.h \
-    models/hardware/controllers/device_controller/device/support_device.h \
-    models/hardware/controllers/device_controller/device_controller.h \
-    models/hardware/controllers/device_controller/sensor/sensor.h \
-    models/hardware/controllers/motion_controller/axis.h \
-    models/hardware/controllers/motion_controller/motion_controller.h \
-    models/hardware/controllers/motion_controller/motion_controller_repository.h \
-    models/hardware/controllers/registrator.h \
-    models/hardware/controllers/task.h \
-    models/hardware/hardware_driver.h \
-    models/services/adapters/launcher/adapters_launcher.h \
-    models/settings_manager/settings_manager.h \
+    common/websockets/websocket_client.h \
+    common/websockets/websocket_connection.h \
+    common/websockets/websocket_gateway.h \
+    hardware/controllers/base_controller.h \
+    hardware/controllers/device_controller/device/device.h \
+    hardware/controllers/device_controller/device/spindel.h \
+    hardware/controllers/device_controller/device/support_device.h \
+    hardware/controllers/device_controller/device_controller.h \
+    hardware/controllers/device_controller/sensor/sensor.h \
+    hardware/controllers/motion_controller/axis.h \
+    hardware/controllers/motion_controller/motion_controller.h \
+    hardware/controllers/motion_controller/motion_controller_repository.h \
+    hardware/controllers/registrator.h \
+    hardware/controllers/task.h \
+    hardware/hardware_driver.h \
+    services/adapters_launcher.h \
+    common/settings/settings_manager.h \
     tests/axis_tests.h \
     tests/base_test.h \
     tests/hardware_driver_tests.h \

@@ -2,7 +2,7 @@
 #define WEBSOCKETGATEWAYTESTS_H
 
 #include "./base_test.h"
-#include "./models/hardware/websockets/websocket_gateway.h"
+#include "./common/websockets/websocket_gateway.h"
 
 class WebSocketGatewayTests : public BaseTest
 {
