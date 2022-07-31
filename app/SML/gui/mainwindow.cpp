@@ -262,6 +262,19 @@ void MainWindow::updateBatteryStatusDisplay()
 void MainWindow::hideWidgets()
 {
     ui->smlEditorTab->setEnabled(false);
+    for(auto widget : ui->smlEditorTab->children())
+        ((QWidget*) widget)->hide();
+    ui->programEditorTabWidget->tabBar()->hide();
+    ui->environmentEditorGroupBox->hide();
+    ui->timerToolButton->hide();
+    ui->addFileToolButton->hide();
+    ui->add_action->setEnabled(false);
+    ui->add_action->setVisible(false);
+    for(auto menuAction : ui->points_menu->actions())
+    {
+        menuAction->setEnabled(false);
+        menuAction->setVisible(false);
+    }
 }
 
 void MainWindow::on_exit_action_triggered()

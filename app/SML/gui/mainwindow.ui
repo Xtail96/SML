@@ -2875,6 +2875,7 @@
     </property>
     <addaction name="create_action"/>
     <addaction name="open_action"/>
+    <addaction name="add_action"/>
     <addaction name="separator"/>
     <addaction name="save_action"/>
     <addaction name="saveas_action"/>
@@ -2883,8 +2884,6 @@
     <addaction name="exportsettings_action"/>
     <addaction name="separator"/>
     <addaction name="view_action"/>
-    <addaction name="separator"/>
-    <addaction name="add_action"/>
     <addaction name="separator"/>
     <addaction name="exit_action"/>
    </widget>
