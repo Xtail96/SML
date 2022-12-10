@@ -35,9 +35,9 @@ SOURCES += main.cpp\
     hardware/controllers/task.cpp \
     hardware/hardware_driver.cpp \
     services/adapters_launcher.cpp \
-    hardware/controllers/device_controller/sensor/sensor.cpp \
-    hardware/controllers/device_controller/device/spindel.cpp \
-    hardware/controllers/device_controller/device/device.cpp \
+    hardware/controllers/device_controller/sensor.cpp \
+    hardware/controllers/device_controller/spindel.cpp \
+    hardware/controllers/device_controller/device.cpp \
     gui/widgets/gcodes_editor_widget.cpp \
     gui/widgets/sensors_display_widget.cpp \
     gui/widgets/sml_commands_list_widget.cpp \
@@ -47,7 +47,7 @@ SOURCES += main.cpp\
     gui/utils/gcodes_syntax_highlighter.cpp \
     services/gcodes_view_interactor.cpp \
     common/settings/settings_manager.cpp \
-    hardware/controllers/device_controller/device/support_device.cpp
+    hardware/controllers/device_controller/support_device.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/utils/colors.h \
@@ -69,9 +69,9 @@ HEADERS  += gui/mainwindow.h \
     hardware/hardware_driver.h \
     services/adapters_launcher.h \
     services/gcodes_view_interactor.h \
-    hardware/controllers/device_controller/sensor/sensor.h \
-    hardware/controllers/device_controller/device/spindel.h \
-    hardware/controllers/device_controller/device/device.h \
+    hardware/controllers/device_controller/sensor.h \
+    hardware/controllers/device_controller/spindel.h \
+    hardware/controllers/device_controller/device.h \
     gui/widgets/gcodes_editor_widget.h \
     gui/widgets/sensors_display_widget.h \
     gui/widgets/sml_editor_tree_widget.h \
@@ -80,7 +80,7 @@ HEADERS  += gui/mainwindow.h \
     gui/widgets/sml_commands_list_widget.h \
     gui/utils/gcodes_syntax_highlighter.h \
     common/settings/settings_manager.h \
-    hardware/controllers/device_controller/device/support_device.h
+    hardware/controllers/device_controller/support_device.h
 
 FORMS    += gui/mainwindow.ui
 

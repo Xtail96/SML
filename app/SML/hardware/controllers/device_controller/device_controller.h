@@ -4,9 +4,9 @@
 #include <QObject>
 
 #include "../../controllers/base_controller.h"
-#include "../../controllers/device_controller/sensor/sensor.h"
-#include "../../controllers/device_controller/device/spindel.h"
-#include "../../controllers/device_controller/device/support_device.h"
+#include "../../controllers/device_controller/sensor.h"
+#include "../../controllers/device_controller/spindel.h"
+#include "../../controllers/device_controller/support_device.h"
 
 class DeviceController : public BaseController
 {
