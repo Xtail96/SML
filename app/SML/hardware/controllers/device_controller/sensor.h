@@ -1,97 +1,35 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <QObject>
+#include <QString>
+#include <QDebug>
 #include <QColor>
-
-class DeviceController;
-class SensorTests;
 
 /**
  * @brief Класс Датчик
- * Базовый тип, описывающий любой из датчиков станка
  */
-class Sensor : public QObject
+class Sensor
 {
-    Q_OBJECT
-
 public:
-    /**
-     * @brief Конструктор класса Датчик
-     * @param uid уникальный идентификатор (имя) датчика
-     * @param label подпись датчика для вывода в интерфейс
-     * @param inputActiveState состояние входа (логический ноль или логическая единица), при котором датчик считается активным
-     * @param color цвет индикатора датчика
-     * @param parent родительский объект
-     */
-    Sensor(QString uid,
-           QString label,
+    Sensor(QString id,
            bool activeState,
-           QColor color,
-           QObject *parent = nullptr);
-
-    /**
-     * @brief Оператор меньше для порядковой сортировки датчиков
-     */
-    bool operator<(const Sensor &sensor);
-
-    /**
-     * @brief Оператор равенства для сравнения датчиков
-     */
-    bool operator==(const Sensor &sensor);
-
-    /**
-     * @brief Возвращает текущее состояние входа, к которому подключен датчик
-     * @return текущее состояние входа, к которому подключен датчик. true - есть напряжение на входе. false - нет напряжения на входе.
-     */
+           bool currentState,
+           QString label = "",
+           QColor ledColor = QColor("green"));
+    bool operator<(const Sensor &sensor) const;
+    bool operator>(const Sensor &sensor) const;
+    bool operator<=(const Sensor &sensor) const;
+    bool operator>=(const Sensor &sensor) const;
+    bool operator==(const Sensor &sensor) const;
     bool currentState() const;
-
-    /**
-     * @brief Возвращает уникальный идентификатор датчика
-     * @return уникальный идентификатор (имя) датчика
-     */
-    QString uid() const;
-
-    /**
-     * @brief Возвращает активное состояние входа, к которому подключен датчик
-     * @return состояние входа (логический ноль или логическая единица), при котором датчик считается активным
-     */
+    QString id() const;
     bool activeState() const;
-
-    /**
-     * @brief Возвращает цвет индикатора активного датчика
-     * @return цвет индикатора, который необходмо установить при срабатывании датчика
-     *
-     * В системе, для наглядности, у каждого датчика задается цвет индикатора, который необходимо выводить
-     * в интерфейс при срабатывании датчика.
-     */
-    QColor ledColorActiveState() const;
-
-    /**
-     * @brief Проверяет сработал ли датчик
-     * @return состояние датчика. true - датчик активен в данный момент времени. false - датчик не активен в данный момент времени.
-     */
-    bool isEnable();
-
-    /**
-     * @brief Возврщает неуникальное имя датчика
-     * @return имя датчика, для вывода в интерфейс
-     *
-     * @warning Этот параметр нужно использовать исключительно для отображения имени датчика в интерфейсе.
-     * @warning Поиск датчика по этому параметру проводить нельзя.
-     */
+    QColor ledColor() const;
     QString label() const;
-
-    /**
-     * @brief Возвращает актуальные настройки датчика
-     * @return настройки датчика в виде строки, формата
-     * "setting1_key:setting1_value;setting2_key:setting2_value"
-     */
-    QString settings();
-
-protected:
+    bool isEnabled();
+private:
     /// Уникальный идентификатор (имя) датчика
-    QString m_uid;
+    QString m_id;
 
     /// Пользовательское имя датчика
     QString m_label;
@@ -101,33 +39,14 @@ protected:
 
     /**
      * @brief Текущее сотояние входа (есть напряжение / нет напряжения)
-     *
      * @warning Это "сырое" состояние датчика, никак не говорящее о том, сработал он или нет.
      * Дело в том, что некторые датчики при срабатывании устанавливают на входе в логический ноль (большинство),
      * а некоторые - логическую единицу.
      */
     bool m_currentState;
 
-    /// Цвет индикатора датчика
-    QColor m_ledColorActiveState;
-
-private:
-
-    /**
-     * @brief Обновляет текущее состояния входа, если новое значение НЕ совпадает с текущим
-     * @param value - новое состояние входа, к которому подключен датчик
-     */
-    void setCurrentState(bool value);
-
-    /// Класс-друг!
-    friend class DeviceController;
-    friend class SensorTests;
-
-signals:
-    /**
-     * @brief Сигнал об изменении состояния датчика
-     */
-    void stateChanged();
+    /// Цвет датчика
+    QColor m_ledColor;
 };
 
 #endif // SENSOR_H

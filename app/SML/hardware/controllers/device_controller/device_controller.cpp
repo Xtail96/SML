@@ -18,7 +18,7 @@ DeviceController::~DeviceController()
 Sensor* DeviceController::getSensor(QString id)
 {
     for(auto sensor : m_sensors) {
-        if(sensor->uid() == id)
+        if(sensor->id() == id)
             return sensor;
     }
 
@@ -75,8 +75,8 @@ void DeviceController::onClientConnected(QtJson::JsonObject initialState)
         QColor ledColor = sensorJson["ledColor"].toString();
 
         if(this->sensorExists(id)) continue;
-        m_sensors.insert(new Sensor(id, label, activeState, ledColor, this));
-        this->getSensor(id)->setCurrentState(currentState);
+        //m_sensors.insert(new Sensor(id, label, activeState, ledColor, this));
+        //this->getSensor(id)->setCurrentState(currentState);
     }
 
     QtJson::JsonArray spindels = deviceController["spindels"].toList();
@@ -117,7 +117,7 @@ void DeviceController::onMessageReceived(QtJson::JsonObject msg)
         bool currentState = sensorJson["currentState"].toBool();
 
         if(!this->sensorExists(id)) { qWarning() << "Unknown sensor" << id; continue; }
-        this->getSensor(id)->setCurrentState(currentState);
+        //this->getSensor(id)->setCurrentState(currentState);
     }
 
     QtJson::JsonArray spindels = deviceController["spindels"].toList();
@@ -143,7 +143,7 @@ bool DeviceController::sensorExists(QString id)
 {
     for(auto sensor : m_sensors)
     {
-       if(sensor->uid() == id)
+       if(sensor->id() == id)
            return true;
     }
 

@@ -1,27 +1,41 @@
 #include "sensor.h"
 
-Sensor::Sensor(QString uid,
+Sensor::Sensor(QString id,
+               bool activeState,
+               bool currentState,
                QString label,
-               bool inputActiveState,
-               QColor color,
-               QObject *parent) :
-    QObject(parent),
-    m_uid(uid),
+               QColor ledColor) :
+    m_id(id),
     m_label(label),
-    m_activeState(inputActiveState),
-    m_currentState(!m_activeState),
-    m_ledColorActiveState(color)
+    m_activeState(activeState),
+    m_currentState(currentState),
+    m_ledColor(ledColor)
 {
 }
 
-bool Sensor::operator<(const Sensor &sensor)
+bool Sensor::operator<(const Sensor &sensor) const
 {
-    return this->m_uid < sensor.uid();
+    return this->m_id < sensor.id();
 }
 
-bool Sensor::operator==(const Sensor &sensor)
+bool Sensor::operator>(const Sensor &sensor) const
 {
-    return this->m_uid == sensor.uid();
+    return this->m_id > sensor.id();
+}
+
+bool Sensor::operator<=(const Sensor &sensor) const
+{
+    return this->m_id <= sensor.id();
+}
+
+bool Sensor::operator>=(const Sensor &sensor) const
+{
+    return this->m_id >= sensor.id();
+}
+
+bool Sensor::operator==(const Sensor &sensor) const
+{
+    return this->m_id == sensor.id();
 }
 
 bool Sensor::currentState() const
@@ -29,18 +43,9 @@ bool Sensor::currentState() const
     return m_currentState;
 }
 
-void Sensor::setCurrentState(bool value)
+QString Sensor::id() const
 {
-    if(m_currentState != value)
-    {
-        m_currentState = value;
-        emit this->stateChanged();
-    }
-}
-
-QString Sensor::uid() const
-{
-    return m_uid;
+    return m_id;
 }
 
 bool Sensor::activeState() const
@@ -48,12 +53,12 @@ bool Sensor::activeState() const
     return m_activeState;
 }
 
-QColor Sensor::ledColorActiveState() const
+QColor Sensor::ledColor() const
 {
-    return m_ledColorActiveState;
+    return m_ledColor;
 }
 
-bool Sensor::isEnable()
+bool Sensor::isEnabled()
 {
     return (m_activeState == m_currentState);
 }
@@ -61,13 +66,4 @@ bool Sensor::isEnable()
 QString Sensor::label() const
 {
     return m_label;
-}
-
-QString Sensor::settings()
-{
-    QString sensorSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
-            QStringLiteral("Uid:") + m_uid + QStringLiteral(";") +
-            QStringLiteral("ActiveState:") + QString::number(m_activeState) + QStringLiteral(";") +
-            QStringLiteral("LedColor:") + m_ledColorActiveState.name();
-    return sensorSettings;
 }
