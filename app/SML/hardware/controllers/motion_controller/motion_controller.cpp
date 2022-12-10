@@ -2,18 +2,14 @@
 
 MotionController::MotionController(QObject *parent):
     BaseController(parent),
-    m_slotsInfo(),
     m_repository()
 {
-    m_slotsInfo.append(QObject::connect(this, &BaseController::disconnected, this, [=]() {
-        m_repository.clear();
-    }));
+
 }
 
 MotionController::~MotionController()
 {
-    for(auto& slotInfo : m_slotsInfo)
-        QObject::disconnect(slotInfo);
+
 }
 
 void MotionController::processTask(Task t)
@@ -107,4 +103,9 @@ void MotionController::onMessageReceived(QtJson::JsonObject msg)
     this->setProcessingTask(motionController["workflowState"].toBool());
     if(positionChanged)
         emit this->positionChanged();
+}
+
+void MotionController::onDisconnected()
+{
+    m_repository.clear();
 }

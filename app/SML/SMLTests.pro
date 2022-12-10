@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    hardware/controllers/device_controller/sensors_repository.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
     libs/json_parser/json.cpp \
@@ -43,8 +44,7 @@ SOURCES += \
     tests/hardware_driver_tests.cpp \
     tests/task_tests.cpp \
     tests/websocket_gateway_tests.cpp \
-    tests_main.cpp \
-    tests/sensor_tests.cpp
+    tests_main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -53,6 +53,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     common/interfaces/i_repository.h \
+    hardware/controllers/device_controller/sensors_repository.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/json_parser/json.h \
@@ -76,6 +77,5 @@ HEADERS += \
     tests/axis_tests.h \
     tests/base_test.h \
     tests/hardware_driver_tests.h \
-    tests/sensor_tests.h \
     tests/task_tests.h \
     tests/websocket_gateway_tests.h

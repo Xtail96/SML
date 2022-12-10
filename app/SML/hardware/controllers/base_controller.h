@@ -2,7 +2,6 @@
 #define BASECONTROLLER_H
 
 #include <QObject>
-#include <QWebSocket>
 #include <QTest>
 
 #include "libs/json_parser/json.h"
@@ -18,39 +17,19 @@ class BaseController : public WebSocketClient
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Конструктор  класса.
-     * @param parent - родительский объект
-     */
     explicit BaseController(QObject *parent = nullptr);
-
-    /**
-     * @brief Деструктор класса.
-     */
     virtual ~BaseController();
-
-    /**
-     * @brief Возвращает статус обработки задачи.
-     * @return Готов ли контроллер к приему новой задачи
-     */
     bool isReady() const;
-
     virtual void processTask(Task t) = 0;
     virtual void stopProcessing() = 0;
-
+    void setProcessingTask(bool isReady);
+    void stopProcessingTask(QString targetControllerId);
+    virtual void onDisconnected() = 0;
 protected:
+    QList<QMetaObject::Connection> m_slotsInfo;
 
     /// Выполняется ли задача в текущий момент.
     bool m_processingTask;
-
-    /**
-     * @brief Устанавливает значение обаработки задачи и испускает сигнал.
-     * @param processingTask - обрабатывается ли задача.
-     */
-    void setProcessingTask(bool isReady);
-
-    void stopProcessingTask(QString targetControllerId);
-
 signals:
     /// Состояние обработки задания изменилось.
     void taskProcessingStateChanged();

@@ -25,6 +25,8 @@ struct HARDWARE_EVENT_DATA {
     QList<QVariant> signalParams;
 };
 
+class HardwareDriverTests;
+
 /**
  * @brief Класс драйвер
  *
@@ -64,6 +66,7 @@ public:
     void resetHandlers();
 
     AxesRepository& getMotionController();
+    SensorsRepository& getSensors();
 
     void moveTo(QMap<Axis::Id, double> absPos);
     void moveOffset(QMap<Axis::Id, double> relPos);
@@ -106,11 +109,14 @@ private:
      */
     void resetSystemSlots();
 
+    void testWrapper(QtJson::JsonObject msg);
+
 signals:
 
 public slots:
 
 private slots:
+friend class HardwareDriverTests;
 };
 
 #endif // HARDWAREDRIVER_H

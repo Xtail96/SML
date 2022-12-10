@@ -10,7 +10,8 @@ class HardwareDriverTests : public BaseTest
     Q_OBJECT
 public:
     explicit HardwareDriverTests(QObject *parent = nullptr);
-
+    ~HardwareDriverTests();
+    QtJson::JsonObject deviceControllerStateMock(QString sensorId, bool sensorState);
 private slots:
     void testControllersNotConnected();
 
@@ -33,6 +34,8 @@ private slots:
     void testMove();
 
     void testStopMoving();
+
+    void testSensorStateChanged();
 };
 
 #endif // HARDWAREDRIVERTESTS_H

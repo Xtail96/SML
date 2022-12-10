@@ -133,6 +133,6 @@ void WebSocketHandler::onQWebSocket_TextMessageReceived(QString message)
 
 void WebSocketHandler::onQWebSocket_BinaryMessageReceived(QByteArray message)
 {
-    this->debugMessage(" binarymessage received: " + QString::fromUtf8(message));
+    this->debugMessage(" binary message received: " + QString::fromUtf8(message));
     emit this->binaryMessageReceived(message);
 }

@@ -2,12 +2,18 @@
 
 BaseController::BaseController(QObject *parent) :
     WebSocketClient(parent),
+    m_slotsInfo(),
     m_processingTask(false)
 {
+    m_slotsInfo.append(QObject::connect(this, &BaseController::disconnected, this, [=]() {
+        this->onDisconnected();
+    }));
 }
 
 BaseController::~BaseController()
 {
+    for(auto& slotInfo : m_slotsInfo)
+        QObject::disconnect(slotInfo);
 }
 
 bool BaseController::isReady() const

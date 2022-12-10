@@ -4,9 +4,7 @@
 #include <QObject>
 
 #include "../../controllers/base_controller.h"
-#include "../../controllers/device_controller/sensor.h"
-#include "../../controllers/device_controller/spindel.h"
-#include "../../controllers/device_controller/support_device.h"
+#include "./sensors_repository.h"
 
 class DeviceController : public BaseController
 {
@@ -14,31 +12,17 @@ class DeviceController : public BaseController
 public:
     explicit DeviceController(QObject *parent = nullptr);
     ~DeviceController() override;
-
-    Sensor *getSensor(QString id);
-    Spindel *getSpindel(QString id);
-    SupportDevice *getSupportDevice(QString id);
-
     void processTask(Task t) override;
     void stopProcessing() override;
+    void onClientConnected(QtJson::JsonObject initialState) override;
+    void onMessageReceived(QtJson::JsonObject msg) override;
+    void onDisconnected() override;
 private:
     const QString m_controllerName = "deviceController";
-    QSet<Sensor*> m_sensors;
-    QSet<Spindel*> m_spindels;
-    QSet<SupportDevice*> m_supportDevices;
-
-    void onClientConnected(QtJson::JsonObject initialState) override;
-
-    void onMessageReceived(QtJson::JsonObject msg) override;
-
-    // нужно сделать нормальную проверку на существование датчиков
-    void parseSensors(const QtJson::JsonArray &sensors);
-
-    // нужно сделать нормальную проверку на существование устройств
-    void parseSpindels(const QtJson::JsonArray &spindels);
-
-    bool sensorExists(QString id);
-    bool spindelExists(QString id);
+    SensorsRepository m_sensors;
+signals:
+    void sensorStateChanged(Sensor s);
+friend class HardwareDriver;
 };
 
 #endif // DEVICECONTROLLER_H

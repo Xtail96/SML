@@ -1,6 +1,37 @@
 #include "hardware_driver_tests.h"
 
-HardwareDriverTests::HardwareDriverTests(QObject *parent) : BaseTest(parent) {}
+HardwareDriverTests::HardwareDriverTests(QObject *parent) :
+    BaseTest(parent)
+{
+
+}
+
+HardwareDriverTests::~HardwareDriverTests()
+{
+}
+
+QtJson::JsonObject HardwareDriverTests::deviceControllerStateMock(QString sensorId, bool sensorState)
+{
+    QtJson::JsonObject message;
+    QtJson::JsonObject deviceControllerState;
+    QtJson::JsonArray sensorsState = {
+        QtJson::JsonObject {
+            std::pair<QString, QVariant>("id", sensorId),
+            std::pair<QString, QVariant>("label", sensorId),
+            std::pair<QString, QVariant>("enabled", sensorState),
+            std::pair<QString, QVariant>("ledColor", "#00ff00")
+        }
+    };
+
+    QtJson::JsonArray devicesState;
+    int lastError = 0x00;
+    deviceControllerState["sensors"] = sensorsState;
+    deviceControllerState["devices"] = devicesState;
+    deviceControllerState["lastError"] = lastError;
+    deviceControllerState["workflowState"] = 0;
+    message["deviceControllerState"] = deviceControllerState;
+    return message;
+}
 
 void HardwareDriverTests::testControllersNotConnected()
 {
@@ -446,4 +477,36 @@ void HardwareDriverTests::testStopMoving()
 
     // Проверяем, что ось, по которой выполнялось перемещение не выполнила задание.
     QCOMPARE(actualAxisState.first().currentPositionFromBase() < targetPosition, true);
+}
+
+void HardwareDriverTests::testSensorStateChanged()
+{
+    HardwareDriver& driver = HardwareDriver::getInstance();
+    auto& m_sensorsRepository = driver.getSensors();
+    QString sensorId = "TestSensor";
+    m_sensorsRepository.add(Sensor(sensorId, false));
+    QCOMPARE(driver.getSensors().get(sensorId).enabled(), false);
+
+    bool sensorEnabled = false;
+    driver.registerHandler(HARDWARE_EVENT::SensorStateChanged,
+                           [&sensorEnabled, &sensorId](HARDWARE_EVENT_DATA data) mutable -> void {
+        sensorEnabled = data.signalParams[1].toBool();
+        QCOMPARE(data.signalParams[0].toString(), sensorId);
+
+        HardwareDriver& driver = HardwareDriver::getInstance();
+        QCOMPARE(data.signalParams[1].toBool(), driver.getSensors().get(sensorId).enabled());
+    });
+
+    driver.m_deviceController.onMessageReceived(deviceControllerStateMock(sensorId, false));
+    bool sensorState1 = sensorEnabled;
+
+    driver.m_deviceController.onMessageReceived(deviceControllerStateMock(sensorId, true));
+    bool sensorState2 = sensorEnabled;
+
+    driver.m_deviceController.onMessageReceived(deviceControllerStateMock(sensorId, false));
+    bool sensorState3 = sensorEnabled;
+
+    QCOMPARE(sensorState1, false);
+    QCOMPARE(sensorState2, true);
+    QCOMPARE(sensorState3, false);
 }

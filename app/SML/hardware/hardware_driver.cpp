@@ -80,6 +80,13 @@ void HardwareDriver::registerHandler(HARDWARE_EVENT event, const std::function<v
         m_userSlotsInfo.append(QObject::connect(&m_motionController, &MotionController::positionChanged, this, [=]() {
             handler(HARDWARE_EVENT_DATA());
         }));
+        break;
+    case HARDWARE_EVENT::SensorStateChanged:
+        m_userSlotsInfo.append(QObject::connect(&m_deviceController, &DeviceController::sensorStateChanged, this, [=](Sensor s) {
+            QList<QVariant> signalParams = { s.id(), s.enabled() };
+            handler(HARDWARE_EVENT_DATA(signalParams));
+        }));
+        break;
     default:
         break;
     }
@@ -97,6 +104,11 @@ void HardwareDriver::resetHandlers()
 AxesRepository &HardwareDriver::getMotionController()
 {
     return m_motionController.m_repository;
+}
+
+SensorsRepository &HardwareDriver::getSensors()
+{
+    return m_deviceController.m_sensors;
 }
 
 void HardwareDriver::moveTo(QMap<Axis::Id, double> absPos)

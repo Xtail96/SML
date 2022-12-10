@@ -13,36 +13,19 @@ class MotionController : public BaseController
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Конструктор класса.
-     * @param parent - родительский объект
-     */
     explicit MotionController(QObject *parent = nullptr);
-
-    /**
-     * @brief Деструктор класса.
-     */
     ~MotionController() override;
-
     void processTask(Task t) override;
-
     void stopProcessing() override;
-
+    void onClientConnected(QtJson::JsonObject initialState) override;
+    void onMessageReceived(QtJson::JsonObject msg) override;
+    void onDisconnected() override;
 private:
     const QString m_controllerName = "motionController";
-
-    QList<QMetaObject::Connection> m_slotsInfo;
-
     AxesRepository m_repository;
-
-    void onClientConnected(QtJson::JsonObject initialState) override;
-
-    void onMessageReceived(QtJson::JsonObject msg) override;
-
 signals:
     void positionChanged();
-
-    friend class HardwareDriver;
+friend class HardwareDriver;
 };
 
 #endif // MOTIONCONTROLLER_H

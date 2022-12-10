@@ -1,16 +1,16 @@
 #include "sensor.h"
 
 Sensor::Sensor(QString id,
-               bool activeState,
-               bool currentState,
+               bool enabled,
                QString label,
                QColor ledColor) :
     m_id(id),
     m_label(label),
-    m_activeState(activeState),
-    m_currentState(currentState),
+    m_enabled(enabled),
     m_ledColor(ledColor)
 {
+    if(m_label == "")
+        m_label = m_id;
 }
 
 bool Sensor::operator<(const Sensor &sensor) const
@@ -38,19 +38,9 @@ bool Sensor::operator==(const Sensor &sensor) const
     return this->m_id == sensor.id();
 }
 
-bool Sensor::currentState() const
-{
-    return m_currentState;
-}
-
 QString Sensor::id() const
 {
     return m_id;
-}
-
-bool Sensor::activeState() const
-{
-    return m_activeState;
 }
 
 QColor Sensor::ledColor() const
@@ -58,12 +48,17 @@ QColor Sensor::ledColor() const
     return m_ledColor;
 }
 
-bool Sensor::isEnabled()
-{
-    return (m_activeState == m_currentState);
-}
-
 QString Sensor::label() const
 {
     return m_label;
+}
+
+bool Sensor::enabled() const
+{
+    return m_enabled;
+}
+
+void Sensor::setEnabled(bool enabled)
+{
+    m_enabled = enabled;
 }
