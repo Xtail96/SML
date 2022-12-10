@@ -99,7 +99,7 @@ void MainWindow::setupWidgets()
     // установка оформления statusBar
     ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
     ui->statusBar->setFont(QFont("Consolas", 14));
-    ui->statusBar->showMessage(tr("Application initialization.."));
+    ui->statusBar->showMessage(tr("Device initialization.."));
 
     // настройка редактора точек
     ui->pointsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);

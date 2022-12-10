@@ -20,6 +20,7 @@ SOURCES += main.cpp\
         gui/mainwindow.cpp \
     gui/utils/utils.cpp \
     gui/widgets/axis_push_button.cpp \
+    hardware/controllers/device_controller/device_repository.cpp \
     hardware/controllers/motion_controller/axes_repository.cpp \
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
@@ -54,6 +55,7 @@ HEADERS  += gui/mainwindow.h \
     gui/utils/colors.h \
     gui/utils/utils.h \
     gui/widgets/axis_push_button.h \
+    hardware/controllers/device_controller/device_repository.h \
     hardware/controllers/motion_controller/axes_repository.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \

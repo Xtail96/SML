@@ -15,34 +15,34 @@ DeviceController::~DeviceController()
     qDeleteAll(m_supportDevices.begin(), m_supportDevices.end());
 }
 
-Sensor* DeviceController::getSensor(QString uid)
+Sensor* DeviceController::getSensor(QString id)
 {
     for(auto sensor : m_sensors) {
-        if(sensor->uid() == uid)
+        if(sensor->uid() == id)
             return sensor;
     }
 
-    throw std::invalid_argument("Sensor with uid " + uid.toStdString() + " does not exists");
+    throw std::invalid_argument("Sensor with uid " + id.toStdString() + " does not exists");
 }
 
-Spindel *DeviceController::getSpindel(QString uid)
+Spindel *DeviceController::getSpindel(QString id)
 {
     for(auto s : m_spindels) {
-        if(s->getUid() == uid)
+        if(s->getId() == id)
             return s;
     }
 
-    throw std::invalid_argument("Spindel with uid " + uid.toStdString() + " does not exists");
+    throw std::invalid_argument("Spindel with uid " + id.toStdString() + " does not exists");
 }
 
-SupportDevice *DeviceController::getSupportDevice(QString uid)
+SupportDevice *DeviceController::getSupportDevice(QString id)
 {
     for(auto d : m_supportDevices) {
-        if(d->getUid() == uid)
+        if(d->getId() == id)
             return d;
     }
 
-    throw std::invalid_argument("Device with uid " + uid.toStdString() + " does not exists");
+    throw std::invalid_argument("Device with uid " + id.toStdString() + " does not exists");
 }
 
 void DeviceController::processTask(Task t)
@@ -91,9 +91,10 @@ void DeviceController::onClientConnected(QtJson::JsonObject initialState)
         size_t currentRotations  = spindelJson["currentRotations"].toULongLong();
         bool isEnable = spindelJson["enable"].toBool();
 
-        if(this->spindelExists(id)) continue;
-        m_spindels.insert(new Spindel(id, label, id, activeState, lowerBound, upperBound, this));
-        this->getSpindel(id)->update(isEnable, currentRotations);
+        if(this->spindelExists(id))
+            continue;
+        //m_spindels.insert(new Spindel(id, label, id, activeState, lowerBound, upperBound, this));
+        //this->getSpindel(id)->update(isEnable, currentRotations);
     }
 
     this->setProcessingTask(deviceController["workflowState"].toBool());
@@ -127,8 +128,12 @@ void DeviceController::onMessageReceived(QtJson::JsonObject msg)
         size_t currentRotations  = spindelJson["currentRotations"].toULongLong();
         bool isEnable = spindelJson["enable"].toBool();
 
-        if(!this->spindelExists(id)) { qWarning() << "Unknow spindel" << id; continue; }
-        this->getSpindel(id)->update(isEnable, currentRotations);
+        if(!this->spindelExists(id))
+        {
+            qWarning() << "Unknow spindel" << id;
+            continue;
+        }
+        //this->getSpindel(id)->update(isEnable, currentRotations);
     }
 
     this->setProcessingTask(deviceController["workflowState"].toBool());
@@ -149,7 +154,7 @@ bool DeviceController::spindelExists(QString id)
 {
     for(auto spindel : m_spindels)
     {
-       if(spindel->getUid() == id)
+       if(spindel->getId() == id)
            return true;
     }
 

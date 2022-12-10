@@ -15,9 +15,9 @@ public:
     explicit DeviceController(QObject *parent = nullptr);
     ~DeviceController() override;
 
-    Sensor *getSensor(QString uid);
-    Spindel *getSpindel(QString uid);
-    SupportDevice *getSupportDevice(QString uid);
+    Sensor *getSensor(QString id);
+    Spindel *getSpindel(QString id);
+    SupportDevice *getSupportDevice(QString id);
 
     void processTask(Task t) override;
     void stopProcessing() override;

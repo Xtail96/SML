@@ -1,17 +1,12 @@
 #include "device.h"
 
-Device::Device(QString settingsUid,
-               QString uid,
-               QString label,
-               bool enable,
-               QObject *parent) :
-    QObject(parent),
-    m_settingsUid(settingsUid),
-    m_uid(uid),
+Device::Device(QString id, bool enabled, QString label):
+    m_id(id),
     m_label(label),
-    m_enable(enable)
+    m_enabled(enabled)
 {
-
+    if (m_label.isEmpty())
+        m_label = m_id;
 }
 
 Device::~Device()
@@ -21,28 +16,17 @@ Device::~Device()
 
 bool Device::operator<(const Device &device)
 {
-    return this->m_uid < device.getUid();
+    return this->m_id < device.getId();
 }
 
 bool Device::operator==(const Device &device)
 {
-    return this->m_uid == device.getUid();
+    return this->m_id == device.getId();
 }
 
-void Device::setCurrentState(bool value, QMap<QString, QString> params)
+bool Device::isEnabled() const
 {
-    params = QMap<QString, QString>();
-
-    if(m_enable != value)
-    {
-        m_enable = value;
-        emit this->currentStateChanged(m_enable);
-    }
-}
-
-bool Device::isEnable() const
-{
-    return m_enable;
+    return m_enabled;
 }
 
 QString Device::getLabel() const
@@ -50,19 +34,7 @@ QString Device::getLabel() const
     return m_label;
 }
 
-QString Device::getSettingsUId() const
+QString Device::getId() const
 {
-    return m_settingsUid;
-}
-
-QString Device::getUid() const
-{
-    return m_uid;
-}
-
-QString Device::getSettings()
-{
-    QString deviceSettings = QStringLiteral("Label:") + m_label + QStringLiteral(";") +
-            QStringLiteral("Uid:") + m_uid + QStringLiteral(";");
-    return deviceSettings;
+    return m_id;
 }

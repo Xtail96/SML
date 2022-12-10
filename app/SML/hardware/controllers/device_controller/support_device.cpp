@@ -1,16 +1,7 @@
 #include "support_device.h"
 
-SupportDevice::SupportDevice(QString settingsUid,
-                             QString label,
-                             QString uid,
-                             bool enable,
-                             QObject *parent) :
-    Device(settingsUid, label, uid, enable, parent)
+SupportDevice::SupportDevice(QString id, bool enabled, QString label) :
+    Device(id, enabled, label)
 {
 
-}
-
-QStringList SupportDevice::getParams()
-{
-    return QStringList();
 }

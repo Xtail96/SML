@@ -6,12 +6,7 @@
 class SupportDevice : public Device
 {
 public:
-    SupportDevice(QString settingsUid,
-                  QString label,
-                  QString uid,
-                  bool enable,
-                  QObject *parent = nullptr);
-    QStringList getParams() override;
+    SupportDevice(QString id, bool enabled, QString label = "");
 };
 
 #endif // SUPPORTDEVICE_H
