@@ -52,6 +52,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    common/interfaces/i_repository.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
     libs/json_parser/json.h \

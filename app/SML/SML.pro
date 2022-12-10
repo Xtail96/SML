@@ -50,6 +50,7 @@ SOURCES += main.cpp\
     hardware/controllers/device_controller/support_device.cpp
 
 HEADERS  += gui/mainwindow.h \
+    common/interfaces/i_repository.h \
     gui/utils/colors.h \
     gui/utils/utils.h \
     gui/widgets/axis_push_button.h \
