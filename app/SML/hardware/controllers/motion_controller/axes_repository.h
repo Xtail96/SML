@@ -3,24 +3,35 @@
 
 #include "./axis.h"
 
-class AxesRepository
+template <typename ID, typename VAL>
+class IRepository {
+public:
+    virtual bool exists(ID id) = 0;
+    virtual VAL& get(ID id) = 0;
+    virtual QList<VAL> getAll() = 0;
+    virtual void remove(ID id) = 0;
+    virtual void add(VAL value) = 0;
+    virtual void clear() = 0;
+};
+
+
+class AxesRepository: IRepository<Axis::Id, Axis::State>
 {
 public:
     AxesRepository();
     ~AxesRepository();
+    static Axis::State createAxis(Axis::Id id, double posFromBase);
 
-    bool axisExists(Axis::Id id);
-    Axis::State &axis(Axis::Id id);
-    void setAxisValue(Axis::Id id, double value);
-    QList<Axis::State> axes();
+    bool exists(Axis::Id id) override;
+    Axis::State& get(Axis::Id id) override;
+    QList<Axis::State> getAll() override;
+    void add(Axis::State value) override;
+    void remove(Axis::Id id) override;
+    void clear() override;
 
 private:
     /// Доступные оси станка.
     QList<Axis::State> m_axes;
-
-    void addAxis(Axis::Id id, double initialPosition);
-    void removeAxis(Axis::Id id);
-    void clearAxes();
 
     friend class MotionController;
 };

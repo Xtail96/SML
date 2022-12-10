@@ -1,6 +1,7 @@
 #include "axes_repository.h"
 
 AxesRepository::AxesRepository():
+    IRepository<Axis::Id, Axis::State>(),
     m_axes()
 {
 
@@ -10,7 +11,12 @@ AxesRepository::~AxesRepository()
 {
 }
 
-bool AxesRepository::axisExists(Axis::Id id)
+Axis::State AxesRepository::createAxis(Axis::Id id, double posFromBase)
+{
+    return Axis::State(id, posFromBase);
+}
+
+bool AxesRepository::exists(Axis::Id id)
 {
     for(auto& axis : m_axes)
     {
@@ -21,7 +27,7 @@ bool AxesRepository::axisExists(Axis::Id id)
     return false;
 }
 
-Axis::State& AxesRepository::axis(Axis::Id id)
+Axis::State& AxesRepository::get(Axis::Id id)
 {
     for(auto& axis : m_axes)
     {
@@ -32,35 +38,30 @@ Axis::State& AxesRepository::axis(Axis::Id id)
     throw std::invalid_argument("unknown axis " + Axis::decorateId(id).toStdString());
 }
 
-void AxesRepository::setAxisValue(Axis::Id id, double value)
-{
-    this->axis(id).setCurrentPosition(value);
-}
-
-QList<Axis::State> AxesRepository::axes()
+QList<Axis::State> AxesRepository::getAll()
 {
     QList<Axis::State> axes = m_axes;
     std::sort(axes.begin(), axes.end());
     return axes;
 }
 
-void AxesRepository::addAxis(Axis::Id id, double initialPosition)
+void AxesRepository::add(Axis::State value)
 {
-    if(this->axisExists(id))
+    if(this->exists(value.id()))
     {
-        qWarning() << "Axis" << Axis::decorateId(id) << "is already exists. Ignored.";
+        qWarning() << "Axis" << Axis::decorateId(value.id()) << "is already exists. Ignored.";
         return;
     }
 
-    m_axes.append(Axis::State(id, initialPosition));
+    m_axes.append(value);
 }
 
-void AxesRepository::removeAxis(Axis::Id id)
+void AxesRepository::remove(Axis::Id id)
 {
-    m_axes.removeAll(this->axis(id));
+    m_axes.removeAll(this->get(id));
 }
 
-void AxesRepository::clearAxes()
+void AxesRepository::clear()
 {
     m_axes.clear();
 }

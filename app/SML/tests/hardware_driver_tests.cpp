@@ -326,7 +326,7 @@ void HardwareDriverTests::testMove()
     QTest::qWait(30000);
 
     // Получаем начальное состояние осей.
-    QList<Axis::State> intialAxesState = driver.getMotionController().axes();
+    QList<Axis::State> intialAxesState = driver.getMotionController().getAll();
 
     // Если адаптеры так и не подключились, завершаем тест с ошибкой.
     if(!driver.isConnected())
@@ -365,7 +365,7 @@ void HardwareDriverTests::testMove()
     QTest::qWait(5000);
 
     // Получаем актуальное состояние осей после перемещения.
-    QList<Axis::State> actualAxisState = driver.getMotionController().axes();
+    QList<Axis::State> actualAxisState = driver.getMotionController().getAll();
 
     // Чистим за собой и останавливаем адаптеры.
     driver.resetHandlers();
@@ -393,7 +393,7 @@ void HardwareDriverTests::testStopMoving()
     QTest::qWait(30000);
 
     // Получаем начальное состояние осей.
-    QList<Axis::State> intialAxesState = driver.getMotionController().axes();
+    QList<Axis::State> intialAxesState = driver.getMotionController().getAll();
 
     // Если адаптеры так и не подключились, завершаем тест с ошибкой.
     if(!driver.isConnected())
@@ -435,7 +435,7 @@ void HardwareDriverTests::testStopMoving()
     QTest::qWait(5000);
 
     // Получаем актуальное состояние осей после перемещения.
-    QList<Axis::State> actualAxisState = driver.getMotionController().axes();
+    QList<Axis::State> actualAxisState = driver.getMotionController().getAll();
 
     // Чистим за собой и останавливаем адаптеры.
     driver.resetHandlers();

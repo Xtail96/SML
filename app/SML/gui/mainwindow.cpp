@@ -38,7 +38,7 @@ void MainWindow::setupHardwareDriver()
 
         if(!driver.isConnected()) return;
 
-        auto axes = driver.getMotionController().axes();
+        auto axes = driver.getMotionController().getAll();
         QStringList currentCoordinatesFromZero = {};
         QStringList currentCoordinatesFromBase = {};
         QStringList parkCoordinates = {};
@@ -366,7 +366,7 @@ void MainWindow::setAxesButtonsState(bool enable)
             bool axisExists = true;
             for(auto axisId : button->getAxes())
             {
-                if(!motionContoller.axisExists(axisId))
+                if(!motionContoller.exists(axisId))
                     axisExists = false;
             }
             if(axisExists)

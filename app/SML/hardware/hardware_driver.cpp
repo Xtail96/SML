@@ -120,13 +120,15 @@ void HardwareDriver::moveOffset(QMap<Axis::Id, double> relPos)
     QMap<Axis::Id, double> absPos = {};
     for(auto key : relPos.keys())
     {
-        if(!m_motionController.m_repository.axisExists(key)) continue;
+        if(!m_motionController.m_repository.exists(key))
+            continue;
 
-        absPos.insert(key, m_motionController.m_repository.axis(key).currentPositionFromBase() +
+        absPos.insert(key, m_motionController.m_repository.get(key).currentPositionFromBase() +
                       relPos.value(key));
     }
 
-    if(absPos.isEmpty()) return;
+    if(absPos.isEmpty())
+        return;
     this->moveTo(absPos);
 }
 
