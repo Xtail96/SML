@@ -1,13 +1,13 @@
-#ifndef MOTIONCONTROLLERREPOSITORY_H
-#define MOTIONCONTROLLERREPOSITORY_H
+#ifndef AXESREPOSITORY_H
+#define AXESREPOSITORY_H
 
 #include "./axis.h"
 
-class MotionControllerRepository
+class AxesRepository
 {
 public:
-    MotionControllerRepository();
-    ~MotionControllerRepository();
+    AxesRepository();
+    ~AxesRepository();
 
     bool axisExists(Axis::Id id);
     Axis::State &axis(Axis::Id id);

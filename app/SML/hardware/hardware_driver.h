@@ -63,7 +63,7 @@ public:
     void registerHandler(HARDWARE_EVENT event, const std::function<void(HARDWARE_EVENT_DATA)> &handler);
     void resetHandlers();
 
-    MotionControllerRepository& getMotionController();
+    AxesRepository& getMotionController();
 
     void moveTo(QMap<Axis::Id, double> absPos);
     void moveOffset(QMap<Axis::Id, double> relPos);

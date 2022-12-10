@@ -2,7 +2,7 @@
 #define SENSORTESTS_H
 
 #include "./base_test.h"
-#include "../hardware/controllers/device_controller/sensor/sensor.h"
+#include "../hardware/controllers/device_controller/sensor.h"
 
 class SensorTests : public BaseTest
 {

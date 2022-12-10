@@ -94,7 +94,7 @@ void HardwareDriver::resetHandlers()
     m_systemSlotsInfo.clear();
 }
 
-MotionControllerRepository &HardwareDriver::getMotionController()
+AxesRepository &HardwareDriver::getMotionController()
 {
     return m_motionController.m_repository;
 }

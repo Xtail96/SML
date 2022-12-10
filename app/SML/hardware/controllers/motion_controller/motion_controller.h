@@ -4,7 +4,7 @@
 #include <QObject>
 
 #include "../base_controller.h"
-#include "./motion_controller_repository.h"
+#include "./axes_repository.h"
 
 /**
  * @brief Контроллер двигаталей.
@@ -33,7 +33,7 @@ private:
 
     QList<QMetaObject::Connection> m_slotsInfo;
 
-    MotionControllerRepository m_repository;
+    AxesRepository m_repository;
 
     void onClientConnected(QtJson::JsonObject initialState) override;
 

@@ -20,6 +20,7 @@ SOURCES += main.cpp\
         gui/mainwindow.cpp \
     gui/utils/utils.cpp \
     gui/widgets/axis_push_button.cpp \
+    hardware/controllers/motion_controller/axes_repository.cpp \
     libs/json_parser/json.cpp \
     libs/gpr/gcode_program.cpp \
     libs/gpr/parser.cpp \
@@ -30,7 +31,6 @@ SOURCES += main.cpp\
     hardware/controllers/device_controller/device_controller.cpp \
     hardware/controllers/motion_controller/axis.cpp \
     hardware/controllers/motion_controller/motion_controller.cpp \
-    hardware/controllers/motion_controller/motion_controller_repository.cpp \
     hardware/controllers/registrator.cpp \
     hardware/controllers/task.cpp \
     hardware/hardware_driver.cpp \
@@ -53,6 +53,7 @@ HEADERS  += gui/mainwindow.h \
     gui/utils/colors.h \
     gui/utils/utils.h \
     gui/widgets/axis_push_button.h \
+    hardware/controllers/motion_controller/axes_repository.h \
     libs/json_parser/json.h \
     libs/gpr/gcode_program.h \
     libs/gpr/parser.h \
@@ -63,7 +64,6 @@ HEADERS  += gui/mainwindow.h \
     hardware/controllers/device_controller/device_controller.h \
     hardware/controllers/motion_controller/axis.h \
     hardware/controllers/motion_controller/motion_controller.h \
-    hardware/controllers/motion_controller/motion_controller_repository.h \
     hardware/controllers/registrator.h \
     hardware/controllers/task.h \
     hardware/hardware_driver.h \

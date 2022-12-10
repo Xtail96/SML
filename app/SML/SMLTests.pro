@@ -25,14 +25,14 @@ SOURCES += \
     common/websockets/websocket_connection.cpp \
     common/websockets/websocket_gateway.cpp \
     hardware/controllers/base_controller.cpp \
-    hardware/controllers/device_controller/device/device.cpp \
-    hardware/controllers/device_controller/device/spindel.cpp \
-    hardware/controllers/device_controller/device/support_device.cpp \
+    hardware/controllers/device_controller/device.cpp \
+    hardware/controllers/device_controller/spindel.cpp \
+    hardware/controllers/device_controller/support_device.cpp \
     hardware/controllers/device_controller/device_controller.cpp \
-    hardware/controllers/device_controller/sensor/sensor.cpp \
+    hardware/controllers/device_controller/sensor.cpp \
     hardware/controllers/motion_controller/axis.cpp \
     hardware/controllers/motion_controller/motion_controller.cpp \
-    hardware/controllers/motion_controller/motion_controller_repository.cpp \
+    hardware/controllers/motion_controller/axes_repository.cpp \
     hardware/controllers/registrator.cpp \
     hardware/controllers/task.cpp \
     hardware/hardware_driver.cpp \
@@ -59,14 +59,14 @@ HEADERS += \
     common/websockets/websocket_connection.h \
     common/websockets/websocket_gateway.h \
     hardware/controllers/base_controller.h \
-    hardware/controllers/device_controller/device/device.h \
-    hardware/controllers/device_controller/device/spindel.h \
-    hardware/controllers/device_controller/device/support_device.h \
+    hardware/controllers/device_controller/device.h \
+    hardware/controllers/device_controller/spindel.h \
+    hardware/controllers/device_controller/support_device.h \
     hardware/controllers/device_controller/device_controller.h \
-    hardware/controllers/device_controller/sensor/sensor.h \
+    hardware/controllers/device_controller/sensor.h \
     hardware/controllers/motion_controller/axis.h \
     hardware/controllers/motion_controller/motion_controller.h \
-    hardware/controllers/motion_controller/motion_controller_repository.h \
+    hardware/controllers/motion_controller/axes_repository.h \
     hardware/controllers/registrator.h \
     hardware/controllers/task.h \
     hardware/hardware_driver.h \
