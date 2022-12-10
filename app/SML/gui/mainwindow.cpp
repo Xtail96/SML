@@ -63,7 +63,7 @@ void MainWindow::setupHardwareDriver()
         if(isConnected)
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #33bb33");
-            ui->statusBar->showMessage("Hardware driver is ready");
+            ui->statusBar->showMessage("Device connected");
             this->setAxesButtonsState(true);
             this->setAdjustmentActionsButtonsState(true);
             hardwarePositionChangeHandler(HARDWARE_EVENT_DATA());
@@ -71,7 +71,7 @@ void MainWindow::setupHardwareDriver()
         else
         {
             ui->statusBar->setStyleSheet("background-color: #333; color: #b22222");
-            ui->statusBar->showMessage("Hardware driver is not ready");
+            ui->statusBar->showMessage("Device disconnected");
             this->setAxesButtonsState(false);
             this->setAdjustmentActionsButtonsState(false);
             ui->currentCoordinatesListWidget->clear();
