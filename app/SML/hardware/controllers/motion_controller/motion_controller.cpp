@@ -12,7 +12,7 @@ MotionController::~MotionController()
 
 }
 
-void MotionController::processTask(Task t)
+void MotionController::startProcessing(Task t)
 {
     QtJson::JsonArray blocks = {};
     for(int i = 0; i < t.blocksCount(); i++)
@@ -44,7 +44,7 @@ void MotionController::processTask(Task t)
 
 void MotionController::stopProcessing()
 {
-    this->stopProcessingTask(m_controllerName);
+    BaseController::stopProcessing(m_controllerName);
 }
 
 void MotionController::onClientConnected(QtJson::JsonObject initialState)
@@ -68,7 +68,7 @@ void MotionController::onClientConnected(QtJson::JsonObject initialState)
 
         m_repository.add(AxesRepository::createAxis(id, value));
     }
-    this->setProcessingTask(motionController["workflowState"].toBool());
+    this->setTaskProcessing(motionController["workflowState"].toBool());
 }
 
 void MotionController::onMessageReceived(QtJson::JsonObject msg)
@@ -100,7 +100,7 @@ void MotionController::onMessageReceived(QtJson::JsonObject msg)
         m_repository.get(id).setCurrentPosition(value);
         positionChanged = true;
     }
-    this->setProcessingTask(motionController["workflowState"].toBool());
+    this->setTaskProcessing(motionController["workflowState"].toBool());
     if(positionChanged)
         emit this->positionChanged();
 }

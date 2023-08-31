@@ -9,14 +9,14 @@ DeviceController::~DeviceController()
 {
 }
 
-void DeviceController::processTask(Task t)
+void DeviceController::startProcessing(Task t)
 {
     qDebug() << t.serialize();
 }
 
 void DeviceController::stopProcessing()
 {
-    this->stopProcessingTask(m_controllerName);
+    BaseController::stopProcessing(m_controllerName);
 }
 
 void DeviceController::onClientConnected(QtJson::JsonObject initialState)
@@ -60,7 +60,7 @@ void DeviceController::onClientConnected(QtJson::JsonObject initialState)
         this->getSpindel(id)->update(isEnable, currentRotations);
     }*/
 
-    this->setProcessingTask(deviceController["workflowState"].toBool());
+    this->setTaskProcessing(deviceController["workflowState"].toBool());
 }
 
 void DeviceController::onMessageReceived(QtJson::JsonObject msg)
@@ -108,7 +108,7 @@ void DeviceController::onMessageReceived(QtJson::JsonObject msg)
         this->getSpindel(id)->update(isEnable, currentRotations);
     }*/
 
-    this->setProcessingTask(deviceController["workflowState"].toBool());
+    this->setTaskProcessing(deviceController["workflowState"].toBool());
 }
 
 void DeviceController::onDisconnected()

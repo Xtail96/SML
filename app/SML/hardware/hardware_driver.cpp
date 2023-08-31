@@ -124,7 +124,7 @@ void HardwareDriver::moveTo(QMap<Axis::Id, double> absPos)
     Task t(gcode.join(" "));
     if(!m_motionController.isReady())
         m_motionController.stopProcessing();
-    m_motionController.processTask(t);
+    m_motionController.startProcessing(t);
 }
 
 void HardwareDriver::moveOffset(QMap<Axis::Id, double> relPos)

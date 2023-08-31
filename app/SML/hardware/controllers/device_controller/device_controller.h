@@ -12,7 +12,7 @@ class DeviceController : public BaseController
 public:
     explicit DeviceController(QObject *parent = nullptr);
     ~DeviceController() override;
-    void processTask(Task t) override;
+    void startProcessing(Task t) override;
     void stopProcessing() override;
     void onClientConnected(QtJson::JsonObject initialState) override;
     void onMessageReceived(QtJson::JsonObject msg) override;

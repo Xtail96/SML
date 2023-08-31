@@ -3,7 +3,7 @@
 BaseController::BaseController(QObject *parent) :
     WebSocketClient(parent),
     m_slotsInfo(),
-    m_processingTask(false)
+    m_taskProcessing(false)
 {
     m_slotsInfo.append(QObject::connect(this, &BaseController::disconnected, this, [=]() {
         this->onDisconnected();
@@ -18,12 +18,13 @@ BaseController::~BaseController()
 
 bool BaseController::isReady() const
 {
-    return !m_processingTask;
+    return !m_taskProcessing;
 }
 
-void BaseController::stopProcessingTask(QString targetControllerId)
+void BaseController::stopProcessing(QString targetControllerId)
 {
-    if(!m_processingTask) return;
+    if(!m_taskProcessing)
+        return;
 
     QtJson::JsonObject message = {
         std::pair<QString, QVariant>("target", targetControllerId),
@@ -33,10 +34,11 @@ void BaseController::stopProcessingTask(QString targetControllerId)
     QTest::qWait(100);
 }
 
-void BaseController::setProcessingTask(bool processingTask)
+void BaseController::setTaskProcessing(bool processing)
 {
-    if(m_processingTask == processingTask) return;
+    if(m_taskProcessing == processing)
+        return;
 
-    m_processingTask = processingTask;
+    m_taskProcessing = processing;
     emit this->taskProcessingStateChanged();
 }
