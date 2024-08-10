@@ -15,17 +15,20 @@ void setup()
  
 void loop() {
   JsonObject root = RECIEVE_BUFFER.readAsJson();
-  if(root.isNull()) return;
+  if(root.isNull())
+    return;
 
   //serializeJson(root, Serial);
   //Serial.write(" ");
   
-  if(!root.containsKey("steps")) return;
+  if(!root.containsKey("steps"))
+    return;
   int steps = root["steps"];
   //Serial.print(steps);
   //Serial.write(" ");
 
-  if(!root.containsKey("delay")) return;
+  if(!root.containsKey("delay"))
+    return;
   int MotorDelay = root["delay"];
   //Serial.print(MotorDelay);
   //Serial.println();
